@@ -1,0 +1,21 @@
+//Items
+item.atlantean_crystal.name=Atlantean Crystal
+item.ocean_stone.name=Ocean Stone
+item.ingot_aquamarine.name=Aquamarine Ingot
+item.drop_of_atlantis.name=Drop of Atlantis
+item.orb_of_atlantis.name=Orb of Atlantis
+
+//Blocks
+tile.ancient_spruce_wood_moss.name=Ancient Mossy Spruce Wood
+tile.ancient_acacia_wood_moss.name=Ancient Mossy Acacia Wood
+tile.ancient_birch_wood_moss.name=Ancient Mossy Birch Wood
+tile.ancient_dark_oak_wood_moss.name=Ancient Mossy Dark Oak Wood
+tile.ancient_oak_wood_moss.name=Ancient Mossy Oak Wood
+tile.ancient_jungle_wood_moss.name=Ancient Mossy Jungle Wood
+tile.aquamarine_ore.name=Aquamarine Ore
+tile.null.name=Atlantis Portal Block
+
+//Tabs
+itemGroup.dimensionatlantistab=§fDimension §fAtlantis
+
+
