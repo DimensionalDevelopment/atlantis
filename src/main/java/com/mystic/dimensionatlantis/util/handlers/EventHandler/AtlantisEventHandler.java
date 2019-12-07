@@ -12,7 +12,8 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.monster.EntityElderGuardian;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.world.gen.structure.StructureOceanMonument;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -60,13 +61,16 @@ public class AtlantisEventHandler {
 
     }
     
-   
-    public net.minecraft.world.gen.structure.MapGenStructure field_75053_d ,structureMap;
+    public static net.minecraft.world.gen.structure.MapGenStructure field_75053_d ,structureMap;
     public static void onDeath(LivingDeathEvent event) {
     	
-    	if (event.getEntity() instanceof EntityElderGuardian && event.getEntityLiving().world.getEntitiesWithinAABB(EntityElderGuardian.class, event.getEntity().getEntityBoundingBox().expand(100, 0, 0)).isEmpty()) {
-    		for (StructureStart start : StructureOceanMonument.structureMap.values()) {
-    			//place block in structure
+    	if (event.getEntity() instanceof EntityElderGuardian && event.getEntityLiving().world.getEntitiesWithinAABB(EntityElderGuardian.class, event.getEntity().getEntityBoundingBox().expand(100, 100, 100)).isEmpty()) {
+    		for (StructureStart start :  field_75053_d.structureMap.values()) {
+    			
+    			World world = event.getEntity().world;
+    		    BlockPos pos = event.getEntity().getPosition();
+    			world.getBlockState(pos).getBlock();
+    			world.setBlockState(pos, AtlantisPortal.PORTAL.getDefaultState());
     		}
     	}
     }

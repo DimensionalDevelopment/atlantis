@@ -6,6 +6,7 @@ import com.mystic.dimensionatlantis.proxy.CommonProxy;
 import com.mystic.dimensionatlantis.tabs.AtlantisTab;
 import com.mystic.dimensionatlantis.util.Reference;
 import com.mystic.dimensionatlantis.util.handlers.RegisteryHandler;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -29,25 +30,25 @@ public class Main {
 	public static final CreativeTabs ATLANTISTAB = new AtlantisTab("dimensionatlantistab");
 
 	@EventHandler
-	public static void PreInit(FMLPreInitializationEvent event)
+	public void PreInit(FMLPreInitializationEvent event)
 	{
 		RegisteryHandler.preInitRegistries(event);
 	}
 	
 	@EventHandler
-	public static void init(FMLInitializationEvent event)
+	public void init(FMLInitializationEvent event)
 	{
 		RegisteryHandler.initRegistries(event);
 	}
 	
 	@EventHandler
-	public static void PostInit(FMLPostInitializationEvent event)
+	public void PostInit(FMLPostInitializationEvent event)
 	{
 		RegisteryHandler.postInitRegistries(event);
 	}
 	
 	@EventHandler
-	public static void serverInit(FMLServerStartingEvent event)
+	public void serverInit(FMLServerStartingEvent event)
 	{
 		RegisteryHandler.serverRegistries(event);
 	}
