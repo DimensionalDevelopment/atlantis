@@ -1,11 +1,11 @@
 package com.mystic.dimensionatlantis.util.handlers;
 
+import com.mystic.dimensionatlantis.Main;
 import com.mystic.dimensionatlantis.commands.CommandDimensionTeleport;
 import com.mystic.dimensionatlantis.init.ModBiome;
 import com.mystic.dimensionatlantis.init.ModBlocks;
 import com.mystic.dimensionatlantis.init.ModDimension;
 import com.mystic.dimensionatlantis.init.ModItems;
-import com.mystic.dimensionatlantis.util.IHasModel;
 import com.mystic.dimensionatlantis.world.gen.WorldGenCustomStructures;
 import com.mystic.dimensionatlantis.world.gen.WorldGenOres;
 import net.minecraft.block.Block;
@@ -40,18 +40,12 @@ public class RegisteryHandler
 	{
 		for(Item item : ModItems.ITEMS)
 		{
-			if(item instanceof IHasModel)
-			{
-				((IHasModel)item).registerModels();
-			}
+			Main.proxy.registerItemRenderer(item, 0, "inventory");
 		}
 		
 		for(Block block : ModBlocks.BLOCKS)
 		{
-			if(block instanceof IHasModel)
-			{
-				((IHasModel)block).registerModels();
-			}
+			Main.proxy.registerItemRenderer(Item.getItemFromBlock(block), 0, "inventory");
 		}
 	}
 	

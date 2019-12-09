@@ -9,6 +9,7 @@ import com.mystic.dimensionatlantis.world.gen.generators.WorldGenStructure;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -36,7 +37,7 @@ public class WorldGenCustomStructures implements IWorldGenerator
 			
 		case 0:
 			
-			generateStructure(ATLANTEAN_FOUNTAIN, world, random, chunkX, chunkZ, 20, Blocks.SAND, BiomeATLANTIS.class);
+			generateStructure(ATLANTEAN_FOUNTAIN, world, random, chunkX, chunkZ, 100, BiomeATLANTIS.class);
 			
 			break;
 			
@@ -45,13 +46,13 @@ public class WorldGenCustomStructures implements IWorldGenerator
 		}
 	}
 	
-	private void generateStructure(WorldGenerator generator, World world, Random random, int chunkX, int chunkZ, int chance, Block topBlock, Class<?>... classes)
+	private void generateStructure(WorldGenerator generator, World world, Random random, int chunkX, int chunkZ, int chance, Class<?>... classes)
 	{
 		ArrayList<Class<?>> classesList = new ArrayList<Class<?>>(Arrays.asList(classes));
 		
 		int x = (chunkX * 16) + random.nextInt(15);
 		int z = (chunkZ * 16) + random.nextInt(15);
-		int y = calculateGenerationHeight(world, x, z, topBlock);
+		int y = calculateGenerationHeight(world, x, z);
 		BlockPos pos = new BlockPos(x,y,z);
 		
 		Class<?> biome = world.provider.getBiomeForCoords(pos).getClass();
@@ -60,7 +61,7 @@ public class WorldGenCustomStructures implements IWorldGenerator
 		{
 			if(classesList.contains(biome))
 			{
-				if(random.nextInt(chance) == 0)
+				if(random.nextInt(chance) == 100)
 				{
 					generator.generate(world, random, pos);
 				}
@@ -70,16 +71,14 @@ public class WorldGenCustomStructures implements IWorldGenerator
 	
 	private static int calculateGenerationHeight(World world, int x, int z)
 	{
-		int y = world.getHeight();
-		boolean foundGround = false;
-		
-		while(!foundGround && y-- >= 0)
-		{
-			Block block = world.getBlockState(new BlockPos(x,y,z)).getBlock();
-				
-		}
-		
-		
-		return y;
+	    for (int y=0; y<256; y++)
+	    {
+	        if (world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.WATER)
+	        {
+	            return y;
+	        }
+	    }
+		return 260;
 	}
+
 }
