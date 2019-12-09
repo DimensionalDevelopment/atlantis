@@ -14,6 +14,7 @@ tile.ancient_oak_wood_moss.name=Ancient Mossy Oak Wood
 tile.ancient_jungle_wood_moss.name=Ancient Mossy Jungle Wood
 tile.aquamarine_ore.name=Aquamarine Ore
 tile.null.name=Atlantis Portal Block
+tile.atlantean_core.name=Atlantean Core
 
 //Tabs
 itemGroup.dimensionatlantistab=§fDimension §fAtlantis

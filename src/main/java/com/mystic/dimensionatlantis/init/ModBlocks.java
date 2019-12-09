@@ -20,5 +20,6 @@ public class ModBlocks
 	public static final Block ANCIENT_JUNGLE_WOOD_MOSS = new BlockBase("ancient_jungle_wood_moss", Material.WOOD);
 	public static final Block ANCIENT_OAK_WOOD_MOSS = new BlockBase("ancient_oak_wood_moss", Material.WOOD);
 	public static final Block AQUAMARINE_ORE = new AquamarineOre("aquamarine_ore", Material.ROCK);
+	public static final Block ATLANTEAN_CORE = new BlockBase("atlantean_core", Material.GLASS);
 
 }
