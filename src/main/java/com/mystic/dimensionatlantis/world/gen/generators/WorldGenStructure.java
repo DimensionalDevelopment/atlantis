@@ -49,7 +49,7 @@ public class WorldGenStructure extends WorldGenerator
 		{
 			IBlockState state = world.getBlockState(pos);
 			world.notifyBlockUpdate(pos, state, state, 3);
-			template.addBlocksToWorld(world, pos, settings);
+			template.addBlocksToWorldChunk(world, pos, settings);
 		}
 	}
 }

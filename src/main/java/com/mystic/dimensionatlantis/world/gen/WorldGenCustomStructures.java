@@ -1,8 +1,6 @@
 package com.mystic.dimensionatlantis.world.gen;
 
-import java.util.ArrayList;
 import java.util.Random;
-
 import com.mystic.dimensionatlantis.init.ModDimension;
 import com.mystic.dimensionatlantis.world.biomes.BiomeATLANTIS;
 import com.mystic.dimensionatlantis.world.gen.generators.WorldGenStructure;
@@ -13,8 +11,9 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import scala.actors.threadpool.Arrays;
 
 public class WorldGenCustomStructures implements IWorldGenerator
 {
@@ -25,25 +24,26 @@ public class WorldGenCustomStructures implements IWorldGenerator
 	{
 		if(world.provider.getDimension() == ModDimension.ATLANTIS.getId()) {
 			
-			generateStructure(ATLANTEAN_FOUNTAIN, world, random, chunkX, chunkZ, 100, BiomeATLANTIS.class);
+			generateStructure(ATLANTEAN_FOUNTAIN, world, random, chunkX, chunkZ, 100);
 		
 		}
 	}
 	
-	private void generateStructure(WorldGenerator generator, World world, Random random, int chunkX, int chunkZ, int chance, Class<?>... classes)
+	private void generateStructure(WorldGenerator generator, World world, Random random, int chunkX, int chunkZ, int chance)
 	{
-		ArrayList<Class<?>> classesList = new ArrayList<Class<?>>(Arrays.asList(classes));
 		
 		int x = (chunkX * 16) + random.nextInt(15);
 		int z = (chunkZ * 16) + random.nextInt(15);
 		int y = calculateGenerationHeight(world, x, z);
 		BlockPos pos = new BlockPos(x,y,z);
 		
-		Class<?> biome = world.provider.getBiomeForCoords(pos).getClass();
+		 world.provider.getBiomeForCoords(pos);
+		BiomeATLANTIS.getBiome(10);
+		
 		
 		if(world.getWorldType() != WorldType.FLAT)
 		{
-			if(classesList.contains(biome))
+			if(BiomeDictionary.hasType(BiomeATLANTIS.getBiome(10), Type.OCEAN))
 			{
 				if(random.nextInt(chance) == 0)
 				{
