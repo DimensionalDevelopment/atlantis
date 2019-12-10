@@ -3,13 +3,11 @@ package com.mystic.dimensionatlantis.world.gen;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.mystic.dimensionatlantis.init.ModDimension;
 import com.mystic.dimensionatlantis.world.biomes.BiomeATLANTIS;
 import com.mystic.dimensionatlantis.world.gen.generators.WorldGenStructure;
-
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -25,24 +23,10 @@ public class WorldGenCustomStructures implements IWorldGenerator
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) 
 	{
-		switch(world.provider.getDimension())
-		{
-		case 2:
-			
-			break;
-			
-		case 1:
-			
-			break;
-			
-		case 0:
+		if(world.provider.getDimension() == ModDimension.ATLANTIS.getId()) {
 			
 			generateStructure(ATLANTEAN_FOUNTAIN, world, random, chunkX, chunkZ, 100, BiomeATLANTIS.class);
-			
-			break;
-			
-		case -1:
-			
+		
 		}
 	}
 	
@@ -61,7 +45,7 @@ public class WorldGenCustomStructures implements IWorldGenerator
 		{
 			if(classesList.contains(biome))
 			{
-				if(random.nextInt(chance) == 100)
+				if(random.nextInt(chance) == 0)
 				{
 					generator.generate(world, random, pos);
 				}
