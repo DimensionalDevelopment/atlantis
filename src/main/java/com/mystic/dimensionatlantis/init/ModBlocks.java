@@ -2,11 +2,8 @@ package com.mystic.dimensionatlantis.init;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.mystic.dimensionatlantis.blocks.AquamarineOre;
 import com.mystic.dimensionatlantis.blocks.BlockBase;
-import com.mystic.dimensionatlantis.blocks.fluids.BlockDenseWaterFluid;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
@@ -24,6 +21,4 @@ public class ModBlocks
 	public static final Block ATLANTEAN_CORE = new BlockBase("atlantean_core", Material.GLASS);
 	
 	
-	//fluid
-	public static final Block DENSE_WATER_FLUID = new BlockDenseWaterFluid("dense_water", ModFluids.DENSE_WATER_FLUID, Material.WATER);
 }
