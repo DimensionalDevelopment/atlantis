@@ -16,6 +16,9 @@ tile.aquamarine_ore.name=Aquamarine Ore
 tile.null.name=Atlantis Portal Block
 tile.atlantean_core.name=Atlantean Core
 
+//fluids
+fluid.dense_water=Dense Water
+
 //Tabs
 itemGroup.dimensionatlantistab=§fDimension §fAtlantis
 

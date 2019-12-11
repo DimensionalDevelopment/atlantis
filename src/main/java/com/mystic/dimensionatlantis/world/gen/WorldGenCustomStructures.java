@@ -19,12 +19,13 @@ public class WorldGenCustomStructures implements IWorldGenerator
 {
 	public static final WorldGenStructure ATLANTEAN_FOUNTAIN = new WorldGenStructure("atlantean_fountain");
 	
+	
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) 
 	{
 		if(world.provider.getDimension() == ModDimension.ATLANTIS.getId()) {
 			
-			generateStructure(ATLANTEAN_FOUNTAIN, world, random, chunkX, chunkZ, 100);
+			generateStructure(ATLANTEAN_FOUNTAIN, world, random, chunkX, chunkZ, 75);
 		
 		}
 	}

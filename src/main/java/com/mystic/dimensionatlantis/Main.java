@@ -8,6 +8,7 @@ import com.mystic.dimensionatlantis.util.Reference;
 import com.mystic.dimensionatlantis.util.handlers.RegisteryHandler;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -28,6 +29,11 @@ public class Main {
 	public static CommonProxy proxy;
 	
 	public static final CreativeTabs ATLANTISTAB = new AtlantisTab("dimensionatlantistab");
+	
+	static 
+	{
+		FluidRegistry.enableUniversalBucket();
+	}
 
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event)
