@@ -7,6 +7,7 @@ import com.mystic.dimensionatlantis.init.ModBlocks;
 import com.mystic.dimensionatlantis.init.ModDimension;
 import com.mystic.dimensionatlantis.init.ModFluids;
 import com.mystic.dimensionatlantis.init.ModItems;
+import com.mystic.dimensionatlantis.proxy.ClientProxy;
 import com.mystic.dimensionatlantis.world.gen.WorldGenCustomStructures;
 import com.mystic.dimensionatlantis.world.gen.WorldGenOres;
 import net.minecraft.block.Block;
@@ -54,7 +55,7 @@ public class RegisteryHandler
 	{
 		
 		ModFluids.registerFluids();
-		RenderHandler.registerCustomMeshesAndStates();
+		ClientProxy.registerCustomMeshesAndStates();
 		ModBiome.registerBiomes();
 		GameRegistry.registerWorldGenerator(new WorldGenOres(), 0);
 		ModDimension.registerDimensions();
