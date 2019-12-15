@@ -21,7 +21,7 @@ public class AquamarineOre extends BlockBase
 		setHardness(3.0F);
 		setResistance(15.0F);
 		setHarvestLevel("pickaxe", 2);
-		setLightLevel(2.0F);
+		setLightLevel(11.0F);
 	}
 	
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)

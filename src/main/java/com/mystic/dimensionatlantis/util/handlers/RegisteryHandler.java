@@ -6,8 +6,8 @@ import com.mystic.dimensionatlantis.init.ModBiome;
 import com.mystic.dimensionatlantis.init.ModBlocks;
 import com.mystic.dimensionatlantis.init.ModDimension;
 import com.mystic.dimensionatlantis.init.ModItems;
-import com.mystic.dimensionatlantis.world.gen.WorldGenCustomStructures;
 import com.mystic.dimensionatlantis.world.gen.WorldGenOres;
+import com.mystic.dimensionatlantis.world.gen.generators.WorldGenerateCustomStructures;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -57,8 +57,7 @@ public class RegisteryHandler
 		ModBiome.registerBiomes();
 		GameRegistry.registerWorldGenerator(new WorldGenOres(), 0);
 		ModDimension.registerDimensions();
-		GameRegistry.registerWorldGenerator(new WorldGenCustomStructures(), 1);
-		
+		GameRegistry.registerWorldGenerator(new WorldGenerateCustomStructures(), 1);
 		
 	}
 	
