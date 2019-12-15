@@ -25,16 +25,16 @@ public class WorldGenerateCustomStructures implements IWorldGenerator
 	{
 		if(world.provider.getDimension() == ModDimension.ATLANTIS.getId()) {
 			
-			generateStructure(ATLANTEAN_FOUNTAIN, world, random, chunkX, chunkZ, 3);
-			generateBigOyster(BIG_OYSTER, world, random, chunkX, chunkZ, 5);
+			generateFountain(ATLANTEAN_FOUNTAIN, world, random, chunkX, chunkZ, 60);
+			generateBigOyster(BIG_OYSTER, world, random, chunkX, chunkZ, 55);
 		}
 	}
 	
-	private void generateStructure(WorldGenerator generator, World world, Random random, int chunkX, int chunkZ, int chance)
+	private void generateFountain(WorldGenerator generator, World world, Random random, int chunkX, int chunkZ, int chance)
 	{
 		
-		int x = (chunkX * 16) + random.nextInt(15) + 8;
-		int z = (chunkZ * 16) + random.nextInt(15) + 8;
+		int x = (chunkX * 16) + random.nextInt(15);
+		int z = (chunkZ * 16) + random.nextInt(15);
 		int y = calculateGenerationHeight(world, x, z);
 		BlockPos pos = new BlockPos(x,y,z);
 		

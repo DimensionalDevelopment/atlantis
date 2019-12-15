@@ -17,9 +17,8 @@ tile.null.name=Atlantis Portal Block
 tile.atlantean_core.name=Atlantean Core
 tile.ocean_lantern.name=Ocean Lantern
 tile.block_of_aquamarine.name=Block of Aquamarine
-
-//fluids
-fluid.dense_water=Dense Water
+tile.chiseled_golden_block.name=Chiseled Block of Gold
+tile.chiseled_golden_aquamarine.name=Chiseled Block of Gold w/ Aquamarine Gem
 
 //Tabs
 itemGroup.dimensionatlantistab=§fDimension §fAtlantis

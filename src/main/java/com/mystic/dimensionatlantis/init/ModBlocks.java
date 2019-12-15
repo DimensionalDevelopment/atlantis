@@ -25,4 +25,6 @@ public class ModBlocks
 	public static final Block ATLANTEAN_CORE = new AtlanteanCore("atlantean_core", Material.GLASS);
 	public static final Block OCEAN_LANTERN = new OceanLantern("ocean_lantern", Material.IRON);
 	public static final Block BLOCK_OF_AQUAMARINE = new BlockAquamarine("block_of_aquamarine", Material.IRON);
+	public static final Block CHISELED_GOLDEN_BLOCK = new BlockAquamarine("chiseled_golden_block", Material.IRON);
+	public static final Block CHISELED_GOLDEN_AQUAMARINE = new BlockAquamarine("chiseled_golden_aquamarine", Material.IRON);
 }
