@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "axis=y": { "model": "ocean:oyster_shell_block" },
+        "axis=z": { "model": "ocean:oyster_shell_block", "x": 90 },
+        "axis=x": { "model": "ocean:oyster_shell_block", "x": 90, "y": 90 }
+    }
+}

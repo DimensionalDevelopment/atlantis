@@ -12,7 +12,6 @@ public class OceanLantern extends BlockBase
 		setSoundType(SoundType.GLASS);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setHarvestLevel("pickaxe", 1);
 		setLightLevel(5.0F);
 	}
 

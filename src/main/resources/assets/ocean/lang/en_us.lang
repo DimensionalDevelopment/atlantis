@@ -19,6 +19,25 @@ tile.ocean_lantern.name=Ocean Lantern
 tile.block_of_aquamarine.name=Block of Aquamarine
 tile.chiseled_golden_block.name=Chiseled Block of Gold
 tile.chiseled_golden_aquamarine.name=Chiseled Block of Gold w/ Aquamarine Gem
+tile.black_colored_shell_block.name=Black Colored Shell Block
+tile.brown_colored_shell_block.name=Brown Colored Shell Block
+tile.cyan_colored_shell_block.name=Cyan Colored Shell Block
+tile.light_gray_colored_shell_block.name=Light Gray Colored Shell Block
+tile.gray_colored_shell_block.name=Gray Colored Shell Block
+tile.red_colored_shell_block.name=Red Colored Shell Block
+tile.yellow_colored_shell_block.name=Yellow Colored Shell Block
+tile.white_colored_shell_block.name=White Colored Shell Block
+tile.orange_colored_shell_block.name=Orange Colored Shell Block
+tile.blue_colored_shell_block.name=Blue Colored Shell Block
+tile.light_blue_colored_shell_block.name=Light Blue Colored Shell Block
+tile.pink_colored_shell_block.name=Pink Colored Shell Block
+tile.purple_colored_shell_block.name=Purple Colored Shell Block
+tile.magenta_colored_shell_block.name=Magenta Colored Shell Block
+tile.lime_colored_shell_block.name=Lime Colored Shell Block
+tile.green_colored_shell_block.name=Green Colored Shell Block
+tile.oyster_shell_block.name=Oyster Shell Block
+tile.white_pearl_block.name=White Pearl Block
+
 
 //Tabs
 itemGroup.dimensionatlantistab=§fDimension §fAtlantis

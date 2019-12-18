@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "ocean:blocks/blue_shell_front_texture",
+        "down": "ocean:blocks/blue_shell_top_bottom",
+        "up": "ocean:blocks/blue_shell_front_texture",
+        "north": "ocean:blocks/blue_shell_top_bottom",
+        "east": "ocean:blocks/blue_colored_shell_side",
+        "south": "ocean:blocks/blue_shell_top_bottom",
+        "west": "ocean:blocks/blue_colored_shell_side_flipped"
+    }
+}
