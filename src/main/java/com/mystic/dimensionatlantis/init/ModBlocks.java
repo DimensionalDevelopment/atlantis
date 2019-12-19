@@ -38,7 +38,7 @@ public class ModBlocks
 	public static final Block GREEN_COLORED_SHELL_BLOCK = new ColoredShellBlock("green_colored_shell_block", Material.ROCK);
 	public static final Block LIGHT_BLUE_COLORED_SHELL_BLOCK = new ColoredShellBlock("light_blue_colored_shell_block", Material.ROCK);
 	public static final Block LIGHT_GRAY_COLORED_SHELL_BLOCK = new ColoredShellBlock("light_gray_colored_shell_block", Material.ROCK);
-	public static final Block LIME_COLORED_SHELL_BLOCK = new ColoredShellBlock("Lime_colored_shell_block", Material.ROCK);
+	public static final Block LIME_COLORED_SHELL_BLOCK = new ColoredShellBlock("lime_colored_shell_block", Material.ROCK);
 	public static final Block MAGENTA_COLORED_SHELL_BLOCK = new ColoredShellBlock("magenta_colored_shell_block", Material.ROCK);
 	public static final Block ORANGE_COLORED_SHELL_BLOCK = new ColoredShellBlock("orange_colored_shell_block", Material.ROCK);
 	public static final Block PINK_COLORED_SHELL_BLOCK = new ColoredShellBlock("pink_colored_shell_block", Material.ROCK);
