@@ -3,6 +3,7 @@ package com.mystic.dimensionatlantis.items;
 import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -17,7 +18,7 @@ public class ItemAtlanteanCrystal extends ItemBase
 {
 	
 	 
-	static Potion instance_health = Potion.getPotionById(6);
+	
 	public ItemAtlanteanCrystal(String name)
 	{
 		super(name);				
@@ -30,15 +31,15 @@ public class ItemAtlanteanCrystal extends ItemBase
 
 	        if (!playerIn.capabilities.isCreativeMode)
 	        {
+	           
+	        	PotionEffect potioneffect = new PotionEffect(MobEffects.INSTANT_HEALTH, 1, 1);
+	        	
 	            
-	        	PotionEffect potioneffect = new PotionEffect(instance_health, 1, 1, false, false);
-	        	int p = 0;
-	        	do {
-	        		
+	        		for(int p=0; p<=200; p++) {
 					worldIn.spawnParticle(EnumParticleTypes.TOTEM, playerIn.posX + random.nextDouble(), playerIn.posY, playerIn.posZ + random.nextDouble(), 1.0D, 1.0D, 1.0D);
 	        		System.out.println("particle " + p );
-	        		p++;
-	        	} while(p<=200);
+	        		}
+	        	
 	        	playerIn.addPotionEffect(potioneffect);
 	        	itemstack.shrink(1);
 	        }
