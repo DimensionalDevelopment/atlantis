@@ -1,7 +1,6 @@
 package com.mystic.dimensionatlantis.util.handlers;
 
 import com.mystic.dimensionatlantis.Main;
-import com.mystic.dimensionatlantis.commands.CommandDimensionTeleport;
 import com.mystic.dimensionatlantis.init.ModBiome;
 import com.mystic.dimensionatlantis.init.ModBlocks;
 import com.mystic.dimensionatlantis.init.ModDimension;
@@ -78,7 +77,7 @@ public class RegisteryHandler
 	
 	public static void serverRegistries(FMLServerStartingEvent event)
 	{
-		event.registerServerCommand(new CommandDimensionTeleport());
+		
 	}
 	
 }

@@ -11,6 +11,7 @@ public class ItemBase extends Item {
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setCreativeTab(Main.ATLANTISTAB);
+		this.maxStackSize = 16;
 		
 		ModItems.ITEMS.add(this);
 	}

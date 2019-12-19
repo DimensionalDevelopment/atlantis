@@ -30,7 +30,6 @@ import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
-import net.minecraft.world.gen.structure.WoodlandMansion;
 
 public class ChunkGeneratorAtlantis implements IChunkGenerator
 {
@@ -68,7 +67,6 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator
     private double heightScale = 684.412;
     private double biomeDepthOffSet = 0.5;
     private double biomeScaleOffset = 0.375;
-    private double heightStretch = 8;
     private double baseSize = 8.5D;
     private double lowerLimitScale = 512D;
     private double upperLimitScale = 512D;
