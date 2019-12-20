@@ -1,0 +1,6 @@
+{
+   "parent": "block/cube_all",
+   "textures": {
+       "all": "ocean:blocks/black_pearl_block"
+   }
+}

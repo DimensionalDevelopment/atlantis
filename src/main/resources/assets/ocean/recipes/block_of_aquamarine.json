@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"AAA",
+		"AAA",
+		"AAA"
+	],
+	
+	"key":
+	{
+		"A":
+		{
+			"item": "ocean:ingot_aquamarine"
+		}
+	},
+	
+	"result":
+	{
+		"item": "ocean:block_of_aquamarine",
+		"count": 1
+	}
+}					

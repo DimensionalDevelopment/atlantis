@@ -45,22 +45,22 @@ public class WorldGenerateCustomStructures implements IWorldGenerator
 			generateStructure(ATLANTEAN_FOUNTAIN, world, random, chunkX, chunkZ, 55);
 			generateStructure(BIG_OYSTER, world, random, chunkX, chunkZ, 45);
 			generateStructure(ATLANTEAN_SHIP_WRECK, world, random, chunkX, chunkZ, 35);
-			generateStructure(BLACK_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(CYAN_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(BLUE_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(BROWN_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(GRAY_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(GREEN_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(LIGHT_BLUE_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(LIGHT_GRAY_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(LIME_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(MAGENTA_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(ORANGE_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(PINK_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(PURPLE_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(RED_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(WHITE_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
-			generateStructure(YELLOW_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 15);
+			generateStructure(BLACK_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(CYAN_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(BLUE_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(BROWN_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(GRAY_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(GREEN_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(LIGHT_BLUE_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(LIGHT_GRAY_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(LIME_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(MAGENTA_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(ORANGE_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(PINK_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(PURPLE_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(RED_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(WHITE_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
+			generateStructure(YELLOW_SHELL_STRUCTURE, world, random, chunkX, chunkZ, 3);
 		}
 	}
 	

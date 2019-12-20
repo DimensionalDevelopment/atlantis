@@ -2,6 +2,7 @@ package com.mystic.dimensionatlantis.items;
 
 import com.mystic.dimensionatlantis.Main;
 import com.mystic.dimensionatlantis.init.ModItems;
+
 import net.minecraft.item.Item;
 
 public class ItemBase extends Item {

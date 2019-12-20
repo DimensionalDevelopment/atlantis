@@ -48,4 +48,19 @@ public class ModBlocks
 	public static final Block YELLOW_COLORED_SHELL_BLOCK = new ColoredShellBlock("yellow_colored_shell_block", Material.ROCK);
 	public static final Block OYSTER_SHELL_BLOCK = new OysterShellBlock("oyster_shell_block", Material.ROCK);
 	public static final Block WHITE_PEARL_BLOCK = new PearlBlock("white_pearl_block", Material.ROCK);
+	public static final Block BLACK_PEARL_BLOCK = new PearlBlock("black_pearl_block", Material.ROCK);
+	public static final Block BLUE_PEARL_BLOCK = new PearlBlock("blue_pearl_block", Material.ROCK);
+	public static final Block BROWN_PEARL_BLOCK = new PearlBlock("brown_pearl_block", Material.ROCK);
+	public static final Block CYAN_PEARL_BLOCK = new PearlBlock("cyan_pearl_block", Material.ROCK);
+	public static final Block GRAY_PEARL_BLOCK = new PearlBlock("gray_pearl_block", Material.ROCK);
+	public static final Block LIGHT_GRAY_PEARL_BLOCK = new PearlBlock("light_gray_pearl_block", Material.ROCK);
+	public static final Block LIGHT_BLUE_PEARL_BLOCK = new PearlBlock("light_blue_pearl_block", Material.ROCK);
+	public static final Block GREEN_PEARL_BLOCK = new PearlBlock("green_pearl_block", Material.ROCK);
+	public static final Block LIME_PEARL_BLOCK = new PearlBlock("lime_pearl_block", Material.ROCK);
+	public static final Block MAGENTA_PEARL_BLOCK = new PearlBlock("magenta_pearl_block", Material.ROCK);
+	public static final Block ORANGE_PEARL_BLOCK = new PearlBlock("orange_pearl_block", Material.ROCK);
+	public static final Block PINK_PEARL_BLOCK = new PearlBlock("pink_pearl_block", Material.ROCK);
+	public static final Block PURPLE_PEARL_BLOCK = new PearlBlock("purple_pearl_block", Material.ROCK);
+	public static final Block RED_PEARL_BLOCK = new PearlBlock("red_pearl_block", Material.ROCK);
+	public static final Block YELLOW_PEARL_BLOCK = new PearlBlock("yellow_pearl_block", Material.ROCK);
 }

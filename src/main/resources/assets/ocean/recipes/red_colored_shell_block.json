@@ -1,0 +1,23 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients":
+	[
+	
+	{
+		"item": "minecraft:dye",
+		"data": 1
+	},					
+	
+	{
+		"item": "ocean:white_colored_shell_block"
+	}
+	
+	],
+	
+	"result":
+	{
+		"item": "ocean:red_colored_shell_block",
+		"count": 1
+	}
+}	

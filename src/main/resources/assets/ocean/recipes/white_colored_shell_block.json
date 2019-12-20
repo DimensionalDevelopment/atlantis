@@ -1,0 +1,36 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		" O ",
+		"SWS",
+		" O "
+	],
+	
+	"key":
+	{
+		"S":
+		{
+			"item": "minecraft:dye",
+  			"data": 15
+		},
+		
+		"W":
+		{
+			"item": "minecraft:stone",
+			"data": 0
+		},
+		
+		"O":
+		{
+			"item": "ocean:ocean_stone"
+		}
+	},
+	
+	"result":
+	{
+		"item": "ocean:white_colored_shell_block",
+		"count": 2
+	}
+}					

@@ -3,6 +3,7 @@ package com.mystic.dimensionatlantis.blocks;
 import com.mystic.dimensionatlantis.Main;
 import com.mystic.dimensionatlantis.init.ModBlocks;
 import com.mystic.dimensionatlantis.init.ModItems;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.block.Block;

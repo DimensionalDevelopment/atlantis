@@ -1,0 +1,34 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"OSO",
+		"SWS",
+		"OSO"
+	],
+	
+	"key":
+	{
+		"W":
+		{
+			"item": "mincraft:diamond"
+		},
+		
+		"S":
+		{
+			"item": "ocean:ingot_aquamarine"
+		},
+		
+		"O":
+		{
+			"item": "minecraft:gold_nugget"
+		}
+	},
+	
+	"result":
+	{
+		"item": "ocean:drop_of_atlantis",
+		"count": 2
+	}
+}					

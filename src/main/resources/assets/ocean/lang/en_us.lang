@@ -37,7 +37,22 @@ tile.lime_colored_shell_block.name=Lime Colored Shell Block
 tile.green_colored_shell_block.name=Green Colored Shell Block
 tile.oyster_shell_block.name=Oyster Shell Block
 tile.white_pearl_block.name=White Pearl Block
-
+tile.white_pearl_block.name=White Pearl Block
+tile.black_pearl_block.name=Black Pearl Block
+tile.blue_pearl_block.name=Blue Pearl Block
+tile.brown_pearl_block.name=Brown Pearl Block
+tile.cyan_pearl_block.name=Cyan Pearl Block
+tile.gray_pearl_block.name=Gray Pearl Block
+tile.light_gray_pearl_block.name=Light Gray Pearl Block
+tile.light_blue_pearl_block.name=Light Blue Pearl Block
+tile.green_pearl_block.name=Green Pearl Block
+tile.lime_pearl_block.name=Lime Pearl Block
+tile.magenta_pearl_block.name=Magenta Pearl Block
+tile.orange_pearl_block.name=Orange Pearl Block
+tile.pink_pearl_block.name=Pink Pearl Block
+tile.purple_pearl_block.name=Purple Pearl Block
+tile.red_pearl_block.name=Red Pearl Block
+tile.yellow_pearl_block.name=Yellow Pearl Block
 
 //Tabs
 itemGroup.dimensionatlantistab=§fDimension §fAtlantis

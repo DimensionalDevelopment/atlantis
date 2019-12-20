@@ -1,0 +1,34 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"CIC",
+		"IOI",
+		"CIC"
+	],
+	
+	"key":
+	{
+		"C":
+		{
+			"item": "minecraft:cobblestone"
+		},
+		
+		"I":
+		{
+			"item": "minecraft:iron_ingot"
+		},
+		
+		"O":
+		{
+			"item": "ocean:ocean_lantern"
+		}
+	},
+	
+	"result":
+	{
+		"item": "ocean:atlantean_core",
+		"count": 1
+	}
+}					

@@ -1,0 +1,30 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		" S ",
+		"SWS",
+		" S "
+	],
+	
+	"key":
+	{
+		"S":
+		{
+			"item": "minecraft:dye",
+  			"data": 15
+		},
+		
+		"W":
+		{
+			"item": "minecraft:sea_lantern"
+		}
+	},
+	
+	"result":
+	{
+		"item": "ocean:white_pearl_block",
+		"count": 2
+	}
+}					
