@@ -54,6 +54,22 @@ tile.purple_pearl_block.name=Purple Pearl Block
 tile.red_pearl_block.name=Red Pearl Block
 tile.yellow_pearl_block.name=Yellow Pearl Block
 
+//Tools
+item.atlantean_shield.name=Atlantean Shield
+item.axe_aquamarine.name=Aquamarine Axe
+item.hoe_aquamarine.name=Aquamarine Hoe
+item.pickaxe_aquamarine.name=Aquamarine Pickaxe
+item.shovel_aquamarine.name=Aquamarine Shovel
+
+//Weapons
+item.sword_aquamarine.name=Aquamarine Sword
+
+//Armor
+item.helmet_aquamarine.name=Aquamarine Helmet
+item.leggings_aquamarine.name=Aquamarine Leggings
+item.boots_aquamarine.name=Aquamarine Boots
+item.chestplate_aquamarine.name=Aquamarine Chestplate
+
 //Tabs
 itemGroup.dimensionatlantistab=§fDimension §fAtlantis
 

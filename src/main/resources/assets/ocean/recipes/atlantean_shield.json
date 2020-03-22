@@ -1,0 +1,29 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"CIC",
+		"CCC",
+		" C "
+	],
+	
+	"key":
+	{
+		"C":
+		{
+			"item": "minecraft:cobblestone"
+		},
+		
+		"I":
+		{
+			"item": "ocean:ingot_aquamarine"
+		}
+	},
+	
+	"result":
+	{
+		"item": "ocean:atlantean_shield",
+		"count": 1
+	}
+}

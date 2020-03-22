@@ -1,0 +1,15 @@
+{
+    "parent": "item/handheld",
+    "overrides": [
+        {
+            "predicate": {
+                "blocking": 1
+            },
+            "model": "ocean:items/atlantean_shield_blocking"
+        }
+    ],
+    "textures":
+    {
+        "layer0": "ocean:items/atlantean_shield"
+    }
+}

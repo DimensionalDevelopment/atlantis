@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"III",
+		"I I",
+		"I I"
+	],
+	
+	"key":
+	{
+		"I":
+		{
+			"item": "ocean:ingot_aquamarine"
+		}
+	},
+	
+	"result":
+	{
+		"item": "ocean:leggings_aquamarine",
+		"count": 1
+	}
+}					

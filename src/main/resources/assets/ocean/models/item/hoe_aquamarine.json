@@ -1,0 +1,7 @@
+{
+    "parent": "item/handheld",
+    "textures":
+    {
+        "layer0": "ocean:items/hoe_aquamarine"
+    }
+}

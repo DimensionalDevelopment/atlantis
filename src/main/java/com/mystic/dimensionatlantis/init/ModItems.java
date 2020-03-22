@@ -53,7 +53,7 @@ public class ModItems
 	
 	//Weapons
 	public static final Item SWORD_AQUAMARINE = new ToolSword("sword_aquamarine", TOOL_AQUAMARINE);
-	public static final Item ATLANTIAN_SHIELD = new ToolShield("atlantian_shield", Main.ATLANTISTAB, 450);
+	public static final Item ATLANTEAN_SHIELD = new ToolShield("atlantean_shield", Main.ATLANTISTAB, 450);
 	
 	
 }
