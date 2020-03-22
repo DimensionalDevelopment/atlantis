@@ -1,5 +1,7 @@
 package com.mystic.dimensionatlantis.config;
 
+
+
 import com.mystic.dimensionatlantis.init.ModDimension;
 import com.mystic.dimensionatlantis.util.Reference;
 
@@ -13,7 +15,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 @Config(modid = Reference.MOD_ID)
 public class AtlantisConfig {
-	
 	
     @Config.Name("Atlantis ID")
     @Config.RangeInt(min = -1000, max = 1000)
