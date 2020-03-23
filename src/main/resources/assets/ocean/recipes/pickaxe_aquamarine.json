@@ -1,0 +1,29 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"III",
+		" C ",
+		" C "
+	],
+	
+	"key":
+	{
+		"C":
+		{
+			"item": "minecraft:stick"
+		},
+		
+		"I":
+		{
+			"item": "ocean:ingot_aquamarine"
+		}
+	},
+	
+	"result":
+	{
+		"item": "ocean:pickaxe_aquamarine",
+		"count": 1
+	}
+}					
