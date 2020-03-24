@@ -6,12 +6,16 @@ import com.mystic.dimensionatlantis.init.ModBlocks;
 import com.mystic.dimensionatlantis.init.ModDimension;
 import com.mystic.dimensionatlantis.init.ModItems;
 import com.mystic.dimensionatlantis.init.ModOreDictionary;
+import com.mystic.dimensionatlantis.util.Reference;
 import com.mystic.dimensionatlantis.world.gen.WorldGenOres;
 import com.mystic.dimensionatlantis.world.gen.generators.WorldGenerateCustomStructures;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -41,6 +45,7 @@ public class RegisteryHandler
 	{
 		for(Item item : ModItems.ITEMS)
 		{
+			
 			Main.proxy.registerItemRenderer(item, 0, "inventory");
 		}
 		
@@ -54,7 +59,8 @@ public class RegisteryHandler
 	{
 		
 	
-		
+		OBJLoader.INSTANCE.addDomain(Reference.MOD_ID);
+		registerModel(ModItems.SHOVEL_AQUAMARINE);
 		ModBiome.registerBiomes();
 		GameRegistry.registerWorldGenerator(new WorldGenOres(), 0);
 		ModDimension.registerDimensions();
@@ -82,4 +88,7 @@ public class RegisteryHandler
 		
 	}
 	
+	public static void registerModel(Item item) {
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
+	}
 }

@@ -2,12 +2,16 @@ package com.mystic.dimensionatlantis;
 
 import java.util.logging.Logger;
 
+import com.google.common.io.Resources;
 import com.mystic.dimensionatlantis.proxy.CommonProxy;
 import com.mystic.dimensionatlantis.tabs.AtlantisTab;
 import com.mystic.dimensionatlantis.util.Reference;
 import com.mystic.dimensionatlantis.util.handlers.RegisteryHandler;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
