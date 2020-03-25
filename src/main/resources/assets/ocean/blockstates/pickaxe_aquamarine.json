@@ -1,7 +1,7 @@
 {
  "forge_marker": 1,
  "defaults": {
- "model": "ocean:shovel_aquamarine.obj"
+ "model": "ocean:pickaxe_aquamarine.obj"
  },
  "variants": {
  "inventory": [

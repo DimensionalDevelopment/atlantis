@@ -1,0 +1,13 @@
+{
+  "forge_marker": 1,
+  "defaults":
+  {
+    "model": "ocean:boots_aquamarine.obj"
+  },
+  "variants":
+  {
+    "inventory":[{
+      "transform": "forge:default-item"
+    }]
+  }
+}

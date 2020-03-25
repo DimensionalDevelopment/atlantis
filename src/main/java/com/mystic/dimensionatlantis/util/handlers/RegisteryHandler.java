@@ -60,6 +60,8 @@ public class RegisteryHandler
 		
 	
 		OBJLoader.INSTANCE.addDomain(Reference.MOD_ID);
+		registerModel(ModItems.HELMET_AQUAMARINE);
+		registerModel(ModItems.PICKAXE_AQUAMARINE);
 		registerModel(ModItems.SHOVEL_AQUAMARINE);
 		ModBiome.registerBiomes();
 		GameRegistry.registerWorldGenerator(new WorldGenOres(), 0);
