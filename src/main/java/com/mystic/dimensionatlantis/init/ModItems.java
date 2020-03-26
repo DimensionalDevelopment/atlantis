@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mystic.dimensionatlantis.Main;
-import com.mystic.dimensionatlantis.armour.ArmourBase1;
+import com.mystic.dimensionatlantis.armour.ArmourBase;
 import com.mystic.dimensionatlantis.items.ItemAquamarineIngot;
 import com.mystic.dimensionatlantis.items.ItemAtlanteanCrystal;
 import com.mystic.dimensionatlantis.items.ItemBase;
@@ -46,10 +46,10 @@ public class ModItems
 	public static final Item SHOVEL_AQUAMARINE = new ToolShovel("shovel_aquamarine", TOOL_AQUAMARINE);
 	
 	//Armour
-	public static final Item HELMET_AQUAMARINE = new ArmourBase1("helmet_aquamarine", ARMOUR_AQUAMARINE, 1, EntityEquipmentSlot.HEAD);
-	public static final Item CHESTPLATE_AQUAMARINE = new ArmourBase1("chestplate_aquamarine", ARMOUR_AQUAMARINE,  1, EntityEquipmentSlot.CHEST);
-	public static final Item LEGGINGS_AQUAMARINE = new ArmourBase1("leggings_aquamarine", ARMOUR_AQUAMARINE, 2, EntityEquipmentSlot.LEGS);
-	public static final Item BOOTS_AQUAMARINE = new ArmourBase1("boots_aquamarine", ARMOUR_AQUAMARINE, 1, EntityEquipmentSlot.FEET);
+	public static final Item HELMET_AQUAMARINE = new ArmourBase("helmet_aquamarine", ARMOUR_AQUAMARINE, 1, EntityEquipmentSlot.HEAD);
+	public static final Item CHESTPLATE_AQUAMARINE = new ArmourBase("chestplate_aquamarine", ARMOUR_AQUAMARINE,  1, EntityEquipmentSlot.CHEST);
+	public static final Item LEGGINGS_AQUAMARINE = new ArmourBase("leggings_aquamarine", ARMOUR_AQUAMARINE, 2, EntityEquipmentSlot.LEGS);
+	public static final Item BOOTS_AQUAMARINE = new ArmourBase("boots_aquamarine", ARMOUR_AQUAMARINE, 1, EntityEquipmentSlot.FEET);
 	
 	//Weapons
 	public static final Item SWORD_AQUAMARINE = new ToolSword("sword_aquamarine", TOOL_AQUAMARINE);
