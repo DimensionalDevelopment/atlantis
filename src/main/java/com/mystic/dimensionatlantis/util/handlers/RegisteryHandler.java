@@ -1,6 +1,7 @@
 package com.mystic.dimensionatlantis.util.handlers;
 
 import com.mystic.dimensionatlantis.Main;
+import com.mystic.dimensionatlantis.init.ModBiome;
 import com.mystic.dimensionatlantis.init.ModBlocks;
 import com.mystic.dimensionatlantis.init.ModDimension;
 import com.mystic.dimensionatlantis.init.ModItems;
@@ -58,19 +59,13 @@ public class RegisteryHandler
 	{
 		OBJLoader.INSTANCE.addDomain(Reference.MOD_ID);
 		
-<<<<<<< Updated upstream
+
 	
-		OBJLoader.INSTANCE.addDomain(Reference.MOD_ID);
-		registerModel(ModItems.HELMET_AQUAMARINE);
-		registerModel(ModItems.PICKAXE_AQUAMARINE);
-		registerModel(ModItems.SHOVEL_AQUAMARINE);
-		ModBiome.registerBiomes();
-=======
 		registerModel(ModItems.HOE_AQUAMARINE);
 		registerModel(ModItems.PICKAXE_AQUAMARINE);
 		registerModel(ModItems.AXE_AQUAMARINE);
 		registerModel(ModItems.SHOVEL_AQUAMARINE);
->>>>>>> Stashed changes
+		ModBiome.registerBiomes();
 		GameRegistry.registerWorldGenerator(new WorldGenOres(), 0);
 		ModDimension.registerDimensions();
 		GameRegistry.registerWorldGenerator(new WorldGenerateCustomStructures(), 1);
