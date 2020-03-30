@@ -58,9 +58,7 @@ public class RegisteryHandler
 	public static void preInitRegistries(FMLPreInitializationEvent event)
 	{
 		OBJLoader.INSTANCE.addDomain(Reference.MOD_ID);
-		
-
-	
+		registerModel(ModItems.SWORD_AQUAMARINE);
 		registerModel(ModItems.HOE_AQUAMARINE);
 		registerModel(ModItems.PICKAXE_AQUAMARINE);
 		registerModel(ModItems.AXE_AQUAMARINE);

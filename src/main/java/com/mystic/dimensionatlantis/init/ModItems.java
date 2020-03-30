@@ -3,7 +3,6 @@ package com.mystic.dimensionatlantis.init;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mystic.dimensionatlantis.Main;
 import com.mystic.dimensionatlantis.armour.ArmourBase;
 import com.mystic.dimensionatlantis.items.ItemAquamarineIngot;
 import com.mystic.dimensionatlantis.items.ItemAtlanteanCrystal;
@@ -11,7 +10,6 @@ import com.mystic.dimensionatlantis.items.ItemBase;
 import com.mystic.dimensionatlantis.tools.ToolAxe;
 import com.mystic.dimensionatlantis.tools.ToolHoe;
 import com.mystic.dimensionatlantis.tools.ToolPickaxe;
-import com.mystic.dimensionatlantis.tools.ToolShield;
 import com.mystic.dimensionatlantis.tools.ToolShovel;
 import com.mystic.dimensionatlantis.tools.ToolSword;
 import com.mystic.dimensionatlantis.util.Reference;
@@ -53,7 +51,7 @@ public class ModItems
 	
 	//Weapons
 	public static final Item SWORD_AQUAMARINE = new ToolSword("sword_aquamarine", TOOL_AQUAMARINE);
-	public static final Item ATLANTEAN_SHIELD = new ToolShield("atlantean_shield", Main.ATLANTISTAB, 450);
+	
 	
 	
 }
