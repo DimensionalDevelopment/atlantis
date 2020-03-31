@@ -4,7 +4,7 @@
 	"pattern":
 	[
 		"II ",
-		" C ",
+		" L ",
 		" C "
 	],
 	
@@ -18,6 +18,11 @@
 		"I":
 		{
 			"item": "ocean:ingot_aquamarine"
+		},
+		
+		"L":
+		{
+			"item": "minecraft:leather"
 		}
 	},
 	
