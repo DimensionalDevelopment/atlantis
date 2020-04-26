@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients":
+	[
+	
+	{
+		"item": "atlantis:chiseled_golden_block"
+	},
+	
+	{
+		"item": "atlantis:ingot_aquamarine"
+	}
+	
+	],
+	
+	"result":
+	{
+		"item": "atlantis:chiseled_golden_aquamarine",
+		"count": 1
+	}
+}	
