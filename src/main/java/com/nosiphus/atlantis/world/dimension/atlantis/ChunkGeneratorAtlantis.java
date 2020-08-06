@@ -17,12 +17,8 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.MapGenCaves;
-import net.minecraft.world.gen.MapGenRavine;
-import net.minecraft.world.gen.NoiseGeneratorOctaves;
-import net.minecraft.world.gen.NoiseGeneratorPerlin;
+
+import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
@@ -75,7 +71,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator
     private int waterLakeChance =4;
     private int dungeonChance = 0;
     private int lavaLakeChance = 80;
-    private int seaLevel = 256;
+    private final int seaLevel = 256;
     private IBlockState oceanBlock = Blocks.WATER.getDefaultState();
     private double[] depthBuffer = new double[256];
     private MapGenBase caveGenerator = new MapGenCaves();
@@ -189,7 +185,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator
                                 {
                                     primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, STONE);
                                 }
-                                else if (i2 * 8 + j2 < this.seaLevel)
+                                else if (i2 * 8 + j2 < this.seaLevel && this.world.getSeaLevel() < 257)
                                 {
                                     primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, this.oceanBlock);
                                 }
@@ -236,44 +232,6 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator
         this.setBlocksInChunk(x, z, chunkprimer);
         this.biomesForGeneration = this.world.getBiomeProvider().getBiomes(this.biomesForGeneration, x * 16, z * 16, 16, 16);
         this.replaceBiomeBlocks(x, z, chunkprimer, this.biomesForGeneration);
-
-        if (this.useCaves)
-        {
-            this.caveGenerator.generate(this.world, x, z, chunkprimer);
-        }
-
-        if (this.useRavines)
-        {
-            this.ravineGenerator.generate(this.world, x, z, chunkprimer);
-        }
-
-        if (this.mapFeaturesEnabled)
-        {
-            if (this.useMineShafts)
-            {
-                this.mineshaftGenerator.generate(this.world, x, z, chunkprimer);
-            }
-
-            if (this.useVillages)
-            {
-                this.villageGenerator.generate(this.world, x, z, chunkprimer);
-            }
-
-            if (this.useStrongholds)
-            {
-                this.strongholdGenerator.generate(this.world, x, z, chunkprimer);
-            }
-
-            if (this.useTemples)
-            {
-                this.scatteredFeatureGenerator.generate(this.world, x, z, chunkprimer);
-            }
-
-            if (this.useMonuments)
-            {
-                this.oceanMonumentGenerator.generate(this.world, x, z, chunkprimer);
-            }
-        }
 
         Chunk chunk = new Chunk(this.world, chunkprimer, x, z);
         byte[] abyte = chunk.getBiomeArray();
@@ -470,8 +428,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator
             if (l2 < this.world.getSeaLevel() || this.rand.nextInt(this.lavaLakeChance / 8) == 0)
             {
                 (new WorldGenLakes(Blocks.LAVA)).generate(this.world, this.rand, blockpos.add(i2, l2, k3));
-            }
-        }
+            }        }
 
         if (this.useDungeons)
         if (net.minecraftforge.event.terraingen.TerrainGen.populate(this, this.world, this.rand, x, z, flag, net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.DUNGEON))
