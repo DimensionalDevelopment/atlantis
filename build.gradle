@@ -51,9 +51,15 @@ repositories {
 
 dependencies {
 
+<<<<<<< Updated upstream
     compile ("io.github.opencubicchunks:cubicchunks-api:1.12.2-0.0-SNAPSHOT")
     compile ("io.github.opencubicchunks:cubicchunks:1.12.2-0.0-SNAPSHOT")
     compile ("io.github.opencubicchunks:cubicworldgen:1.12.2-0.0-SNAPSHOT")
+=======
+    deobfProvided ("io.github.opencubicchunks:cubicchunks-api:1.12.2-0.0-SNAPSHOT")
+    deobfProvided ("io.github.opencubicchunks:cubicchunks:1.12.2-0.0-SNAPSHOT")
+    deobfProvided ("io.github.opencubicchunks:cubicworldgen:1.12.2-0.0-SNAPSHOT")
+>>>>>>> Stashed changes
 
 }
 
