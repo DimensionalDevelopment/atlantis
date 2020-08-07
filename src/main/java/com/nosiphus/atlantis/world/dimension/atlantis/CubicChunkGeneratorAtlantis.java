@@ -46,14 +46,20 @@ public class CubicChunkGeneratorAtlantis implements ICubeGenerator
     private boolean fillCubeBiomes;
 
     @Nonnull
+<<<<<<< Updated upstream
     private ICubicStructureGenerator caveGenerator;
+=======
+>>>>>>> Stashed changes
     private IBuilder terrainBuilder;
     private BiomeSource biomeSource;
 
     public CubicChunkGeneratorAtlantis(World world, boolean fillCubeBiomes, @Nonnull ICubicStructureGenerator caveGenerator, IBuilder terrainBuilder, BiomeSource biomeSource) {
         this.world = world;
         this.fillCubeBiomes = fillCubeBiomes;
+<<<<<<< Updated upstream
         this.caveGenerator = caveGenerator;
+=======
+>>>>>>> Stashed changes
         this.terrainBuilder = terrainBuilder;
         this.biomeSource = biomeSource;
     }
@@ -70,7 +76,10 @@ public class CubicChunkGeneratorAtlantis implements ICubeGenerator
         }
         CubePrimer primer = new CubePrimer();
         generate(primer, cubeX, cubeY, cubeZ);
+<<<<<<< Updated upstream
         generateStructures(primer, new CubePos(cubeX, cubeY, cubeZ));
+=======
+>>>>>>> Stashed changes
         if (fillCubeBiomes) {
             fill3dBiomes(cubeX, cubeY, cubeZ, primer);
         }
@@ -175,8 +184,11 @@ public class CubicChunkGeneratorAtlantis implements ICubeGenerator
         return null;
     }
 
+<<<<<<< Updated upstream
     private void generateStructures(CubePrimer cube, CubePos cubePos) {
         this.caveGenerator.generate(world, cube, cubePos);
     }
 
+=======
+>>>>>>> Stashed changes
 }

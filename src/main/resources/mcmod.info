@@ -3,7 +3,11 @@
   "modid": "ocean",
   "name": "Dimension Atlantis",
   "description": "An Underwater Altantis like Dimension Mod.",
+<<<<<<< Updated upstream
   "version": "2.2-8.6.2020",
+=======
+  "version": "2.2-8.7.2020",
+>>>>>>> Stashed changes
   "mcversion": "1.12.2",
   "url": "",
   "updateUrl": "",
