@@ -10,12 +10,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
-
-<<<<<<< Updated upstream
-version = "2.2-8.6.2020"
-=======
 version = "2.2-8.7.2020"
->>>>>>> Stashed changes
 group = "com.nosiphus.atlantis" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ocean"
 
@@ -36,6 +31,7 @@ minecraft {
     mappings = "stable_39"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
+
 repositories {
     mavenCentral()
     maven { setUrl("https://oss.sonatype.org/content/repositories/public/") }
@@ -52,25 +48,7 @@ repositories {
     }
 }
 
-<<<<<<< Updated upstream
-repositories {
-    mavenCentral()
-    maven { setUrl("https://oss.sonatype.org/content/repositories/public/") }
-    maven { setUrl("https://minecraft.curseforge.com/api/maven/") }
-    maven { setUrl("http://repo.spongepowered.org/maven") }
-    maven { setUrl("https://oss.sonatype.org/content/repositories/snapshots/") }
-    maven {
-        name = "SpongePowered"
-        url = "http://repo.spongepowered.org/maven/"
-    }
-    maven {
-        name = "elytradev"
-        url = "https://repo.elytradev.com"
-    }
-}
 
-=======
->>>>>>> Stashed changes
 dependencies {
 
     deobfProvided ("io.github.opencubicchunks:cubicchunks-api:1.12.2-0.0-SNAPSHOT")
