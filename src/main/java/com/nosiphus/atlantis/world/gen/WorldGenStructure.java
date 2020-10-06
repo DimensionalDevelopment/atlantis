@@ -46,7 +46,4 @@ public class WorldGenStructure extends WorldGenerator implements IStructure
 			template.addBlocksToWorldChunk(world, pos, settings);
 		}
 	}
-
-	
-
 }

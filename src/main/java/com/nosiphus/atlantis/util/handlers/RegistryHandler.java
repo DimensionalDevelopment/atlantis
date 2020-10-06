@@ -10,6 +10,7 @@ import com.nosiphus.atlantis.util.reference;
 import com.nosiphus.atlantis.world.gen.WorldGenCustomStructures;
 import com.nosiphus.atlantis.world.gen.WorldGenOres;
 
+import com.nosiphus.atlantis.world.gen.WorldGenSubmarine;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
@@ -75,6 +76,7 @@ public class RegistryHandler
 		GameRegistry.registerWorldGenerator(new WorldGenOres(), 0);
 		ModDimension.registerDimensions();
 		GameRegistry.registerWorldGenerator(new WorldGenCustomStructures(), 1);
+		GameRegistry.registerWorldGenerator(new WorldGenSubmarine(), 2);
 		MinecraftForge.EVENT_BUS.register(new PositionEvent());
 		
 	}

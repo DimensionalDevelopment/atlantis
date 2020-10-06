@@ -2,6 +2,7 @@ package com.nosiphus.atlantis.world.gen;
 
 import java.util.Random;
 
+import com.nosiphus.atlantis.config.AtlantisConfig;
 import com.nosiphus.atlantis.init.ModBlocks;
 
 import net.minecraft.block.state.IBlockState;
@@ -26,7 +27,7 @@ public class WorldGenOres implements IWorldGenerator
 	
 	private void generateOverworld(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) 
 	{
-		generateOre(ModBlocks.AQUAMARINE_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 40, random.nextInt(5) + 3,  65); 
+		generateOre(ModBlocks.AQUAMARINE_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 5, 40, random.nextInt(3) + 3, AtlantisConfig.oreSpawnChance);
 	} 
 	
 	private void generateOre(IBlockState ore, World world, Random random, int x,  int z , int minY, int maxY, int size, int chances) 

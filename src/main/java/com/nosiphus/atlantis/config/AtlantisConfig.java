@@ -14,13 +14,17 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class AtlantisConfig {
 	
     @Config.Name("Atlantis ID")
-    @Config.RangeInt(min = -1000, max = 1000)
     @Config.Comment("Atlantis ID")
     public static int dimensionId = ModDimension.ATLANTIS.getId();
     @Config.Name("Overworld dim ID")
-    @Config.RangeInt(min = -1000, max = 1000)
     @Config.Comment("Overworld dim ID")
     public static int overworldId = 0;
+    @Config.Name("Ore Spawn Chance")
+    @Config.Comment("changes the chance an ores will spawn in a world, Requires a new world!!!")
+    @Config.RangeInt(min = 0, max = 100)
+    @Config.RequiresWorldRestart
+    public static int oreSpawnChance = 65;
+
 
     @SubscribeEvent
     public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
