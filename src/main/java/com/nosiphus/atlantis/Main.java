@@ -2,19 +2,22 @@ package com.nosiphus.atlantis;
 
 import java.util.logging.Logger;
 
-import com.nosiphus.atlantis.proxy.ClientProxy;
 import com.nosiphus.atlantis.proxy.CommonProxy;
 
 import com.nosiphus.atlantis.util.handlers.RegistryHandler;
 
 import com.nosiphus.atlantis.util.reference;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod(modid = reference.MODID, name = reference.NAME, version = reference.VERSION)
 public class Main {
@@ -32,12 +35,20 @@ public class Main {
 		FluidRegistry.enableUniversalBucket();
 	}
 
+	@SideOnly(Side.CLIENT)
+	public static void OBJLoader(){
+		OBJLoader.INSTANCE.addDomain(reference.MODID);
+	}
+
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event)
 	{
-		 RegistryHandler.preInitRegistries(event);
+		if(event.getSide() == Side.CLIENT){
+			OBJLoader();
+		}
+			RegistryHandler.preInitRegistries(event);
 	}
-	
+
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
@@ -49,5 +60,5 @@ public class Main {
 	{
 		RegistryHandler.postInitRegistries(event);
 	}
-	
+
 }

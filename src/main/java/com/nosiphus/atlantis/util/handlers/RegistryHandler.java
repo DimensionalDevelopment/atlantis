@@ -4,6 +4,7 @@ import com.nosiphus.atlantis.init.ModBiome;
 import com.nosiphus.atlantis.init.ModBlocks;
 import com.nosiphus.atlantis.init.ModDimension;
 import com.nosiphus.atlantis.init.ModItems;
+import com.nosiphus.atlantis.proxy.ClientProxy;
 import com.nosiphus.atlantis.util.IHasModel;
 import com.nosiphus.atlantis.util.handlers.EventHandler.PositionEvent;
 import com.nosiphus.atlantis.util.reference;
@@ -66,7 +67,6 @@ public class RegistryHandler
 
 	public static void preInitRegistries(FMLPreInitializationEvent event)
 	{
-
 		ModBiome.registerBiomes();
 		GameRegistry.registerWorldGenerator(new WorldGenOres(), 0);
 		ModDimension.registerDimensions();
@@ -75,6 +75,8 @@ public class RegistryHandler
 		MinecraftForge.EVENT_BUS.register(new PositionEvent());
 		
 	}
+
+
 	
 	public static void initRegistries(FMLInitializationEvent event)
 	{

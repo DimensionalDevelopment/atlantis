@@ -14,29 +14,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ClientProxy extends CommonProxy
-{
+public class ClientProxy extends CommonProxy {
 	@Override
-	public void registerModel(Item item, int metadata) 
-	{
+	public void registerModel(Item item, int metadata) {
 		ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(item.getRegistryName(), "inventory"));
-	}
-
-	@Mod.EventHandler
-	public void PreInit(FMLPreInitializationEvent event)
-	{
-		OBJLoader.INSTANCE.addDomain(reference.MODID);
-	}
-
-	@Mod.EventHandler
-	public void init(FMLInitializationEvent event)
-	{
-
-	}
-
-	@Mod.EventHandler
-	public void PostInit(FMLPostInitializationEvent event)
-	{
-
 	}
 }
