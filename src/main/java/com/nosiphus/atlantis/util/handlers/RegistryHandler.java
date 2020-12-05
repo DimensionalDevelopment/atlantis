@@ -12,21 +12,18 @@ import com.nosiphus.atlantis.world.gen.WorldGenOres;
 
 import com.nosiphus.atlantis.world.gen.WorldGenSubmarine;
 import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
-import net.minecraft.world.WorldType;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -66,12 +63,10 @@ public class RegistryHandler
 			}
 		}
 	}
-	
+
 	public static void preInitRegistries(FMLPreInitializationEvent event)
 	{
-		
-		OBJLoader.INSTANCE.addDomain(reference.MODID);
-		
+
 		ModBiome.registerBiomes();
 		GameRegistry.registerWorldGenerator(new WorldGenOres(), 0);
 		ModDimension.registerDimensions();
@@ -90,5 +85,4 @@ public class RegistryHandler
 	{
 
 	}
-	
 }

@@ -2,6 +2,7 @@ package com.nosiphus.atlantis;
 
 import java.util.logging.Logger;
 
+import com.nosiphus.atlantis.proxy.ClientProxy;
 import com.nosiphus.atlantis.proxy.CommonProxy;
 
 import com.nosiphus.atlantis.util.handlers.RegistryHandler;
@@ -34,7 +35,7 @@ public class Main {
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event)
 	{
-		RegistryHandler.preInitRegistries(event);
+		 RegistryHandler.preInitRegistries(event);
 	}
 	
 	@EventHandler

@@ -27,9 +27,11 @@ import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
+import net.minecraftforge.fml.common.Loader;
 
 public class ChunkGeneratorAtlantis implements IChunkGenerator {
     protected static final IBlockState STONE = Blocks.STONE.getDefaultState();
+    protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
     private final Random rand;
     private NoiseGeneratorOctaves minLimitPerlinNoise;
     private NoiseGeneratorOctaves maxLimitPerlinNoise;
@@ -43,13 +45,11 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     private final WorldType terrainType;
     private final double[] heightMap;
     private final float[] biomeWeights;
-    private boolean useRavines = true;
     private boolean useMineShafts = false;
     private boolean useVillages = false;
     private boolean useStrongholds = false;
     private boolean useTemples = false;
     private boolean useMonuments = false;
-    private boolean useCaves = true;
     private boolean useWaterLakes = false;
     private boolean useLavaLakes = false;
     private boolean useDungeons = false;
@@ -71,7 +71,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     private int waterLakeChance = 4;
     private int dungeonChance = 0;
     private int lavaLakeChance = 80;
-    private final int seaLevel = 256;
+    private int seaLevel = 256;
     private IBlockState oceanBlock = Blocks.WATER.getDefaultState();
     private double[] depthBuffer = new double[256];
     private MapGenBase caveGenerator = new MapGenCaves();
@@ -81,7 +81,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     private MapGenScatteredFeature scatteredFeatureGenerator = new MapGenScatteredFeature();
     private MapGenBase ravineGenerator = new MapGenRavine();
     private StructureOceanMonument oceanMonumentGenerator = new StructureOceanMonument();
-
+    public static final boolean CC = Loader.isModLoaded("cubicchunks");
     private Biome[] biomesForGeneration;
     double[] mainNoiseRegion;
     double[] minLimitRegion;
@@ -136,25 +136,21 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
         this.forestNoise = ctx.getForest();
     }
 
-    public void setBlocksInChunk(int x, int z, ChunkPrimer primer)
-    {
+    public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
         this.biomesForGeneration = this.world.getBiomeProvider().getBiomesForGeneration(this.biomesForGeneration, x * 4 - 2, z * 4 - 2, 10, 10);
         this.generateHeightmap(x * 4, 0, z * 4);
 
-        for (int i = 0; i < 4; ++i)
-        {
+        for (int i = 0; i < 4; ++i) {
             int j = i * 5;
             int k = (i + 1) * 5;
 
-            for (int l = 0; l < 4; ++l)
-            {
+            for (int l = 0; l < 4; ++l) {
                 int i1 = (j + l) * 33;
                 int j1 = (j + l + 1) * 33;
                 int k1 = (k + l) * 33;
                 int l1 = (k + l + 1) * 33;
 
-                for (int i2 = 0; i2 < 32; ++i2)
-                {
+                for (int i2 = 0; i2 < 32; ++i2) {
                     double d0 = 0.125D;
                     double d1 = this.heightMap[i1 + i2];
                     double d2 = this.heightMap[j1 + i2];
@@ -165,49 +161,52 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
                     double d7 = (this.heightMap[k1 + i2 + 1] - d3) * 0.125D;
                     double d8 = (this.heightMap[l1 + i2 + 1] - d4) * 0.125D;
 
-                    for (int j2 = 0; j2 < 8; ++j2)
-                    {
+                    for (int j2 = 0; j2 < 8; ++j2) {
                         double d9 = 0.25D;
                         double d10 = d1;
                         double d11 = d2;
                         double d12 = (d3 - d1) * 0.25D;
                         double d13 = (d4 - d2) * 0.25D;
 
-                        for (int k2 = 0; k2 < 4; ++k2)
-                        {
+                        for (int k2 = 0; k2 < 4; ++k2) {
                             double d14 = 0.25D;
                             double d16 = (d11 - d10) * 0.25D;
                             double lvt_45_1_ = d10 - d16;
 
-                            for (int l2 = 0; l2 < 4; ++l2)
-                            {
-                                if ((lvt_45_1_ += d16) > 0.0D)
-                                {
+                            for (int l2 = 0; l2 < 4; ++l2) {
+                                if ((lvt_45_1_ += d16) > 0.0D) {
                                     primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, STONE);
-                                }
-                                else if (i2 * 8 + j2 < this.seaLevel && this.world.getSeaLevel() < 257)
-
-                                {
+                                } else if (i2 * 8 + j2 <= this.seaLevel) {
                                     primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, this.oceanBlock);
+                                } else if (i2 * 8 + j2 > this.seaLevel) {
+                                    primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, AIR);
+                                } else {
+                                    primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, AIR);
                                 }
                             }
-
-                            d10 += d12;
-                            d11 += d13;
+                            /*if (CC) {
+                                for(int a = this.world.getSeaLevel(); a <= this.seaLevel; a++) {
+                                    primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, this.oceanBlock);
+                                }
+                            } else {
+                                primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, this.oceanBlock);
+                            }*/
                         }
 
-                        d1 += d5;
-                        d2 += d6;
-                        d3 += d7;
-                        d4 += d8;
+                        d10 += d12;
+                        d11 += d13;
                     }
+
+                    d1 += d5;
+                    d2 += d6;
+                    d3 += d7;
+                    d4 += d8;
                 }
             }
         }
     }
 
-
-	public void replaceBiomeBlocks(int x, int z, ChunkPrimer primer, Biome[] biomesIn)
+    public void replaceBiomeBlocks(int x, int z, ChunkPrimer primer, Biome[] biomesIn)
     {
         if (!net.minecraftforge.event.ForgeEventFactory.onReplaceBiomeBlocks(this, x, z, primer, this.world)) return;
         double d0 = 0.03125D;
