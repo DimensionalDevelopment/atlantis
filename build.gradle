@@ -10,7 +10,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
-version = "2.3.2-12.5.2020"
+version = "2.3.4-12.6.2020"
 group = "com.mystic.atlantis" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "atlantis"
 

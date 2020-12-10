@@ -7,6 +7,7 @@ import com.mystic.atlantis.armor.ArmorBase;
 import com.mystic.atlantis.items.ItemAquamarineIngot;
 import com.mystic.atlantis.items.ItemAtlanteanCrystal;
 import com.mystic.atlantis.items.ItemBase;
+import com.mystic.atlantis.items.ItemOrbOfAtlantis;
 import com.mystic.atlantis.util.reference;
 import com.mystic.atlantis.tools.ToolAxe;
 import com.mystic.atlantis.tools.ToolHoe;
@@ -35,7 +36,7 @@ public class ModItems
 	public static final Item OCEAN_STONE = new ItemBase("ocean_stone");
 	public static final Item INGOT_AQUAMARINE = new ItemAquamarineIngot("ingot_aquamarine");
 	public static final Item DROP_OF_ATLANTIS = new ItemBase("drop_of_atlantis");
-	public static final Item ORB_OF_ATLANTIS = new ItemBase("orb_of_atlantis");
+	public static final Item ORB_OF_ATLANTIS = new ItemOrbOfAtlantis("orb_of_atlantis");
 	
 	//Tools
 	public static final Item AXE_AQUAMARINE = new ToolAxe("axe_aquamarine", TOOL_AQUAMARINE, 2, 4);
