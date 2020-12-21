@@ -91,14 +91,14 @@ public class WorldGenCustomStructures implements IWorldGenerator
 	
 	private int calculateGenerationHeight(World world, int x, int z)
 	{
-	    for (int y=0; y<256; y++)
+	    for (int y=0; y<300; y++)
 	    {
 	        if (world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.WATER)
 	        {
 	            return y;
 	        }
 	    }
-		return 260;
+		return 3000;
 	}
 
 }

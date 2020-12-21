@@ -1,9 +1,7 @@
 package com.mystic.atlantis.util.handlers;
 
 import com.mystic.atlantis.util.handlers.EventHandler.PositionEvent;
-import com.mystic.atlantis.world.gen.WorldGenCustomStructures;
-import com.mystic.atlantis.world.gen.WorldGenOres;
-import com.mystic.atlantis.world.gen.WorldGenSubmarine;
+import com.mystic.atlantis.world.gen.*;
 import com.mystic.atlantis.init.ModBiome;
 import com.mystic.atlantis.init.ModBlocks;
 import com.mystic.atlantis.init.ModDimension;
@@ -65,6 +63,7 @@ public class RegistryHandler
 		ModDimension.registerDimensions();
 		GameRegistry.registerWorldGenerator(new WorldGenCustomStructures(), 1);
 		GameRegistry.registerWorldGenerator(new WorldGenSubmarine(), 2);
+		GameRegistry.registerWorldGenerator(new WorldGenUnderwaterFlower(), 3);
 		MinecraftForge.EVENT_BUS.register(new PositionEvent());
 		
 	}

@@ -31,8 +31,8 @@ public class AtlantisPortal extends BlockBase
 		setResistance(25.0F);
 		setHarvestLevel("pickaxe", 5);
 	}
-	
-	@Override
+
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos){
             if (worldIn.provider.getDimension() == AtlantisConfig.overworldId){
                 return super.canPlaceBlockAt(worldIn, pos);

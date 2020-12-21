@@ -8,6 +8,7 @@ import com.mystic.atlantis.util.reference;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.util.BlockRenderLayer;
 
 public class ArmorBase extends ItemArmor implements IHasModel
 {
@@ -21,7 +22,7 @@ public class ArmorBase extends ItemArmor implements IHasModel
 		
 		ModItems.ITEMS.add(this);
 	}
-	
+
 	@Override
 	public void registerModels() 
 	{

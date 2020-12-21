@@ -17,7 +17,7 @@ public class OceanLantern extends BlockBase
 		setLightLevel(5.0F);
 	}
 
-	 protected boolean canSilkHarvest()
+	protected boolean canSilkHarvest()
 	    {
 	        return true;
 	    }

@@ -4,28 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mystic.atlantis.blocks.BlockBase;
-import com.mystic.atlantis.blocks.base.AquamarineOre;
-import com.mystic.atlantis.blocks.base.AtlanteanCore;
-import com.mystic.atlantis.blocks.base.AtlantisPortal;
-import com.mystic.atlantis.blocks.base.BlockAquamarine;
-import com.mystic.atlantis.blocks.base.ColoredShellBlock;
-import com.mystic.atlantis.blocks.base.OceanLantern;
-import com.mystic.atlantis.blocks.base.OysterShellBlock;
-import com.mystic.atlantis.blocks.base.PearlBlock;
+import com.mystic.atlantis.blocks.base.*;
 
+import com.mystic.atlantis.blocks.base.plants.UnderwaterFlower;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 
 public class ModBlocks 
 {
 	public static final List<Block> BLOCKS = new ArrayList<Block>();
 	
-	public static final Block ANCIENT_SPRUCE_WOOD_MOSS = new BlockBase("ancient_spruce_wood_moss", Material.WOOD);
-	public static final Block ANCIENT_ACACIA_WOOD_MOSS = new BlockBase("ancient_acacia_wood_moss", Material.WOOD);
-	public static final Block ANCIENT_BIRCH_WOOD_MOSS = new BlockBase("ancient_birch_wood_moss", Material.WOOD);
-	public static final Block ANCIENT_DARK_OAK_WOOD_MOSS = new BlockBase("ancient_dark_oak_wood_moss", Material.WOOD);
-	public static final Block ANCIENT_JUNGLE_WOOD_MOSS = new BlockBase("ancient_jungle_wood_moss", Material.WOOD);
-	public static final Block ANCIENT_OAK_WOOD_MOSS = new BlockBase("ancient_oak_wood_moss", Material.WOOD);
+	public static final Block ANCIENT_SPRUCE_WOOD_MOSS = new AncientWood("ancient_spruce_wood_moss", Material.WOOD);
+	public static final Block ANCIENT_ACACIA_WOOD_MOSS = new AncientWood("ancient_acacia_wood_moss", Material.WOOD);
+	public static final Block ANCIENT_BIRCH_WOOD_MOSS = new AncientWood("ancient_birch_wood_moss", Material.WOOD);
+	public static final Block ANCIENT_DARK_OAK_WOOD_MOSS = new AncientWood("ancient_dark_oak_wood_moss", Material.WOOD);
+	public static final Block ANCIENT_JUNGLE_WOOD_MOSS = new AncientWood("ancient_jungle_wood_moss", Material.WOOD);
+	public static final Block ANCIENT_OAK_WOOD_MOSS = new AncientWood("ancient_oak_wood_moss", Material.WOOD);
 	public static final Block AQUAMARINE_ORE = new AquamarineOre("aquamarine_ore", Material.ROCK);
 	public static final Block ATLANTEAN_CORE = new AtlanteanCore("atlantean_core", Material.GLASS);
 	public static final Block OCEAN_LANTERN = new OceanLantern("ocean_lantern", Material.IRON);
@@ -66,4 +61,5 @@ public class ModBlocks
 	public static final Block PURPLE_PEARL_BLOCK = new PearlBlock("purple_pearl_block", Material.ROCK);
 	public static final Block RED_PEARL_BLOCK = new PearlBlock("red_pearl_block", Material.ROCK);
 	public static final Block YELLOW_PEARL_BLOCK = new PearlBlock("yellow_pearl_block", Material.ROCK);
+	public static final Block UNDERWATER_FLOWER = new UnderwaterFlower("underwater_flower", Material.WATER);
 }

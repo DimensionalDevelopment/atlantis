@@ -17,7 +17,7 @@ public class PearlBlock extends BlockBase{
 		setResistance(5.0F);
 		setLightLevel(7.0F);
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube(IBlockState state) 
 	{
