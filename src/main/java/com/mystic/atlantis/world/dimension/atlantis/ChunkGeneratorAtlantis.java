@@ -1,9 +1,7 @@
 package com.mystic.atlantis.world.dimension.atlantis;
 
-import java.util.List;
-import java.util.Random;
-import javax.annotation.Nullable;
-
+import com.mystic.atlantis.world.biomes.BiomeProviderAtlantis;
+import com.sun.istack.internal.NotNull;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
@@ -18,16 +16,15 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
-import net.minecraft.world.gen.structure.MapGenMineshaft;
-import net.minecraft.world.gen.structure.MapGenScatteredFeature;
-import net.minecraft.world.gen.structure.MapGenStronghold;
-import net.minecraft.world.gen.structure.MapGenVillage;
-import net.minecraft.world.gen.structure.StructureOceanMonument;
+import net.minecraft.world.gen.structure.*;
 import net.minecraftforge.fml.common.Loader;
+
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Random;
 
 public class ChunkGeneratorAtlantis implements IChunkGenerator {
     protected static final IBlockState STONE = Blocks.STONE.getDefaultState();
@@ -82,7 +79,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     private MapGenBase ravineGenerator = new MapGenRavine();
     private StructureOceanMonument oceanMonumentGenerator = new StructureOceanMonument();
     public static final boolean CC = Loader.isModLoaded("cubicchunks");
-    private Biome[] biomesForGeneration;
+    public Biome[] biomesForGeneration;
     double[] mainNoiseRegion;
     double[] minLimitRegion;
     double[] maxLimitRegion;
@@ -135,6 +132,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
         this.depthNoise = ctx.getDepth();
         this.forestNoise = ctx.getForest();
     }
+
 
     public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
         this.biomesForGeneration = this.world.getBiomeProvider().getBiomesForGeneration(this.biomesForGeneration, x * 4 - 2, z * 4 - 2, 10, 10);
@@ -225,6 +223,8 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     /**
      * Generates the chunk at the specified position, from scratch
      */
+    @NotNull
+    @Override
     public Chunk generateChunk(int x, int z)
     {
         this.rand.setSeed((long)x * 341873128712L + (long)z * 132897987541L);
@@ -365,6 +365,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     /**
      * Generate initial structures in this chunk, e.g. mineshafts, temples, lakes, and dungeons
      */
+    @Override
     public void populate(int x, int z)
     {
         BlockFalling.fallInstantly = true;
@@ -410,62 +411,62 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
         }
 
         if (biome != Biomes.DESERT && biome != Biomes.DESERT_HILLS && this.useWaterLakes && !flag && this.rand.nextInt(this.waterLakeChance) == 0)
-        if (net.minecraftforge.event.terraingen.TerrainGen.populate(this, this.world, this.rand, x, z, flag, net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAKE))
-        {
-            int i1 = this.rand.nextInt(16) + 8;
-            int j1 = this.rand.nextInt(256);
-            int k1 = this.rand.nextInt(16) + 8;
-            (new WorldGenLakes(Blocks.WATER)).generate(this.world, this.rand, blockpos.add(i1, j1, k1));
-        }
+            if (net.minecraftforge.event.terraingen.TerrainGen.populate(this, this.world, this.rand, x, z, flag, net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAKE))
+            {
+                int i1 = this.rand.nextInt(16) + 8;
+                int j1 = this.rand.nextInt(256);
+                int k1 = this.rand.nextInt(16) + 8;
+                (new WorldGenLakes(Blocks.WATER)).generate(this.world, this.rand, blockpos.add(i1, j1, k1));
+            }
 
         if (!flag && this.rand.nextInt(this.lavaLakeChance / 10) == 0 && this.useLavaLakes)
-        if (net.minecraftforge.event.terraingen.TerrainGen.populate(this, this.world, this.rand, x, z, flag, net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAVA))
-        {
-            int i2 = this.rand.nextInt(16) + 8;
-            int l2 = this.rand.nextInt(this.rand.nextInt(248) + 8);
-            int k3 = this.rand.nextInt(16) + 8;
-
-            if (l2 < this.world.getSeaLevel() || this.rand.nextInt(this.lavaLakeChance / 8) == 0)
+            if (net.minecraftforge.event.terraingen.TerrainGen.populate(this, this.world, this.rand, x, z, flag, net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAVA))
             {
-                (new WorldGenLakes(Blocks.LAVA)).generate(this.world, this.rand, blockpos.add(i2, l2, k3));
-            }        }
+                int i2 = this.rand.nextInt(16) + 8;
+                int l2 = this.rand.nextInt(this.rand.nextInt(248) + 8);
+                int k3 = this.rand.nextInt(16) + 8;
+
+                if (l2 < this.world.getSeaLevel() || this.rand.nextInt(this.lavaLakeChance / 8) == 0)
+                {
+                    (new WorldGenLakes(Blocks.LAVA)).generate(this.world, this.rand, blockpos.add(i2, l2, k3));
+                }        }
 
         if (this.useDungeons)
-        if (net.minecraftforge.event.terraingen.TerrainGen.populate(this, this.world, this.rand, x, z, flag, net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.DUNGEON))
-        {
-            for (int j2 = 0; j2 < this.dungeonChance; ++j2)
+            if (net.minecraftforge.event.terraingen.TerrainGen.populate(this, this.world, this.rand, x, z, flag, net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.DUNGEON))
             {
-                int i3 = this.rand.nextInt(16) + 8;
-                int l3 = this.rand.nextInt(256);
-                int l1 = this.rand.nextInt(16) + 8;
-                (new WorldGenDungeons()).generate(this.world, this.rand, blockpos.add(i3, l3, l1));
+                for (int j2 = 0; j2 < this.dungeonChance; ++j2)
+                {
+                    int i3 = this.rand.nextInt(16) + 8;
+                    int l3 = this.rand.nextInt(256);
+                    int l1 = this.rand.nextInt(16) + 8;
+                    (new WorldGenDungeons()).generate(this.world, this.rand, blockpos.add(i3, l3, l1));
+                }
             }
-        }
 
         if (net.minecraftforge.event.terraingen.TerrainGen.populate(this, this.world, this.rand, x, z, flag, net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ANIMALS))
-        WorldEntitySpawner.performWorldGenSpawning(this.world, biome, i + 8, j + 8, 16, 16, this.rand);
+            WorldEntitySpawner.performWorldGenSpawning(this.world, biome, i + 8, j + 8, 16, 16, this.rand);
         blockpos = blockpos.add(8, 0, 8);
 
         if (net.minecraftforge.event.terraingen.TerrainGen.populate(this, this.world, this.rand, x, z, flag, net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ICE))
         {
-        for (int k2 = 0; k2 < 16; ++k2)
-        {
-            for (int j3 = 0; j3 < 16; ++j3)
+            for (int k2 = 0; k2 < 16; ++k2)
             {
-                BlockPos blockpos1 = this.world.getPrecipitationHeight(blockpos.add(k2, 0, j3));
-                BlockPos blockpos2 = blockpos1.down();
-
-                if (this.world.canBlockFreezeWater(blockpos2))
+                for (int j3 = 0; j3 < 16; ++j3)
                 {
-                    this.world.setBlockState(blockpos2, Blocks.ICE.getDefaultState(), 2);
-                }
+                    BlockPos blockpos1 = this.world.getPrecipitationHeight(blockpos.add(k2, 0, j3));
+                    BlockPos blockpos2 = blockpos1.down();
 
-                if (this.world.canSnowAt(blockpos1, true))
-                {
-                    this.world.setBlockState(blockpos1, Blocks.SNOW_LAYER.getDefaultState(), 2);
+                    if (this.world.canBlockFreezeWater(blockpos2))
+                    {
+                        this.world.setBlockState(blockpos2, Blocks.ICE.getDefaultState(), 2);
+                    }
+
+                    if (this.world.canSnowAt(blockpos1, true))
+                    {
+                        this.world.setBlockState(blockpos1, Blocks.SNOW_LAYER.getDefaultState(), 2);
+                    }
                 }
             }
-        }
         }//Forge: End ICE
 
         net.minecraftforge.event.ForgeEventFactory.onChunkPopulate(false, this, this.world, this.rand, x, z, flag);
@@ -476,6 +477,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     /**
      * Called to generate additional structures after initial worldgen, used by ocean monuments
      */
+    @Override
     public boolean generateStructures(Chunk chunkIn, int x, int z)
     {
         boolean flag = false;
@@ -488,6 +490,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
         return flag;
     }
 
+    @Override
     public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
     {
         Biome biome = this.world.getBiome(pos);
@@ -508,6 +511,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
         return biome.getSpawnableList(creatureType);
     }
 
+    @Override
     public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos)
     {
         if (!this.mapFeaturesEnabled)
@@ -537,6 +541,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     }
 
     @Nullable
+    @Override
     public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored)
     {
         if (!this.mapFeaturesEnabled)
@@ -570,6 +575,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
      * placing any blocks. When called for the first time before any chunk is generated - also initializes the internal
      * state needed by getPossibleCreatures.
      */
+    @Override
     public void recreateStructures(Chunk chunkIn, int x, int z)
     {
         if (this.mapFeaturesEnabled)

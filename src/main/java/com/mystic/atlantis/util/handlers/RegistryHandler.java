@@ -1,16 +1,22 @@
 package com.mystic.atlantis.util.handlers;
 
-import com.mystic.atlantis.util.handlers.EventHandler.PositionEvent;
-import com.mystic.atlantis.world.gen.*;
-import com.mystic.atlantis.init.ModBiome;
+import com.mystic.atlantis.init.ModBiomes;
 import com.mystic.atlantis.init.ModBlocks;
-import com.mystic.atlantis.init.ModDimension;
 import com.mystic.atlantis.init.ModItems;
 import com.mystic.atlantis.util.IHasModel;
-
+import com.mystic.atlantis.util.handlers.EventHandler.PositionEvent;
+import com.mystic.atlantis.world.biomes.WorldTypeAtlantis;
+import com.mystic.atlantis.world.dimension.atlantis.Dimension;
+import com.mystic.atlantis.world.gen.WorldGenCustomStructures;
+import com.mystic.atlantis.world.gen.WorldGenOres;
+import com.mystic.atlantis.world.gen.WorldGenSubmarine;
+import com.mystic.atlantis.world.gen.WorldGenUnderwaterFlower;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.world.WorldType;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -23,6 +29,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @EventBusSubscriber
 public class RegistryHandler 
 {
+	public static final WorldType WORLD_TYPE_ATLANTIS = new WorldTypeAtlantis();
+
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event)
 	{
@@ -34,7 +42,12 @@ public class RegistryHandler
 	{
 		event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
 	}
-	
+
+	@SubscribeEvent
+	public static void registerBiomes(RegistryEvent.Register<Biome> event) {
+		ModBiomes.registerBiomes(event);
+	}
+
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent event)
 	{		
@@ -58,21 +71,24 @@ public class RegistryHandler
 
 	public static void preInitRegistries(FMLPreInitializationEvent event)
 	{
-		ModBiome.registerBiomes();
 		GameRegistry.registerWorldGenerator(new WorldGenOres(), 0);
-		ModDimension.registerDimensions();
+		Dimension.registerDimensions();
 		GameRegistry.registerWorldGenerator(new WorldGenCustomStructures(), 1);
 		GameRegistry.registerWorldGenerator(new WorldGenSubmarine(), 2);
 		GameRegistry.registerWorldGenerator(new WorldGenUnderwaterFlower(), 3);
 		MinecraftForge.EVENT_BUS.register(new PositionEvent());
-		
 	}
 
 
 	
 	public static void initRegistries(FMLInitializationEvent event)
 	{
-	
+		for (ModBiomes.ModBiomeEntry biomeEntry : ModBiomes.biomeEntryList) {
+			if (biomeEntry.getWeight() > 0) {
+				BiomeManager.addBiome(biomeEntry.getType(), biomeEntry.getEntry());
+				BiomeManager.addStrongholdBiome(biomeEntry.getBiome());
+			}
+		}
 	}
 	
 	public static void postInitRegistries(FMLPostInitializationEvent event)

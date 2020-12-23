@@ -1,6 +1,7 @@
 package com.mystic.atlantis.world.gen;
 
-import com.mystic.atlantis.init.ModDimension;
+import com.mystic.atlantis.blocks.base.AtlanteanCore;
+import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.world.biomes.BiomeATLANTIS;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +22,7 @@ public class WorldGenUnderwaterFlower implements IWorldGenerator
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
     {
-        if(world.provider.getDimension() == ModDimension.ATLANTIS.getId())
+        if(world.provider.getDimension() == AtlantisConfig.dimensionId)
         {
             generateFlower(UNDERWATER_FLOWER, world, random, chunkX, chunkZ, 10);
         }

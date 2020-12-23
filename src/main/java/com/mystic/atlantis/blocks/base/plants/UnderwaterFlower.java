@@ -119,7 +119,7 @@ public class UnderwaterFlower extends Block implements IPlantable, IHasModel {
             return true;
         } else {
             this.dropBlockAsItem(worldIn, pos, state, 0);
-            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+            worldIn.setBlockState(pos, Blocks.WATER.getDefaultState());
             return false;
         }
     }

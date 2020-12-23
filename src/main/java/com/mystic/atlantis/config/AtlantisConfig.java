@@ -1,8 +1,8 @@
 package com.mystic.atlantis.config;
 
-import com.mystic.atlantis.init.ModDimension;
 import com.mystic.atlantis.util.reference;
 
+import com.mystic.atlantis.world.dimension.atlantis.Dimension;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -15,7 +15,7 @@ public class AtlantisConfig {
 	
     @Config.Name("Atlantis ID")
     @Config.Comment("Atlantis ID")
-    public static int dimensionId = ModDimension.ATLANTIS.getId();
+    public static int dimensionId = Dimension.ATLANTIS.getId();
     @Config.Name("Overworld dim ID")
     @Config.Comment("Overworld dim ID")
     public static int overworldId = 0;

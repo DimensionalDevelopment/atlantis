@@ -1,26 +1,25 @@
 package com.mystic.atlantis.world.dimension.atlantis;
 
-import com.mystic.atlantis.init.ModDimension;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 
-public class DimensionAtlantis extends WorldProvider
+public class WorldProviderDimensionAtlantis extends WorldProvider
 {
-	public DimensionAtlantis()
+	public WorldProviderDimensionAtlantis()
 	{}
 
 	@Override
 	public DimensionType getDimensionType()
 	{
 
-		return ModDimension.ATLANTIS;
+		return DimensionType.byName("Atlantis");
 	}
 
 	@Override
 	public IChunkGenerator createChunkGenerator() {
 
-		return new ChunkGeneratorAtlantis(world, true, world.getSeed());
+		return new ChunkGeneratorAtlantis(world, false, world.getSeed());
 
 	}
 

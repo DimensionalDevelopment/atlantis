@@ -6,6 +6,7 @@ import java.util.List;
 import com.mystic.atlantis.blocks.BlockBase;
 import com.mystic.atlantis.blocks.base.*;
 
+import com.mystic.atlantis.blocks.base.plants.Algae;
 import com.mystic.atlantis.blocks.base.plants.UnderwaterFlower;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
@@ -62,4 +63,5 @@ public class ModBlocks
 	public static final Block RED_PEARL_BLOCK = new PearlBlock("red_pearl_block", Material.ROCK);
 	public static final Block YELLOW_PEARL_BLOCK = new PearlBlock("yellow_pearl_block", Material.ROCK);
 	public static final Block UNDERWATER_FLOWER = new UnderwaterFlower("underwater_flower", Material.WATER);
+	public static final Block ALGAE = new Algae("algae", Material.WATER);
 }
