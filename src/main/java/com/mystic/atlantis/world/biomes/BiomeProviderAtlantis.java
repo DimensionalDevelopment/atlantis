@@ -1,6 +1,7 @@
 package com.mystic.atlantis.world.biomes;
 
 import com.mystic.atlantis.init.ModBiomes;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.storage.WorldInfo;
 

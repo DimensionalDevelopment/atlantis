@@ -67,7 +67,7 @@ public class Algae extends Block implements IShearable, IHasModel
         setCreativeTab(AtlantisTab.ATLANTIS_TAB);
         setHardness(0.0F);
         setSoundType(SoundType.PLANT);
-        setDefaultState(getDefaultState().withProperty(BlockLiquid.LEVEL, 15).withProperty(UP, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
+        setDefaultState(getBlockState().getBaseState().withProperty(BlockLiquid.LEVEL, 15).withProperty(UP, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
     }
 
     @Nullable
@@ -148,21 +148,21 @@ public class Algae extends Block implements IShearable, IHasModel
         return side != EnumFacing.DOWN && side != EnumFacing.UP && this.canAttachTo(worldIn, pos, side);
     }
 
-    public boolean canAttachTo(World p_193395_1_, BlockPos p_193395_2_, EnumFacing p_193395_3_)
+    public boolean canAttachTo(World world, BlockPos blockPos, EnumFacing enumFacing)
     {
-        Block block = p_193395_1_.getBlockState(p_193395_2_.up()).getBlock();
-        return this.isAcceptableNeighbor(p_193395_1_, p_193395_2_.offset(p_193395_3_.getOpposite()), p_193395_3_) && (block == Blocks.WATER || block == ModBlocks.ALGAE || this.isAcceptableNeighbor(p_193395_1_, p_193395_2_.up(), EnumFacing.UP));
+        Block block = world.getBlockState(blockPos.up()).getBlock();
+        return this.isAcceptableNeighbor(world, blockPos.offset(enumFacing.getOpposite()), enumFacing) && (block == Blocks.WATER || block == ModBlocks.ALGAE || this.isAcceptableNeighbor(world, blockPos.up(), EnumFacing.UP));
     }
 
-    private boolean isAcceptableNeighbor(World p_193396_1_, BlockPos p_193396_2_, EnumFacing p_193396_3_)
+    private boolean isAcceptableNeighbor(World world, BlockPos blockPos, EnumFacing enumFacing)
     {
-        IBlockState iblockstate = p_193396_1_.getBlockState(p_193396_2_);
-        return iblockstate.getBlockFaceShape(p_193396_1_, p_193396_2_, p_193396_3_) == BlockFaceShape.SOLID && !isExceptBlockForAttaching(iblockstate.getBlock());
+        IBlockState iblockstate = world.getBlockState(blockPos);
+        return iblockstate.getBlockFaceShape(world, blockPos, enumFacing) == BlockFaceShape.SOLID && !isExceptBlockForAttaching(iblockstate.getBlock());
     }
 
-    protected static boolean isExceptBlockForAttaching(Block p_193397_0_)
+    protected static boolean isExceptBlockForAttaching(Block block)
     {
-        return p_193397_0_ instanceof BlockShulkerBox || p_193397_0_ == Blocks.BEACON || p_193397_0_ == Blocks.CAULDRON || p_193397_0_ == Blocks.GLASS || p_193397_0_ == Blocks.STAINED_GLASS || p_193397_0_ == Blocks.PISTON || p_193397_0_ == Blocks.STICKY_PISTON || p_193397_0_ == Blocks.PISTON_HEAD || p_193397_0_ == Blocks.TRAPDOOR;
+        return block instanceof BlockShulkerBox || block == Blocks.BEACON || block == Blocks.CAULDRON || block == Blocks.GLASS || block == Blocks.STAINED_GLASS || block == Blocks.PISTON || block == Blocks.STICKY_PISTON || block == Blocks.PISTON_HEAD || block == Blocks.TRAPDOOR;
     }
 
     private boolean recheckGrownSides(World worldIn, BlockPos pos, IBlockState state)

@@ -32,6 +32,11 @@ public class WorldTypeAtlantis extends WorldType
         return new ChunkGeneratorAtlantis(world, false, world.getSeed());
     }
 
+    public java.util.List<net.minecraft.world.biome.Biome> getAllowedBiomes()
+    {
+        return BiomeProviderAtlantis.allowedBiomes;
+    }
+
     @Override
     public int getMinimumSpawnHeight(World world)
     {

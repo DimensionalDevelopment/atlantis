@@ -1,6 +1,6 @@
 package com.mystic.atlantis.world.dimension.atlantis;
 
-import com.mystic.atlantis.world.biomes.BiomeProviderAtlantis;
+import com.mystic.atlantis.world.biomes.WorldTypeAtlantis;
 import com.sun.istack.internal.NotNull;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
@@ -79,7 +79,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     private MapGenBase ravineGenerator = new MapGenRavine();
     private StructureOceanMonument oceanMonumentGenerator = new StructureOceanMonument();
     public static final boolean CC = Loader.isModLoaded("cubicchunks");
-    public Biome[] biomesForGeneration;
+    public Biome[] biomesForGeneration = new WorldTypeAtlantis().getAllowedBiomes().toArray(new Biome[0]);
     double[] mainNoiseRegion;
     double[] minLimitRegion;
     double[] maxLimitRegion;

@@ -48,7 +48,7 @@ public abstract class ModBiomeAtlantis extends Biome {
         int l = x & 15;
         int i1 = z & 15;
 
-        for (int j1 = CubicChunks.MAX_SUPPORTED_BLOCK_Y; j1 >= 0; --j1) {
+        for (int j1 = 256; j1 >= 0; --j1) {
             if (j1 <= rand.nextInt(5)) {
                 chunkPrimerIn.setBlockState(i1, j1, l, BEDROCK);
             } else {

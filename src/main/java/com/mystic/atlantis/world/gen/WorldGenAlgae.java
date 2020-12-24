@@ -23,7 +23,7 @@ public class WorldGenAlgae implements IWorldGenerator
     {
         if(world.provider.getDimension() == AtlantisConfig.dimensionId)
         {
-            generatePlant(ALGAE, world, random, chunkX, chunkZ, 10);
+            generatePlant(ALGAE, world, random, chunkX, chunkZ, 2);
         }
     }
 
@@ -50,14 +50,11 @@ public class WorldGenAlgae implements IWorldGenerator
         }
     }
 
-    private int calculateGenerationHeight(World world, int x, int z)
-    {
-        for (int y=0; y<300; y++)
-        {
-            if (world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.WATER)
-            {
-                return y;
-            }
+    private int calculateGenerationHeight(World world, int x, int z) {
+        Random random = world.rand;
+        int y = random.nextInt(250);
+        if (world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.WATER) {
+            return y;
         }
         return 3000;
     }

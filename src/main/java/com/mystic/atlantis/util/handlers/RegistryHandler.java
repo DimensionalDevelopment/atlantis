@@ -7,10 +7,7 @@ import com.mystic.atlantis.util.IHasModel;
 import com.mystic.atlantis.util.handlers.EventHandler.PositionEvent;
 import com.mystic.atlantis.world.biomes.WorldTypeAtlantis;
 import com.mystic.atlantis.world.dimension.atlantis.Dimension;
-import com.mystic.atlantis.world.gen.WorldGenCustomStructures;
-import com.mystic.atlantis.world.gen.WorldGenOres;
-import com.mystic.atlantis.world.gen.WorldGenSubmarine;
-import com.mystic.atlantis.world.gen.WorldGenUnderwaterFlower;
+import com.mystic.atlantis.world.gen.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.world.WorldType;
@@ -73,9 +70,11 @@ public class RegistryHandler
 	{
 		GameRegistry.registerWorldGenerator(new WorldGenOres(), 0);
 		Dimension.registerDimensions();
+		MinecraftForge.TERRAIN_GEN_BUS.register(WorldTypeAtlantis.WORLD_TYPES);
 		GameRegistry.registerWorldGenerator(new WorldGenCustomStructures(), 1);
 		GameRegistry.registerWorldGenerator(new WorldGenSubmarine(), 2);
 		GameRegistry.registerWorldGenerator(new WorldGenUnderwaterFlower(), 3);
+		GameRegistry.registerWorldGenerator(new WorldGenAlgae(), 4);
 		MinecraftForge.EVENT_BUS.register(new PositionEvent());
 	}
 
