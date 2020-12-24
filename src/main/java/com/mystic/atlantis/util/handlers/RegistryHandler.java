@@ -74,7 +74,6 @@ public class RegistryHandler
 		GameRegistry.registerWorldGenerator(new WorldGenCustomStructures(), 1);
 		GameRegistry.registerWorldGenerator(new WorldGenSubmarine(), 2);
 		GameRegistry.registerWorldGenerator(new WorldGenUnderwaterFlower(), 3);
-		GameRegistry.registerWorldGenerator(new WorldGenAlgae(), 4);
 		MinecraftForge.EVENT_BUS.register(new PositionEvent());
 	}
 

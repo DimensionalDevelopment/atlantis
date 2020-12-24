@@ -5,6 +5,10 @@ item.atlantis.ingot_aquamarine.name=Aquamarine Ingot
 item.atlantis.drop_of_atlantis.name=Drop of Atlantis
 item.atlantis.orb_of_atlantis.name=Orb of Atlantis
 
+//Plants
+tile.atlantis.algae.name=Algae
+tile.atlantis.underwater_flower.name=Atlantean Flower
+
 //Blocks
 tile.atlantis.ancient_spruce_wood_moss.name=Ancient Mossy Spruce Wood
 tile.atlantis.ancient_acacia_wood_moss.name=Ancient Mossy Acacia Wood
