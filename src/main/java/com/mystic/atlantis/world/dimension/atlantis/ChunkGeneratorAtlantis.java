@@ -1,7 +1,6 @@
 package com.mystic.atlantis.world.dimension.atlantis;
 
 import com.mystic.atlantis.world.biomes.WorldTypeAtlantis;
-import com.sun.istack.internal.NotNull;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
@@ -223,7 +222,6 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     /**
      * Generates the chunk at the specified position, from scratch
      */
-    @NotNull
     @Override
     public Chunk generateChunk(int x, int z)
     {
