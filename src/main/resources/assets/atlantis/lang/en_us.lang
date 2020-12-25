@@ -73,6 +73,9 @@ item.atlantis.helmet_aquamarine.name=Aquamarine Helmet
 item.atlantis.leggings_aquamarine.name=Aquamarine Leggings
 item.atlantis.boots_aquamarine.name=Aquamarine Boots
 item.atlantis.chestplate_aquamarine.name=Aquamarine Chestplate
-
+item.atlantis.helmet_wrought.name=Wrought Helmet
+item.atlantis.leggings_wrought.name=Wrought Leggings
+item.atlantis.boots_wrought.name=Wrought Boots
+item.atlantis.chestplate_wrought.name=Wrought Chestplate
 //Tabs
 itemGroup.Atlantis=§3Atlantis
