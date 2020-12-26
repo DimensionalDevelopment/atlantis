@@ -26,16 +26,15 @@ import java.util.List;
 import java.util.Random;
 
 public class ChunkGeneratorAtlantis implements IChunkGenerator {
-    protected static final IBlockState STONE = Blocks.STONE.getDefaultState();
+    protected static final IBlockState SAND = Blocks.SAND.getDefaultState();
+    protected static final IBlockState SANDSTONE = Blocks.SANDSTONE.getDefaultState();
     protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
     private final Random rand;
     private NoiseGeneratorOctaves minLimitPerlinNoise;
     private NoiseGeneratorOctaves maxLimitPerlinNoise;
     private NoiseGeneratorOctaves mainPerlinNoise;
-    private NoiseGeneratorPerlin surfaceNoise;
     public NoiseGeneratorOctaves scaleNoise;
     public NoiseGeneratorOctaves depthNoise;
-    public NoiseGeneratorOctaves forestNoise;
     private final World world;
     private final boolean mapFeaturesEnabled;
     private final WorldType terrainType;
@@ -102,10 +101,8 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
         this.minLimitPerlinNoise = new NoiseGeneratorOctaves(this.rand, 16);
         this.maxLimitPerlinNoise = new NoiseGeneratorOctaves(this.rand, 16);
         this.mainPerlinNoise = new NoiseGeneratorOctaves(this.rand, 8);
-        this.surfaceNoise = new NoiseGeneratorPerlin(this.rand, 4);
         this.scaleNoise = new NoiseGeneratorOctaves(this.rand, 10);
         this.depthNoise = new NoiseGeneratorOctaves(this.rand, 16);
-        this.forestNoise = new NoiseGeneratorOctaves(this.rand, 8);
         this.heightMap = new double[825];
         this.biomeWeights = new float[25];
 
@@ -120,16 +117,14 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
 
 
 
-        net.minecraftforge.event.terraingen.InitNoiseGensEvent.ContextOverworld ctx =
-                new net.minecraftforge.event.terraingen.InitNoiseGensEvent.ContextOverworld(minLimitPerlinNoise, maxLimitPerlinNoise, mainPerlinNoise, surfaceNoise, scaleNoise, depthNoise, forestNoise);
+        NoiseGenEventAtlantis.ContextAtlantis ctx =
+                new NoiseGenEventAtlantis.ContextAtlantis(minLimitPerlinNoise, maxLimitPerlinNoise, mainPerlinNoise, scaleNoise, depthNoise);
         ctx = net.minecraftforge.event.terraingen.TerrainGen.getModdedNoiseGenerators(worldIn, this.rand, ctx);
         this.minLimitPerlinNoise = ctx.getLPerlin1();
         this.maxLimitPerlinNoise = ctx.getLPerlin2();
         this.mainPerlinNoise = ctx.getPerlin();
-        this.surfaceNoise = ctx.getHeight();
         this.scaleNoise = ctx.getScale();
         this.depthNoise = ctx.getDepth();
-        this.forestNoise = ctx.getForest();
     }
 
 
@@ -172,7 +167,9 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
 
                             for (int l2 = 0; l2 < 4; ++l2) {
                                 if ((lvt_45_1_ += d16) > 0.0D) {
-                                    primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, STONE);
+                                    primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, SAND);
+                                }else if((i2 * 8 + j2) <= 50){
+                                    primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, SANDSTONE);
                                 } else if (i2 * 8 + j2 <= this.seaLevel) {
                                     primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, this.oceanBlock);
                                 } else if (i2 * 8 + j2 > this.seaLevel) {
@@ -203,17 +200,16 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
         }
     }
 
-    public void replaceBiomeBlocks(int x, int z, ChunkPrimer primer, Biome[] biomesIn)
+    public void replaceBiomeBlocks(int x, int z, ChunkPrimer primer, Biome[] biomesForGeneration)
     {
         if (!net.minecraftforge.event.ForgeEventFactory.onReplaceBiomeBlocks(this, x, z, primer, this.world)) return;
         double d0 = 0.03125D;
-        this.depthBuffer = this.surfaceNoise.getRegion(this.depthBuffer, (double)(x * 16), (double)(z * 16), 16, 16, 0.0625D, 0.0625D, 1.0D);
 
         for (int i = 0; i < 16; ++i)
         {
             for (int j = 0; j < 16; ++j)
             {
-                Biome biome = biomesIn[j + i * 16];
+                Biome biome = biomesForGeneration[j + i * 16];
                 biome.genTerrainBlocks(this.world, this.rand, primer, x * 16 + i, z * 16 + j, this.depthBuffer[j + i * 16]);
             }
         }
