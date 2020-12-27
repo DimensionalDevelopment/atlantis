@@ -2,7 +2,7 @@ package com.mystic.atlantis.world.gen;
 
 import java.util.Random;
 
-import com.mystic.atlantis.util.reference;
+import com.mystic.atlantis.util.Reference;
 import com.mystic.atlantis.util.interfaces.IStructure;
 
 import net.minecraft.block.state.IBlockState;
@@ -36,7 +36,7 @@ public class WorldGenStructure extends WorldGenerator implements IStructure
 	{
 		MinecraftServer mcServer = world.getMinecraftServer();
 		TemplateManager manager = worldServer.getStructureTemplateManager();
-		ResourceLocation location = new ResourceLocation(reference.MODID, structureName);
+		ResourceLocation location = new ResourceLocation(Reference.MODID, structureName);
 		Template template = manager.get(mcServer, location);
 		
 		if(template != null)

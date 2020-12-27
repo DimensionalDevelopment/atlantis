@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Random;
 
 public class ChunkGeneratorAtlantis implements IChunkGenerator {
+
     protected static final IBlockState SAND = Blocks.SAND.getDefaultState();
     protected static final IBlockState SANDSTONE = Blocks.SANDSTONE.getDefaultState();
     protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
@@ -116,9 +117,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
         }
 
 
-
-        NoiseGenEventAtlantis.ContextAtlantis ctx =
-                new NoiseGenEventAtlantis.ContextAtlantis(minLimitPerlinNoise, maxLimitPerlinNoise, mainPerlinNoise, scaleNoise, depthNoise);
+        NoiseGenEventAtlantis.ContextAtlantis ctx = new NoiseGenEventAtlantis.ContextAtlantis(minLimitPerlinNoise, maxLimitPerlinNoise, mainPerlinNoise, scaleNoise, depthNoise);
         ctx = net.minecraftforge.event.terraingen.TerrainGen.getModdedNoiseGenerators(worldIn, this.rand, ctx);
         this.minLimitPerlinNoise = ctx.getLPerlin1();
         this.maxLimitPerlinNoise = ctx.getLPerlin2();

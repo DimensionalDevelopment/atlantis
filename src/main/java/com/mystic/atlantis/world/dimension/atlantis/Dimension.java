@@ -9,7 +9,6 @@ public final class Dimension {
 
     public static final DimensionType ATLANTIS = DimensionType.register("Atlantis", "_atlantis", 324987, WorldProviderDimensionAtlantis.class, false);
 
-
     public static void registerDimensions()
     {
         DimensionManager.registerDimension(324987, ATLANTIS);

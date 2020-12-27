@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 import com.mystic.atlantis.proxy.CommonProxy;
 import com.mystic.atlantis.util.handlers.RegistryHandler;
-import com.mystic.atlantis.util.reference;
+import com.mystic.atlantis.util.Reference;
 
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod(modid = reference.MODID, name = reference.NAME, version = reference.VERSION)
+@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
 public class Main {
 
     @Mod.Instance
@@ -25,7 +25,7 @@ public class Main {
 
     public static Logger logger;
 	
-	@SidedProxy(clientSide = reference.CLIENT_PROXY_CLASS, serverSide = reference.COMMON_PROXY_CLASS)
+	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.COMMON_PROXY_CLASS)
 	public static CommonProxy proxy;
 	
 	static 
@@ -35,7 +35,7 @@ public class Main {
 
 	@SideOnly(Side.CLIENT)
 	public static void OBJLoader(){
-		OBJLoader.INSTANCE.addDomain(reference.MODID);
+		OBJLoader.INSTANCE.addDomain(Reference.MODID);
 	}
 
 	@EventHandler
@@ -44,7 +44,7 @@ public class Main {
 		if(event.getSide() == Side.CLIENT){
 			OBJLoader();
 		}
-			RegistryHandler.preInitRegistries(event);
+		RegistryHandler.preInitRegistries(event);
 	}
 
 	@EventHandler

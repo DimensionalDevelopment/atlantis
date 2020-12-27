@@ -7,9 +7,9 @@ import net.minecraft.block.material.Material;
 
 public class AtlanteanCore extends BlockBase
 {
+
 	public AtlanteanCore(String name, Material material) 
 	{
-		
 		super(name, material);
 		setSoundType(SoundType.METAL);
 		setHardness(4.0F);

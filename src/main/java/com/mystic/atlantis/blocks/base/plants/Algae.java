@@ -5,7 +5,7 @@ import com.mystic.atlantis.init.ModBlocks;
 import com.mystic.atlantis.init.ModItems;
 import com.mystic.atlantis.tabs.AtlantisTab;
 import com.mystic.atlantis.util.IHasModel;
-import com.mystic.atlantis.util.reference;
+import com.mystic.atlantis.util.Reference;
 import io.github.opencubicchunks.cubicchunks.core.CubicChunks;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -39,35 +39,40 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Random;
 
-public class Algae extends Block implements IShearable, IHasModel
-{
+public class Algae extends Block implements IShearable, IHasModel {
+
+    // States
     public static final PropertyBool UP = PropertyBool.create("up");
     public static final PropertyBool NORTH = PropertyBool.create("north");
     public static final PropertyBool EAST = PropertyBool.create("east");
     public static final PropertyBool SOUTH = PropertyBool.create("south");
     public static final PropertyBool WEST = PropertyBool.create("west");
     public static final PropertyBool[] ALL_FACES = new PropertyBool[] {UP, NORTH, SOUTH, WEST, EAST};
+    private static final IProperty<Integer> LEVEL = BlockLiquid.LEVEL;
+
+    // Bounding Boxes
     protected static final AxisAlignedBB UP_AABB = new AxisAlignedBB(0.0D, 0.9375D, 0.0D, 1.0D, 1.0D, 1.0D);
     protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.0625D, 1.0D, 1.0D);
     protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.9375D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
     protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.0625D);
     protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.9375D, 1.0D, 1.0D, 1.0D);
-    private static final IProperty<Integer> LEVEL = BlockLiquid.LEVEL;
+
 
     public Algae(String name, Material material)
     {
         super(material);
-        setTranslationKey(reference.MODID + "." + name);
+        setTranslationKey(Reference.MODID + "." + name);
         setRegistryName(name);
         setCreativeTab(AtlantisTab.ATLANTIS_TAB);
 
-        ModBlocks.BLOCKS.add(this);
-        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(Objects.requireNonNull(this.getRegistryName())));
         setTickRandomly(true);
         setCreativeTab(AtlantisTab.ATLANTIS_TAB);
         setHardness(0.0F);
         setSoundType(SoundType.PLANT);
         setDefaultState(getBlockState().getBaseState().withProperty(BlockLiquid.LEVEL, 15).withProperty(UP, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
+
+        ModBlocks.BLOCKS.add(this);
+        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(Objects.requireNonNull(this.getRegistryName())));
     }
 
     @Nullable

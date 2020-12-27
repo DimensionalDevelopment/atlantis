@@ -1,13 +1,11 @@
 package com.mystic.atlantis.blocks.base;
 
-
-
 import com.mystic.atlantis.Main;
 import com.mystic.atlantis.init.ModBlocks;
 import com.mystic.atlantis.init.ModItems;
 import com.mystic.atlantis.tabs.AtlantisTab;
 import com.mystic.atlantis.util.IHasModel;
-import com.mystic.atlantis.util.reference;
+import com.mystic.atlantis.util.Reference;
 
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.SoundType;
@@ -15,15 +13,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
+public class OysterShellBlock extends BlockRotatedPillar implements IHasModel {
 
-public class OysterShellBlock extends BlockRotatedPillar implements IHasModel
-{
-
-	public OysterShellBlock(String name, Material material) 
+	public OysterShellBlock(String name, Material material)
 	{
-		
 		super(material);
-		setTranslationKey(reference.MODID + "." + name);
+		setTranslationKey(Reference.MODID + "." + name);
 		setRegistryName(name);
 		setCreativeTab(AtlantisTab.ATLANTIS_TAB);
 		

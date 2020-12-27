@@ -3,7 +3,7 @@ package com.mystic.atlantis.util.handlers.EventHandler;
 
 import com.mystic.atlantis.items.ItemPortalAtlantis;
 import com.mystic.atlantis.tabs.AtlantisTab;
-import com.mystic.atlantis.util.reference;
+import com.mystic.atlantis.util.Reference;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -14,7 +14,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber(modid = reference.MODID)
+@Mod.EventBusSubscriber(modid = Reference.MODID)
 public class AtlantisEventHandler {
 	
 	

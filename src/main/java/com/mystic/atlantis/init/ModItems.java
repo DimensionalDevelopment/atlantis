@@ -10,7 +10,7 @@ import com.mystic.atlantis.items.ItemAquamarineIngot;
 import com.mystic.atlantis.items.ItemAtlanteanCrystal;
 import com.mystic.atlantis.items.ItemBase;
 import com.mystic.atlantis.items.ItemOrbOfAtlantis;
-import com.mystic.atlantis.util.reference;
+import com.mystic.atlantis.util.Reference;
 import com.mystic.atlantis.tools.ToolAxe;
 import com.mystic.atlantis.tools.ToolHoe;
 import com.mystic.atlantis.tools.ToolPickaxe;
@@ -31,8 +31,9 @@ public class ModItems
 	
 	//Material
 	public static final ToolMaterial TOOL_AQUAMARINE = EnumHelper.addToolMaterial("tool_aquamarine", 2, 700, 7F, 2.5F, 12);
-	public static final ArmorMaterial ARMOR_AQUAMARINE = EnumHelper.addArmorMaterial("armor_aquamarine", reference.MODID + ":aquamarine", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F);
-	public static final ArmorMaterial ARMOR_WROUGHT = EnumHelper.addArmorMaterial("armor_wrought", reference.MODID + ":wrought", 24, new int[] {3, 5, 5, 4} , 7, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.0F);
+	public static final ArmorMaterial ARMOR_AQUAMARINE = EnumHelper.addArmorMaterial("armor_aquamarine", Reference.MODID + ":aquamarine", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F);
+	public static final ArmorMaterial ARMOR_WROUGHT = EnumHelper.addArmorMaterial("armor_wrought", Reference.MODID + ":wrought", 24, new int[] {3, 5, 5, 4} , 7, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.0F);
+
 	//Items
 	public static final Item ATLANTEAN_CRYSTAL = new ItemAtlanteanCrystal("atlantean_crystal");
 	public static final Item OCEAN_STONE = new ItemBase("ocean_stone");
@@ -55,8 +56,8 @@ public class ModItems
 	public static final Item CHESTPLATE_WROUGHT = new WroughtArmor("chestplate_wrought", ARMOR_WROUGHT, 1, EntityEquipmentSlot.CHEST);
 	public static final Item LEGGINGS_WROUGHT = new WroughtArmor("leggings_wrought", ARMOR_WROUGHT, 2, EntityEquipmentSlot.LEGS);
 	public static final Item BOOTS_WROUGHT = new WroughtArmor("boots_wrought", ARMOR_WROUGHT, 1, EntityEquipmentSlot.FEET);
+
 	//Weapons
 	public static final Item SWORD_AQUAMARINE = new ToolSword("sword_aquamarine", TOOL_AQUAMARINE);
-	
-	
+
 }

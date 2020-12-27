@@ -13,9 +13,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ColoredShellBlock extends BlockBase
-
-{
+public class ColoredShellBlock extends BlockBase {
 	
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	
@@ -31,30 +29,31 @@ public class ColoredShellBlock extends BlockBase
 	}
 
 	@Override
-	    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-	        world.setBlockState(pos, state.withProperty(FACING, getFacingFromEntity(pos, placer)), 2);
-	    }
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+		world.setBlockState(pos, state.withProperty(FACING, getFacingFromEntity(pos, placer)), 2);
+	}
 
-	    public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity) {
-	        return EnumFacing.getFacingFromVector(
-	             (float) (entity.posX - clickedBlock.getX()),
-	             (float) (entity.posY - clickedBlock.getY()),
-	             (float) (entity.posZ - clickedBlock.getZ()));
-	    }
+	public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity) {
+		return EnumFacing.getFacingFromVector(
+			 (float) (entity.posX - clickedBlock.getX()),
+			 (float) (entity.posY - clickedBlock.getY()),
+			 (float) (entity.posZ - clickedBlock.getZ())
+		);
+	}
 
-	    @Override
-	    public IBlockState getStateFromMeta(int meta) {
-			EnumFacing facing = EnumFacing.values()[meta % EnumFacing.values().length];
-			return getDefaultState().withProperty(FACING, facing);
-	    }
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		EnumFacing facing = EnumFacing.values()[meta % EnumFacing.values().length];
+		return getDefaultState().withProperty(FACING, facing);
+	}
 
-	    @Override
-	    public int getMetaFromState(IBlockState state) {
-	        return state.getValue(FACING).getIndex();
-	    }
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(FACING).getIndex();
+	}
 
-	    @Override
-	    protected BlockStateContainer createBlockState() {
-	        return new BlockStateContainer(this, FACING);
-	    }
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, FACING);
+	}
 }

@@ -34,19 +34,19 @@ public class AtlantisPortal extends BlockBase
 
     @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos){
-            if (worldIn.provider.getDimension() == AtlantisConfig.overworldId){
-                return super.canPlaceBlockAt(worldIn, pos);
-            } else if (worldIn.provider.getDimension() == AtlantisConfig.dimensionId) {
-                return super.canPlaceBlockAt(worldIn, pos);
-            } else {
-                return false;
-            }
+        if (worldIn.provider.getDimension() == AtlantisConfig.overworldId){
+            return super.canPlaceBlockAt(worldIn, pos);
+        } else if (worldIn.provider.getDimension() == AtlantisConfig.dimensionId) {
+            return super.canPlaceBlockAt(worldIn, pos);
+        } else {
+            return false;
+        }
     }
 	
 	@Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if(!worldIn.isRemote) {
-            //from Overworld to Atlantis
+            // From Overworld to Atlantis
             if (worldIn.provider.getDimension() == AtlantisConfig.overworldId) {
                 World otherWorld = worldIn.getMinecraftServer().getWorld(AtlantisConfig.dimensionId);
                 otherWorld.getBlockState(pos);

@@ -2,14 +2,14 @@ package com.mystic.atlantis.util.handlers.EventHandler;
 
 import com.mystic.atlantis.init.ModBlocks;
 import com.mystic.atlantis.init.ModItems;
-import com.mystic.atlantis.util.reference;
+import com.mystic.atlantis.util.Reference;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber(modid = reference.MODID)
+@Mod.EventBusSubscriber(modid = Reference.MODID)
 public class PositionEvent {
 
     @SubscribeEvent

@@ -5,7 +5,7 @@ import com.mystic.atlantis.init.ModBlocks;
 import com.mystic.atlantis.init.ModItems;
 import com.mystic.atlantis.tabs.AtlantisTab;
 import com.mystic.atlantis.util.IHasModel;
-import com.mystic.atlantis.util.reference;
+import com.mystic.atlantis.util.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.SoundType;
@@ -40,7 +40,7 @@ public class UnderwaterFlower extends Block implements IPlantable, IHasModel {
 
     public UnderwaterFlower(String name, Material material) {
         super(material);
-        setTranslationKey(reference.MODID + "." + name);
+        setTranslationKey(Reference.MODID + "." + name);
         setRegistryName(name);
         setCreativeTab(AtlantisTab.ATLANTIS_TAB);
 

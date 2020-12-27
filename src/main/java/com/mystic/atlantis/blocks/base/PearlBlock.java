@@ -7,7 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockRenderLayer;
 
-public class PearlBlock extends BlockBase{
+public class PearlBlock extends BlockBase {
 	
 	public PearlBlock(String name, Material material) 
 	{
