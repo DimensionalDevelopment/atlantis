@@ -10,9 +10,14 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
-version = "2020.12.24-1.12.2-2.3.9"
+version = project.modversion
 group = "com.mystic.atlantis" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "atlantis"
+
+if (project.hasProperty('buildNumber')) {
+    version = project.modversion + "." + buildNumber
+    jar.archiveName = archivesBaseName + "-dev-" + buildNumber + ".jar"
+}
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
@@ -22,7 +27,7 @@ compileJava {
 minecraft {
     version = "1.12.2-14.23.5.2847"
     runDir = "run"
-
+    replace "@VERSION@", project.minecraft.version + "-" + project.version
     // the mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   snapshot are built nightly.
     // stable_#            stables are built at the discretion of the MCP team.
