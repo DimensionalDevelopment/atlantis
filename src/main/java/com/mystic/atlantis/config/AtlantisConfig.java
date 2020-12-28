@@ -27,6 +27,16 @@ public class AtlantisConfig {
     @Config.RequiresWorldRestart
     public static int oreSpawnChance = 65;
 
+    @Config.Name("Flatness to Sharpness terrain generation")
+    @Config.Comment("The higher the value the sharper :), Warning make a new world if used!!!")
+    @Config.RequiresWorldRestart
+    public static int FlatnessToSharpnessTerrainGen = 128;
+
+    @Config.Name("Height terrain generation")
+    @Config.Comment("The higher the value the higher the tallest point is :), Warning make a new world if used!!!")
+    @Config.RequiresWorldRestart
+    public static int HeightOfTerrainGen = 30;
+
     @SubscribeEvent
     public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
     {

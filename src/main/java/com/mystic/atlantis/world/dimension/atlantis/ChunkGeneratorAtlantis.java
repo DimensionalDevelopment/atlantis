@@ -1,5 +1,6 @@
 package com.mystic.atlantis.world.dimension.atlantis;
 
+import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.util.Math;
 import com.mystic.atlantis.world.FastNoiseLite;
 import com.mystic.atlantis.world.biomes.WorldTypeAtlantis;
@@ -13,7 +14,6 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEntitySpawner;
-import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -31,7 +31,6 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
 
     protected static final IBlockState SAND = Blocks.SAND.getDefaultState();
     protected static final IBlockState SANDSTONE = Blocks.SANDSTONE.getDefaultState();
-    protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
     private final Random rand;
     private NoiseGeneratorOctaves minLimitPerlinNoise;
     private NoiseGeneratorOctaves maxLimitPerlinNoise;
@@ -40,7 +39,6 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     public NoiseGeneratorOctaves depthNoise;
     private final World world;
     private final boolean mapFeaturesEnabled;
-    private final WorldType terrainType;
     private float[] heightMap;
     private final float[] biomeWeights;
     private boolean useMineShafts = false;
@@ -51,21 +49,6 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     private boolean useWaterLakes = false;
     private boolean useLavaLakes = false;
     private boolean useDungeons = false;
-    private double depthNoiseScaleX = 200.0D;
-    private double depthNoiseScaleZ = 200.0D;
-    private double depthNoiseScaleExponent = 0.5D;
-    private double coordScale = 684.412;
-    private int mainNoiseScaleX = 7000;
-    private int mainNoiseScaleY = 250;
-    private int mainNoiseScaleZ = 7000;
-    private double heightScale = 684.412;
-    private double biomeDepthOffSet = 0.5;
-    private double biomeScaleOffset = 0.375;
-    private double baseSize = 8.5D;
-    private double lowerLimitScale = 512D;
-    private double upperLimitScale = 512D;
-    private float biomeDepthWeight = 2.0F;
-    private float biomeScaleWeight = 2.0F;
     private int waterLakeChance = 4;
     private int dungeonChance = 0;
     private int lavaLakeChance = 80;
@@ -81,10 +64,6 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     private StructureOceanMonument oceanMonumentGenerator = new StructureOceanMonument();
     public static final boolean CC = Loader.isModLoaded("cubicchunks");
     public Biome[] biomesForGeneration = new WorldTypeAtlantis().getAllowedBiomes().toArray(new Biome[0]);
-    double[] mainNoiseRegion;
-    double[] minLimitRegion;
-    double[] maxLimitRegion;
-    double[] depthRegion;
 
     FastNoiseLite noise;
 
@@ -103,7 +82,6 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
 
         this.world = worldIn;
         this.mapFeaturesEnabled = mapFeaturesEnabledIn;
-        this.terrainType = worldIn.getWorldInfo().getTerrainType();
         this.rand = new Random(seed);
         this.minLimitPerlinNoise = new NoiseGeneratorOctaves(this.rand, 16);
         this.maxLimitPerlinNoise = new NoiseGeneratorOctaves(this.rand, 16);
@@ -129,42 +107,6 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
         this.scaleNoise = ctx.getScale();
         this.depthNoise = ctx.getDepth();
     }
-
-    /*public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
-        this.biomesForGeneration = this.world.getBiomeProvider().getBiomesForGeneration(this.biomesForGeneration, x * 4 - 2, z * 4 - 2, 10, 10);
-        this.generateHeightmap(x * 4, 0, z * 4);
-
-        for (int xHeightIdx = 0; xHeightIdx < 4; ++xHeightIdx) {
-            int xHeightIdx5 = xHeightIdx * 5;
-
-            for (int zHeightIdx = 0; zHeightIdx < 4; ++zHeightIdx) {
-                int currentHeightmapIdx = (xHeightIdx5 + zHeightIdx) * 33;
-                int nextHeightmapIndex = (xHeightIdx5 + zHeightIdx + 1) * 33;
-
-                for (int yHeightIdx = 0; yHeightIdx < 32; ++yHeightIdx) {
-                    float currentHeight = this.heightMap[currentHeightmapIdx + yHeightIdx];
-                    float nextHeight = this.heightMap[nextHeightmapIndex + yHeightIdx];
-
-                    for (int yBlockOffset = 0; yBlockOffset < 8; ++yBlockOffset) {
-                        for (int xBlockOffset = 0; xBlockOffset < 4; ++xBlockOffset) {
-                            float heightDelta = (nextHeight - currentHeight) * 0.25F;
-                            float heightIncrease = currentHeight - heightDelta;
-
-                            for (int zBlockOffset = 0; zBlockOffset < 4; ++zBlockOffset) {
-                                if ((heightIncrease += heightDelta) > 0.0F) {
-                                    primer.setBlockState(xHeightIdx * 4 + xBlockOffset, yHeightIdx * 8 + yBlockOffset, zHeightIdx * 4 + zBlockOffset, SAND);
-                                }else if((yHeightIdx * 8 + yBlockOffset) <= 50){
-                                    primer.setBlockState(xHeightIdx * 4 + xBlockOffset, yHeightIdx * 8 + yBlockOffset, zHeightIdx * 4 + zBlockOffset, SANDSTONE);
-                                } else {
-                                    primer.setBlockState(xHeightIdx * 4 + xBlockOffset, yHeightIdx * 8 + yBlockOffset, zHeightIdx * 4 + zBlockOffset, this.oceanBlock);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }*/
 
     private void setBlocksInChunk(int x, int z, ChunkPrimer chunkPrimer, int size) {
         this.generateHeightmap(x * 4, 0, z * 4);
@@ -248,7 +190,12 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
             for (int x = 0; x < 5; x++)
             {
                 float noiseVal = (noise.GetNoise(x + xEnd, 0, z + zEnd)+1)/2;
-                this.heightMap[x + z*5] = noiseVal*128 + 50;
+                this.heightMap[x + z*5] = noiseVal * AtlantisConfig.FlatnessToSharpnessTerrainGen + AtlantisConfig.HeightOfTerrainGen;
+
+                if(CC){
+                    float noiseVal2 = (noise.GetNoise(x + xEnd, 0, z + zEnd)+1)/2;
+                    this.heightMap[x + z*5] = noiseVal2 * AtlantisConfig.FlatnessToSharpnessTerrainGen + AtlantisConfig.HeightOfTerrainGen;
+                }
             }
         }
     }
