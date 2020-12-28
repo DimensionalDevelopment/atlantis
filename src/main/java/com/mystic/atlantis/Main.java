@@ -1,7 +1,5 @@
 package com.mystic.atlantis;
 
-import java.util.logging.Logger;
-
 import com.mystic.atlantis.proxy.CommonProxy;
 import com.mystic.atlantis.util.handlers.RegistryHandler;
 import com.mystic.atlantis.util.Reference;
@@ -16,6 +14,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION)
 public class Main {
@@ -41,6 +40,7 @@ public class Main {
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event)
 	{
+		logger = event.getModLog();
 		if(event.getSide() == Side.CLIENT){
 			OBJLoader();
 		}

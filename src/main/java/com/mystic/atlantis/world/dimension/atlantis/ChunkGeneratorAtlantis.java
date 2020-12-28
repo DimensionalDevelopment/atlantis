@@ -3,8 +3,6 @@ package com.mystic.atlantis.world.dimension.atlantis;
 import com.mystic.atlantis.util.Math;
 import com.mystic.atlantis.world.FastNoiseLite;
 import com.mystic.atlantis.world.biomes.WorldTypeAtlantis;
-import io.github.opencubicchunks.cubicchunks.api.util.MathUtil;
-import io.github.opencubicchunks.cubicchunks.core.world.cube.Cube;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
@@ -23,11 +21,9 @@ import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.structure.*;
-import net.minecraftforge.common.config.Config;
 import net.minecraftforge.fml.common.Loader;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -90,6 +86,8 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     double[] maxLimitRegion;
     double[] depthRegion;
 
+    FastNoiseLite noise;
+
     public ChunkGeneratorAtlantis(World worldIn, boolean mapFeaturesEnabledIn, long seed) {
         {
             caveGenerator = net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(caveGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE);
@@ -100,6 +98,9 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
             ravineGenerator = net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(ravineGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE);
             oceanMonumentGenerator = (StructureOceanMonument) net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(oceanMonumentGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.OCEAN_MONUMENT);
         }
+        noise = new FastNoiseLite(); // Create a FastNoise object
+        noise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2); // Set the desired noise type
+
         this.world = worldIn;
         this.mapFeaturesEnabled = mapFeaturesEnabledIn;
         this.terrainType = worldIn.getWorldInfo().getTerrainType();
@@ -109,7 +110,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
         this.mainPerlinNoise = new NoiseGeneratorOctaves(this.rand, 8);
         this.scaleNoise = new NoiseGeneratorOctaves(this.rand, 10);
         this.depthNoise = new NoiseGeneratorOctaves(this.rand, 16);
-        this.heightMap = new float[825];
+        this.heightMap = new float[25];
         this.biomeWeights = new float[25];
 
         for (int i = -2; i <= 2; ++i) {
@@ -165,38 +166,33 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
         }
     }*/
 
-    private void setBlocksInChunk(int x, int z, ChunkPrimer chunkPrimer, Chunk chunk, int size) {
+    private void setBlocksInChunk(int x, int z, ChunkPrimer chunkPrimer, int size) {
+        this.generateHeightmap(x * 4, 0, z * 4);
         for (int sectionX = 0; sectionX < size - 1; sectionX++) {
             for (int sectionZ = 0; sectionZ < size - 1; sectionZ++) {
-                this.generateHeightmap(x * 4, 0, z * 4);
-                float d00 = (sectionX + sectionZ * size);
-                float d01 = (sectionX + (sectionZ + 1) * size);
-                float d10 = ((sectionX + 1) + sectionZ * size);
-                float d11 = ((sectionX + 1) + (sectionZ + 1) * size);
+                float d00 = heightMap[(sectionX + sectionZ * size)];
+                float d01 = heightMap[(sectionX + (sectionZ + 1) * size)];
+                float d10 = heightMap[((sectionX + 1) + sectionZ * size)];
+                float d11 = heightMap[((sectionX + 1) + (sectionZ + 1) * size)];
 
                 for (x = 0; x < 4; x++) {
                     int dx0 = (int) Math.lerp(x * 0.25, d00, d10);
                     int dx1 = (int) Math.lerp(x * 0.25, d01, d11);
                     int dx = sectionX * 4 + x;
-                    int blockX = chunk.x + (dx);
-
 
                     for (z = 0; z < 4; z++) {
-                        float height =  Math.lerp(z * 0.25F, dx0, dx1);
+                        float height = Math.lerp(z * 0.25F, dx0, dx1);
                         int dz = sectionZ * 4 + z;
-                        int blockZ = chunk.z + (dz);
 
                         for (int dy = 0; dy < 256; dy++) {
-                            for (int y = 0; y <= 256; y++) {
-                                float blockY = ((dy - height));
-                                if (blockY < y) {
-                                    chunkPrimer.setBlockState(dx & 0xF, dy & 0xF, dz & 0xF, SAND);
-                                }
-                                if (blockY <= 50) {
-                                    chunkPrimer.setBlockState(dx & 0xF, dy & 0xF, dz & 0xF, SANDSTONE);
-                                }else if (blockY <= this.seaLevel) {
-                                    chunkPrimer.setBlockState(dx & 0xF, dy & 0xF, dz & 0xF, this.oceanBlock);
-                                }
+                            float blockY = ((dy - height));
+                            if (blockY < dy) {
+                                chunkPrimer.setBlockState(dx & 0xF, dy & 0xFF, dz & 0xF, SAND);
+                            }
+                            if (blockY <= 50) {
+                                chunkPrimer.setBlockState(dx & 0xF, dy & 0xFF, dz & 0xF, SANDSTONE);
+                            } else if (dz <= this.seaLevel) {
+                                chunkPrimer.setBlockState(dx & 0xF, dy & 0xFF, dz & 0xF, this.oceanBlock);
                             }
                         }
                     }
@@ -228,39 +224,31 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     {
         this.rand.setSeed((long)x * 341873128712L + (long)z * 132897987541L);
         ChunkPrimer chunkprimer = new ChunkPrimer();
-        int size = 32 / 4 - 1;
-        Chunk chunk1 = new Chunk(this.world, chunkprimer, x, z);
-        //this.setBlocksInChunk(x, z, chunkprimer);
-        this.setBlocksInChunk(x, z, chunkprimer, chunk1, size);
+        this.setBlocksInChunk(x, z, chunkprimer, 5);
         this.biomesForGeneration = this.world.getBiomeProvider().getBiomes(this.biomesForGeneration, x * 16, z * 16, 16, 16);
         this.replaceBiomeBlocks(x, z, chunkprimer, this.biomesForGeneration);
-        chunk1 = new Chunk(this.world, chunkprimer, x, z);
 
-        byte[] abyte = chunk1.getBiomeArray();
+        Chunk chunk = new Chunk(this.world, chunkprimer, x, z);
+
+        byte[] abyte = chunk.getBiomeArray();
 
         for (int i = 0; i < abyte.length; ++i)
         {
             abyte[i] = (byte)Biome.getIdForBiome(this.biomesForGeneration[i]);
         }
 
-        chunk1.generateSkylightMap();
-        return chunk1;
+        chunk.generateSkylightMap();
+        return chunk;
     }
 
     private void generateHeightmap(int xEnd, int yEnd, int zEnd)
     {
-        FastNoiseLite noise = new FastNoiseLite(); // Create a FastNoise object
-        noise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2); // Set the desired noise type
-        int i = 0;
-
         for (int z = 0; z < 5; z++)
         {
             for (int x = 0; x < 5; x++)
             {
-                for(int y = 0; y < 33; y++) {
-                    this.heightMap[i] = (noise.GetNoise(x + xEnd, y + yEnd, z + zEnd) * 256);
-                    i++;
-                }
+                float noiseVal = (noise.GetNoise(x + xEnd, 0, z + zEnd)+1)/2;
+                this.heightMap[x + z*5] = noiseVal*128 + 50;
             }
         }
     }
