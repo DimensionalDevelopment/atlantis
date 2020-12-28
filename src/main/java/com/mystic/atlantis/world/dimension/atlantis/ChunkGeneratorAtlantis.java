@@ -1,6 +1,10 @@
 package com.mystic.atlantis.world.dimension.atlantis;
 
+import com.mystic.atlantis.util.Math;
+import com.mystic.atlantis.world.FastNoiseLite;
 import com.mystic.atlantis.world.biomes.WorldTypeAtlantis;
+import io.github.opencubicchunks.cubicchunks.api.util.MathUtil;
+import io.github.opencubicchunks.cubicchunks.core.world.cube.Cube;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
@@ -19,9 +23,11 @@ import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.structure.*;
+import net.minecraftforge.common.config.Config;
 import net.minecraftforge.fml.common.Loader;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -39,7 +45,7 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     private final World world;
     private final boolean mapFeaturesEnabled;
     private final WorldType terrainType;
-    private final double[] heightMap;
+    private float[] heightMap;
     private final float[] biomeWeights;
     private boolean useMineShafts = false;
     private boolean useVillages = false;
@@ -84,16 +90,15 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     double[] maxLimitRegion;
     double[] depthRegion;
 
-    public ChunkGeneratorAtlantis(World worldIn, boolean mapFeaturesEnabledIn, long seed)
-    {
+    public ChunkGeneratorAtlantis(World worldIn, boolean mapFeaturesEnabledIn, long seed) {
         {
             caveGenerator = net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(caveGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE);
-            strongholdGenerator = (MapGenStronghold)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(strongholdGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD);
-            villageGenerator = (MapGenVillage)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(villageGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE);
-            mineshaftGenerator = (MapGenMineshaft)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(mineshaftGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT);
-            scatteredFeatureGenerator = (MapGenScatteredFeature)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(scatteredFeatureGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE);
+            strongholdGenerator = (MapGenStronghold) net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(strongholdGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD);
+            villageGenerator = (MapGenVillage) net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(villageGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE);
+            mineshaftGenerator = (MapGenMineshaft) net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(mineshaftGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT);
+            scatteredFeatureGenerator = (MapGenScatteredFeature) net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(scatteredFeatureGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE);
             ravineGenerator = net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(ravineGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE);
-            oceanMonumentGenerator = (StructureOceanMonument)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(oceanMonumentGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.OCEAN_MONUMENT);
+            oceanMonumentGenerator = (StructureOceanMonument) net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(oceanMonumentGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.OCEAN_MONUMENT);
         }
         this.world = worldIn;
         this.mapFeaturesEnabled = mapFeaturesEnabledIn;
@@ -104,14 +109,12 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
         this.mainPerlinNoise = new NoiseGeneratorOctaves(this.rand, 8);
         this.scaleNoise = new NoiseGeneratorOctaves(this.rand, 10);
         this.depthNoise = new NoiseGeneratorOctaves(this.rand, 16);
-        this.heightMap = new double[825];
+        this.heightMap = new float[825];
         this.biomeWeights = new float[25];
 
-        for (int i = -2; i <= 2; ++i)
-        {
-            for (int j = -2; j <= 2; ++j)
-            {
-                float f = 10.0F / MathHelper.sqrt((float)(i * i + j * j) + 0.2F);
+        for (int i = -2; i <= 2; ++i) {
+            for (int j = -2; j <= 2; ++j) {
+                float f = 10.0F / MathHelper.sqrt((float) (i * i + j * j) + 0.2F);
                 this.biomeWeights[i + 2 + (j + 2) * 5] = f;
             }
         }
@@ -126,74 +129,77 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
         this.depthNoise = ctx.getDepth();
     }
 
-
-    public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
+    /*public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
         this.biomesForGeneration = this.world.getBiomeProvider().getBiomesForGeneration(this.biomesForGeneration, x * 4 - 2, z * 4 - 2, 10, 10);
         this.generateHeightmap(x * 4, 0, z * 4);
 
-        for (int i = 0; i < 4; ++i) {
-            int j = i * 5;
-            int k = (i + 1) * 5;
+        for (int xHeightIdx = 0; xHeightIdx < 4; ++xHeightIdx) {
+            int xHeightIdx5 = xHeightIdx * 5;
 
-            for (int l = 0; l < 4; ++l) {
-                int i1 = (j + l) * 33;
-                int j1 = (j + l + 1) * 33;
-                int k1 = (k + l) * 33;
-                int l1 = (k + l + 1) * 33;
+            for (int zHeightIdx = 0; zHeightIdx < 4; ++zHeightIdx) {
+                int currentHeightmapIdx = (xHeightIdx5 + zHeightIdx) * 33;
+                int nextHeightmapIndex = (xHeightIdx5 + zHeightIdx + 1) * 33;
 
-                for (int i2 = 0; i2 < 32; ++i2) {
-                    double d0 = 0.125D;
-                    double d1 = this.heightMap[i1 + i2];
-                    double d2 = this.heightMap[j1 + i2];
-                    double d3 = this.heightMap[k1 + i2];
-                    double d4 = this.heightMap[l1 + i2];
-                    double d5 = (this.heightMap[i1 + i2 + 1] - d1) * 0.125D;
-                    double d6 = (this.heightMap[j1 + i2 + 1] - d2) * 0.125D;
-                    double d7 = (this.heightMap[k1 + i2 + 1] - d3) * 0.125D;
-                    double d8 = (this.heightMap[l1 + i2 + 1] - d4) * 0.125D;
+                for (int yHeightIdx = 0; yHeightIdx < 32; ++yHeightIdx) {
+                    float currentHeight = this.heightMap[currentHeightmapIdx + yHeightIdx];
+                    float nextHeight = this.heightMap[nextHeightmapIndex + yHeightIdx];
 
-                    for (int j2 = 0; j2 < 8; ++j2) {
-                        double d9 = 0.25D;
-                        double d10 = d1;
-                        double d11 = d2;
-                        double d12 = (d3 - d1) * 0.25D;
-                        double d13 = (d4 - d2) * 0.25D;
+                    for (int yBlockOffset = 0; yBlockOffset < 8; ++yBlockOffset) {
+                        for (int xBlockOffset = 0; xBlockOffset < 4; ++xBlockOffset) {
+                            float heightDelta = (nextHeight - currentHeight) * 0.25F;
+                            float heightIncrease = currentHeight - heightDelta;
 
-                        for (int k2 = 0; k2 < 4; ++k2) {
-                            double d14 = 0.25D;
-                            double d16 = (d11 - d10) * 0.25D;
-                            double lvt_45_1_ = d10 - d16;
-
-                            for (int l2 = 0; l2 < 4; ++l2) {
-                                if ((lvt_45_1_ += d16) > 0.0D) {
-                                    primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, SAND);
-                                }else if((i2 * 8 + j2) <= 50){
-                                    primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, SANDSTONE);
-                                } else if (i2 * 8 + j2 <= this.seaLevel) {
-                                    primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, this.oceanBlock);
-                                } else if (i2 * 8 + j2 > this.seaLevel) {
-                                    primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, AIR);
+                            for (int zBlockOffset = 0; zBlockOffset < 4; ++zBlockOffset) {
+                                if ((heightIncrease += heightDelta) > 0.0F) {
+                                    primer.setBlockState(xHeightIdx * 4 + xBlockOffset, yHeightIdx * 8 + yBlockOffset, zHeightIdx * 4 + zBlockOffset, SAND);
+                                }else if((yHeightIdx * 8 + yBlockOffset) <= 50){
+                                    primer.setBlockState(xHeightIdx * 4 + xBlockOffset, yHeightIdx * 8 + yBlockOffset, zHeightIdx * 4 + zBlockOffset, SANDSTONE);
                                 } else {
-                                    primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, AIR);
+                                    primer.setBlockState(xHeightIdx * 4 + xBlockOffset, yHeightIdx * 8 + yBlockOffset, zHeightIdx * 4 + zBlockOffset, this.oceanBlock);
                                 }
                             }
-                            /*if (CC) {
-                                for(int a = this.world.getSeaLevel(); a <= this.seaLevel; a++) {
-                                    primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, this.oceanBlock);
-                                }
-                            } else {
-                                primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, this.oceanBlock);
-                            }*/
                         }
-
-                        d10 += d12;
-                        d11 += d13;
                     }
+                }
+            }
+        }
+    }*/
 
-                    d1 += d5;
-                    d2 += d6;
-                    d3 += d7;
-                    d4 += d8;
+    private void setBlocksInChunk(int x, int z, ChunkPrimer chunkPrimer, Chunk chunk, int size) {
+        for (int sectionX = 0; sectionX < size - 1; sectionX++) {
+            for (int sectionZ = 0; sectionZ < size - 1; sectionZ++) {
+                this.generateHeightmap(x * 4, 0, z * 4);
+                float d00 = (sectionX + sectionZ * size);
+                float d01 = (sectionX + (sectionZ + 1) * size);
+                float d10 = ((sectionX + 1) + sectionZ * size);
+                float d11 = ((sectionX + 1) + (sectionZ + 1) * size);
+
+                for (x = 0; x < 4; x++) {
+                    int dx0 = (int) Math.lerp(x * 0.25, d00, d10);
+                    int dx1 = (int) Math.lerp(x * 0.25, d01, d11);
+                    int dx = sectionX * 4 + x;
+                    int blockX = chunk.x + (dx);
+
+
+                    for (z = 0; z < 4; z++) {
+                        float height =  Math.lerp(z * 0.25F, dx0, dx1);
+                        int dz = sectionZ * 4 + z;
+                        int blockZ = chunk.z + (dz);
+
+                        for (int dy = 0; dy < 256; dy++) {
+                            for (int y = 0; y <= 256; y++) {
+                                float blockY = ((dy - height));
+                                if (blockY < y) {
+                                    chunkPrimer.setBlockState(dx & 0xF, dy & 0xF, dz & 0xF, SAND);
+                                }
+                                if (blockY <= 50) {
+                                    chunkPrimer.setBlockState(dx & 0xF, dy & 0xF, dz & 0xF, SANDSTONE);
+                                }else if (blockY <= this.seaLevel) {
+                                    chunkPrimer.setBlockState(dx & 0xF, dy & 0xF, dz & 0xF, this.oceanBlock);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -222,134 +228,38 @@ public class ChunkGeneratorAtlantis implements IChunkGenerator {
     {
         this.rand.setSeed((long)x * 341873128712L + (long)z * 132897987541L);
         ChunkPrimer chunkprimer = new ChunkPrimer();
-        this.setBlocksInChunk(x, z, chunkprimer);
+        int size = 32 / 4 - 1;
+        Chunk chunk1 = new Chunk(this.world, chunkprimer, x, z);
+        //this.setBlocksInChunk(x, z, chunkprimer);
+        this.setBlocksInChunk(x, z, chunkprimer, chunk1, size);
         this.biomesForGeneration = this.world.getBiomeProvider().getBiomes(this.biomesForGeneration, x * 16, z * 16, 16, 16);
         this.replaceBiomeBlocks(x, z, chunkprimer, this.biomesForGeneration);
+        chunk1 = new Chunk(this.world, chunkprimer, x, z);
 
-        Chunk chunk = new Chunk(this.world, chunkprimer, x, z);
-        byte[] abyte = chunk.getBiomeArray();
+        byte[] abyte = chunk1.getBiomeArray();
 
         for (int i = 0; i < abyte.length; ++i)
         {
             abyte[i] = (byte)Biome.getIdForBiome(this.biomesForGeneration[i]);
         }
 
-        chunk.generateSkylightMap();
-        return chunk;
+        chunk1.generateSkylightMap();
+        return chunk1;
     }
 
-    private void generateHeightmap(int p_185978_1_, int p_185978_2_, int p_185978_3_)
+    private void generateHeightmap(int xEnd, int yEnd, int zEnd)
     {
-        this.depthRegion = this.depthNoise.generateNoiseOctaves(this.depthRegion, p_185978_1_, p_185978_3_, 5, 5, (double)this.depthNoiseScaleX, (double)this.depthNoiseScaleZ, (double)this.depthNoiseScaleExponent);
-        double f = this.coordScale;
-        double f1 = this.heightScale;
-        this.mainNoiseRegion = this.mainPerlinNoise.generateNoiseOctaves(this.mainNoiseRegion, p_185978_1_, p_185978_2_, p_185978_3_, 5, 33, 5, (double)(f / this.mainNoiseScaleX), (double)(f1 / this.mainNoiseScaleY), (double)(f / this.mainNoiseScaleZ));
-        this.minLimitRegion = this.minLimitPerlinNoise.generateNoiseOctaves(this.minLimitRegion, p_185978_1_, p_185978_2_, p_185978_3_, 5, 33, 5, (double)f, (double)f1, (double)f);
-        this.maxLimitRegion = this.maxLimitPerlinNoise.generateNoiseOctaves(this.maxLimitRegion, p_185978_1_, p_185978_2_, p_185978_3_, 5, 33, 5, (double)f, (double)f1, (double)f);
+        FastNoiseLite noise = new FastNoiseLite(); // Create a FastNoise object
+        noise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2); // Set the desired noise type
         int i = 0;
-        int j = 0;
 
-        for (int k = 0; k < 5; ++k)
+        for (int z = 0; z < 5; z++)
         {
-            for (int l = 0; l < 5; ++l)
+            for (int x = 0; x < 5; x++)
             {
-                float f2 = 0.0F;
-                float f3 = 0.0F;
-                float f4 = 0.0F;
-                int i1 = 2;
-                Biome biome = this.biomesForGeneration[k + 2 + (l + 2) * 10];
-
-                for (int j1 = -2; j1 <= 2; ++j1)
-                {
-                    for (int k1 = -2; k1 <= 2; ++k1)
-                    {
-                        Biome biome1 = this.biomesForGeneration[k + j1 + 2 + (l + k1 + 2) * 10];
-                        double f5 = this.biomeDepthOffSet + biome1.getBaseHeight() * this.biomeDepthWeight;
-                        double f6 = this.biomeScaleOffset + biome1.getHeightVariation() * this.biomeScaleWeight;
-
-                        if (this.terrainType == WorldType.AMPLIFIED && f5 > 0.0F)
-                        {
-                            f5 = 1.0F + f5 * 2.0F;
-                            f6 = 1.0F + f6 * 4.0F;
-                        }
-
-                        double f7 = this.biomeWeights[j1 + 2 + (k1 + 2) * 5] / (f5 + 2.0F);
-
-                        if (biome1.getBaseHeight() > biome.getBaseHeight())
-                        {
-                            f7 /= 2.0F;
-                        }
-
-                        f2 += f6 * f7;
-                        f3 += f5 * f7;
-                        f4 += f7;
-                    }
-                }
-
-                f2 = f2 / f4;
-                f3 = f3 / f4;
-                f2 = f2 * 0.9F + 0.1F;
-                f3 = (f3 * 4.0F - 1.0F) / 8.0F;
-                double d7 = this.depthRegion[j] / 8000.0D;
-
-                if (d7 < 0.0D)
-                {
-                    d7 = -d7 * 0.3D;
-                }
-
-                d7 = d7 * 3.0D - 2.0D;
-
-                if (d7 < 0.0D)
-                {
-                    d7 = d7 / 2.0D;
-
-                    if (d7 < -1.0D)
-                    {
-                        d7 = -1.0D;
-                    }
-
-                    d7 = d7 / 1.4D;
-                    d7 = d7 / 2.0D;
-                }
-                else
-                {
-                    if (d7 > 1.0D)
-                    {
-                        d7 = 1.0D;
-                    }
-
-                    d7 = d7 / 8.0D;
-                }
-
-                ++j;
-                double d8 = (double)f3;
-                double d9 = (double)f2;
-                d8 = d8 + d7 * 0.2D;
-                d8 = d8 * (double)this.baseSize / 8.0D;
-                double d0 = (double)this.baseSize + d8 * 4.0D;
-
-                for (int l1 = 0; l1 < 33; ++l1)
-                {
-                    double d1 = ((double)l1 - d0) * (double)this.heightScale * 128.0D / 256.0D / d9;
-
-                    if (d1 < 0.0D)
-                    {
-                        d1 *= 4.0D;
-                    }
-
-                    double d2 = this.minLimitRegion[i] / (double)this.lowerLimitScale;
-                    double d3 = this.maxLimitRegion[i] / (double)this.upperLimitScale;
-                    double d4 = (this.mainNoiseRegion[i] / 10.0D + 1.0D) / 2.0D;
-                    double d5 = MathHelper.clampedLerp(d2, d3, d4) - d1;
-
-                    if (l1 > 29)
-                    {
-                        double d6 = (double)((float)(l1 - 29) / 3.0F);
-                        d5 = d5 * (1.0D - d6) + -10.0D * d6;
-                    }
-
-                    this.heightMap[i] = d5;
-                    ++i;
+                for(int y = 0; y < 33; y++) {
+                    this.heightMap[i] = (noise.GetNoise(x + xEnd, y + yEnd, z + zEnd) * 256);
+                    i++;
                 }
             }
         }

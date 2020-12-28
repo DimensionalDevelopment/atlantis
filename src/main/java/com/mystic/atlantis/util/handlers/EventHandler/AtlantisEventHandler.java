@@ -52,5 +52,4 @@ public class AtlantisEventHandler {
         ModelLoader.setCustomModelResourceLocation(ItemPortalAtlantis.PORTAL, 0, new ModelResourceLocation(ItemPortalAtlantis.PORTAL.getRegistryName(), "normal"));
 
     }
-    
-    }
+}
