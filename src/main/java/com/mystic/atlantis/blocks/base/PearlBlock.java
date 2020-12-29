@@ -15,7 +15,7 @@ public class PearlBlock extends BlockBase {
 		setSoundType(SoundType.STONE);
 		setHardness(2.0F);
 		setResistance(5.0F);
-		setLightLevel(7.0F);
+		setLightLevel(0.5F); //Light Value has to be 0 to 1!
 	}
 
 	@Override

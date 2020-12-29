@@ -14,7 +14,7 @@ public class OceanLantern extends BlockBase
 		setSoundType(SoundType.GLASS);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setLightLevel(5.0F);
+		setLightLevel(0.7F); //Light Value has to be 0 to 1!
 	}
 
 	protected boolean canSilkHarvest()

@@ -15,6 +15,6 @@ public class AtlanteanCore extends BlockBase
 		setHardness(4.0F);
 		setResistance(25.0F);
 		setHarvestLevel("pickaxe", 2);
-		setLightLevel(8.0F);
+		setLightLevel(0.5F); //Light Value has to be 0 to 1!
 	}
 }
