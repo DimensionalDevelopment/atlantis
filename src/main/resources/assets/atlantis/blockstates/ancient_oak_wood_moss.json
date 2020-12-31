@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "atlantis:ancient_oak_wood_moss" }
+        "": { "model": "atlantis:block/ancient_oak_wood_moss" }
     }
 }

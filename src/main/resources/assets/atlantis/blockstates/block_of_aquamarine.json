@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "atlantis:block_of_aquamarine" }
+        "": { "model": "atlantis:block/block_of_aquamarine" }
     }
 }

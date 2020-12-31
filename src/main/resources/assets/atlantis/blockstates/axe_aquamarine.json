@@ -1,7 +1,7 @@
 {
  "forge_marker": 1,
  "defaults": {
- "model": "atlantis:axe_aquamarine.obj"
+ "model": "atlantis:block/axe_aquamarine.obj"
  },
  "variants": {
  "inventory": [

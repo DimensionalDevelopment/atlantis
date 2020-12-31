@@ -1,7 +1,7 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "atlantis:blue_colored_shell_block"
+    "model": "atlantis:block/blue_colored_shell_block"
   },
   "variants": {
     "facing": {
