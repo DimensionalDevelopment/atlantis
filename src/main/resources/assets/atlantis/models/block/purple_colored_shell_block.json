@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "atlantis:blocks/purple_shell_front_texture",
+        "down": "atlantis:blocks/purple_shell_top_bottom",
+        "up": "atlantis:blocks/purple_shell_front_texture",
+        "north": "atlantis:blocks/purple_shell_top_bottom",
+        "east": "atlantis:blocks/purple_colored_shell_side",
+        "south": "atlantis:blocks/purple_shell_top_bottom",
+        "west": "atlantis:blocks/purple_colored_shell_side_flipped"
+    }
+}

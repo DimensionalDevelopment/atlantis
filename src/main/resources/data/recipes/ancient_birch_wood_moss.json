@@ -1,0 +1,30 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		" S ",
+		"SWS",
+		" S "
+	],
+	
+	"key":
+	{
+		"W":
+		{
+			"item": "minecraft:planks",
+            "data": 2
+		},
+		
+		"S":
+		{
+			"item": "minecraft:vine"
+		}
+	},
+	
+	"result":
+	{
+		"item": "atlantis:ancient_birch_wood_moss",
+		"count": 2
+	}
+}					

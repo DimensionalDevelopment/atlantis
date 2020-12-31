@@ -1,0 +1,6 @@
+{
+   "parent": "block/cube_all",
+   "textures": {
+       "all": "atlantis:blocks/ancient_oak_wood_moss"
+   }
+}

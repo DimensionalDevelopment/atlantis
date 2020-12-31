@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"I I",
+		"III",
+		"III"
+	],
+	
+	"key":
+	{
+		"I":
+		{
+			"item": "atlantis:ingot_aquamarine"
+		}
+	},
+	
+	"result":
+	{
+		"item": "atlantis:chestplate_aquamarine",
+		"count": 1
+	}
+}					
