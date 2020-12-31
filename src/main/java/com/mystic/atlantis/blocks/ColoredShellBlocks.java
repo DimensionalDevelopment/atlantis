@@ -5,12 +5,18 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
-import net.minecraft.tags.ITag;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Util;
 import net.minecraftforge.common.ToolType;
 
-import javax.annotation.Nullable;
+import java.util.Random;
+
+import static net.minecraft.state.properties.BlockStateProperties.FACING;
 
 public class ColoredShellBlocks extends Block {
+
+    private static final Direction[] GENERATE_DIRECTIONS = new Direction[]{Direction.WEST, Direction.EAST, Direction.SOUTH, Direction.NORTH};
+
     public ColoredShellBlocks(Properties properties) {
         super(properties);
         properties
@@ -18,31 +24,22 @@ public class ColoredShellBlocks extends Block {
                 .harvestLevel(1)
                 .harvestTool(ToolType.PICKAXE)
                 .hardnessAndResistance(2.0F, 6.0F);
-    }
-
-    @Override
-    public boolean isIn(ITag<Block> tagIn) {
-        return super.isIn(tagIn);
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder);
+        builder.add(FACING);
     }
 
-    @Override
-    public boolean matchesBlock(Block block) {
-        return super.matchesBlock(block);
-    }
-
-    @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return super.getStateForPlacement(context);
+        return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing());
     }
 
-    @Override
-    public StateContainer<Block, BlockState> getStateContainer() {
-        return super.getStateContainer();
+
+    public static Direction getGenerationDirection(Random rand) {
+        return Util.getRandomObject(GENERATE_DIRECTIONS, rand);
     }
+
 }

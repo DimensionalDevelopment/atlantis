@@ -4,13 +4,11 @@
     "model": "atlantis:yellow_colored_shell_block"
   },
   "variants": {
-    "facing": {
-      "north": {},
-      "south": {"y": 180},
-      "west": {"y": 270},
-      "east": {"y": 90},
-      "up": {"x": -90},
-      "down": {"x": 90}
-    }
+      "facing=east": { "model": "atlantis:block/yellow_colored_shell_block" },
+      "facing=south": { "model": "atlantis:block/yellow_colored_shell_block", "y": 90 },
+      "facing=west": { "model": "atlantis:block/yellow_colored_shell_block", "y": 180 },
+      "facing=north": { "model": "atlantis:block/yellow_colored_shell_block", "y": 270 },
+      "facing=up": {"model": "atlantis:block/yellow_colored_shell_block", "x": -90},
+      "facing=down": {"model": "atlantis:block/yellow_colored_shell_block", "x": 90}
   }
 }
