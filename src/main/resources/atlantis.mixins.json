@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.mystic.atlantis.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "AtlantisMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
