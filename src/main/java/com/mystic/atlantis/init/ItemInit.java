@@ -1,7 +1,9 @@
 package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.blocks.AncientWood;
+import com.mystic.atlantis.items.item.AtlanteanCrystal;
 import com.mystic.atlantis.items.item.ItemBase;
+import com.mystic.atlantis.items.item.OrbOfAtlantis;
 import com.mystic.atlantis.items.tools.ToolAxe;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.block.AbstractBlock;
@@ -43,6 +45,8 @@ public class ItemInit
 
     //ITEMS
     public static final RegistryObject<Item> AQUAMARINE_INGOT = ITEMS.register("aquamarine_ingot", ItemBase::new);
+    public static final RegistryObject<Item> ORB_OF_ATLANTIS = ITEMS.register("orb_of_atlantis", OrbOfAtlantis::new);
+    public static final RegistryObject<Item> ATLANTEAN_CRYSTAL = ITEMS.register("atlantean_crystal", AtlanteanCrystal::new);
 
     //TOOLS
     public static final RegistryObject<AxeItem> AXE_AQUMARINE = ITEMS.register("axe_aquamarine", () -> new ToolAxe(ToolInit.AQUAMARINE, 4));

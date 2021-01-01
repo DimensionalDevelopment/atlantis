@@ -1,5 +1,6 @@
 package com.mystic.atlantis;
 
+import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Reference;
@@ -46,7 +47,7 @@ public class Main
 
     private void setup(final FMLCommonSetupEvent event)
     {
-
+        DimensionAtlantis.registerBiomeSources();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event)

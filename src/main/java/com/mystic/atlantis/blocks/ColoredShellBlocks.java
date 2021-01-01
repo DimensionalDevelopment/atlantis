@@ -18,12 +18,13 @@ public class ColoredShellBlocks extends Block {
     private static final Direction[] GENERATE_DIRECTIONS = new Direction[]{Direction.WEST, Direction.EAST, Direction.SOUTH, Direction.NORTH};
 
     public ColoredShellBlocks(Properties properties) {
-        super(properties);
-        properties
+        super(properties
                 .sound(SoundType.BONE)
-                .harvestLevel(1)
+                .harvestLevel(2)
                 .harvestTool(ToolType.PICKAXE)
-                .hardnessAndResistance(2.0F, 6.0F);
+                .setRequiresTool()
+                .hardnessAndResistance(3.0F, 7.0F));
+
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
     }
 
