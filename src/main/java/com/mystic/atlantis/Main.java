@@ -1,11 +1,16 @@
 package com.mystic.atlantis;
 
+import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.event.FeatureLoadingEvent;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
+import com.mystic.atlantis.setup.ClientSetup;
+import com.mystic.atlantis.setup.ModSetup;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.world.gen.feature.Features;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -29,12 +34,14 @@ public class Main
     public Main()
     {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(ModSetup::init);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::init);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new FeatureLoadingEvent());
+        AtlantisFeature.FEATURES.register(bus);
         DeferredRegister<?>[] registers = {
                 BlockInit.BLOCKS,
                 ItemInit.ITEMS,
@@ -50,10 +57,6 @@ public class Main
         DimensionAtlantis.registerBiomeSources();
     }
 
-    private void doClientStuff(final FMLClientSetupEvent event)
-    {
-
-    }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
     {

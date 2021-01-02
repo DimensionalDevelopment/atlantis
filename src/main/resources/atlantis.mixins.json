@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "atlantis.refmap.json",
   "mixins": [
+    "LayerAccessor"
   ],
   "client":[
 
