@@ -19,17 +19,27 @@ public class AtlantisFeature
 
     public static final RegistryObject<Feature<FeatureSpreadConfig>> UNDERWATER_FLOWER_ATLANTIS = FEATURES.register(
             "underwater_flower_atlantis", () -> new UnderwaterFlowerAtlantis(FeatureSpreadConfig.CODEC));
+    public static final RegistryObject<Feature<NoFeatureConfig>> ALGAE_FEATURE_ATLANTIS = FEATURES.register(
+            "algae_feature_atlantis", () -> new AlgaeFeatureAtlantis(NoFeatureConfig.field_236558_a_));
 
     public static final int l = 20;
     public static final class ConfiguredFeaturesAtlantis {
         public static final ConfiguredFeature<?, ?> UNDERWATER_FLOWER_ATLANTIS = AtlantisFeature.UNDERWATER_FLOWER_ATLANTIS.get().withConfiguration(new FeatureSpreadConfig(FeatureSpread.func_242252_a(l)));
 
+        public static final ConfiguredFeature<?, ?> ALGAE_FEATURE_ATLANTIS = AtlantisFeature.ALGAE_FEATURE_ATLANTIS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
+
         public static void registerConfiguredFeatures() {
             register("underwater_flower_altantis", ConfiguredFeaturesAtlantis.UNDERWATER_FLOWER_ATLANTIS.range(32).square().func_242731_b(100));
+
+            register("algae_feature_altantis", ConfiguredFeaturesAtlantis.ALGAE_FEATURE_ATLANTIS.range(32).square().func_242731_b(80));
         }
 
         public static void generateUnderwaterFlowerFeature(BiomeLoadingEvent event) {
             event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ConfiguredFeaturesAtlantis.UNDERWATER_FLOWER_ATLANTIS);
+        }
+
+        public static void generateAlgaeFeatureAltantis(BiomeLoadingEvent event){
+            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ConfiguredFeaturesAtlantis.ALGAE_FEATURE_ATLANTIS);
         }
 
         private static <FC extends IFeatureConfig> void register(String name, ConfiguredFeature<FC, ?> feature) {

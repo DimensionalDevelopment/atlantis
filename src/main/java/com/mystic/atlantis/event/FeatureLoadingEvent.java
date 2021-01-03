@@ -16,6 +16,7 @@ public class FeatureLoadingEvent
         if(event.getCategory() == Biome.Category.OCEAN)
         {
             AtlantisFeature.ConfiguredFeaturesAtlantis.generateUnderwaterFlowerFeature(event);
+            AtlantisFeature.ConfiguredFeaturesAtlantis.generateAlgaeFeatureAltantis(event);
         }
     }
 }

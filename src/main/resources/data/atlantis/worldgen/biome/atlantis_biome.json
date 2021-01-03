@@ -2,15 +2,15 @@
   "scale": 0.1,
   "effects": {
     "mood_sound": {
-      "sound": "minecraft:ambient.cave",
+      "sound": "minecraft:ambient.underwater.loop",
       "tick_delay": 6000,
       "block_search_extent": 8,
       "offset": 2.0
     },
-    "sky_color": 8103167,
-    "fog_color": 12638463,
-    "water_color": 4445678,
-    "water_fog_color": 270131
+    "sky_color": 27571,
+    "fog_color": 59110,
+    "water_color": 3386879,
+    "water_fog_color": 59110
   },
   "surface_builder": "minecraft:full_sand",
   "carvers": {
@@ -44,6 +44,8 @@
       "minecraft:spring_water",
       "minecraft:spring_lava",
       "minecraft:sea_pickle",
+      "minecraft:kelp_warm",
+      "minecraft:warm_ocean_vegetation",
       "minecraft:seagrass_deep_warm",
       "minecraft:seagrass_simple"
     ]

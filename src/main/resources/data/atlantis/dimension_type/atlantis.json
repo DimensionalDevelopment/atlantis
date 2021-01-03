@@ -1,7 +1,7 @@
 {
   "logical_height": 256,
   "infiniburn": "minecraft:infiniburn_overworld",
-  "effects": "atlantis_atlantis",
+  "effects": "atlantis:atlantis",
   "ambient_light": 15.0,
   "bed_works": false,
   "respawn_anchor_works": true,
