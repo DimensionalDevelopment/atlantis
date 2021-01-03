@@ -5,8 +5,8 @@ import net.minecraft.item.AxeItem;
 import net.minecraft.item.IItemTier;
 import net.minecraftforge.common.ToolType;
 
-public class ToolAxe extends AxeItem {
-    public ToolAxe(IItemTier tier, float attack) {
+public class AquamarineAxe extends AxeItem {
+    public AquamarineAxe(IItemTier tier, float attack) {
         super(tier, attack, -3.2F, new Properties()
                 .maxStackSize(1)
                 .defaultMaxDamage(tier.getMaxUses())

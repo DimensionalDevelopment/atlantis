@@ -1,17 +1,12 @@
 package com.mystic.atlantis.init;
 
-import com.mystic.atlantis.blocks.AncientWood;
 import com.mystic.atlantis.items.item.AtlanteanCrystal;
 import com.mystic.atlantis.items.item.ItemBase;
 import com.mystic.atlantis.items.item.OrbOfAtlantis;
-import com.mystic.atlantis.items.tools.ToolAxe;
+import com.mystic.atlantis.items.tools.AquamarineAxe;
+import com.mystic.atlantis.items.tools.AquamarinePickaxe;
 import com.mystic.atlantis.util.Reference;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -49,5 +44,6 @@ public class ItemInit
     public static final RegistryObject<Item> ATLANTEAN_CRYSTAL = ITEMS.register("atlantean_crystal", AtlanteanCrystal::new);
 
     //TOOLS
-    public static final RegistryObject<AxeItem> AXE_AQUMARINE = ITEMS.register("axe_aquamarine", () -> new ToolAxe(ToolInit.AQUAMARINE, 4));
+    public static final RegistryObject<AxeItem> AXE_AQUMARINE = ITEMS.register("axe_aquamarine", () -> new AquamarineAxe(ToolInit.AQUAMARINE, 4));
+    public static final RegistryObject<PickaxeItem> PICKAXE_AQUMARINE = ITEMS.register("pickaxe_aquamarine", () -> new AquamarinePickaxe(ToolInit.AQUAMARINE, 3));
 }
