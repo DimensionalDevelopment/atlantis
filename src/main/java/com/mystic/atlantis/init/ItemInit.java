@@ -3,8 +3,7 @@ package com.mystic.atlantis.init;
 import com.mystic.atlantis.items.item.AtlanteanCrystal;
 import com.mystic.atlantis.items.item.ItemBase;
 import com.mystic.atlantis.items.item.OrbOfAtlantis;
-import com.mystic.atlantis.items.tools.AquamarineAxe;
-import com.mystic.atlantis.items.tools.AquamarinePickaxe;
+import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
@@ -46,4 +45,7 @@ public class ItemInit
     //TOOLS
     public static final RegistryObject<AxeItem> AXE_AQUMARINE = ITEMS.register("axe_aquamarine", () -> new AquamarineAxe(ToolInit.AQUAMARINE, 4));
     public static final RegistryObject<PickaxeItem> PICKAXE_AQUMARINE = ITEMS.register("pickaxe_aquamarine", () -> new AquamarinePickaxe(ToolInit.AQUAMARINE, 3));
+    public static final RegistryObject<ShovelItem> SHOVEL_AQUMARINE = ITEMS.register("shovel_aquamarine", () -> new AquamarineShovel(ToolInit.AQUAMARINE, 1));
+    public static final RegistryObject<HoeItem> HOE_AQUMARINE = ITEMS.register("hoe_aquamarine", () -> new AquamarineHoe(ToolInit.AQUAMARINE, 2));
+    public static final RegistryObject<SwordItem> SWORD_AQUMARINE = ITEMS.register("sword_aquamarine", () -> new AquamarineSword(ToolInit.AQUAMARINE, 6));
 }
