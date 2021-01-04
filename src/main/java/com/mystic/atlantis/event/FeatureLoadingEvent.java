@@ -17,6 +17,7 @@ public class FeatureLoadingEvent
         {
             AtlantisFeature.ConfiguredFeaturesAtlantis.generateUnderwaterFlowerFeature(event);
             AtlantisFeature.ConfiguredFeaturesAtlantis.generateAlgaeFeatureAltantis(event);
+            AtlantisFeature.ConfiguredFeaturesAtlantis.generateShellBlockFeature(event);
         }
     }
 }

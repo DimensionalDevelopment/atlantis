@@ -21,6 +21,8 @@ public class AtlantisFeature
             "underwater_flower_atlantis", () -> new UnderwaterFlowerAtlantis(FeatureSpreadConfig.CODEC));
     public static final RegistryObject<Feature<NoFeatureConfig>> ALGAE_FEATURE_ATLANTIS = FEATURES.register(
             "algae_feature_atlantis", () -> new AlgaeFeatureAtlantis(NoFeatureConfig.field_236558_a_));
+    public static final RegistryObject<Feature<FeatureSpreadConfig>> SHELL_BLOCK_FEATURE = FEATURES.register(
+            "shell_block_feature", () -> new ShellBlockFeature(FeatureSpreadConfig.CODEC));
 
     public static final int l = 20;
     public static final class ConfiguredFeaturesAtlantis {
@@ -28,10 +30,14 @@ public class AtlantisFeature
 
         public static final ConfiguredFeature<?, ?> ALGAE_FEATURE_ATLANTIS = AtlantisFeature.ALGAE_FEATURE_ATLANTIS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
+        public static final ConfiguredFeature<?, ?> SHELL_BLOCK_FEATURE = AtlantisFeature.SHELL_BLOCK_FEATURE.get().withConfiguration(new FeatureSpreadConfig(FeatureSpread.func_242252_a(l)));
+
         public static void registerConfiguredFeatures() {
             register("underwater_flower_altantis", ConfiguredFeaturesAtlantis.UNDERWATER_FLOWER_ATLANTIS.range(32).square().func_242731_b(100));
 
             register("algae_feature_altantis", ConfiguredFeaturesAtlantis.ALGAE_FEATURE_ATLANTIS.range(32).square().func_242731_b(80));
+
+            register("shell_block_feature", ConfiguredFeaturesAtlantis.SHELL_BLOCK_FEATURE.range(32).square().func_242731_b(100));
         }
 
         public static void generateUnderwaterFlowerFeature(BiomeLoadingEvent event) {
@@ -40,6 +46,10 @@ public class AtlantisFeature
 
         public static void generateAlgaeFeatureAltantis(BiomeLoadingEvent event){
             event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ConfiguredFeaturesAtlantis.ALGAE_FEATURE_ATLANTIS);
+        }
+
+        public static void generateShellBlockFeature(BiomeLoadingEvent event) {
+            event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ConfiguredFeaturesAtlantis.SHELL_BLOCK_FEATURE);
         }
 
         private static <FC extends IFeatureConfig> void register(String name, ConfiguredFeature<FC, ?> feature) {

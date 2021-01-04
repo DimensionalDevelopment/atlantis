@@ -2,6 +2,6 @@
     "parent": "item/generated",
     "textures":
     {
-        "layer0": "atlantis:items/boots_wrought"
+        "layer0": "atlantis:items/brown_wrought_leggings"
     }
 }

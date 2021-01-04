@@ -2,6 +2,6 @@
     "parent": "item/generated",
     "textures":
     {
-        "layer0": "atlantis:items/helmet_aquamarine"
+        "layer0": "atlantis:items/aquamarine_helmet"
     }
 }
