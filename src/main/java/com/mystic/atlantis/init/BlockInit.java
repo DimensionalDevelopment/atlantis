@@ -1,8 +1,6 @@
 package com.mystic.atlantis.init;
 
-import com.mystic.atlantis.blocks.AncientWood;
-import com.mystic.atlantis.blocks.AtlantisPortalBlock;
-import com.mystic.atlantis.blocks.ColoredShellBlocks;
+import com.mystic.atlantis.blocks.*;
 import com.mystic.atlantis.blocks.plants.Algae;
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
@@ -51,6 +49,23 @@ public class BlockInit {
     public static final RegistryObject<ColoredShellBlocks>  RED_COLORED_SHELL_BLOCK = register("red_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Properties.create(Material.ROCK)));
     public static final RegistryObject<ColoredShellBlocks>  WHITE_COLORED_SHELL_BLOCK = register("white_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Properties.create(Material.ROCK)));
     public static final RegistryObject<ColoredShellBlocks>  YELLOW_COLORED_SHELL_BLOCK = register("yellow_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  BLACK_PEARL_BLOCK = register("black_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  BLUE_PEARL_BLOCK = register("blue_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  BROWN_PEARL_BLOCK = register("brown_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  CYAN_PEARL_BLOCK = register("cyan_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  GRAY_PEARL_BLOCK = register("gray_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  GREEN_PEARL_BLOCK = register("green_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  LIGHT_BLUE_PEARL_BLOCK = register("light_blue_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  LIGHT_GRAY_PEARL_BLOCK = register("light_gray_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  LIME_PEARL_BLOCK = register("lime_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  MAGENTA_PEARL_BLOCK = register("magenta_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  ORANGE_PEARL_BLOCK = register("orange_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  PINK_PEARL_BLOCK = register("pink_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  PURPLE_PEARL_BLOCK = register("purple_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  RED_PEARL_BLOCK = register("red_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  WHITE_PEARL_BLOCK = register("white_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<PearlBlocks>  YELLOW_PEARL_BLOCK = register("yellow_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<OysterShellBlock> OYSTER_SHELL_BLOCK = register("oyster_shell_block", () -> new OysterShellBlock(AbstractBlock.Properties.create(Material.ROCK)));
     public static final RegistryObject<AtlantisPortalBlock>  ATLANTIS_PORTAL = register("atlantis_portal", () -> new AtlantisPortalBlock(AbstractBlock.Properties.create(Material.PORTAL), DimensionAtlantis.ATLANTIS_WORLD_KEY));
     public static final RegistryObject<UnderwaterFlower> UNDERWATER_FLOWER = register("underwater_flower", () -> new UnderwaterFlower(AbstractBlock.Properties.create(Material.PLANTS)));
     public static final RegistryObject<Algae> ALGAE = register("algae", () -> new Algae(AbstractBlock.Properties.create(Material.PLANTS)));

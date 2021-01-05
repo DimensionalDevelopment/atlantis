@@ -14,6 +14,7 @@ public class ModSetup
 
     }
 
+    @SubscribeEvent
     public static void init(final FMLCommonSetupEvent event) {
 
     }

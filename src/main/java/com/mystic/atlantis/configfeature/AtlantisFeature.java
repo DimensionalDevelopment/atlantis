@@ -1,6 +1,8 @@
 package com.mystic.atlantis.configfeature;
 
 import com.mystic.atlantis.biomes.AtlantisBiomes;
+import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
+import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;

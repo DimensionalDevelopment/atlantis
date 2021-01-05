@@ -7,32 +7,39 @@ import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.setup.ClientSetup;
 import com.mystic.atlantis.setup.ModSetup;
+import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
+import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraft.world.gen.FlatChunkGenerator;
+import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.settings.DimensionStructuresSettings;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
-import org.spongepowered.asm.mixin.MixinEnvironment;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Mod(Reference.MODID)
 public class Main
 {
-    public Main()
-    {
+    public Main() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         FMLJavaModLoadingContext.get().getModEventBus().addListener(ModSetup::init);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::init);
@@ -42,6 +49,9 @@ public class Main
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new FeatureLoadingEvent());
         AtlantisFeature.FEATURES.register(bus);
+        IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+        forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
+        bus.addGenericListener(Structure.class, this::onRegisterStructures);
         DeferredRegister<?>[] registers = {
                 BlockInit.BLOCKS,
                 ItemInit.ITEMS,
@@ -49,6 +59,24 @@ public class Main
 
         for (DeferredRegister<?> register : registers) {
             register.register(bus);
+        }
+    }
+
+    public void onRegisterStructures (final RegistryEvent.Register<Structure<?>> event) {
+        AtlantisStructures.registerStructures(event);
+        AtlantisConfiguredStructures.registerConfiguredStructures();
+    }
+
+    public void addDimensionalSpacing ( final WorldEvent.Load event){
+        if (event.getWorld() instanceof ServerWorld) {
+            ServerWorld serverWorld = (ServerWorld) event.getWorld();
+            if (serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator &&
+                    serverWorld.getDimensionKey().equals(World.OVERWORLD)) {
+                return;
+            }
+            Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+            tempMap.put(AtlantisStructures.OYSTER_STRUCTURE, DimensionStructuresSettings.field_236191_b_.get(AtlantisStructures.OYSTER_STRUCTURE));
+            serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
     }
 
@@ -77,5 +105,11 @@ public class Main
     public static class RegistryEvents
     {
 
+    }
+
+    public static <T extends IForgeRegistryEntry<T>> T register(IForgeRegistry<T> registry, T entry, String registryKey) {
+        entry.setRegistryName(new ResourceLocation(Reference.MODID, registryKey));
+        registry.register(entry);
+        return entry;
     }
 }

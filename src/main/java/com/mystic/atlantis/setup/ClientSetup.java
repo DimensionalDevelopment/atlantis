@@ -22,6 +22,22 @@ public class ClientSetup
     public static void init(final FMLClientSetupEvent event) {
         RenderTypeLookup.setRenderLayer(BlockInit.UNDERWATER_FLOWER.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(BlockInit.ALGAE.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.BLACK_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.GRAY_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.WHITE_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.LIGHT_GRAY_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.BLUE_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.LIGHT_BLUE_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.RED_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.ORANGE_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.PINK_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.YELLOW_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.GREEN_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.LIME_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.PURPLE_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.MAGENTA_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.CYAN_PEARL_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.BROWN_PEARL_BLOCK.get(), RenderType.getTranslucent());
 
         DimensionRenderInfo atlantis = new DimensionRenderInfo(255.0F, true, DimensionRenderInfo.FogType.NORMAL, false, false) {
             @Override
