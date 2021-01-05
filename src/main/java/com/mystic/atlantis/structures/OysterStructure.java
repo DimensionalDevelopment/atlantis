@@ -2,18 +2,22 @@ package com.mystic.atlantis.structures;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
-import net.minecraft.util.Rotation;
+import com.mystic.atlantis.util.Reference;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
+import net.minecraft.world.gen.feature.structure.AbstractVillagePiece;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
+import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
 import java.util.List;
@@ -25,22 +29,25 @@ public class OysterStructure extends Structure<NoFeatureConfig> {
     }
 
     @Override
-    public  IStartFactory<NoFeatureConfig> getStartFactory() {
+    public IStartFactory<NoFeatureConfig> getStartFactory() {
         return OysterStructure.Start::new;
     }
 
+
     @Override
     public GenerationStage.Decoration getDecorationStage() {
-        return GenerationStage.Decoration.RAW_GENERATION;
+        return GenerationStage.Decoration.SURFACE_STRUCTURES;
     }
 
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of();
+
     @Override
     public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
         return STRUCTURE_MONSTERS;
     }
 
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of();
+
     @Override
     public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
         return STRUCTURE_CREATURES;
@@ -52,12 +59,22 @@ public class OysterStructure extends Structure<NoFeatureConfig> {
         }
 
         @Override
-        public void func_230364_a_(DynamicRegistries dynamicRegistryManager, ChunkGenerator generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config) {
+        public void func_230364_a_(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config) {
 
-            Rotation rotation = Rotation.randomRotation(this.rand);
-            BlockPos blockpos = new BlockPos(chunkX * 16, generator.getHeight((chunkX*16), (chunkZ*16), Heightmap.Type.OCEAN_FLOOR), chunkZ * 16);
-            OysterPieces.start(templateManagerIn, blockpos, rotation, this.components, this.rand);
+            int x = (chunkX << 4) + 7;
+            int z = (chunkZ << 4) + 7;
+
+            BlockPos blockpos = new BlockPos(x, 0, z);
+
+            JigsawManager.func_242837_a(
+                    dynamicRegistryManager,
+                    new VillageConfig(() -> dynamicRegistryManager.getRegistry(Registry.JIGSAW_POOL_KEY).getOrDefault(new ResourceLocation(Reference.MODID, "oyster_structure/start_pool")), 10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn, blockpos, this.components, this.rand, false, true);
+
+            this.components.forEach(piece -> piece.offset(0, 1, 0));
+            this.components.forEach(piece -> piece.getBoundingBox().minY -= 1);
+
             this.recalculateStructureSize();
+
         }
     }
 }

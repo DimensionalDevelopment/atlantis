@@ -49,9 +49,9 @@ public class Main
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new FeatureLoadingEvent());
         AtlantisFeature.FEATURES.register(bus);
+        AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
-        bus.addGenericListener(Structure.class, this::onRegisterStructures);
         DeferredRegister<?>[] registers = {
                 BlockInit.BLOCKS,
                 ItemInit.ITEMS,
@@ -62,29 +62,29 @@ public class Main
         }
     }
 
-    public void onRegisterStructures (final RegistryEvent.Register<Structure<?>> event) {
-        AtlantisStructures.registerStructures(event);
-        AtlantisConfiguredStructures.registerConfiguredStructures();
-    }
-
-    public void addDimensionalSpacing ( final WorldEvent.Load event){
-        if (event.getWorld() instanceof ServerWorld) {
-            ServerWorld serverWorld = (ServerWorld) event.getWorld();
-            if (serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator &&
-                    serverWorld.getDimensionKey().equals(World.OVERWORLD)) {
-                return;
-            }
-            Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
-            tempMap.put(AtlantisStructures.OYSTER_STRUCTURE, DimensionStructuresSettings.field_236191_b_.get(AtlantisStructures.OYSTER_STRUCTURE));
-            serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
-        }
-    }
 
     private void setup(final FMLCommonSetupEvent event)
     {
         DimensionAtlantis.registerBiomeSources();
+        event.enqueueWork(() -> {
+            AtlantisStructures.setupStructures();
+            AtlantisConfiguredStructures.registerConfiguredStructures();
+        });
     }
 
+    public void addDimensionalSpacing(final WorldEvent.Load event) {
+        if(event.getWorld() instanceof ServerWorld){
+            ServerWorld serverWorld = (ServerWorld)event.getWorld();
+            if(serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator &&
+                    serverWorld.getDimensionKey().equals(World.OVERWORLD)){
+                return;
+            }
+
+            Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+            tempMap.put(AtlantisStructures.OYSTER_STRUCTURE.get(), DimensionStructuresSettings.field_236191_b_.get(AtlantisStructures.OYSTER_STRUCTURE.get()));
+            serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
+        }
+    }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
     {

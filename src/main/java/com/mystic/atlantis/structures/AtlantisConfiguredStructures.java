@@ -9,12 +9,12 @@ import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
 public class AtlantisConfiguredStructures {
-    public static StructureFeature<?, ?> CONFIGURED_OYSTER_STRUCTURE = AtlantisStructures.OYSTER_STRUCTURE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
+    public static StructureFeature<?, ?> CONFIGURED_OYSTER_STRUCTURE = AtlantisStructures.OYSTER_STRUCTURE.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
     public static void registerConfiguredStructures() {
         Registry<StructureFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE;
-        Registry.register(registry, new ResourceLocation(Reference.MODID, "structures/oyster_structure"), CONFIGURED_OYSTER_STRUCTURE);
+        Registry.register(registry, new ResourceLocation(Reference.MODID, "configured_oyster_structure"), CONFIGURED_OYSTER_STRUCTURE);
 
-        FlatGenerationSettings.STRUCTURES.put(AtlantisStructures.OYSTER_STRUCTURE, CONFIGURED_OYSTER_STRUCTURE);
+        FlatGenerationSettings.STRUCTURES.put(AtlantisStructures.OYSTER_STRUCTURE.get(), CONFIGURED_OYSTER_STRUCTURE);
     }
 }
