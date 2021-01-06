@@ -35,6 +35,12 @@ public class BlockInit {
     public static final RegistryObject<AncientWood> ANCIENT_SPRUCE_WOOD_MOSS = register("ancient_spruce_wood_moss", () -> new AncientWood(AbstractBlock.Properties.create(Material.WOOD)));
     public static final RegistryObject<AncientWood> ANCIENT_BIRCH_WOOD_MOSS = register("ancient_birch_wood_moss", () -> new AncientWood(AbstractBlock.Properties.create(Material.WOOD)));
     public static final RegistryObject<AncientWood> ANCIENT_DARK_OAK_WOOD_MOSS = register("ancient_dark_oak_wood_moss", () -> new AncientWood(AbstractBlock.Properties.create(Material.WOOD)));
+    public static final RegistryObject<AquamarineOre> AQUAMARINE_ORE = register("aquamarine_ore", () -> new AquamarineOre(AbstractBlock.Properties.create(Material.ROCK)));
+    public static final RegistryObject<OceanLantern> OCEAN_LANTERN = register("ocean_lantern", () -> new OceanLantern(AbstractBlock.Properties.create(Material.IRON)));
+    public static final RegistryObject<AtlanteanCore> ATLANTEAN_CORE = register("atlantean_core", () -> new BlockAquamarine(AbstractBlock.Properties.create(Material.GLASS)));
+    public static final RegistryObject<BlockAquamarine> BLOCK_OF_AQUAMARINE = register("block_of_aquamarine", () -> new BlockAquamarine(AbstractBlock.Properties.create(Material.IRON)));
+    public static final RegistryObject<BlockAquamarine> CHISELED_GOLDEN_BLOCK = register("chiseled_golden_block", () -> new BlockAquamarine(AbstractBlock.Properties.create(Material.IRON)));
+    public static final RegistryObject<BlockAquamarine> CHISELED_GOLDEN_AQUAMARINE = register("chiseled_golden_aquamarine", () -> new BlockAquamarine(AbstractBlock.Properties.create(Material.IRON)));;
     public static final RegistryObject<ColoredShellBlocks>  BLACK_COLORED_SHELL_BLOCK = register("black_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Properties.create(Material.ROCK)));
     public static final RegistryObject<ColoredShellBlocks>  BLUE_COLORED_SHELL_BLOCK = register("blue_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Properties.create(Material.ROCK)));
     public static final RegistryObject<ColoredShellBlocks>  BROWN_COLORED_SHELL_BLOCK = register("brown_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Properties.create(Material.ROCK)));

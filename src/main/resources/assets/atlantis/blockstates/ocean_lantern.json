@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "atlantis:ocean_lantern" }
+        "": { "model": "atlantis:block/ocean_lantern" }
     }
 }

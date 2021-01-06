@@ -62,7 +62,8 @@
     []
   ],
   "starts": [
-    "atlantis:configured_oyster_structure"
+    "atlantis:configured_oyster_structure",
+    "atlantis:configured_atlantean_fountain"
   ],
   "spawners": {
     "monster": [

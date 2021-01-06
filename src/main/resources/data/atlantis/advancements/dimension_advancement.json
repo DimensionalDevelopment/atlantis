@@ -1,16 +1,16 @@
 {
     "display": {
         "title": {
-            "text": "That's a Big Oyster!!!",
+            "text": "Welcome To Atlantis!!!",
             "color": "aqua",
             "bold": false
         },
         "description": {
-            "text": "Find a Giant Oyster in the Atlantis Biome",
+            "text": "Enter the Atlantis Dimension",
             "color": "blue"
         },
         "icon": {
-            "item": "atlantis:white_pearl_block"
+            "item": "atlantis:orb_of_atlantis"
         },
         "frame": "task",
         "show_toast": true,
@@ -19,11 +19,12 @@
         "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
     },
     "criteria": {
-        "oyster": {
+        "atlantis": {
             "trigger": "minecraft:location",
             "conditions": {
                 "location": {
-                    "feature": "altantis:oyster_structure"
+                    "biome": "atlantis:atlantis_biome",
+                    "dimension": "atlantis:atlantis"
                 }
             }
         }
@@ -33,7 +34,7 @@
     },
     "requirements": [
         [
-            "oyster"
+            "atlantis"
         ]
     ]
 }

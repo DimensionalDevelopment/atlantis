@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "atlantis:chiseled_golden_block" }
+        "": { "model": "atlantis:block/chiseled_golden_block" }
     }
 }

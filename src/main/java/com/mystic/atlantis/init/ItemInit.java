@@ -10,7 +10,6 @@ import com.mystic.atlantis.util.Reference;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvents;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -20,7 +19,7 @@ public class ItemInit
     public static final ItemGroup CREATIVE_TAB_ATLANTIS = new ItemGroup("atlantis") {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(BlockInit.ANCIENT_ACACIA_WOOD_MOSS.get());
+            return new ItemStack(BlockInit.CHISELED_GOLDEN_AQUAMARINE.get());
         }
 
         @Override
