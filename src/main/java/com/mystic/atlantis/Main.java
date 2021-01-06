@@ -48,7 +48,6 @@ public class Main
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new FeatureLoadingEvent());
         MinecraftForge.EVENT_BUS.register(new PositionEvent());
         MinecraftForge.EVENT_BUS.register(new ElderPortalEvent());
         MinecraftForge.EVENT_BUS.register(new DimensionEffectTimed());

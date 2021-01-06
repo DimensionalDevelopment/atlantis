@@ -51,9 +51,10 @@
     ]
   ],
   "starts": [
-    "minecraft:ocean_ruin_warm",
-    "minecraft:shipwreck",
-    "minecraft:ruined_portal_ocean"
+    "atlantis:configured_oyster_structure",
+    "atlantis:configured_shell_block",
+    "atlantis:configured_algae_feature_atlantis",
+    "atlantis:configured_underwater_flower_feature"
   ],
   "spawners": {
     "monster": [
