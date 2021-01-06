@@ -20,10 +20,12 @@
     ]
   },
   "features": [
+    [],
     [
       "minecraft:lake_water",
       "minecraft:lake_lava"
     ],
+    [],
     [
       "minecraft:ore_dirt",
       "minecraft:ore_gravel",
@@ -41,20 +43,26 @@
       "minecraft:disk_gravel"
     ],
     [
+      "atlantis:configured_shell_block"
+    ],
+    [],
+    [],
+    [],
+    [
       "minecraft:spring_water",
       "minecraft:spring_lava",
       "minecraft:sea_pickle",
       "minecraft:kelp_warm",
       "minecraft:warm_ocean_vegetation",
       "minecraft:seagrass_deep_warm",
-      "minecraft:seagrass_simple"
-    ]
+      "minecraft:seagrass_simple",
+      "atlantis:configured_algae_feature_atlantis",
+      "atlantis:configured_underwater_flower_feature"
+    ],
+    []
   ],
   "starts": [
-    "atlantis:configured_oyster_structure",
-    "atlantis:configured_shell_block",
-    "atlantis:configured_algae_feature_atlantis",
-    "atlantis:configured_underwater_flower_feature"
+    "atlantis:configured_oyster_structure"
   ],
   "spawners": {
     "monster": [

@@ -4,7 +4,6 @@
       "config": {
         "feature": {
           "config": {
-            "count": 100,
             "probability": 0.8
           },
           "type": "atlantis:algae_feature_atlantis"
