@@ -90,6 +90,10 @@ public class Main
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
             tempMap.put(AtlantisStructures.OYSTER_STRUCTURE.get(), DimensionStructuresSettings.field_236191_b_.get(AtlantisStructures.OYSTER_STRUCTURE.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
+
+            Map<Structure<?>, StructureSeparationSettings> tempMap2 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+            tempMap2.put(AtlantisStructures.ATLANTEAN_FOUNTAIN.get(), DimensionStructuresSettings.field_236191_b_.get(AtlantisStructures.ATLANTEAN_FOUNTAIN.get()));
+            serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap2;
         }
     }
 

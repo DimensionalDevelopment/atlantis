@@ -17,7 +17,7 @@ public class AtlantisConfiguredStructures {
         Registry<StructureFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE;
         Registry.register(registry, new ResourceLocation(Reference.MODID, "configured_oyster_structure"), CONFIGURED_OYSTER_STRUCTURE);
         Registry.register(registry, new ResourceLocation(Reference.MODID, "configured_atlantean_fountain"), CONFIGURED_ATLANTEAN_FOUNTAIN);
-        
+
         FlatGenerationSettings.STRUCTURES.put(AtlantisStructures.OYSTER_STRUCTURE.get(), CONFIGURED_OYSTER_STRUCTURE);
         FlatGenerationSettings.STRUCTURES.put(AtlantisStructures.ATLANTEAN_FOUNTAIN.get(), CONFIGURED_ATLANTEAN_FOUNTAIN);
     }
