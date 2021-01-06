@@ -1,0 +1,39 @@
+{
+    "display": {
+        "title": {
+            "text": "That's a Big Oyster!!!",
+            "color": "aqua",
+            "bold": false
+        },
+        "description": {
+            "text": "Find a Giant Oyster in the Atlantis Biome",
+            "color": "blue"
+        },
+        "icon": {
+            "item": "atlantis:white_pearl_block"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false,
+        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+    },
+    "criteria": {
+        "oyster": {
+            "trigger": "minecraft:location",
+            "conditions": {
+                "location": {
+                    "feature": "altantis:oyster_structure"
+                }
+            }
+        }
+    },
+    "rewards": {
+        "experience": 200
+    },
+    "requirements": [
+        [
+            "oyster"
+        ]
+    ]
+}
