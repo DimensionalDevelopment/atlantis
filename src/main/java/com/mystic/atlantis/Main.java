@@ -2,7 +2,7 @@ package com.mystic.atlantis;
 
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
-import com.mystic.atlantis.event.FeatureLoadingEvent;
+import com.mystic.atlantis.event.*;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.setup.ClientSetup;
@@ -46,11 +46,18 @@ public class Main
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new FeatureLoadingEvent());
+        MinecraftForge.EVENT_BUS.register(new PositionEvent());
+        MinecraftForge.EVENT_BUS.register(new ElderPortalEvent());
+        MinecraftForge.EVENT_BUS.register(new DimensionEffectTimed());
+        MinecraftForge.EVENT_BUS.register(new DimensionFoodEvent());
+
         AtlantisFeature.FEATURES.register(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+
         forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
         DeferredRegister<?>[] registers = {
                 BlockInit.BLOCKS,

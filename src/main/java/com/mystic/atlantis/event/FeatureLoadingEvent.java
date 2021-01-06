@@ -2,9 +2,7 @@ package com.mystic.atlantis.event;
 
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
-import com.mystic.atlantis.structures.AtlantisStructures;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

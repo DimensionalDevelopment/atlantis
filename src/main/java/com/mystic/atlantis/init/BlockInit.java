@@ -12,6 +12,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
@@ -66,7 +68,7 @@ public class BlockInit {
     public static final RegistryObject<PearlBlocks>  WHITE_PEARL_BLOCK = register("white_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
     public static final RegistryObject<PearlBlocks>  YELLOW_PEARL_BLOCK = register("yellow_pearl_block", () -> new PearlBlocks(AbstractBlock.Properties.create(Material.ROCK)));
     public static final RegistryObject<OysterShellBlock> OYSTER_SHELL_BLOCK = register("oyster_shell_block", () -> new OysterShellBlock(AbstractBlock.Properties.create(Material.ROCK)));
-    public static final RegistryObject<AtlantisPortalBlock>  ATLANTIS_PORTAL = register("atlantis_portal", () -> new AtlantisPortalBlock(AbstractBlock.Properties.create(Material.PORTAL), DimensionAtlantis.ATLANTIS_WORLD_KEY));
+    public static final RegistryObject<AtlantisPortalBlock>  ATLANTIS_PORTAL = register("atlantis_portal", () -> new AtlantisPortalBlock(AbstractBlock.Properties.create(Material.PORTAL)));
     public static final RegistryObject<UnderwaterFlower> UNDERWATER_FLOWER = register("underwater_flower", () -> new UnderwaterFlower(AbstractBlock.Properties.create(Material.PLANTS)));
     public static final RegistryObject<Algae> ALGAE = register("algae", () -> new Algae(AbstractBlock.Properties.create(Material.PLANTS)));
 

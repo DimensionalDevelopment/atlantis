@@ -24,6 +24,7 @@ public class PearlBlocks extends Block
                 .harvestTool(ToolType.PICKAXE)
                 .harvestLevel(1)
                 .setLightLevel((state) -> 5)
+                .notSolid()
                 .sound(SoundType.STONE));
     }
 
