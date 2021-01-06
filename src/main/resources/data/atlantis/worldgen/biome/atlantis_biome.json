@@ -43,7 +43,7 @@
       "minecraft:disk_gravel"
     ],
     [
-      "atlantis:configured_shell_block"
+      "atlantis:configured_shell_block_feature"
     ],
     [],
     [],
@@ -56,8 +56,8 @@
       "minecraft:warm_ocean_vegetation",
       "minecraft:seagrass_deep_warm",
       "minecraft:seagrass_simple",
-      "atlantis:configured_algae_feature_atlantis",
-      "atlantis:configured_underwater_flower_feature"
+      "atlantis:configured_algae_feature",
+      "atlantis:configured_flower_feature"
     ],
     []
   ],
