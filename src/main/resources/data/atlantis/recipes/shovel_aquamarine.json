@@ -1,0 +1,34 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		" I ",
+		" L ",
+		" C "
+	],
+	
+	"key":
+	{
+		"C":
+		{
+			"item": "minecraft:stick"
+		},
+		
+		"I":
+		{
+			"item": "atlantis:aquamarine_ingot"
+		},
+		
+		"L":
+		{
+			"item": "minecraft:leather"
+		}
+	},
+	
+	"result":
+	{
+		"item": "atlantis:shovel_aquamarine",
+		"count": 1
+	}
+}					

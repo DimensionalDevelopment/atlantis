@@ -1,0 +1,23 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients":
+	[
+	
+	{
+		"item": "minecraft:black_dye"
+	},					
+	
+	{
+		"item": "atlantis:white_pearl_block"
+	}
+	
+	],
+	
+	"result":
+	{
+		"item": "atlantis:black_pearl_block",
+		"count": 1
+	}
+	
+}	

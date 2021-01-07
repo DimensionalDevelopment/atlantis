@@ -1,0 +1,30 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"SSS",
+		"SWS",
+		"SSS"
+	],
+	
+	"key":
+	{
+		"W":
+		{
+			"item": "minecraft:gold_nugget"
+		},
+		
+		"S":
+		{
+			"item": "atlantis:ocean_stone"
+		}
+	},
+	
+	"result":
+	{
+		"item": "atlantis:atlantean_crystal",
+		"count": 8
+	}
+	
+}					
