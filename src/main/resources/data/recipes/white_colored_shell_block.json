@@ -12,14 +12,12 @@
 	{
 		"S":
 		{
-			"item": "minecraft:dye",
-  			"data": 15
+			"item": "minecraft:white_dye"
 		},
 		
 		"W":
 		{
-			"item": "minecraft:stone",
-			"data": 0
+			"item": "minecraft:stone"
 		},
 		
 		"O":
@@ -32,5 +30,6 @@
 	{
 		"item": "atlantis:white_colored_shell_block",
 		"count": 2
-	}
+	},
+	"group": "Atlantis"
 }					

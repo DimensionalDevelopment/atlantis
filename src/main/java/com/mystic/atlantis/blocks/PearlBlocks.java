@@ -23,6 +23,7 @@ public class PearlBlocks extends Block
                 .hardnessAndResistance(2.0F, 5.0F)
                 .harvestTool(ToolType.PICKAXE)
                 .harvestLevel(1)
+                .setRequiresTool()
                 .setLightLevel((state) -> 5)
                 .notSolid()
                 .sound(SoundType.STONE));

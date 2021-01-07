@@ -12,8 +12,7 @@
 	{
 		"S":
 		{
-			"item": "minecraft:dye",
-  			"data": 15
+			"item": "minecraft:white_dye"
 		},
 		
 		"W":
@@ -26,5 +25,6 @@
 	{
 		"item": "atlantis:white_pearl_block",
 		"count": 2
-	}
+	},
+	"group": "Atlantis"
 }					

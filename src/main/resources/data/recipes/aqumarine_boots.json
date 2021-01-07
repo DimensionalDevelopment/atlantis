@@ -12,13 +12,14 @@
 	{
 		"I":
 		{
-			"item": "atlantis:ingot_aquamarine"
+			"item": "atlantis:aquamarine_ingot"
 		}
 	},
 	
 	"result":
 	{
-		"item": "atlantis:boots_aquamarine",
+		"item": "atlantis:aquamarine_boots",
 		"count": 1
-	}
+	},
+	"group": "Atlantis"
 }					

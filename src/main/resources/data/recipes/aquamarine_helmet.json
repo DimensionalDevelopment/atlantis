@@ -3,22 +3,22 @@
 	
 	"pattern":
 	[
-		"I I",
 		"III",
-		"III"
+		"I I",
+		"   "
 	],
 	
 	"key":
 	{
 		"I":
 		{
-			"item": "atlantis:ingot_aquamarine"
+			"item": "atlantis:aquamarine_ingot"
 		}
 	},
 	
 	"result":
 	{
-		"item": "atlantis:chestplate_aquamarine",
+		"item": "atlantis:aquamarine_helmet",
 		"count": 1
 	}
 }					

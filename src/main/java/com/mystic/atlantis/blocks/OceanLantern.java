@@ -21,6 +21,7 @@ public class OceanLantern extends Block
         super(properties
                 .hardnessAndResistance(2.0F, 10.0F)
                 .setLightLevel((state) -> 10)
+                .setRequiresTool()
                 .sound(SoundType.GLASS));
     }
 

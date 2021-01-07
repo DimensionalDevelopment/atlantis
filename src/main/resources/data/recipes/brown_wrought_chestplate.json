@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "# #",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "atlantis:brown_wrought_patches"
+        }
+    },
+    "result": {
+        "item": "atlantis:brown_wrought_chestplate",
+        "count": 1
+    },
+    "group": "Atlantis"
+}

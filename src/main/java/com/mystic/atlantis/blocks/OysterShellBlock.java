@@ -18,6 +18,7 @@ public class OysterShellBlock extends RotatedPillarBlock
                 .hardnessAndResistance(2.0F, 6.0F)
                 .harvestTool(ToolType.PICKAXE)
                 .harvestLevel(1)
+                .setRequiresTool()
                 .sound(SoundType.STONE));
         this.setDefaultState(this.getDefaultState().with(AXIS, Direction.Axis.Y));
     }

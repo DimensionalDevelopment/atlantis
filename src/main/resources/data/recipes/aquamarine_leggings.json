@@ -5,20 +5,21 @@
 	[
 		"III",
 		"I I",
-		"   "
+		"I I"
 	],
 	
 	"key":
 	{
 		"I":
 		{
-			"item": "atlantis:ingot_aquamarine"
+			"item": "atlantis:aquamarine_ingot"
 		}
 	},
 	
 	"result":
 	{
-		"item": "atlantis:helmet_aquamarine",
+		"item": "atlantis:aquamarine_leggings",
 		"count": 1
-	}
+	},
+	"group": "Atlantis"
 }					

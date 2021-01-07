@@ -12,13 +12,12 @@
 	{
 		"W":
 		{
-			  "item": "minecraft:planks",
-              "data": 5
+			  "item": "minecraft:dark_oak_planks"
 		},
 		
 		"S":
 		{
-			"item": "minecraft:vine"
+			"item": "altantis:algae"
 		}
 	},
 	
@@ -26,5 +25,6 @@
 	{
 		"item": "atlantis:ancient_dark_oak_wood_moss",
 		"count": 2
-	}
+	},
+	"group": "Atlantis"
 }					

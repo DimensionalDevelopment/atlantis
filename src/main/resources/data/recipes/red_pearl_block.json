@@ -5,8 +5,7 @@
 	[
 	
 	{
-		"item": "minecraft:dye",
-		"data": 1
+		"item": "minecraft:red_dye"
 	},					
 	
 	{
@@ -19,5 +18,6 @@
 	{
 		"item": "atlantis:red_pearl_block",
 		"count": 1
-	}
+	},
+	"group": "Atlantis"
 }	

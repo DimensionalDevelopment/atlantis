@@ -12,8 +12,7 @@
 	{
 		"S":
 		{
-			"item": "minecraft:stone", 
-			"data": 0
+			"item": "minecraft:stone"
 		},
 		
 		"B":

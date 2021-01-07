@@ -5,8 +5,7 @@
 	[
 	
 	{
-		"item": "minecraft:dye",
-		"data": 14
+		"item": "minecraft:orange_dye"
 	},					
 	
 	{
@@ -19,5 +18,6 @@
 	{
 		"item": "atlantis:orange_colored_shell_block",
 		"count": 1
-	}
+	},
+	"group": "Atlantis"
 }	

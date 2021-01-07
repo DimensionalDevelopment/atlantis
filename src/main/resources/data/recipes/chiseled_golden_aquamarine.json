@@ -9,7 +9,7 @@
 	},
 	
 	{
-		"item": "atlantis:ingot_aquamarine"
+		"item": "atlantis:aquamarine_ingot"
 	}
 	
 	],
@@ -18,5 +18,6 @@
 	{
 		"item": "atlantis:chiseled_golden_aquamarine",
 		"count": 1
-	}
+	},
+	"group": "Atlantis"
 }	

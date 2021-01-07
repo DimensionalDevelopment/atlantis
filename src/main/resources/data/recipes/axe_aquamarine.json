@@ -17,7 +17,7 @@
 		
 		"I":
 		{
-			"item": "atlantis:ingot_aquamarine"
+			"item": "atlantis:aquamarine_ingot"
 		},
 		
 		"L":
@@ -30,5 +30,6 @@
 	{
 		"item": "atlantis:axe_aquamarine",
 		"count": 1
-	}
+	},
+	"group": "Atlantis"
 }					

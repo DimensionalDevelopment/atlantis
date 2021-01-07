@@ -34,6 +34,7 @@ public class UnderwaterFlower extends BushBlock implements IWaterLoggable {
                 .tickRandomly()
                 .hardnessAndResistance(0.2F, 0.4F)
                 .sound(SoundType.PLANT)
+                .setRequiresTool()
                 .notSolid());
         this.getDefaultState().with(WATERLOGGED, Boolean.TRUE);
     }
