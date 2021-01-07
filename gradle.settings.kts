@@ -1,0 +1,2 @@
+includeBuild("..")
+rootProject.name = "Atlantis"
