@@ -13,8 +13,8 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber
 public class DimensionEffectTimed
 {
-    static EffectInstance water_breathing = new EffectInstance(Effects.WATER_BREATHING, 99999, 4).getEffectInstance();
-    static EffectInstance haste = new EffectInstance(Effects.HASTE, 99999, 3).getEffectInstance();
+    static EffectInstance water_breathing = new EffectInstance(Effects.WATER_BREATHING, 99999, 4, false, false).getEffectInstance();
+    static EffectInstance haste = new EffectInstance(Effects.HASTE, 99999, 3,false, false).getEffectInstance();
 
     @SubscribeEvent
     public static void  playerTick(TickEvent.PlayerTickEvent event){
