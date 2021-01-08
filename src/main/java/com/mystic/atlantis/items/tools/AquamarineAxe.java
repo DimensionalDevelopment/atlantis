@@ -1,9 +1,9 @@
 package com.mystic.atlantis.items.tools;
 
-import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraftforge.common.ToolType;
+
+import com.mystic.atlantis.init.ItemInit;
 
 public class AquamarineAxe extends AxeItem {
     public AquamarineAxe(ToolMaterial tier, float attack) {

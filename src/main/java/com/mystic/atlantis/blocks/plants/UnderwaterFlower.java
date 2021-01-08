@@ -14,12 +14,10 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldView;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jetbrains.annotations.Nullable;
 
 public class UnderwaterFlower extends PlantBlock implements Waterloggable {
 
@@ -111,14 +109,7 @@ public class UnderwaterFlower extends PlantBlock implements Waterloggable {
     }
 
     public boolean OnlyWater(WorldView worldReader, BlockPos pos, BlockState state) {
-        if (this.getBlock().isIn(getAir())) {
-            if (this.canBlockStay(worldReader, pos, state)) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        return true;
+        return !worldReader.getBlockState(pos).isIn(getAir()) || !this.canBlockStay(worldReader, pos, state);
     }
 
     public boolean canBlockStay(WorldView worldReader, BlockPos pos, BlockState state) {

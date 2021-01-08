@@ -1,91 +1,90 @@
 package com.mystic.atlantis.init;
 
-import com.mystic.atlantis.blocks.*;
-import com.mystic.atlantis.blocks.plants.Algae;
-import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
-import com.mystic.atlantis.dimension.DimensionAtlantis;
-import com.mystic.atlantis.util.Reference;
-import net.minecraft.block.AbstractBlock;
+import java.util.Objects;
+import java.util.function.Function;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import com.mystic.atlantis.blocks.AncientWood;
+import com.mystic.atlantis.blocks.AquamarineOre;
+import com.mystic.atlantis.blocks.AtlanteanCore;
+import com.mystic.atlantis.blocks.AtlantisPortalBlock;
+import com.mystic.atlantis.blocks.BlockAquamarine;
+import com.mystic.atlantis.blocks.ColoredShellBlocks;
+import com.mystic.atlantis.blocks.OceanLantern;
+import com.mystic.atlantis.blocks.OysterShellBlock;
+import com.mystic.atlantis.blocks.PearlBlocks;
+import com.mystic.atlantis.blocks.plants.Algae;
+import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
+import com.mystic.atlantis.util.Reference;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
 public class BlockInit {
+    public static final AncientWood ANCIENT_ACACIA_WOOD_MOSS = (AncientWood) register("ancient_acacia_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWood ANCIENT_OAK_WOOD_MOSS = (AncientWood) register("ancient_oak_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWood ANCIENT_JUNGLE_WOOD_MOSS = (AncientWood) register("ancient_jungle_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWood ANCIENT_SPRUCE_WOOD_MOSS = (AncientWood) register("ancient_spruce_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWood ANCIENT_BIRCH_WOOD_MOSS = (AncientWood) register("ancient_birch_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWood ANCIENT_DARK_OAK_WOOD_MOSS = (AncientWood) register("ancient_dark_oak_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
+    public static final AquamarineOre AQUAMARINE_ORE = (AquamarineOre) register("aquamarine_ore", new AquamarineOre(FabricBlockSettings.of(Material.STONE)));
+    public static final OceanLantern OCEAN_LANTERN = (OceanLantern) register("ocean_lantern", new OceanLantern(FabricBlockSettings.of(Material.METAL)));
+    public static final AtlanteanCore ATLANTEAN_CORE = (AtlanteanCore) register("atlantean_core", new AtlanteanCore(FabricBlockSettings.of(Material.GLASS)));
+    public static final BlockAquamarine BLOCK_OF_AQUAMARINE = (BlockAquamarine) register("block_of_aquamarine", new BlockAquamarine(FabricBlockSettings.of(Material.METAL)));
+    public static final BlockAquamarine CHISELED_GOLDEN_BLOCK = (BlockAquamarine) register("chiseled_golden_block", new BlockAquamarine(FabricBlockSettings.of(Material.METAL)));
+    public static final BlockAquamarine CHISELED_GOLDEN_AQUAMARINE = (BlockAquamarine) register("chiseled_golden_aquamarine", new BlockAquamarine(FabricBlockSettings.of(Material.METAL)));;
+    public static final ColoredShellBlocks BLACK_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("black_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks BLUE_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("blue_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks BROWN_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("brown_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks CYAN_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("cyan_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks GRAY_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("gray_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks GREEN_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("green_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks LIGHT_BLUE_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("light_blue_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks LIGHT_GRAY_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("light_gray_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks LIME_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("lime_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks MAGENTA_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("magenta_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks ORANGE_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("orange_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks PINK_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("pink_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks PURPLE_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("purple_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks RED_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("red_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks WHITE_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("white_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final ColoredShellBlocks YELLOW_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("yellow_colored_shell_block", new ColoredShellBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks BLACK_PEARL_BLOCK = (PearlBlocks) register("black_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks BLUE_PEARL_BLOCK = (PearlBlocks) register("blue_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks BROWN_PEARL_BLOCK = (PearlBlocks) register("brown_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks CYAN_PEARL_BLOCK = (PearlBlocks) register("cyan_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks GRAY_PEARL_BLOCK = (PearlBlocks) register("gray_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks GREEN_PEARL_BLOCK = (PearlBlocks) register("green_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks LIGHT_BLUE_PEARL_BLOCK = (PearlBlocks) register("light_blue_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks LIGHT_GRAY_PEARL_BLOCK = (PearlBlocks) register("light_gray_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks LIME_PEARL_BLOCK = (PearlBlocks) register("lime_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks MAGENTA_PEARL_BLOCK = (PearlBlocks) register("magenta_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks ORANGE_PEARL_BLOCK = (PearlBlocks) register("orange_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks PINK_PEARL_BLOCK = (PearlBlocks) register("pink_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks PURPLE_PEARL_BLOCK = (PearlBlocks) register("purple_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks RED_PEARL_BLOCK = (PearlBlocks) register("red_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks WHITE_PEARL_BLOCK = (PearlBlocks) register("white_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final PearlBlocks YELLOW_PEARL_BLOCK = (PearlBlocks) register("yellow_pearl_block", new PearlBlocks(FabricBlockSettings.of(Material.STONE)));
+    public static final OysterShellBlock OYSTER_SHELL_BLOCK = (OysterShellBlock) register("oyster_shell_block", new OysterShellBlock(FabricBlockSettings.of(Material.STONE)));
+    public static final AtlantisPortalBlock ATLANTIS_PORTAL = (AtlantisPortalBlock) register("atlantis_portal", new AtlantisPortalBlock(FabricBlockSettings.of(Material.PORTAL)));
+    public static final UnderwaterFlower UNDERWATER_FLOWER = (UnderwaterFlower) register("underwater_flower", new UnderwaterFlower(FabricBlockSettings.of(Material.PLANT)));
+    public static final Algae ALGAE = (Algae) register("algae", new Algae(FabricBlockSettings.of(Material.PLANT)));
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MODID);
-
-    public static final RegistryObject<AncientWood> ANCIENT_ACACIA_WOOD_MOSS = register("ancient_acacia_wood_moss", () -> new AncientWood(AbstractBlock.Settings.of(Material.WOOD)));
-    public static final RegistryObject<AncientWood> ANCIENT_OAK_WOOD_MOSS = register("ancient_oak_wood_moss", () -> new AncientWood(AbstractBlock.Settings.of(Material.WOOD)));
-    public static final RegistryObject<AncientWood> ANCIENT_JUNGLE_WOOD_MOSS = register("ancient_jungle_wood_moss", () -> new AncientWood(AbstractBlock.Settings.of(Material.WOOD)));
-    public static final RegistryObject<AncientWood> ANCIENT_SPRUCE_WOOD_MOSS = register("ancient_spruce_wood_moss", () -> new AncientWood(AbstractBlock.Settings.of(Material.WOOD)));
-    public static final RegistryObject<AncientWood> ANCIENT_BIRCH_WOOD_MOSS = register("ancient_birch_wood_moss", () -> new AncientWood(AbstractBlock.Settings.of(Material.WOOD)));
-    public static final RegistryObject<AncientWood> ANCIENT_DARK_OAK_WOOD_MOSS = register("ancient_dark_oak_wood_moss", () -> new AncientWood(AbstractBlock.Settings.of(Material.WOOD)));
-    public static final RegistryObject<AquamarineOre> AQUAMARINE_ORE = register("aquamarine_ore", () -> new AquamarineOre(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<OceanLantern> OCEAN_LANTERN = register("ocean_lantern", () -> new OceanLantern(AbstractBlock.Settings.of(Material.METAL)));
-    public static final RegistryObject<AtlanteanCore> ATLANTEAN_CORE = register("atlantean_core", () -> new BlockAquamarine(AbstractBlock.Settings.of(Material.GLASS)));
-    public static final RegistryObject<BlockAquamarine> BLOCK_OF_AQUAMARINE = register("block_of_aquamarine", () -> new BlockAquamarine(AbstractBlock.Settings.of(Material.METAL)));
-    public static final RegistryObject<BlockAquamarine> CHISELED_GOLDEN_BLOCK = register("chiseled_golden_block", () -> new BlockAquamarine(AbstractBlock.Settings.of(Material.METAL)));
-    public static final RegistryObject<BlockAquamarine> CHISELED_GOLDEN_AQUAMARINE = register("chiseled_golden_aquamarine", () -> new BlockAquamarine(AbstractBlock.Settings.of(Material.METAL)));;
-    public static final RegistryObject<ColoredShellBlocks>  BLACK_COLORED_SHELL_BLOCK = register("black_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  BLUE_COLORED_SHELL_BLOCK = register("blue_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  BROWN_COLORED_SHELL_BLOCK = register("brown_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  CYAN_COLORED_SHELL_BLOCK = register("cyan_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  GRAY_COLORED_SHELL_BLOCK = register("gray_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  GREEN_COLORED_SHELL_BLOCK = register("green_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  LIGHT_BLUE_COLORED_SHELL_BLOCK = register("light_blue_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  LIGHT_GRAY_COLORED_SHELL_BLOCK = register("light_gray_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  LIME_COLORED_SHELL_BLOCK = register("lime_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  MAGENTA_COLORED_SHELL_BLOCK = register("magenta_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  ORANGE_COLORED_SHELL_BLOCK = register("orange_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  PINK_COLORED_SHELL_BLOCK = register("pink_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  PURPLE_COLORED_SHELL_BLOCK = register("purple_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  RED_COLORED_SHELL_BLOCK = register("red_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  WHITE_COLORED_SHELL_BLOCK = register("white_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<ColoredShellBlocks>  YELLOW_COLORED_SHELL_BLOCK = register("yellow_colored_shell_block", () -> new ColoredShellBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  BLACK_PEARL_BLOCK = register("black_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  BLUE_PEARL_BLOCK = register("blue_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  BROWN_PEARL_BLOCK = register("brown_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  CYAN_PEARL_BLOCK = register("cyan_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  GRAY_PEARL_BLOCK = register("gray_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  GREEN_PEARL_BLOCK = register("green_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  LIGHT_BLUE_PEARL_BLOCK = register("light_blue_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  LIGHT_GRAY_PEARL_BLOCK = register("light_gray_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  LIME_PEARL_BLOCK = register("lime_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  MAGENTA_PEARL_BLOCK = register("magenta_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  ORANGE_PEARL_BLOCK = register("orange_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  PINK_PEARL_BLOCK = register("pink_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  PURPLE_PEARL_BLOCK = register("purple_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  RED_PEARL_BLOCK = register("red_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  WHITE_PEARL_BLOCK = register("white_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<PearlBlocks>  YELLOW_PEARL_BLOCK = register("yellow_pearl_block", () -> new PearlBlocks(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<OysterShellBlock> OYSTER_SHELL_BLOCK = register("oyster_shell_block", () -> new OysterShellBlock(AbstractBlock.Settings.of(Material.STONE)));
-    public static final RegistryObject<AtlantisPortalBlock>  ATLANTIS_PORTAL = register("atlantis_portal", () -> new AtlantisPortalBlock(AbstractBlock.Settings.of(Material.PORTAL)));
-    public static final RegistryObject<UnderwaterFlower> UNDERWATER_FLOWER = register("underwater_flower", () -> new UnderwaterFlower(AbstractBlock.Settings.of(Material.PLANT)));
-    public static final RegistryObject<Algae> ALGAE = register("algae", () -> new Algae(AbstractBlock.Settings.of(Material.PLANT)));
-
-    private static <T extends Block> RegistryObject<T> baseRegister(String name, Supplier<? extends T> block, Function<RegistryObject<T>, Supplier<? extends Item>> item) {
-        RegistryObject<T> register = BLOCKS.register(name, block);
-        ItemInit.ITEMS.register(name, item.apply(register));
-        return register;
+    private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
+        Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);
+        ItemInit.register(name, item.apply(block));
+        return block;
     }
 
-    private static <B extends Block> RegistryObject<B> register(String name, Supplier<? extends Block> block) {
-        return (RegistryObject<B>)baseRegister(name, block, BlockInit::registerBlockItem);
+    private static Block register(String name, Block block) {
+        return baseRegister(name, block, BlockInit::registerBlockItem);
     }
 
-    private static <T extends Block> Supplier<BlockItem> registerBlockItem(final RegistryObject<T> block) {
-        return () -> new BlockItem(Objects.requireNonNull(block.get()), new Item.Settings().group(ItemInit.CREATIVE_TAB_ATLANTIS));
+    private static BlockItem registerBlockItem(Block block) {
+        return new BlockItem(Objects.requireNonNull(block), new Item.Settings().group(ItemInit.CREATIVE_TAB_ATLANTIS));
     }
 }

@@ -15,11 +15,13 @@
 
   "license": "CC0-1.0",
   "icon": "assets/atlantis/logo.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
       "com.mystic.atlantis.Main"
+    ],
+    "client": [
+      "com.mystic.atlantis.setup.ClientSetup"
     ]
   },
   "mixins": [

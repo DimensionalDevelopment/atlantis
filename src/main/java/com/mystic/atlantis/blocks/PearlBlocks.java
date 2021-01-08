@@ -11,19 +11,18 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
-import org.lwjgl.system.CallbackI;
 
-import javax.annotation.Nullable;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import org.jetbrains.annotations.Nullable;
 
 public class PearlBlocks extends Block
 {
 
-    public PearlBlocks(Settings properties) {
+    public PearlBlocks(FabricBlockSettings properties) {
         super(properties
                 .strength(2.0F, 5.0F)
-                .harvestTool(ToolType.PICKAXE)
-                .harvestLevel(1)
+                .breakByTool(FabricToolTags.PICKAXES, 1)
                 .requiresTool()
                 .luminance((state) -> 5)
                 .nonOpaque()

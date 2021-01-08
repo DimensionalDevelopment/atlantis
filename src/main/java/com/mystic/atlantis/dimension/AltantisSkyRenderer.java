@@ -1,6 +1,5 @@
 package com.mystic.atlantis.dimension;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
@@ -10,24 +9,28 @@ import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
-import net.minecraftforge.client.ISkyRenderHandler;
 
-public class AltantisSkyRenderer implements ISkyRenderHandler {
+import com.mojang.blaze3d.systems.RenderSystem;
+
+import io.github.waterpicker.openworlds.renderer.SkyRenderer;
+
+public class AltantisSkyRenderer implements SkyRenderer {
 
 
     private static final Identifier SUN_TEXTURES = new Identifier("atlantis:textures/environment/atlantis/sun.png");
     private static final Identifier MOON_PHASES_TEXTURES = new Identifier("atlantis:textures/environment/atlantis/moon_phases.png");
 
     @Override
-    public void render(int ticks, float partialTicks, MatrixStack matrix, ClientWorld world, MinecraftClient mc) {
+    public void render(MinecraftClient mc, MatrixStack matrix, float partialTicks) {
+        ClientWorld world = mc.world;
 
         RenderSystem.disableAlphaTest();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.depthMask(false);
         matrix.push();
-        drawSun(ticks, partialTicks, matrix, world, mc);
-        drawMoonPhases(ticks, partialTicks, matrix, world, mc);
+        drawSun(partialTicks, matrix, world, mc);
+        drawMoonPhases(partialTicks, matrix, world, mc);
         matrix.pop();
         RenderSystem.depthMask(true);
         RenderSystem.enableTexture();
@@ -35,7 +38,7 @@ public class AltantisSkyRenderer implements ISkyRenderHandler {
         RenderSystem.enableAlphaTest();
     }
 
-    public void drawSun(int ticks, float partialTicks, MatrixStack matrix, ClientWorld world, MinecraftClient mc){
+    public void drawSun(float partialTicks, MatrixStack matrix, ClientWorld world, MinecraftClient mc){
         BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
         Tessellator tessellator = Tessellator.getInstance();
 
@@ -52,7 +55,7 @@ public class AltantisSkyRenderer implements ISkyRenderHandler {
         tessellator.draw();
     }
 
-    public void drawMoonPhases(int ticks, float partialTicks, MatrixStack matrix, ClientWorld world, MinecraftClient mc){
+    public void drawMoonPhases(float partialTicks, MatrixStack matrix, ClientWorld world, MinecraftClient mc){
         BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
         Tessellator tessellator = Tessellator.getInstance();
 

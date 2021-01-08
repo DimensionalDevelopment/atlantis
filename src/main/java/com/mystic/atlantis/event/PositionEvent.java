@@ -1,52 +1,56 @@
 package com.mystic.atlantis.event;
 
-import com.mystic.atlantis.init.BlockInit;
-import com.mystic.atlantis.init.ItemInit;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraft.world.World;
 
-public class PositionEvent
-{
+import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.init.ItemInit;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 
-    @SubscribeEvent
-    public void onRightClick(PlayerInteractEvent.RightClickBlock event) {
-
-        if (event.isCanceled()) {
-            return;
-        }
-
-        if (!event.getWorld().isClient && event.getPlayer().getStackInHand(event.getHand()).getItem() == ItemInit.ORB_OF_ATLANTIS.get()) {
-            BlockHitResult vec3d = event.getHitVec();
+public class PositionEvent implements UseBlockCallback {
+    @Override
+    public ActionResult interact(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
+        if (!world.isClient && playerEntity.getStackInHand(hand).getItem() == ItemInit.ORB_OF_ATLANTIS) {
             BlockPos pos;
 
-            switch(vec3d.getSide()){
+            switch (blockHitResult.getSide()) {
                 case UP:
-                    pos = new BlockPos(vec3d.getBlockPos().getX(), vec3d.getBlockPos().getY() + 1, vec3d.getBlockPos().getZ());
+                    pos = new BlockPos(blockHitResult.getBlockPos().getX(), blockHitResult.getBlockPos().getY() + 1, blockHitResult.getBlockPos().getZ());
                     break;
                 case DOWN:
-                    pos = new BlockPos(vec3d.getBlockPos().getX(), vec3d.getBlockPos().getY() - 1, vec3d.getBlockPos().getZ());
+                    pos = new BlockPos(blockHitResult.getBlockPos().getX(), blockHitResult.getBlockPos().getY() - 1, blockHitResult.getBlockPos().getZ());
                     break;
                 case WEST:
-                    pos = new BlockPos(vec3d.getBlockPos().getX() - 1, vec3d.getBlockPos().getY(), vec3d.getBlockPos().getZ());
+                    pos = new BlockPos(blockHitResult.getBlockPos().getX() - 1, blockHitResult.getBlockPos().getY(), blockHitResult.getBlockPos().getZ());
                     break;
                 case EAST:
-                    pos = new BlockPos(vec3d.getBlockPos().getX() + 1, vec3d.getBlockPos().getY(), vec3d.getBlockPos().getZ());
+                    pos = new BlockPos(blockHitResult.getBlockPos().getX() + 1, blockHitResult.getBlockPos().getY(), blockHitResult.getBlockPos().getZ());
                     break;
                 case SOUTH:
-                    pos = new BlockPos(vec3d.getBlockPos().getX(), vec3d.getBlockPos().getY(), vec3d.getBlockPos().getZ() + 1);
+                    pos = new BlockPos(blockHitResult.getBlockPos().getX(), blockHitResult.getBlockPos().getY(), blockHitResult.getBlockPos().getZ() + 1);
                     break;
                 case NORTH:
-                    pos = new BlockPos(vec3d.getBlockPos().getX(), vec3d.getBlockPos().getY(), vec3d.getBlockPos().getZ() - 1);
+                    pos = new BlockPos(blockHitResult.getBlockPos().getX(), blockHitResult.getBlockPos().getY(), blockHitResult.getBlockPos().getZ() - 1);
                     break;
                 default:
-                    pos = new BlockPos(vec3d.getBlockPos().getX(), vec3d.getBlockPos().getY(), vec3d.getBlockPos().getZ());
+                    pos = new BlockPos(blockHitResult.getBlockPos().getX(), blockHitResult.getBlockPos().getY(), blockHitResult.getBlockPos().getZ());
             }
 
-            event.getWorld().getBlockState(pos).getBlock();
-            event.getWorld().setBlockState(pos, BlockInit.ATLANTIS_PORTAL.get().getDefaultState());
+            world.setBlockState(pos, BlockInit.ATLANTIS_PORTAL.getDefaultState());
 
+            ItemStack itemstack = playerEntity.getStackInHand(hand);
+            if (!playerEntity.abilities.creativeMode) {
+                itemstack.decrement(1);
+            }
+
+            return ActionResult.SUCCESS;
         }
+
+        return ActionResult.PASS;
     }
 }

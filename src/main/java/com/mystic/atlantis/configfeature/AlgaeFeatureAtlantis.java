@@ -1,17 +1,18 @@
 package com.mystic.atlantis.configfeature;
 
-import com.mojang.serialization.Codec;
-import com.mystic.atlantis.blocks.plants.Algae;
-import com.mystic.atlantis.init.BlockInit;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.VineBlock;
+import java.util.Random;
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
-import java.util.Random;
+
+import com.mojang.serialization.Codec;
+
+import com.mystic.atlantis.blocks.plants.Algae;
+import com.mystic.atlantis.init.BlockInit;
 
 public class AlgaeFeatureAtlantis extends Feature<DefaultFeatureConfig> {
     private static final Direction[] DIRECTIONS = Direction.values();
@@ -30,7 +31,7 @@ public class AlgaeFeatureAtlantis extends Feature<DefaultFeatureConfig> {
             if (!reader.isAir(blockpos$mutable)) {
                 for(Direction direction : DIRECTIONS) {
                     if (direction != Direction.DOWN && Algae.canAttachTo(reader, blockpos$mutable, direction)) {
-                        reader.setBlockState(blockpos$mutable, BlockInit.ALGAE.get().getDefaultState().with(Algae.getPropertyFor(direction), Boolean.TRUE), 2);
+                        reader.setBlockState(blockpos$mutable, BlockInit.ALGAE.getDefaultState().with(Algae.getPropertyFor(direction), Boolean.TRUE), 2);
                         break;
                     }
                 }
