@@ -7,7 +7,7 @@ import net.minecraft.util.LazyValue;
 import java.util.function.Supplier;
 
 public enum ToolInit implements IItemTier {
-    AQUAMARINE(286,5,4,2, 10, () -> {return Ingredient.fromItems(ItemInit.AQUAMARINE_INGOT.get());});
+    AQUAMARINE(286,5,4,2, 10, () -> {return Ingredient.fromItems(ItemInit.AQUAMARINE_GEM.get());});
 
     int maxUses;
     float toolEfficiency;

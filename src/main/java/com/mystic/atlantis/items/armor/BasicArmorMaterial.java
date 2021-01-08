@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 
 public class BasicArmorMaterial
 {
-    public static final IArmorMaterial ARMOR_AQUAMARINE = new ArmorMaterial( Reference.MODID + ":aquamarine", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> {return Ingredient.fromItems(ItemInit.AQUAMARINE_INGOT.get());});
+    public static final IArmorMaterial ARMOR_AQUAMARINE = new ArmorMaterial( Reference.MODID + ":aquamarine", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> {return Ingredient.fromItems(ItemInit.AQUAMARINE_GEM.get());});
     public static final IArmorMaterial ARMOR_BROWN_WROUGHT = new ArmorMaterial(Reference.MODID + ":wrought", 24, new int[] {3, 5, 5, 4} , 7, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.0F, 0.0F, () -> {return Ingredient.fromItems(ItemInit.BROWN_WROUGHT_PATCHES.get());});
 
     private static class ArmorMaterial implements IArmorMaterial{

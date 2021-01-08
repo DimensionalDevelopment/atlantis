@@ -41,7 +41,7 @@ public class ItemInit
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MODID);
 
     //ITEMS
-    public static final RegistryObject<Item> AQUAMARINE_INGOT = ITEMS.register("aquamarine_ingot", ItemBase::new);
+    public static final RegistryObject<Item> AQUAMARINE_GEM = ITEMS.register("aquamarine_gem", ItemBase::new);
     public static final RegistryObject<Item> ORB_OF_ATLANTIS = ITEMS.register("orb_of_atlantis", OrbOfAtlantis::new);
     public static final RegistryObject<Item> ATLANTEAN_CRYSTAL = ITEMS.register("atlantean_crystal", AtlanteanCrystal::new);
     public static final RegistryObject<Item> OCEAN_STONE = ITEMS.register("ocean_stone", ItemBase::new);
