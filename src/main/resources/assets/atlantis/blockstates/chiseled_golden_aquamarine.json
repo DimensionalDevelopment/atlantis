@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "atlantis:chiseled_golden_aquamarine" }
+        "": { "model": "atlantis:block/chiseled_golden_aquamarine" }
     }
 }

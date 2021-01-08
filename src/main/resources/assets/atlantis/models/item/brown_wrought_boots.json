@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures":
+    {
+        "layer0": "atlantis:items/brown_wrought_boots"
+    }
+}

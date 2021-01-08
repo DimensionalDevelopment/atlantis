@@ -1,14 +1,16 @@
 {
   "required": true,
-  "minVersion": "0.8",
   "package": "com.mystic.atlantis.mixin",
   "compatibilityLevel": "JAVA_8",
+  "refmap": "atlantis.refmap.json",
   "mixins": [
+    "LayerAccessor"
   ],
-  "client": [
-    "AtlantisMixin"
+  "client":[
+  "AtlantisMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "minVersion": "0.8"
 }

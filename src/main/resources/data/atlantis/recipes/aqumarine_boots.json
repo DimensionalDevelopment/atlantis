@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"   ",
+		"I I",
+		"I I"
+	],
+	
+	"key":
+	{
+		"I":
+		{
+			"item": "atlantis:aquamarine_ingot"
+		}
+	},
+	
+	"result":
+	{
+		"item": "atlantis:aquamarine_boots",
+		"count": 1
+	}
+	
+}					

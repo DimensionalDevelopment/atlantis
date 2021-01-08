@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "atlantis:cyan_pearl_block" }
+        "": { "model": "atlantis:block/cyan_pearl_block" }
     }
 }
