@@ -7,21 +7,21 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.common.ToolType;
 
 import java.util.Random;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import static net.minecraft.state.property.Properties.FACING;
 
 public class ColoredShellBlocks extends Block {
 
     private static final Direction[] GENERATE_DIRECTIONS = new Direction[]{Direction.WEST, Direction.EAST, Direction.SOUTH, Direction.NORTH};
 
-    public ColoredShellBlocks(Settings properties) {
+    public ColoredShellBlocks(FabricBlockSettings properties) {
         super(properties
                 .sounds(BlockSoundGroup.BONE)
-                .harvestLevel(2)
-                .harvestTool(ToolType.PICKAXE)
+                .breakByTool(FabricToolTags.PICKAXES, 2)
                 .requiresTool()
                 .strength(3.0F, 7.0F));
 

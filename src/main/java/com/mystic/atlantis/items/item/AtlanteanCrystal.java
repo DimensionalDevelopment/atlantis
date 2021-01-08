@@ -1,6 +1,5 @@
 package com.mystic.atlantis.items.item;
 
-import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,7 +25,7 @@ public class AtlanteanCrystal extends ItemBase{
         {
             if(playerIn.getHealth() < playerIn.getMaxHealth())
             {
-                playerIn.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1, 1).getEffectInstance());
+                playerIn.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1, 1));
                 itemstack.decrement(1);
             }
         }

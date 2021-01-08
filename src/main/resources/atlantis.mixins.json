@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "atlantis.refmap.json",
   "mixins": [
-    "LayerAccessor"
+    "LayerAccessor",
+    "StructuresConfigAccessor",
+    "ServerPlayerEntityMixin"
   ],
   "client":[
   "AtlantisMixin"

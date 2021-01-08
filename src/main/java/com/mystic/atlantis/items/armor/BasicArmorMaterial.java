@@ -1,23 +1,21 @@
 package com.mystic.atlantis.items.armor;
 
-import com.mystic.atlantis.init.ItemInit;
-import com.mystic.atlantis.util.Reference;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import java.util.function.Supplier;
+
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Lazy;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.function.Supplier;
+import com.mystic.atlantis.init.ItemInit;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 public class BasicArmorMaterial
 {
-    public static final net.minecraft.item.ArmorMaterial ARMOR_AQUAMARINE = new ArmorMaterial( Reference.MODID + ":aquamarine", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> {return Ingredient.ofItems(ItemInit.AQUAMARINE_INGOT.get());});
-    public static final net.minecraft.item.ArmorMaterial ARMOR_BROWN_WROUGHT = new ArmorMaterial(Reference.MODID + ":wrought", 24, new int[] {3, 5, 5, 4} , 7, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.0F, 0.0F, () -> {return Ingredient.ofItems(ItemInit.BROWN_WROUGHT_PATCHES.get());});
+    public static final net.minecraft.item.ArmorMaterial ARMOR_AQUAMARINE = new ArmorMaterial( "aquamarine", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.ofItems(ItemInit.AQUAMARINE_INGOT));
+    public static final net.minecraft.item.ArmorMaterial ARMOR_BROWN_WROUGHT = new ArmorMaterial("wrought", 24, new int[] {3, 5, 5, 4} , 7, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.0F, 0.0F, () -> Ingredient.ofItems(ItemInit.BROWN_WROUGHT_PATCHES));
 
     private static class ArmorMaterial implements net.minecraft.item.ArmorMaterial{
 

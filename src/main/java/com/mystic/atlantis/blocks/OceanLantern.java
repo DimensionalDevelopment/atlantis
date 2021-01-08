@@ -11,9 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class OceanLantern extends Block
 {
@@ -30,7 +29,6 @@ public class OceanLantern extends Block
         super.afterBreak(worldIn, player, pos, state, te, stack);
         if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) == 0) {
             worldIn.removeBlock(pos, false);
-            return;
         }
     }
 }

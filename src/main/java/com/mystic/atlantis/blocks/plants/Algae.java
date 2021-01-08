@@ -11,6 +11,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
@@ -23,7 +24,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +31,9 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Algae extends Block implements Waterloggable
-{
+import org.jetbrains.annotations.Nullable;
+
+public class Algae extends Block implements Waterloggable {
     public static final BooleanProperty UP = ConnectingBlock.UP;
     public static final BooleanProperty NORTH = ConnectingBlock.NORTH;
     public static final BooleanProperty EAST = ConnectingBlock.EAST;
@@ -60,7 +61,6 @@ public class Algae extends Block implements Waterloggable
                 .nonOpaque());
         this.setDefaultState(this.stateManager.getDefaultState().with(UP, Boolean.FALSE).with(NORTH, Boolean.FALSE).with(EAST, Boolean.FALSE).with(SOUTH, Boolean.FALSE).with(WEST, Boolean.FALSE).with(WATERLOGGED, Boolean.TRUE));
         this.stateToShapeMap = ImmutableMap.copyOf(this.stateManager.getStates().stream().collect(Collectors.toMap(Function.identity(), Algae::getShapeForState)));
-
     }
 
     private static VoxelShape getShapeForState(BlockState state) {
@@ -103,14 +103,7 @@ public class Algae extends Block implements Waterloggable
     }
 
     public boolean OnlyWater(WorldView worldReader, BlockPos pos, BlockState state) {
-        if (this.getBlock().isIn(getAir())) {
-            if (this.canBlockStay(worldReader, pos, state)) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        return true;
+        return !worldReader.getBlockState(pos).isIn(getAir()) || !this.canBlockStay(worldReader, pos, state);
     }
 
     public Tag<Block> getAir(){
@@ -135,12 +128,7 @@ public class Algae extends Block implements Waterloggable
     }
 
     public boolean canPlaceBlockAt(WorldView worldReader, BlockPos pos) {
-        if (worldReader.getBlockState(pos.up()).getMaterial() != Material.WATER)
-        {
-            return true;
-        }else{
-            return false;
-        }
+        return worldReader.getBlockState(pos.up()).getMaterial() != Material.WATER;
     }
 
     private boolean getBlocksAttachedTo(BlockState state) {
@@ -220,7 +208,7 @@ public class Algae extends Block implements Waterloggable
 
     @Override
     public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
-        if (worldIn.random.nextInt(4) == 0 && worldIn.isAreaLoaded(pos, 4)) { // Forge: check area to prevent loading unloaded chunks
+        if (worldIn.random.nextInt(4) == 0 && worldIn.isChunkLoaded(pos)) { // Forge: check area to prevent loading unloaded chunks
             Direction direction = Direction.random(random);
             BlockPos blockpos = pos.up();
             if (direction.getAxis().isHorizontal() && !state.get(getPropertyFor(direction))) {
@@ -416,7 +404,4 @@ public class Algae extends Block implements Waterloggable
     public static BooleanProperty getPropertyFor(Direction side) {
         return FACING_TO_PROPERTY_MAP.get(side);
     }
-
-    @Override
-    public boolean isLadder(BlockState state, WorldView world, BlockPos pos, net.minecraft.entity.LivingEntity entity) { return true; }
 }

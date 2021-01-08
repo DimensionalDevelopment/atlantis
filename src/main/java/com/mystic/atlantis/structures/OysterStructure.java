@@ -1,8 +1,9 @@
 package com.mystic.atlantis.structures;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.serialization.Codec;
-import com.mystic.atlantis.util.Reference;
+
+import java.util.List;
+
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructureStart;
@@ -20,7 +21,10 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
-import java.util.List;
+
+import com.mojang.serialization.Codec;
+
+import com.mystic.atlantis.util.Reference;
 
 public class OysterStructure extends StructureFeature<DefaultFeatureConfig> {
 
@@ -42,14 +46,14 @@ public class OysterStructure extends StructureFeature<DefaultFeatureConfig> {
     private static final List<SpawnSettings.SpawnEntry> STRUCTURE_MONSTERS = ImmutableList.of();
 
     @Override
-    public List<SpawnSettings.SpawnEntry> getDefaultSpawnList() {
+    public List<SpawnSettings.SpawnEntry> getMonsterSpawns() {
         return STRUCTURE_MONSTERS;
     }
 
     private static final List<SpawnSettings.SpawnEntry> STRUCTURE_CREATURES = ImmutableList.of();
 
     @Override
-    public List<SpawnSettings.SpawnEntry> getDefaultCreatureSpawnList() {
+    public List<SpawnSettings.SpawnEntry> getCreatureSpawns() {
         return STRUCTURE_CREATURES;
     }
 
@@ -59,7 +63,7 @@ public class OysterStructure extends StructureFeature<DefaultFeatureConfig> {
         }
 
         @Override
-        public void func_230364_a_(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, DefaultFeatureConfig config) {
+        public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, DefaultFeatureConfig config) {
 
             int x = (chunkX << 4) + 7;
             int z = (chunkZ << 4) + 7;

@@ -8,17 +8,18 @@ import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.common.ToolType;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 
 public class OysterShellBlock extends PillarBlock
 {
     public static final EnumProperty<Direction.Axis> AXIS = Properties.AXIS;
 
-    public OysterShellBlock(Settings properties) {
+    public OysterShellBlock(FabricBlockSettings properties) {
         super(properties
                 .strength(2.0F, 6.0F)
-                .harvestTool(ToolType.PICKAXE)
-                .harvestLevel(1)
+                .breakByTool(FabricToolTags.PICKAXES, 1)
                 .requiresTool()
                 .sounds(BlockSoundGroup.STONE));
         this.setDefaultState(this.getDefaultState().with(AXIS, Direction.Axis.Y));

@@ -33,52 +33,52 @@ public class ShellBlockFeature extends Feature<CountConfig> {
             BlockState blockstate;
             switch(rand.nextInt(16)){
                 case 0:
-                    blockstate = BlockInit.BLACK_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.BLACK_COLORED_SHELL_BLOCK.getDefaultState();
                 break;
                 case 1:
-                    blockstate = BlockInit.BLUE_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.BLUE_COLORED_SHELL_BLOCK.getDefaultState();
                 break;
                 case 2:
-                    blockstate = BlockInit.LIGHT_BLUE_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.LIGHT_BLUE_COLORED_SHELL_BLOCK.getDefaultState();
                 break;
                 case 3:
-                    blockstate = BlockInit.LIGHT_GRAY_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.LIGHT_GRAY_COLORED_SHELL_BLOCK.getDefaultState();
                     break;
                 case 4:
-                    blockstate = BlockInit.RED_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.RED_COLORED_SHELL_BLOCK.getDefaultState();
                     break;
                 case 5:
-                    blockstate = BlockInit.YELLOW_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.YELLOW_COLORED_SHELL_BLOCK.getDefaultState();
                     break;
                 case 6:
-                    blockstate = BlockInit.ORANGE_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.ORANGE_COLORED_SHELL_BLOCK.getDefaultState();
                     break;
                 case 7:
-                    blockstate = BlockInit.PURPLE_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.PURPLE_COLORED_SHELL_BLOCK.getDefaultState();
                     break;
                 case 8:
-                    blockstate = BlockInit.MAGENTA_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.MAGENTA_COLORED_SHELL_BLOCK.getDefaultState();
                     break;
                 case 9:
-                    blockstate = BlockInit.GREEN_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.GREEN_COLORED_SHELL_BLOCK.getDefaultState();
                     break;
                 case 10:
-                    blockstate = BlockInit.LIME_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.LIME_COLORED_SHELL_BLOCK.getDefaultState();
                     break;
                 case 11:
-                    blockstate = BlockInit.BROWN_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.BROWN_COLORED_SHELL_BLOCK.getDefaultState();
                     break;
                 case 12:
-                    blockstate = BlockInit.PINK_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.PINK_COLORED_SHELL_BLOCK.getDefaultState();
                     break;
                 case 13:
-                    blockstate = BlockInit.CYAN_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.CYAN_COLORED_SHELL_BLOCK.getDefaultState();
                     break;
                 case 14:
-                    blockstate = BlockInit.WHITE_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.WHITE_COLORED_SHELL_BLOCK.getDefaultState();
                     break;
                 case 15:
-                    blockstate = BlockInit.GRAY_COLORED_SHELL_BLOCK.get().getDefaultState();
+                    blockstate = BlockInit.GRAY_COLORED_SHELL_BLOCK.getDefaultState();
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + rand.nextInt(16));
