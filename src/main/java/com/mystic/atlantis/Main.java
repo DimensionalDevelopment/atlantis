@@ -14,13 +14,11 @@ import net.minecraft.world.gen.feature.StructureFeature;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.event.DimensionFoodEvent;
-import com.mystic.atlantis.event.ElderPortalEvent;
 import com.mystic.atlantis.event.PositionEvent;
 import com.mystic.atlantis.mixin.StructuresConfigAccessor;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
@@ -44,7 +42,6 @@ public class Main implements ModInitializer
     @Override
     public void onInitialize() {
         UseBlockCallback.EVENT.register(new PositionEvent());
-        ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(new ElderPortalEvent()); //TODO switch to more general death either via mixins or callback when added
         UseItemCallback.EVENT.register(new DimensionFoodEvent());
 
         DimensionAtlantis.registerBiomeSources();

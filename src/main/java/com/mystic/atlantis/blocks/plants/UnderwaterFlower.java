@@ -1,6 +1,16 @@
 package com.mystic.atlantis.blocks.plants;
 
-import net.minecraft.block.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
+import net.minecraft.block.PlantBlock;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.Waterloggable;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -14,8 +24,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldView;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -30,6 +38,7 @@ public class UnderwaterFlower extends PlantBlock implements Waterloggable {
                 .strength(0.2F, 0.4F)
                 .sounds(BlockSoundGroup.GRASS)
                 .requiresTool()
+                .noCollision()
                 .nonOpaque());
         this.getDefaultState().with(WATERLOGGED, Boolean.TRUE);
     }
