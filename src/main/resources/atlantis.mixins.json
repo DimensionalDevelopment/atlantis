@@ -6,7 +6,8 @@
   "mixins": [
     "LayerAccessor",
     "StructuresConfigAccessor",
-    "ServerPlayerEntityMixin"
+    "ServerPlayerEntityMixin",
+    "LivingEntityMixin"
   ],
   "client":[
   "AtlantisMixin"
