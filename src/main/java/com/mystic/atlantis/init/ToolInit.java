@@ -6,7 +6,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Lazy;
 
 public enum ToolInit implements ToolMaterial {
-    AQUAMARINE(286,5,4,2, 10, () -> {return Ingredient.ofItems(ItemInit.AQUAMARINE_INGOT);});
+    AQUAMARINE(286,5,4,2, 10, () -> {return Ingredient.ofItems(ItemInit.AQUAMARINE_GEM);});
 
     int maxUses;
     float toolEfficiency;

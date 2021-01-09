@@ -14,7 +14,7 @@ import net.fabricmc.api.Environment;
 
 public class BasicArmorMaterial
 {
-    public static final net.minecraft.item.ArmorMaterial ARMOR_AQUAMARINE = new ArmorMaterial( "aquamarine", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.ofItems(ItemInit.AQUAMARINE_INGOT));
+    public static final net.minecraft.item.ArmorMaterial ARMOR_AQUAMARINE = new ArmorMaterial( "aquamarine", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.ofItems(ItemInit.AQUAMARINE_GEM));
     public static final net.minecraft.item.ArmorMaterial ARMOR_BROWN_WROUGHT = new ArmorMaterial("wrought", 24, new int[] {3, 5, 5, 4} , 7, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.0F, 0.0F, () -> Ingredient.ofItems(ItemInit.BROWN_WROUGHT_PATCHES));
 
     private static class ArmorMaterial implements net.minecraft.item.ArmorMaterial{

@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "id": "atlantis",
-  "version": "12.30.2020-1.16.4-1.0.0-fabric",
+  "version": "2020.1.7-1.16.4-1.0.0-fabric",
 
   "name": "Atlantis",
   "description": "An Underwater Atlantis like Dimension Mod.",
   "authors": [
-    "Mysticpasta1"
+    "Mysticpasta1, Gami, LordHugo02, DTRaptor, Waterpicker"
   ],
   "contact": {
     "homepage": "https://mystic.hypherionmc.me/",

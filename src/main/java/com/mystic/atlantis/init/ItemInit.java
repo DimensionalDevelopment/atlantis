@@ -36,7 +36,7 @@ public class ItemInit
     }
 
     //ITEMS
-    public static final Item AQUAMARINE_INGOT = register("aquamarine_ingot", new ItemBase());
+    public static final Item AQUAMARINE_GEM = register("aquamarine_gem", new ItemBase());
     public static final Item ORB_OF_ATLANTIS = register("orb_of_atlantis", new OrbOfAtlantis());
     public static final Item ATLANTEAN_CRYSTAL = register("atlantean_crystal", new AtlanteanCrystal());
     public static final Item OCEAN_STONE = register("ocean_stone", new ItemBase());
