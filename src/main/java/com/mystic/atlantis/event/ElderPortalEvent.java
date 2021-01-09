@@ -13,7 +13,9 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 public class ElderPortalEvent implements ServerEntityCombatEvents.AfterKilledOtherEntity {
     @Override
     public void afterKilledOtherEntity(ServerWorld serverWorld, Entity entity, LivingEntity livingEntity) {
-        if (livingEntity instanceof ElderGuardianEntity && livingEntity.world.getNonSpectatingEntities(ElderGuardianEntity.class, livingEntity.getVisibilityBoundingBox().stretch(100, 100, 100)).stream().noneMatch(e -> e.isDead() && entity != livingEntity)) {
+        if (livingEntity instanceof ElderGuardianEntity && livingEntity.world.getNonSpectatingEntities(ElderGuardianEntity.class,
+                livingEntity.getVisibilityBoundingBox().stretch(100, 100, 100)).stream().noneMatch(e -> e.isDead() && entity
+                != livingEntity)) {
             World world = livingEntity.world;
             BlockPos pos = livingEntity.getBlockPos();
             world.getBlockState(pos).getBlock();

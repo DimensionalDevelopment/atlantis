@@ -24,7 +24,7 @@ dependencies {
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
 
-    modApi("com.github.Waterpicker:OpenWorlds:c5a1ced") {
+    modImplementation("com.github.Waterpicker:OpenWorlds:c5a1ced") {
         exclude module: "fabric-api"
     }
     include 'com.github.Waterpicker:OpenWorlds:c5a1ced'
