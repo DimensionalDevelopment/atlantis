@@ -59,11 +59,14 @@ public class Algae extends Block implements IWaterLoggable
                 .hardnessAndResistance(0.2F, 0.4F)
                 .sound(SoundType.PLANT)
                 .setRequiresTool()
-                .notSolid());
+                .notSolid()
+                .doesNotBlockMovement());
         this.setDefaultState(this.stateContainer.getBaseState().with(UP, Boolean.FALSE).with(NORTH, Boolean.FALSE).with(EAST, Boolean.FALSE).with(SOUTH, Boolean.FALSE).with(WEST, Boolean.FALSE).with(WATERLOGGED, Boolean.TRUE));
         this.stateToShapeMap = ImmutableMap.copyOf(this.stateContainer.getValidStates().stream().collect(Collectors.toMap(Function.identity(), Algae::getShapeForState)));
 
     }
+
+
 
     private static VoxelShape getShapeForState(BlockState state) {
         VoxelShape voxelshape = VoxelShapes.empty();

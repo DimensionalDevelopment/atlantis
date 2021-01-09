@@ -15,6 +15,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.api.distmarker.Dist;
@@ -35,7 +36,8 @@ public class UnderwaterFlower extends BushBlock implements IWaterLoggable {
                 .hardnessAndResistance(0.2F, 0.4F)
                 .sound(SoundType.PLANT)
                 .setRequiresTool()
-                .notSolid());
+                .notSolid()
+                .doesNotBlockMovement());
         this.getDefaultState().with(WATERLOGGED, Boolean.TRUE);
     }
 
