@@ -1,8 +1,6 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url = "https://oss.sonatype.org/content/groups/public/"}
-        maven { url = "https://maven.fabricmc.net/"}
         jcenter()
         mavenCentral()
         maven {url='https://dist.creeper.host/Sponge/maven'}
@@ -11,14 +9,12 @@ buildscript {
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-        classpath 'me.ramidzkh:yarnforge-plugin'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply plugin: 'yarnforge-plugin'
 
 
 version = "${mod_version}-${mc_version}"
@@ -87,7 +83,6 @@ repositories{
         url = "https://modmaven.k-4u.nl"
     }
 	maven { url = "https://oss.sonatype.org/content/groups/public/"}
-	maven { url = "https://maven.fabricmc.net/fabric-loom/"}
     jcenter()
     mavenCentral()
 
