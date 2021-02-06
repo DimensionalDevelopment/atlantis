@@ -18,8 +18,13 @@ apply plugin: 'maven-publish'
 
 
 version = "${mod_version}-${mc_version}"
-group = "com.tfar.${modid}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "com.mystic.${modid}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "${modid}"
+
+if (project.hasProperty('buildNumber')) {
+    version = project.modversion + "." + buildNumber
+    jar.archiveName = archivesBaseName + "-dev-" + buildNumber + ".jar"
+}
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
