@@ -41,11 +41,11 @@ repositories {
     mavenCentral()
     maven { setUrl("https://oss.sonatype.org/content/repositories/public/") }
     maven { setUrl("https://minecraft.curseforge.com/api/maven/") }
-    maven { setUrl("http://repo.spongepowered.org/maven") }
+    maven { setUrl("https://repo.spongepowered.org/maven") }
     maven { setUrl("https://oss.sonatype.org/content/repositories/snapshots/") }
     maven {
         name = "SpongePowered"
-        url = "http://repo.spongepowered.org/maven/"
+        url = "https://repo.spongepowered.org/maven/"
     }
     maven {
         name = "elytradev"
