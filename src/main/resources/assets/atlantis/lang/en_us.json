@@ -66,5 +66,6 @@
   "block.atlantis.oyster_shell_block": "Oyster Shell Block ",
   "block.atlantis.atlantis_portal": "Atlantis Portal",
   "block.atlantis.underwater_flower": "Atlantis Flower",
-  "block.atlantis.algae": "Algae"
+  "block.atlantis.algae": "Algae",
+  "itemGroup.minecraft.atlantis": "Atlantis"
 }

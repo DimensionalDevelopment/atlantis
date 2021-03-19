@@ -30,7 +30,7 @@ public class ElderPortalEvent {
 
     public static void checkEntity(LivingEntity livingEntity) {
         if (livingEntity instanceof ElderGuardianEntity) {
-            Box box = livingEntity.getVisibilityBoundingBox().stretch(100, 100, 100);
+            Box box = livingEntity.getBoundingBox().stretch(100, 100, 100);
 
             List<Location> locations = deadElderGuardians.stream()
                     .filter(a -> livingEntity.world.getRegistryKey().equals(a.key))
