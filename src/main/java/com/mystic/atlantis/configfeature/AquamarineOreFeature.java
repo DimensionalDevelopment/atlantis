@@ -114,9 +114,8 @@ public class AquamarineOreFeature extends Feature<AtlantisOreFeatureConfig> {
                                             bitset.set(l2);
                                             blockPos.set(i2, j2, k2);
                                             if (blockPos.getY() < world.getHeight() && blockPos.getY() > 10 && config.target.test(world.getBlockState(blockPos), random)) {
-
+                                                System.out.print("Ore Generated" + blockPos);
                                                 world.setBlockState(blockPos, config.state, 2);
-
                                                 ++i;
                                             }
                                         }

@@ -3,8 +3,12 @@ package com.mystic.atlantis;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
+import com.mystic.atlantis.init.BlockInit;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.chunk.FlatChunkGenerator;
 import net.minecraft.world.gen.chunk.StructureConfig;
@@ -52,5 +56,7 @@ public class Main implements ModInitializer
 
         ServerWorldEvents.LOAD.register(this::addDimensionalSpacing);
 
+        DUMMY_DATA_STORAGE = Registry.register(Registry.BLOCK_ENTITY_TYPE, "atlantis:dummydatastorage", BlockEntityType.Builder.create(DummyDataStorage::new, BlockInit.ATLANTIS_PORTAL).build(null));
     }
+    public static BlockEntityType<DummyDataStorage> DUMMY_DATA_STORAGE;
 }
