@@ -76,23 +76,15 @@ minecraft {
     }
 }
 
-<<<<<<< HEAD
-repositories{
-    maven {
-        // location of the maven that hosts JEI files
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-=======
 repositories {
     mavenCentral()
     maven { setUrl("https://oss.sonatype.org/content/repositories/public/") }
     maven { setUrl("https://minecraft.curseforge.com/api/maven/") }
-    maven { setUrl("http://repo.spongepowered.org/maven") }
+    maven { setUrl("https://repo.spongepowered.org/maven") }
     maven { setUrl("https://oss.sonatype.org/content/repositories/snapshots/") }
     maven {
         name = "SpongePowered"
-        url = "http://repo.spongepowered.org/maven/"
->>>>>>> parent of afffab6... Merge branch 'master' of https://github.com/Exploding-Creeper/atlantis
+        url = "https://repo.spongepowered.org/maven/"
     }
     maven {
         // location of a maven mirror for JEI files, as a fallback
