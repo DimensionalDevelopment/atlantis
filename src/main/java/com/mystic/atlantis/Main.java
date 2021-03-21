@@ -1,16 +1,20 @@
 package com.mystic.atlantis;
 
+import com.mystic.atlantis.blocks.blockentity.DummyDataStorage;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.event.*;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
+import com.mystic.atlantis.init.TileEntityInit;
 import com.mystic.atlantis.setup.ClientSetup;
 import com.mystic.atlantis.setup.ModSetup;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -25,11 +29,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
@@ -37,15 +40,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Mod(Reference.MODID)
-public class Main
-{
+public class Main {
     public Main() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         FMLJavaModLoadingContext.get().getModEventBus().addListener(ModSetup::init);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::init);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        TileEntityInit.TILE_ENTITY_TYPE.register(bus);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new OreGenerationEvent());
@@ -70,8 +71,7 @@ public class Main
     }
 
 
-    private void setup(final FMLCommonSetupEvent event)
-    {
+    private void setup(final FMLCommonSetupEvent event) {
         DimensionAtlantis.registerBiomeSources();
         event.enqueueWork(() -> {
             AtlantisStructures.setupStructures();
@@ -80,10 +80,10 @@ public class Main
     }
 
     public void addDimensionalSpacing(final WorldEvent.Load event) {
-        if(event.getWorld() instanceof ServerWorld){
-            ServerWorld serverWorld = (ServerWorld)event.getWorld();
-            if(serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator &&
-                    serverWorld.getDimensionKey().equals(World.OVERWORLD)){
+        if (event.getWorld() instanceof ServerWorld) {
+            ServerWorld serverWorld = (ServerWorld) event.getWorld();
+            if (serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator &&
+                    serverWorld.getDimensionKey().equals(World.OVERWORLD)) {
                 return;
             }
 
@@ -97,24 +97,13 @@ public class Main
         }
     }
 
-    private void enqueueIMC(final InterModEnqueueEvent event)
-    {
-
-    }
-
-    private void processIMC(final InterModProcessEvent event)
-    {
-
-    }
-
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
 
     }
 
-    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents
-    {
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class RegistryEvents {
 
     }
 
