@@ -5,12 +5,12 @@
   "refmap": "atlantis-refmap.json",
   "mixins": [
     "LayerAccessor",
-    "StructuresConfigAccessor",
+    "LivingEntityMixin",
     "ServerPlayerEntityMixin",
-    "LivingEntityMixin"
+    "StructuresConfigAccessor"
   ],
-  "client":[
-  "AtlantisMixin"
+  "client": [
+    "AtlantisMixin"
   ],
   "injectors": {
     "defaultRequire": 1

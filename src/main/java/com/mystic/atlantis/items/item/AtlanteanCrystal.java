@@ -21,7 +21,7 @@ public class AtlanteanCrystal extends ItemBase{
     {
         ItemStack itemstack = playerIn.getStackInHand(handIn);
 
-        if (!playerIn.abilities.creativeMode)
+        if (!playerIn.getAbilities().creativeMode)
         {
             if(playerIn.getHealth() < playerIn.getMaxHealth())
             {

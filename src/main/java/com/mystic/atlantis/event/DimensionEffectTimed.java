@@ -15,7 +15,7 @@ public class DimensionEffectTimed
 
     public static void playerTick(ServerPlayerEntity player){
         World world = player.world;
-        if(world.getRegistryKey() == DimensionAtlantis.ATLANTIS_WORLD_KEY) {
+        if(world.getRegistryKey() == DimensionAtlantis.ATLANTIS_WORLD) {
             if (!player.getStatusEffects().contains(water_breathing)) {
                 player.addStatusEffect(water_breathing);
             }
@@ -24,7 +24,7 @@ public class DimensionEffectTimed
             }
         }
 
-        if(world.getRegistryKey() != DimensionAtlantis.ATLANTIS_WORLD_KEY){
+        if(world.getRegistryKey() != DimensionAtlantis.ATLANTIS_WORLD){
             player.removeStatusEffect(StatusEffects.WATER_BREATHING);
             player.removeStatusEffect(StatusEffects.HASTE);
         }

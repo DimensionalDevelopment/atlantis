@@ -2,13 +2,15 @@ package com.mystic.atlantis.biomes;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mystic.atlantis.Main;
 import com.mystic.atlantis.mixin.LayerAccessor;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.SharedConstants;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.dynamic.RegistryLookupCodec;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryLookupCodec;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BuiltinBiomes;
 import net.minecraft.world.biome.layer.type.ParentedLayer;
@@ -76,8 +78,8 @@ public class AtlantisBiomeSource extends BiomeSource {
         return new AtlantisBiomeSource(this.BIOME_REGISTRY, seed);
     }
 
-
-    public Biome sample(Registry<Biome> registry, int i, int j) {
+    //Old Version of the code.
+    /*public Biome sample(Registry<Biome> registry, int i, int j) {
         int k = ((LayerAccessor) this.BIOME_SAMPLER).getSampler().sample(i, j);
         Biome biome = registry.get(k);
         if (biome == null) {
@@ -89,8 +91,25 @@ public class AtlantisBiomeSource extends BiomeSource {
         } else {
             return biome;
         }
-    }
+    }*/
 
+    //New Version of the code.
+    public Biome sample(Registry<Biome> dynamicBiomeRegistry, int x, int z) {
+        int resultBiomeID = ((LayerAccessor)this.BIOME_SAMPLER).getSampler().sample(x, z);
+        Biome biome = dynamicBiomeRegistry.get(resultBiomeID);
+        if (biome == null) {
+            if (SharedConstants.isDevelopment) {
+                throw Util.throwOrPause(new IllegalStateException("Unknown biome id: " + resultBiomeID));
+            } else {
+                // Spawn ocean if we can't resolve the biome from the layers.
+                RegistryKey<Biome> backupBiomeKey = BuiltinBiomes.fromRawId(0);
+                Main.LOGGER.warn("Unknown biome id: ${}. Will spawn ${} instead.", resultBiomeID, backupBiomeKey.getValue());
+                return dynamicBiomeRegistry.get(backupBiomeKey);
+            }
+        } else {
+            return biome;
+        }
+    }
 
     @Override
     public Biome getBiomeForNoiseGen(int x, int y, int z) {

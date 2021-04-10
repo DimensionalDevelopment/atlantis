@@ -11,6 +11,8 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.CountConfig;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.util.FeatureContext;
+
 import java.util.Random;
 
 public class ShellBlockFeature extends Feature<CountConfig> {
@@ -20,10 +22,14 @@ public class ShellBlockFeature extends Feature<CountConfig> {
     public ShellBlockFeature(Codec<CountConfig> FeatureSpreadConfig) {
         super(FeatureSpreadConfig);
     }
-
-    public boolean generate(StructureWorldAccess reader, ChunkGenerator generator, Random rand, BlockPos pos, CountConfig config) {
+    
+    @Override
+    public boolean generate(FeatureContext<CountConfig> config) {
+        StructureWorldAccess reader = config.getWorld();
+        Random rand = config.getRandom();
+        BlockPos pos = config.getOrigin();
         int i = 0;
-        int j = config.getCount().getValue(rand);
+        int j = config.getConfig().getCount().get(rand);
 
         for(int k = 0; k < j; ++k) {
             int l = rand.nextInt(8) - rand.nextInt(8);

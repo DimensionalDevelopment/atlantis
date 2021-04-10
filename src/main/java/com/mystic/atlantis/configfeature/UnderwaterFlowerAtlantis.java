@@ -15,6 +15,7 @@ import net.minecraft.world.gen.feature.Feature;
 import com.mojang.serialization.Codec;
 
 import com.mystic.atlantis.init.BlockInit;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class UnderwaterFlowerAtlantis extends Feature<CountConfig> {
 
@@ -24,9 +25,12 @@ public class UnderwaterFlowerAtlantis extends Feature<CountConfig> {
         super(FeatureSpreadConfig);
     }
 
-    public boolean generate(StructureWorldAccess reader, ChunkGenerator generator, Random rand, BlockPos pos, CountConfig config) {
+    public boolean generate(FeatureContext<CountConfig> config) {
+        StructureWorldAccess reader = config.getWorld();
+        Random rand = config.getRandom();
+        BlockPos pos = config.getOrigin();
         int i = 0;
-        int j = config.getCount().getValue(rand);
+        int j = config.getConfig().getCount().get(rand);
 
         for(int k = 0; k < j; ++k) {
             int l = rand.nextInt(8) - rand.nextInt(8);

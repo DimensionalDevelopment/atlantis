@@ -18,7 +18,7 @@ public class DimensionFoodEvent implements UseItemCallback {
 
     @Override
     public TypedActionResult<ItemStack> interact(PlayerEntity player, World world, Hand hand) {
-        if(world.getRegistryKey() == DimensionAtlantis.ATLANTIS_WORLD_KEY)
+        if(world.getRegistryKey() == DimensionAtlantis.ATLANTIS_WORLD)
         {
 
             if (!player.getStatusEffects().contains(water_breathing)) {

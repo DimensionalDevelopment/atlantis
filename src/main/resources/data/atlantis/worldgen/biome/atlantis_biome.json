@@ -1,66 +1,26 @@
 {
+  "surface_builder": "minecraft:full_sand",
+  "depth": -1.8,
   "scale": 0.1,
+  "temperature": 0.5,
+  "downfall": 0,
+  "precipitation": "none",
+  "category": "ocean",
+  "player_spawn_friendly": false,
   "effects": {
+    "sky_color": 27571,
+    "fog_color": 59110,
+    "water_color": 3386879,
+    "water_fog_color": 59110,
+    "grass_color": 6749952,
+    "foliage_color": 5373696,
     "mood_sound": {
       "sound": "minecraft:ambient.underwater.loop",
       "tick_delay": 6000,
       "block_search_extent": 8,
-      "offset": 2.0
-    },
-    "sky_color": 27571,
-    "fog_color": 59110,
-    "water_color": 3386879,
-    "water_fog_color": 59110
+      "offset": 2
+    }
   },
-  "surface_builder": "minecraft:full_sand",
-  "carvers": {
-    "liquid": [
-      "minecraft:underwater_canyon",
-      "minecraft:underwater_cave"
-    ]
-  },
-  "features": [
-    [],
-    [
-      "minecraft:lake_water",
-      "minecraft:lake_lava"
-    ],
-    [],
-    [
-      "minecraft:ore_dirt",
-      "minecraft:ore_gravel",
-      "minecraft:ore_granite",
-      "minecraft:ore_diorite",
-      "minecraft:ore_andesite",
-      "minecraft:ore_coal",
-      "minecraft:ore_iron",
-      "minecraft:ore_gold",
-      "minecraft:ore_redstone",
-      "minecraft:ore_diamond",
-      "minecraft:ore_lapis",
-      "minecraft:disk_sand",
-      "minecraft:disk_clay",
-      "minecraft:disk_gravel"
-    ],
-    [
-      "atlantis:configured_shell_block_feature"
-    ],
-    [],
-    [],
-    [],
-    [
-      "minecraft:spring_water",
-      "minecraft:spring_lava",
-      "minecraft:sea_pickle",
-      "minecraft:kelp_warm",
-      "minecraft:warm_ocean_vegetation",
-      "minecraft:seagrass_deep_warm",
-      "minecraft:seagrass_simple",
-      "atlantis:configured_algae_feature",
-      "atlantis:configured_flower_feature"
-    ],
-    []
-  ],
   "starts": [
     "atlantis:configured_oyster_structure",
     "atlantis:configured_atlantean_fountain"
@@ -98,10 +58,56 @@
     ]
   },
   "spawn_costs": {},
-  "player_spawn_friendly": false,
-  "precipitation": "none",
-  "temperature": 0.5,
-  "downfall": 0.0,
-  "category": "ocean",
-  "depth": -1.8
+  "carvers": {
+    "liquid": [
+    ]
+  },
+  "features": [
+    [],
+    [
+      "minecraft:lake_water",
+      "minecraft:lake_lava"
+    ],
+    [],
+    [
+      "minecraft:ore_copper",
+      "minecraft:ore_deepslate",
+      "minecraft:ore_andesite",
+      "minecraft:ore_clay",
+      "minecraft:ore_coal_lower",
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_diamond",
+      "minecraft:ore_diamond_large",
+      "minecraft:ore_diorite",
+      "minecraft:ore_dirt",
+      "minecraft:ore_gold",
+      "minecraft:ore_granite",
+      "minecraft:ore_gravel",
+      "minecraft:ore_iron_lower",
+      "minecraft:ore_iron_middle",
+      "minecraft:ore_iron_upper",
+      "minecraft:ore_lapis",
+      "minecraft:ore_redstone",
+      "minecraft:ore_redstone_lower",
+      "minecraft:ore_tuff"
+    ],
+    [
+      "atlantis:configured_shell_block_feature"
+    ],
+    [],
+    [],
+    [],
+    [
+      "minecraft:spring_water",
+      "minecraft:spring_lava",
+      "minecraft:sea_pickle",
+      "minecraft:kelp_warm",
+      "minecraft:warm_ocean_vegetation",
+      "minecraft:seagrass_deep_warm",
+      "minecraft:seagrass_simple",
+      "atlantis:configured_algae_feature",
+      "atlantis:configured_flower_feature"
+    ],
+    []
+  ]
 }

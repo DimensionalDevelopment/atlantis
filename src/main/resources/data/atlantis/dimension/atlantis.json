@@ -1,35 +1,51 @@
 {
   "type": "atlantis:atlantis",
   "generator": {
-    "biome_source": {
-      "seed": 0,
-      "type": "atlantis:atlantis"
-    },
+    "type": "minecraft:noise",
     "seed": 0,
+    "biome_source": {
+      "type": "atlantis:atlantis_biome_source",
+      "seed": 0,
+      "biome": "atlantis:atlantis_biome"
+    },
     "settings": {
-      "bedrock_roof_position": -10,
-      "bedrock_floor_position": 0,
-      "sea_level": 255,
+      "name": "altantis:atlantis",
+      "bedrock_roof_position": -70,
+      "bedrock_floor_position": -64,
+      "sea_level": 384,
+      "min_surface_level": 30,
       "disable_mob_generation": false,
-      "structures": {"structures": {} },
+      "noise_caves_enabled": false,
+      "aquifers_enabled": true,
+      "deepslate_enabled": true,
+      "default_block": {
+        "Name": "minecraft:stone"
+      },
+      "default_fluid": {
+        "Name": "minecraft:water",
+        "Properties": {
+          "level": "0"
+        }
+      },
       "noise": {
-        "random_density_offset": true,
-        "density_factor": 1.0,
+        "min_y": -64,
+        "height": 384,
+        "density_factor": 1,
         "density_offset": -0.46875,
+        "size_horizontal": 1,
+        "size_vertical": 2,
         "simplex_surface_noise": true,
+        "random_density_offset": true,
+        "sampling": {
+          "xz_scale": 0.9999999814507745,
+          "y_scale": 0.9999999814507745,
+          "xz_factor": 80,
+          "y_factor": 160
+        },
         "bottom_slide": {
           "target": -30,
           "size": 0,
           "offset": 0
-        },
-        "size_horizontal": 1,
-        "size_vertical": 2,
-        "height": 256,
-        "sampling": {
-          "xz_scale": 0.9999999814507745,
-          "y_scale": 0.9999999814507745,
-          "xz_factor": 80.0,
-          "y_factor": 160.0
         },
         "top_slide": {
           "target": -10,
@@ -37,16 +53,9 @@
           "offset": 0
         }
       },
-      "default_block": {
-        "Name": "minecraft:stone"
-      },
-      "default_fluid": {
-        "Properties": {
-          "level": "0"
-        },
-        "Name": "minecraft:water"
+      "structures": {
+        "structures": {}
       }
-    },
-    "type": "minecraft:noise"
+    }
   }
 }

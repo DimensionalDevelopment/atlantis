@@ -44,7 +44,7 @@ public class PositionEvent implements UseBlockCallback {
             world.setBlockState(pos, BlockInit.ATLANTIS_PORTAL.getDefaultState());
 
             ItemStack itemstack = playerEntity.getStackInHand(hand);
-            if (!playerEntity.abilities.creativeMode) {
+            if (!playerEntity.getAbilities().creativeMode) {
                 itemstack.decrement(1);
             }
 

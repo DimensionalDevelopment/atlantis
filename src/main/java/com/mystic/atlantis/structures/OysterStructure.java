@@ -4,15 +4,19 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
+import net.minecraft.class_6130;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.Pool;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.HeightLimitView;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.SpawnSettings;
@@ -46,36 +50,36 @@ public class OysterStructure extends StructureFeature<DefaultFeatureConfig> {
     private static final List<SpawnSettings.SpawnEntry> STRUCTURE_MONSTERS = ImmutableList.of();
 
     @Override
-    public List<SpawnSettings.SpawnEntry> getMonsterSpawns() {
-        return STRUCTURE_MONSTERS;
+    public Pool<SpawnSettings.SpawnEntry> getMonsterSpawns() {
+        return (Pool<SpawnSettings.SpawnEntry>) STRUCTURE_MONSTERS;
     }
 
     private static final List<SpawnSettings.SpawnEntry> STRUCTURE_CREATURES = ImmutableList.of();
 
     @Override
-    public List<SpawnSettings.SpawnEntry> getCreatureSpawns() {
-        return STRUCTURE_CREATURES;
+    public Pool<SpawnSettings.SpawnEntry> getCreatureSpawns() {
+        return (Pool<SpawnSettings.SpawnEntry>) STRUCTURE_CREATURES;
     }
 
     public static class Start extends StructureStart<DefaultFeatureConfig> {
-        public Start(StructureFeature<DefaultFeatureConfig> structureIn, int chunkX, int chunkZ, BlockBox mutableBoundingBox, int referenceIn, long seedIn) {
-            super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
+        public Start(StructureFeature<DefaultFeatureConfig> structureIn, ChunkPos pos, int referenceIn, long seedIn) {
+            super(structureIn, pos, referenceIn, seedIn);
         }
 
         @Override
-        public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, DefaultFeatureConfig config) {
+        public void init(DynamicRegistryManager registryManager, ChunkGenerator chunkGenerator, StructureManager manager, ChunkPos pos, Biome biome, DefaultFeatureConfig config, HeightLimitView world) {
 
-            int x = (chunkX << 4) + 7;
-            int z = (chunkZ << 4) + 7;
+            int x = (pos.x << 4) + 7;
+            int z = (pos.z << 4) + 7;
 
-            BlockPos blockpos = new BlockPos(x, (chunkGenerator.getHeight((chunkX*16), (chunkZ*16), Heightmap.Type.OCEAN_FLOOR )), z);
+            BlockPos blockpos = new BlockPos(x, (chunkGenerator.getHeight((pos.x*16), (pos.z*16), Heightmap.Type.OCEAN_FLOOR, world)), z);
 
             StructurePoolBasedGenerator.method_30419(
-                    dynamicRegistryManager,
-                    new StructurePoolFeatureConfig(() -> dynamicRegistryManager.get(Registry.TEMPLATE_POOL_WORLDGEN).get(new Identifier(Reference.MODID, "oyster_structure/start_pool")), 10), PoolStructurePiece::new, chunkGenerator, templateManagerIn, blockpos, this.children, this.random, false, false);
+                    registryManager,
+                    new StructurePoolFeatureConfig(() -> registryManager.get(Registry.STRUCTURE_POOL_KEY).get(new Identifier(Reference.MODID, "oyster_structure/start_pool")), 10), PoolStructurePiece::new, chunkGenerator, manager, blockpos, (this), this.random, false, false, world);
 
             this.children.forEach(piece -> piece.translate(0, 1, 0));
-            this.children.forEach(piece -> piece.getBoundingBox().minY -= 1);
+            this.children.forEach(piece -> piece.getBoundingBox().getMinY());
 
             this.setBoundingBoxFromChildren();
 

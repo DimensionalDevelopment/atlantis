@@ -1,4 +1,4 @@
 {
-  "config": {},
-  "type": "atlantis:atlantean_fountain"
+  "type": "atlantis:atlantean_fountain",
+  "config": {}
 }
