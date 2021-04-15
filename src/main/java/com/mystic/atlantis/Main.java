@@ -27,6 +27,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.HeightContext;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.chunk.FlatChunkGenerator;
 import net.minecraft.world.gen.chunk.StructureConfig;
@@ -37,13 +38,15 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
-
+import net.minecraft.world.gen.heightprovider.HeightProvider;
+import net.minecraft.world.gen.heightprovider.HeightProviderType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Main implements ModInitializer
 {
@@ -56,7 +59,7 @@ public class Main implements ModInitializer
                     OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
                     BlockInit.AQUAMARINE_ORE.getDefaultState(),
                     9)) // vein size
-            .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(YOffset.getBottom(), YOffset.getTop())))
+            .method_36297(YOffset.getBottom(), YOffset.getTop())
             .spreadHorizontally()
             .repeat(20); // number of veins per chunk
 

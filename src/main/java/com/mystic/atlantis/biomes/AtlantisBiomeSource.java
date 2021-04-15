@@ -12,6 +12,7 @@ import net.minecraft.util.dynamic.RegistryLookupCodec;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.BuiltinBiomes;
 import net.minecraft.world.biome.layer.type.ParentedLayer;
 import net.minecraft.world.biome.layer.util.CachingLayerContext;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
 public class AtlantisBiomeSource extends BiomeSource {
     public static final Codec<AtlantisBiomeSource> CODEC = RecordCodecBuilder.create((instance) -> instance.group(RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter((biomeSource) -> biomeSource.BIOME_REGISTRY), Codec.LONG.fieldOf("seed").stable().forGetter((biomeSource) -> biomeSource.seed)).apply(instance, instance.stable(AtlantisBiomeSource::new)));
 
-    public static Identifier ATLANTIS_BIOME = new Identifier(Reference.MODID, "atlantis_biome");
+    public static final Identifier ATLANTIS_BIOME = new Identifier(Reference.MODID, "atlantis_biome");
     private final BiomeLayerSampler BIOME_SAMPLER;
     private final Registry<Biome> BIOME_REGISTRY;
     public static Registry<Biome> LAYERS_BIOME_REGISTRY;
@@ -102,7 +103,7 @@ public class AtlantisBiomeSource extends BiomeSource {
                 throw Util.throwOrPause(new IllegalStateException("Unknown biome id: " + resultBiomeID));
             } else {
                 // Spawn ocean if we can't resolve the biome from the layers.
-                RegistryKey<Biome> backupBiomeKey = BuiltinBiomes.fromRawId(0);
+                RegistryKey<Biome> backupBiomeKey = BiomeKeys.OCEAN;
                 Main.LOGGER.warn("Unknown biome id: ${}. Will spawn ${} instead.", resultBiomeID, backupBiomeKey.getValue());
                 return dynamicBiomeRegistry.get(backupBiomeKey);
             }

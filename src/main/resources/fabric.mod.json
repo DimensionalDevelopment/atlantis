@@ -35,6 +35,5 @@
   },
   "suggests": {
     "another-mod": "*"
-  },
-  "accessWidener": "atlantis.accesswidener"
+  }
 }

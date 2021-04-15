@@ -22,6 +22,8 @@
     }
   },
   "starts": [
+    "atlantis:configured_atlantean_fountain",
+    "atlantis:configured_oyster_structure"
   ],
   "spawners": {
     "monster": [
@@ -72,21 +74,16 @@
       "minecraft:ore_deepslate",
       "minecraft:ore_andesite",
       "minecraft:ore_clay",
-      "minecraft:ore_coal_lower",
-      "minecraft:ore_coal_upper",
+      "minecraft:ore_coal",
       "minecraft:ore_diamond",
-      "minecraft:ore_diamond_large",
       "minecraft:ore_diorite",
       "minecraft:ore_dirt",
       "minecraft:ore_gold",
       "minecraft:ore_granite",
       "minecraft:ore_gravel",
-      "minecraft:ore_iron_lower",
-      "minecraft:ore_iron_middle",
-      "minecraft:ore_iron_upper",
+      "minecraft:ore_iron",
       "minecraft:ore_lapis",
       "minecraft:ore_redstone",
-      "minecraft:ore_redstone_lower",
       "minecraft:ore_tuff"
     ],
     [

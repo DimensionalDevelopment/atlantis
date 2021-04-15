@@ -11,11 +11,18 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.gen.CountConfig;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.HeightContext;
 import net.minecraft.world.gen.YOffset;
+import net.minecraft.world.gen.decorator.HeightmapDecorator;
+import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
+import net.minecraft.world.gen.heightprovider.HeightProvider;
+import net.minecraft.world.gen.heightprovider.HeightProviderType;
+
+import java.util.Random;
 
 public class AtlantisFeature {
     public static final Feature<CountConfig> UNDERWATER_FLOWER_ATLANTIS = register(
@@ -43,12 +50,11 @@ public class AtlantisFeature {
         public static final RegistryKey<ConfiguredFeature<?,?>> SHELL_BLOCK_FEATURE_KEY = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(Reference.MODID, "shell_block_feature"));
 
         public static void registerConfiguredFeatures() {
-            //TODO figure out the Yoffset thing
-            register("underwater_flower_altantis", ConfiguredFeaturesAtlantis.UNDERWATER_FLOWER_ATLANTIS.rangeOf(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(100));
+            register("underwater_flower_altantis", ConfiguredFeaturesAtlantis.UNDERWATER_FLOWER_ATLANTIS.method_36296(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(100));
 
-            register("algae_feature_altantis", ConfiguredFeaturesAtlantis.ALGAE_FEATURE_ATLANTIS.rangeOf(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(80));
+            register("algae_feature_altantis", ConfiguredFeaturesAtlantis.ALGAE_FEATURE_ATLANTIS.method_36296(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(80));
 
-            register("shell_block_feature", ConfiguredFeaturesAtlantis.SHELL_BLOCK_FEATURE.rangeOf(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(100));
+            register("shell_block_feature", ConfiguredFeaturesAtlantis.SHELL_BLOCK_FEATURE.method_36296(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(100));
 
             BiomeModifications.create(new Identifier(Reference.MODID, "feature_removal")).add(ModificationPhase.REMOVALS,
                     BiomeSelectors.foundInTheEnd().or(BiomeSelectors.foundInTheNether()),
