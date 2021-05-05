@@ -10,9 +10,7 @@
     "ServerPlayerEntityMixin",
     "StructuresConfigAccessor"
   ],
-  "client": [
-    "AtlantisMixin"
-  ],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   },

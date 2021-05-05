@@ -1,17 +1,14 @@
 package com.mystic.atlantis.structures;
 
 import com.google.common.collect.ImmutableList;
-
-import java.util.List;
-
-import net.minecraft.class_6130;
+import com.mojang.serialization.Codec;
+import com.mystic.atlantis.util.Reference;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.Pool;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.DynamicRegistryManager;
@@ -26,9 +23,7 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 
-import com.mojang.serialization.Codec;
-
-import com.mystic.atlantis.util.Reference;
+import java.util.List;
 
 public class OysterStructure extends StructureFeature<DefaultFeatureConfig> {
 

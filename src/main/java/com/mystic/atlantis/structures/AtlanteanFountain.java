@@ -1,20 +1,14 @@
 package com.mystic.atlantis.structures;
 
 import com.google.common.collect.ImmutableList;
-
-import java.util.List;
-
-import net.minecraft.class_6130;
+import com.mojang.serialization.Codec;
+import com.mystic.atlantis.util.Reference;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
-import net.minecraft.structure.pool.StructurePoolElement;
-import net.minecraft.structure.pool.StructurePoolElementType;
-import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.Pool;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.DynamicRegistryManager;
@@ -29,9 +23,7 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 
-import com.mojang.serialization.Codec;
-
-import com.mystic.atlantis.util.Reference;
+import java.util.List;
 
 public class AtlanteanFountain extends StructureFeature<DefaultFeatureConfig> {
 
@@ -80,7 +72,7 @@ public class AtlanteanFountain extends StructureFeature<DefaultFeatureConfig> {
 
             StructurePoolBasedGenerator.method_30419(
                     dynamicRegistryManager,
-                    new StructurePoolFeatureConfig(() -> dynamicRegistryManager.get(Registry.STRUCTURE_POOL_KEY).get(new Identifier(Reference.MODID, "atlantean_fountain/start_pool")), 10), PoolStructurePiece::new, chunkGenerator, templateManagerIn ,blockpos, (this) , this.random, false, false, world);
+                    new StructurePoolFeatureConfig(() -> dynamicRegistryManager.get(Registry.STRUCTURE_POOL_KEY).get(new Identifier(Reference.MODID, "atlantean_fountain/start_pool")), 10), PoolStructurePiece::new, chunkGenerator, templateManagerIn ,blockpos, (this), this.random, false, false, world);
 
             this.children.forEach(piece -> piece.translate(0, 1, 0));
             this.children.forEach(piece -> piece.getBoundingBox().getMinY());

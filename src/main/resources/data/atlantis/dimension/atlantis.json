@@ -50,8 +50,10 @@
     "settings": {
       "name": "atlantis:atlantis",
       "bedrock_roof_position": -70,
+      "noodle_caves_enabled": false,
       "bedrock_floor_position": -64,
       "sea_level": 384,
+      "ore_veins_enabled": true,
       "min_surface_level": 30,
       "disable_mob_generation": false,
       "noise_caves_enabled": false,

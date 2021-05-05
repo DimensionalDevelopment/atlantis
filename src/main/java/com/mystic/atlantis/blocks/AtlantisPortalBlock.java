@@ -165,7 +165,7 @@ public class AtlantisPortalBlock extends Block implements BlockEntityProvider {
     public static void sendPlayerToDimension(ServerPlayerEntity serverPlayer, ServerWorld targetWorld, Vec3d targetVec) {
         // ensure destination chunk is loaded before we put the player in it
         targetWorld.getChunk(new BlockPos(targetVec));
-        serverPlayer.teleport(targetWorld, targetVec.getX(), targetVec.getY(), targetVec.getZ(), serverPlayer.yaw, serverPlayer.pitch);
+        serverPlayer.teleport(targetWorld, targetVec.getX(), targetVec.getY(), targetVec.getZ(), serverPlayer.getYaw(), serverPlayer.getPitch());
     }
 
     @Nullable
