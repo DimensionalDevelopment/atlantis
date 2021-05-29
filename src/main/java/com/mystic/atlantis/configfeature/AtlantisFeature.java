@@ -50,11 +50,11 @@ public class AtlantisFeature {
         public static final RegistryKey<ConfiguredFeature<?,?>> SHELL_BLOCK_FEATURE_KEY = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(Reference.MODID, "shell_block_feature"));
 
         public static void registerConfiguredFeatures() {
-            register("underwater_flower_altantis", ConfiguredFeaturesAtlantis.UNDERWATER_FLOWER_ATLANTIS.method_36296(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(100));
+            register("underwater_flower_altantis", ConfiguredFeaturesAtlantis.UNDERWATER_FLOWER_ATLANTIS.uniformRange(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(100));
 
-            register("algae_feature_altantis", ConfiguredFeaturesAtlantis.ALGAE_FEATURE_ATLANTIS.method_36296(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(80));
+            register("algae_feature_altantis", ConfiguredFeaturesAtlantis.ALGAE_FEATURE_ATLANTIS.uniformRange(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(80));
 
-            register("shell_block_feature", ConfiguredFeaturesAtlantis.SHELL_BLOCK_FEATURE.method_36296(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(100));
+            register("shell_block_feature", ConfiguredFeaturesAtlantis.SHELL_BLOCK_FEATURE.uniformRange(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(100));
 
             BiomeModifications.create(new Identifier(Reference.MODID, "feature_removal")).add(ModificationPhase.REMOVALS,
                     BiomeSelectors.foundInTheEnd().or(BiomeSelectors.foundInTheNether()),
