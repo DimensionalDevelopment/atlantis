@@ -59,7 +59,7 @@ public class Main implements ModInitializer
                     OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
                     BlockInit.AQUAMARINE_ORE.getDefaultState(),
                     9)) // vein size
-            .method_36297(YOffset.getBottom(), YOffset.getTop())
+            .triangleRange(YOffset.getBottom(), YOffset.getTop())
             .spreadHorizontally()
             .repeat(20); // number of veins per chunk
 
