@@ -1,6 +1,7 @@
 pluginManagement {
     repositories {
-        jcenter()
+        //jcenter()     // jcenter will be stopped in 2022
+        mavenCentral()
         maven {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'

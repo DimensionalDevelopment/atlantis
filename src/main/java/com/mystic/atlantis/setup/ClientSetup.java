@@ -1,20 +1,18 @@
 package com.mystic.atlantis.setup;
 
-import io.github.waterpicker.openworlds.renderer.CloudRenderer;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.SkyProperties;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Vec3d;
-
 import com.mystic.atlantis.dimension.AltantisSkyRenderer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.BlockInit;
 import io.github.waterpicker.openworlds.OpenWorlds;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.SkyProperties;
+import net.minecraft.util.math.Vec3d;
 
+@Environment(EnvType.CLIENT)
 public class ClientSetup implements ClientModInitializer {
     @Override
     public void onInitializeClient() {

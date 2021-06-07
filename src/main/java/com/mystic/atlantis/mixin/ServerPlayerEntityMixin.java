@@ -11,8 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin {
-	@Shadow public abstract ServerWorld getServerWorld();
-
 	@Inject(method = "tick", at = @At(value = "RETURN"))
 	private void playerTick(CallbackInfo ci) {
 		DimensionEffectTimed.playerTick(((ServerPlayerEntity) (Object) this));
