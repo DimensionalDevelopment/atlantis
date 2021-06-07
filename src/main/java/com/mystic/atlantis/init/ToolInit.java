@@ -1,19 +1,20 @@
 package com.mystic.atlantis.init;
 
 import java.util.function.Supplier;
+
+import com.mystic.atlantis.util.Lazy;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.Lazy;
 
 public enum ToolInit implements ToolMaterial {
-    AQUAMARINE(286,5,4,2, 10, () -> {return Ingredient.ofItems(ItemInit.AQUAMARINE_GEM);});
+    AQUAMARINE(286,5,4,2, 10, () -> Ingredient.ofItems(ItemInit.AQUAMARINE_GEM));
 
-    int maxUses;
-    float toolEfficiency;
-    float attackDamage;
-    int harvestLvl;
-    int enchantability;
-    Lazy<Ingredient> repairMaterial;
+    private final int maxUses;
+    private final float toolEfficiency;
+    private final float attackDamage;
+    private final int harvestLvl;
+    private final int enchantability;
+    private final Lazy<Ingredient> repairMaterial;
 
     ToolInit(int uses, float efficiency, float damage, int harvest, int enchant, Supplier<Ingredient> material) {
         maxUses = uses;

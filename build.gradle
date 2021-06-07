@@ -55,7 +55,7 @@ java {
     withSourcesJar()
 }
 
-jar {
+jar { // shit
     from("LICENSE") {
         rename { "${it}_${project.archivesBaseName}"}
     }

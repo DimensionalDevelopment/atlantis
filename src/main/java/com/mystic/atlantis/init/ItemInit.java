@@ -1,30 +1,16 @@
 package com.mystic.atlantis.init;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.item.SwordItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-
 import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
 import com.mystic.atlantis.items.item.AtlanteanCrystal;
-import com.mystic.atlantis.items.item.ItemBase;
-import com.mystic.atlantis.items.item.OrbOfAtlantis;
-import com.mystic.atlantis.items.tools.AquamarineAxe;
-import com.mystic.atlantis.items.tools.AquamarineHoe;
-import com.mystic.atlantis.items.tools.AquamarinePickaxe;
-import com.mystic.atlantis.items.tools.AquamarineShovel;
-import com.mystic.atlantis.items.tools.AquamarineSword;
+import com.mystic.atlantis.items.item.DefaultItem;
+import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public class ItemInit
 {
@@ -36,12 +22,12 @@ public class ItemInit
     }
 
     //ITEMS
-    public static final Item AQUAMARINE_GEM = register("aquamarine_gem", new ItemBase());
-    public static final Item ORB_OF_ATLANTIS = register("orb_of_atlantis", new OrbOfAtlantis());
+    public static final Item AQUAMARINE_GEM = register("aquamarine_gem", new DefaultItem());
+    public static final Item ORB_OF_ATLANTIS = register("orb_of_atlantis", new DefaultItem());
     public static final Item ATLANTEAN_CRYSTAL = register("atlantean_crystal", new AtlanteanCrystal());
-    public static final Item OCEAN_STONE = register("ocean_stone", new ItemBase());
-    public static final Item DROP_OF_ATLANTIS = register("drop_of_atlantis", new ItemBase());
-    public static final Item BROWN_WROUGHT_PATCHES = register("brown_wrought_patches", new ItemBase());
+    public static final Item OCEAN_STONE = register("ocean_stone", new DefaultItem());
+    public static final Item DROP_OF_ATLANTIS = register("drop_of_atlantis", new DefaultItem());
+    public static final Item BROWN_WROUGHT_PATCHES = register("brown_wrought_patches", new DefaultItem());
 
     //TOOLS
     public static final AxeItem AXE_AQUMARINE = (AxeItem) register("axe_aquamarine", new AquamarineAxe(ToolInit.AQUAMARINE, 4));

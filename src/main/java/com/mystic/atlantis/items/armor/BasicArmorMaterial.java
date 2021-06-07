@@ -2,11 +2,11 @@ package com.mystic.atlantis.items.armor;
 
 import java.util.function.Supplier;
 
+import com.mystic.atlantis.util.Lazy;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Lazy;
 
 import com.mystic.atlantis.init.ItemInit;
 import net.fabricmc.api.EnvType;
@@ -26,18 +26,18 @@ public class BasicArmorMaterial
         private final int enchantability;
         private final SoundEvent soundEvent;
         private final float toughness;
-        private final float knochbackResistance;
+        private final float knockbackResistance;
         private final Lazy<Ingredient> repairMaterial;
 
-        public ArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability, SoundEvent soundEvent, double toughness, float knochbackResistance, Supplier<Ingredient> supplier) {
+        public ArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability, SoundEvent soundEvent, double toughness, float knockbackResistance, Supplier<Ingredient> supplier) {
             this.name = name;
             this.maxDamageFactor = maxDamageFactor;
             this.damageReductionAmountArray = damageReductionAmountArray;
             this.enchantability = enchantability;
             this.soundEvent = soundEvent;
             this.toughness = (float)toughness;
-            this.knochbackResistance = knochbackResistance;
-            this.repairMaterial = new Lazy<Ingredient>(supplier);
+            this.knockbackResistance = knockbackResistance;
+            this.repairMaterial = new Lazy<>(supplier);
         }
 
         @Override
@@ -78,7 +78,7 @@ public class BasicArmorMaterial
 
         @Override
         public float getKnockbackResistance() {
-            return this.knochbackResistance;
+            return this.knockbackResistance;
         }
     }
 }

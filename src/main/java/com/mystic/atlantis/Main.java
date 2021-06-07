@@ -13,7 +13,6 @@ import com.mystic.atlantis.util.Reference;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
@@ -27,31 +26,32 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.HeightContext;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.chunk.FlatChunkGenerator;
 import net.minecraft.world.gen.chunk.StructureConfig;
 import net.minecraft.world.gen.chunk.StructuresConfig;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
-import net.minecraft.world.gen.heightprovider.HeightProvider;
-import net.minecraft.world.gen.heightprovider.HeightProviderType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class Main implements ModInitializer
 {
-
-    private static MinecraftServer server;
+    /**
+     * @deprecated this is not a thread-safe thing.
+     * Imagine that you open your single-player level and close it
+     * soon, and join a dedicated server. At that time this value
+     * is absolutely wrong, AND stops JVM from removing it from
+     * your RAM.
+     */
+    @Deprecated @SuppressWarnings({"unused"})
+    private static final MinecraftServer server = null;
     public static final Logger LOGGER = LogManager.getLogger(Reference.MODID);
 
     private static final ConfiguredFeature<?, ?> ORE_AQUAMARINE_OVERWORLD = Feature.ORE
@@ -76,19 +76,15 @@ public class Main implements ModInitializer
         }
     }
 
-    @NotNull
+    @NotNull @Deprecated
     public static MinecraftServer getServer() {
-        if (server != null) {
-            return server;
-        }
-        throw new UnsupportedOperationException("Accessed server too early!");
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void onInitialize() {
-        ServerLifecycleEvents.SERVER_STARTING.register((minecraftServer) -> {
-            server = minecraftServer;
-        });
+        // this process is NOT thread-safe! You don't need to do it.
+        //ServerLifecycleEvents.SERVER_STARTING.register((minecraftServer) -> server = minecraftServer);
 
         UseBlockCallback.EVENT.register(new PositionEvent());
         UseItemCallback.EVENT.register(new DimensionFoodEvent());
@@ -107,8 +103,12 @@ public class Main implements ModInitializer
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, oreAquamarineOverworld);
 
         ServerWorldEvents.LOAD.register(this::addDimensionalSpacing);
-
-        DUMMY_DATA_STORAGE = Registry.register(Registry.BLOCK_ENTITY_TYPE, "atlantis:dummydatastorage", FabricBlockEntityTypeBuilder.create(DummyDataStorage::new, BlockInit.ATLANTIS_PORTAL).build(null));
     }
-    public static BlockEntityType<DummyDataStorage> DUMMY_DATA_STORAGE;
+    public static final BlockEntityType<DummyDataStorage> DUMMY_DATA_STORAGE;
+    static {
+        DUMMY_DATA_STORAGE = Registry.register(
+                Registry.BLOCK_ENTITY_TYPE, "atlantis:dummydatastorage",
+                FabricBlockEntityTypeBuilder.create(
+                        DummyDataStorage::new, BlockInit.ATLANTIS_PORTAL).build(null));
+    }
 }
