@@ -6,6 +6,7 @@ import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.event.DimensionFoodEvent;
 import com.mystic.atlantis.event.PositionEvent;
 import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.mixin.StructuresConfigAccessor;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.structures.AtlantisStructures;
@@ -83,14 +84,13 @@ public class Main implements ModInitializer
 
     @Override
     public void onInitialize() {
-        // this process is NOT thread-safe! You don't need to do it.
-        //ServerLifecycleEvents.SERVER_STARTING.register((minecraftServer) -> server = minecraftServer);
 
         UseBlockCallback.EVENT.register(new PositionEvent());
         UseItemCallback.EVENT.register(new DimensionFoodEvent());
 
-        DimensionAtlantis.registerBiomeSources();
+        AtlantisGroup.init();
 
+        DimensionAtlantis.registerBiomeSources();
         DimensionAtlantis.init();
 
         AtlantisFeature.ConfiguredFeaturesAtlantis.registerConfiguredFeatures();
@@ -110,5 +110,9 @@ public class Main implements ModInitializer
                 Registry.BLOCK_ENTITY_TYPE, "atlantis:dummydatastorage",
                 FabricBlockEntityTypeBuilder.create(
                         DummyDataStorage::new, BlockInit.ATLANTIS_PORTAL).build(null));
+    }
+
+    public static Identifier id(String id) {
+        return new Identifier("atlantis", id);
     }
 }

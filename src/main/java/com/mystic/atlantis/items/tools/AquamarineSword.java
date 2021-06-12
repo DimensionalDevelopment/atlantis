@@ -9,7 +9,6 @@ public class AquamarineSword extends SwordItem {
     public AquamarineSword(ToolMaterial tier, int attack) {
         super(tier, attack, -3.2F, new Item.Settings()
                 .maxCount(1)
-                .maxDamageIfAbsent(tier.getDurability())
-                .group(ItemInit.CREATIVE_TAB_ATLANTIS));
+                .maxDamageIfAbsent(tier.getDurability()));
     }
 }

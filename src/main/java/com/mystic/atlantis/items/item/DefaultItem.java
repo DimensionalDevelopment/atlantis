@@ -9,8 +9,7 @@ import net.minecraft.item.Item;
 public class DefaultItem extends Item {
     public DefaultItem(Settings settings) {
         super (settings
-                .maxCount(64)
-                .group(ItemInit.CREATIVE_TAB_ATLANTIS));
+                .maxCount(64));
     }
 
     public DefaultItem() {

@@ -1,0 +1,11 @@
+{
+  "panbee": {
+    "category": "records",
+    "sounds": [
+      {
+        "name": "atlantis:panbee",
+        "stream": true
+      }
+    ]
+  }
+}

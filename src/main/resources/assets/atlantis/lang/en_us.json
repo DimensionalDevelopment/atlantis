@@ -1,5 +1,5 @@
 {
-  "itemGroup.atlantis": "Atlantis",
+  "itemGroup.atlantis.general": "Atlantis",
   "item.atlantis.aquamarine_gem": "Aquamarine Gem",
   "item.atlantis.orb_of_atlantis": "Orb Of Atlantis",
   "item.atlantis.atlantean_crystal": "Atlantean Crystal",
@@ -67,5 +67,7 @@
   "block.atlantis.atlantis_portal": "Atlantis Portal",
   "block.atlantis.underwater_flower": "Atlantis Flower",
   "block.atlantis.algae": "Algae",
-  "itemGroup.minecraft.atlantis": "Atlantis"
+  "itemGroup.minecraft.atlantis": "Atlantis",
+  "item.atlantis.panbee": "Music Disc",
+  "item.atlantis.panbee.desc": "LudoCrypt - panbee"
 }

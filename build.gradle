@@ -23,10 +23,10 @@ dependencies {
 
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
-    modImplementation("com.github.Mysticpasta1:OpenWorlds:0fbdd00") {
+    modImplementation("com.github.Mysticpasta1:OpenWorlds:cce9fed") {
         exclude module: "fabric-api"
     }
-    include 'com.github.Mysticpasta1:OpenWorlds:0fbdd00'
+    include 'com.github.Mysticpasta1:OpenWorlds:cce9fed'
 }
 
 processResources {

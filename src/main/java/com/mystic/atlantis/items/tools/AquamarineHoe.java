@@ -8,7 +8,6 @@ public class AquamarineHoe extends HoeItem {
     public AquamarineHoe(ToolMaterial tier, int attack) {
         super(tier, attack, -3.2F, new Settings()
                 .maxCount(1)
-                .maxDamageIfAbsent(tier.getDurability())
-                .group(ItemInit.CREATIVE_TAB_ATLANTIS));
+                .maxDamageIfAbsent(tier.getDurability()));
     }
 }

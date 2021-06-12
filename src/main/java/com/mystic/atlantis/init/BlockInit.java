@@ -85,6 +85,6 @@ public class BlockInit {
     }
 
     private static BlockItem registerBlockItem(Block block) {
-        return new BlockItem(Objects.requireNonNull(block), new Item.Settings().group(ItemInit.CREATIVE_TAB_ATLANTIS));
+        return new BlockItem(Objects.requireNonNull(block), new Item.Settings());
     }
 }
