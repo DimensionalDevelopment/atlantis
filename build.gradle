@@ -11,13 +11,14 @@ version = project.mod_version
 group = project.maven_group
 repositories {
     maven { url = 'https://jitpack.io' }
+    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 }
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
+    modImplementation 'software.bernie.geckolib:geckolib-fabric-1.17:3.0.5:dev'
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
@@ -59,6 +60,10 @@ jar { // shit
     from("LICENSE") {
         rename { "${it}_${project.archivesBaseName}"}
     }
+}
+
+minecraft {
+    accessWidener =  file("src/main/resources/atlantis.accesswidener")
 }
 
 // configure the maven publication

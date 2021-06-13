@@ -2,12 +2,16 @@ package com.mystic.atlantis.setup;
 
 import com.mystic.atlantis.dimension.AltantisSkyRenderer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.entities.AtlantisEntities;
+import com.mystic.atlantis.entities.models.CrabEntityModel;
+import com.mystic.atlantis.entities.renders.CrabEntityRenderer;
 import com.mystic.atlantis.init.BlockInit;
 import io.github.waterpicker.openworlds.OpenWorlds;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.SkyProperties;
 import net.minecraft.util.math.Vec3d;
@@ -50,5 +54,7 @@ public class ClientSetup implements ClientModInitializer {
         OpenWorlds.registerSkyProperty(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, atlantis);
         OpenWorlds.registerSkyRenderer(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, new AltantisSkyRenderer());
         OpenWorlds.registerCloudRenderer(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, (client, matrices, matrix4f, tickDelta, cameraX, cameraY, cameraZ) -> {});
+
+        EntityRendererRegistry.INSTANCE.register(AtlantisEntities.CRAB, entityRenderDispatcher -> new CrabEntityRenderer(entityRenderDispatcher, new CrabEntityModel()));
     }
 }

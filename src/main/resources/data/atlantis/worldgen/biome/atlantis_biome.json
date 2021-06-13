@@ -54,6 +54,18 @@
         "weight": 25,
         "minCount": 8,
         "maxCount": 8
+      },
+      {
+        "type": "atlantis:blue_atlantean_crab",
+        "weight": 25,
+        "minCount": 4,
+        "maxCount": 9
+      },
+      {
+        "type": "atlantis:red_atlantean_crab",
+        "weight": 25,
+        "minCount": 4,
+        "maxCount": 9
       }
     ]
   },

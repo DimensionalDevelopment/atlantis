@@ -3,6 +3,7 @@ package com.mystic.atlantis;
 import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.event.DimensionFoodEvent;
 import com.mystic.atlantis.event.PositionEvent;
 import com.mystic.atlantis.init.BlockInit;
@@ -38,6 +39,7 @@ import net.minecraft.world.gen.feature.StructureFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib3.GeckoLib;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -83,12 +85,15 @@ public class Main implements ModInitializer
     }
 
     @Override
-    public void onInitialize() {
+    public void onInitialize()
+    {
+        GeckoLib.initialize();
 
         UseBlockCallback.EVENT.register(new PositionEvent());
         UseItemCallback.EVENT.register(new DimensionFoodEvent());
 
         AtlantisGroup.init();
+        AtlantisEntities.initialize();
 
         DimensionAtlantis.registerBiomeSources();
         DimensionAtlantis.init();

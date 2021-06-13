@@ -1,5 +1,6 @@
 package com.mystic.atlantis.init;
 
+import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
@@ -23,6 +24,9 @@ public class ItemInit
     }
 
     private static final Item.Settings ATLANTIS_SETTINGS = new Item.Settings().maxCount(1).rarity(Rarity.UNCOMMON).maxCount(1);
+
+    //SPAWN EGGS
+    public static final Item ATLANTEAN_CRAB_EGG = register("atlantean_crab_egg", new SpawnEggItem(AtlantisEntities.CRAB, 0x800002, 0xff0f45, new Item.Settings().group(ItemGroup.MISC)));
 
     //MUSIC DISC
     public static final Item PANBEE = register("panbee", new AtlantisMusicDisc(15, AtlantisSoundEvents.PANBEE, ATLANTIS_SETTINGS));
