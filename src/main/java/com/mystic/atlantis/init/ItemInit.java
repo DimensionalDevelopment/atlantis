@@ -5,6 +5,7 @@ import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
 import com.mystic.atlantis.items.item.AtlanteanCrystal;
+import com.mystic.atlantis.items.item.CrabLegsItem;
 import com.mystic.atlantis.items.item.DefaultItem;
 import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
 import com.mystic.atlantis.items.tools.*;
@@ -38,6 +39,7 @@ public class ItemInit
     public static final Item OCEAN_STONE = register("ocean_stone", new DefaultItem());
     public static final Item DROP_OF_ATLANTIS = register("drop_of_atlantis", new DefaultItem());
     public static final Item BROWN_WROUGHT_PATCHES = register("brown_wrought_patches", new DefaultItem());
+    public static final Item CRAB_LEGS = register("crab_legs", new CrabLegsItem(new Item.Settings()));
 
     //TOOLS
     public static final AxeItem AXE_AQUMARINE = (AxeItem) register("axe_aquamarine", new AquamarineAxe(ToolInit.AQUAMARINE, 4));
