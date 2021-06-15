@@ -12,6 +12,10 @@ group = project.maven_group
 repositories {
     maven { url = 'https://jitpack.io' }
     maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+    maven {
+        url = "http://maven.kyrptonaught.dev"
+        allowInsecureProtocol = true
+    }
 }
 dependencies {
     // To change the versions see the gradle.properties file
@@ -19,6 +23,8 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation 'software.bernie.geckolib:geckolib-fabric-1.17:3.0.5:dev'
+    modImplementation 'net.kyrptonaught:customportalapi:0.0.1-beta32-1.17'
+    include 'net.kyrptonaught:customportalapi:0.0.1-beta32-1.17'
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 

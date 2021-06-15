@@ -1,14 +1,13 @@
 {
     "parent": "block/cube",
     "textures": {
-        "particle": "atlantis:blocks/white_shell_front_texture",
-        "down": "atlantis:blocks/white_shell_top_bottom",
-        "up": "atlantis:blocks/white_shell_front_texture",
-        "north": "atlantis:blocks/white_shell_top_bottom",
-        "east": "atlantis:blocks/white_colored_shell_side",
-        "south": "atlantis:blocks/white_shell_top_bottom",
-        "west": "atlantis:blocks/white_colored_shell_side_flipped"
-
+        "particle": "atlantis:block/white_shell_front_texture",
+        "down": "atlantis:block/white_shell_top_bottom",
+        "up": "atlantis:block/white_shell_front_texture",
+        "north": "atlantis:block/white_shell_top_bottom",
+        "east": "atlantis:block/white_colored_shell_side",
+        "south": "atlantis:block/white_shell_top_bottom",
+        "west": "atlantis:block/white_colored_shell_side_flipped"
     },
     "elements": [
         {

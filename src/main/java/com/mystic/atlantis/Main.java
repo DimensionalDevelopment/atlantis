@@ -17,7 +17,10 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.kyrptonaught.customportalapi.CustomPortalApiRegistry;
+import net.kyrptonaught.customportalapi.portal.PortalIgnitionSource;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -44,6 +47,7 @@ import java.util.Map;
 
 public class Main implements ModInitializer
 {
+
     /**
      * @deprecated this is not a thread-safe thing.
      * Imagine that you open your single-player level and close it
@@ -83,8 +87,9 @@ public class Main implements ModInitializer
     }
 
     @Override
-    public void onInitialize()
-    {
+    public void onInitialize() {
+        CustomPortalApiRegistry.addPortal(BlockInit.ATLANTEAN_CORE, PortalIgnitionSource.FluidSource(Fluids.WATER), BlockInit.ATLANTIS_CLEAR_PORTAL, new Identifier("atlantis", "atlantis"), 0, 125, 255);
+
         GeckoLib.initialize();
 
         UseBlockCallback.EVENT.register(new PositionEvent());

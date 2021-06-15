@@ -1,8 +1,8 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "particle": "atlantis:blocks/algae",
-    "algae": "atlantis:blocks/algae"
+    "particle": "atlantis:block/algae",
+    "algae": "atlantis:block/algae"
   },
   "elements": [
     {   "from": [ 0, 0, 0.8 ],

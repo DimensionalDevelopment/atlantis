@@ -27,17 +27,18 @@ public class ClientSetup implements ClientModInitializer {
             BlockInit.WHITE_PEARL_BLOCK,
             BlockInit.LIGHT_GRAY_PEARL_BLOCK,
             BlockInit.BLUE_PEARL_BLOCK,
-            BlockInit.LIGHT_BLUE_PEARL_BLOCK,
-            BlockInit.RED_PEARL_BLOCK,
-            BlockInit.ORANGE_PEARL_BLOCK,
-            BlockInit.PINK_PEARL_BLOCK,
-            BlockInit.YELLOW_PEARL_BLOCK,
-            BlockInit.GREEN_PEARL_BLOCK,
-            BlockInit.LIME_PEARL_BLOCK,
-            BlockInit.PURPLE_PEARL_BLOCK,
-            BlockInit.MAGENTA_PEARL_BLOCK,
-            BlockInit.CYAN_PEARL_BLOCK,
-            BlockInit.BROWN_PEARL_BLOCK);
+                BlockInit.LIGHT_BLUE_PEARL_BLOCK,
+                BlockInit.RED_PEARL_BLOCK,
+                BlockInit.ORANGE_PEARL_BLOCK,
+                BlockInit.PINK_PEARL_BLOCK,
+                BlockInit.YELLOW_PEARL_BLOCK,
+                BlockInit.GREEN_PEARL_BLOCK,
+                BlockInit.LIME_PEARL_BLOCK,
+                BlockInit.PURPLE_PEARL_BLOCK,
+                BlockInit.MAGENTA_PEARL_BLOCK,
+                BlockInit.CYAN_PEARL_BLOCK,
+                BlockInit.BROWN_PEARL_BLOCK,
+                BlockInit.ATLANTIS_CLEAR_PORTAL);
 
         SkyProperties atlantis = new SkyProperties(255.0F, true, SkyProperties.SkyType.NORMAL, false, false) {
             @Override

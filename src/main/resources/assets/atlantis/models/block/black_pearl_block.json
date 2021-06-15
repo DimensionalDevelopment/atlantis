@@ -1,6 +1,6 @@
 {
    "parent": "block/cube_all",
    "textures": {
-       "all": "atlantis:blocks/black_pearl_block"
+       "all": "atlantis:block/black_pearl_block"
    }
 }
