@@ -4,7 +4,6 @@ import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
-import com.mystic.atlantis.event.DimensionFoodEvent;
 import com.mystic.atlantis.event.PositionEvent;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
@@ -17,7 +16,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.server.MinecraftServer;
@@ -90,7 +88,6 @@ public class Main implements ModInitializer
         GeckoLib.initialize();
 
         UseBlockCallback.EVENT.register(new PositionEvent());
-        UseItemCallback.EVENT.register(new DimensionFoodEvent());
 
         AtlantisGroup.init();
         AtlantisEntities.initialize();
