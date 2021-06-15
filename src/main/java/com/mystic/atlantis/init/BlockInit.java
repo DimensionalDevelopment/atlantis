@@ -1,8 +1,10 @@
 package com.mystic.atlantis.init;
 
-import java.util.Objects;
-import java.util.function.Function;
-
+import com.mystic.atlantis.blocks.*;
+import com.mystic.atlantis.blocks.plants.Algae;
+import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
+import com.mystic.atlantis.util.Reference;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
@@ -10,19 +12,8 @@ import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import com.mystic.atlantis.blocks.AncientWood;
-import com.mystic.atlantis.blocks.AquamarineOre;
-import com.mystic.atlantis.blocks.AtlanteanCore;
-import com.mystic.atlantis.blocks.AtlantisPortalBlock;
-import com.mystic.atlantis.blocks.BlockAquamarine;
-import com.mystic.atlantis.blocks.ColoredShellBlocks;
-import com.mystic.atlantis.blocks.OceanLantern;
-import com.mystic.atlantis.blocks.OysterShellBlock;
-import com.mystic.atlantis.blocks.PearlBlocks;
-import com.mystic.atlantis.blocks.plants.Algae;
-import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
-import com.mystic.atlantis.util.Reference;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import java.util.Objects;
+import java.util.function.Function;
 
 public class BlockInit {
     public static final AncientWood ANCIENT_ACACIA_WOOD_MOSS = (AncientWood) register("ancient_acacia_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
@@ -73,6 +64,8 @@ public class BlockInit {
     public static final AtlantisPortalBlock ATLANTIS_PORTAL = (AtlantisPortalBlock) register("atlantis_portal", new AtlantisPortalBlock(FabricBlockSettings.of(Material.PORTAL)));
     public static final UnderwaterFlower UNDERWATER_FLOWER = (UnderwaterFlower) register("underwater_flower", new UnderwaterFlower(FabricBlockSettings.of(Material.PLANT)));
     public static final Algae ALGAE = (Algae) register("algae", new Algae(FabricBlockSettings.of(Material.PLANT)));
+    public static final AtlantisClearPortalBlock ATLANTIS_CLEAR_PORTAL = (AtlantisClearPortalBlock) register("atlantis_clear_portal", new AtlantisClearPortalBlock(FabricBlockSettings.of(Material.PORTAL)));
+
 
     private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);

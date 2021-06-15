@@ -1,6 +1,6 @@
 {
    "parent": "block/cube_all",
    "textures": {
-       "all": "atlantis:blocks/block_of_aquamarine"
+       "all": "atlantis:block/block_of_aquamarine"
    }
 }

@@ -1,6 +1,6 @@
 {
    "parent": "block/cube_all",
    "textures": {
-       "all": "atlantis:blocks/ocean_lantern"
+       "all": "atlantis:block/ocean_lantern"
    }
 }
