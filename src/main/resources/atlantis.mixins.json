@@ -4,10 +4,12 @@
   "compatibilityLevel": "JAVA_16",
   "refmap": "atlantis-refmap.json",
   "mixins": [
+    "CanBreatheInDimension",
+    "ChangeBreakSpeedMixin",
     "LayerAccessor",
     "LivingEntityMixin",
     "MixinBuildinBiomesAccessor",
-    "ServerPlayerEntityMixin",
+    "RenderBubblesMixin",
     "StructuresConfigAccessor"
   ],
   "client": [],
