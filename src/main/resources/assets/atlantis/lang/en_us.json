@@ -64,7 +64,7 @@
   "block.atlantis.light_blue_colored_shell_block": "Light Blue Colored Shell Block",
   "block.atlantis.green_colored_shell_block": "Green Colored Shell Block ",
   "block.atlantis.oyster_shell_block": "Oyster Shell Block ",
-  "block.atlantis.atlantis_portal": "Atlantis Portal",
+  "block.atlantis.atlantis_portal": "Legacy Atlantean Portal Block",
   "block.atlantis.underwater_flower": "Atlantis Flower",
   "block.atlantis.algae": "Algae",
   "itemGroup.minecraft.atlantis": "Atlantis",
@@ -72,5 +72,6 @@
   "item.atlantis.panbee.desc": "LudoCrypt - panbee",
   "entity.atlantis.atlantean_crab": "Atlantean Crab",
   "item.atlantis.atlantean_crab_egg": "Atlantean Crab Spawn Egg",
-  "item.atlantis.crab_legs": "Crab Legs"
+  "item.atlantis.crab_legs": "Crab Legs",
+  "block.atlantis.atlantis_clear_portal": "Atlantean Portal"
 }
