@@ -109,7 +109,7 @@ public class Main implements ModInitializer
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, oreAquamarineOverworld.getValue(), ORE_AQUAMARINE_OVERWORLD);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, oreAquamarineOverworld);
 
-        ServerWorldEvents.LOAD.register(this::addDimensionalSpacing);
+        //ServerWorldEvents.LOAD.register(this::addDimensionalSpacing);
     }
     public static final BlockEntityType<DummyDataStorage> DUMMY_DATA_STORAGE;
     static {
