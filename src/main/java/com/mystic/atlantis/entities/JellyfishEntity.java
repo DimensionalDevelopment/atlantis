@@ -16,7 +16,6 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -46,7 +45,8 @@ import java.util.Random;
 
 public class JellyfishEntity extends AnimalEntity implements IAnimatable, Bucketable {
 
-    private static final TrackedData<Boolean> FROM_BUCKET = DataTracker.registerData(CrabEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> FROM_BUCKET = DataTracker.registerData(JellyfishEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Integer> HUE = DataTracker.registerData(JellyfishEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final AnimationBuilder HOVER_ANIMATION = new AnimationBuilder().addAnimation("animation.jellyfish.hover", true);
     private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.jellyfish.idle", true);
 
@@ -112,16 +112,30 @@ public class JellyfishEntity extends AnimalEntity implements IAnimatable, Bucket
         return this.dataTracker.get(FROM_BUCKET);
     }
 
+    public void setHue(int h){
+        this.dataTracker.set(HUE, h);
+    }
+
+    public int getHue(){
+        return this.dataTracker.get(HUE);
+    }
+
     @Override
     public void readNbt(NbtCompound nbt) {
+        this.setHue(nbt.getInt("Hue"));
         this.setFromBucket(nbt.getBoolean("FromBucket"));
         super.readNbt(nbt);
     }
 
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
+        nbt.putInt("Hue", this.getHue());
         nbt.putBoolean("FromBucket", this.isFromBucket());
         return super.writeNbt(nbt);
+    }
+
+    public Color getHSBColor(){
+        return Color.getHSBColor(this.getHue(), 100, 100);
     }
 
     @Override
@@ -153,6 +167,7 @@ public class JellyfishEntity extends AnimalEntity implements IAnimatable, Bucket
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(FROM_BUCKET, false);
+        this.dataTracker.startTracking(HUE, 0);
     }
 
     @Override
@@ -210,7 +225,5 @@ public class JellyfishEntity extends AnimalEntity implements IAnimatable, Bucket
         return PlayState.CONTINUE;
     }
 
-    public static Color getHSBColor(int h){
-        return Color.getHSBColor(h, 100, 100);
-    }
+
 }

@@ -1,5 +1,6 @@
 package com.mystic.atlantis.entities.renders;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mystic.atlantis.entities.JellyfishEntity;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.RenderLayer;
@@ -24,6 +25,7 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
 
     @Override
     public void render(JellyfishEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+        RenderSystem.setShaderColor(0F, 0F, 1.0F, 1.0F);
         super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
         Entity entity = mobEntity.getHoldingEntity();
         if (entity != null) {
