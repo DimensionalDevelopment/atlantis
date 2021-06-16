@@ -13,7 +13,7 @@
     "sources": "https://github.com/Exploding-Creeper/atlantis"
   },
 
-  "license": "CC0-1.0",
+  "license": "LGPL3",
   "icon": "assets/atlantis/logo.png",
   "environment": "*",
   "entrypoints": {

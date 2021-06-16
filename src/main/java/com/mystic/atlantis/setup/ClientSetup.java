@@ -3,8 +3,11 @@ package com.mystic.atlantis.setup;
 import com.mystic.atlantis.dimension.AltantisSkyRenderer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
+import com.mystic.atlantis.entities.JellyfishEntity;
 import com.mystic.atlantis.entities.models.CrabEntityModel;
+import com.mystic.atlantis.entities.models.JellyfishEntityModel;
 import com.mystic.atlantis.entities.renders.CrabEntityRenderer;
+import com.mystic.atlantis.entities.renders.JellyfishEntityRenderer;
 import com.mystic.atlantis.init.BlockInit;
 import io.github.waterpicker.openworlds.OpenWorlds;
 import net.fabricmc.api.ClientModInitializer;
@@ -57,5 +60,6 @@ public class ClientSetup implements ClientModInitializer {
         OpenWorlds.registerCloudRenderer(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, (client, matrices, matrix4f, tickDelta, cameraX, cameraY, cameraZ) -> {});
 
         EntityRendererRegistry.INSTANCE.register(AtlantisEntities.CRAB, entityRenderDispatcher -> new CrabEntityRenderer(entityRenderDispatcher, new CrabEntityModel()));
+        EntityRendererRegistry.INSTANCE.register(AtlantisEntities.JELLYFISH, entityRenderDispatcher -> new JellyfishEntityRenderer(entityRenderDispatcher, new JellyfishEntityModel()));
     }
 }

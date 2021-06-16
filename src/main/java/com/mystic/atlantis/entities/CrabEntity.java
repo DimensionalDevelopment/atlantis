@@ -54,7 +54,7 @@ public class CrabEntity extends AnimalEntity implements IAnimatable, Bucketable 
     }
 
     public boolean isFromBucket() {
-        return (Boolean)this.dataTracker.get(FROM_BUCKET);
+        return this.dataTracker.get(FROM_BUCKET);
     }
 
     public void setFromBucket(boolean fromBucket) {
@@ -179,7 +179,7 @@ public class CrabEntity extends AnimalEntity implements IAnimatable, Bucketable 
             }
             return ActionResult.FAIL;
         } else if (player.getStackInHand(hand).getItem() == Items.WATER_BUCKET) {
-            return (ActionResult) Bucketable.tryBucket(player, hand, this).orElse(super.interactMob(player, hand));
+            return Bucketable.tryBucket(player, hand, this).orElse(super.interactMob(player, hand));
         }
         return ActionResult.FAIL;
     }
