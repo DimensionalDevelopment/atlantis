@@ -1,7 +1,7 @@
 package com.mystic.atlantis.entities.renders;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mystic.atlantis.entities.JellyfishEntity;
+import java.awt.Color;
+
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -14,6 +14,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LightType;
+
+import com.mystic.atlantis.entities.JellyfishEntity;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
@@ -25,12 +27,16 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
 
     @Override
     public void render(JellyfishEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        RenderSystem.setShaderColor(0F, 0F, 1.0F, 1.0F);
         super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
         Entity entity = mobEntity.getHoldingEntity();
         if (entity != null) {
             this.method_4073(mobEntity, g, matrixStack, vertexConsumerProvider, entity);
         }
+    }
+
+    @Override
+    public Color getRenderColor(JellyfishEntity animatable, float partialTicks, MatrixStack stack, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn) {
+        return animatable.getColor();
     }
 
     private <E extends Entity> void method_4073(JellyfishEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, E holdingEntity) {
