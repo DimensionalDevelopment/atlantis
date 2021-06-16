@@ -1,18 +1,23 @@
 package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.entities.AtlantisEntities;
+import com.mystic.atlantis.entities.CrabEntity;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
 import com.mystic.atlantis.items.item.AtlanteanCrystal;
+import com.mystic.atlantis.items.item.CrabEntityBucketItem;
 import com.mystic.atlantis.items.item.CrabLegsItem;
 import com.mystic.atlantis.items.item.DefaultItem;
 import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
 import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
@@ -40,6 +45,9 @@ public class ItemInit
     public static final Item DROP_OF_ATLANTIS = register("drop_of_atlantis", new DefaultItem());
     public static final Item BROWN_WROUGHT_PATCHES = register("brown_wrought_patches", new DefaultItem());
     public static final Item CRAB_LEGS = register("crab_legs", new CrabLegsItem(new Item.Settings()));
+
+    //Entity Buckets
+    public static final Item CRAB_BUCKET = register("crab_bucket", new CrabEntityBucketItem(AtlantisEntities.CRAB, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH, (new Item.Settings()).maxCount(1)));
 
     //TOOLS
     public static final AxeItem AXE_AQUMARINE = (AxeItem) register("axe_aquamarine", new AquamarineAxe(ToolInit.AQUAMARINE, 4));

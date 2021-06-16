@@ -23,7 +23,7 @@ import java.util.Objects;
 public abstract class ChangeBreakSpeedMixin extends LivingEntity {
     @Shadow
     @Final
-    public PlayerInventory inventory;
+    private PlayerInventory inventory;
 
     protected ChangeBreakSpeedMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -33,6 +33,7 @@ public abstract class ChangeBreakSpeedMixin extends LivingEntity {
 
     /**
      * @author j
+     * @reason for breaking speed faster in water in the custom dimension!
      */
     @Overwrite
     public float getBlockBreakingSpeed(BlockState block) {
@@ -50,21 +51,12 @@ public abstract class ChangeBreakSpeedMixin extends LivingEntity {
         }
 
         if (this.hasStatusEffect(StatusEffects.MINING_FATIGUE)) {
-            float k;
-            switch (Objects.requireNonNull(this.getStatusEffect(StatusEffects.MINING_FATIGUE)).getAmplifier()) {
-                case 0:
-                    k = 0.3F;
-                    break;
-                case 1:
-                    k = 0.09F;
-                    break;
-                case 2:
-                    k = 0.0027F;
-                    break;
-                case 3:
-                default:
-                    k = 8.1E-4F;
-            }
+            float k = switch (Objects.requireNonNull(this.getStatusEffect(StatusEffects.MINING_FATIGUE)).getAmplifier()) {
+                case 0 -> 0.3F;
+                case 1 -> 0.09F;
+                case 2 -> 0.0027F;
+                default -> 8.1E-4F;
+            };
 
             f *= k;
         }

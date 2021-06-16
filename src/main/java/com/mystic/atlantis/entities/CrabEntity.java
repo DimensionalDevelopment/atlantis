@@ -1,10 +1,9 @@
 package com.mystic.atlantis.entities;
 
+import com.mystic.atlantis.init.ItemInit;
+import com.mystic.atlantis.items.item.CrabEntityBucketItem;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -12,7 +11,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -21,6 +19,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -40,8 +40,9 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.Random;
 
-public class CrabEntity extends AnimalEntity implements IAnimatable {
+public class CrabEntity extends AnimalEntity implements IAnimatable, Bucketable {
 
+    private static final TrackedData<Boolean> FROM_BUCKET = DataTracker.registerData(CrabEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     protected static final TrackedData<Integer> VARIANT = DataTracker.registerData(CrabEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final AnimationBuilder WALK_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.walk", true);
     private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.idle", true);
@@ -52,12 +53,40 @@ public class CrabEntity extends AnimalEntity implements IAnimatable {
         super(entityType, world);
     }
 
+    public boolean isFromBucket() {
+        return (Boolean)this.dataTracker.get(FROM_BUCKET);
+    }
+
+    public void setFromBucket(boolean fromBucket) {
+        this.dataTracker.set(FROM_BUCKET, fromBucket);
+    }
+
+    @Override
+    public void copyDataToStack(ItemStack stack) {
+        Bucketable.copyDataToStack(this, stack);
+    }
+
+    @Override
+    public void copyDataFromNbt(NbtCompound nbt) {
+        Bucketable.copyDataFromNbt(this, nbt);
+    }
+
+    @Override
+    public ItemStack getBucketItem() {
+        return ItemInit.CRAB_BUCKET.getDefaultStack();
+    }
+
+    @Override
+    public SoundEvent getBucketedSound() {
+        return SoundEvents.ITEM_BUCKET_FILL_FISH;
+    }
+
     @Override
     public boolean canBreatheInWater() {
         return true;
     }
 
-    public static DefaultAttributeContainer.Builder createCrobAttributes() {
+    public static DefaultAttributeContainer.Builder createCrabAttributes() {
         return createMobAttributes().add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1d).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.6d);
     }
 
@@ -70,6 +99,16 @@ public class CrabEntity extends AnimalEntity implements IAnimatable {
         return pos.getY() >= 40 && 50 >= pos.getY() && world.getBlockState(pos).isOf(Blocks.WATER);
     }
 
+    @Override
+    public boolean cannotDespawn() {
+        return super.cannotDespawn() || this.isFromBucket();
+    }
+
+    @Override
+    public boolean canImmediatelyDespawn(double distanceSquared) {
+        return !this.isFromBucket() && !this.hasCustomName();
+    }
+
     public int getVariant(){
         return this.dataTracker.get(VARIANT);
     }
@@ -78,6 +117,7 @@ public class CrabEntity extends AnimalEntity implements IAnimatable {
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(VARIANT, 0);
+        this.dataTracker.startTracking(FROM_BUCKET, false);
     }
 
     @Override
@@ -88,12 +128,14 @@ public class CrabEntity extends AnimalEntity implements IAnimatable {
 
     @Override
     public void readNbt(NbtCompound nbt) {
+        this.setFromBucket(nbt.getBoolean("FromBucket"));
         this.dataTracker.set(VARIANT, nbt.getInt("Variant"));
         super.readNbt(nbt);
     }
 
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
+        nbt.putBoolean("FromBucket", this.isFromBucket());
         nbt.putInt("Variant", dataTracker.get(VARIANT));
         return super.writeNbt(nbt);
     }
@@ -136,6 +178,8 @@ public class CrabEntity extends AnimalEntity implements IAnimatable {
                 return ActionResult.FAIL;
             }
             return ActionResult.FAIL;
+        } else if (player.getStackInHand(hand).getItem() == Items.WATER_BUCKET) {
+            return (ActionResult) Bucketable.tryBucket(player, hand, this).orElse(super.interactMob(player, hand));
         }
         return ActionResult.FAIL;
     }

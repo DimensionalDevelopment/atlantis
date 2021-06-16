@@ -18,7 +18,7 @@ public class AtlantisEntities
                     .build());
 
     public static void initialize() {
-        FabricDefaultAttributeRegistry.register(AtlantisEntities.CRAB, CrabEntity.createCrobAttributes());
+        FabricDefaultAttributeRegistry.register(AtlantisEntities.CRAB, CrabEntity.createCrabAttributes());
         SpawnRestriction.register(AtlantisEntities.CRAB, SpawnRestriction.Location.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CrabEntity::canSpawn);
     }
 }
