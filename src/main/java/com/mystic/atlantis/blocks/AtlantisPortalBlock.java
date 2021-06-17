@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks;
 
+import com.mystic.atlantis.Main;
 import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.BlockInit;
@@ -40,7 +41,7 @@ public class AtlantisPortalBlock extends Block implements BlockEntityProvider {
             if(!worldIn.isClient) {
                 // From Overworld to Atlantis
                 ServerWorld atlantis = player.getServer().getWorld(DimensionAtlantis.ATLANTIS_WORLD);
-                ServerWorld overWorld = player.getServer().getWorld(getOverworldKey());
+                ServerWorld overWorld = player.getServer().getWorld(Main.getOverworldKey());
                 atlantis.getBlockState(pos);
                 BlockEntity entity = worldIn.getBlockEntity(pos);
                 DummyDataStorage dataStorage = (DummyDataStorage) entity;
@@ -87,7 +88,7 @@ public class AtlantisPortalBlock extends Block implements BlockEntityProvider {
         } else {
             if (!worldIn.isClient) {
                 ServerWorld atlantis =  worldIn.getServer().getWorld(DimensionAtlantis.ATLANTIS_WORLD);
-                ServerWorld overWorld = worldIn.getServer().getWorld(getOverworldKey());
+                ServerWorld overWorld = worldIn.getServer().getWorld(Main.getOverworldKey());
                 if (worldIn != null) {
                     overWorld.getBlockState(pos);
                     BlockEntity entity = worldIn.getBlockEntity(pos);
@@ -155,11 +156,6 @@ public class AtlantisPortalBlock extends Block implements BlockEntityProvider {
             }
         };
         return portal;
-    }
-
-    public static RegistryKey<World> getOverworldKey() {
-        Identifier OVERWORLD_ID = DimensionOptions.OVERWORLD.getValue();
-        return RegistryKey.of(Registry.WORLD_KEY, OVERWORLD_ID);
     }
 
     public static void sendPlayerToDimension(ServerPlayerEntity serverPlayer, ServerWorld targetWorld, Vec3d targetVec) {

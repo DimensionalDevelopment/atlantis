@@ -8,8 +8,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -22,9 +21,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -35,10 +32,10 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.awt.*;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
-public class JellyfishEntity extends AnimalEntity implements IAnimatable, Bucketable {
+public class JellyfishEntity extends WaterCreatureEntity implements IAnimatable, Bucketable {
 
     private static final TrackedData<Boolean> FROM_BUCKET = DataTracker.registerData(JellyfishEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> COLOR = DataTracker.registerData(JellyfishEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -47,9 +44,8 @@ public class JellyfishEntity extends AnimalEntity implements IAnimatable, Bucket
 
     private final AnimationFactory factory = new AnimationFactory(this);
 
-    public JellyfishEntity(EntityType<? extends AnimalEntity> entityType, World world) {
+    public JellyfishEntity(EntityType<? extends WaterCreatureEntity> entityType, World world) {
         super(entityType, world);
-        setColor(betterNiceColor());
     }
 
     public static DefaultAttributeContainer.Builder createJellyfishAttributes() {
@@ -162,24 +158,16 @@ public class JellyfishEntity extends AnimalEntity implements IAnimatable, Bucket
         setTarget(world.getClosestPlayer(this, 10));
     }
 
-    @Override
-    @Nullable
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+    public void createChild(ServerWorld world, JellyfishEntity entity) {
         JellyfishEntity child = (JellyfishEntity) getType().create(world);
         if(child != null) {
             child.setPos(this.getX(), this.getY(), this.getZ());
             world.spawnEntity(child);
         }
-        return (JellyfishEntity) entity;
     }
 
-    public static int betterNiceColor()
-    {
-        int r = (int) Math.round(Math.random() * 255);
-        int g = (int) Math.round(Math.random() * 255);
-        int b = (int) Math.round(Math.random() * 255);
-
-        return new Color(r, g, b).getRGB();
+    public static int betterNiceColor() {
+        return ThreadLocalRandom.current().nextInt(0x01000000);
     }
 
     @Override
@@ -225,9 +213,7 @@ public class JellyfishEntity extends AnimalEntity implements IAnimatable, Bucket
         return PlayState.CONTINUE;
     }
 
-
-    public static boolean canSpawn(EntityType<JellyfishEntity> jellyfishEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
-        System.out.println(pos);
-            return true;
+    public static boolean canSpawn(EntityType<JellyfishEntity> jellyfishEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return true;
     }
 }

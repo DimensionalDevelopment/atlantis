@@ -18,7 +18,7 @@ public class AtlantisEntities
                     .build());
 
     public static final EntityType<JellyfishEntity> JELLYFISH =
-            Registry.register(Registry.ENTITY_TYPE, Main.id("atlantean_jellyfish"), FabricEntityTypeBuilder.create(SpawnGroup.WATER_CREATURE, JellyfishEntity::new)
+            Registry.register(Registry.ENTITY_TYPE, Main.id("atlantean_jellyfish"), FabricEntityTypeBuilder.create(SpawnGroup.WATER_AMBIENT, JellyfishEntity::new)
                     .dimensions(EntityDimensions.fixed(1.2f, 0.3f))
                     .build());
 

@@ -29,7 +29,7 @@
     "monster": [
       {
         "type": "minecraft:drowned",
-        "weight": 6,
+        "weight": 25,
         "minCount": 4,
         "maxCount": 6
       }
@@ -37,33 +37,33 @@
     "water_creature": [
       {
         "type": "minecraft:squid",
-        "weight": 5,
+        "weight": 25,
         "minCount": 1,
         "maxCount": 4
       },
       {
-        "type": "minecraft:dolphin",
-        "weight": 2,
-        "minCount": 1,
-        "maxCount": 2
-      },
-      {
         "type": "atlantis:atlantean_crab",
-        "weight": 7,
+        "weight": 25,
         "minCount": 4,
         "maxCount": 9
       },
       {
-        "type": "atlantis:atlantean_jellyfish",
-        "weight": 8,
-        "minCount": 7,
-        "maxCount": 15
+        "type": "minecraft:dolphin",
+        "weight": 25,
+        "minCount": 1,
+        "maxCount": 2
       }
     ],
     "water_ambient": [
       {
+        "type": "atlantis:atlantean_jellyfish",
+        "weight": 25,
+        "minCount": 7,
+        "maxCount": 15
+      },
+      {
         "type": "minecraft:tropical_fish",
-        "weight": 9,
+        "weight": 25,
         "minCount": 8,
         "maxCount": 8
       }

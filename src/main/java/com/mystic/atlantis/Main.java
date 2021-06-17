@@ -1,5 +1,6 @@
 package com.mystic.atlantis;
 
+import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
@@ -17,9 +18,13 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.fabricmc.fabric.mixin.registry.sync.AccessorRegistry;
 import net.kyrptonaught.customportalapi.CustomPortalApiRegistry;
 import net.kyrptonaught.customportalapi.portal.PortalIgnitionSource;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.SkyProperties;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
@@ -28,6 +33,9 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.dimension.DimensionOptions;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.chunk.FlatChunkGenerator;
@@ -40,6 +48,7 @@ import net.minecraft.world.gen.feature.StructureFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.example.registry.EntityRegistry;
 import software.bernie.geckolib3.GeckoLib;
 
 import java.util.HashMap;
@@ -107,5 +116,11 @@ public class Main implements ModInitializer
 
     public static Identifier id(String id) {
         return new Identifier("atlantis", id);
+    }
+
+    //Don't remove needed for legacy portal block!
+    public static RegistryKey<World> getOverworldKey() {
+        Identifier OVERWORLD_ID = DimensionOptions.OVERWORLD.getValue();
+        return RegistryKey.of(Registry.WORLD_KEY, OVERWORLD_ID);
     }
 }

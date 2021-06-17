@@ -1,7 +1,6 @@
 package com.mystic.atlantis.entities;
 
 import com.mystic.atlantis.init.ItemInit;
-import com.mystic.atlantis.items.item.CrabEntityBucketItem;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -27,7 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -53,6 +52,11 @@ public class CrabEntity extends AnimalEntity implements IAnimatable, Bucketable 
         super(entityType, world);
     }
 
+    @Override
+    public boolean canSpawn(WorldView world) {
+        return world.intersectsEntities(this);
+    }
+
     public boolean isFromBucket() {
         return this.dataTracker.get(FROM_BUCKET);
     }
@@ -64,6 +68,11 @@ public class CrabEntity extends AnimalEntity implements IAnimatable, Bucketable 
     @Override
     public void copyDataToStack(ItemStack stack) {
         Bucketable.copyDataToStack(this, stack);
+    }
+
+    @Override
+    public EntityGroup getGroup() {
+        return EntityGroup.AQUATIC;
     }
 
     @Override
@@ -93,10 +102,6 @@ public class CrabEntity extends AnimalEntity implements IAnimatable, Bucketable 
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
-    }
-
-    public static boolean canSpawn(EntityType<?> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return pos.getY() >= 40 && 50 >= pos.getY() && world.getBlockState(pos).isOf(Blocks.WATER);
     }
 
     @Override
@@ -227,5 +232,9 @@ public class CrabEntity extends AnimalEntity implements IAnimatable, Bucketable 
     @Override
     public AnimationFactory getFactory() {
         return factory;
+    }
+
+    public static boolean canSpawn(EntityType<CrabEntity> crabEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return pos.getY() >= 40 && 50 >= pos.getY() && serverWorldAccess.getBlockState(pos).isOf(Blocks.WATER);
     }
 }
