@@ -68,19 +68,6 @@ public class Main implements ModInitializer
             .spreadHorizontally()
             .repeat(20); // number of veins per chunk
 
-    public void addDimensionalSpacing(MinecraftServer server, ServerWorld world) {
-        if(world != null){
-            if(world.getChunkManager().getChunkGenerator() instanceof FlatChunkGenerator && world.getRegistryKey().equals(World.OVERWORLD)){
-                return;
-            }
-
-            Map<StructureFeature<?>, StructureConfig> tempMap = new HashMap<>(world.getChunkManager().getChunkGenerator().getStructuresConfig().getStructures());
-            tempMap.put(AtlantisStructures.OYSTER_STRUCTURE, StructuresConfig.DEFAULT_STRUCTURES.get(AtlantisStructures.OYSTER_STRUCTURE));
-            tempMap.put(AtlantisStructures.ATLANTEAN_FOUNTAIN, StructuresConfig.DEFAULT_STRUCTURES.get(AtlantisStructures.ATLANTEAN_FOUNTAIN));
-            ((StructuresConfigAccessor)world.getChunkManager().getChunkGenerator().getStructuresConfig()).setStructures(tempMap);
-        }
-    }
-
     @NotNull @Deprecated
     public static MinecraftServer getServer() {
         throw new UnsupportedOperationException();
@@ -109,7 +96,6 @@ public class Main implements ModInitializer
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, oreAquamarineOverworld.getValue(), ORE_AQUAMARINE_OVERWORLD);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, oreAquamarineOverworld);
 
-        ServerWorldEvents.LOAD.register(this::addDimensionalSpacing);
     }
     public static final BlockEntityType<DummyDataStorage> DUMMY_DATA_STORAGE;
     static {

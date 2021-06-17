@@ -26,7 +26,7 @@ public class AtlantisEntities
         FabricDefaultAttributeRegistry.register(AtlantisEntities.CRAB, CrabEntity.createCrabAttributes());
         SpawnRestriction.register(AtlantisEntities.CRAB, SpawnRestriction.Location.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CrabEntity::canSpawn);
 
-        FabricDefaultAttributeRegistry.register(AtlantisEntities.JELLYFISH, CrabEntity.createCrabAttributes());
+        FabricDefaultAttributeRegistry.register(AtlantisEntities.JELLYFISH, JellyfishEntity.createJellyfishAttributes());
         SpawnRestriction.register(AtlantisEntities.JELLYFISH, SpawnRestriction.Location.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, JellyfishEntity::canSpawn);
     }
 }

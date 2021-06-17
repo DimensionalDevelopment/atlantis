@@ -36,7 +36,7 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
 
     @Override
     public Color getRenderColor(JellyfishEntity animatable, float partialTicks, MatrixStack stack, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn) {
-        return animatable.getColor();
+        return new Color(animatable.getColor());
     }
 
     private <E extends Entity> void method_4073(JellyfishEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, E holdingEntity) {

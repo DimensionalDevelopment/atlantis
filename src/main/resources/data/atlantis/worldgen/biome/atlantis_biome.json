@@ -29,9 +29,9 @@
     "monster": [
       {
         "type": "minecraft:drowned",
-        "weight": 5,
-        "minCount": 1,
-        "maxCount": 1
+        "weight": 6,
+        "minCount": 4,
+        "maxCount": 6
       }
     ],
     "water_creature": [
@@ -46,26 +46,26 @@
         "weight": 2,
         "minCount": 1,
         "maxCount": 2
+      },
+      {
+        "type": "atlantis:atlantean_crab",
+        "weight": 7,
+        "minCount": 4,
+        "maxCount": 9
+      },
+      {
+        "type": "atlantis:atlantean_jellyfish",
+        "weight": 8,
+        "minCount": 7,
+        "maxCount": 15
       }
     ],
     "water_ambient": [
       {
         "type": "minecraft:tropical_fish",
-        "weight": 25,
+        "weight": 9,
         "minCount": 8,
         "maxCount": 8
-      },
-      {
-        "type": "atlantis:blue_atlantean_crab",
-        "weight": 25,
-        "minCount": 4,
-        "maxCount": 9
-      },
-      {
-        "type": "atlantis:red_atlantean_crab",
-        "weight": 25,
-        "minCount": 4,
-        "maxCount": 9
       }
     ]
   },
