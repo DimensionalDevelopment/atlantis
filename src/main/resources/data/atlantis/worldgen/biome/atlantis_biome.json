@@ -44,8 +44,8 @@
       {
         "type": "atlantis:atlantean_crab",
         "weight": 25,
-        "minCount": 4,
-        "maxCount": 9
+        "minCount": 9,
+        "maxCount": 18
       },
       {
         "type": "minecraft:dolphin",
@@ -58,8 +58,8 @@
       {
         "type": "atlantis:atlantean_jellyfish",
         "weight": 25,
-        "minCount": 7,
-        "maxCount": 15
+        "minCount": 9,
+        "maxCount": 18
       },
       {
         "type": "minecraft:tropical_fish",

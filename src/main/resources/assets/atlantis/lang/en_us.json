@@ -74,5 +74,8 @@
   "item.atlantis.atlantean_crab_egg": "Atlantean Crab Spawn Egg",
   "item.atlantis.crab_legs": "Crab Legs",
   "item.atlantis.crab_bucket": "Crab in a Bucket",
-  "block.atlantis.atlantis_clear_portal": "Atlantean Portal"
+  "block.atlantis.atlantis_clear_portal": "Atlantean Portal",
+  "item.atlantis.jellyfish_bucket": "Jellyfish in a Bucket",
+  "entity.atlantis.atlantean_jellyfish": "Atlantean Jellyfish",
+  "item.atlantis.atlantean_jellyfish_egg": "Atlantean Jellyfish Spawn Egg"
 }

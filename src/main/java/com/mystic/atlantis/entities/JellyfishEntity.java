@@ -82,9 +82,10 @@ public class JellyfishEntity extends WaterCreatureEntity implements IAnimatable,
 
     @Override
     protected void initGoals() {
-        goalSelector.add(5, new TemptGoal(this, 1, Ingredient.ofItems(ItemInit.CRAB_LEGS), false));
-        goalSelector.add(4, new MoveIntoWaterGoal(this));
-        goalSelector.add(3, new AttackGoal(this));
+        goalSelector.add(6, new TemptGoal(this, 1, Ingredient.ofItems(ItemInit.CRAB_LEGS), false));
+        goalSelector.add(5, new MoveIntoWaterGoal(this));
+        goalSelector.add(4, new AttackGoal(this));
+        goalSelector.add(3, new LookAroundGoal(this));
         goalSelector.add(2, new SwimGoal(this));
         goalSelector.add(1, new SwimAroundGoal(this, 0.5, 1));
     }
@@ -128,7 +129,7 @@ public class JellyfishEntity extends WaterCreatureEntity implements IAnimatable,
 
     @Override
     public ItemStack getBucketItem() {
-        return Items.BUCKET.getDefaultStack();
+        return ItemInit.JELLYFISH_BUCKET.getDefaultStack();
     }
 
     @Override

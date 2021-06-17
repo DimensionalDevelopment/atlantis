@@ -5,10 +5,7 @@ import com.mystic.atlantis.entities.CrabEntity;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
-import com.mystic.atlantis.items.item.AtlanteanCrystal;
-import com.mystic.atlantis.items.item.CrabEntityBucketItem;
-import com.mystic.atlantis.items.item.CrabLegsItem;
-import com.mystic.atlantis.items.item.DefaultItem;
+import com.mystic.atlantis.items.item.*;
 import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
 import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
@@ -49,6 +46,7 @@ public class ItemInit
 
     //Entity Buckets
     public static final Item CRAB_BUCKET = register("crab_bucket", new CrabEntityBucketItem(AtlantisEntities.CRAB, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH, (new Item.Settings()).maxCount(1)));
+    public static final Item JELLYFISH_BUCKET = register("jellyfish_bucket", new JellyfishEntityBucketItem(AtlantisEntities.JELLYFISH, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH, (new Item.Settings()).maxCount(1)));
 
     //TOOLS
     public static final AxeItem AXE_AQUMARINE = (AxeItem) register("axe_aquamarine", new AquamarineAxe(ToolInit.AQUAMARINE, 4));
