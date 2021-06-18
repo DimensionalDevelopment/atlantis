@@ -17,6 +17,7 @@ repositories {
         allowInsecureProtocol = true
     }
     maven { url "https://maven.shedaniel.me/" }
+    maven {url "https://maven.terraformersmc.com/releases"}
 }
 dependencies {
     // To change the versions see the gradle.properties file
@@ -31,7 +32,7 @@ dependencies {
     modApi("me.shedaniel.cloth:cloth-config-fabric:5.0.34") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    modImplementation "io.github.prospector:modmenu:2.0.2"
+    modImplementation "com.terraformersmc:modmenu:2.0.2"
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
     modImplementation("com.github.Mysticpasta1:OpenWorlds:cce9fed") {

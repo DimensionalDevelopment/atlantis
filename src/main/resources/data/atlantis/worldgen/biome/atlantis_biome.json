@@ -1,6 +1,6 @@
 {
   "surface_builder": "minecraft:full_sand",
-  "depth": -2,
+  "depth": -1.0,
   "scale": 0.1,
   "temperature": 0.5,
   "downfall": 0,

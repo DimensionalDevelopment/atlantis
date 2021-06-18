@@ -77,5 +77,12 @@
   "block.atlantis.atlantis_clear_portal": "Atlantean Portal",
   "item.atlantis.jellyfish_bucket": "Jellyfish in a Bucket",
   "entity.atlantis.atlantean_jellyfish": "Atlantean Jellyfish",
-  "item.atlantis.atlantean_jellyfish_egg": "Atlantean Jellyfish Spawn Egg"
+  "item.atlantis.atlantean_jellyfish_egg": "Atlantean Jellyfish Spawn Egg",
+  "text.autoconfig.atlantis.title": "Atlantean Config",
+  "text.autoconfig.atlantis.option.general.minCrabSpawnHeight": "Minimum Crab Spawn Height",
+  "text.autoconfig.atlantis.option.general.minCrabSpawnHeight.@Tooltip[0]": "The Minimum Height The Atlantean Crab Will Spawn At",
+  "text.autoconfig.atlantis.option.general.minCrabSpawnHeight.@Tooltip[1]": "",
+  "text.autoconfig.atlantis.option.general.maxCrabSpawnHeight": "Maximum Crab Spawn Height",
+  "text.autoconfig.atlantis.option.general.maxCrabSpawnHeight.@Tooltip[0]": "The Maximum Height The Atlantean Crab Will Spawn At",
+  "text.autoconfig.atlantis.option.general.maxCrabSpawnHeight.@Tooltip[1]": ""
 }

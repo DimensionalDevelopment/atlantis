@@ -10,7 +10,8 @@
   ],
   "contact": {
     "homepage": "https://mystic.hypherionmc.me/",
-    "sources": "https://github.com/Exploding-Creeper/atlantis"
+    "sources": "https://github.com/Exploding-Creeper/atlantis",
+    "issues": "https://github.com/Exploding-Creeper/atlantis/issues"
   },
 
   "license": "LGPL3",
@@ -22,6 +23,9 @@
     ],
     "client": [
       "com.mystic.atlantis.setup.ClientSetup"
+    ],
+    "modmenu": [
+      "com.mystic.atlantis.config.modmenu.AtlantisMenu"
     ]
   },
   "mixins": [
@@ -33,5 +37,17 @@
     "fabricloader": ">=0.7.4",
     "fabric": "*",
     "minecraft": "1.17.x"
+  },
+  "custom": {
+    "modupdater": {
+      "strategy": "curseforge",
+      "projectID": 355418,
+      "strict": false
+    },
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/Axe4aZCT6u"
+      }
+    }
   }
 }

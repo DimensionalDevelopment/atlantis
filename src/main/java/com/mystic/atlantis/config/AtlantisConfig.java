@@ -7,7 +7,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 
 @Config(name = Reference.MODID)
-@Config.Gui.Background("atlantis:textures/block/chiseled_golden_aquamarine")
+@Config.Gui.Background("atlantis:textures/block/chiseled_golden_aquamarine.png")
 public final class AtlantisConfig extends PartitioningSerializer.GlobalData {
     @ConfigEntry.Category("general")
     @ConfigEntry.Gui.TransitiveObject
