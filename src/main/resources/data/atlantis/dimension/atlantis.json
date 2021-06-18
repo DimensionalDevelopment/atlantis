@@ -44,6 +44,16 @@
             "weirdness": 0.1,
             "offset": 0.5
           }
+        },
+        {
+          "biome": "atlantis:jellyfish_fields",
+          "parameters": {
+            "altitude": 0,
+            "temperature": 0.7,
+            "humidity": 0,
+            "weirdness": 0.3,
+            "offset": 0.7
+          }
         }
       ]
     },

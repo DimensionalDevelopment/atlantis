@@ -1,6 +1,6 @@
 package com.mystic.atlantis.entities;
 
-import com.mystic.atlantis.Main;
+import com.mystic.atlantis.Atlantis;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
@@ -13,12 +13,12 @@ import net.minecraft.world.Heightmap;
 public class AtlantisEntities
 {
     public static final EntityType<CrabEntity> CRAB =
-            Registry.register(Registry.ENTITY_TYPE, Main.id("atlantean_crab"), FabricEntityTypeBuilder.create(SpawnGroup.WATER_CREATURE, CrabEntity::new)
+            Registry.register(Registry.ENTITY_TYPE, Atlantis.id("atlantean_crab"), FabricEntityTypeBuilder.create(SpawnGroup.WATER_CREATURE, CrabEntity::new)
                     .dimensions(EntityDimensions.fixed(1.2f, 0.3f))
                     .build());
 
     public static final EntityType<JellyfishEntity> JELLYFISH =
-            Registry.register(Registry.ENTITY_TYPE, Main.id("atlantean_jellyfish"), FabricEntityTypeBuilder.create(SpawnGroup.WATER_AMBIENT, JellyfishEntity::new)
+            Registry.register(Registry.ENTITY_TYPE, Atlantis.id("atlantean_jellyfish"), FabricEntityTypeBuilder.create(SpawnGroup.WATER_AMBIENT, JellyfishEntity::new)
                     .dimensions(EntityDimensions.fixed(0.4f, 0.8f))
                     .build());
 

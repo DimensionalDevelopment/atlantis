@@ -18,7 +18,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.mystic.atlantis.Main"
+      "com.mystic.atlantis.Atlantis"
     ],
     "client": [
       "com.mystic.atlantis.setup.ClientSetup"

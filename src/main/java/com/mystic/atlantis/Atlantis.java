@@ -1,60 +1,46 @@
 package com.mystic.atlantis;
 
-import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
+import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.event.PositionEvent;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
-import com.mystic.atlantis.mixin.StructuresConfigAccessor;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
+import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.fabricmc.fabric.mixin.registry.sync.AccessorRegistry;
 import net.kyrptonaught.customportalapi.CustomPortalApiRegistry;
 import net.kyrptonaught.customportalapi.portal.PortalIgnitionSource;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.SkyProperties;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.dimension.DimensionOptions;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.YOffset;
-import net.minecraft.world.gen.chunk.FlatChunkGenerator;
-import net.minecraft.world.gen.chunk.StructureConfig;
-import net.minecraft.world.gen.chunk.StructuresConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.feature.StructureFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.example.registry.EntityRegistry;
 import software.bernie.geckolib3.GeckoLib;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class Main implements ModInitializer
+public class Atlantis implements ModInitializer
 {
 
     /**
@@ -82,11 +68,16 @@ public class Main implements ModInitializer
         throw new UnsupportedOperationException();
     }
 
+    public static AtlantisConfig CONFIG;
+
     @Override
     public void onInitialize() {
         CustomPortalApiRegistry.addPortal(BlockInit.ATLANTEAN_CORE, PortalIgnitionSource.FluidSource(Fluids.WATER), BlockInit.ATLANTIS_CLEAR_PORTAL, new Identifier("atlantis", "atlantis"), 0, 125, 255);
 
         GeckoLib.initialize();
+
+        Atlantis.CONFIG = AutoConfig.register(AtlantisConfig.class,
+                PartitioningSerializer.wrap(Toml4jConfigSerializer::new)).getConfig();
 
         UseBlockCallback.EVENT.register(new PositionEvent());
 

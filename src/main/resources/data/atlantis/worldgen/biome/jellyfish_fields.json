@@ -1,17 +1,17 @@
 {
   "surface_builder": "minecraft:full_sand",
-  "depth": -2,
+  "depth": 3,
   "scale": 0.1,
-  "temperature": 0.5,
+  "temperature": 0.7,
   "downfall": 0,
   "precipitation": "none",
   "category": "ocean",
   "player_spawn_friendly": false,
   "effects": {
     "sky_color": 27571,
-    "fog_color": 59110,
-    "water_color": 3386879,
-    "water_fog_color": 59110,
+    "fog_color": 27089,
+    "water_color": 24767,
+    "water_fog_color": 27089,
     "grass_color": 6749952,
     "foliage_color": 5373696,
     "mood_sound": {
@@ -22,8 +22,6 @@
     }
   },
   "starts": [
-    "atlantis:configured_atlantean_fountain",
-    "atlantis:configured_oyster_structure"
   ],
   "spawners": {
     "monster": [
@@ -34,38 +32,12 @@
         "maxCount": 6
       }
     ],
-    "water_creature": [
-      {
-        "type": "minecraft:squid",
-        "weight": 25,
-        "minCount": 1,
-        "maxCount": 4
-      },
-      {
-        "type": "atlantis:atlantean_crab",
-        "weight": 25,
-        "minCount": 9,
-        "maxCount": 18
-      },
-      {
-        "type": "minecraft:dolphin",
-        "weight": 25,
-        "minCount": 1,
-        "maxCount": 2
-      }
-    ],
     "water_ambient": [
       {
         "type": "atlantis:atlantean_jellyfish",
-        "weight": 25,
-        "minCount": 9,
-        "maxCount": 18
-      },
-      {
-        "type": "minecraft:tropical_fish",
-        "weight": 25,
-        "minCount": 8,
-        "maxCount": 8
+        "weight": 5,
+        "minCount": 45,
+        "maxCount": 60
       }
     ]
   },
@@ -98,9 +70,7 @@
       "minecraft:ore_redstone",
       "minecraft:ore_tuff"
     ],
-    [
-      "atlantis:configured_shell_block_feature"
-    ],
+    [],
     [],
     [],
     [],
@@ -108,11 +78,9 @@
       "minecraft:spring_water",
       "minecraft:spring_lava",
       "minecraft:sea_pickle",
-      "minecraft:kelp_warm",
       "minecraft:warm_ocean_vegetation",
       "minecraft:seagrass_deep_warm",
       "minecraft:seagrass_simple",
-      "atlantis:configured_algae_feature",
       "atlantis:configured_flower_feature"
     ],
     []

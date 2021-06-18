@@ -16,6 +16,7 @@ repositories {
         url = "http://maven.kyrptonaught.dev"
         allowInsecureProtocol = true
     }
+    maven { url "https://maven.shedaniel.me/" }
 }
 dependencies {
     // To change the versions see the gradle.properties file
@@ -27,7 +28,10 @@ dependencies {
     include 'net.kyrptonaught:customportalapi:0.0.1-beta32-1.17'
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
+    modApi("me.shedaniel.cloth:cloth-config-fabric:5.0.34") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+    modImplementation "io.github.prospector:modmenu:2.0.2"
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
     modImplementation("com.github.Mysticpasta1:OpenWorlds:cce9fed") {

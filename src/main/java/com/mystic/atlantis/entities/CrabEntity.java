@@ -1,5 +1,7 @@
 package com.mystic.atlantis.entities;
 
+import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -235,6 +237,6 @@ public class CrabEntity extends AnimalEntity implements IAnimatable, Bucketable 
     }
 
     public static boolean canSpawn(EntityType<CrabEntity> crabEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return pos.getY() >= 40 && 50 >= pos.getY() && serverWorldAccess.getBlockState(pos).isOf(Blocks.WATER);
+        return pos.getY() >= AtlantisConfig.General.minCrabSpawnHeight && AtlantisConfig.General.maxCrabSpawnHeight >= pos.getY() && serverWorldAccess.getBlockState(pos).isOf(Blocks.WATER);
     }
 }
