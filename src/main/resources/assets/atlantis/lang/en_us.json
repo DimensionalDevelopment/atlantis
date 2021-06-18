@@ -81,8 +81,6 @@
   "text.autoconfig.atlantis.title": "Atlantean Config",
   "text.autoconfig.atlantis.option.general.minCrabSpawnHeight": "Minimum Crab Spawn Height",
   "text.autoconfig.atlantis.option.general.minCrabSpawnHeight.@Tooltip[0]": "The Minimum Height The Atlantean Crab Will Spawn At",
-  "text.autoconfig.atlantis.option.general.minCrabSpawnHeight.@Tooltip[1]": "",
   "text.autoconfig.atlantis.option.general.maxCrabSpawnHeight": "Maximum Crab Spawn Height",
-  "text.autoconfig.atlantis.option.general.maxCrabSpawnHeight.@Tooltip[0]": "The Maximum Height The Atlantean Crab Will Spawn At",
-  "text.autoconfig.atlantis.option.general.maxCrabSpawnHeight.@Tooltip[1]": ""
+  "text.autoconfig.atlantis.option.general.maxCrabSpawnHeight.@Tooltip[0]": "The Maximum Height The Atlantean Crab Will Spawn At"
 }

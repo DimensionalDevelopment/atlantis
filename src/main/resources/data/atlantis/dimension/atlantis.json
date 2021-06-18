@@ -54,6 +54,16 @@
             "weirdness": 0.3,
             "offset": 0.7
           }
+        },
+        {
+          "biome": "atlantis:atlantean_islands_biome",
+          "parameters": {
+            "altitude": 0,
+            "temperature": 0.6,
+            "humidity": 0,
+            "weirdness": 0.1,
+            "offset": 0.5
+          }
         }
       ]
     },

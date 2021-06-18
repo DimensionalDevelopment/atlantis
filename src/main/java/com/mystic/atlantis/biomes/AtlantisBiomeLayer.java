@@ -30,8 +30,11 @@ public class AtlantisBiomeLayer implements InitLayer {
         if(perlinNoise > 0.30) {
             return this.dynamicRegistry.getRawId(this.dynamicRegistry.get(AtlantisBiomeSource.JELLYFISH_FIELDS));
         }
-        else if(perlinNoise > -0.30 && perlinNoise < 0.30) {
+        else if(perlinNoise > 0.20 && perlinNoise < 0.30) {
             return this.dynamicRegistry.getRawId(this.dynamicRegistry.get(AtlantisBiomeSource.ATLANTIS_BIOME));
+        }
+        else if (perlinNoise > 0.10 && perlinNoise < 0.20) {
+            return this.dynamicRegistry.getRawId(this.dynamicRegistry.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS));
         }
         else {
             return this.dynamicRegistry.getRawId(this.dynamicRegistry.get(AtlantisBiomeSource.ATLANTIS_BIOME));

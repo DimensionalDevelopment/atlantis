@@ -3,7 +3,6 @@ package com.mystic.atlantis.setup;
 import com.mystic.atlantis.dimension.AltantisSkyRenderer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
-import com.mystic.atlantis.entities.JellyfishEntity;
 import com.mystic.atlantis.entities.models.CrabEntityModel;
 import com.mystic.atlantis.entities.models.JellyfishEntityModel;
 import com.mystic.atlantis.entities.renders.CrabEntityRenderer;
@@ -23,6 +22,7 @@ import net.minecraft.util.math.Vec3d;
 public class ClientSetup implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BlockInit.UNDERWATER_FLOWER, BlockInit.ALGAE);
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(),
             BlockInit.BLACK_PEARL_BLOCK,

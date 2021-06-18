@@ -72,6 +72,7 @@ public class Atlantis implements ModInitializer
 
     @Override
     public void onInitialize() {
+
         CustomPortalApiRegistry.addPortal(BlockInit.ATLANTEAN_CORE, PortalIgnitionSource.FluidSource(Fluids.WATER), BlockInit.ATLANTIS_CLEAR_PORTAL, new Identifier("atlantis", "atlantis"), 0, 125, 255);
 
         GeckoLib.initialize();
