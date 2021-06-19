@@ -1,4 +1,4 @@
-package com.mystic.atlantis.util; //MIT LICENSE see NOISE_LICENSE file
+package com.mystic.atlantis.util; //MIT LICENSE see LICENSE for NOISE file
 //
 // Copyright(c) 2020 Jordan Peck (jordan.me2@gmail.com)
 // Copyright(c) 2020 Contributors
