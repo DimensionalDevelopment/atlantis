@@ -8,6 +8,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class AtlanteanPowerStone extends RedstoneBlock {
+
     public AtlanteanPowerStone(Settings settings) {
         super(settings
                 .dropsLike(Blocks.REDSTONE_BLOCK)
@@ -36,4 +37,5 @@ public class AtlanteanPowerStone extends RedstoneBlock {
     public boolean isSubmerged(BlockView world, BlockPos pos){
         return world.getBlockState(pos.up()).getMaterial() == Material.WATER;
     }
+
 }
