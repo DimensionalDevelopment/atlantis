@@ -9,6 +9,13 @@ targetCompatibility = JavaVersion.VERSION_16
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
+
+// JENKINS STUFF! LEAVE THIS ALONE!
+if (System.getenv('BUILD_NUMBER') != null) {
+    version = "-dev-" + System.getenv('BUILD_NUMBER')
+}
+
+
 repositories {
     maven { url = 'https://jitpack.io' }
     maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
@@ -19,6 +26,7 @@ repositories {
     maven { url "https://maven.shedaniel.me/" }
     maven {url "https://maven.terraformersmc.com/releases"}
 }
+
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
