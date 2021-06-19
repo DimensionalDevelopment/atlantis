@@ -3,9 +3,12 @@ package com.mystic.atlantis.init;
 import com.mystic.atlantis.blocks.*;
 import com.mystic.atlantis.blocks.plants.Algae;
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
+import com.mystic.atlantis.blocks.power.AtlanteanPowerLamp;
+import com.mystic.atlantis.blocks.power.AtlanteanPowerStone;
 import com.mystic.atlantis.util.Reference;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -65,7 +68,8 @@ public class BlockInit {
     public static final UnderwaterFlower UNDERWATER_FLOWER = (UnderwaterFlower) register("underwater_flower", new UnderwaterFlower(FabricBlockSettings.of(Material.PLANT)));
     public static final Algae ALGAE = (Algae) register("algae", new Algae(FabricBlockSettings.of(Material.PLANT)));
     public static final AtlantisClearPortalBlock ATLANTIS_CLEAR_PORTAL = (AtlantisClearPortalBlock) register("atlantis_clear_portal", new AtlantisClearPortalBlock(FabricBlockSettings.of(Material.PORTAL)));
-
+    public static final AtlanteanPowerStone ATLANTEAN_POWER_STONE = (AtlanteanPowerStone) register("atlantean_power_stone", new AtlanteanPowerStone(FabricBlockSettings.of(Material.STONE)));
+    public static final AtlanteanPowerLamp ATLANTEAN_POWER_LAMP = (AtlanteanPowerLamp) register("atlantean_power_lamp", new AtlanteanPowerLamp(FabricBlockSettings.of(Material.REDSTONE_LAMP)));
 
     private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);

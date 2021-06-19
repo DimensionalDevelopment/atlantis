@@ -28,7 +28,7 @@ public class AlgaeFeatureAtlantis extends Feature<DefaultFeatureConfig> {
         Random rand = config.getRandom();
         BlockPos pos = config.getOrigin();
         BlockPos.Mutable blockpos$mutable = pos.mutableCopy();
-        for(int i = 0; i < 75; ++i) {
+        for(int i = 0; i <= 75; ++i) {
             blockpos$mutable.set(pos);
             blockpos$mutable.move(rand.nextInt(4) - rand.nextInt(4), 0, rand.nextInt(4) - rand.nextInt(4));
             blockpos$mutable.setY(i);
