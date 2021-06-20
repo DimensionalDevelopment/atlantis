@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_torch",
+  "textures": {
+    "torch": "atlantis:block/atlantean_power_torch_off"
+  }
+}

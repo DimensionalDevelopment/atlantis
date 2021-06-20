@@ -3,12 +3,10 @@ package com.mystic.atlantis.init;
 import com.mystic.atlantis.blocks.*;
 import com.mystic.atlantis.blocks.plants.Algae;
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
-import com.mystic.atlantis.blocks.power.AtlanteanPowerLamp;
-import com.mystic.atlantis.blocks.power.AtlanteanPowerStone;
+import com.mystic.atlantis.blocks.power.*;
 import com.mystic.atlantis.util.Reference;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -19,6 +17,9 @@ import java.util.Objects;
 import java.util.function.Function;
 
 public class BlockInit {
+
+    public static void init() {}
+
     public static final AncientWood ANCIENT_ACACIA_WOOD_MOSS = (AncientWood) register("ancient_acacia_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
     public static final AncientWood ANCIENT_OAK_WOOD_MOSS = (AncientWood) register("ancient_oak_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
     public static final AncientWood ANCIENT_JUNGLE_WOOD_MOSS = (AncientWood) register("ancient_jungle_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
@@ -70,10 +71,13 @@ public class BlockInit {
     public static final AtlantisClearPortalBlock ATLANTIS_CLEAR_PORTAL = (AtlantisClearPortalBlock) register("atlantis_clear_portal", new AtlantisClearPortalBlock(FabricBlockSettings.of(Material.PORTAL)));
     public static final AtlanteanPowerStone ATLANTEAN_POWER_STONE = (AtlanteanPowerStone) register("atlantean_power_stone", new AtlanteanPowerStone(FabricBlockSettings.of(Material.STONE)));
     public static final AtlanteanPowerLamp ATLANTEAN_POWER_LAMP = (AtlanteanPowerLamp) register("atlantean_power_lamp", new AtlanteanPowerLamp(FabricBlockSettings.of(Material.REDSTONE_LAMP)));
+    public static final AtlanteanPowerTorch ATLANTEAN_POWER_TORCH = (AtlanteanPowerTorch) blockOnlyRegistry("atlantean_power_torch", new AtlanteanPowerTorch(FabricBlockSettings.of(Material.DECORATION)));
+    public static final WallAtlanteanPowerTorch WALL_ATLANTEAN_POWER_TORCH = (WallAtlanteanPowerTorch) blockOnlyRegistry("atlantean_power_wall_torch", new WallAtlanteanPowerTorch(FabricBlockSettings.of(Material.DECORATION)));
+    public static final AtlanteanPowerDust ATLANTEAN_POWER_DUST_WIRE = (AtlanteanPowerDust) blockOnlyRegistry("atlantean_power_dust", new AtlanteanPowerDust(FabricBlockSettings.of(Material.DECORATION)));
 
     private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);
-        ItemInit.register(name, item.apply(block));
+        register(name, item.apply(block));
         return block;
     }
 
@@ -81,7 +85,15 @@ public class BlockInit {
         return baseRegister(name, block, BlockInit::registerBlockItem);
     }
 
+    private static Block blockOnlyRegistry(String name, Block block) {
+        return Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);
+    }
+
     private static BlockItem registerBlockItem(Block block) {
         return new BlockItem(Objects.requireNonNull(block), new Item.Settings());
+    }
+
+    public static Item register(String name, Item item) {
+        return Registry.register(Registry.ITEM, new Identifier(Reference.MODID, name), item);
     }
 }

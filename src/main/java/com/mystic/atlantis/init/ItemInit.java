@@ -10,6 +10,8 @@ import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
 import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.fluid.Fluids;
@@ -21,6 +23,8 @@ import net.minecraft.util.registry.Registry;
 
 public class ItemInit
 {
+
+    public static void init(){}
 
     public static Item register(String name, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(Reference.MODID, name), item);
@@ -43,6 +47,8 @@ public class ItemInit
     public static final Item DROP_OF_ATLANTIS = register("drop_of_atlantis", new DefaultItem());
     public static final Item BROWN_WROUGHT_PATCHES = register("brown_wrought_patches", new DefaultItem());
     public static final Item CRAB_LEGS = register("crab_legs", new CrabLegsItem(new Item.Settings()));
+    public static final Item ATLANTEAN_POWER_TORCH = register("atlantean_power_torch", new WallStandingBlockItem(BlockInit.ATLANTEAN_POWER_TORCH, BlockInit.WALL_ATLANTEAN_POWER_TORCH, (new Item.Settings())));
+    public static final Item ATLANTEAN_POWER_DUST = register("atlantean_power_dust", new AliasedBlockItem(BlockInit.ATLANTEAN_POWER_DUST_WIRE, (new Item.Settings())));
 
     //Entity Buckets
     public static final Item CRAB_BUCKET = register("crab_bucket", new CrabEntityBucketItem(AtlantisEntities.CRAB, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH, (new Item.Settings()).maxCount(1)));

@@ -7,6 +7,7 @@ import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.event.PositionEvent;
 import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.structures.AtlantisStructures;
@@ -21,6 +22,7 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.kyrptonaught.customportalapi.CustomPortalApiRegistry;
 import net.kyrptonaught.customportalapi.portal.PortalIgnitionSource;
+import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.server.MinecraftServer;
@@ -72,18 +74,18 @@ public class Atlantis implements ModInitializer
 
     @Override
     public void onInitialize() {
-
-        CustomPortalApiRegistry.addPortal(BlockInit.ATLANTEAN_CORE, PortalIgnitionSource.FluidSource(Fluids.WATER), BlockInit.ATLANTIS_CLEAR_PORTAL, new Identifier("atlantis", "atlantis"), 0, 125, 255);
-
-        GeckoLib.initialize();
-
         Atlantis.CONFIG = AutoConfig.register(AtlantisConfig.class,
                 PartitioningSerializer.wrap(Toml4jConfigSerializer::new)).getConfig();
+
+        BlockInit.init();
+        ItemInit.init();
+        CustomPortalApiRegistry.addPortal(BlockInit.ATLANTEAN_CORE, PortalIgnitionSource.FluidSource(Fluids.WATER), BlockInit.ATLANTIS_CLEAR_PORTAL, new Identifier("atlantis", "atlantis"), 0, 125, 255);
 
         UseBlockCallback.EVENT.register(new PositionEvent());
 
         AtlantisGroup.init();
         AtlantisEntities.initialize();
+        GeckoLib.initialize();
 
         DimensionAtlantis.registerBiomeSources();
         DimensionAtlantis.init();

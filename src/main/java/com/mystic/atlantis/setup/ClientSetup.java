@@ -23,13 +23,18 @@ public class ClientSetup implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BlockInit.UNDERWATER_FLOWER, BlockInit.ALGAE);
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
+                BlockInit.UNDERWATER_FLOWER,
+                BlockInit.ALGAE,
+                BlockInit.ATLANTEAN_POWER_TORCH,
+                BlockInit.WALL_ATLANTEAN_POWER_TORCH,
+                BlockInit.ATLANTEAN_POWER_DUST_WIRE);
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(),
-            BlockInit.BLACK_PEARL_BLOCK,
-            BlockInit.GRAY_PEARL_BLOCK,
-            BlockInit.WHITE_PEARL_BLOCK,
-            BlockInit.LIGHT_GRAY_PEARL_BLOCK,
-            BlockInit.BLUE_PEARL_BLOCK,
+                BlockInit.BLACK_PEARL_BLOCK,
+                BlockInit.GRAY_PEARL_BLOCK,
+                BlockInit.WHITE_PEARL_BLOCK,
+                BlockInit.LIGHT_GRAY_PEARL_BLOCK,
+                BlockInit.BLUE_PEARL_BLOCK,
                 BlockInit.LIGHT_BLUE_PEARL_BLOCK,
                 BlockInit.RED_PEARL_BLOCK,
                 BlockInit.ORANGE_PEARL_BLOCK,
