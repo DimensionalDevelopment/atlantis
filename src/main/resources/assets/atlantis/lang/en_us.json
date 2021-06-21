@@ -82,5 +82,9 @@
   "text.autoconfig.atlantis.option.general.minCrabSpawnHeight": "Minimum Crab Spawn Height",
   "text.autoconfig.atlantis.option.general.minCrabSpawnHeight.@Tooltip[0]": "The Minimum Height The Atlantean Crab Will Spawn At",
   "text.autoconfig.atlantis.option.general.maxCrabSpawnHeight": "Maximum Crab Spawn Height",
-  "text.autoconfig.atlantis.option.general.maxCrabSpawnHeight.@Tooltip[0]": "The Maximum Height The Atlantean Crab Will Spawn At"
+  "text.autoconfig.atlantis.option.general.maxCrabSpawnHeight.@Tooltip[0]": "The Maximum Height The Atlantean Crab Will Spawn At",
+  "block.atlantis.atlantean_power_lamp": "Atlantean Power Lamp",
+  "block.atlantis.atlantean_power_torch": "Atlantean Power Torch",
+  "item.atlantis.atlantean_power_dust": "Atlantean Power Dust",
+  "block.atlantis.atlantean_power_stone": "Atlantean Power Stone"
 }
