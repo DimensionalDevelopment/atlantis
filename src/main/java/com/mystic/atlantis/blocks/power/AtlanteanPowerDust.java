@@ -14,6 +14,7 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Property;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
@@ -75,7 +76,21 @@ public class AtlanteanPowerDust extends RedstoneWireBlock implements Waterloggab
         int receivedPower = world.getReceivedRedstonePower(pos);
         ((RedstoneAccessor) this).setWiresGivePower(true);
         int calculatedPower = 0;
-        if (receivedPower < 15) {
+        if (receivedPower < 15 && receivedPower > 0) {
+            for (Direction direction : Direction.Type.HORIZONTAL) {
+                BlockPos blockPos = pos.offset(direction);
+                BlockState blockState = world.getBlockState(blockPos);
+                calculatedPower = Math.max(calculatedPower, this.increasePower(blockState));
+                BlockPos blockPos2 = pos.up();
+                if (blockState.isSolidBlock(world, blockPos) && !world.getBlockState(blockPos2).isSolidBlock(world, blockPos2)) {
+                    calculatedPower = Math.max(calculatedPower, this.increasePower(world.getBlockState(blockPos.up())));
+                } else if (!blockState.isSolidBlock(world, blockPos)) {
+                    calculatedPower = Math.max(calculatedPower, this.increasePower(world.getBlockState(blockPos.down())));
+                }
+            }
+
+            return Math.max(receivedPower - 1, calculatedPower - 1);
+        } else if (receivedPower == 0) {
             for (Direction direction : Direction.Type.HORIZONTAL) {
                 BlockPos blockPos = pos.offset(direction);
                 BlockState blockState = world.getBlockState(blockPos);
@@ -89,9 +104,8 @@ public class AtlanteanPowerDust extends RedstoneWireBlock implements Waterloggab
             }
 
             return Math.max(receivedPower, calculatedPower - 1);
-
         } else {
-            return Math.max(receivedPower, calculatedPower - 1);
+            return Math.max(receivedPower - 1, calculatedPower - 1);
         }
     }
 
@@ -121,13 +135,13 @@ public class AtlanteanPowerDust extends RedstoneWireBlock implements Waterloggab
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        //if (world.getFluidState(pos).isIn(FluidTags.WATER)) {
+        if (world.getFluidState(pos).isIn(FluidTags.WATER)) {
             BlockPos blockPos = pos.down();
             BlockState blockState = world.getBlockState(blockPos);
             return this.canRunOnTop(world, blockPos, blockState);
-        /*} else {
+        } else {
             return false;
-        }*/
+        }
     }
 
     private boolean canRunOnTop(BlockView world, BlockPos pos, BlockState floor) {
