@@ -40,6 +40,7 @@ public abstract class RedstoneWireBlockMixin{
 
     /**
      * @author WaterPicker
+     * @reason valid reason here :P
      */
     @Overwrite
     private int increasePower(BlockState state) {
