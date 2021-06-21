@@ -1,9 +1,14 @@
 package com.mystic.atlantis.blocks.power;
 
 import com.google.common.collect.Sets;
-import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
-import com.mystic.atlantis.mixin.RedstoneAccessor;
-import net.minecraft.block.*;
+
+import java.util.Set;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.RedstoneWireBlock;
+import net.minecraft.block.Waterloggable;
 import net.minecraft.block.enums.WireConnection;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -14,10 +19,10 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.Iterator;
-import java.util.Set;
+import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
+import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.mixin.RedstoneAccessor;
 
 public class AtlanteanPowerDust extends RedstoneWireBlock implements Waterloggable {
 
@@ -42,45 +47,23 @@ public class AtlanteanPowerDust extends RedstoneWireBlock implements Waterloggab
         return !((RedstoneAccessor) this).getWiresGivePower() ? 0 : state.getWeakRedstonePower(world, pos, direction);
     }
 
-    protected static boolean connectsTo(BlockState state) {
-        return connectsTo(state, null);
-    }
-
-    protected static boolean connectsTo(BlockState state, @Nullable Direction dir) {
-        if (state.isOf(Blocks.REDSTONE_WIRE)) {
-            return true;
-        } else if (state.isOf(Blocks.REPEATER)) {
-            Direction direction = state.get(RepeaterBlock.FACING);
-            return direction == dir || direction.getOpposite() == dir;
-        } else if (state.isOf(Blocks.OBSERVER)) {
-            return dir == state.get(ObserverBlock.FACING);
-        } else {
-            return state.emitsRedstonePower() && dir != null;
-        }
-    }
-
     @Override
     protected void update(World world, BlockPos pos, BlockState state) {
-        int i = this.getReceivedRedstonePower(world, pos);
-        if (state.get(POWER) != i) {
+        int receivedPower = this.getReceivedRedstonePower(world, pos);
+        if (state.get(POWER) != receivedPower) {
             if (world.getBlockState(pos) == state) {
-                world.setBlockState(pos, state.with(POWER, i), Block.NOTIFY_LISTENERS);
+                world.setBlockState(pos, state.with(POWER, receivedPower), Block.NOTIFY_LISTENERS);
             }
 
             Set<BlockPos> set = Sets.newHashSet();
             set.add(pos);
             Direction[] var6 = Direction.values();
-            int var7 = var6.length;
 
-            for(int var8 = 0; var8 < var7; ++var8) {
-                Direction direction = var6[var8];
+            for (Direction direction : var6) {
                 set.add(pos.offset(direction));
             }
 
-            Iterator var10 = set.iterator();
-
-            while(var10.hasNext()) {
-                BlockPos blockPos = (BlockPos)var10.next();
+            for (BlockPos blockPos : set) {
                 world.updateNeighborsAlways(blockPos, this);
             }
         }
@@ -89,30 +72,26 @@ public class AtlanteanPowerDust extends RedstoneWireBlock implements Waterloggab
     @Override
     public int getReceivedRedstonePower(World world, BlockPos pos) {
         ((RedstoneAccessor) this).setWiresGivePower(false);
-        int i = world.getReceivedRedstonePower(pos);
+        int receivedPower = world.getReceivedRedstonePower(pos);
         ((RedstoneAccessor) this).setWiresGivePower(true);
-        int j = 0;
-        if (i < 15) {
-            Iterator var5 = Direction.Type.HORIZONTAL.iterator();
-
-            while(true) {
-                while(var5.hasNext()) {
-                    Direction direction = (Direction)var5.next();
-                    BlockPos blockPos = pos.offset(direction);
-                    BlockState blockState = world.getBlockState(blockPos);
-                    j = Math.max(j, this.increasePower(blockState));
-                    BlockPos blockPos2 = pos.up();
-                    if (blockState.isSolidBlock(world, blockPos) && !world.getBlockState(blockPos2).isSolidBlock(world, blockPos2)) {
-                        j = Math.max(j, this.increasePower(world.getBlockState(blockPos.up())));
-                    } else if (!blockState.isSolidBlock(world, blockPos)) {
-                        j = Math.max(j, this.increasePower(world.getBlockState(blockPos.down())));
-                    }
+        int calculatedPower = 0;
+        if (receivedPower < 15) {
+            for (Direction direction : Direction.Type.HORIZONTAL) {
+                BlockPos blockPos = pos.offset(direction);
+                BlockState blockState = world.getBlockState(blockPos);
+                calculatedPower = Math.max(calculatedPower, this.increasePower(blockState));
+                BlockPos blockPos2 = pos.up();
+                if (blockState.isSolidBlock(world, blockPos) && !world.getBlockState(blockPos2).isSolidBlock(world, blockPos2)) {
+                    calculatedPower = Math.max(calculatedPower, this.increasePower(world.getBlockState(blockPos.up())));
+                } else if (!blockState.isSolidBlock(world, blockPos)) {
+                    calculatedPower = Math.max(calculatedPower, this.increasePower(world.getBlockState(blockPos.down())));
                 }
-
-                return Math.max(i, j - 1);
             }
+
+            return Math.max(receivedPower, calculatedPower - 1);
+
         } else {
-            return Math.max(i, j - 1);
+            return Math.max(receivedPower, calculatedPower - 1);
         }
     }
 
@@ -122,7 +101,12 @@ public class AtlanteanPowerDust extends RedstoneWireBlock implements Waterloggab
     }
 
     private int increasePower(BlockState state) {
-        return state.isOf(this) ? state.get(POWER) : 0;
+        if (state.isOf(Blocks.REDSTONE_WIRE)) {
+            return state.get(RedstoneWireBlock.POWER);
+        } else if (state.isOf(BlockInit.ATLANTEAN_POWER_DUST_WIRE)) {
+            return state.get(RedstoneWireBlock.POWER);
+        }
+        return 0;
     }
 
     public AtlanteanPowerDust(Settings settings) {
