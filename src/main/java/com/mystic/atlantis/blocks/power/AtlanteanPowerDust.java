@@ -2,6 +2,7 @@ package com.mystic.atlantis.blocks.power;
 
 import com.google.common.collect.Sets;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import net.minecraft.block.Block;
@@ -19,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
@@ -126,6 +128,7 @@ public class AtlanteanPowerDust extends RedstoneWireBlock implements Waterloggab
     public AtlanteanPowerDust(Settings settings) {
         super(settings.noCollision().breakInstantly());
         this.setDefaultState(getDefaultState().with(WIRE_CONNECTION_NORTH, WireConnection.NONE).with(WIRE_CONNECTION_EAST, WireConnection.NONE).with(WIRE_CONNECTION_SOUTH, WireConnection.NONE).with(WIRE_CONNECTION_WEST, WireConnection.NONE).with(POWER, 0).with(WATERLOGGED, Boolean.TRUE));
+        ((RedstoneAccessor) this).setWiresGivePower(true);
     }
 
     @Override

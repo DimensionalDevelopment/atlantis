@@ -10,6 +10,7 @@ import net.minecraft.state.property.Property;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
@@ -27,13 +28,18 @@ public class AtlanteanPowerTorch extends RedstoneTorchBlock implements Waterlogg
     }
 
     @Override
+    public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
+        return state.get(LIT) && Direction.UP != direction ? 15 : 0;
+    }
+
+    @Override
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
     @Override
     protected boolean shouldUnpower(World world, BlockPos pos, BlockState state) {
-        return !state.get(WATERLOGGED);
+        return !state.get(WATERLOGGED) && world.isEmittingRedstonePower(pos.down(), Direction.DOWN);
     }
 
     @Override

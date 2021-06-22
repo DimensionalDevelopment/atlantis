@@ -74,6 +74,7 @@ public class BlockInit {
     public static final AtlanteanPowerTorch ATLANTEAN_POWER_TORCH = (AtlanteanPowerTorch) blockOnlyRegistry("atlantean_power_torch", new AtlanteanPowerTorch(FabricBlockSettings.of(Material.DECORATION)));
     public static final WallAtlanteanPowerTorch WALL_ATLANTEAN_POWER_TORCH = (WallAtlanteanPowerTorch) blockOnlyRegistry("atlantean_power_wall_torch", new WallAtlanteanPowerTorch(FabricBlockSettings.of(Material.DECORATION)));
     public static final AtlanteanPowerDust ATLANTEAN_POWER_DUST_WIRE = (AtlanteanPowerDust) blockOnlyRegistry("atlantean_power_dust", new AtlanteanPowerDust(FabricBlockSettings.of(Material.DECORATION)));
+    public static final AtlanteanPowerRepeater ATLANTEAN_POWER_REPEATER = (AtlanteanPowerRepeater) register("atlantean_power_repeater", new AtlanteanPowerRepeater(FabricBlockSettings.of(Material.DECORATION)));
 
     private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);
