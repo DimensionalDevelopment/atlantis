@@ -8,16 +8,20 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Property;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class WallAtlanteanPowerTorch extends AtlanteanPowerTorch {
@@ -32,24 +36,66 @@ public class WallAtlanteanPowerTorch extends AtlanteanPowerTorch {
 
     public WallAtlanteanPowerTorch(Settings settings) {
         super(settings.dropsLike(BlockInit.ATLANTEAN_POWER_TORCH));
-        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(LIT, true));
+        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(LIT, true).with(WATERLOGGED, true));
     }
 
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return direction.getOpposite() == state.get(FACING) && !state.canPlaceAt(world, pos) ? Blocks.WATER.getDefaultState() : state;
+        return direction.getOpposite() == state.get(FACING) && !this.canPlaceAt(state, world, pos) ? Blocks.WATER.getDefaultState() : state;
     }
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         if (OnlyWater(world, pos, state)) {
-            Direction direction = state.get(FACING);
-            BlockPos blockPos = pos.offset(direction.getOpposite());
-            BlockState blockState = world.getBlockState(blockPos);
-            return blockState.isSideSolidFullSquare(world, blockPos, direction);
+            return Blocks.WALL_TORCH.canPlaceAt(state, world, pos);
         } else {
             return false;
         }
+    }
+
+    public Tag<Block> getAir(){
+        Tag<Block> air = new Tag<Block>() {
+            @Override
+            public boolean contains(Block element) {
+                return true;
+            }
+
+            @Override
+            public List<Block> values() {
+                List<Block> air2 = new ArrayList<Block>();
+                air2.add(Blocks.AIR);
+                return air2;
+            }
+        };
+        return air;
+    }
+
+    public boolean OnlyWater(WorldView worldReader, BlockPos pos, BlockState state) {
+        return !worldReader.getBlockState(pos).isIn(getAir()) || !this.canBlockStay(worldReader, pos, state);
+    }
+
+    public boolean canBlockStay(WorldView worldReader, BlockPos pos, BlockState state) {
+        return canPlaceBlockAt(worldReader, pos);
+    }
+
+    public boolean canPlaceBlockAt(WorldView worldReader, BlockPos pos) {
+
+        if (worldReader.getBlockState(pos).getMaterial() != Material.WATER)
+        {
+            return true;
+        }
+        return worldReader.getBlockState(pos.down()) != worldReader.getBlockState(pos.down());
+    }
+
+    @Override
+    protected boolean shouldUnpower(World world, BlockPos pos, BlockState state) {
+        Direction direction = state.get(FACING).getOpposite();
+        return world.isEmittingRedstonePower(pos.offset(direction), direction);
+    }
+
+    @Override
+    public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
+        return state.get(LIT) && state.get(FACING) != direction ? 15 : 0;
     }
 
     @Override
@@ -81,10 +127,13 @@ public class WallAtlanteanPowerTorch extends AtlanteanPowerTorch {
             Direction direction = var6[var8];
             if (direction.getAxis().isHorizontal()) {
                 Direction direction2 = direction.getOpposite();
-                blockState = blockState.with(FACING, direction2);
-                if (blockState.canPlaceAt(worldView, blockPos)) {
-                    return blockState;
+                blockState = blockState.with(FACING, direction2).with(WATERLOGGED, true);
+                if (OnlyWater(worldView, blockPos, blockState)) {
+                    if (this.canPlaceAt( blockState, worldView, blockPos )) {
+                        return blockState;
+                    }
                 }
+                return blockState;
             }
         }
         return null;
