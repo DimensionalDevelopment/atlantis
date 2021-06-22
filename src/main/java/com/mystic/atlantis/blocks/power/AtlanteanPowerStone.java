@@ -11,10 +11,8 @@ public class AtlanteanPowerStone extends RedstoneBlock {
 
     public AtlanteanPowerStone(Settings settings) {
         super(settings
-                .dropsLike(Blocks.REDSTONE_BLOCK)
                 .sounds(BlockSoundGroup.STONE)
-                .mapColor(MapColor.BLUE)
-                .requiresTool());
+                .mapColor(MapColor.BLUE));
     }
 
     @Override

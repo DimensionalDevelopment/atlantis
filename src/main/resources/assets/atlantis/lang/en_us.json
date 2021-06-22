@@ -86,5 +86,6 @@
   "block.atlantis.atlantean_power_lamp": "Atlantean Power Lamp",
   "block.atlantis.atlantean_power_torch": "Atlantean Power Torch",
   "item.atlantis.atlantean_power_dust": "Atlantean Power Dust",
-  "block.atlantis.atlantean_power_stone": "Atlantean Power Stone"
+  "block.atlantis.atlantean_power_stone": "Atlantean Power Stone",
+  "block.atlantis.atlantean_power_repeater": "Atlantean Power Repeater"
 }
