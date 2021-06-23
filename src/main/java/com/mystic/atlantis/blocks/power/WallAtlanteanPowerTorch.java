@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.block.*;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Property;
 import net.minecraft.tag.Tag;
@@ -35,7 +35,8 @@ public class WallAtlanteanPowerTorch extends AtlanteanPowerTorch {
             Direction.EAST, Block.createCuboidShape(0.0D, 3.0D, 5.5D, 5.0D, 13.0D, 10.5D)));
 
     public WallAtlanteanPowerTorch(Settings settings) {
-        super(settings.dropsLike(BlockInit.ATLANTEAN_POWER_TORCH));
+        super(settings.dropsLike(BlockInit.ATLANTEAN_POWER_TORCH).noCollision().breakInstantly().luminance(level -> 7).sounds(BlockSoundGroup.WOOD));
+
         this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(LIT, true).with(WATERLOGGED, true));
     }
 

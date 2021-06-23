@@ -69,13 +69,13 @@ public class BlockInit {
     public static final Algae ALGAE = (Algae) register("algae", new Algae(FabricBlockSettings.of(Material.PLANT)));
     public static final AtlantisClearPortalBlock ATLANTIS_CLEAR_PORTAL = (AtlantisClearPortalBlock) register("atlantis_clear_portal", new AtlantisClearPortalBlock(FabricBlockSettings.of(Material.PORTAL)));
     public static final AtlanteanPowerStone ATLANTEAN_POWER_STONE = (AtlanteanPowerStone) register("atlantean_power_stone", new AtlanteanPowerStone(FabricBlockSettings.of(Material.STONE)));
-    public static final AtlanteanPowerLamp ATLANTEAN_POWER_LAMP = (AtlanteanPowerLamp) register("atlantean_power_lamp", new AtlanteanPowerLamp(FabricBlockSettings.of(Material.REDSTONE_LAMP)));
+    public static final AtlanteanPowerLamp ATLANTEAN_POWER_LAMP = (AtlanteanPowerLamp) register("atlantean_power_lamp", new AtlanteanPowerLamp(FabricBlockSettings.of(Material.REDSTONE_LAMP).strength(0.3F)));
     public static final AtlanteanPowerTorch ATLANTEAN_POWER_TORCH = (AtlanteanPowerTorch) blockOnlyRegistry("atlantean_power_torch", new AtlanteanPowerTorch(FabricBlockSettings.of(Material.DECORATION)));
     public static final WallAtlanteanPowerTorch WALL_ATLANTEAN_POWER_TORCH = (WallAtlanteanPowerTorch) blockOnlyRegistry("atlantean_power_wall_torch", new WallAtlanteanPowerTorch(FabricBlockSettings.of(Material.DECORATION)));
     public static final AtlanteanPowerDust ATLANTEAN_POWER_DUST_WIRE = (AtlanteanPowerDust) blockOnlyRegistry("atlantean_power_dust", new AtlanteanPowerDust(FabricBlockSettings.of(Material.DECORATION)));
     public static final AtlanteanPowerRepeater ATLANTEAN_POWER_REPEATER = (AtlanteanPowerRepeater) register("atlantean_power_repeater", new AtlanteanPowerRepeater(FabricBlockSettings.of(Material.DECORATION)));
     public static final AtlanteanTripwireHook ATLANTEAN_TRIPWIRE_HOOK = (AtlanteanTripwireHook) register("atlantean_tripwire_hook", new AtlanteanTripwireHook(FabricBlockSettings.of(Material.DECORATION).noCollision()));
-    public static final AtlanteanTripwire ATLANTEAN_TRIPWIRE = (AtlanteanTripwire) register("atlantean_tripwire", new AtlanteanTripwire(ATLANTEAN_TRIPWIRE_HOOK, AbstractBlock.Settings.of(Material.DECORATION).noCollision()));
+    public static final AtlanteanTripwire ATLANTEAN_TRIPWIRE = (AtlanteanTripwire) blockOnlyRegistry("atlantean_tripwire", new AtlanteanTripwire(ATLANTEAN_TRIPWIRE_HOOK, AbstractBlock.Settings.of(Material.DECORATION).noCollision()));
 
     private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);
