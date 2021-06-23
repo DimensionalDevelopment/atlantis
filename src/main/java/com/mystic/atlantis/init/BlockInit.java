@@ -6,8 +6,7 @@ import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
 import com.mystic.atlantis.blocks.power.*;
 import com.mystic.atlantis.util.Reference;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -75,6 +74,8 @@ public class BlockInit {
     public static final WallAtlanteanPowerTorch WALL_ATLANTEAN_POWER_TORCH = (WallAtlanteanPowerTorch) blockOnlyRegistry("atlantean_power_wall_torch", new WallAtlanteanPowerTorch(FabricBlockSettings.of(Material.DECORATION)));
     public static final AtlanteanPowerDust ATLANTEAN_POWER_DUST_WIRE = (AtlanteanPowerDust) blockOnlyRegistry("atlantean_power_dust", new AtlanteanPowerDust(FabricBlockSettings.of(Material.DECORATION)));
     public static final AtlanteanPowerRepeater ATLANTEAN_POWER_REPEATER = (AtlanteanPowerRepeater) register("atlantean_power_repeater", new AtlanteanPowerRepeater(FabricBlockSettings.of(Material.DECORATION)));
+    public static final AtlanteanTripwireHook ATLANTEAN_TRIPWIRE_HOOK = (AtlanteanTripwireHook) register("atlantean_tripwire_hook", new AtlanteanTripwireHook(FabricBlockSettings.of(Material.DECORATION).noCollision()));
+    public static final AtlanteanTripwire ATLANTEAN_TRIPWIRE = (AtlanteanTripwire) register("atlantean_tripwire", new AtlanteanTripwire(ATLANTEAN_TRIPWIRE_HOOK, AbstractBlock.Settings.of(Material.DECORATION).noCollision()));
 
     private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);

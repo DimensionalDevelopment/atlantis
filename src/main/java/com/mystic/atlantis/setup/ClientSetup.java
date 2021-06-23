@@ -29,7 +29,9 @@ public class ClientSetup implements ClientModInitializer {
                 BlockInit.ATLANTEAN_POWER_TORCH,
                 BlockInit.WALL_ATLANTEAN_POWER_TORCH,
                 BlockInit.ATLANTEAN_POWER_DUST_WIRE,
-                BlockInit.ATLANTEAN_POWER_REPEATER);
+                BlockInit.ATLANTEAN_POWER_REPEATER,
+                BlockInit.ATLANTEAN_TRIPWIRE,
+                BlockInit.ATLANTEAN_TRIPWIRE_HOOK);
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(),
                 BlockInit.BLACK_PEARL_BLOCK,
                 BlockInit.GRAY_PEARL_BLOCK,
