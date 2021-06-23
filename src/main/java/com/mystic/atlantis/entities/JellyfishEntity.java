@@ -1,8 +1,10 @@
 package com.mystic.atlantis.entities;
 
 import com.mystic.atlantis.init.ItemInit;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.control.MoveControl;
+import net.minecraft.entity.Bucketable;
+import net.minecraft.entity.EntityData;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -10,7 +12,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.WaterCreatureEntity;
-import net.minecraft.entity.passive.FishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -20,12 +21,12 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.FluidTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.*;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -160,7 +161,8 @@ public class JellyfishEntity extends WaterCreatureEntity implements IAnimatable,
     @Override
     public void tickMovement() {
         super.tickMovement();
-        setTarget(world.getClosestPlayer(this, 10));
+
+        setTarget(world.getClosestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
     public void createChild(ServerWorld world, JellyfishEntity entity) {

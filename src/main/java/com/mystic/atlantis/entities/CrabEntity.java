@@ -1,6 +1,5 @@
 package com.mystic.atlantis.entities;
 
-import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.block.Blocks;
@@ -215,7 +214,7 @@ public class CrabEntity extends AnimalEntity implements IAnimatable, Bucketable 
     @Override
     public void tickMovement() {
         super.tickMovement();
-        setTarget(world.getClosestPlayer(this, 10));
+        setTarget(world.getClosestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
     public boolean isMovingSlowly(){
