@@ -1,7 +1,8 @@
 package com.mystic.atlantis.entities.renders;
 
-import java.awt.Color;
-
+import com.mystic.atlantis.entities.JellyfishEntity;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -9,15 +10,20 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.math.*;
 import net.minecraft.world.LightType;
-
-import com.mystic.atlantis.entities.JellyfishEntity;
+import software.bernie.geckolib3.compat.PatchouliCompat;
+import software.bernie.geckolib3.core.IAnimatableModel;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib3.model.provider.data.EntityModelData;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
+
+import java.util.Collections;
 
 public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> {
 
@@ -27,16 +33,104 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
 
     @Override
     public void render(JellyfishEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
+        renderStuff(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
+
+        //super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
         Entity entity = mobEntity.getHoldingEntity();
         if (entity != null) {
             this.method_4073(mobEntity, g, matrixStack, vertexConsumerProvider, entity);
         }
     }
 
-    @Override
-    public Color getRenderColor(JellyfishEntity animatable, float partialTicks, MatrixStack stack, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn) {
-        return new Color(animatable.getColor());
+    private void renderStuff(JellyfishEntity entity, float entityYaw, float partialTicks, MatrixStack stack,
+                             VertexConsumerProvider bufferIn, int packedLightIn) {
+        stack.push();
+        boolean shouldSit = entity.hasVehicle() && (entity.getVehicle() != null);
+        EntityModelData entityModelData = new EntityModelData();
+        entityModelData.isSitting = shouldSit;
+        entityModelData.isChild = entity.isBaby();
+
+        float f = MathHelper.lerpAngleDegrees(partialTicks, entity.prevBodyYaw, entity.bodyYaw);
+        float f1 = MathHelper.lerpAngleDegrees(partialTicks, entity.prevHeadYaw, entity.headYaw);
+        float netHeadYaw = f1 - f;
+        if (shouldSit && entity.getVehicle() instanceof LivingEntity livingentity) {
+            f = MathHelper.lerpAngleDegrees(partialTicks, livingentity.prevBodyYaw, livingentity.bodyYaw);
+            netHeadYaw = f1 - f;
+            float f3 = MathHelper.wrapDegrees(netHeadYaw);
+            if (f3 < -85.0F) {
+                f3 = -85.0F;
+            }
+
+            if (f3 >= 85.0F) {
+                f3 = 85.0F;
+            }
+
+            f = f1 - f3;
+            if (f3 * f3 > 2500.0F) {
+                f += f3 * 0.2F;
+            }
+
+            netHeadYaw = f1 - f;
+        }
+
+        float headPitch = MathHelper.lerp(partialTicks, entity.prevPitch, entity.getPitch());
+        if (entity.getPose() == EntityPose.SLEEPING) {
+            Direction direction = entity.getSleepingDirection();
+            if (direction != null) {
+                float f4 = entity.getEyeHeight(EntityPose.STANDING) - 0.1F;
+                stack.translate((float) (-direction.getOffsetX()) * f4, 0.0D, (float) (-direction.getOffsetZ()) * f4);
+            }
+        }
+        float f7 = this.handleRotationFloat(entity, partialTicks);
+        this.applyRotations(entity, stack, f7, f, partialTicks);
+
+        float lastLimbDistance = 0.0F;
+        float limbSwing = 0.0F;
+        if (!shouldSit && entity.isAlive()) {
+            lastLimbDistance = MathHelper.lerp(partialTicks, entity.lastLimbDistance, entity.limbDistance);
+            limbSwing = entity.limbAngle - entity.limbDistance * (1.0F - partialTicks);
+            if (entity.isBaby()) {
+                limbSwing *= 3.0F;
+            }
+
+            if (lastLimbDistance > 1.0F) {
+                lastLimbDistance = 1.0F;
+            }
+        }
+        entityModelData.headPitch = -headPitch;
+        entityModelData.netHeadYaw = -netHeadYaw;
+
+        AnimationEvent<JellyfishEntity> predicate = new AnimationEvent<JellyfishEntity>(entity, limbSwing, lastLimbDistance, partialTicks,
+                !(lastLimbDistance > -0.15F && lastLimbDistance < 0.15F), Collections.singletonList(entityModelData));
+        GeoModel model = getGeoModelProvider().getModel(getGeoModelProvider().getModelLocation(entity));
+        if (getGeoModelProvider() instanceof IAnimatableModel) {
+            ((IAnimatableModel<JellyfishEntity>) getGeoModelProvider()).setLivingAnimations(entity, this.getUniqueID(entity), predicate);
+        }
+
+        stack.translate(0, 0.01f, 0);
+        MinecraftClient.getInstance().getTextureManager().bindTexture(getTexture(entity));
+        int renderColor = entity.getColor();
+        RenderLayer renderType = getRenderType(entity, partialTicks, stack, bufferIn, null, packedLightIn,
+                getTexture(entity));
+        boolean invis = entity.isInvisibleTo(MinecraftClient.getInstance().player);
+        render(model, entity, partialTicks, renderType, stack, bufferIn, null, packedLightIn,
+                getPackedOverlay(entity, 0), (float) ((renderColor >> 16) & 0xFF) / 255f, (float) ((renderColor >> 8) & 0xFF) / 255f,
+                (float) ((renderColor) & 0xFF) / 255f, invis ? 0.0F : 125f / 255f);
+
+        if (!entity.isSpectator()) {
+            for (GeoLayerRenderer<JellyfishEntity> layerRenderer : this.layerRenderers) {
+                layerRenderer.render(stack, bufferIn, packedLightIn, entity, limbSwing, lastLimbDistance, partialTicks,
+                        f7, netHeadYaw, headPitch);
+            }
+        }
+        if (FabricLoader.getInstance().isModLoaded("patchouli")) {
+            PatchouliCompat.patchouliLoaded(stack);
+        }
+        stack.pop();
+
+        if (this.hasLabel(entity)) {
+            this.renderLabelIfPresent(entity, entity.getDisplayName(), stack, bufferIn, packedLightIn);
+        }
     }
 
     private <E extends Entity> void method_4073(JellyfishEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, E holdingEntity) {
