@@ -64,7 +64,7 @@
   "block.atlantis.light_blue_colored_shell_block": "Light Blue Colored Shell Block",
   "block.atlantis.green_colored_shell_block": "Green Colored Shell Block ",
   "block.atlantis.oyster_shell_block": "Oyster Shell Block ",
-  "block.atlantis.atlantis_portal": "Legacy Atlantean Portal Block",
+  "block.atlantis.atlantis_portal": "Legacy Atlantean Portal Block (Danger will kill you in survival if used wrong!!!, Creative only!!!)",
   "block.atlantis.underwater_flower": "Atlantis Flower",
   "block.atlantis.algae": "Algae",
   "itemGroup.minecraft.atlantis": "Atlantis",
@@ -87,5 +87,7 @@
   "block.atlantis.atlantean_power_torch": "Atlantean Power Torch",
   "item.atlantis.atlantean_power_dust": "Atlantean Power Dust",
   "block.atlantis.atlantean_power_stone": "Atlantean Power Stone",
-  "block.atlantis.atlantean_power_repeater": "Atlantean Power Repeater"
+  "block.atlantis.atlantean_power_repeater": "Atlantean Power Repeater",
+  "block.atlantis.atlantean_tripwire_hook": "Atlantean Tripwire Hook",
+  "item.atlantis.atlantean_string": "Atlantean String"
 }

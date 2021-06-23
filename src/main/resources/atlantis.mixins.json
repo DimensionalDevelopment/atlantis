@@ -7,7 +7,6 @@
     "CanBreatheInDimension",
     "ChangeBreakSpeedMixin",
     "LayerAccessor",
-    "LivingEntityMixin",
     "MixinBuildinBiomesAccessor",
     "RedstoneAccessor",
     "RedstoneWireBlockMixin",
