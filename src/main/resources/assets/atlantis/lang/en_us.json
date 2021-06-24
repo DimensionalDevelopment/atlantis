@@ -89,5 +89,6 @@
   "block.atlantis.atlantean_power_stone": "Atlantean Power Stone",
   "block.atlantis.atlantean_power_repeater": "Atlantean Power Repeater",
   "block.atlantis.atlantean_tripwire_hook": "Atlantean Tripwire Hook",
-  "item.atlantis.atlantean_string": "Atlantean String"
+  "item.atlantis.atlantean_string": "Atlantean String",
+  "block.atlantis.atlantean_power_lever": "Atlantean Power Lever"
 }

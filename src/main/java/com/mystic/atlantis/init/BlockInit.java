@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -76,6 +77,8 @@ public class BlockInit {
     public static final AtlanteanPowerRepeater ATLANTEAN_POWER_REPEATER = (AtlanteanPowerRepeater) register("atlantean_power_repeater", new AtlanteanPowerRepeater(FabricBlockSettings.of(Material.DECORATION)));
     public static final AtlanteanTripwireHook ATLANTEAN_TRIPWIRE_HOOK = (AtlanteanTripwireHook) register("atlantean_tripwire_hook", new AtlanteanTripwireHook(FabricBlockSettings.of(Material.DECORATION).noCollision()));
     public static final AtlanteanTripwire ATLANTEAN_TRIPWIRE = (AtlanteanTripwire) blockOnlyRegistry("atlantean_tripwire", new AtlanteanTripwire(ATLANTEAN_TRIPWIRE_HOOK, AbstractBlock.Settings.of(Material.DECORATION).noCollision()));
+    public static final AtlanteanPowerLever ATLANTEAN_POWER_LEVER = (AtlanteanPowerLever) register("atlantean_power_lever", new AtlanteanPowerLever(FabricBlockSettings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)));
+
 
     private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);
