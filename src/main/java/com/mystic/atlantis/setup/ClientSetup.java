@@ -31,7 +31,9 @@ public class ClientSetup implements ClientModInitializer {
                 BlockInit.ATLANTEAN_POWER_DUST_WIRE,
                 BlockInit.ATLANTEAN_POWER_REPEATER,
                 BlockInit.ATLANTEAN_TRIPWIRE,
-                BlockInit.ATLANTEAN_TRIPWIRE_HOOK);
+                BlockInit.ATLANTEAN_TRIPWIRE_HOOK,
+                BlockInit.YELLOW_UNDERWATER_FLOWER,
+                BlockInit.RED_UNDERWATER_FLOWER);
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(),
                 BlockInit.BLACK_PEARL_BLOCK,
                 BlockInit.GRAY_PEARL_BLOCK,

@@ -37,12 +37,15 @@ public class UnderwaterFlowerAtlantis extends Feature<CountConfig> {
             int i1 = rand.nextInt(8) - rand.nextInt(8);
             int j1 = reader.getTopY(Heightmap.Type.OCEAN_FLOOR, pos.getX() + l, pos.getZ() + i1);
             BlockPos blockpos = new BlockPos(pos.getX() + l, j1, pos.getZ() + i1);
-            BlockState blockstate = BlockInit.UNDERWATER_FLOWER.getDefaultState();
+            BlockState blockstate = switch (rand.nextInt(3)) {
+                case 1 -> BlockInit.RED_UNDERWATER_FLOWER.getDefaultState();
+                case 2 -> BlockInit.YELLOW_UNDERWATER_FLOWER.getDefaultState();
+                default -> BlockInit.UNDERWATER_FLOWER.getDefaultState();
+            };
             if (reader.getBlockState(blockpos).isOf(Blocks.WATER) && blockstate.canPlaceAt(reader, blockpos)) {
                 reader.setBlockState(blockpos, blockstate, 2);
                 ++i;
             }
-
         }
 
         return i > 0;
