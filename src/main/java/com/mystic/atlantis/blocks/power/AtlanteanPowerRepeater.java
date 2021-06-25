@@ -4,14 +4,19 @@ import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Property;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+
+import java.util.Random;
 
 public class AtlanteanPowerRepeater extends RepeaterBlock implements Waterloggable {
 
@@ -34,6 +39,25 @@ public class AtlanteanPowerRepeater extends RepeaterBlock implements Waterloggab
             return this.canRunOnTop(world, blockPos, blockState);
         } else {
             return false;
+        }
+    }
+
+    @Override
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        if (state.get(POWERED)) {
+            Direction direction = state.get(FACING);
+            double d = (double)pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * 0.2D;
+            double e = (double)pos.getY() + 0.4D + (random.nextDouble() - 0.5D) * 0.2D;
+            double f = (double)pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * 0.2D;
+            float g = -5.0F;
+            if (random.nextBoolean()) {
+                g = (float)(state.get(DELAY) * 2 - 1);
+            }
+
+            g /= 16.0F;
+            double h = g * (float)direction.getOffsetX();
+            double i = g * (float)direction.getOffsetZ();
+            world.addParticle(new DustParticleEffect(AtlanteanPowerLever.COLOR, 1.0F), d + h, e, f + i, 0.0D, 0.0D, 0.0D);
         }
     }
 

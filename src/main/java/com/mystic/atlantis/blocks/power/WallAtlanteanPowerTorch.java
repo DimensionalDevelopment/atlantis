@@ -8,6 +8,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Property;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
@@ -47,45 +48,11 @@ public class WallAtlanteanPowerTorch extends AtlanteanPowerTorch {
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        if (OnlyWater(world, pos, state)) {
+        if (world.getFluidState(pos).isIn(FluidTags.WATER)) {
             return Blocks.WALL_TORCH.canPlaceAt(state, world, pos);
         } else {
             return false;
         }
-    }
-
-    public Tag<Block> getAir(){
-        Tag<Block> air = new Tag<Block>() {
-            @Override
-            public boolean contains(Block element) {
-                return true;
-            }
-
-            @Override
-            public List<Block> values() {
-                List<Block> air2 = new ArrayList<Block>();
-                air2.add(Blocks.AIR);
-                return air2;
-            }
-        };
-        return air;
-    }
-
-    public boolean OnlyWater(WorldView worldReader, BlockPos pos, BlockState state) {
-        return !worldReader.getBlockState(pos).isIn(getAir()) || !this.canBlockStay(worldReader, pos, state);
-    }
-
-    public boolean canBlockStay(WorldView worldReader, BlockPos pos, BlockState state) {
-        return canPlaceBlockAt(worldReader, pos);
-    }
-
-    public boolean canPlaceBlockAt(WorldView worldReader, BlockPos pos) {
-
-        if (worldReader.getBlockState(pos).getMaterial() != Material.WATER)
-        {
-            return true;
-        }
-        return worldReader.getBlockState(pos.down()) != worldReader.getBlockState(pos.down());
     }
 
     @Override
@@ -129,7 +96,7 @@ public class WallAtlanteanPowerTorch extends AtlanteanPowerTorch {
             if (direction.getAxis().isHorizontal()) {
                 Direction direction2 = direction.getOpposite();
                 blockState = blockState.with(FACING, direction2).with(WATERLOGGED, true);
-                if (OnlyWater(worldView, blockPos, blockState)) {
+                if (worldView.getFluidState(blockPos).isIn(FluidTags.WATER)) {
                     if (this.canPlaceAt( blockState, worldView, blockPos )) {
                         return blockState;
                     }

@@ -69,7 +69,6 @@ public class BlockInit {
     public static final UnderwaterFlower UNDERWATER_FLOWER = (UnderwaterFlower) register("underwater_flower", new UnderwaterFlower(FabricBlockSettings.of(Material.PLANT)));
     public static final UnderwaterFlower RED_UNDERWATER_FLOWER = (UnderwaterFlower) register("red_underwater_flower", new UnderwaterFlower(FabricBlockSettings.of(Material.PLANT)));
     public static final UnderwaterFlower YELLOW_UNDERWATER_FLOWER = (UnderwaterFlower) register("yellow_underwater_flower", new UnderwaterFlower(FabricBlockSettings.of(Material.PLANT)));
-
     public static final Algae ALGAE = (Algae) register("algae", new Algae(FabricBlockSettings.of(Material.PLANT)));
     public static final AtlantisClearPortalBlock ATLANTIS_CLEAR_PORTAL = (AtlantisClearPortalBlock) register("atlantis_clear_portal", new AtlantisClearPortalBlock(FabricBlockSettings.of(Material.PORTAL)));
     public static final AtlanteanPowerStone ATLANTEAN_POWER_STONE = (AtlanteanPowerStone) register("atlantean_power_stone", new AtlanteanPowerStone(FabricBlockSettings.of(Material.STONE)));
@@ -81,7 +80,7 @@ public class BlockInit {
     public static final AtlanteanTripwireHook ATLANTEAN_TRIPWIRE_HOOK = (AtlanteanTripwireHook) register("atlantean_tripwire_hook", new AtlanteanTripwireHook(FabricBlockSettings.of(Material.DECORATION).noCollision()));
     public static final AtlanteanTripwire ATLANTEAN_TRIPWIRE = (AtlanteanTripwire) blockOnlyRegistry("atlantean_tripwire", new AtlanteanTripwire(ATLANTEAN_TRIPWIRE_HOOK, AbstractBlock.Settings.of(Material.DECORATION).noCollision()));
     public static final AtlanteanPowerLever ATLANTEAN_POWER_LEVER = (AtlanteanPowerLever) register("atlantean_power_lever", new AtlanteanPowerLever(FabricBlockSettings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)));
-
+    public static final AtlanteanPowerComparator ATLANTEAN_POWER_COMPARATOR = (AtlanteanPowerComparator) register("atlantean_power_comparator", new AtlanteanPowerComparator(FabricBlockSettings.of(Material.DECORATION)));
 
     private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);

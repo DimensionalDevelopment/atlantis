@@ -4,9 +4,11 @@ import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Property;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -17,6 +19,7 @@ import net.minecraft.world.WorldView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class AtlanteanPowerTorch extends RedstoneTorchBlock implements Waterloggable {
 
@@ -38,50 +41,26 @@ public class AtlanteanPowerTorch extends RedstoneTorchBlock implements Waterlogg
     }
 
     @Override
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        if (state.get(LIT)) {
+            double d = (double)pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * 0.2D;
+            double e = (double)pos.getY() + 0.7D + (random.nextDouble() - 0.5D) * 0.2D;
+            double f = (double)pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * 0.2D;
+            world.addParticle(new DustParticleEffect(AtlanteanPowerLever.COLOR, 1.0F), d, e, f, 0.0D, 0.0D, 0.0D);
+        }
+    }
+
+    @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        if (OnlyWater(world, pos, state)) {
+        if (world.getFluidState(pos).isIn(FluidTags.WATER)) {
             return sideCoversSmallSquare(world, pos.down(), Direction.UP);
         } else {
             return false;
         }
     }
 
-    public Tag<Block> getAir(){
-        Tag<Block> air = new Tag<Block>() {
-            @Override
-            public boolean contains(Block element) {
-                return true;
-            }
-
-            @Override
-            public List<Block> values() {
-                List<Block> air2 = new ArrayList<Block>();
-                air2.add(Blocks.AIR);
-                return air2;
-            }
-        };
-        return air;
-    }
-
-    public boolean OnlyWater(WorldView worldReader, BlockPos pos, BlockState state) {
-        return !worldReader.getBlockState(pos).isIn(getAir()) || !this.canBlockStay(worldReader, pos, state);
-    }
-
-    public boolean canBlockStay(WorldView worldReader, BlockPos pos, BlockState state) {
-        return canPlaceBlockAt(worldReader, pos);
-    }
-
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED, LIT);
-    }
-
-    public boolean canPlaceBlockAt(WorldView worldReader, BlockPos pos) {
-
-        if (worldReader.getBlockState(pos).getMaterial() != Material.WATER)
-        {
-            return true;
-        }
-        return worldReader.getBlockState(pos.down()) != worldReader.getBlockState(pos.down());
     }
 }
