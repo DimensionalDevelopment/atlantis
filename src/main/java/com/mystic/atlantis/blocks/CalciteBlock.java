@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class CalciteBlock extends Block {
     public CalciteBlock(Settings settings) {
-        super(settings);
+        super(settings.ticksRandomly());
     }
 
     @Override
@@ -22,7 +22,7 @@ public class CalciteBlock extends Block {
 
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if (direction == Direction.UP && neighborState.isOf(Blocks.WATER)) {
+        if (direction == Direction.UP || direction == Direction.DOWN || direction == Direction.NORTH || direction == Direction.SOUTH || direction == Direction.EAST || direction == Direction.WEST && neighborState.isOf(Blocks.WATER)) {
             world.getBlockTickScheduler().schedule(pos, this, 20);
         }
 
