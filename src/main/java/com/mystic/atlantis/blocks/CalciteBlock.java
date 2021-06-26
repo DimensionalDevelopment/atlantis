@@ -6,6 +6,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
 import java.util.Random;
@@ -17,7 +18,9 @@ public class CalciteBlock extends Block {
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        PushBubbleColumn.update(world, pos.up(), state);
+        for (Direction dir : Direction.values()) {
+            PushBubbleColumn.update(world, pos.offset(dir), state, dir, 3);
+        }
     }
 
     @Override
@@ -27,5 +30,9 @@ public class CalciteBlock extends Block {
         }
 
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    }
+
+    public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+        world.getBlockTickScheduler().schedule(pos, this, 20);
     }
 }
