@@ -81,6 +81,8 @@ public class BlockInit {
     public static final AtlanteanTripwire ATLANTEAN_TRIPWIRE = (AtlanteanTripwire) blockOnlyRegistry("atlantean_tripwire", new AtlanteanTripwire(ATLANTEAN_TRIPWIRE_HOOK, AbstractBlock.Settings.of(Material.DECORATION).noCollision()));
     public static final AtlanteanPowerLever ATLANTEAN_POWER_LEVER = (AtlanteanPowerLever) register("atlantean_power_lever", new AtlanteanPowerLever(FabricBlockSettings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)));
     public static final AtlanteanPowerComparator ATLANTEAN_POWER_COMPARATOR = (AtlanteanPowerComparator) register("atlantean_power_comparator", new AtlanteanPowerComparator(FabricBlockSettings.of(Material.DECORATION)));
+    public static final CalciteBlock CALCITE_BLOCK = (CalciteBlock) register("calcite_block", new CalciteBlock(FabricBlockSettings.of(Material.STONE)));
+    public static final PushBubbleColumn PUSH_BUBBLE_COLUMN = (PushBubbleColumn) blockOnlyRegistry("push_bubble_column", new PushBubbleColumn(FabricBlockSettings.of(Material.BUBBLE_COLUMN)));
 
     private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);
