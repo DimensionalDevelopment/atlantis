@@ -69,9 +69,9 @@
     },
     "settings": {
       "name": "atlantis:atlantis",
-      "bedrock_roof_position": -70,
+      "bedrock_roof_position": -64,
       "noodle_caves_enabled": false,
-      "bedrock_floor_position": -64,
+      "bedrock_floor_position": 0,
       "sea_level": 384,
       "ore_veins_enabled": true,
       "min_surface_level": 30,
@@ -80,7 +80,7 @@
       "aquifers_enabled": true,
       "deepslate_enabled": true,
       "default_block": {
-        "Name": "minecraft:stone"
+        "Name": "minecraft:sandstone"
       },
       "default_fluid": {
         "Name": "minecraft:water",

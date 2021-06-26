@@ -30,7 +30,7 @@
         "feature": {
           "type": "atlantis:shell_block_feature_atlantis",
           "config": {
-            "count": 20
+
           }
         }
       }

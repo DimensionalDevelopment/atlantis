@@ -18,12 +18,12 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 
 public class AtlantisFeature {
-    public static final Feature<CountConfig> UNDERWATER_FLOWER_ATLANTIS = register(
-            "underwater_flower_atlantis", new UnderwaterFlowerAtlantis(CountConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> UNDERWATER_FLOWER_ATLANTIS = register(
+            "underwater_flower_atlantis", new UnderwaterFlowerAtlantis(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> ALGAE_FEATURE_ATLANTIS = register(
             "algae_feature_atlantis", new AlgaeFeatureAtlantis(DefaultFeatureConfig.CODEC));
-    public static final Feature<CountConfig> SHELL_BLOCK_FEATURE = register(
-            "shell_block_feature_atlantis", new ShellBlockFeature(CountConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> SHELL_BLOCK_FEATURE = register(
+            "shell_block_feature_atlantis", new ShellBlockFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> ATLANTEAN_ISLANDS = register(
             "atlantean_islands_feature_atlantis", new AtlanteanIslands(DefaultFeatureConfig.CODEC));
 
@@ -31,15 +31,11 @@ public class AtlantisFeature {
         Registry.register(Registry.FEATURE, new Identifier(Reference.MODID, id), t);
         return t;
     }
-    
-    public static final int l = 20;
-    public static final int k = 30;
-
 
     public static final class ConfiguredFeaturesAtlantis {
-        public static final ConfiguredFeature<?, ?> UNDERWATER_FLOWER_ATLANTIS = AtlantisFeature.UNDERWATER_FLOWER_ATLANTIS.configure(new CountConfig(UniformIntProvider.create(l, k)));
+        public static final ConfiguredFeature<?, ?> UNDERWATER_FLOWER_ATLANTIS = AtlantisFeature.UNDERWATER_FLOWER_ATLANTIS.configure(DefaultFeatureConfig.DEFAULT);
         public static final ConfiguredFeature<?, ?> ALGAE_FEATURE_ATLANTIS = AtlantisFeature.ALGAE_FEATURE_ATLANTIS.configure(FeatureConfig.DEFAULT);
-        public static final ConfiguredFeature<?, ?> SHELL_BLOCK_FEATURE_ATLANTIS = AtlantisFeature.SHELL_BLOCK_FEATURE.configure(new CountConfig(UniformIntProvider.create(l, k)));
+        public static final ConfiguredFeature<?, ?> SHELL_BLOCK_FEATURE_ATLANTIS = AtlantisFeature.SHELL_BLOCK_FEATURE.configure(DefaultFeatureConfig.DEFAULT);
         public static final ConfiguredFeature<?, ?> ATLANTEAN_ISLANDS_FEATURE_ATLANTIS = AtlantisFeature.ATLANTEAN_ISLANDS.configure(DefaultFeatureConfig.DEFAULT);
 
         public static final RegistryKey<ConfiguredFeature<?,?>> UNDERWATER_FLOWER_ATLANTIS_KEY = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(Reference.MODID, "underwater_flower_atlantis"));
