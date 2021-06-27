@@ -1,6 +1,8 @@
 package com.mystic.atlantis.surfacebuilder;
 
 import com.mojang.serialization.Codec;
+import com.mystic.atlantis.fluids.JetstreamWaterFluid;
+import com.mystic.atlantis.init.FluidInit;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -30,13 +32,7 @@ public class AtlanteanSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
             BlockState currentBlockState = chunk.getBlockState(blockpos);
 
             if (ypos >= 300) {
-                chunk.setBlockState(blockpos, Blocks.WATER.getDefaultState(), false); //TODO Change to jetstream water in the future!!!
-            }
-
-            if (currentBlockState == config.getUnderwaterMaterial()) {
-                if (ypos >= 40 && ypos <= 45) {
-                    chunk.setBlockState(blockpos, Blocks.WATER.getDefaultState(), false); //TODO Change to dense water in the future!!!
-                }
+                chunk.setBlockState(blockpos, FluidInit.JETSTREAM_WATER.getDefaultState(), false);
             }
 
             if (ypos >= 30 && ypos <= 32){
