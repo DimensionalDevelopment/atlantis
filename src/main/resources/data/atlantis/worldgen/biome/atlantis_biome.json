@@ -1,5 +1,5 @@
 {
-  "surface_builder": "minecraft:full_sand",
+  "surface_builder": "atlantis:atlantean_surface_builder",
   "depth": -1.0,
   "scale": 0.1,
   "temperature": 0.5,

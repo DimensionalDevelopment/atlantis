@@ -83,6 +83,7 @@ public class Atlantis implements ModInitializer
         GeckoLib.initialize();
 
         DimensionAtlantis.registerBiomeSources();
+        DimensionAtlantis.setupSurfaceBuilders();
         DimensionAtlantis.init();
 
         AtlantisFeature.ConfiguredFeaturesAtlantis.registerConfiguredFeatures();

@@ -52,7 +52,7 @@
             "temperature": 0.7,
             "humidity": 0,
             "weirdness": 0.3,
-            "offset": 0.7
+            "offset": 0.4
           }
         },
         {
@@ -62,7 +62,7 @@
             "temperature": 0.6,
             "humidity": 0,
             "weirdness": 0.1,
-            "offset": 0.5
+            "offset": 0.3
           }
         }
       ]
