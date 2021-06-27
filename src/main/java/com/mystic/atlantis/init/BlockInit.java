@@ -4,6 +4,7 @@ import com.mystic.atlantis.blocks.*;
 import com.mystic.atlantis.blocks.plants.Algae;
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
 import com.mystic.atlantis.blocks.power.*;
+import com.mystic.atlantis.blocks.slabs.AncientWoodSlabs;
 import com.mystic.atlantis.util.Reference;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -83,6 +84,12 @@ public class BlockInit {
     public static final AtlanteanPowerComparator ATLANTEAN_POWER_COMPARATOR = (AtlanteanPowerComparator) register("atlantean_power_comparator", new AtlanteanPowerComparator(FabricBlockSettings.of(Material.DECORATION)));
     public static final CalciteBlock CALCITE_BLOCK = (CalciteBlock) register("calcite_block", new CalciteBlock(FabricBlockSettings.of(Material.STONE)));
     public static final PushBubbleColumn PUSH_BUBBLE_COLUMN = (PushBubbleColumn) blockOnlyRegistry("push_bubble_column", new PushBubbleColumn(FabricBlockSettings.of(Material.BUBBLE_COLUMN)));
+    public static final AncientWoodSlabs ANCIENT_ACACIA_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_acacia_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSlabs ANCIENT_OAK_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_oak_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSlabs ANCIENT_JUNGLE_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_jungle_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSlabs ANCIENT_SPRUCE_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_spruce_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSlabs ANCIENT_BIRCH_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_birch_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSlabs ANCIENT_DARK_OAK_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_dark_oak_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
 
     private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);
