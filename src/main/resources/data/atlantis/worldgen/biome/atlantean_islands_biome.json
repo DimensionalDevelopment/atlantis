@@ -79,8 +79,7 @@
       "atlantis:configured_atlantean_island_feature"
     ],
     [
-      "minecraft:lake_water",
-      "minecraft:lake_lava"
+      "atlantis:configured_jetstream_lake_feature_atlantis"
     ],
     [],
     [

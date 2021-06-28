@@ -31,10 +31,6 @@ public class AtlanteanSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
             BlockPos blockpos = new BlockPos(xpos, ypos, zpos);
             BlockState currentBlockState = chunk.getBlockState(blockpos);
 
-            if (ypos >= 300) {
-                chunk.setBlockState(blockpos, FluidInit.JETSTREAM_WATER.getDefaultState(), false);
-            }
-
             if (ypos >= 30 && ypos <= 32){
                 chunk.setBlockState(blockpos, Blocks.SANDSTONE.getDefaultState(), false); //TODO Change to algae growth block!!!
             }
