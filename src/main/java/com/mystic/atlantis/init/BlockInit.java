@@ -38,14 +38,6 @@ public class BlockInit {
     public static final AncientWoodStairs ANCIENT_OAK_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_oak_wood_moss_stairs", new AncientWoodStairs(Blocks.OAK_STAIRS.getDefaultState(),FabricBlockSettings.of(Material.WOOD)));
     public static final AncientWoodStairs ANCIENT_ACACIA_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_acacia_wood_moss_stairs", new AncientWoodStairs(Blocks.ACACIA_STAIRS.getDefaultState(),FabricBlockSettings.of(Material.WOOD)));
 
-    //Signs
-    public static final AncientWoodSigns ANCIENT_DARK_OAK_WOOD_MOSS_SIGN = (AncientWoodSigns) register("ancient_dark_oak_wood_moss_sign", new AncientWoodSigns(SignType.DARK_OAK, FabricBlockSettings.of(Material.WOOD)));
-    public static final AncientWoodSigns ANCIENT_BIRCH_WOOD_MOSS_SIGN = (AncientWoodSigns) register("ancient_birch_wood_moss_sign", new AncientWoodSigns(SignType.BIRCH, FabricBlockSettings.of(Material.WOOD)));
-    public static final AncientWoodSigns ANCIENT_SPRUCE_WOOD_MOSS_SIGN = (AncientWoodSigns) register("ancient_spruce_wood_moss_sign", new AncientWoodSigns(SignType.SPRUCE, FabricBlockSettings.of(Material.WOOD)));
-    public static final AncientWoodSigns ANCIENT_JUNGLE_WOOD_MOSS_SIGN = (AncientWoodSigns) register("ancient_jungle_wood_moss_sign", new AncientWoodSigns(SignType.JUNGLE, FabricBlockSettings.of(Material.WOOD)));
-    public static final AncientWoodSigns ANCIENT_OAK_WOOD_MOSS_SIGN = (AncientWoodSigns) register("ancient_oak_wood_moss_sign", new AncientWoodSigns(SignType.OAK, FabricBlockSettings.of(Material.WOOD)));
-    public static final AncientWoodSigns ANCIENT_ACACIA_WOOD_MOSS_SIGN = (AncientWoodSigns) register("ancient_acacia_wood_moss_sign", new AncientWoodSigns(SignType.ACACIA, FabricBlockSettings.of(Material.WOOD)));
-
     //Fences
     public static final AncientWoodFence ANCIENT_DARK_OAK_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_dark_oak_wood_moss_fence", new AncientWoodFence(FabricBlockSettings.of(Material.WOOD)));
     public static final AncientWoodFence ANCIENT_BIRCH_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_birch_wood_moss_fence", new AncientWoodFence(FabricBlockSettings.of(Material.WOOD)));
