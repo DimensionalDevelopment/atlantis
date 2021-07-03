@@ -20,4 +20,6 @@ public class AncientWoodSigns extends SignBlock {
                         .requiresTool()
                         .strength(3.0F, 6.0F), signType);
     }
+
+
 }
