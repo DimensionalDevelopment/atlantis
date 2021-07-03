@@ -4,8 +4,10 @@ import com.mystic.atlantis.dimension.AltantisSkyRenderer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.entities.models.CrabEntityModel;
+import com.mystic.atlantis.entities.models.Jellyfish2EntityModel;
 import com.mystic.atlantis.entities.models.JellyfishEntityModel;
 import com.mystic.atlantis.entities.renders.CrabEntityRenderer;
+import com.mystic.atlantis.entities.renders.Jellyfish2EntityRenderer;
 import com.mystic.atlantis.entities.renders.JellyfishEntityRenderer;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
@@ -96,6 +98,7 @@ public class ClientSetup implements ClientModInitializer {
 
         EntityRendererRegistry.INSTANCE.register(AtlantisEntities.CRAB, entityRenderDispatcher -> new CrabEntityRenderer(entityRenderDispatcher, new CrabEntityModel()));
         EntityRendererRegistry.INSTANCE.register(AtlantisEntities.JELLYFISH, entityRenderDispatcher -> new JellyfishEntityRenderer(entityRenderDispatcher, new JellyfishEntityModel()));
+        EntityRendererRegistry.INSTANCE.register(AtlantisEntities.JELLYFISH2, entityRenderDispatcher -> new Jellyfish2EntityRenderer(entityRenderDispatcher, new Jellyfish2EntityModel()));
     }
 
     public static void setupFluidRendering(final Fluid still, final Fluid flowing, final Identifier textureFluidId, final int color) {

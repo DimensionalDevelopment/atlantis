@@ -77,9 +77,9 @@
   "item.atlantis.crab_legs": "Crab Legs",
   "item.atlantis.crab_bucket": "Crab in a Bucket",
   "block.atlantis.atlantis_clear_portal": "Atlantean Portal",
-  "item.atlantis.jellyfish_bucket": "Jellyfish in a Bucket",
-  "entity.atlantis.atlantean_jellyfish": "Atlantean Jellyfish",
-  "item.atlantis.atlantean_jellyfish_egg": "Atlantean Jellyfish Spawn Egg",
+  "item.atlantis.jellyfish_bucket": "Jellyfish Var. 1 in a Bucket",
+  "entity.atlantis.atlantean_jellyfish": "Atlantean Jellyfish Var. 1",
+  "item.atlantis.atlantean_jellyfish_egg": "Atlantean Jellyfish Var. 1 Spawn Egg",
   "text.autoconfig.atlantis.title": "Atlantean Config",
   "text.autoconfig.atlantis.option.general.minCrabSpawnHeight": "Minimum Crab Spawn Height",
   "text.autoconfig.atlantis.option.general.minCrabSpawnHeight.@Tooltip[0]": "The Minimum Height The Atlantean Crab Will Spawn At",
@@ -92,5 +92,8 @@
   "block.atlantis.atlantean_power_repeater": "Atlantean Power Repeater",
   "block.atlantis.atlantean_tripwire_hook": "Atlantean Tripwire Hook",
   "item.atlantis.atlantean_string": "Atlantean String",
-  "block.atlantis.atlantean_power_lever": "Atlantean Power Lever"
+  "block.atlantis.atlantean_power_lever": "Atlantean Power Lever",
+  "item.atlantis.jellyfish_2_bucket": "Jellyfish Var. 2 in a Bucket",
+  "entity.atlantis.atlantean_jellyfish_2": "Atlantean Jellyfish Var. 2",
+  "item.atlantis.atlantean_jellyfish_2_egg": "Atlantean Jellyfish Var. 2 Spawn Egg"
 }

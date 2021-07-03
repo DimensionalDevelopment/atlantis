@@ -1,0 +1,33 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.jellyfish2.hover": {
+			"animation_length": 1.5,
+			"bones": {
+				"Head": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [1.1, 0.8, 1.1]
+						},
+						"1.0": {
+							"vector": [1.1, 0.8, 1.1]
+						},
+						"1.1667": {
+							"vector": [0.8, 1.4, 0.8]
+						},
+						"1.5": {
+							"vector": [1, 1, 1]
+						}
+					}
+				}
+			}
+		},
+		"animation.jellyfish2.idle": {
+			"loop": true
+		}
+	},
+	"geckolib_format_version": 2
+}

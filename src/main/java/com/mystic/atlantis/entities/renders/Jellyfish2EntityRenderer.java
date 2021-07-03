@@ -1,6 +1,6 @@
 package com.mystic.atlantis.entities.renders;
 
-import com.mystic.atlantis.entities.JellyfishEntity;
+import com.mystic.atlantis.entities.Jellyfish2Entity;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
@@ -25,14 +25,14 @@ import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 
 import java.util.Collections;
 
-public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> {
+public class Jellyfish2EntityRenderer extends GeoEntityRenderer<Jellyfish2Entity> {
 
-    public JellyfishEntityRenderer(EntityRendererFactory.Context renderManager, AnimatedGeoModel<JellyfishEntity> modelProvider) {
+    public Jellyfish2EntityRenderer(EntityRendererFactory.Context renderManager, AnimatedGeoModel<Jellyfish2Entity> modelProvider) {
         super(renderManager, modelProvider);
     }
 
     @Override
-    public void render(JellyfishEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(Jellyfish2Entity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         renderStuff(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
 
         Entity entity = mobEntity.getHoldingEntity();
@@ -41,7 +41,7 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
         }
     }
 
-    private void renderStuff(JellyfishEntity entity, float entityYaw, float partialTicks, MatrixStack stack,
+    private void renderStuff(Jellyfish2Entity entity, float entityYaw, float partialTicks, MatrixStack stack,
                              VertexConsumerProvider bufferIn, int packedLightIn) {
         stack.push();
         boolean shouldSit = entity.hasVehicle() && (entity.getVehicle() != null);
@@ -99,11 +99,11 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
         entityModelData.headPitch = -headPitch;
         entityModelData.netHeadYaw = -netHeadYaw;
 
-        AnimationEvent<JellyfishEntity> predicate = new AnimationEvent<JellyfishEntity>(entity, limbSwing, lastLimbDistance, partialTicks,
+        AnimationEvent<Jellyfish2Entity> predicate = new AnimationEvent<Jellyfish2Entity>(entity, limbSwing, lastLimbDistance, partialTicks,
                 !(lastLimbDistance > -0.15F && lastLimbDistance < 0.15F), Collections.singletonList(entityModelData));
         GeoModel model = getGeoModelProvider().getModel(getGeoModelProvider().getModelLocation(entity));
         if (getGeoModelProvider() instanceof IAnimatableModel) {
-            ((IAnimatableModel<JellyfishEntity>) getGeoModelProvider()).setLivingAnimations(entity, this.getUniqueID(entity), predicate);
+            ((IAnimatableModel<Jellyfish2Entity>) getGeoModelProvider()).setLivingAnimations(entity, this.getUniqueID(entity), predicate);
         }
 
         stack.translate(0, 0.01f, 0);
@@ -117,7 +117,7 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
                 (float) ((renderColor) & 0xFF) / 255f, invis ? 0.0F : 125f / 255f);
 
         if (!entity.isSpectator()) {
-            for (GeoLayerRenderer<JellyfishEntity> layerRenderer : this.layerRenderers) {
+            for (GeoLayerRenderer<Jellyfish2Entity> layerRenderer : this.layerRenderers) {
                 layerRenderer.render(stack, bufferIn, packedLightIn, entity, limbSwing, lastLimbDistance, partialTicks,
                         f7, netHeadYaw, headPitch);
             }
@@ -132,7 +132,7 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
         }
     }
 
-    private <E extends Entity> void method_4073(JellyfishEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, E holdingEntity) {
+    private <E extends Entity> void method_4073(Jellyfish2Entity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, E holdingEntity) {
         matrices.push();
         Vec3d vec3d = holdingEntity.method_30951(tickDelta);
         double d = (double)(MathHelper.lerp(tickDelta, entity.bodyYaw, entity.prevBodyYaw) * 0.017453292F) + 1.5707963267948966D;

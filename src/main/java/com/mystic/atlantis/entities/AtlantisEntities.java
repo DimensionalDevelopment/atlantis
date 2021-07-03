@@ -22,11 +22,16 @@ public class AtlantisEntities
                     .dimensions(EntityDimensions.fixed(0.4f, 0.8f))
                     .build());
 
+    public static final EntityType<Jellyfish2Entity> JELLYFISH2 =
+            Registry.register(Registry.ENTITY_TYPE, Atlantis.id("atlantean_jellyfish_2"), FabricEntityTypeBuilder.create(SpawnGroup.WATER_AMBIENT, Jellyfish2Entity::new)
+                    .dimensions(EntityDimensions.fixed(0.4f, 0.8f))
+                    .build());
+
     public static void initialize() {
         FabricDefaultAttributeRegistry.register(AtlantisEntities.CRAB, CrabEntity.createCrabAttributes());
         SpawnRestriction.register(AtlantisEntities.CRAB, SpawnRestriction.Location.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CrabEntity::canSpawn);
 
         FabricDefaultAttributeRegistry.register(AtlantisEntities.JELLYFISH, JellyfishEntity.createJellyfishAttributes());
-        SpawnRestriction.register(AtlantisEntities.JELLYFISH, SpawnRestriction.Location.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, JellyfishEntity::canSpawn);
+        FabricDefaultAttributeRegistry.register(AtlantisEntities.JELLYFISH2, Jellyfish2Entity.createJellyfishAttributes());
     }
 }

@@ -219,8 +219,4 @@ public class JellyfishEntity extends WaterCreatureEntity implements IAnimatable,
         }
         return PlayState.CONTINUE;
     }
-
-    public static boolean canSpawn(EntityType<JellyfishEntity> jellyfishEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return true;
-    }
 }
