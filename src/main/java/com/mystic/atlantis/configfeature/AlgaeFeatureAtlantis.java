@@ -25,23 +25,15 @@ public class AlgaeFeatureAtlantis extends Feature<DefaultFeatureConfig> {
 
     public boolean generate(FeatureContext<DefaultFeatureConfig> config) {
         StructureWorldAccess reader = config.getWorld();
-        Random rand = config.getRandom();
         BlockPos pos = config.getOrigin();
-        BlockPos.Mutable blockpos$mutable = pos.mutableCopy();
-        for(int i = 0; i < 75; ++i) {
-            blockpos$mutable.set(pos);
-            blockpos$mutable.move(rand.nextInt(4) - rand.nextInt(4), 0, rand.nextInt(4) - rand.nextInt(4));
-            blockpos$mutable.setY(i);
-            if (!reader.isAir(blockpos$mutable)) {
+            if (!reader.isAir(pos)) {
                 for(Direction direction : DIRECTIONS) {
-                    if (direction != Direction.DOWN && Algae.canAttachTo(reader, blockpos$mutable, direction)) {
-                        reader.setBlockState(blockpos$mutable, BlockInit.ALGAE.getDefaultState().with(Algae.getPropertyFor(direction), Boolean.TRUE), 2);
+                    if (direction != Direction.DOWN && Algae.canAttachTo(reader, pos, direction)) {
+                        reader.setBlockState(pos, BlockInit.ALGAE.getDefaultState().with(Algae.getPropertyFor(direction), Boolean.TRUE), 2);
                         break;
                     }
                 }
             }
-        }
-
         return true;
     }
 }

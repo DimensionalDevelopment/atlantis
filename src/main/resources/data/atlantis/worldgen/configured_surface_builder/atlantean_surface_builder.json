@@ -1,0 +1,17 @@
+{
+	"config": {
+		"top_material": {
+			"Name": "minecraft:water",
+			"Properties": {
+				"level": "0"
+			}
+		},
+		"under_material": {
+			"Name": "minecraft:sandstone"
+		},
+		"underwater_material": {
+			"Name": "minecraft:sand"
+		}
+	},
+	"type": "atlantis:atlantean_surface_builder"
+}

@@ -14,8 +14,10 @@ import net.minecraft.tag.FluidTags;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Objects;
 
@@ -23,7 +25,7 @@ import java.util.Objects;
 public abstract class ChangeBreakSpeedMixin extends LivingEntity {
     @Shadow
     @Final
-    public PlayerInventory inventory;
+    private PlayerInventory inventory;
 
     protected ChangeBreakSpeedMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -32,10 +34,12 @@ public abstract class ChangeBreakSpeedMixin extends LivingEntity {
     //copied from base with changed lines marked with /*change*/
 
     /**
-     * @author j
+     * @author j, Mysticpasta1
+     * @reason for breaking speed faster in water in the custom dimension!
      */
-    @Overwrite
-    public float getBlockBreakingSpeed(BlockState block) {
+    @Inject(method = "getBlockBreakingSpeed", at = @At(value = "HEAD"), cancellable = true)
+    public void getBlockBreakingSpeed(BlockState block, CallbackInfoReturnable<Float> cir) {
+        cir.cancel();
         float f = this.inventory.getBlockBreakingSpeed(block);
         if (f > 1.0F) {
             int i = EnchantmentHelper.getEfficiency(this);
@@ -50,21 +54,12 @@ public abstract class ChangeBreakSpeedMixin extends LivingEntity {
         }
 
         if (this.hasStatusEffect(StatusEffects.MINING_FATIGUE)) {
-            float k;
-            switch (Objects.requireNonNull(this.getStatusEffect(StatusEffects.MINING_FATIGUE)).getAmplifier()) {
-                case 0:
-                    k = 0.3F;
-                    break;
-                case 1:
-                    k = 0.09F;
-                    break;
-                case 2:
-                    k = 0.0027F;
-                    break;
-                case 3:
-                default:
-                    k = 8.1E-4F;
-            }
+            float k = switch (Objects.requireNonNull(this.getStatusEffect(StatusEffects.MINING_FATIGUE)).getAmplifier()) {
+                case 0 -> 0.3F;
+                case 1 -> 0.09F;
+                case 2 -> 0.0027F;
+                default -> 8.1E-4F;
+            };
 
             f *= k;
         }
@@ -90,6 +85,6 @@ public abstract class ChangeBreakSpeedMixin extends LivingEntity {
             }
         }
 
-        return f;
+        cir.setReturnValue(f);
     }
 }
