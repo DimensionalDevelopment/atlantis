@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "atlantis:items/ancient_acacia_wood_moss_sign"
+  }
+}

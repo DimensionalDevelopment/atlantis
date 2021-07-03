@@ -12,15 +12,57 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.SignType;
 import net.minecraft.util.registry.Registry;
 
 import java.util.Objects;
 import java.util.function.Function;
 
 public class BlockInit {
-
+  
     public static void init() {}
 
+    //Trapdoors
+    public static final AncientWoodTrapdoor ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_dark_oak_wood_moss_trapdoor", new AncientWoodTrapdoor(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodTrapdoor ANCIENT_BIRCH_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_birch_wood_moss_trapdoor", new AncientWoodTrapdoor(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodTrapdoor ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_spruce_wood_moss_trapdoor", new AncientWoodTrapdoor(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodTrapdoor ANCIENT_JUNGLE_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_jungle_wood_moss_trapdoor", new AncientWoodTrapdoor(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodTrapdoor ANCIENT_OAK_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_oak_wood_moss_trapdoor", new AncientWoodTrapdoor(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodTrapdoor ANCIENT_ACACIA_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_acacia_wood_moss_trapdoor", new AncientWoodTrapdoor(FabricBlockSettings.of(Material.WOOD)));
+
+    //Stairs
+    public static final AncientWoodStairs ANCIENT_DARK_OAK_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_dark_oak_wood_moss_stairs", new AncientWoodStairs(Blocks.DARK_OAK_STAIRS.getDefaultState(), FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodStairs ANCIENT_BIRCH_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_birch_wood_moss_stairs", new AncientWoodStairs(Blocks.BIRCH_STAIRS.getDefaultState(),FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodStairs ANCIENT_SPRUCE_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_spruce_wood_moss_stairs", new AncientWoodStairs(Blocks.SPRUCE_STAIRS.getDefaultState(),FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodStairs ANCIENT_JUNGLE_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_jungle_wood_moss_stairs", new AncientWoodStairs(Blocks.JUNGLE_STAIRS.getDefaultState(),FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodStairs ANCIENT_OAK_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_oak_wood_moss_stairs", new AncientWoodStairs(Blocks.OAK_STAIRS.getDefaultState(),FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodStairs ANCIENT_ACACIA_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_acacia_wood_moss_stairs", new AncientWoodStairs(Blocks.ACACIA_STAIRS.getDefaultState(),FabricBlockSettings.of(Material.WOOD)));
+
+    //Signs
+    public static final AncientWoodSigns ANCIENT_DARK_OAK_WOOD_MOSS_SIGN = (AncientWoodSigns) register("ancient_dark_oak_wood_moss_sign", new AncientWoodSigns(SignType.DARK_OAK, FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSigns ANCIENT_BIRCH_WOOD_MOSS_SIGN = (AncientWoodSigns) register("ancient_birch_wood_moss_sign", new AncientWoodSigns(SignType.BIRCH, FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSigns ANCIENT_SPRUCE_WOOD_MOSS_SIGN = (AncientWoodSigns) register("ancient_spruce_wood_moss_sign", new AncientWoodSigns(SignType.SPRUCE, FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSigns ANCIENT_JUNGLE_WOOD_MOSS_SIGN = (AncientWoodSigns) register("ancient_jungle_wood_moss_sign", new AncientWoodSigns(SignType.JUNGLE, FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSigns ANCIENT_OAK_WOOD_MOSS_SIGN = (AncientWoodSigns) register("ancient_oak_wood_moss_sign", new AncientWoodSigns(SignType.OAK, FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSigns ANCIENT_ACACIA_WOOD_MOSS_SIGN = (AncientWoodSigns) register("ancient_acacia_wood_moss_sign", new AncientWoodSigns(SignType.ACACIA, FabricBlockSettings.of(Material.WOOD)));
+
+    //Fences
+    public static final AncientWoodFence ANCIENT_DARK_OAK_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_dark_oak_wood_moss_fence", new AncientWoodFence(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodFence ANCIENT_BIRCH_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_birch_wood_moss_fence", new AncientWoodFence(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodFence ANCIENT_SPRUCE_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_spruce_wood_moss_fence", new AncientWoodFence(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodFence ANCIENT_JUNGLE_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_jungle_wood_moss_fence", new AncientWoodFence(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodFence ANCIENT_OAK_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_oak_wood_moss_fence", new AncientWoodFence(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodFence ANCIENT_ACACIA_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_acacia_wood_moss_fence", new AncientWoodFence(FabricBlockSettings.of(Material.WOOD)));
+
+    //Doors
+    public static final AncientWoodDoors ANCIENT_DARK_OAK_WOOD_MOSS_DOOR = (AncientWoodDoors) register("ancient_dark_oak_wood_moss_door", new AncientWoodDoors(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodDoors ANCIENT_BIRCH_WOOD_MOSS_DOOR = (AncientWoodDoors) register("ancient_birch_wood_moss_door", new AncientWoodDoors(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodDoors ANCIENT_SPRUCE_WOOD_MOSS_DOOR = (AncientWoodDoors) register("ancient_spruce_wood_moss_door", new AncientWoodDoors(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodDoors ANCIENT_JUNGLE_WOOD_MOSS_DOOR = (AncientWoodDoors) register("ancient_jungle_wood_moss_door", new AncientWoodDoors(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodDoors ANCIENT_OAK_WOOD_MOSS_DOOR = (AncientWoodDoors) register("ancient_oak_wood_moss_door", new AncientWoodDoors(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodDoors ANCIENT_ACACIA_WOOD_MOSS_DOOR = (AncientWoodDoors) register("ancient_acacia_wood_moss_door", new AncientWoodDoors(FabricBlockSettings.of(Material.WOOD)));
+
+    //Regular blocks
     public static final AncientWood ANCIENT_ACACIA_WOOD_MOSS = (AncientWood) register("ancient_acacia_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
     public static final AncientWood ANCIENT_OAK_WOOD_MOSS = (AncientWood) register("ancient_oak_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
     public static final AncientWood ANCIENT_JUNGLE_WOOD_MOSS = (AncientWood) register("ancient_jungle_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
@@ -29,6 +71,7 @@ public class BlockInit {
     public static final AncientWood ANCIENT_DARK_OAK_WOOD_MOSS = (AncientWood) register("ancient_dark_oak_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
     public static final AquamarineOre AQUAMARINE_ORE = (AquamarineOre) register("aquamarine_ore", new AquamarineOre(FabricBlockSettings.of(Material.STONE)));
     public static final OceanLantern OCEAN_LANTERN = (OceanLantern) register("ocean_lantern", new OceanLantern(FabricBlockSettings.of(Material.METAL)));
+    public static final AtlantianSeaLantern ATLANTIAN_SEA_LANTERN = (AtlantianSeaLantern) register("atlantean_sea_lantern", new AtlantianSeaLantern(FabricBlockSettings.of(Material.GLASS)));
     public static final AtlanteanCore ATLANTEAN_CORE = (AtlanteanCore) register("atlantean_core", new AtlanteanCore(FabricBlockSettings.of(Material.GLASS)));
     public static final BlockAquamarine BLOCK_OF_AQUAMARINE = (BlockAquamarine) register("block_of_aquamarine", new BlockAquamarine(FabricBlockSettings.of(Material.METAL)));
     public static final BlockAquamarine CHISELED_GOLDEN_BLOCK = (BlockAquamarine) register("chiseled_golden_block", new BlockAquamarine(FabricBlockSettings.of(Material.METAL)));

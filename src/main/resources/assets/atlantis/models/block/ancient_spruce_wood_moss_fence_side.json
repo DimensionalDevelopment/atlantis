@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_side",
+  "textures": {
+    "texture": "minecraft:block/ancient_spruce_wood_moss"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_orientable_trapdoor_top",
+  "textures": {
+    "texture": "atlantis:block/ancient_dark_oak_wood_moss_trapdoor"
+  }
+}

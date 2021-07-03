@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "atlantis:block/ancient_dark_oak_wood_moss",
+    "top": "atlantis:block/ancient_dark_oak_wood_moss",
+    "side": "atlantis:block/ancient_dark_oak_wood_moss"
+  }
+}
