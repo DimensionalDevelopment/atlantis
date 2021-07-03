@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_rh",
+  "textures": {
+    "top": "atlantis:block/ancient_birch_wood_moss_door_top",
+    "bottom": "atlantis:block/ancient_birch_wood_moss_door_bottom"
+  }
+}
