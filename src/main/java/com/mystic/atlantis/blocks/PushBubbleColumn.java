@@ -32,7 +32,7 @@ import java.util.Random;
 public class PushBubbleColumn extends Block implements FluidDrainable {
     public static final DirectionProperty PUSH = Properties.FACING;
     public static final IntProperty DECAY = IntProperty.of("decay", 0, 30);
-    private static final int SCHEDULED_TICK_DELAY = 5;
+    private static final int SCHEDULED_TICK_DELAY = 1;
 
     public PushBubbleColumn(AbstractBlock.Settings settings) {
         super(settings.noCollision().dropsNothing().ticksRandomly());
@@ -64,19 +64,17 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
     }
 
     public static void update(ServerWorld world, BlockPos pos, Direction dir) {
+        BlockPos previousPos = pos.offset(dir.getOpposite());
+        BlockPos nextPos = pos.offset(dir);
         BlockState current = world.getBlockState(pos);
-        BlockState previous = world.getBlockState(pos.offset(dir.getOpposite()));
+        BlockState previous = world.getBlockState(previousPos);
+        BlockState next = world.getBlockState(nextPos);
 
-        Optional<BlockState> optionalBlockState = getBubbleState(previous, current, dir);
+        getBubbleState(previous, current, dir).ifPresent(state -> world.setBlockState(pos, state, Block.NOTIFY_LISTENERS));
 
-        if(getBubbleState(previous, current, dir).isPresent()) {
-            BlockState state = optionalBlockState.get();
+        getBubbleState(current, next, dir).ifPresent(state -> world.setBlockState(nextPos, state, Block.NOTIFY_LISTENERS));
 
-            world.setBlockState(pos, state, Block.NOTIFY_LISTENERS);
-
-            update(world, pos.offset(dir), dir);
         }
-    }
 
     @Override
     public FluidState getFluidState(BlockState state) {
@@ -104,23 +102,33 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
     }
 
     private static Optional<BlockState> getBubbleState(BlockState previous, BlockState current, Direction dir) {
-        if (previous.isOf(BlockInit.CALCITE_BLOCK)) {
-            if(isStillWater(current) || current.isOf(BlockInit.PUSH_BUBBLE_COLUMN)) {
-                return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.getDefaultState().with(PUSH, dir).with(DECAY, 3));
-            } else {
-                return Optional.empty();
-            }
-        } else if (previous.isOf(BlockInit.PUSH_BUBBLE_COLUMN)) {
-            if (previous.get(DECAY) == 0) {
+        if(!current.isOf(BlockInit.CALCITE_BLOCK)) {
+            if(isStillWater(previous)) {
                 return Optional.of(Blocks.WATER.getDefaultState());
-            } else if (previous.get(PUSH).equals(dir)) {
+            } else if (previous.isOf(BlockInit.CALCITE_BLOCK)) {
                 if (isStillWater(current) || current.isOf(BlockInit.PUSH_BUBBLE_COLUMN)) {
-                    return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.getDefaultState().with(PUSH, dir).with(DECAY, previous.get(DECAY) - 1));
+                    return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.getDefaultState().with(PUSH, dir).with(DECAY, 3));
                 } else {
                     return Optional.empty();
                 }
+            } else if (previous.isOf(BlockInit.PUSH_BUBBLE_COLUMN)) {
+                if (previous.get(DECAY) == 0) {
+                    return Optional.of(Blocks.WATER.getDefaultState());
+                } else if (previous.get(PUSH).equals(dir)) {
+                    if (isStillWater(current) || current.isOf(BlockInit.PUSH_BUBBLE_COLUMN)) {
+                        return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.getDefaultState().with(PUSH, dir).with(DECAY, previous.get(DECAY) - 1));
+                    } else {
+                        return Optional.empty();
+                    }
+                } else {
+                    return Optional.of(Blocks.WATER.getDefaultState());
+                }
             } else {
-                return Optional.of(Blocks.WATER.getDefaultState());
+                if (current.isOf(BlockInit.PUSH_BUBBLE_COLUMN)) {
+                    return Optional.of(Blocks.WATER.getDefaultState());
+                } else {
+                    return Optional.empty();
+                }
             }
         } else {
             return Optional.empty();
@@ -151,7 +159,7 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         if (!this.canPlaceAt(state, world, pos) && !neighborState.isOf(BlockInit.PUSH_BUBBLE_COLUMN) && isStillWater(neighborState)) {
-            world.getBlockTickScheduler().schedule(pos, this, 5);
+            world.getBlockTickScheduler().schedule(pos, this, 1);
         }
 
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
