@@ -16,7 +16,7 @@ import static net.minecraft.state.property.Properties.FACING;
 
 public class ColoredShellBlocks extends Block {
 
-    private static final Direction[] GENERATE_DIRECTIONS = new Direction[]{Direction.WEST, Direction.EAST, Direction.SOUTH, Direction.NORTH};
+    private static final Direction[] GENERATE_DIRECTIONS = new Direction[]{Direction.WEST, Direction.EAST, Direction.SOUTH, Direction.NORTH, Direction.UP, Direction.DOWN};
 
     public ColoredShellBlocks(FabricBlockSettings properties) {
         super(properties
@@ -35,7 +35,7 @@ public class ColoredShellBlocks extends Block {
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
-        return this.getDefaultState().with(FACING, context.getPlayerFacing());
+        return this.getDefaultState().with(FACING, context.getSide());
     }
 
 

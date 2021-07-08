@@ -2,17 +2,15 @@ package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.blocks.*;
 import com.mystic.atlantis.blocks.plants.Algae;
-import com.mystic.atlantis.blocks.plants.PurpleGlowingMushroom;
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
-import com.mystic.atlantis.blocks.plants.YellowGlowingMushroom;
+import com.mystic.atlantis.blocks.power.*;
+import com.mystic.atlantis.blocks.slabs.AncientWoodSlabs;
 import com.mystic.atlantis.util.Reference;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
-import net.minecraft.block.StairsBlock;
+import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.SignType;
 import net.minecraft.util.registry.Registry;
@@ -21,6 +19,8 @@ import java.util.Objects;
 import java.util.function.Function;
 
 public class BlockInit {
+  
+    public static void init() {}
 
     //Trapdoors
     public static final AncientWoodTrapdoor ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_dark_oak_wood_moss_trapdoor", new AncientWoodTrapdoor(FabricBlockSettings.of(Material.WOOD)));
@@ -103,15 +103,32 @@ public class BlockInit {
     public static final OysterShellBlock OYSTER_SHELL_BLOCK = (OysterShellBlock) register("oyster_shell_block", new OysterShellBlock(FabricBlockSettings.of(Material.STONE)));
     public static final AtlantisPortalBlock ATLANTIS_PORTAL = (AtlantisPortalBlock) register("atlantis_portal", new AtlantisPortalBlock(FabricBlockSettings.of(Material.PORTAL)));
     public static final UnderwaterFlower UNDERWATER_FLOWER = (UnderwaterFlower) register("underwater_flower", new UnderwaterFlower(FabricBlockSettings.of(Material.PLANT)));
-    public static final PurpleGlowingMushroom PURPLE_GLOWING_MUSHROOM = (PurpleGlowingMushroom) register("purple_glowing_mushroom", new PurpleGlowingMushroom(FabricBlockSettings.of(Material.PLANT)));
-    public static final YellowGlowingMushroom YELLOW_GLOWING_MUSHROOM = (YellowGlowingMushroom) register("yellow_glowing_mushroom", new YellowGlowingMushroom(FabricBlockSettings.of(Material.PLANT)));
+    public static final UnderwaterFlower RED_UNDERWATER_FLOWER = (UnderwaterFlower) register("red_underwater_flower", new UnderwaterFlower(FabricBlockSettings.of(Material.PLANT)));
+    public static final UnderwaterFlower YELLOW_UNDERWATER_FLOWER = (UnderwaterFlower) register("yellow_underwater_flower", new UnderwaterFlower(FabricBlockSettings.of(Material.PLANT)));
     public static final Algae ALGAE = (Algae) register("algae", new Algae(FabricBlockSettings.of(Material.PLANT)));
     public static final AtlantisClearPortalBlock ATLANTIS_CLEAR_PORTAL = (AtlantisClearPortalBlock) register("atlantis_clear_portal", new AtlantisClearPortalBlock(FabricBlockSettings.of(Material.PORTAL)));
-
+    public static final AtlanteanPowerStone ATLANTEAN_POWER_STONE = (AtlanteanPowerStone) register("atlantean_power_stone", new AtlanteanPowerStone(FabricBlockSettings.of(Material.STONE)));
+    public static final AtlanteanPowerLamp ATLANTEAN_POWER_LAMP = (AtlanteanPowerLamp) register("atlantean_power_lamp", new AtlanteanPowerLamp(FabricBlockSettings.of(Material.REDSTONE_LAMP).strength(0.3F)));
+    public static final AtlanteanPowerTorch ATLANTEAN_POWER_TORCH = (AtlanteanPowerTorch) blockOnlyRegistry("atlantean_power_torch", new AtlanteanPowerTorch(FabricBlockSettings.of(Material.DECORATION)));
+    public static final WallAtlanteanPowerTorch WALL_ATLANTEAN_POWER_TORCH = (WallAtlanteanPowerTorch) blockOnlyRegistry("atlantean_power_wall_torch", new WallAtlanteanPowerTorch(FabricBlockSettings.of(Material.DECORATION)));
+    public static final AtlanteanPowerDust ATLANTEAN_POWER_DUST_WIRE = (AtlanteanPowerDust) blockOnlyRegistry("atlantean_power_dust", new AtlanteanPowerDust(FabricBlockSettings.of(Material.DECORATION)));
+    public static final AtlanteanPowerRepeater ATLANTEAN_POWER_REPEATER = (AtlanteanPowerRepeater) register("atlantean_power_repeater", new AtlanteanPowerRepeater(FabricBlockSettings.of(Material.DECORATION)));
+    public static final AtlanteanTripwireHook ATLANTEAN_TRIPWIRE_HOOK = (AtlanteanTripwireHook) register("atlantean_tripwire_hook", new AtlanteanTripwireHook(FabricBlockSettings.of(Material.DECORATION).noCollision()));
+    public static final AtlanteanTripwire ATLANTEAN_TRIPWIRE = (AtlanteanTripwire) blockOnlyRegistry("atlantean_tripwire", new AtlanteanTripwire(ATLANTEAN_TRIPWIRE_HOOK, AbstractBlock.Settings.of(Material.DECORATION).noCollision()));
+    public static final AtlanteanPowerLever ATLANTEAN_POWER_LEVER = (AtlanteanPowerLever) register("atlantean_power_lever", new AtlanteanPowerLever(FabricBlockSettings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)));
+    public static final AtlanteanPowerComparator ATLANTEAN_POWER_COMPARATOR = (AtlanteanPowerComparator) register("atlantean_power_comparator", new AtlanteanPowerComparator(FabricBlockSettings.of(Material.DECORATION)));
+    public static final CalciteBlock CALCITE_BLOCK = (CalciteBlock) register("calcite_block", new CalciteBlock(FabricBlockSettings.of(Material.STONE)));
+    public static final PushBubbleColumn PUSH_BUBBLE_COLUMN = (PushBubbleColumn) blockOnlyRegistry("push_bubble_column", new PushBubbleColumn(FabricBlockSettings.of(Material.BUBBLE_COLUMN)));
+    public static final AncientWoodSlabs ANCIENT_ACACIA_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_acacia_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSlabs ANCIENT_OAK_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_oak_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSlabs ANCIENT_JUNGLE_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_jungle_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSlabs ANCIENT_SPRUCE_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_spruce_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSlabs ANCIENT_BIRCH_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_birch_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
+    public static final AncientWoodSlabs ANCIENT_DARK_OAK_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_dark_oak_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
 
     private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);
-        ItemInit.register(name, item.apply(block));
+        register(name, item.apply(block));
         return block;
     }
 
@@ -119,7 +136,15 @@ public class BlockInit {
         return baseRegister(name, block, BlockInit::registerBlockItem);
     }
 
+    private static Block blockOnlyRegistry(String name, Block block) {
+        return Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);
+    }
+
     private static BlockItem registerBlockItem(Block block) {
         return new BlockItem(Objects.requireNonNull(block), new Item.Settings());
+    }
+
+    public static Item register(String name, Item item) {
+        return Registry.register(Registry.ITEM, new Identifier(Reference.MODID, name), item);
     }
 }

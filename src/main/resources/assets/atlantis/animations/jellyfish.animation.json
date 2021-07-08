@@ -1,0 +1,179 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.jellyfish.hover": {
+			"animation_length": 1.5,
+			"bones": {
+				"Head": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [1.1, 0.8, 1.1],
+							"easing": "easeOutCirc"
+						},
+						"1.0": {
+							"vector": [1.1, 0.8, 1.1]
+						},
+						"1.1667": {
+							"vector": [0.8, 1.4, 0.8],
+							"easing": "easeOutCirc"
+						},
+						"1.5": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"Leg1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [2.5, 0, 2.5]
+						},
+						"1.0": {
+							"vector": [5, 0, 5]
+						},
+						"1.3333": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutBack",
+							"easingArgs": [4]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [1, 1.2, 1],
+							"easing": "easeOutCirc"
+						},
+						"1.0": {
+							"vector": [1, 1.2, 1]
+						},
+						"1.1667": {
+							"vector": [1, 0.8, 1]
+						},
+						"1.5": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"Leg2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [2.5, 0, -2.5]
+						},
+						"1.0": {
+							"vector": [5, 0, -5]
+						},
+						"1.3333": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutBack",
+							"easingArgs": [4]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [1, 1.2, 1],
+							"easing": "easeOutCirc"
+						},
+						"1.0": {
+							"vector": [1, 1.2, 1]
+						},
+						"1.1667": {
+							"vector": [1, 0.8, 1]
+						},
+						"1.5": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"Leg3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [-2.5, 0, 2.5]
+						},
+						"1.0": {
+							"vector": [-5, 0, 5]
+						},
+						"1.3333": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutBack",
+							"easingArgs": [4]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [1, 1.2, 1],
+							"easing": "easeOutCirc"
+						},
+						"1.0": {
+							"vector": [1, 1.2, 1]
+						},
+						"1.1667": {
+							"vector": [1, 0.8, 1]
+						},
+						"1.5": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"Leg4": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [-2.5, 0, -2.5]
+						},
+						"1.0": {
+							"vector": [-5, 0, -5]
+						},
+						"1.3333": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutBack",
+							"easingArgs": [4]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [1, 1.2, 1],
+							"easing": "easeOutCirc"
+						},
+						"1.0": {
+							"vector": [1, 1.2, 1]
+						},
+						"1.1667": {
+							"vector": [1, 0.8, 1]
+						},
+						"1.5": {
+							"vector": [1, 1, 1]
+						}
+					}
+				}
+			}
+		},
+		"animation.jellyfish.idle": {
+			"loop": true
+		}
+	},
+	"geckolib_format_version": 2
+}

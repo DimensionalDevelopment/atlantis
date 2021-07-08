@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "atlantis:block/yellow_underwater_flower"
+  }
+}

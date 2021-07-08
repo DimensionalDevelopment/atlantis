@@ -11,7 +11,6 @@ import net.minecraft.sound.SoundEvents;
 import com.mystic.atlantis.init.ItemInit;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-
 public class BasicArmorMaterial
 {
     public static final net.minecraft.item.ArmorMaterial ARMOR_AQUAMARINE = new ArmorMaterial( "aquamarine", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.ofItems(ItemInit.AQUAMARINE_GEM));

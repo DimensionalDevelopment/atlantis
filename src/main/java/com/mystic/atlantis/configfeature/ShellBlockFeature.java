@@ -10,91 +10,47 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.CountConfig;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 import java.util.Random;
 
-public class ShellBlockFeature extends Feature<CountConfig> {
+public class ShellBlockFeature extends Feature<DefaultFeatureConfig> {
 
-    private static final Block WATER = Blocks.WATER;
-
-    public ShellBlockFeature(Codec<CountConfig> FeatureSpreadConfig) {
+    public ShellBlockFeature(Codec<DefaultFeatureConfig> FeatureSpreadConfig) {
         super(FeatureSpreadConfig);
     }
     
     @Override
-    public boolean generate(FeatureContext<CountConfig> config) {
+    public boolean generate(FeatureContext<DefaultFeatureConfig> config) {
         StructureWorldAccess reader = config.getWorld();
         Random rand = config.getRandom();
         BlockPos pos = config.getOrigin();
-        int i = 0;
-        int j = config.getConfig().getCount().get(rand);
 
-        for(int k = 0; k < j; ++k) {
-            int l = rand.nextInt(8) - rand.nextInt(8);
-            int i1 = rand.nextInt(8) - rand.nextInt(8);
-            int j1 = reader.getTopY(Heightmap.Type.OCEAN_FLOOR, pos.getX() + l, pos.getZ() + i1);
-            BlockPos blockpos = new BlockPos(pos.getX() + l, j1, pos.getZ() + i1);
-            BlockState blockstate;
-            switch(rand.nextInt(16)){
-                case 0:
-                    blockstate = BlockInit.BLACK_COLORED_SHELL_BLOCK.getDefaultState();
-                break;
-                case 1:
-                    blockstate = BlockInit.BLUE_COLORED_SHELL_BLOCK.getDefaultState();
-                break;
-                case 2:
-                    blockstate = BlockInit.LIGHT_BLUE_COLORED_SHELL_BLOCK.getDefaultState();
-                break;
-                case 3:
-                    blockstate = BlockInit.LIGHT_GRAY_COLORED_SHELL_BLOCK.getDefaultState();
-                    break;
-                case 4:
-                    blockstate = BlockInit.RED_COLORED_SHELL_BLOCK.getDefaultState();
-                    break;
-                case 5:
-                    blockstate = BlockInit.YELLOW_COLORED_SHELL_BLOCK.getDefaultState();
-                    break;
-                case 6:
-                    blockstate = BlockInit.ORANGE_COLORED_SHELL_BLOCK.getDefaultState();
-                    break;
-                case 7:
-                    blockstate = BlockInit.PURPLE_COLORED_SHELL_BLOCK.getDefaultState();
-                    break;
-                case 8:
-                    blockstate = BlockInit.MAGENTA_COLORED_SHELL_BLOCK.getDefaultState();
-                    break;
-                case 9:
-                    blockstate = BlockInit.GREEN_COLORED_SHELL_BLOCK.getDefaultState();
-                    break;
-                case 10:
-                    blockstate = BlockInit.LIME_COLORED_SHELL_BLOCK.getDefaultState();
-                    break;
-                case 11:
-                    blockstate = BlockInit.BROWN_COLORED_SHELL_BLOCK.getDefaultState();
-                    break;
-                case 12:
-                    blockstate = BlockInit.PINK_COLORED_SHELL_BLOCK.getDefaultState();
-                    break;
-                case 13:
-                    blockstate = BlockInit.CYAN_COLORED_SHELL_BLOCK.getDefaultState();
-                    break;
-                case 14:
-                    blockstate = BlockInit.WHITE_COLORED_SHELL_BLOCK.getDefaultState();
-                    break;
-                case 15:
-                    blockstate = BlockInit.GRAY_COLORED_SHELL_BLOCK.getDefaultState();
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + rand.nextInt(16));
-            }
-            if (reader.getBlockState(blockpos).isOf(Blocks.WATER) && blockstate.canPlaceAt(reader, blockpos)) {
-                reader.setBlockState(blockpos, blockstate, 2);
-                ++i;
-            }
+        BlockState blockstate = switch (rand.nextInt(16)) {
+            case 0 -> BlockInit.BLACK_COLORED_SHELL_BLOCK.getDefaultState();
+            case 1 -> BlockInit.BLUE_COLORED_SHELL_BLOCK.getDefaultState();
+            case 2 -> BlockInit.LIGHT_BLUE_COLORED_SHELL_BLOCK.getDefaultState();
+            case 3 -> BlockInit.LIGHT_GRAY_COLORED_SHELL_BLOCK.getDefaultState();
+            case 4 -> BlockInit.RED_COLORED_SHELL_BLOCK.getDefaultState();
+            case 5 -> BlockInit.YELLOW_COLORED_SHELL_BLOCK.getDefaultState();
+            case 6 -> BlockInit.ORANGE_COLORED_SHELL_BLOCK.getDefaultState();
+            case 7 -> BlockInit.PURPLE_COLORED_SHELL_BLOCK.getDefaultState();
+            case 8 -> BlockInit.MAGENTA_COLORED_SHELL_BLOCK.getDefaultState();
+            case 9 -> BlockInit.GREEN_COLORED_SHELL_BLOCK.getDefaultState();
+            case 10 -> BlockInit.LIME_COLORED_SHELL_BLOCK.getDefaultState();
+            case 11 -> BlockInit.BROWN_COLORED_SHELL_BLOCK.getDefaultState();
+            case 12 -> BlockInit.PINK_COLORED_SHELL_BLOCK.getDefaultState();
+            case 13 -> BlockInit.CYAN_COLORED_SHELL_BLOCK.getDefaultState();
+            case 14 -> BlockInit.WHITE_COLORED_SHELL_BLOCK.getDefaultState();
+            case 15 -> BlockInit.GRAY_COLORED_SHELL_BLOCK.getDefaultState();
+            default -> throw new IllegalStateException("Unexpected value: " + rand.nextInt(16));
+        };
+        if (reader.getBlockState(pos).isOf(Blocks.WATER) && blockstate.canPlaceAt(reader, pos)) {
+            reader.setBlockState(pos, blockstate, 2);
+            return true;
         }
-
-        return i > 0;
+        return false;
     }
 }
