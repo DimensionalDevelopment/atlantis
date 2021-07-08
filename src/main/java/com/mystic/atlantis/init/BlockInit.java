@@ -129,6 +129,8 @@ public class BlockInit {
     public static final AncientWoodSlabs ANCIENT_SPRUCE_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_spruce_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
     public static final AncientWoodSlabs ANCIENT_BIRCH_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_birch_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
     public static final AncientWoodSlabs ANCIENT_DARK_OAK_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_dark_oak_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
+    public static final AlgaeBlock ALGAE_BLOCK = (AlgaeBlock) register("algae_block", new AlgaeBlock(FabricBlockSettings.of(Material.PLANT)));
+    public static final ChiseledAquamarine CHISELED_AQUAMARINE = (ChiseledAquamarine) register("chiseled_aquamarine", new ChiseledAquamarine(FabricBlockSettings.of(Material.STONE)));
 
     private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);
