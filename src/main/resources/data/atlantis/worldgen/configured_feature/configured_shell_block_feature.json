@@ -28,9 +28,9 @@
           }
         },
         "feature": {
-          "type": "atlantis:shell_block_feature_atlantis",
+          "type": "atlantis:shell_block_feature",
           "config": {
-
+            "count": 20
           }
         }
       }

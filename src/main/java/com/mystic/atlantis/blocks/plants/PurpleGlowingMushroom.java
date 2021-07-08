@@ -1,16 +1,6 @@
 package com.mystic.atlantis.blocks.plants;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
-import net.minecraft.block.PlantBlock;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.Waterloggable;
+import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -24,15 +14,17 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldView;
-
 import org.jetbrains.annotations.Nullable;
 
-public class UnderwaterFlower extends PlantBlock implements Waterloggable {
+import java.util.ArrayList;
+import java.util.List;
+
+public class PurpleGlowingMushroom extends PlantBlock implements Waterloggable {
 
     public static final Property<Boolean> WATERLOGGED = Properties.WATERLOGGED;
     protected static final VoxelShape SHAPE = Block.createCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D);
 
-    public UnderwaterFlower(Settings properties) {
+    public PurpleGlowingMushroom(Settings properties) {
         super(properties
                 .ticksRandomly()
                 .strength(0.2F, 0.4F)
@@ -92,7 +84,7 @@ public class UnderwaterFlower extends PlantBlock implements Waterloggable {
 
     @Override
     public boolean canReplace(BlockState state, ItemPlacementContext useContext) {
-       return false;
+        return false;
     }
 
     @Override

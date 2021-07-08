@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "atlantis",
-  "version": "2021.6.25-1.17-1.7.0-fabric",
+  "version": "2021.6.11-1.17-1.1.0-fabric",
 
   "name": "Atlantis",
   "description": "An Underwater Atlantis like Dimension Mod.",
@@ -10,22 +10,18 @@
   ],
   "contact": {
     "homepage": "https://mystic.hypherionmc.me/",
-    "sources": "https://github.com/Exploding-Creeper/atlantis",
-    "issues": "https://github.com/Exploding-Creeper/atlantis/issues"
+    "sources": "https://github.com/Exploding-Creeper/atlantis"
   },
 
-  "license": "LGPL3",
+  "license": "CC0-1.0",
   "icon": "assets/atlantis/logo.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.mystic.atlantis.Atlantis"
+      "com.mystic.atlantis.Main"
     ],
     "client": [
       "com.mystic.atlantis.setup.ClientSetup"
-    ],
-    "modmenu": [
-      "com.mystic.atlantis.config.modmenu.AtlantisMenu"
     ]
   },
   "mixins": [
@@ -37,17 +33,5 @@
     "fabricloader": ">=0.7.4",
     "fabric": "*",
     "minecraft": "1.17.x"
-  },
-  "custom": {
-    "modupdater": {
-      "strategy": "curseforge",
-      "projectID": 355418,
-      "strict": false
-    },
-    "modmenu": {
-      "links": {
-        "modmenu.discord": "https://discord.gg/Axe4aZCT6u"
-      }
-    }
   }
 }

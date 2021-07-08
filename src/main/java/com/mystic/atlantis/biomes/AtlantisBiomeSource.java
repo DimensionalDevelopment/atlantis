@@ -2,7 +2,7 @@ package com.mystic.atlantis.biomes;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.Main;
 import com.mystic.atlantis.mixin.LayerAccessor;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.SharedConstants;
@@ -13,7 +13,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
-import net.minecraft.world.biome.layer.ScaleLayer;
+import net.minecraft.world.biome.BuiltinBiomes;
 import net.minecraft.world.biome.layer.type.ParentedLayer;
 import net.minecraft.world.biome.layer.util.CachingLayerContext;
 import net.minecraft.world.biome.layer.util.CachingLayerSampler;
@@ -28,30 +28,22 @@ import java.util.stream.Collectors;
 
 
 public class AtlantisBiomeSource extends BiomeSource {
-    public static final Codec<AtlantisBiomeSource> CODEC = RecordCodecBuilder.create((instance) ->
-            instance.group(RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter((biomeSource) ->
-                    biomeSource.BIOME_REGISTRY), Codec.intRange(1, 20).fieldOf("biome_size").orElse(2).forGetter((biomeSource) ->
-                    biomeSource.biomeSize), Codec.LONG.fieldOf("seed").stable().forGetter((biomeSource) ->
-                    biomeSource.seed)).apply(instance, instance.stable(AtlantisBiomeSource::new)));
+    public static final Codec<AtlantisBiomeSource> CODEC = RecordCodecBuilder.create((instance) -> instance.group(RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter((biomeSource) -> biomeSource.BIOME_REGISTRY), Codec.LONG.fieldOf("seed").stable().forGetter((biomeSource) -> biomeSource.seed)).apply(instance, instance.stable(AtlantisBiomeSource::new)));
 
     public static final Identifier ATLANTIS_BIOME = new Identifier(Reference.MODID, "atlantis_biome");
-    public static final Identifier JELLYFISH_FIELDS = new Identifier(Reference.MODID, "jellyfish_fields");
-    public static final Identifier ATLANTEAN_ISLANDS = new Identifier(Reference.MODID, "atlantean_islands_biome");
     private final BiomeLayerSampler BIOME_SAMPLER;
     private final Registry<Biome> BIOME_REGISTRY;
     public static Registry<Biome> LAYERS_BIOME_REGISTRY;
     private final long seed;
-    private final int biomeSize;
 
-    protected AtlantisBiomeSource(Registry<Biome> biomeRegistry, int biomeSize, long seed) {
+    protected AtlantisBiomeSource(Registry<Biome> biomeRegistry, long seed) {
         super(biomeRegistry.getEntries().stream()
                 .filter(entry -> entry.getKey().getValue().getNamespace().equals(Reference.MODID))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList()));
         this.BIOME_REGISTRY = biomeRegistry;
         AtlantisBiomeSource.LAYERS_BIOME_REGISTRY = biomeRegistry;
-        this.BIOME_SAMPLER = buildWorldProcedure(seed, biomeSize, biomeRegistry);
-        this.biomeSize = biomeSize;
+        this.BIOME_SAMPLER = buildWorldProcedure(seed);
         this.seed = seed;
         AtlantisBiomeLayer.setSeed(seed);
     }
@@ -61,12 +53,9 @@ public class AtlantisBiomeSource extends BiomeSource {
         return CODEC;
     }
 
-    public static BiomeLayerSampler buildWorldProcedure(long seed, int biomeSize, Registry<Biome> biomeRegistry) {
-        LayerFactory<CachingLayerSampler> layerFactory = build((salt) ->
-                        new CachingLayerContext(25, seed, salt),
-                biomeSize,
-                seed,
-                biomeRegistry);
+    public static BiomeLayerSampler buildWorldProcedure(long seed) {
+        LayerFactory<CachingLayerSampler> layerFactory = build((sand) ->
+                new CachingLayerContext(25, seed, sand));
         return new BiomeLayerSampler(layerFactory);
     }
 
@@ -80,22 +69,14 @@ public class AtlantisBiomeSource extends BiomeSource {
         return IAreaFactory;
     }
 
-    public static <T extends LayerSampler, C extends LayerSampleContext<T>> LayerFactory<T> build(LongFunction<C> contextFactory, int  biomeSize, long seed, Registry<Biome> biomeRegistry) {
-        LayerFactory<T> layer = (new AtlantisBiomeLayer(seed, biomeRegistry)).create(contextFactory.apply(200L));
-        for(int currentExtraZoom = 0; currentExtraZoom < biomeSize; currentExtraZoom++){
-            if((currentExtraZoom + 2) % 3 != 0){
-                layer = ScaleLayer.NORMAL.create(contextFactory.apply(2001L + currentExtraZoom), layer);
-            }
-            else{
-                layer= ScaleLayer.FUZZY.create(contextFactory.apply(2000L + (currentExtraZoom * 31L)), layer);
-            }
-        }
+    public static <T extends LayerSampler, C extends LayerSampleContext<T>> LayerFactory<T> build(LongFunction<C> contextFactory) {
+        LayerFactory<T> layer = AtlantisBiomeLayer.INSTANCE.create(contextFactory.apply(200L));
         return layer;
     }
 
     @Override
     public BiomeSource withSeed(long seed) {
-        return new AtlantisBiomeSource(this.BIOME_REGISTRY, this.biomeSize, seed);
+        return new AtlantisBiomeSource(this.BIOME_REGISTRY, seed);
     }
 
     //Old Version of the code.
@@ -123,7 +104,7 @@ public class AtlantisBiomeSource extends BiomeSource {
             } else {
                 // Spawn ocean if we can't resolve the biome from the layers.
                 RegistryKey<Biome> backupBiomeKey = BiomeKeys.OCEAN;
-                Atlantis.LOGGER.warn("Unknown biome id: ${}. Will spawn ${} instead.", resultBiomeID, backupBiomeKey.getValue());
+                Main.LOGGER.warn("Unknown biome id: ${}. Will spawn ${} instead.", resultBiomeID, backupBiomeKey.getValue());
                 return dynamicBiomeRegistry.get(backupBiomeKey);
             }
         } else {

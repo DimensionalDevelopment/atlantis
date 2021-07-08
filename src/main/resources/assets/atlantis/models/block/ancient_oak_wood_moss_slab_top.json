@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "atlantis:block/ancient_oak_wood_moss",
-    "top": "atlantis:block/ancient_oak_wood_moss",
-    "side": "atlantis:block/ancient_oak_wood_moss"
-  }
-}

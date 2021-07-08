@@ -1,30 +1,24 @@
 package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.entities.AtlantisEntities;
-import com.mystic.atlantis.entities.CrabEntity;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
-import com.mystic.atlantis.items.item.*;
+import com.mystic.atlantis.items.item.AtlanteanCrystal;
+import com.mystic.atlantis.items.item.CrabLegsItem;
+import com.mystic.atlantis.items.item.DefaultItem;
 import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
 import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
 public class ItemInit
 {
-
-    public static void init(){}
 
     public static Item register(String name, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(Reference.MODID, name), item);
@@ -34,8 +28,6 @@ public class ItemInit
 
     //SPAWN EGGS
     public static final Item ATLANTEAN_CRAB_EGG = register("atlantean_crab_egg", new SpawnEggItem(AtlantisEntities.CRAB, 0x800002, 0xff0f45, new Item.Settings().group(ItemGroup.MISC)));
-    public static final Item ATLANTEAN_JELLYFISH_EGG = register("atlantean_jellyfish_egg", new SpawnEggItem(AtlantisEntities.JELLYFISH, 0x00458a, 0x0582ff, new Item.Settings().group(ItemGroup.MISC)));
-    public static final Item ATLANTEAN_JELLYFISH_2_EGG = register("atlantean_jellyfish_2_egg", new SpawnEggItem(AtlantisEntities.JELLYFISH2, 0x347BC2, 0x004080, new Item.Settings().group(ItemGroup.MISC)));
 
     //MUSIC DISC
     public static final Item PANBEE = register("panbee", new AtlantisMusicDisc(15, AtlantisSoundEvents.PANBEE, ATLANTIS_SETTINGS));
@@ -48,14 +40,6 @@ public class ItemInit
     public static final Item DROP_OF_ATLANTIS = register("drop_of_atlantis", new DefaultItem());
     public static final Item BROWN_WROUGHT_PATCHES = register("brown_wrought_patches", new DefaultItem());
     public static final Item CRAB_LEGS = register("crab_legs", new CrabLegsItem(new Item.Settings()));
-    public static final Item ATLANTEAN_POWER_TORCH = register("atlantean_power_torch", new WallStandingBlockItem(BlockInit.ATLANTEAN_POWER_TORCH, BlockInit.WALL_ATLANTEAN_POWER_TORCH, (new Item.Settings())));
-    public static final Item ATLANTEAN_POWER_DUST = register("atlantean_power_dust", new AliasedBlockItem(BlockInit.ATLANTEAN_POWER_DUST_WIRE, (new Item.Settings())));
-    public static final Item ATLANTEAN_STRING = register("atlantean_string", new AliasedBlockItem(BlockInit.ATLANTEAN_TRIPWIRE, (new Item.Settings())));
-
-    //Entity Buckets
-    public static final Item CRAB_BUCKET = register("crab_bucket", new CrabEntityBucketItem(AtlantisEntities.CRAB, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH, (new Item.Settings()).maxCount(1)));
-    public static final Item JELLYFISH_BUCKET = register("jellyfish_bucket", new JellyfishEntityBucketItem(AtlantisEntities.JELLYFISH, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH, (new Item.Settings()).maxCount(1)));
-    public static final Item JELLYFISH_2_BUCKET = register("jellyfish_2_bucket", new JellyfishEntityBucketItem(AtlantisEntities.JELLYFISH2, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH, (new Item.Settings()).maxCount(1)));
 
     //TOOLS
     public static final AxeItem AXE_AQUMARINE = (AxeItem) register("axe_aquamarine", new AquamarineAxe(ToolInit.AQUAMARINE, 4));

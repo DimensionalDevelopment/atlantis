@@ -4,7 +4,7 @@
     "decorator": {
       "type": "minecraft:count_extra",
       "config": {
-        "count": 750,
+        "count": 10,
         "extra_count": 1,
         "extra_chance": 0.2
       }
@@ -13,33 +13,24 @@
       "type": "minecraft:decorated",
       "config": {
         "decorator": {
-          "type": "minecraft:square",
-          "config": {}
-        },
-        "feature": {
           "type": "minecraft:decorated",
           "config": {
-            "decorator": {
-              "type": "minecraft:range",
-              "config": {
-                "height": {
-                  "type": "minecraft:trapezoid",
-                  "min_inclusive": {
-                    "absolute": 30
-                  },
-                  "max_inclusive": {
-                    "absolute": 50
-                  },
-                  "plateau": 10
-                }
-              }
+            "outer": {
+              "type": "minecraft:square",
+              "config": {}
             },
-            "feature": {
-              "type": "atlantis:algae_feature_atlantis",
+            "inner": {
+              "type": "minecraft:heightmap",
               "config": {
-                "count": 20
+                "heightmap": "OCEAN_FLOOR_WG"
               }
             }
+          }
+        },
+        "feature": {
+          "type": "atlantis:algae_feature_atlantis",
+          "config": {
+            "count": 20
           }
         }
       }

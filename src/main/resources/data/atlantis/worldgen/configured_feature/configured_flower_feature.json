@@ -4,7 +4,7 @@
     "decorator": {
       "type": "minecraft:count_extra",
       "config": {
-        "count": 30,
+        "count": 10,
         "extra_count": 1,
         "extra_chance": 0.2
       }
@@ -30,7 +30,7 @@
         "feature": {
           "type": "atlantis:underwater_flower_atlantis",
           "config": {
-
+            "count": 20
           }
         }
       }

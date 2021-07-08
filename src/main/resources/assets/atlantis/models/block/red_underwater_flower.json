@@ -1,6 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "atlantis:block/red_underwater_flower"
-  }
-}

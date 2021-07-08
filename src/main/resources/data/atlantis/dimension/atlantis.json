@@ -44,34 +44,14 @@
             "weirdness": 0.1,
             "offset": 0.5
           }
-        },
-        {
-          "biome": "atlantis:jellyfish_fields",
-          "parameters": {
-            "altitude": 0,
-            "temperature": 0.7,
-            "humidity": 0,
-            "weirdness": 0.3,
-            "offset": 0.4
-          }
-        },
-        {
-          "biome": "atlantis:atlantean_islands_biome",
-          "parameters": {
-            "altitude": 0,
-            "temperature": 0.6,
-            "humidity": 0,
-            "weirdness": 0.1,
-            "offset": 0.3
-          }
         }
       ]
     },
     "settings": {
       "name": "atlantis:atlantis",
-      "bedrock_roof_position": -64,
+      "bedrock_roof_position": -70,
       "noodle_caves_enabled": false,
-      "bedrock_floor_position": 0,
+      "bedrock_floor_position": -64,
       "sea_level": 384,
       "ore_veins_enabled": true,
       "min_surface_level": 30,
@@ -80,7 +60,7 @@
       "aquifers_enabled": true,
       "deepslate_enabled": true,
       "default_block": {
-        "Name": "minecraft:sandstone"
+        "Name": "minecraft:stone"
       },
       "default_fluid": {
         "Name": "minecraft:water",
