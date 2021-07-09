@@ -1,6 +1,7 @@
 package com.mystic.atlantis.blocks;
 
 import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.particles.ModParticleTypes;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.fluid.FluidState;
@@ -35,7 +36,7 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
     private static final int SCHEDULED_TICK_DELAY = 1;
 
     public PushBubbleColumn(AbstractBlock.Settings settings) {
-        super(settings.noCollision().dropsNothing().ticksRandomly());
+        super(settings.noCollision().dropsNothing());
         this.setDefaultState(this.stateManager.getDefaultState().with(DECAY, 0));
     }
 
@@ -64,17 +65,35 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
     }
 
     public static void update(ServerWorld world, BlockPos pos, Direction dir) {
-        BlockPos previousPos = pos.offset(dir.getOpposite());
-        BlockPos nextPos = pos.offset(dir);
-        BlockState current = world.getBlockState(pos);
-        BlockState previous = world.getBlockState(previousPos);
-        BlockState next = world.getBlockState(nextPos);
+        BlockState[] blockStates = new BlockState[16];
+        BlockPos[] blockPoses = new BlockPos[16];
 
-        getBubbleState(previous, current, dir).ifPresent(state -> world.setBlockState(pos, state, Block.NOTIFY_LISTENERS));
+        blockPoses[0] = pos.offset(dir.getOpposite());
+        blockStates[0] = world.getBlockState(blockPoses[0]);
+        blockPoses[1] = pos;
+        blockStates[1] = world.getBlockState(pos);
 
-        getBubbleState(current, next, dir).ifPresent(state -> world.setBlockState(nextPos, state, Block.NOTIFY_LISTENERS));
-
+        for (int i = 2; i < blockStates.length; i++) {
+            blockPoses[i] = pos.offset(dir, i-1);
+            blockStates[i] = world.getBlockState(blockPoses[i]);
         }
+
+        for (int i = 0; i < blockStates.length-1; i++) {
+            Optional<BlockState> optionalBlockState = getBubbleState(blockStates[i], blockStates[i+1], dir);
+
+            if(optionalBlockState.isPresent()) {
+                blockStates[i+1] = optionalBlockState.get();
+            }
+        }
+
+        for (int i = 1; i < blockStates.length; i++) {
+            world.setBlockState(blockPoses[i], blockStates[i], Block.NOTIFY_LISTENERS);
+        }
+//
+//        getBubbleState(previous, current, dir).ifPresent(state -> world.setBlockState(pos, state, Block.NOTIFY_LISTENERS));
+//
+//        getBubbleState(current, next, dir).ifPresent(state -> world.setBlockState(nextPos, state, Block.NOTIFY_LISTENERS));
+     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
@@ -137,20 +156,14 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
 
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        double d = pos.getX();
-        double e = pos.getY();
-        double f = pos.getZ();
-        if (state.get(PUSH).equals(Direction.DOWN)) {
-            world.addImportantParticle(ParticleTypes.CURRENT_DOWN, d + 0.5D, e + 0.8D, f, 0.0D, 0.0D, 0.0D);
-            if (random.nextInt(200) == 0) {
-                world.playSound(d, e, f, SoundEvents.BLOCK_BUBBLE_COLUMN_WHIRLPOOL_AMBIENT, SoundCategory.BLOCKS, 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);
-            }
-        } else {
-            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + 0.5D, e, f + 0.5D, 0.0D, 0.04D, 0.0D);
-            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (double) random.nextFloat(), e + (double) random.nextFloat(), f + (double) random.nextFloat(), 0.0D, 0.04D, 0.0D);
-            if (random.nextInt(200) == 0) {
-                world.playSound(d, e, f, SoundEvents.BLOCK_BUBBLE_COLUMN_UPWARDS_AMBIENT, SoundCategory.BLOCKS, 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);
-            }
+        double x = pos.getX();
+        double y = pos.getY();
+        double z = pos.getZ();
+
+        world.addImportantParticle(ModParticleTypes.PUSH_BUBBLESTREAM, x + 0.5D, y + 0.8D, z, state.get(PUSH).getId(), 0.0D, 0.0D);
+
+        if (random.nextInt(200) == 0) {
+            world.playSound(x, y, z, SoundEvents.BLOCK_BUBBLE_COLUMN_WHIRLPOOL_AMBIENT, SoundCategory.BLOCKS, 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);
         }
 
     }
@@ -177,10 +190,10 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
         return blockState.isOf(BlockInit.CALCITE_BLOCK);
     }
 
-    @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.fullCube();
+        return VoxelShapes.empty();
     }
+
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {
