@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients":
+	[
+	
+	{
+		"item": "atlantis:algae_block"
+	}
+	
+	],
+	
+	"result":
+	{
+		"item": "atlantis:algae",
+		"count": 9
+	}
+}	

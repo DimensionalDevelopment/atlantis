@@ -1,6 +1,7 @@
 package com.mystic.atlantis.blocks;
 
 import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.particles.ModParticleTypes;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.fluid.FluidState;
@@ -32,7 +33,7 @@ import java.util.Random;
 public class PushBubbleColumn extends Block implements FluidDrainable {
     public static final DirectionProperty PUSH = Properties.FACING;
     public static final IntProperty DECAY = IntProperty.of("decay", 0, 30);
-    private static final int SCHEDULED_TICK_DELAY = 5;
+    private static final int SCHEDULED_TICK_DELAY = 1;
 
     public PushBubbleColumn(AbstractBlock.Settings settings) {
         super(settings.noCollision().dropsNothing());
@@ -60,10 +61,39 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        Direction dir = state.get(PUSH);
-
-        update(world, pos, state, world.getBlockState(pos.offset(dir)), dir, state.get(DECAY));
+        update(world, pos, state.get(PUSH));
     }
+
+    public static void update(ServerWorld world, BlockPos pos, Direction dir) {
+        BlockState[] blockStates = new BlockState[30];
+        BlockPos[] blockPoses = new BlockPos[30];
+
+        blockPoses[0] = pos.offset(dir.getOpposite());
+        blockStates[0] = world.getBlockState(blockPoses[0]);
+        blockPoses[1] = pos;
+        blockStates[1] = world.getBlockState(pos);
+
+        for (int i = 2; i < blockStates.length; i++) {
+            blockPoses[i] = pos.offset(dir, i-1);
+            blockStates[i] = world.getBlockState(blockPoses[i]);
+        }
+
+        for (int i = 0; i < blockStates.length-1; i++) {
+            Optional<BlockState> optionalBlockState = getBubbleState(blockStates[i], blockStates[i+1], dir);
+
+            if(optionalBlockState.isPresent()) {
+                blockStates[i+1] = optionalBlockState.get();
+            }
+        }
+
+        for (int i = 1; i < blockStates.length; i++) {
+            world.setBlockState(blockPoses[i], blockStates[i], Block.NOTIFY_LISTENERS);
+        }
+//
+//        getBubbleState(previous, current, dir).ifPresent(state -> world.setBlockState(pos, state, Block.NOTIFY_LISTENERS));
+//
+//        getBubbleState(current, next, dir).ifPresent(state -> world.setBlockState(nextPos, state, Block.NOTIFY_LISTENERS));
+     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
@@ -75,46 +105,69 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
     }
 
     public static void update(WorldAccess world, BlockPos pos, BlockState water, BlockState bubbleSource, Direction direction, int decay) {
-        if (isStillWater(water)) {
-            world.setBlockState(pos, getBubbleState(bubbleSource, direction, decay), Block.NOTIFY_LISTENERS);
-
-            BlockPos.Mutable mutable = pos.mutableCopy().move(direction);
-            BlockState bs = world.getBlockState(mutable);
-            if(isStillWater(bs) && (decay-1) >= 0) {
-                world.setBlockState(mutable, getBubbleState(bs, direction, decay-1), Block.NOTIFY_LISTENERS);
-            }
-
-        }
+//        if (isStillWater(water) && decay >= 0) {
+//            BlockState current = getBubbleState(bubbleSource, direction, decay);
+//
+//            world.setBlockState(pos, current, Block.NOTIFY_LISTENERS);
+//
+//            pos = pos.offset(direction);
+//
+//            update(world, pos, world.getBlockState(pos.offset(direction)), current, direction, decay -1);
+//        }
     }
 
     private static boolean isStillWater(BlockState state) {
-        return state.isOf(BlockInit.PUSH_BUBBLE_COLUMN) || state.isOf(Blocks.WATER) && state.getFluidState().getLevel() >= 8 && state.getFluidState().isStill();
+        return state.isOf(Blocks.WATER) && state.getFluidState().getLevel() >= 8 && state.getFluidState().isStill();
     }
 
-    private static BlockState getBubbleState(BlockState state, Direction direction, int decay) {
-        if (state.isOf(BlockInit.PUSH_BUBBLE_COLUMN)) {
-            return state;
+    private static Optional<BlockState> getBubbleState(BlockState previous, BlockState current, Direction dir) {
+        if(!current.isOf(BlockInit.CALCITE_BLOCK)) {
+            if(isStillWater(previous)) {
+                if(!isStillWater(current) && !current.isOf(BlockInit.PUSH_BUBBLE_COLUMN)) {
+                    return Optional.empty();
+                } else {
+                    return Optional.of(Blocks.WATER.getDefaultState());
+                }
+            } else if (previous.isOf(BlockInit.CALCITE_BLOCK)) {
+                if (isStillWater(current) || current.isOf(BlockInit.PUSH_BUBBLE_COLUMN)) {
+                    return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.getDefaultState().with(PUSH, dir).with(DECAY, 29));
+                } else {
+                    return Optional.empty();
+                }
+            } else if (previous.isOf(BlockInit.PUSH_BUBBLE_COLUMN)) {
+                if (previous.get(DECAY) == 0) {
+                    return Optional.of(Blocks.WATER.getDefaultState());
+                } else if (previous.get(PUSH).equals(dir)) {
+                    if (isStillWater(current) || current.isOf(BlockInit.PUSH_BUBBLE_COLUMN)) {
+                        return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.getDefaultState().with(PUSH, dir).with(DECAY, previous.get(DECAY) - 1));
+                    } else {
+                        return Optional.empty();
+                    }
+                } else {
+                    return Optional.of(Blocks.WATER.getDefaultState());
+                }
+            } else {
+                if (current.isOf(BlockInit.PUSH_BUBBLE_COLUMN)) {
+                    return Optional.of(Blocks.WATER.getDefaultState());
+                } else {
+                    return Optional.empty();
+                }
+            }
         } else {
-            return state.isOf(BlockInit.CALCITE_BLOCK) ? BlockInit.PUSH_BUBBLE_COLUMN.getDefaultState().with(PUSH, direction).with(DECAY, decay) : Blocks.WATER.getDefaultState();
+            return Optional.empty();
         }
     }
 
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        double d = pos.getX();
-        double e = pos.getY();
-        double f = pos.getZ();
-        if (state.get(PUSH).equals(Direction.DOWN)) {
-            world.addImportantParticle(ParticleTypes.CURRENT_DOWN, d + 0.5D, e + 0.8D, f, 0.0D, 0.0D, 0.0D);
-            if (random.nextInt(200) == 0) {
-                world.playSound(d, e, f, SoundEvents.BLOCK_BUBBLE_COLUMN_WHIRLPOOL_AMBIENT, SoundCategory.BLOCKS, 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);
-            }
-        } else {
-            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + 0.5D, e, f + 0.5D, 0.0D, 0.04D, 0.0D);
-            world.addImportantParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + (double) random.nextFloat(), e + (double) random.nextFloat(), f + (double) random.nextFloat(), 0.0D, 0.04D, 0.0D);
-            if (random.nextInt(200) == 0) {
-                world.playSound(d, e, f, SoundEvents.BLOCK_BUBBLE_COLUMN_UPWARDS_AMBIENT, SoundCategory.BLOCKS, 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);
-            }
+        double x = pos.getX();
+        double y = pos.getY();
+        double z = pos.getZ();
+
+        world.addImportantParticle(ModParticleTypes.PUSH_BUBBLESTREAM, x + 0.5D, y + 0.8D, z, state.get(PUSH).getId(), 0.0D, 0.0D);
+
+        if (random.nextInt(200) == 0) {
+            world.playSound(x, y, z, SoundEvents.BLOCK_BUBBLE_COLUMN_WHIRLPOOL_AMBIENT, SoundCategory.BLOCKS, 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);
         }
 
     }
@@ -123,7 +176,7 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         if (!this.canPlaceAt(state, world, pos) && !neighborState.isOf(BlockInit.PUSH_BUBBLE_COLUMN) && isStillWater(neighborState)) {
-            world.getBlockTickScheduler().schedule(pos, this, 5);
+            world.getBlockTickScheduler().schedule(pos, this, 1);
         }
 
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
@@ -141,10 +194,10 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
         return blockState.isOf(BlockInit.CALCITE_BLOCK);
     }
 
-    @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return VoxelShapes.empty();
     }
+
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {
@@ -176,19 +229,25 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
 
         value = value * drag.getDirection().offset();
         limit = limit * drag.getDirection().offset();
+
         switch (drag.getAxis()) {
             case X -> {
-                value = Math.max(limit, vec3d.x + value);
-                entity.setVelocity(value, vec3d.y, vec3d.z);
+                entity.setVelocity(get(drag.getDirection(),value + vec3d.x, limit), vec3d.y, vec3d.z);
             }
             case Y -> {
-                value = Math.max(limit, vec3d.y + value);
-                entity.setVelocity(vec3d.x, value, vec3d.z);
+                entity.setVelocity(vec3d.x, get(drag.getDirection(),value + vec3d.y, limit), vec3d.z);
             }
             case Z -> {
-                value = Math.max(limit, vec3d.z + value);
-                entity.setVelocity(vec3d.x, vec3d.y, value);
+                entity.setVelocity(vec3d.x, vec3d.y, get(drag.getDirection(),value + vec3d.z, limit));
             }
+        }
+    }
+
+    public double get(Direction.AxisDirection direction, double val, double limit) {
+        if(direction == Direction.AxisDirection.POSITIVE) {
+            return Math.max(val, limit);
+        } else {
+            return Math.min(val, limit);
         }
     }
 

@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients":
+	[
+	
+	{
+		"item": "minecraft:spruce_fence"
+	},					
+	
+	{
+		"item": "atlantis:algae"
+	}
+	
+	],
+	
+	"result":
+	{
+		"item": "atlantis:ancient_spruce_wood_moss_fence",
+		"count": 1
+	}
+}	

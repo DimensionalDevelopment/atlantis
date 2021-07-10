@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"WWW",
+		"WWW",
+		"WWW"
+	],
+	"key":
+	{
+		"W":
+		{
+			"item": "atlantis:algae"
+		}
+	},
+	"result":
+	{
+		"item": "atlantis:algae_block",
+		"count": 1
+	}
+	
+}					

@@ -19,7 +19,7 @@ public class CalciteBlock extends Block {
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         for (Direction dir : Direction.values()) {
-            PushBubbleColumn.update(world, pos.offset(dir), state, dir, 3);
+            PushBubbleColumn.update(world, pos, dir);
         }
     }
 

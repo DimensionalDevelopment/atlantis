@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:decorated",
+  "config": {
+    "decorator": {
+      "type": "minecraft:count_extra",
+      "config": {
+        "count": 30,
+        "extra_count": 1,
+        "extra_chance": 0.2
+      }
+    },
+    "feature": {
+      "type": "minecraft:decorated",
+      "config": {
+        "decorator": {
+          "type": "minecraft:decorated",
+          "config": {
+            "outer": {
+              "type": "minecraft:square",
+              "config": {}
+            },
+            "inner": {
+              "type": "minecraft:heightmap",
+              "config": {
+                "heightmap": "OCEAN_FLOOR_WG"
+              }
+            }
+          }
+        },
+        "feature": {
+          "type": "atlantis:underwater_mushroom_atlantis",
+          "config": {
+
+          }
+        }
+      }
+    }
+  }
+}

@@ -37,7 +37,7 @@ public class AtlantisBiomeLayer implements InitLayer {
             return this.dynamicRegistry.getRawId(this.dynamicRegistry.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS));
         }
         else {
-            return this.dynamicRegistry.getRawId(this.dynamicRegistry.get(AtlantisBiomeSource.ATLANTIS_BIOME));
+            return this.dynamicRegistry.getRawId(this.dynamicRegistry.get(AtlantisBiomeSource.VOLCANIC_DARKSEA));
         }
     }
 

@@ -37,6 +37,7 @@ public class AtlantisBiomeSource extends BiomeSource {
     public static final Identifier ATLANTIS_BIOME = new Identifier(Reference.MODID, "atlantis_biome");
     public static final Identifier JELLYFISH_FIELDS = new Identifier(Reference.MODID, "jellyfish_fields");
     public static final Identifier ATLANTEAN_ISLANDS = new Identifier(Reference.MODID, "atlantean_islands_biome");
+    public static final Identifier VOLCANIC_DARKSEA = new Identifier(Reference.MODID, "volcanic_darksea");
     private final BiomeLayerSampler BIOME_SAMPLER;
     private final Registry<Biome> BIOME_REGISTRY;
     public static Registry<Biome> LAYERS_BIOME_REGISTRY;

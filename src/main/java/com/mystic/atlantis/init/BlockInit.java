@@ -2,7 +2,9 @@ package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.blocks.*;
 import com.mystic.atlantis.blocks.plants.Algae;
+import com.mystic.atlantis.blocks.plants.PurpleGlowingMushroom;
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
+import com.mystic.atlantis.blocks.plants.YellowGlowingMushroom;
 import com.mystic.atlantis.blocks.power.*;
 import com.mystic.atlantis.blocks.slabs.AncientWoodSlabs;
 import com.mystic.atlantis.util.Reference;
@@ -104,6 +106,8 @@ public class BlockInit {
     public static final AtlantisPortalBlock ATLANTIS_PORTAL = (AtlantisPortalBlock) register("atlantis_portal", new AtlantisPortalBlock(FabricBlockSettings.of(Material.PORTAL)));
     public static final UnderwaterFlower UNDERWATER_FLOWER = (UnderwaterFlower) register("underwater_flower", new UnderwaterFlower(FabricBlockSettings.of(Material.PLANT)));
     public static final UnderwaterFlower RED_UNDERWATER_FLOWER = (UnderwaterFlower) register("red_underwater_flower", new UnderwaterFlower(FabricBlockSettings.of(Material.PLANT)));
+    public static final PurpleGlowingMushroom PURPLE_GLOWING_MUSHROOM = (PurpleGlowingMushroom) register("purple_glowing_mushroom", new PurpleGlowingMushroom(FabricBlockSettings.of(Material.PLANT)));
+    public static final YellowGlowingMushroom YELLOW_GLOWING_MUSHROOM = (YellowGlowingMushroom) register("yellow_glowing_mushroom", new YellowGlowingMushroom(FabricBlockSettings.of(Material.PLANT)));
     public static final UnderwaterFlower YELLOW_UNDERWATER_FLOWER = (UnderwaterFlower) register("yellow_underwater_flower", new UnderwaterFlower(FabricBlockSettings.of(Material.PLANT)));
     public static final Algae ALGAE = (Algae) register("algae", new Algae(FabricBlockSettings.of(Material.PLANT)));
     public static final AtlantisClearPortalBlock ATLANTIS_CLEAR_PORTAL = (AtlantisClearPortalBlock) register("atlantis_clear_portal", new AtlantisClearPortalBlock(FabricBlockSettings.of(Material.PORTAL)));
@@ -125,6 +129,8 @@ public class BlockInit {
     public static final AncientWoodSlabs ANCIENT_SPRUCE_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_spruce_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
     public static final AncientWoodSlabs ANCIENT_BIRCH_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_birch_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
     public static final AncientWoodSlabs ANCIENT_DARK_OAK_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_dark_oak_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
+    public static final AlgaeBlock ALGAE_BLOCK = (AlgaeBlock) register("algae_block", new AlgaeBlock(FabricBlockSettings.of(Material.PLANT)));
+    public static final ChiseledAquamarine CHISELED_AQUAMARINE = (ChiseledAquamarine) register("chiseled_aquamarine", new ChiseledAquamarine(FabricBlockSettings.of(Material.STONE)));
 
     private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);
