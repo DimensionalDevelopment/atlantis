@@ -1,0 +1,27 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"   ",
+		"WSW",
+		"   "
+	],
+	"key":
+	{
+		"W":
+		{
+			"item": "atlantis:ocean_lantern"
+		},
+		
+		"S":
+		{
+			"item": "atlantis:ocean_stone"
+		}
+	},
+	"result":
+	{
+		"item": "atlantis:atlantean_sea_lantern",
+		"count": 2
+	}
+	
+}					

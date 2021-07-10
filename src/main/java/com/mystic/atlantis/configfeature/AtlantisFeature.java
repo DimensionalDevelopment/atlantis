@@ -29,6 +29,8 @@ public class AtlantisFeature {
             "jetstream_lake_feature_atlantis", new LakeFeature(SingleStateFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> ATLANTEAN_VOLCANO = register(
             "atlantean_volcano_feature_atlantis", new AtlanteanVolcano(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> UNDERWATER_MUSHROOM_ATLANTIS = register(
+            "underwater_mushroom_atlantis", new UnderwaterMushroomAtlantis(DefaultFeatureConfig.CODEC));
 
     public static <T extends FeatureConfig> Feature<T> register(String id, Feature<T> t) {
         Registry.register(Registry.FEATURE, new Identifier(Reference.MODID, id), t);
@@ -37,6 +39,7 @@ public class AtlantisFeature {
 
     public static final class ConfiguredFeaturesAtlantis {
         public static final ConfiguredFeature<?, ?> UNDERWATER_FLOWER_ATLANTIS = AtlantisFeature.UNDERWATER_FLOWER_ATLANTIS.configure(DefaultFeatureConfig.DEFAULT);
+        public static final ConfiguredFeature<?, ?> UNDERWATER_MUSHROOM_ATLANTIS = AtlantisFeature.UNDERWATER_MUSHROOM_ATLANTIS.configure(DefaultFeatureConfig.DEFAULT);
         public static final ConfiguredFeature<?, ?> ALGAE_FEATURE_ATLANTIS = AtlantisFeature.ALGAE_FEATURE_ATLANTIS.configure(FeatureConfig.DEFAULT);
         public static final ConfiguredFeature<?, ?> SHELL_BLOCK_FEATURE_ATLANTIS = AtlantisFeature.SHELL_BLOCK_FEATURE.configure(DefaultFeatureConfig.DEFAULT);
         public static final ConfiguredFeature<?, ?> ATLANTEAN_ISLANDS_FEATURE_ATLANTIS = AtlantisFeature.ATLANTEAN_ISLANDS.configure(DefaultFeatureConfig.DEFAULT);
@@ -44,6 +47,7 @@ public class AtlantisFeature {
         public static final ConfiguredFeature<?, ?> JETSTREAM_LAKE_FEATURE_ATLANTIS = AtlantisFeature.JETSTREAM_LAKE_FEATURE_ATLANTIS.configure(new SingleStateFeatureConfig(FluidInit.JETSTREAM_WATER.getDefaultState()));
 
         public static final RegistryKey<ConfiguredFeature<?,?>> UNDERWATER_FLOWER_ATLANTIS_KEY = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(Reference.MODID, "underwater_flower_atlantis"));
+        public static final RegistryKey<ConfiguredFeature<?,?>> UNDERWATER_MUSHROOM_ATLANTIS_KEY = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(Reference.MODID, "underwater_mushroom_atlantis"));
         public static final RegistryKey<ConfiguredFeature<?,?>> ALGAE_FEATURE_ATLANTIS_KEY = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(Reference.MODID, "algae_feature_atlantis"));
         public static final RegistryKey<ConfiguredFeature<?,?>> SHELL_BLOCK_FEATURE_ATLANTIS_KEY = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(Reference.MODID, "shell_block_feature_atlantis"));
         public static final RegistryKey<ConfiguredFeature<?,?>> ATLANTEAN_ISLANDS_FEATURE_ATLANTIS_KEY = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(Reference.MODID, "atlantean_islands_feature_atlantis"));
@@ -52,6 +56,8 @@ public class AtlantisFeature {
 
         public static void registerConfiguredFeatures() {
             register("underwater_flower_atlantis", ConfiguredFeaturesAtlantis.UNDERWATER_FLOWER_ATLANTIS.uniformRange(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(100));
+
+            register("underwater_mushroom_atlantis", ConfiguredFeaturesAtlantis.UNDERWATER_MUSHROOM_ATLANTIS.uniformRange(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(100));
 
             register("algae_feature_atlantis", ConfiguredFeaturesAtlantis.ALGAE_FEATURE_ATLANTIS.uniformRange(YOffset.getBottom(), YOffset.getTop()).spreadHorizontally().repeat(80));
 
@@ -66,6 +72,7 @@ public class AtlantisFeature {
                     BiomeSelectors.foundInTheEnd().or(BiomeSelectors.foundInTheNether()),
                     biomeModificationContext -> {
                 biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Feature.VEGETAL_DECORATION, UNDERWATER_FLOWER_ATLANTIS_KEY);
+                biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Feature.VEGETAL_DECORATION, UNDERWATER_MUSHROOM_ATLANTIS_KEY);
                 biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Feature.VEGETAL_DECORATION, ALGAE_FEATURE_ATLANTIS_KEY);
                 biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Feature.SURFACE_STRUCTURES, SHELL_BLOCK_FEATURE_ATLANTIS_KEY);
                 biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Feature.RAW_GENERATION, ATLANTEAN_ISLANDS_FEATURE_ATLANTIS_KEY);
