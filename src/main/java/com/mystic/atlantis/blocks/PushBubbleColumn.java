@@ -65,8 +65,8 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
     }
 
     public static void update(ServerWorld world, BlockPos pos, Direction dir) {
-        BlockState[] blockStates = new BlockState[16];
-        BlockPos[] blockPoses = new BlockPos[16];
+        BlockState[] blockStates = new BlockState[30];
+        BlockPos[] blockPoses = new BlockPos[30];
 
         blockPoses[0] = pos.offset(dir.getOpposite());
         blockStates[0] = world.getBlockState(blockPoses[0]);
@@ -123,10 +123,14 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
     private static Optional<BlockState> getBubbleState(BlockState previous, BlockState current, Direction dir) {
         if(!current.isOf(BlockInit.CALCITE_BLOCK)) {
             if(isStillWater(previous)) {
-                return Optional.of(Blocks.WATER.getDefaultState());
+                if(!isStillWater(current) && !current.isOf(BlockInit.PUSH_BUBBLE_COLUMN)) {
+                    return Optional.empty();
+                } else {
+                    return Optional.of(Blocks.WATER.getDefaultState());
+                }
             } else if (previous.isOf(BlockInit.CALCITE_BLOCK)) {
                 if (isStillWater(current) || current.isOf(BlockInit.PUSH_BUBBLE_COLUMN)) {
-                    return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.getDefaultState().with(PUSH, dir).with(DECAY, 3));
+                    return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.getDefaultState().with(PUSH, dir).with(DECAY, 29));
                 } else {
                     return Optional.empty();
                 }

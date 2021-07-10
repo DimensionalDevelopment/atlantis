@@ -72,7 +72,9 @@ public class ClientSetup implements ClientModInitializer {
                 BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR,
                 BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_TRAPDOOR,
                 BlockInit.ANCIENT_OAK_WOOD_MOSS_TRAPDOOR,
-                BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR);
+                BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR,
+                BlockInit.PURPLE_GLOWING_MUSHROOM,
+                BlockInit.YELLOW_GLOWING_MUSHROOM);
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(),
                 BlockInit.BLACK_PEARL_BLOCK,
                 BlockInit.GRAY_PEARL_BLOCK,

@@ -2,6 +2,7 @@ package com.mystic.atlantis.surfacebuilder;
 
 import com.mojang.serialization.Codec;
 import com.mystic.atlantis.fluids.JetstreamWaterFluid;
+import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -31,8 +32,8 @@ public class AtlanteanSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
             BlockPos blockpos = new BlockPos(xpos, ypos, zpos);
             BlockState currentBlockState = chunk.getBlockState(blockpos);
 
-            if (ypos >= 30 && ypos <= 32){
-                chunk.setBlockState(blockpos, Blocks.SANDSTONE.getDefaultState(), false); //TODO Change to algae growth block!!!
+            if (ypos >= 30 && ypos <= 31){
+                chunk.setBlockState(blockpos, BlockInit.ALGAE_BLOCK.getDefaultState(), false); //TODO Change to algae growth block!!!
             }
         }
     }
