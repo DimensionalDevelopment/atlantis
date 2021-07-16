@@ -83,9 +83,9 @@
   "item.atlantis.atlantean_jellyfish_egg": "Atlantean Jellyfish Var. 1 Spawn Egg",
   "text.autoconfig.atlantis.title": "Atlantean Config",
   "text.autoconfig.atlantis.option.general.minCrabSpawnHeight": "Minimum Crab Spawn Height",
-  "text.autoconfig.atlantis.option.general.minCrabSpawnHeight.@Tooltip[0]": "The Minimum Height The Atlantean Crab Will Spawn At",
+  "text.autoconfig.atlantis.option.general.minCrabSpawnHeight.@Tooltip": "The Minimum Height The Atlantean Crab Will Spawn At",
   "text.autoconfig.atlantis.option.general.maxCrabSpawnHeight": "Maximum Crab Spawn Height",
-  "text.autoconfig.atlantis.option.general.maxCrabSpawnHeight.@Tooltip[0]": "The Maximum Height The Atlantean Crab Will Spawn At",
+  "text.autoconfig.atlantis.option.general.maxCrabSpawnHeight.@Tooltip": "The Maximum Height The Atlantean Crab Will Spawn At",
   "block.atlantis.atlantean_power_lamp": "Atlantean Power Lamp",
   "block.atlantis.atlantean_power_torch": "Atlantean Power Torch",
   "item.atlantis.atlantean_power_dust": "Atlantean Power Dust",
@@ -133,5 +133,9 @@
   "item.atlantis.jetstream_water_bucket": "Jetstream Water Bucket",
   "block.atlantis.chiseled_aquamarine": "Chiseled Aquamarine",
   "block.atlantis.algae_block": "Algae Block",
-  "block.atlantis.atlantean_power_comparator": "Atlantean Power Comparator"
+  "block.atlantis.atlantean_power_comparator": "Atlantean Power Comparator",
+  "text.autoconfig.atlantis.option.general.calciteAcceleration": "Calcite Acceleration",
+  "text.autoconfig.atlantis.option.general.calciteAcceleration.@Tooltip": "How fast you start to speed up at. Must reload world for it to work!",
+  "text.autoconfig.atlantis.option.general.calciteThreshold": "Calcite Threshold",
+  "text.autoconfig.atlantis.option.general.calciteThreshold.@Tooltip": "The maximum speed you can be at. Must reload world for it to work!"
 }

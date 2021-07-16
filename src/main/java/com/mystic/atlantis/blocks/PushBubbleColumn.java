@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks;
 
+import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.particles.ModParticleTypes;
 import net.minecraft.block.*;
@@ -221,7 +222,7 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
     }
 
     public void onBubbleColumnSurfaceCollision(Entity entity, Direction drag) {
-        adjust(entity, drag, 0.1d, 1.8d);
+        adjust(entity, drag, AtlantisConfig.General.calciteAcceleration, AtlantisConfig.General.calciteThreshold);
     }
 
     public void adjust(Entity entity, Direction drag, double value, double limit) {

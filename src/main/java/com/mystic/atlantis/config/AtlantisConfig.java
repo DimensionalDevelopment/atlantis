@@ -27,7 +27,10 @@ public final class AtlantisConfig extends PartitioningSerializer.GlobalData {
         public static int minCrabSpawnHeight = 75;
         @ConfigEntry.Gui.Tooltip(count = 1)
         public static int maxCrabSpawnHeight = 85;
-
+        @ConfigEntry.Gui.Tooltip(count = 1)
+        public static double calciteAcceleration = 0.1d;
+        @ConfigEntry.Gui.Tooltip(count = 1)
+        public static double calciteThreshold = 1.8d;
         public General() {
         }
     }
