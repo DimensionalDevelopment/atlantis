@@ -37,6 +37,7 @@ import net.minecraft.world.gen.feature.OreFeatureConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.example.GeckoLibMod;
 import software.bernie.geckolib3.GeckoLib;
 
 public class Atlantis implements ModInitializer
@@ -82,6 +83,7 @@ public class Atlantis implements ModInitializer
         AtlantisEntities.initialize();
         GeckoLib.initialize();
 
+        GeckoLibMod.DISABLE_IN_DEV = true;
         DimensionAtlantis.registerBiomeSources();
         DimensionAtlantis.setupSurfaceBuilders();
         DimensionAtlantis.init();

@@ -35,7 +35,7 @@ public class CrabEntityBucketItem extends EntityBucketItem {
         Entity entity = this.entityType.spawnFromItemStack(world, stack, (PlayerEntity)null, pos, SpawnReason.BUCKET, true, false);
         if (entity instanceof Bucketable) {
             Bucketable bucketable = (Bucketable)entity;
-            bucketable.copyDataFromNbt(stack.getOrCreateTag());
+            bucketable.copyDataFromNbt(stack.getOrCreateNbt());
             bucketable.setFromBucket(true);
         }
     }

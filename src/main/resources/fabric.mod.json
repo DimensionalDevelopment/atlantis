@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "atlantis",
-  "version": "2021.7.10-1.17-1.8.0-fabric",
+  "version": "2021.7.18-1.17-1.9.0-fabric",
 
   "name": "Atlantis",
   "description": "An Underwater Atlantis like Dimension Mod.",

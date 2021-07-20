@@ -69,7 +69,7 @@ public class OysterStructure extends StructureFeature<DefaultFeatureConfig> {
 
             BlockPos blockpos = new BlockPos(x, (chunkGenerator.getHeight((pos.x*16), (pos.z*16), Heightmap.Type.OCEAN_FLOOR, world)), z);
 
-            StructurePoolBasedGenerator.method_30419(
+            StructurePoolBasedGenerator.generate(
                     registryManager,
                     new StructurePoolFeatureConfig(() -> registryManager.get(Registry.STRUCTURE_POOL_KEY).get(new Identifier(Reference.MODID, "oyster_structure/start_pool")), 10), PoolStructurePiece::new, chunkGenerator, manager, blockpos, (this), this.random, false, false, world);
 

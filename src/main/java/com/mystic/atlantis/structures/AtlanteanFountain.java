@@ -70,7 +70,7 @@ public class AtlanteanFountain extends StructureFeature<DefaultFeatureConfig> {
 
             BlockPos blockpos = new BlockPos(x, (chunkGenerator.getHeight((pos.x*16), (pos.z*16), Heightmap.Type.OCEAN_FLOOR, world)), z);
 
-            StructurePoolBasedGenerator.method_30419(
+            StructurePoolBasedGenerator.generate(
                     dynamicRegistryManager,
                     new StructurePoolFeatureConfig(() -> dynamicRegistryManager.get(Registry.STRUCTURE_POOL_KEY).get(new Identifier(Reference.MODID, "atlantean_fountain/start_pool")), 10), PoolStructurePiece::new, chunkGenerator, templateManagerIn ,blockpos, (this), this.random, false, false, world);
 
