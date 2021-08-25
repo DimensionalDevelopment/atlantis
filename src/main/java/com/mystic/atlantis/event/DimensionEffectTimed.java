@@ -10,8 +10,8 @@ import com.mystic.atlantis.dimension.DimensionAtlantis;
 
 public class DimensionEffectTimed
 {
-    static StatusEffectInstance water_breathing = new StatusEffectInstance(StatusEffects.WATER_BREATHING, 99999, 4, false, false);
-    static StatusEffectInstance haste = new StatusEffectInstance(StatusEffects.HASTE, 99999, 3,false, false);
+    static StatusEffectInstance water_breathing = new StatusEffectInstance(StatusEffects.WATER_BREATHING, 6, 4, false, false);
+    static StatusEffectInstance haste = new StatusEffectInstance(StatusEffects.HASTE, 6, 3,false, false);
 
     public static void playerTick(ServerPlayerEntity player){
         World world = player.world;
@@ -22,11 +22,6 @@ public class DimensionEffectTimed
             if (!player.getStatusEffects().contains(haste)) {
                 player.addStatusEffect(new StatusEffectInstance(haste));
             }
-        }
-
-        if(world.getRegistryKey() != DimensionAtlantis.ATLANTIS_WORLD_KEY){
-            player.removeStatusEffect(StatusEffects.WATER_BREATHING);
-            player.removeStatusEffect(StatusEffects.HASTE);
         }
     }
 }
