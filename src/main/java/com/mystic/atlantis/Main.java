@@ -28,7 +28,6 @@ import net.minecraft.world.gen.feature.StructureFeature;
 
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
-import com.mystic.atlantis.event.DimensionFoodEvent;
 import com.mystic.atlantis.event.PositionEvent;
 import com.mystic.atlantis.mixin.StructuresConfigAccessor;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
