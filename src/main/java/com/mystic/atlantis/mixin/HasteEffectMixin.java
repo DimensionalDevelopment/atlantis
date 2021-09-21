@@ -25,7 +25,7 @@ import java.util.Objects;
 public abstract class HasteEffectMixin extends LivingEntity {
     @Shadow
     @Final
-    private PlayerInventory inventory;
+    public PlayerInventory inventory;
 
     protected HasteEffectMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -54,12 +54,17 @@ public abstract class HasteEffectMixin extends LivingEntity {
         }
 
         if (this.hasStatusEffect(StatusEffects.MINING_FATIGUE)) {
-            float k = switch (Objects.requireNonNull(this.getStatusEffect(StatusEffects.MINING_FATIGUE)).getAmplifier()) {
-                case 0 -> 0.3F;
-                case 1 -> 0.09F;
-                case 2 -> 0.0027F;
-                default -> 8.1E-4F;
-            };
+            float k;
+            switch (Objects.requireNonNull(this.getStatusEffect(StatusEffects.MINING_FATIGUE)).getAmplifier()) {
+                case 0:
+                    k = 0.3F;
+                case 1:
+                    k = 0.09F;
+                case 2:
+                    k = 0.0027F;
+                default:
+                    k = 8.1E-4F;
+            }
 
             f *= k;
         }

@@ -68,7 +68,6 @@ public class Main implements ModInitializer
     @Override
     public void onInitialize() {
         UseBlockCallback.EVENT.register(new PositionEvent());
-        UseItemCallback.EVENT.register(new DimensionFoodEvent());
 
         DimensionAtlantis.registerBiomeSources();
 
