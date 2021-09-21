@@ -4,14 +4,14 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "atlantis-refmap.json",
   "mixins": [
+    "BreathingEffectMixin",
+    "HasteEffectMixin",
     "LayerAccessor",
-    "StructuresConfigAccessor",
+    "LivingEntityMixin",
     "ServerPlayerEntityMixin",
-    "LivingEntityMixin"
+    "StructuresConfigAccessor"
   ],
-  "client":[
-  "AtlantisMixin"
-  ],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   },

@@ -1,6 +1,5 @@
 package com.mystic.atlantis.mixin;
 
-import com.mystic.atlantis.event.DimensionEffectTimed;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
