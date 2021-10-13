@@ -44,7 +44,7 @@
       {
         "type": "atlantis:atlantean_crab",
         "weight": 25,
-        "minCount": 9,
+        "minCount": 18,
         "maxCount": 18
       },
       {
@@ -58,7 +58,13 @@
       {
         "type": "atlantis:atlantean_jellyfish",
         "weight": 25,
-        "minCount": 9,
+        "minCount": 18,
+        "maxCount": 18
+      },
+      {
+        "type": "atlantis:atlantean_jellyfish_2",
+        "weight": 25,
+        "minCount": 18,
         "maxCount": 18
       },
       {

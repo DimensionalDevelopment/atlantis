@@ -36,8 +36,14 @@
       {
         "type": "atlantis:atlantean_jellyfish",
         "weight": 5,
-        "minCount": 45,
-        "maxCount": 60
+        "minCount": 22,
+        "maxCount": 22
+      },
+      {
+        "type": "atlantis:atlantean_jellyfish_2",
+        "weight": 25,
+        "minCount": 22,
+        "maxCount": 22
       }
     ]
   },
