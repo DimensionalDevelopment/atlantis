@@ -137,8 +137,10 @@
   "text.autoconfig.atlantis.option.general.calciteAcceleration": "Calcite Acceleration",
   "text.autoconfig.atlantis.option.general.calciteAcceleration.@Tooltip": "How fast you start to speed up at. Must reload world for it to work!",
   "text.autoconfig.atlantis.option.general.calciteThreshold": "Calcite Threshold",
-  "text.autoconfig.atlantis.option.general.calciteThreshold.@Tooltip": "The maximum speed you can be at. Must reload world for it to work!"
-  "item.atlantis.shrimp_bucket": "Shrimp Bucket",
+  "text.autoconfig.atlantis.option.general.calciteThreshold.@Tooltip": "The maximum speed you can be at. Must reload world for it to work!",
+  "item.atlantis.shrimp_bucket": "Shrimp in a Bucket",
   "item.atlantis.shrimp": "Shrimp",
-  "item.atlantis.cooked_shrimp": "Cooked Shrimp"
+  "item.atlantis.cooked_shrimp": "Cooked Shrimp",
+  "item.atlantis.atlantean_shrimp_egg": "Atlantean Shrimp Spawn Egg",
+  "entity.atlantis.atlantean_shrimp": "Atlantean Shrimp"
 }

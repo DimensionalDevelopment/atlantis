@@ -1,28 +1,23 @@
 package com.mystic.atlantis.setup;
 
+import java.util.function.Function;
+
 import com.mystic.atlantis.dimension.AltantisSkyRenderer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.entities.models.CrabEntityModel;
 import com.mystic.atlantis.entities.models.Jellyfish2EntityModel;
 import com.mystic.atlantis.entities.models.JellyfishEntityModel;
+import com.mystic.atlantis.entities.models.ShrimpEntityModel;
 import com.mystic.atlantis.entities.renders.CrabEntityRenderer;
 import com.mystic.atlantis.entities.renders.Jellyfish2EntityRenderer;
 import com.mystic.atlantis.entities.renders.JellyfishEntityRenderer;
+import com.mystic.atlantis.entities.renders.ShrimpEntityRenderer;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.particles.ModParticleTypes;
 import io.github.waterpicker.openworlds.OpenWorlds;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
-import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.SkyProperties;
@@ -38,7 +33,16 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockRenderView;
 
-import java.util.function.Function;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 
 @Environment(EnvType.CLIENT)
 public class ClientSetup implements ClientModInitializer {
@@ -113,6 +117,7 @@ public class ClientSetup implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(AtlantisEntities.CRAB, entityRenderDispatcher -> new CrabEntityRenderer(entityRenderDispatcher, new CrabEntityModel()));
         EntityRendererRegistry.INSTANCE.register(AtlantisEntities.JELLYFISH, entityRenderDispatcher -> new JellyfishEntityRenderer(entityRenderDispatcher, new JellyfishEntityModel()));
         EntityRendererRegistry.INSTANCE.register(AtlantisEntities.JELLYFISH2, entityRenderDispatcher -> new Jellyfish2EntityRenderer(entityRenderDispatcher, new Jellyfish2EntityModel()));
+        EntityRendererRegistry.INSTANCE.register(AtlantisEntities.SHRIMP, entityRenderDispatcher -> new ShrimpEntityRenderer(entityRenderDispatcher, new ShrimpEntityModel()));
         ModParticleTypes.init();
     }
 
