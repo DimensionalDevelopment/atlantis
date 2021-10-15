@@ -17,7 +17,7 @@ import net.minecraft.world.BlockView;
 import static com.mystic.atlantis.blocks.plants.UnderwaterFlower.WATERLOGGED;
 
 public class AtlantisClearPortalBlock extends CustomPortalBlock implements Waterloggable {
-    public static final EnumProperty<Direction.Axis> AXIS = Properties.HORIZONTAL_AXIS;
+    public static final EnumProperty<Direction.Axis> AXIS = CustomPortalBlock.AXIS;
     protected static final VoxelShape X_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 6.0D, 16.0D, 16.0D, 10.0D);
     protected static final VoxelShape Z_SHAPE = Block.createCuboidShape(6.0D, 0.0D, 0.0D, 10.0D, 16.0D, 16.0D);
 

@@ -19,7 +19,10 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.kyrptonaught.customportalapi.CustomPortalApiRegistry;
+import net.kyrptonaught.customportalapi.CustomPortalBlock;
+import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
 import net.kyrptonaught.customportalapi.portal.PortalIgnitionSource;
+import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.server.MinecraftServer;
@@ -77,8 +80,13 @@ public class Atlantis implements ModInitializer
 
         BlockInit.init();
         ItemInit.init();
-        CustomPortalApiRegistry.addPortal(BlockInit.ATLANTEAN_CORE, PortalIgnitionSource.FluidSource(Fluids.WATER), BlockInit.ATLANTIS_CLEAR_PORTAL, new Identifier("atlantis", "atlantis"), 0, 125, 255);
-
+        CustomPortalBuilder.beginPortal()
+                .frameBlock(BlockInit.ATLANTEAN_CORE)
+                .lightWithWater()
+                .destDimID(new Identifier("atlantis", "atlantis"))
+                .tintColor(0, 125, 255)
+                .customPortalBlock(BlockInit.ATLANTIS_CLEAR_PORTAL)
+                .registerPortal();
         AtlantisGroup.init();
         AtlantisEntities.initialize();
         GeckoLib.initialize();

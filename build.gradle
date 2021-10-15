@@ -33,7 +33,7 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation 'software.bernie.geckolib:geckolib-fabric-1.17:3.0.5:dev'
-    modImplementation 'net.kyrptonaught:customportalapi:0.0.1-beta32-1.17'
+    modImplementation 'net.kyrptonaught:customportalapi:0.0.1-beta45-1.17'
     include 'net.kyrptonaught:customportalapi:0.0.1-beta45-1.17'
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
