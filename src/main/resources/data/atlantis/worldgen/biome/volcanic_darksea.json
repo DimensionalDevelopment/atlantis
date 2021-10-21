@@ -22,7 +22,6 @@
     }
   },
   "starts": [
-    "atlantis:configured_atlantean_fountain",
     "atlantis:configured_oyster_structure"
   ],
   "spawners": {

@@ -23,7 +23,10 @@
   },
   "starts": [
     "atlantis:configured_atlantean_fountain",
-    "atlantis:configured_oyster_structure"
+    "atlantis:configured_oyster_structure",
+    "atlantis:configured_atlantean_house_1",
+    "atlantis:configured_atlantean_house_3",
+    "atlantis:configured_atlantean_tower"
   ],
   "spawners": {
     "monster": [
