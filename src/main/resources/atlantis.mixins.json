@@ -11,7 +11,8 @@
     "RedstoneAccessor",
     "RedstoneWireBlockMixin",
     "RenderBubblesMixin",
-    "StructuresConfigAccessor"
+    "StructuresConfigAccessor",
+    "BoatEntityAccessor"
   ],
   "client": [],
   "injectors": {

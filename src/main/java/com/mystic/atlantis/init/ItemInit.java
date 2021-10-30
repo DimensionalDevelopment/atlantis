@@ -8,6 +8,7 @@ import com.mystic.atlantis.items.item.AtlanteanCrystal;
 import com.mystic.atlantis.items.item.CrabEntityBucketItem;
 import com.mystic.atlantis.items.item.DefaultItem;
 import com.mystic.atlantis.items.item.JellyfishEntityBucketItem;
+import com.mystic.atlantis.items.item.SubmarineItem;
 import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
 import com.mystic.atlantis.items.tools.AquamarineAxe;
 import com.mystic.atlantis.items.tools.AquamarineHoe;
@@ -36,6 +37,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
+
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 
 public class ItemInit
 {
@@ -70,6 +73,7 @@ public class ItemInit
     public static final Item ATLANTEAN_POWER_TORCH = register("atlantean_power_torch", new WallStandingBlockItem(BlockInit.ATLANTEAN_POWER_TORCH, BlockInit.WALL_ATLANTEAN_POWER_TORCH, (new Item.Settings())));
     public static final Item ATLANTEAN_POWER_DUST = register("atlantean_power_dust", new AliasedBlockItem(BlockInit.ATLANTEAN_POWER_DUST_WIRE, (new Item.Settings())));
     public static final Item ATLANTEAN_STRING = register("atlantean_string", new AliasedBlockItem(BlockInit.ATLANTEAN_TRIPWIRE, (new Item.Settings())));
+    public static final Item SUBMARINE = register("submarine", new SubmarineItem(new FabricItemSettings()));
 
     //Entity Buckets
     public static final Item CRAB_BUCKET = register("crab_bucket", new CrabEntityBucketItem(AtlantisEntities.CRAB, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH, (new Item.Settings()).maxCount(1)));

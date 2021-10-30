@@ -34,6 +34,10 @@ public class AtlantisEntities
                     .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
                     .build());
 
+    public static final EntityType<SubmarineEntity> SUBMARINE =
+            Registry.register(Registry.ENTITY_TYPE, Atlantis.id("atlantean_submarine"), FabricEntityTypeBuilder.create(SpawnGroup.MISC, SubmarineEntity::new)
+                    .dimensions(EntityDimensions.fixed(1.6F, 1.6F)).trackRangeBlocks(1).build());
+
 
     public static void initialize() {
         FabricDefaultAttributeRegistry.register(AtlantisEntities.CRAB, CrabEntity.createCrabAttributes());

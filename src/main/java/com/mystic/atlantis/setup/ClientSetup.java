@@ -13,6 +13,7 @@ import com.mystic.atlantis.entities.renders.CrabEntityRenderer;
 import com.mystic.atlantis.entities.renders.Jellyfish2EntityRenderer;
 import com.mystic.atlantis.entities.renders.JellyfishEntityRenderer;
 import com.mystic.atlantis.entities.renders.ShrimpEntityRenderer;
+import com.mystic.atlantis.entities.renders.SubmarineEntityRenderer;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.particles.ModParticleTypes;
@@ -118,6 +119,7 @@ public class ClientSetup implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(AtlantisEntities.JELLYFISH, entityRenderDispatcher -> new JellyfishEntityRenderer(entityRenderDispatcher, new JellyfishEntityModel()));
         EntityRendererRegistry.INSTANCE.register(AtlantisEntities.JELLYFISH2, entityRenderDispatcher -> new Jellyfish2EntityRenderer(entityRenderDispatcher, new Jellyfish2EntityModel()));
         EntityRendererRegistry.INSTANCE.register(AtlantisEntities.SHRIMP, entityRenderDispatcher -> new ShrimpEntityRenderer(entityRenderDispatcher, new ShrimpEntityModel()));
+        EntityRendererRegistry.INSTANCE.register(AtlantisEntities.SUBMARINE, SubmarineEntityRenderer::new);
         ModParticleTypes.init();
     }
 
