@@ -33,16 +33,6 @@ public abstract class CanBreatheInDimension extends LivingEntity {
             } else {
                 this.setAir(getNextAirOnLand(air));
             }
-        } else {
-            if (this.isAlive() && this.isSubmergedIn(FluidTags.WATER)) {
-                this.setAir(air - 1);
-                if (this.getAir() == -20) {
-                    this.setAir(0);
-                    this.damage(DamageSource.DROWN, 2.0F);
-                }
-            } else {
-                this.setAir(getNextAirOnLand(air));
-            }
         }
     }
 

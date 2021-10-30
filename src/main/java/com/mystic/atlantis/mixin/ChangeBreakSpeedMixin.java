@@ -68,19 +68,11 @@ public abstract class ChangeBreakSpeedMixin extends LivingEntity {
             if (!this.isSubmergedIn(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(this)) {
                 f /= 5.0F;
             }
-        } else {
-            if (this.isSubmergedIn(FluidTags.WATER) && EnchantmentHelper.hasAquaAffinity(this)) {
-                f /= 5.0F;
-            }
         }
 
         if (world.getRegistryKey() == DimensionAtlantis.ATLANTIS_WORLD) {
 
             if (!this.onGround && !this.isSubmergedIn(FluidTags.WATER)) {
-                f /= 5.0F;
-            }
-        } else {
-            if (this.onGround && this.isSubmergedIn(FluidTags.WATER)) {
                 f /= 5.0F;
             }
         }
