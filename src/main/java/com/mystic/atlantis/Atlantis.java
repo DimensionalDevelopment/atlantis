@@ -5,6 +5,7 @@ import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
+import com.mystic.atlantis.event.BreathingLibIntegration;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
@@ -105,6 +106,7 @@ public class Atlantis implements ModInitializer
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, oreAquamarineOverworld.getValue(), ORE_AQUAMARINE_OVERWORLD);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, oreAquamarineOverworld);
 
+        BreathingLibIntegration.register();
     }
     public static final BlockEntityType<DummyDataStorage> DUMMY_DATA_STORAGE;
     static {
