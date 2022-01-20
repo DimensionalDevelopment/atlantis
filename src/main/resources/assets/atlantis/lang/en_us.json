@@ -142,5 +142,8 @@
   "item.atlantis.shrimp": "Shrimp",
   "item.atlantis.cooked_shrimp": "Cooked Shrimp",
   "item.atlantis.atlantean_shrimp_egg": "Atlantean Shrimp Spawn Egg",
-  "entity.atlantis.atlantean_shrimp": "Atlantean Shrimp"
+  "entity.atlantis.atlantean_shrimp": "Atlantean Shrimp",
+  "item.atlantis.submarine": "Atlantean Submarine",
+  "entity.atlantis.submarine": "Atlantean Submarine",
+  "item.atlantis.water_pill": "Water Pill"
 }

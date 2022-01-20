@@ -1,12 +1,13 @@
 {
+    "parent": "atlantis:dimension_advancement",
     "display": {
         "title": {
-            "text": "Welcome To Atlantis!!!",
+            "text": "Arg matey, There be land here",
             "color": "aqua",
             "bold": false
         },
         "description": {
-            "text": "Enter the Atlantis Dimension",
+            "text": "Locate the Atlantean Islands Biome",
             "color": "blue"
         },
         "icon": {
@@ -23,6 +24,7 @@
             "trigger": "minecraft:location",
             "conditions": {
                 "location": {
+                    "biome": "atlantis:atlantean_islands_biome",
                     "dimension": "atlantis:atlantis"
                 }
             }

@@ -21,6 +21,10 @@ public final class AtlantisConfig extends PartitioningSerializer.GlobalData {
     @Config(name = "general")
     public static final class General implements ConfigData {
         @SuppressWarnings("unused")
+        @ConfigEntry.Gui.NoTooltip
+        public static boolean islandsOn = false;
+        @ConfigEntry.Gui.NoTooltip
+        public static boolean volcanoesOn = false;
         @ConfigEntry.Gui.Excluded
         public int configVersion = 0;
         @ConfigEntry.Gui.Tooltip(count = 1)

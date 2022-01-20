@@ -16,12 +16,12 @@ import net.minecraft.world.World;
 import java.util.Map;
 import java.util.Random;
 
-public class ItemArmorAtlantis extends ArmorItem {
+public class ItemArmorWrought extends ArmorItem {
     private static final Map<ArmorMaterial, StatusEffect> MATERIAL_TO_EFFECT_MAP =
             (new ImmutableMap.Builder<ArmorMaterial, StatusEffect>())
-                    .put(BasicArmorMaterial.ARMOR_AQUAMARINE, StatusEffects.DOLPHINS_GRACE).build();
+                    .put(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, StatusEffects.INVISIBILITY).build();
 
-    public ItemArmorAtlantis(ArmorMaterial material, EquipmentSlot slot, Settings settings) {
+    public ItemArmorWrought(ArmorMaterial material, EquipmentSlot slot, Settings settings) {
         super(material, slot, settings);
     }
 

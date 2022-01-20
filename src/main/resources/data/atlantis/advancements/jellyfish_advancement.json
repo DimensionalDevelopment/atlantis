@@ -1,16 +1,17 @@
 {
+    "parent": "atlantis:jellyfish_fields_biome_advancement",
     "display": {
         "title": {
-            "text": "Welcome To Atlantis!!!",
+            "text": "Jellyshocked",
             "color": "aqua",
             "bold": false
         },
         "description": {
-            "text": "Enter the Atlantis Dimension",
+            "text": "Get hurt by a Jellyfish",
             "color": "blue"
         },
         "icon": {
-            "item": "atlantis:orb_of_atlantis"
+            "item": "atlantis:jellyfish_bucket"
         },
         "frame": "task",
         "show_toast": true,
@@ -20,10 +21,10 @@
     },
     "criteria": {
         "atlantis": {
-            "trigger": "minecraft:location",
+            "trigger": "minecraft:entity_hurt_player",
             "conditions": {
-                "location": {
-                    "dimension": "atlantis:atlantis"
+                "entity": {
+                    "type": "atlantis:jellyfish"
                 }
             }
         }

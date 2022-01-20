@@ -1,12 +1,13 @@
 {
+    "parent": "atlantis:dimension_advancement",
     "display": {
         "title": {
-            "text": "Welcome To Atlantis!!!",
+            "text": "Jellyfishing, Jellyfishing",
             "color": "aqua",
             "bold": false
         },
         "description": {
-            "text": "Enter the Atlantis Dimension",
+            "text": "Locate the Jellyfish Fields Biome",
             "color": "blue"
         },
         "icon": {
@@ -23,6 +24,7 @@
             "trigger": "minecraft:location",
             "conditions": {
                 "location": {
+                    "biome": "atlantis:jellyfish_fields",
                     "dimension": "atlantis:atlantis"
                 }
             }

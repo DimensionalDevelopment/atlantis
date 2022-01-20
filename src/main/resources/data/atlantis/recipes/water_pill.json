@@ -1,0 +1,27 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"WSW",
+		"SWS",
+		"WSW"
+	],
+	"key":
+	{
+		"W":
+		{
+			"item": "minecraft:sugar"
+		},
+		
+		"S":
+		{
+			"item": "minecraft:kelp"
+		}
+	},
+	"result":
+	{
+		"item": "atlantis:water_pill",
+		"count": 1
+	}
+	
+}					

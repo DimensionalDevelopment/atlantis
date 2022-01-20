@@ -1,6 +1,7 @@
 package com.mystic.atlantis.configfeature;
 
 import com.mojang.serialization.Codec;
+import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.util.FastNoiseLite;
 import net.minecraft.block.Blocks;
@@ -38,33 +39,34 @@ public class AtlanteanVolcano extends Feature<DefaultFeatureConfig> {
         if (context.getWorld().getBlockState(context.getOrigin().down()).getMaterial() == Material.AIR || context.getWorld().getBlockState(context.getOrigin().down()).getMaterial() == Material.WATER || context.getWorld().getBlockState(context.getOrigin().down()).getMaterial() == Material.LAVA || context.getWorld().getTopY(Heightmap.Type.OCEAN_FLOOR_WG, context.getOrigin().getX(), context.getOrigin().getZ()) < 4)
             return false;
 
+        if(AtlantisConfig.General.volcanoesOn) {
+            BlockPos.Mutable mutable = new BlockPos.Mutable();
 
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
+            double baseRadius = 10;
+            double waterLeakage = 0.7;
+            double calciteBase = 0.6;
+            int volcanoConeSize = 50;
+            int volcanoStartHeight = volcanoConeSize - 5;
+            double threshold = 0.5;
 
-        double baseRadius = 10;
-        double waterLeakage = 0.7;
-        double calciteBase = 0.6;
-        int volcanoConeSize = 50;
-        int volcanoStartHeight = volcanoConeSize - 5;
-        double threshold = 0.5;
-
-        for (double x = -volcanoConeSize; x <= volcanoConeSize; x++) {
-            for (double y = -volcanoConeSize; y <= -15; y++) {
-                for (double z = -volcanoConeSize; z <= volcanoConeSize; z++) {
-                    mutable.set(context.getOrigin()).move((int) x, (int) y + volcanoStartHeight, (int) z);
-                    float noise3 = FastNoiseLite.getSpongePerlinValue(fnlPerlin.GetNoise(mutable.getX(), mutable.getZ()));
-                    double scaledNoise = (noise3 / 11) * (-(y * baseRadius) / ((x * x) + (z * z)));
-                    if (scaledNoise - waterLeakage >= threshold) {
-                        if (mutable.getY() <= context.getOrigin().getY() + (volcanoStartHeight - 14)) {
-                            context.getWorld().setBlockState(mutable, Blocks.WATER.getDefaultState(), 2);
-                            context.getWorld().getFluidTickScheduler().schedule(mutable, Fluids.WATER, 0);
+            for (double x = -volcanoConeSize; x <= volcanoConeSize; x++) {
+                for (double y = -volcanoConeSize; y <= -15; y++) {
+                    for (double z = -volcanoConeSize; z <= volcanoConeSize; z++) {
+                        mutable.set(context.getOrigin()).move((int) x, (int) y + volcanoStartHeight, (int) z);
+                        float noise3 = FastNoiseLite.getSpongePerlinValue(fnlPerlin.GetNoise(mutable.getX(), mutable.getZ()));
+                        double scaledNoise = (noise3 / 11) * (-(y * baseRadius) / ((x * x) + (z * z)));
+                        if (scaledNoise - waterLeakage >= threshold) {
+                            if (mutable.getY() <= context.getOrigin().getY() + (volcanoStartHeight - 14)) {
+                                context.getWorld().setBlockState(mutable, Blocks.WATER.getDefaultState(), 2);
+                                context.getWorld().getFluidTickScheduler().schedule(mutable, Fluids.WATER, 0);
+                            }
+                        } else if (scaledNoise >= threshold) {
+                            context.getWorld().setBlockState(mutable, Blocks.TUFF.getDefaultState(), 2);
                         }
-                    } else if (scaledNoise >= threshold) {
-                        context.getWorld().setBlockState(mutable, Blocks.TUFF.getDefaultState(), 2);
-                    }
-                    if (scaledNoise - calciteBase >= threshold) {
-                        if(mutable.getY() <= 70 && mutable.getY() >= 40) {
-                            context.getWorld().setBlockState(mutable, BlockInit.CALCITE_BLOCK.getDefaultState(), 2);
+                        if (scaledNoise - calciteBase >= threshold) {
+                            if (mutable.getY() <= 70 && mutable.getY() >= 40) {
+                                context.getWorld().setBlockState(mutable, BlockInit.CALCITE_BLOCK.getDefaultState(), 2);
+                            }
                         }
                     }
                 }

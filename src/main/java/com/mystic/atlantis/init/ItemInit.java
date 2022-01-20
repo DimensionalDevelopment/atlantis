@@ -4,11 +4,8 @@ import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
-import com.mystic.atlantis.items.item.AtlanteanCrystal;
-import com.mystic.atlantis.items.item.CrabEntityBucketItem;
-import com.mystic.atlantis.items.item.DefaultItem;
-import com.mystic.atlantis.items.item.JellyfishEntityBucketItem;
-import com.mystic.atlantis.items.item.SubmarineItem;
+import com.mystic.atlantis.items.armor.ItemArmorWrought;
+import com.mystic.atlantis.items.item.*;
 import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
 import com.mystic.atlantis.items.tools.AquamarineAxe;
 import com.mystic.atlantis.items.tools.AquamarineHoe;
@@ -74,6 +71,7 @@ public class ItemInit
     public static final Item ATLANTEAN_POWER_DUST = register("atlantean_power_dust", new AliasedBlockItem(BlockInit.ATLANTEAN_POWER_DUST_WIRE, (new Item.Settings())));
     public static final Item ATLANTEAN_STRING = register("atlantean_string", new AliasedBlockItem(BlockInit.ATLANTEAN_TRIPWIRE, (new Item.Settings())));
     public static final Item SUBMARINE = register("submarine", new SubmarineItem(new FabricItemSettings()));
+    public static final Item WATER_PILL = register("water_pill", new WaterPill());
 
     //Entity Buckets
     public static final Item CRAB_BUCKET = register("crab_bucket", new CrabEntityBucketItem(AtlantisEntities.CRAB, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH, (new Item.Settings()).maxCount(1)));
@@ -93,8 +91,8 @@ public class ItemInit
     public static final ArmorItem AQUAMARINE_CHESTPLATE = (ArmorItem) register("aquamarine_chestplate", new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, EquipmentSlot.CHEST, new Item.Settings()));
     public static final ArmorItem AQUAMARINE_LEGGINGS= (ArmorItem) register("aquamarine_leggings", new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, EquipmentSlot.LEGS, new Item.Settings()));
     public static final ArmorItem AQUAMARINE_BOOTS = (ArmorItem) register("aquamarine_boots", new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, EquipmentSlot.FEET, new Item.Settings()));
-    public static final ArmorItem BROWN_WROUGHT_HELMET = (ArmorItem) register("brown_wrought_helmet", new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.HEAD, new Item.Settings()));
-    public static final ArmorItem BROWN_WROUGHT_CHESTPLATE = (ArmorItem) register("brown_wrought_chestplate", new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.CHEST, new Item.Settings()));
-    public static final ArmorItem BROWN_WROUGHT_LEGGINGS= (ArmorItem) register("brown_wrought_leggings", new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.LEGS, new Item.Settings()));
-    public static final ArmorItem BROWN_WROUGHT_BOOTS = (ArmorItem) register("brown_wrought_boots", new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.FEET, new Item.Settings()));
+    public static final ArmorItem BROWN_WROUGHT_HELMET = (ArmorItem) register("brown_wrought_helmet", new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.HEAD, new Item.Settings()));
+    public static final ArmorItem BROWN_WROUGHT_CHESTPLATE = (ArmorItem) register("brown_wrought_chestplate", new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.CHEST, new Item.Settings()));
+    public static final ArmorItem BROWN_WROUGHT_LEGGINGS= (ArmorItem) register("brown_wrought_leggings", new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.LEGS, new Item.Settings()));
+    public static final ArmorItem BROWN_WROUGHT_BOOTS = (ArmorItem) register("brown_wrought_boots", new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.FEET, new Item.Settings()));
 }

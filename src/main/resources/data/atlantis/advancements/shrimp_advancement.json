@@ -1,16 +1,17 @@
 {
+    "parent": "atlantis:island_atlantis_biome_advancement",
     "display": {
         "title": {
-            "text": "Welcome To Atlantis!!!",
+            "text": "Shrimpify",
             "color": "aqua",
             "bold": false
         },
         "description": {
-            "text": "Enter the Atlantis Dimension",
+            "text": "Pick up a shrimp in a bucket",
             "color": "blue"
         },
         "icon": {
-            "item": "atlantis:orb_of_atlantis"
+            "item": "atlantis:shrimp_bucket"
         },
         "frame": "task",
         "show_toast": true,
@@ -20,10 +21,13 @@
     },
     "criteria": {
         "atlantis": {
-            "trigger": "minecraft:location",
+            "trigger": "minecraft:player_interacted_with_entity",
             "conditions": {
-                "location": {
-                    "dimension": "atlantis:atlantis"
+                "item": {
+                    "item": "minecraft:water_bucket"
+                },
+                "entity": {
+                    "type": "atlantis:atlantean_shrimp"
                 }
             }
         }

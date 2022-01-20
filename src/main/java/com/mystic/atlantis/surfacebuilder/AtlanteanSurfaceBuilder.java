@@ -33,7 +33,7 @@ public class AtlanteanSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig
             BlockState currentBlockState = chunk.getBlockState(blockpos);
 
             if (ypos >= 30 && ypos <= 31){
-                chunk.setBlockState(blockpos, BlockInit.ALGAE_BLOCK.getDefaultState(), false); //TODO Change to algae growth block!!!
+                chunk.setBlockState(blockpos, BlockInit.ALGAE_BLOCK.getDefaultState(), false);
             }
         }
     }
