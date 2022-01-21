@@ -5,8 +5,6 @@ import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 
 @Config(name = Reference.MODID)
 @Config.Gui.Background("atlantis:textures/block/chiseled_golden_aquamarine.png")

@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.8-SNAPSHOT'
+    id 'fabric-loom' version '0.10-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -23,6 +23,10 @@ repositories {
         url = "http://maven.kyrptonaught.dev"
         allowInsecureProtocol = true
     }
+    maven {
+        name = 'TerraformersMC'
+        url = 'https://maven.terraformersmc.com/'
+    }
     maven { url "https://maven.shedaniel.me/" }
     maven {url "https://maven.quiltmc.org/repository/release/"}
 }
@@ -32,7 +36,7 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation 'software.bernie.geckolib:geckolib-fabric-1.17:3.0.31:dev'
+    modImplementation 'software.bernie.geckolib:geckolib-fabric-1.17:3.0.31'
     modImplementation 'net.kyrptonaught:customportalapi:0.0.1-beta45-1.17'
     include 'net.kyrptonaught:customportalapi:0.0.1-beta45-1.17'
     // Fabric API. This is technically optional, but you probably want it anyway.
@@ -40,7 +44,9 @@ dependencies {
     modApi("me.shedaniel.cloth:cloth-config-fabric:5.2.47") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    modImplementation "com.terraformersmc:modmenu:v2.0.14+1.17"
+    modImplementation ("com.terraformersmc:modmenu:2.0.14") {
+        exclude module: "fabric-api"
+    }
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
     modImplementation("com.github.Mysticpasta1:OpenWorlds:cce9fed") {
@@ -82,8 +88,8 @@ jar { // shit
     }
 }
 
-minecraft {
-    accessWidener =  file("src/main/resources/atlantis.accesswidener")
+loom {
+    accessWidenerPath =  file("src/main/resources/atlantis.accesswidener")
 }
 
 // configure the maven publication
