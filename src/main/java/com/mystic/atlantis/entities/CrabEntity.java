@@ -236,6 +236,6 @@ public class CrabEntity extends AnimalEntity implements IAnimatable, Bucketable 
     }
 
     public static boolean canSpawn(EntityType<CrabEntity> crabEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return pos.getY() >= AtlantisConfig.General.minCrabSpawnHeight && AtlantisConfig.General.maxCrabSpawnHeight >= pos.getY() && serverWorldAccess.getBlockState(pos).isOf(Blocks.WATER);
+        return pos.getY() >= AtlantisConfig.get().minCrabSpawnHeight && AtlantisConfig.get().maxCrabSpawnHeight >= pos.getY() && serverWorldAccess.getBlockState(pos).isOf(Blocks.WATER);
     }
 }

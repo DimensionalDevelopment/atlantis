@@ -39,7 +39,7 @@ public class AtlanteanVolcano extends Feature<DefaultFeatureConfig> {
         if (context.getWorld().getBlockState(context.getOrigin().down()).getMaterial() == Material.AIR || context.getWorld().getBlockState(context.getOrigin().down()).getMaterial() == Material.WATER || context.getWorld().getBlockState(context.getOrigin().down()).getMaterial() == Material.LAVA || context.getWorld().getTopY(Heightmap.Type.OCEAN_FLOOR_WG, context.getOrigin().getX(), context.getOrigin().getZ()) < 4)
             return false;
 
-        if(AtlantisConfig.General.volcanoesOn) {
+        if(AtlantisConfig.get().volcanoesOn) {
             BlockPos.Mutable mutable = new BlockPos.Mutable();
 
             double baseRadius = 10;

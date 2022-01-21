@@ -222,7 +222,7 @@ public class PushBubbleColumn extends Block implements FluidDrainable {
     }
 
     public void onBubbleColumnSurfaceCollision(Entity entity, Direction drag) {
-        adjust(entity, drag, AtlantisConfig.General.calciteAcceleration, AtlantisConfig.General.calciteThreshold);
+        adjust(entity, drag, AtlantisConfig.get().calciteAcceleration, AtlantisConfig.get().calciteThreshold);
     }
 
     public void adjust(Entity entity, Direction drag, double value, double limit) {

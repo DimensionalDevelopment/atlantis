@@ -12,6 +12,7 @@ import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
 import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ModInitializer;
@@ -75,8 +76,7 @@ public class Atlantis implements ModInitializer
 
     @Override
     public void onInitialize() {
-        Atlantis.CONFIG = AutoConfig.register(AtlantisConfig.class,
-                PartitioningSerializer.wrap(Toml4jConfigSerializer::new)).getConfig();
+        AutoConfig.register(AtlantisConfig.class, GsonConfigSerializer::new);
 
         BlockInit.init();
         ItemInit.init();

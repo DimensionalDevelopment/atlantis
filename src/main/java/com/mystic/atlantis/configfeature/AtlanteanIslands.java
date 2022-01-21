@@ -46,7 +46,7 @@ public class AtlanteanIslands extends Feature<DefaultFeatureConfig> {
             return false;
         }
 
-        if(AtlantisConfig.General.islandsOn) {
+        if(AtlantisConfig.get().islandsOn) {
             BlockPos.Mutable mutable = new BlockPos.Mutable();
             for (double x = -radius; x <= radius; x++) {
                 for (double y = 1; y <= radius; y++) {
