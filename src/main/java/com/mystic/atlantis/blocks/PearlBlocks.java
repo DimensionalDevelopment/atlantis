@@ -1,7 +1,10 @@
 package com.mystic.atlantis.blocks;
 
 
-import net.minecraft.block.*;
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -14,7 +17,6 @@ import net.minecraft.world.World;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import org.jetbrains.annotations.Nullable;
 
 public class PearlBlocks extends Block
 {
@@ -22,7 +24,7 @@ public class PearlBlocks extends Block
     public PearlBlocks(FabricBlockSettings properties) {
         super(properties
                 .strength(2.0F, 5.0F)
-                .breakByTool(FabricToolTags.PICKAXES, 1)
+                .breakByTool(FabricToolTags.PICKAXES, 1) //TODO: Update
                 .requiresTool()
                 .luminance((state) -> 5)
                 .nonOpaque()

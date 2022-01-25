@@ -12,7 +12,7 @@ public class BlockAquamarine extends Block
     public BlockAquamarine(FabricBlockSettings properties) {
         super(properties
                 .sounds(BlockSoundGroup.METAL)
-                .breakByTool(FabricToolTags.PICKAXES, 2)
+                .breakByTool(FabricToolTags.PICKAXES, 2) //TODO: Update
                 .requiresTool()
                 .strength(3.0F, 15.0F));
     }

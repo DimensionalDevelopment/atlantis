@@ -1,7 +1,17 @@
 package com.mystic.atlantis.entities.renders;
 
+import java.util.Collections;
+
 import com.mystic.atlantis.entities.Jellyfish2Entity;
-import net.fabricmc.loader.api.FabricLoader;
+import software.bernie.geckolib3.compat.PatchouliCompat;
+import software.bernie.geckolib3.core.IAnimatableModel;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.geo.render.built.GeoModel;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib3.model.provider.data.EntityModelData;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.RenderLayer;
@@ -12,18 +22,14 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LightType;
-import software.bernie.geckolib3.compat.PatchouliCompat;
-import software.bernie.geckolib3.core.IAnimatableModel;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.geo.render.built.GeoModel;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
-import software.bernie.geckolib3.model.provider.data.EntityModelData;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
-import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 
-import java.util.Collections;
+import net.fabricmc.loader.api.FabricLoader;
 
 public class Jellyfish2EntityRenderer extends GeoEntityRenderer<Jellyfish2Entity> {
 
@@ -134,7 +140,7 @@ public class Jellyfish2EntityRenderer extends GeoEntityRenderer<Jellyfish2Entity
 
     private <E extends Entity> void method_4073(Jellyfish2Entity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, E holdingEntity) {
         matrices.push();
-        Vec3d vec3d = holdingEntity.method_30951(tickDelta);
+        Vec3d vec3d = holdingEntity.getRotationVec(tickDelta);
         double d = (double)(MathHelper.lerp(tickDelta, entity.bodyYaw, entity.prevBodyYaw) * 0.017453292F) + 1.5707963267948966D;
         Vec3d vec3d2 = entity.getLeashOffset();
         double e = Math.cos(d) * vec3d2.z + Math.sin(d) * vec3d2.x;
@@ -148,7 +154,7 @@ public class Jellyfish2EntityRenderer extends GeoEntityRenderer<Jellyfish2Entity
         float l = (float)(vec3d.z - i);
         float m = 0.025F;
         VertexConsumer vertexConsumer = provider.getBuffer(RenderLayer.getLeash());
-        Matrix4f matrix4f = matrices.peek().getModel();
+        Matrix4f matrix4f = matrices.peek().getPositionMatrix();
         float n = MathHelper.fastInverseSqrt(j * j + l * l) * 0.025F / 2.0F;
         float o = l * n;
         float p = j * n;

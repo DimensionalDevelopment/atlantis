@@ -3,19 +3,13 @@ package com.mystic.atlantis.configfeature;
 import com.mojang.serialization.Codec;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.util.FastNoiseLite;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.ChunkSectionPos;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.chunk.ChunkSection;
-import net.minecraft.world.gen.ChunkRandom;
-import net.minecraft.world.gen.WorldGenRandom;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
-
-import java.util.Random;
 
 public class AtlanteanIslands extends Feature<DefaultFeatureConfig> {
 
@@ -39,10 +33,7 @@ public class AtlanteanIslands extends Feature<DefaultFeatureConfig> {
             return false;
         }
 
-        ChunkRandom chunkRandom = new ChunkRandom();
-        chunkRandom.setTerrainSeed(chunkPos.getX(), chunkPos.getZ());
-
-        if ((chunkPos.getX() & 1) == 1 || (chunkPos.getY() & 1) == chunkRandom.nextInt(2) || (chunkPos.getZ() & 1) == 1) {
+        if ((chunkPos.getX() & 1) == 1 || (chunkPos.getY() & 1) == context.getRandom().nextInt(2) || (chunkPos.getZ() & 1) == 1) {
             return false;
         }
 

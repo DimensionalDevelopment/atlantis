@@ -1,5 +1,9 @@
 package com.mystic.atlantis.blocks;
 
+import static net.minecraft.state.property.Properties.FACING;
+
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemPlacementContext;
@@ -8,11 +12,8 @@ import net.minecraft.state.StateManager;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Direction;
 
-import java.util.Random;
-
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import static net.minecraft.state.property.Properties.FACING;
 
 public class ColoredShellBlocks extends Block {
 
@@ -21,7 +22,7 @@ public class ColoredShellBlocks extends Block {
     public ColoredShellBlocks(FabricBlockSettings properties) {
         super(properties
                 .sounds(BlockSoundGroup.BONE)
-                .breakByTool(FabricToolTags.PICKAXES, 2)
+                .breakByTool(FabricToolTags.PICKAXES, 2) //TODO: Update
                 .requiresTool()
                 .strength(3.0F, 7.0F));
 

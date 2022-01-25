@@ -10,7 +10,6 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.Heightmap;
-import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
@@ -29,10 +28,8 @@ public class AtlanteanVolcano extends Feature<DefaultFeatureConfig> {
 
         BlockPos pos = context.getOrigin();
         ChunkSectionPos chunkPos = ChunkSectionPos.from(pos);
-        ChunkRandom chunkRandom = new ChunkRandom();
-        chunkRandom.setTerrainSeed(chunkPos.getX(), chunkPos.getZ());
 
-        if ((chunkPos.getX() & 1) == 1 || (chunkPos.getY() & 1) == chunkRandom.nextInt(2) || (chunkPos.getZ() & 1) == 1) {
+        if ((chunkPos.getX() & 1) == 1 || (chunkPos.getY() & 1) == context.getRandom().nextInt(2) || (chunkPos.getZ() & 1) == 1) {
             return false;
         }
 
@@ -58,7 +55,7 @@ public class AtlanteanVolcano extends Feature<DefaultFeatureConfig> {
                         if (scaledNoise - waterLeakage >= threshold) {
                             if (mutable.getY() <= context.getOrigin().getY() + (volcanoStartHeight - 14)) {
                                 context.getWorld().setBlockState(mutable, Blocks.WATER.getDefaultState(), 2);
-                                context.getWorld().getFluidTickScheduler().schedule(mutable, Fluids.WATER, 0);
+                                context.getWorld().createAndScheduleFluidTick(mutable, Fluids.WATER, 0);
                             }
                         } else if (scaledNoise >= threshold) {
                             context.getWorld().setBlockState(mutable, Blocks.TUFF.getDefaultState(), 2);

@@ -12,7 +12,7 @@ public class AquamarineOre extends Block
     {
         super(properties
             .sounds(BlockSoundGroup.STONE)
-            .breakByTool(FabricToolTags.PICKAXES, 2)
+            .breakByTool(FabricToolTags.PICKAXES, 2) //TODO: Update
             .requiresTool()
             .strength(3.0F, 15.0F)
             .luminance((state) -> 2));

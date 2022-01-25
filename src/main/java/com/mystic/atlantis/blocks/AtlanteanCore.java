@@ -10,7 +10,7 @@ public class AtlanteanCore extends Block {
     public AtlanteanCore(FabricBlockSettings properties) {
         super(properties
                 .sounds(BlockSoundGroup.METAL)
-                .breakByTool(FabricToolTags.PICKAXES, 2)
+                .breakByTool(FabricToolTags.PICKAXES, 2) //TODO: Update
                 .requiresTool()
                 .luminance((state) -> 7)
                 .strength(4.0F, 25.0F));

@@ -1,7 +1,5 @@
 package com.mystic.atlantis.blocks;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemPlacementContext;
@@ -12,13 +10,16 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.Direction;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+
 public class AtlanteanPrismarine extends Block {
     public static final EnumProperty<Direction.Axis> AXIS = Properties.AXIS;
 
     public AtlanteanPrismarine(FabricBlockSettings properties) {
         super(properties
                 .strength(2.0F, 6.0F)
-                .breakByTool(FabricToolTags.PICKAXES, 1)
+                .breakByTool(FabricToolTags.PICKAXES, 1) //TODO: Update
                 .requiresTool()
                 .sounds(BlockSoundGroup.STONE));
         this.setDefaultState(this.getDefaultState().with(AXIS, Direction.Axis.Y));

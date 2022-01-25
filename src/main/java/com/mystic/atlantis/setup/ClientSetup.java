@@ -17,11 +17,10 @@ import com.mystic.atlantis.entities.renders.SubmarineEntityRenderer;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.particles.ModParticleTypes;
-import io.github.waterpicker.openworlds.OpenWorlds;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.SkyProperties;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.fluid.Fluid;
@@ -41,6 +40,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
@@ -99,7 +99,7 @@ public class ClientSetup implements ClientModInitializer {
                 BlockInit.BROWN_PEARL_BLOCK,
                 BlockInit.ATLANTIS_CLEAR_PORTAL);
 
-        SkyProperties atlantis = new SkyProperties(255.0F, true, SkyProperties.SkyType.NORMAL, false, false) {
+        DimensionEffects atlantis = new DimensionEffects(255.0F, true, DimensionEffects.SkyType.NORMAL, false, false) {
             @Override
             public Vec3d adjustFogColor(Vec3d vector3d, float v) {
                 return vector3d;
@@ -111,9 +111,9 @@ public class ClientSetup implements ClientModInitializer {
             }
         };
 
-        OpenWorlds.registerSkyProperty(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, atlantis);
-        OpenWorlds.registerSkyRenderer(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, new AltantisSkyRenderer());
-        OpenWorlds.registerCloudRenderer(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, (client, matrices, matrix4f, tickDelta, cameraX, cameraY, cameraZ) -> {});
+        DimensionRenderingRegistry.registerDimensionEffects(DimensionAtlantis.ATLANTIS_DIMENSION_EFFECT, atlantis);
+        DimensionRenderingRegistry.registerSkyRenderer(DimensionAtlantis.ATLANTIS_WORLD, new AltantisSkyRenderer());
+        DimensionRenderingRegistry.registerCloudRenderer(DimensionAtlantis.ATLANTIS_WORLD, (context) -> {});
 
         EntityRendererRegistry.INSTANCE.register(AtlantisEntities.CRAB, entityRenderDispatcher -> new CrabEntityRenderer(entityRenderDispatcher, new CrabEntityModel()));
         EntityRendererRegistry.INSTANCE.register(AtlantisEntities.JELLYFISH, entityRenderDispatcher -> new JellyfishEntityRenderer(entityRenderDispatcher, new JellyfishEntityModel()));

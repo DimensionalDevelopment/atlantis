@@ -1,8 +1,14 @@
 package com.mystic.atlantis.blocks.power;
 
 import com.google.common.base.MoreObjects;
-import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.TripwireBlock;
+import net.minecraft.block.TripwireHookBlock;
+import net.minecraft.block.Waterloggable;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.sound.SoundCategory;
@@ -16,7 +22,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
-import org.jetbrains.annotations.Nullable;
 
 public class AtlanteanTripwireHook extends TripwireHookBlock implements Waterloggable {
     private static final Property<Boolean> WATERLOGGED = AtlanteanPowerTorch.WATERLOGGED;
@@ -72,7 +77,7 @@ public class AtlanteanTripwireHook extends TripwireHookBlock implements Waterlog
                 bl5 |= bl6 && bl7;
                 blockStates[k] = blockState2;
                 if (k == i) {
-                    world.getBlockTickScheduler().schedule(pos, this, 10);
+                    world.createAndScheduleBlockTick(pos, this, 10);
                     bl4 &= bl6;
                 }
             }

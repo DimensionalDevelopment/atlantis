@@ -1,12 +1,12 @@
 package com.mystic.atlantis.structures;
 
+import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
-import com.mystic.atlantis.util.Reference;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 
 public class AtlantisStructures {
@@ -19,7 +19,8 @@ public class AtlantisStructures {
 
     public static void setupAndRegisterStructureFeatures() {
         FabricStructureBuilder.create(new Identifier(Reference.MODID, "oyster_structure"), OYSTER_STRUCTURE)
-                .defaultConfig(10 , 5 , 482739847).superflatFeature(OYSTER_STRUCTURE.configure(FeatureConfig.DEFAULT))
+                .defaultConfig(10 , 5 , 482739847)
+                .enableSuperflat()
                 .step(GenerationStep.Feature.SURFACE_STRUCTURES)
                 .adjustsSurface()
                 .register();
@@ -31,19 +32,22 @@ public class AtlantisStructures {
                 .register();
 
         FabricStructureBuilder.create(new Identifier(Reference.MODID, "atlantean_house_1"), ATLANTEAN_HOUSE_1)
-                .defaultConfig(6 , 5 , 1293091209).superflatFeature(ATLANTEAN_HOUSE_1.configure(FeatureConfig.DEFAULT))
+                .defaultConfig(6 , 5 , 1293091209)
+                .enableSuperflat()
                 .step(GenerationStep.Feature.SURFACE_STRUCTURES)
                 .adjustsSurface()
                 .register();
 
         FabricStructureBuilder.create(new Identifier(Reference.MODID, "atlantean_house_3"), ATLANTEAN_HOUSE_3)
-                .defaultConfig(7 , 4 , 965487684).superflatFeature(ATLANTEAN_HOUSE_3.configure(FeatureConfig.DEFAULT))
+                .defaultConfig(7 , 4 , 965487684)
+                .enableSuperflat()
                 .step(GenerationStep.Feature.SURFACE_STRUCTURES)
                 .adjustsSurface()
                 .register();
 
         FabricStructureBuilder.create(new Identifier(Reference.MODID, "atlantean_tower"), ATLANTEAN_TOWER)
-                .defaultConfig(9 , 7 , 763754364).superflatFeature(ATLANTEAN_TOWER.configure(FeatureConfig.DEFAULT))
+                .defaultConfig(9 , 7 , 763754364)
+                .enableSuperflat()
                 .step(GenerationStep.Feature.SURFACE_STRUCTURES)
                 .adjustsSurface()
                 .register();

@@ -19,7 +19,7 @@ public class OysterShellBlock extends PillarBlock
     public OysterShellBlock(FabricBlockSettings properties) {
         super(properties
                 .strength(2.0F, 6.0F)
-                .breakByTool(FabricToolTags.PICKAXES, 1)
+                .breakByTool(FabricToolTags.PICKAXES, 1) //TODO: Update
                 .requiresTool()
                 .sounds(BlockSoundGroup.STONE));
         this.setDefaultState(this.getDefaultState().with(AXIS, Direction.Axis.Y));

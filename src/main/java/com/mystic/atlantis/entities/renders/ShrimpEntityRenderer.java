@@ -157,7 +157,7 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
 
     private <E extends Entity> void method_4073(ShrimpEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, E holdingEntity) {
         matrices.push();
-        Vec3d vec3d = holdingEntity.method_30951(tickDelta);
+        Vec3d vec3d = holdingEntity.getRotationVec(tickDelta);
         double d = (double)(MathHelper.lerp(tickDelta, entity.bodyYaw, entity.prevBodyYaw) * 0.017453292F) + 1.5707963267948966D;
         Vec3d vec3d2 = entity.getLeashOffset();
         double e = Math.cos(d) * vec3d2.z + Math.sin(d) * vec3d2.x;
@@ -171,7 +171,7 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
         float l = (float)(vec3d.z - i);
         float m = 0.025F;
         VertexConsumer vertexConsumer = provider.getBuffer(RenderLayer.getLeash());
-        Matrix4f matrix4f = matrices.peek().getModel();
+        Matrix4f matrix4f = matrices.peek().getPositionMatrix();
         float n = MathHelper.fastInverseSqrt(j * j + l * l) * 0.025F / 2.0F;
         float o = l * n;
         float p = j * n;

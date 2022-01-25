@@ -19,8 +19,8 @@ public class DummyDataStorage extends BlockEntity {
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
-        nbt = super.writeNbt(nbt);
+    public void writeNbt(NbtCompound nbt) {
+        super.writeNbt(nbt);
 
         // Save the current value of the number to the tag
         if(this.destination != null) {
@@ -29,7 +29,6 @@ public class DummyDataStorage extends BlockEntity {
             nbt.putInt("destination_y", blockPos.getY());
             nbt.putInt("destination_z", blockPos.getZ());
         }
-        return nbt;
     }
 
     @Override
