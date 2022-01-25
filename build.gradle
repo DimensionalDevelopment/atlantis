@@ -36,24 +36,24 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation 'software.bernie.geckolib:geckolib-fabric-1.17:3.0.31'
-    modImplementation 'net.kyrptonaught:customportalapi:0.0.1-beta45-1.17'
-    include 'net.kyrptonaught:customportalapi:0.0.1-beta45-1.17'
+    modImplementation 'software.bernie.geckolib:geckolib-fabric-1.18:3.0.30'
+    modImplementation 'net.kyrptonaught:customportalapi:0.0.1-beta45-1.18'
+    include 'net.kyrptonaught:customportalapi:0.0.1-beta45-1.18'
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modApi("me.shedaniel.cloth:cloth-config-fabric:5.2.47") {
+    modApi("me.shedaniel.cloth:cloth-config-fabric:6.1.50") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    modImplementation ("com.terraformersmc:modmenu:2.0.14") {
+    modImplementation ("com.terraformersmc:modmenu:3.0.1") {
         exclude module: "fabric-api"
     }
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
-    modImplementation("com.github.Mysticpasta1:OpenWorlds:cce9fed") {
-        exclude module: "fabric-api"
-    }
-    include 'com.github.Mysticpasta1:OpenWorlds:cce9fed'
-    modImplementation(group: 'com.google.code.gson', name: 'gson', version: '2.8.7')
+//    modImplementation("com.github.Mysticpasta1:OpenWorlds:cce9fed") {
+//        exclude module: "fabric-api"
+//    }
+//    include 'com.github.Mysticpasta1:OpenWorlds:cce9fed'
+//    modImplementation(group: 'com.google.code.gson', name: 'gson', version: '2.8.7')
 }
 
 processResources {
