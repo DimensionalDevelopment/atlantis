@@ -1,4 +1,7 @@
 {
   "type": "atlantis:atlantean_fountain",
-  "config": {}
+  "config": {
+    "start_pool": "atlantis:atlantean_fountain/start_pool",
+    "size": 1
+  }
 }

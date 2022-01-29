@@ -119,7 +119,7 @@ public class YellowGlowingMushroom extends PlantBlock implements Waterloggable {
     }
 
     public boolean blockTypes(BlockState blockState){
-        return blockState.getBlock() == Blocks.GRAVEL || blockState.getBlock() == Blocks.GRASS || blockState.getBlock() == Blocks.DIRT || blockState.getBlock() == Blocks.SAND;
+        return blockState.getBlock() == Blocks.GRAVEL || blockState.getBlock() == Blocks.SANDSTONE || blockState.getBlock() == Blocks.GRASS || blockState.getBlock() == Blocks.DIRT || blockState.getBlock() == Blocks.SAND;
     }
 
     public boolean canPlaceBlockAt(WorldView worldReader, BlockPos pos) {

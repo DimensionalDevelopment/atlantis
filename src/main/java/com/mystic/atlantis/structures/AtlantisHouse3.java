@@ -3,9 +3,8 @@ package com.mystic.atlantis.structures;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mystic.atlantis.util.Reference;
-import net.minecraft.structure.PoolStructurePiece;
-import net.minecraft.structure.StructureManager;
-import net.minecraft.structure.StructureStart;
+import net.minecraft.block.BlockState;
+import net.minecraft.structure.*;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.Pool;
@@ -19,66 +18,61 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 
 import java.util.List;
+import java.util.Optional;
 
-public class AtlantisHouse3 extends StructureFeature<DefaultFeatureConfig> {
+public class AtlantisHouse3 extends StructureFeature<StructurePoolFeatureConfig> {
 
-    public AtlantisHouse3(Codec<DefaultFeatureConfig> codec) {
-        super(codec);
+    public AtlantisHouse3(Codec<StructurePoolFeatureConfig> codec) {
+        super(codec, AtlantisHouse3::createPiecesGenerator, PostPlacementProcessor.EMPTY);
     }
-
-    @Override
-    public StructureStartFactory<DefaultFeatureConfig> getStructureStartFactory() {
-        return AtlantisHouse3.Start::new;
-    }
-
 
     @Override
     public GenerationStep.Feature getGenerationStep() {
         return GenerationStep.Feature.SURFACE_STRUCTURES;
     }
 
-    private static final List<SpawnSettings.SpawnEntry> STRUCTURE_MONSTERS = ImmutableList.of();
+    public static final Pool<SpawnSettings.SpawnEntry> STRUCTURE_MONSTERS = Pool.of();
 
-    @Override
-    public Pool<SpawnSettings.SpawnEntry> getMonsterSpawns() {
-        return (Pool<SpawnSettings.SpawnEntry>) STRUCTURE_MONSTERS;
-    }
+    public static final Pool<SpawnSettings.SpawnEntry> STRUCTURE_CREATURES = Pool.of();
 
-    private static final List<SpawnSettings.SpawnEntry> STRUCTURE_CREATURES = ImmutableList.of();
+    public static Optional<StructurePiecesGenerator<StructurePoolFeatureConfig>> createPiecesGenerator(StructureGeneratorFactory.Context<StructurePoolFeatureConfig> context) {
 
-    @Override
-    public Pool<SpawnSettings.SpawnEntry> getCreatureSpawns() {
-        return (Pool<SpawnSettings.SpawnEntry>) STRUCTURE_CREATURES;
-    }
+        StructurePoolFeatureConfig newConfig = new StructurePoolFeatureConfig(
+                () -> context.registryManager().get(Registry.STRUCTURE_POOL_KEY)
+                        .get(new Identifier(Reference.MODID, "atlantean_house_3/start_pool")),
+                10
+        );
 
-    public static class Start extends StructureStart<DefaultFeatureConfig> {
-        public Start(StructureFeature<DefaultFeatureConfig> structureIn, ChunkPos pos, int referenceIn, long seedIn) {
-            super(structureIn, pos, referenceIn, seedIn);
+        StructureGeneratorFactory.Context<StructurePoolFeatureConfig> newContext = new StructureGeneratorFactory.Context<>(
+                context.chunkGenerator(),
+                context.biomeSource(),
+                context.seed(),
+                context.chunkPos(),
+                newConfig,
+                context.world(),
+                context.validBiome(),
+                context.structureManager(),
+                context.registryManager()
+        );
 
-        }
+        BlockPos spawnXZPosition = context.chunkPos().getCenterAtY(0);
+        BlockPos blockpos = context.chunkPos().getCenterAtY(context.chunkGenerator().getHeightInGround(spawnXZPosition.getX(), spawnXZPosition.getZ(), Heightmap.Type.OCEAN_FLOOR_WG, context.world()));
 
-        @Override
-        public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager templateManagerIn, ChunkPos pos, Biome biomeIn, DefaultFeatureConfig config, HeightLimitView world) {
+        Optional<StructurePiecesGenerator<StructurePoolFeatureConfig>> structurePiecesGenerator =
+                StructurePoolBasedGenerator.generate(
+                        newContext,
+                        PoolStructurePiece::new,
+                        blockpos,
+                        false,
+                        false
+                );
 
-            int x = (pos.x  << 4) + 7;
-            int z = (pos.z << 4) + 7;
-
-            BlockPos blockpos = new BlockPos(x, (chunkGenerator.getHeight((pos.x*16), (pos.z*16), Heightmap.Type.OCEAN_FLOOR, world)), z);
-
-            StructurePoolBasedGenerator.generate(
-                    dynamicRegistryManager,
-                    new StructurePoolFeatureConfig(() -> dynamicRegistryManager.get(Registry.STRUCTURE_POOL_KEY).get(new Identifier(Reference.MODID, "atlantean_house_3/start_pool")), 10), PoolStructurePiece::new, chunkGenerator, templateManagerIn ,blockpos, (this), this.random, false, false, world);
-
-            this.children.forEach(piece -> piece.translate(0, 1, 0));
-            this.children.forEach(piece -> piece.getBoundingBox().getMinY());
-
-            this.setBoundingBoxFromChildren();
-
-        }
+        return structurePiecesGenerator;
     }
 }

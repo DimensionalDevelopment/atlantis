@@ -1,8 +1,5 @@
 package com.mystic.atlantis.configfeature;
 
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.StructureWorldAccess;
@@ -16,7 +13,7 @@ import com.mystic.atlantis.blocks.plants.Algae;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
-public class AlgaeFeatureAtlantis extends Feature<DefaultFeatureConfig> {
+/*public class AlgaeFeatureAtlantis extends Feature<DefaultFeatureConfig> {
     private static final Direction[] DIRECTIONS = Direction.values();
 
     public AlgaeFeatureAtlantis(Codec<DefaultFeatureConfig> p_i232002_1_) {
@@ -36,5 +33,5 @@ public class AlgaeFeatureAtlantis extends Feature<DefaultFeatureConfig> {
             }
         return true;
     }
-}
+}*/
 

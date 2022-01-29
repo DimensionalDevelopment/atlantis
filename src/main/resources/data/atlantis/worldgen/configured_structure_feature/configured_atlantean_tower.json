@@ -1,4 +1,7 @@
 {
   "type": "atlantis:atlantean_tower",
-  "config": {}
+  "config": {
+    "start_pool": "atlantis:atlantean_tower/start_pool",
+    "size": 1
+  }
 }

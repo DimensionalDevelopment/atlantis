@@ -24,25 +24,36 @@ import net.kyrptonaught.customportalapi.CustomPortalBlock;
 import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
 import net.kyrptonaught.customportalapi.portal.PortalIgnitionSource;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.structure.rule.RuleTest;
+import net.minecraft.structure.rule.RuleTestType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.dimension.DimensionOptions;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.YOffset;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.decorator.*;
+import net.minecraft.world.gen.feature.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.example.GeckoLibMod;
 import software.bernie.geckolib3.GeckoLib;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Stream;
 
 public class Atlantis implements ModInitializer
 {
@@ -58,14 +69,14 @@ public class Atlantis implements ModInitializer
     private static final MinecraftServer server = null;
     public static final Logger LOGGER = LogManager.getLogger(Reference.MODID);
 
-    private static final ConfiguredFeature<?, ?> ORE_AQUAMARINE_OVERWORLD = Feature.ORE
+    private static final PlacedFeature ORE_AQUAMARINE_OVERWORLD = Feature.ORE
             .configure(new OreFeatureConfig(
-                    OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
+                    OreConfiguredFeatures.STONE_ORE_REPLACEABLES,
                     BlockInit.AQUAMARINE_ORE.getDefaultState(),
-                    9)) // vein size
-            .triangleRange(YOffset.getBottom(), YOffset.getTop())
-            .spreadHorizontally()
-            .repeat(20); // number of veins per chunk
+                    9)).withPlacement(
+                    CountPlacementModifier.of(20), // number of veins per chunk
+                    SquarePlacementModifier.of(), // spreading horizontally
+                    HeightRangePlacementModifier.trapezoid(YOffset.getBottom(), YOffset.getTop())); // height
 
     @NotNull @Deprecated
     public static MinecraftServer getServer() {
@@ -93,18 +104,49 @@ public class Atlantis implements ModInitializer
 
         GeckoLibMod.DISABLE_IN_DEV = true;
         DimensionAtlantis.registerBiomeSources();
-        DimensionAtlantis.setupSurfaceBuilders();
         DimensionAtlantis.init();
 
         AtlantisFeature.ConfiguredFeaturesAtlantis.registerConfiguredFeatures();
         AtlantisStructures.setupAndRegisterStructureFeatures();
         AtlantisConfiguredStructures.registerConfiguredStructures();
 
-        RegistryKey<ConfiguredFeature<?, ?>> oreAquamarineOverworld = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY,
-                new Identifier("atlantis", "ore_aquamarine_overworld"));
-        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, oreAquamarineOverworld.getValue(), ORE_AQUAMARINE_OVERWORLD);
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, oreAquamarineOverworld);
+        BiomeModifications.addStructure(
+                (biomeSelectionContext) -> biomeSelectionContext
+                        .getBiomeKey().getValue().getNamespace().
+                        equals(Reference.MODID),
+                RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY,
+                        BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(
+                                AtlantisConfiguredStructures.CONFIGURED_ATLANTEAN_FOUNTAIN
+                        )));
+        BiomeModifications.addStructure(
+                (biomeSelectionContext) -> biomeSelectionContext.getBiomeKey().getValue().getNamespace().equals(Reference.MODID),
+                RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY,
+                        BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(
+                                AtlantisConfiguredStructures.CONFIGURED_ATLANTEAN_HOUSE_1
+                        )));
+        BiomeModifications.addStructure(
+                (biomeSelectionContext) -> biomeSelectionContext.getBiomeKey().getValue().getNamespace().equals(Reference.MODID),
+                RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY,
+                        BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(
+                                AtlantisConfiguredStructures.CONFIGURED_ATLANTEAN_HOUSE_3
+                        )));
+        BiomeModifications.addStructure(
+                (biomeSelectionContext) -> biomeSelectionContext.getBiomeKey().getValue().getNamespace().equals(Reference.MODID),
+                RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY,
+                        BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(
+                                AtlantisConfiguredStructures.CONFIGURED_ATLANTEAN_TOWER
+                        )));
+        BiomeModifications.addStructure(
+                (biomeSelectionContext) -> biomeSelectionContext.getBiomeKey().getValue().getNamespace().equals(Reference.MODID),
+                RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY,
+                        BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(
+                                AtlantisConfiguredStructures.CONFIGURED_OYSTER_STRUCTURE
+                        )));
 
+        RegistryKey<PlacedFeature> oreAquamarineOverworld = RegistryKey.of(Registry.PLACED_FEATURE_KEY,
+                new Identifier("atlantis", "ore_aquamarine_overworld"));
+        Registry.register(BuiltinRegistries.PLACED_FEATURE, oreAquamarineOverworld.getValue(), ORE_AQUAMARINE_OVERWORLD);
+        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, oreAquamarineOverworld);
     }
     public static final BlockEntityType<DummyDataStorage> DUMMY_DATA_STORAGE;
     static {

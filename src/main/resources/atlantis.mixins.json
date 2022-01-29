@@ -6,8 +6,6 @@
   "mixins": [
     "CanBreatheInDimension",
     "ChangeBreakSpeedMixin",
-    "LayerAccessor",
-    "MixinBuildinBiomesAccessor",
     "RedstoneAccessor",
     "RedstoneWireBlockMixin",
     "RenderBubblesMixin",

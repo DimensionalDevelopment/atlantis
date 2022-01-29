@@ -8,13 +8,14 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
+import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 
 public class AtlantisStructures {
-    public static final StructureFeature<DefaultFeatureConfig> OYSTER_STRUCTURE = new OysterStructure(DefaultFeatureConfig.CODEC);
-    public static final StructureFeature<DefaultFeatureConfig> ATLANTEAN_FOUNTAIN = new AtlanteanFountain(DefaultFeatureConfig.CODEC);
-    public static final StructureFeature<DefaultFeatureConfig> ATLANTEAN_HOUSE_1 = new AtlantisHouse1(DefaultFeatureConfig.CODEC);
-    public static final StructureFeature<DefaultFeatureConfig> ATLANTEAN_HOUSE_3 = new AtlantisHouse3(DefaultFeatureConfig.CODEC);
-    public static final StructureFeature<DefaultFeatureConfig> ATLANTEAN_TOWER = new AtlantisTower(DefaultFeatureConfig.CODEC);
+    public static final StructureFeature<StructurePoolFeatureConfig> OYSTER_STRUCTURE = new OysterStructure(StructurePoolFeatureConfig.CODEC);
+    public static final StructureFeature<StructurePoolFeatureConfig> ATLANTEAN_FOUNTAIN = new AtlanteanFountain(StructurePoolFeatureConfig.CODEC);
+    public static final StructureFeature<StructurePoolFeatureConfig> ATLANTEAN_HOUSE_1 = new AtlantisHouse1(StructurePoolFeatureConfig.CODEC);
+    public static final StructureFeature<StructurePoolFeatureConfig> ATLANTEAN_HOUSE_3 = new AtlantisHouse3(StructurePoolFeatureConfig.CODEC);
+    public static final StructureFeature<StructurePoolFeatureConfig> ATLANTEAN_TOWER = new AtlantisTower(StructurePoolFeatureConfig.CODEC);
 
 
     public static void setupAndRegisterStructureFeatures() {

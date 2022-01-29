@@ -1,7 +1,6 @@
 package com.mystic.atlantis.dimension;
 
 import com.mystic.atlantis.biomes.AtlantisBiomeSource;
-import com.mystic.atlantis.surfacebuilder.AtlantisSurfacesBuilderRegistery;
 import com.mystic.atlantis.util.Reference;
 
 import net.minecraft.server.world.ServerWorld;
@@ -37,10 +36,6 @@ public class DimensionAtlantis
             DimensionAtlantis.ATLANTIS_TYPE = server.getRegistryManager().get(Registry.DIMENSION_TYPE_KEY).get(ATLANTIS_DIMENSION_TYPE_KEY);
             DimensionAtlantis.ATLANTIS_DIMENSION = server.getWorld(ATLANTIS_WORLD);
         });
-    }
-
-    public static void setupSurfaceBuilders(){
-        AtlantisSurfacesBuilderRegistery.registerSurfaceBuilders();
     }
 
     public static void registerBiomeSources() {

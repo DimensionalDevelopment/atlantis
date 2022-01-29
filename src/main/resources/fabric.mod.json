@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "atlantis",
-  "version": "2021.7.18-1.17-1.9.0-fabric",
+  "version": "2022.1.25-1.18-1.0.0-fabric",
 
   "name": "Atlantis",
   "description": "An Underwater Atlantis like Dimension Mod.",
@@ -36,7 +36,7 @@
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",
-    "minecraft": "1.17.x"
+    "minecraft": "1.18.x"
   },
   "custom": {
     "modupdater": {

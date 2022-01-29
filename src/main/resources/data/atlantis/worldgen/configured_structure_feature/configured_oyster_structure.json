@@ -1,4 +1,7 @@
 {
   "type": "atlantis:oyster_structure",
-  "config": {}
+  "config": {
+    "start_pool": "atlantis:oyster_structure/start_pool",
+    "size": 1
+  }
 }

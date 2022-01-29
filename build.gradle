@@ -3,8 +3,8 @@ plugins {
     id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_16
-targetCompatibility = JavaVersion.VERSION_16
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -37,8 +37,8 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation 'software.bernie.geckolib:geckolib-fabric-1.18:3.0.30'
-    modImplementation 'net.kyrptonaught:customportalapi:0.0.1-beta45-1.18'
-    include 'net.kyrptonaught:customportalapi:0.0.1-beta45-1.18'
+    modImplementation 'net.kyrptonaught:customportalapi:0.0.1-beta49-1.18'
+    include 'net.kyrptonaught:customportalapi:0.0.1-beta49-1.18'
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     modApi("me.shedaniel.cloth:cloth-config-fabric:6.1.50") {
@@ -71,8 +71,7 @@ tasks.withType(JavaCompile).configureEach {
     // If Javadoc is generated, this must be specified in that task too.
     it.options.encoding = "UTF-8"
 
-    // Minecraft 1.17 (21w19a) upwards uses Java 16.
-    it.options.release = 16
+    it.options.release = 17
 }
 
 java {

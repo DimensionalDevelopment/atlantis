@@ -1,12 +1,8 @@
 {
-  "surface_builder": "atlantis:atlantean_surface_builder",
-  "depth": -1.0,
-  "scale": 0.3,
   "temperature": 0.4,
   "downfall": 0,
   "precipitation": "none",
   "category": "ocean",
-  "player_spawn_friendly": false,
   "effects": {
     "sky_color": 27571,
     "fog_color": 59110,
@@ -21,9 +17,6 @@
       "offset": 2
     }
   },
-  "starts": [
-    "atlantis:configured_oyster_structure"
-  ],
   "spawners": {
     "monster": [
       {
@@ -76,8 +69,7 @@
   },
   "spawn_costs": {},
   "carvers": {
-    "liquid": [
-    ]
+    "liquid": []
   },
   "features": [
     [
@@ -87,40 +79,41 @@
       "atlantis:configured_jetstream_lake_feature_atlantis"
     ],
     [],
+    [],
+    [],
+    [],
     [
-      "minecraft:ore_copper",
-      "minecraft:ore_deepslate",
-      "minecraft:ore_andesite",
+      "minecraft:ore_copper_large",
+      "minecraft:ore_andesite_lower",
       "minecraft:ore_clay",
-      "minecraft:ore_coal",
-      "minecraft:ore_diamond",
-      "minecraft:ore_diorite",
+      "minecraft:ore_coal_lower",
+      "minecraft:ore_diamond_buried",
+      "minecraft:ore_diorite_lower",
       "minecraft:ore_dirt",
-      "minecraft:ore_gold",
-      "minecraft:ore_granite",
+      "minecraft:ore_gold_lower",
+      "minecraft:ore_granite_lower",
       "minecraft:ore_gravel",
-      "minecraft:ore_iron",
-      "minecraft:ore_lapis",
-      "minecraft:ore_redstone",
+      "minecraft:ore_iron_middle",
+      "minecraft:ore_lapis_buried",
+      "minecraft:ore_redstone_lower",
       "minecraft:ore_tuff"
     ],
-    [
-      "atlantis:configured_shell_block_feature"
-    ],
-    [],
-    [],
     [],
     [
       "minecraft:spring_water",
-      "minecraft:spring_lava",
+      "minecraft:spring_lava"
+    ],
+    [
       "minecraft:sea_pickle",
       "minecraft:kelp_warm",
       "minecraft:warm_ocean_vegetation",
       "minecraft:seagrass_deep_warm",
       "minecraft:seagrass_simple",
-      "atlantis:configured_algae_feature",
       "atlantis:configured_mushroom_feature"
     ],
-    []
+    [
+      "minecraft:underwater_magma",
+      "atlantis:configured_shell_block_feature"
+    ]
   ]
 }
