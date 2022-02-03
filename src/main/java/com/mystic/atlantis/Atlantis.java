@@ -1,6 +1,7 @@
 package com.mystic.atlantis;
 
 import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
+import com.mystic.atlantis.blocks.plants.PurpleGlowingMushroom;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
@@ -33,9 +34,11 @@ import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.structure.rule.RuleTestType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
@@ -44,6 +47,10 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.decorator.*;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
+import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
+import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -107,6 +114,7 @@ public class Atlantis implements ModInitializer
         DimensionAtlantis.init();
 
         AtlantisFeature.ConfiguredFeaturesAtlantis.registerConfiguredFeatures();
+
         AtlantisStructures.setupAndRegisterStructureFeatures();
         AtlantisConfiguredStructures.registerConfiguredStructures();
 
@@ -147,6 +155,7 @@ public class Atlantis implements ModInitializer
                 new Identifier("atlantis", "ore_aquamarine_overworld"));
         Registry.register(BuiltinRegistries.PLACED_FEATURE, oreAquamarineOverworld.getValue(), ORE_AQUAMARINE_OVERWORLD);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, oreAquamarineOverworld);
+
     }
     public static final BlockEntityType<DummyDataStorage> DUMMY_DATA_STORAGE;
     static {

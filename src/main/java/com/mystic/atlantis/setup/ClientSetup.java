@@ -1,7 +1,5 @@
 package com.mystic.atlantis.setup;
 
-import java.util.function.Function;
-
 import com.mystic.atlantis.dimension.AltantisSkyRenderer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
@@ -9,15 +7,21 @@ import com.mystic.atlantis.entities.models.CrabEntityModel;
 import com.mystic.atlantis.entities.models.Jellyfish2EntityModel;
 import com.mystic.atlantis.entities.models.JellyfishEntityModel;
 import com.mystic.atlantis.entities.models.ShrimpEntityModel;
-import com.mystic.atlantis.entities.renders.CrabEntityRenderer;
-import com.mystic.atlantis.entities.renders.Jellyfish2EntityRenderer;
-import com.mystic.atlantis.entities.renders.JellyfishEntityRenderer;
-import com.mystic.atlantis.entities.renders.ShrimpEntityRenderer;
-import com.mystic.atlantis.entities.renders.SubmarineEntityRenderer;
+import com.mystic.atlantis.entities.renders.*;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.particles.ModParticleTypes;
-
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
+import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.client.render.RenderLayer;
@@ -33,17 +37,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockRenderView;
 
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
-import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import java.util.function.Function;
 
 @Environment(EnvType.CLIENT)
 public class ClientSetup implements ClientModInitializer {
@@ -55,6 +49,7 @@ public class ClientSetup implements ClientModInitializer {
 
 
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
+                BlockInit.ATLANTEAN_SAPLING,
                 BlockInit.UNDERWATER_FLOWER,
                 BlockInit.ALGAE,
                 BlockInit.ATLANTEAN_POWER_TORCH,

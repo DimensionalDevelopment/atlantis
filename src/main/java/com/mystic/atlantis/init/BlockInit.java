@@ -1,20 +1,20 @@
 package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.blocks.*;
-import com.mystic.atlantis.blocks.plants.Algae;
-import com.mystic.atlantis.blocks.plants.PurpleGlowingMushroom;
-import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
-import com.mystic.atlantis.blocks.plants.YellowGlowingMushroom;
+import com.mystic.atlantis.blocks.plants.*;
 import com.mystic.atlantis.blocks.power.*;
 import com.mystic.atlantis.blocks.slabs.AncientWoodSlabs;
+import com.mystic.atlantis.configfeature.trees.AtlanteanTreeSaplingGenerator;
 import com.mystic.atlantis.util.Reference;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.SignType;
 import net.minecraft.util.registry.Registry;
 
 import java.util.Objects;
@@ -131,6 +131,10 @@ public class BlockInit {
     public static final AncientWoodSlabs ANCIENT_DARK_OAK_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_dark_oak_wood_moss_slab", new AncientWoodSlabs(FabricBlockSettings.of(Material.WOOD)));
     public static final AlgaeBlock ALGAE_BLOCK = (AlgaeBlock) register("algae_block", new AlgaeBlock(FabricBlockSettings.of(Material.PLANT)));
     public static final ChiseledAquamarine CHISELED_AQUAMARINE = (ChiseledAquamarine) register("chiseled_aquamarine", new ChiseledAquamarine(FabricBlockSettings.of(Material.STONE)));
+
+    public static final Block ATLANTEAN_SAPLING = register("atlantean_sapling",
+            new AtlanteanSapling(new AtlanteanTreeSaplingGenerator(),
+                    FabricBlockSettings.copy(Blocks.OAK_SAPLING)));
 
     private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, name), block);

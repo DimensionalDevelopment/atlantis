@@ -4,13 +4,14 @@
   "compatibilityLevel": "JAVA_16",
   "refmap": "atlantis-refmap.json",
   "mixins": [
+    "BoatEntityAccessor",
     "CanBreatheInDimension",
     "ChangeBreakSpeedMixin",
     "RedstoneAccessor",
     "RedstoneWireBlockMixin",
     "RenderBubblesMixin",
     "StructuresConfigAccessor",
-    "BoatEntityAccessor"
+    "WorldLightManagerMixin"
   ],
   "client": [],
   "injectors": {
