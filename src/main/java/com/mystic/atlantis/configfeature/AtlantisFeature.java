@@ -59,9 +59,9 @@ public class AtlantisFeature {
         public static final ConfiguredFeature<?, ?> JETSTREAM_LAKE_FEATURE_ATLANTIS = AtlantisFeature.JETSTREAM_LAKE_FEATURE_ATLANTIS.configure(new LakeFeature.Config(BlockStateProvider.of(FluidInit.JETSTREAM_WATER), BlockStateProvider.of(Blocks.STONE)));
         public static final ConfiguredFeature<TreeFeatureConfig, ?> ATLANTEAN_TREE =
                 registerTree("atlantean_tree", Feature.TREE.configure(new TreeFeatureConfig.Builder(
-                        BlockStateProvider.of(BlockInit.BLACK_PEARL_BLOCK),
+                        BlockStateProvider.of(BlockInit.ATLANTEAN_LOGS),
                         new StraightTrunkPlacer(5, 6, 3),
-                        BlockStateProvider.of(BlockInit.BLUE_PEARL_BLOCK),
+                        BlockStateProvider.of(BlockInit.ATLANTEAN_LEAVES),
                         new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 4),
                         new TwoLayersFeatureSize(1, 0, 2)).build()));
 

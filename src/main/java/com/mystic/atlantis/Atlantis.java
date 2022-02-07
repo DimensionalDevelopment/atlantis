@@ -1,7 +1,11 @@
 package com.mystic.atlantis;
 
 import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
-import com.mystic.atlantis.blocks.plants.PurpleGlowingMushroom;
+import com.mystic.atlantis.blocks.blockentities.plants.BlueLilyTileEntity;
+import com.mystic.atlantis.blocks.blockentities.plants.BurntDeepTileEntity;
+import com.mystic.atlantis.blocks.blockentities.plants.TuberUpTileEntity;
+import com.mystic.atlantis.blocks.blockentities.plants.UnderwaterShroomTileEntity;
+import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
@@ -14,53 +18,33 @@ import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
-import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.kyrptonaught.customportalapi.CustomPortalApiRegistry;
-import net.kyrptonaught.customportalapi.CustomPortalBlock;
 import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
-import net.kyrptonaught.customportalapi.portal.PortalIgnitionSource;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.structure.rule.RuleTest;
-import net.minecraft.structure.rule.RuleTestType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.dimension.DimensionOptions;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.YOffset;
-import net.minecraft.world.gen.decorator.*;
-import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
-import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
-import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
+import net.minecraft.world.gen.decorator.CountPlacementModifier;
+import net.minecraft.world.gen.decorator.HeightRangePlacementModifier;
+import net.minecraft.world.gen.decorator.SquarePlacementModifier;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.OreConfiguredFeatures;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.feature.PlacedFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.example.GeckoLibMod;
 import software.bernie.geckolib3.GeckoLib;
-
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Stream;
 
 public class Atlantis implements ModInitializer
 {
@@ -91,12 +75,21 @@ public class Atlantis implements ModInitializer
     }
 
     public static AtlantisConfig CONFIG;
+    public static BlockEntityType<UnderwaterShroomTileEntity> UNDERWATER_SHROOM_TILE;
+    public static BlockEntityType<TuberUpTileEntity> TUBER_UP_TILE;
+    public static BlockEntityType<BlueLilyTileEntity> BLUE_LILY_TILE;
+    public static BlockEntityType<BurntDeepTileEntity> BURNT_DEEP_TILE;
+    public static ItemInit ITEMS;
 
     @Override
     public void onInitialize() {
         AutoConfig.register(AtlantisConfig.class, GsonConfigSerializer::new);
 
         BlockInit.init();
+        Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, "underwater_shroom"), BlockInit.UNDERWATER_SHROOM_BLOCK);
+        Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, "tuber_up"), BlockInit.TUBER_UP_BLOCK);
+        Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, "blue_lily"), BlockInit.BLUE_LILY_BLOCK);
+        Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, "burnt_deep"), BlockInit.BURNT_DEEP_BLOCK);
         ItemInit.init();
         CustomPortalBuilder.beginPortal()
                 .frameBlock(BlockInit.ATLANTEAN_CORE)
@@ -106,8 +99,13 @@ public class Atlantis implements ModInitializer
                 .customPortalBlock(BlockInit.ATLANTIS_CLEAR_PORTAL)
                 .registerPortal();
         AtlantisGroup.init();
-        AtlantisEntities.initialize();
+        ITEMS = new ItemInit();
         GeckoLib.initialize();
+        AtlantisEntities.initialize();
+        UNDERWATER_SHROOM_TILE = TileRegistry.UNDERWATER_SHROOM_TILE;
+        TUBER_UP_TILE = TileRegistry.TUBER_UP_TILE;
+        BLUE_LILY_TILE = TileRegistry.BLUE_LILY_TILE;
+        BURNT_DEEP_TILE = TileRegistry.BURNT_DEEP_TILE;
 
         GeckoLibMod.DISABLE_IN_DEV = true;
         DimensionAtlantis.registerBiomeSources();
@@ -157,6 +155,7 @@ public class Atlantis implements ModInitializer
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, oreAquamarineOverworld);
 
     }
+
     public static final BlockEntityType<DummyDataStorage> DUMMY_DATA_STORAGE;
     static {
         DUMMY_DATA_STORAGE = Registry.register(

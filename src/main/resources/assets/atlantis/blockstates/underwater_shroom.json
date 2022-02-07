@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=true": {
+      "model": "atlantis:block/underwater_shroom"
+    },
+    "waterlogged=false": {
+      "model": "atlantis:block/underwater_shroom"
+    }
+  }
+}

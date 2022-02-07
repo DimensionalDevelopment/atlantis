@@ -1,18 +1,7 @@
 package com.mystic.atlantis.entities.renders;
 
-import java.awt.Color;
-import java.util.Collections;
-
 import com.mystic.atlantis.entities.SubmarineEntity;
 import com.mystic.atlantis.entities.models.SubmarineEntityModel;
-import software.bernie.geckolib3.core.IAnimatableModel;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.geo.render.built.GeoModel;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
-import software.bernie.geckolib3.model.provider.GeoModelProvider;
-import software.bernie.geckolib3.model.provider.data.EntityModelData;
-import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -24,6 +13,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3f;
+import software.bernie.geckolib3.core.IAnimatableModel;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.geo.render.built.GeoModel;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib3.model.provider.GeoModelProvider;
+import software.bernie.geckolib3.model.provider.data.EntityModelData;
+import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
+import software.bernie.geckolib3.core.util.Color;
+
+import java.util.Collections;
 
 public class SubmarineEntityRenderer extends EntityRenderer<SubmarineEntity> implements IGeoRenderer<SubmarineEntity> {
     private final AnimatedGeoModel<SubmarineEntity> modelProvider;

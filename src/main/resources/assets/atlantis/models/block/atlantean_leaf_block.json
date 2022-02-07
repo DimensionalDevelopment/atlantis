@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "atlantis:block/atlantean_leaf_block"
+  }
+}

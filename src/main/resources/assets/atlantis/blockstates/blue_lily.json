@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=true": {
+      "model": "atlantis:block/blue_lily"
+    },
+    "waterlogged=false": {
+      "model": "atlantis:block/blue_lily"
+    }
+  }
+}

@@ -7,35 +7,18 @@ import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
 import com.mystic.atlantis.items.armor.ItemArmorWrought;
 import com.mystic.atlantis.items.item.*;
 import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
-import com.mystic.atlantis.items.tools.AquamarineAxe;
-import com.mystic.atlantis.items.tools.AquamarineHoe;
-import com.mystic.atlantis.items.tools.AquamarinePickaxe;
-import com.mystic.atlantis.items.tools.AquamarineShovel;
-import com.mystic.atlantis.items.tools.AquamarineSword;
+import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
-
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.AliasedBlockItem;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.FoodComponent;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.item.SwordItem;
-import net.minecraft.item.WallStandingBlockItem;
+import net.minecraft.item.*;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
-
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 
 public class ItemInit
 {
@@ -46,7 +29,17 @@ public class ItemInit
         return Registry.register(Registry.ITEM, new Identifier(Reference.MODID, name), item);
     }
 
+    static <T extends Item> T register(T c, String id) {
+        Registry.register(Registry.ITEM, new Identifier(Reference.MODID, id), c);
+        return c;
+    }
+
     private static final Item.Settings ATLANTIS_SETTINGS = new Item.Settings().maxCount(1).rarity(Rarity.UNCOMMON).maxCount(1);
+
+    public static final BlockItem UNDERWATER_SHROOM = register(new BlockItem(BlockInit.UNDERWATER_SHROOM_BLOCK, new Item.Settings()), "underwater_shroom");
+    public static final BlockItem TUBER_UP = register(new BlockItem(BlockInit.TUBER_UP_BLOCK, new Item.Settings()), "tuber_up");
+    public static final BlockItem BLUE_LILY = register(new BlockItem(BlockInit.BLUE_LILY_BLOCK, new Item.Settings()), "blue_lily");
+    public static final BlockItem BURNT_DEEP = register(new BlockItem(BlockInit.BURNT_DEEP_BLOCK, new Item.Settings()), "burnt_deep");
 
     //SPAWN EGGS
     public static final Item ATLANTEAN_CRAB_EGG = register("atlantean_crab_egg", new SpawnEggItem(AtlantisEntities.CRAB, 0x800002, 0xff0f45, new Item.Settings().group(ItemGroup.MISC)));

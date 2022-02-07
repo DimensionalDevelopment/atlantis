@@ -1,6 +1,7 @@
 package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.blocks.*;
+import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.blocks.plants.*;
 import com.mystic.atlantis.blocks.power.*;
 import com.mystic.atlantis.blocks.slabs.AncientWoodSlabs;
@@ -23,6 +24,12 @@ import java.util.function.Function;
 public class BlockInit {
   
     public static void init() {}
+
+    //Geckolib blocktypes
+    public static final UnderwaterShroomBlock UNDERWATER_SHROOM_BLOCK = new UnderwaterShroomBlock();
+    public static final TuberUpBlock TUBER_UP_BLOCK = new TuberUpBlock();
+    public static final BlueLilyBlock BLUE_LILY_BLOCK = new BlueLilyBlock();
+    public static final BurntDeepBlock BURNT_DEEP_BLOCK = new BurntDeepBlock();
 
     //Trapdoors
     public static final AncientWoodTrapdoor ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_dark_oak_wood_moss_trapdoor", new AncientWoodTrapdoor(FabricBlockSettings.of(Material.WOOD)));
@@ -57,6 +64,8 @@ public class BlockInit {
     public static final AncientWoodDoors ANCIENT_ACACIA_WOOD_MOSS_DOOR = (AncientWoodDoors) register("ancient_acacia_wood_moss_door", new AncientWoodDoors(FabricBlockSettings.of(Material.WOOD)));
 
     //Regular blocks
+    public static final AtlanteanLeaves ATLANTEAN_LEAVES = (AtlanteanLeaves) register("atlantean_leaf_block", new AtlanteanLeaves(FabricBlockSettings.of(Material.LEAVES)));
+    public static final AtlanteanLogs ATLANTEAN_LOGS = (AtlanteanLogs) register("atlantean_log", new AtlanteanLogs(FabricBlockSettings.of(Material.WOOD)));
     public static final AncientWood ANCIENT_ACACIA_WOOD_MOSS = (AncientWood) register("ancient_acacia_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
     public static final AncientWood ANCIENT_OAK_WOOD_MOSS = (AncientWood) register("ancient_oak_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));
     public static final AncientWood ANCIENT_JUNGLE_WOOD_MOSS = (AncientWood) register("ancient_jungle_wood_moss", new AncientWood(FabricBlockSettings.of(Material.WOOD)));

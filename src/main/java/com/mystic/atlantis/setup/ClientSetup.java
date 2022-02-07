@@ -1,5 +1,10 @@
 package com.mystic.atlantis.setup;
 
+import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
+import com.mystic.atlantis.blocks.blockentities.renderers.BlueLilyTileRenderer;
+import com.mystic.atlantis.blocks.blockentities.renderers.BurntDeepTileRenderer;
+import com.mystic.atlantis.blocks.blockentities.renderers.TuberUpTileRenderer;
+import com.mystic.atlantis.blocks.blockentities.renderers.UnderwaterShroomTileRenderer;
 import com.mystic.atlantis.dimension.AltantisSkyRenderer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
@@ -18,6 +23,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -25,6 +31,7 @@ import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.fluid.Fluid;
@@ -47,8 +54,20 @@ public class ClientSetup implements ClientModInitializer {
         setupFluidRendering(FluidInit.STILL_JETSTREAM_WATER, FluidInit.FLOWING_JETSTREAM_WATER, new Identifier("minecraft", "water"), 0x52A9FF);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), FluidInit.STILL_JETSTREAM_WATER, FluidInit.FLOWING_JETSTREAM_WATER);
 
+        BlockEntityRendererRegistry.register(TileRegistry.UNDERWATER_SHROOM_TILE,
+                (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new UnderwaterShroomTileRenderer());
+
+        BlockEntityRendererRegistry.register(TileRegistry.TUBER_UP_TILE,
+                (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new TuberUpTileRenderer());
+
+        BlockEntityRendererRegistry.register(TileRegistry.BLUE_LILY_TILE,
+                (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new BlueLilyTileRenderer());
+
+        BlockEntityRendererRegistry.register(TileRegistry.BURNT_DEEP_TILE,
+                (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new BurntDeepTileRenderer());
 
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
+                BlockInit.ATLANTEAN_LEAVES,
                 BlockInit.ATLANTEAN_SAPLING,
                 BlockInit.UNDERWATER_FLOWER,
                 BlockInit.ALGAE,
