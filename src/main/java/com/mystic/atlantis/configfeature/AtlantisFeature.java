@@ -29,6 +29,8 @@ import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 public class AtlantisFeature {
     public static final Feature<DefaultFeatureConfig> UNDERWATER_FLOWER_ATLANTIS = register(
             "underwater_flower_atlantis", new UnderwaterFlowerAtlantis(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> GARDEN_FOLIAGE_PLACER_ATLANTIS = register(
+            "garden_foliage_placer_atlantis", new GardenFoliagePlacerAtlantis(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SHELL_BLOCK_FEATURE = register(
             "shell_block_feature_atlantis", new ShellBlockFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> ATLANTEAN_ISLANDS = register(
@@ -54,6 +56,7 @@ public class AtlantisFeature {
         public static final ConfiguredFeature<?, ?> UNDERWATER_FLOWER_ATLANTIS = AtlantisFeature.UNDERWATER_FLOWER_ATLANTIS.configure(DefaultFeatureConfig.DEFAULT);
         public static final ConfiguredFeature<?, ?> UNDERWATER_MUSHROOM_ATLANTIS = AtlantisFeature.UNDERWATER_MUSHROOM_ATLANTIS.configure(DefaultFeatureConfig.DEFAULT);
         public static final ConfiguredFeature<?, ?> SHELL_BLOCK_FEATURE_ATLANTIS = AtlantisFeature.SHELL_BLOCK_FEATURE.configure(DefaultFeatureConfig.DEFAULT);
+        public static final ConfiguredFeature<?, ?> GARDEN_FOLIAGE_PLACER_ATLANTIS = AtlantisFeature.GARDEN_FOLIAGE_PLACER_ATLANTIS.configure(DefaultFeatureConfig.DEFAULT);
         public static final ConfiguredFeature<?, ?> ATLANTEAN_ISLANDS_FEATURE_ATLANTIS = AtlantisFeature.ATLANTEAN_ISLANDS.configure(DefaultFeatureConfig.DEFAULT);
         public static final ConfiguredFeature<?, ?> ATLANTEAN_VOLCANO_FEATURE_ATLANTIS = AtlantisFeature.ATLANTEAN_VOLCANO.configure(DefaultFeatureConfig.DEFAULT);
         public static final ConfiguredFeature<?, ?> JETSTREAM_LAKE_FEATURE_ATLANTIS = AtlantisFeature.JETSTREAM_LAKE_FEATURE_ATLANTIS.configure(new LakeFeature.Config(BlockStateProvider.of(FluidInit.JETSTREAM_WATER), BlockStateProvider.of(Blocks.STONE)));
@@ -65,6 +68,7 @@ public class AtlantisFeature {
                         new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 4),
                         new TwoLayersFeatureSize(1, 0, 2)).build()));
 
+        public static final RegistryKey<PlacedFeature> GARDER_FOLIAGE_PLACER_ATLANTIS_KEY = RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(Reference.MODID, "garden_foliage_placer_atlantis"));
         public static final RegistryKey<PlacedFeature> UNDERWATER_FLOWER_ATLANTIS_KEY = RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(Reference.MODID, "underwater_flower_atlantis"));
         public static final RegistryKey<PlacedFeature> UNDERWATER_MUSHROOM_ATLANTIS_KEY = RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(Reference.MODID, "underwater_mushroom_atlantis"));
         public static final RegistryKey<PlacedFeature> SHELL_BLOCK_FEATURE_ATLANTIS_KEY = RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(Reference.MODID, "shell_block_feature_atlantis"));
@@ -74,6 +78,8 @@ public class AtlantisFeature {
         public static final RegistryKey<PlacedFeature> ATLANTEAN_TREE_KEY = RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(Reference.MODID, "atlantean_tree"));
 
         public static void registerConfiguredFeatures() {
+            register("garden_foliage_placer_atlantis", ConfiguredFeaturesAtlantis.GARDEN_FOLIAGE_PLACER_ATLANTIS.withPlacement(HeightRangePlacementModifier.of(UniformHeightProvider.create(YOffset.getBottom(), YOffset.getTop())), SquarePlacementModifier.of(), CountPlacementModifier.of(200)));
+
             register("underwater_flower_atlantis", ConfiguredFeaturesAtlantis.UNDERWATER_FLOWER_ATLANTIS.withPlacement(HeightRangePlacementModifier.of(UniformHeightProvider.create(YOffset.getBottom(), YOffset.getTop())), SquarePlacementModifier.of(), CountPlacementModifier.of(100)));
 
             register("underwater_mushroom_atlantis", ConfiguredFeaturesAtlantis.UNDERWATER_MUSHROOM_ATLANTIS.withPlacement(HeightRangePlacementModifier.of(UniformHeightProvider.create(YOffset.getBottom(), YOffset.getTop())), SquarePlacementModifier.of(), CountPlacementModifier.of(100)));
@@ -88,6 +94,7 @@ public class AtlantisFeature {
             BiomeModifications.create(new Identifier(Reference.MODID, "feature_removal")).add(ModificationPhase.REMOVALS,
                     BiomeSelectors.foundInTheEnd().or(BiomeSelectors.foundInTheNether()),
                     biomeModificationContext -> {
+                biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Feature.VEGETAL_DECORATION, GARDER_FOLIAGE_PLACER_ATLANTIS_KEY);
                 biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Feature.VEGETAL_DECORATION, UNDERWATER_FLOWER_ATLANTIS_KEY);
                 biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Feature.VEGETAL_DECORATION, UNDERWATER_MUSHROOM_ATLANTIS_KEY);
                 biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, SHELL_BLOCK_FEATURE_ATLANTIS_KEY);

@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients":
+	[
+	
+	{
+		"item": "atlantis:atlantean_log"
+	}
+	
+	],
+	
+	"result":
+	{
+		"item": "minecraft:oak_planks",
+		"count": 4
+	}
+}	

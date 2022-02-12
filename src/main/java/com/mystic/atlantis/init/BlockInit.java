@@ -30,6 +30,7 @@ public class BlockInit {
     public static final TuberUpBlock TUBER_UP_BLOCK = new TuberUpBlock();
     public static final BlueLilyBlock BLUE_LILY_BLOCK = new BlueLilyBlock();
     public static final BurntDeepBlock BURNT_DEEP_BLOCK = new BurntDeepBlock();
+    public static final EnenmomyBlock ENENMOMY_BLOCK = new EnenmomyBlock();
 
     //Trapdoors
     public static final AncientWoodTrapdoor ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_dark_oak_wood_moss_trapdoor", new AncientWoodTrapdoor(FabricBlockSettings.of(Material.WOOD)));

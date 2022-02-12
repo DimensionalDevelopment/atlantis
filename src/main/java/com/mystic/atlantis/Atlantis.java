@@ -1,10 +1,7 @@
 package com.mystic.atlantis;
 
 import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
-import com.mystic.atlantis.blocks.blockentities.plants.BlueLilyTileEntity;
-import com.mystic.atlantis.blocks.blockentities.plants.BurntDeepTileEntity;
-import com.mystic.atlantis.blocks.blockentities.plants.TuberUpTileEntity;
-import com.mystic.atlantis.blocks.blockentities.plants.UnderwaterShroomTileEntity;
+import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
@@ -79,6 +76,7 @@ public class Atlantis implements ModInitializer
     public static BlockEntityType<TuberUpTileEntity> TUBER_UP_TILE;
     public static BlockEntityType<BlueLilyTileEntity> BLUE_LILY_TILE;
     public static BlockEntityType<BurntDeepTileEntity> BURNT_DEEP_TILE;
+    public static BlockEntityType<EnenmomyTileEntity> ENENMOMY_TILE;
     public static ItemInit ITEMS;
 
     @Override
@@ -90,6 +88,7 @@ public class Atlantis implements ModInitializer
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, "tuber_up"), BlockInit.TUBER_UP_BLOCK);
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, "blue_lily"), BlockInit.BLUE_LILY_BLOCK);
         Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, "burnt_deep"), BlockInit.BURNT_DEEP_BLOCK);
+        Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, "enenmomy"), BlockInit.ENENMOMY_BLOCK);
         ItemInit.init();
         CustomPortalBuilder.beginPortal()
                 .frameBlock(BlockInit.ATLANTEAN_CORE)
@@ -106,6 +105,7 @@ public class Atlantis implements ModInitializer
         TUBER_UP_TILE = TileRegistry.TUBER_UP_TILE;
         BLUE_LILY_TILE = TileRegistry.BLUE_LILY_TILE;
         BURNT_DEEP_TILE = TileRegistry.BURNT_DEEP_TILE;
+        ENENMOMY_TILE = TileRegistry.ENENMOMY_TILE;
 
         GeckoLibMod.DISABLE_IN_DEV = true;
         DimensionAtlantis.registerBiomeSources();

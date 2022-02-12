@@ -16,4 +16,6 @@ public class TileRegistry {
                 FabricBlockEntityTypeBuilder.create(BlueLilyTileEntity::new, BlockInit.BLUE_LILY_BLOCK).build(null));
         public static final BlockEntityType<BurntDeepTileEntity> BURNT_DEEP_TILE = Registry.register(Registry.BLOCK_ENTITY_TYPE, Reference.MODID + ":burnt_deep",
                 FabricBlockEntityTypeBuilder.create(BurntDeepTileEntity::new, BlockInit.BURNT_DEEP_BLOCK).build(null));
+        public static final BlockEntityType<EnenmomyTileEntity> ENENMOMY_TILE = Registry.register(Registry.BLOCK_ENTITY_TYPE, Reference.MODID + ":enenmomy",
+                FabricBlockEntityTypeBuilder.create(EnenmomyTileEntity::new, BlockInit.ENENMOMY_BLOCK).build(null));
 }

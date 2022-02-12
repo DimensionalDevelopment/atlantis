@@ -13,7 +13,6 @@ public class AtlanteanLeaves extends LeavesBlock implements Waterloggable {
         super(properties
                 .sounds(BlockSoundGroup.GRASS)
                 .breakByTool(FabricToolTags.SHEARS, 1) //TODO: Update
-                .requiresTool()
                 .strength(1.0F, 2.0F));
     }
 }

@@ -23,8 +23,8 @@ import java.util.List;
 
 import static com.mystic.atlantis.blocks.plants.UnderwaterFlower.WATERLOGGED;
 
-public class BlueLilyBlock extends PlantBlock implements BlockEntityProvider, Waterloggable {
-    public BlueLilyBlock() {
+public class EnenmomyBlock extends PlantBlock implements BlockEntityProvider, Waterloggable {
+    public EnenmomyBlock() {
         super(Settings.of(Material.PLANT)
                         .nonOpaque()
                         .noCollision()
@@ -129,6 +129,6 @@ public class BlueLilyBlock extends PlantBlock implements BlockEntityProvider, Wa
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return TileRegistry.BLUE_LILY_TILE.instantiate(pos, state);
+        return TileRegistry.ENENMOMY_TILE.instantiate(pos, state);
     }
 }

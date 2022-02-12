@@ -108,7 +108,8 @@
       "minecraft:warm_ocean_vegetation",
       "minecraft:seagrass_deep_warm",
       "minecraft:seagrass_simple",
-      "atlantis:configured_flower_feature"
+      "atlantis:configured_flower_feature",
+      "atlantis:configured_garden_foliage_placer_atlantis"
     ],
     [
       "atlantis:configured_shell_block_feature"

@@ -145,5 +145,13 @@
   "entity.atlantis.atlantean_shrimp": "Atlantean Shrimp",
   "item.atlantis.submarine": "Atlantean Submarine",
   "entity.atlantis.submarine": "Atlantean Submarine",
-  "item.atlantis.water_pill": "Water Pill"
+  "item.atlantis.water_pill": "Water Pill",
+  "block.atlantis.atlantean_leaf_block": "Atlantean Leaves",
+  "block.atlantis.atlantean_log": "Atlantean Log",
+  "block.atlantis.atlantean_sapling": "Atlantean Sapling",
+  "block.atlantis.underwater_shroom": "Atlantean Underwater Shroom",
+  "block.atlantis.tuber_up": "Atlantean Tuber",
+  "block.atlantis.blue_lily": "Blue Lily Flower",
+  "block.atlantis.burnt_deep": "Burnt Deep Flower",
+  "block.atlantis.enenmomy": "Atlantean Anemone"
 }

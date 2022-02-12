@@ -10,9 +10,8 @@ public class AtlanteanLogs extends PillarBlock {
     public AtlanteanLogs(FabricBlockSettings properties) {
         super(properties
                 .sounds(BlockSoundGroup.WOOD)
-                .breakByTool(FabricToolTags.AXES, 2) //TODO: Update
-                .requiresTool()
-                .strength(4.0F, 7.0F));
+                .breakByTool(FabricToolTags.AXES, 1) //TODO: Update
+                .strength(3.0F, 5.0F));
 
     }
 }

@@ -40,6 +40,7 @@ public class ItemInit
     public static final BlockItem TUBER_UP = register(new BlockItem(BlockInit.TUBER_UP_BLOCK, new Item.Settings()), "tuber_up");
     public static final BlockItem BLUE_LILY = register(new BlockItem(BlockInit.BLUE_LILY_BLOCK, new Item.Settings()), "blue_lily");
     public static final BlockItem BURNT_DEEP = register(new BlockItem(BlockInit.BURNT_DEEP_BLOCK, new Item.Settings()), "burnt_deep");
+    public static final BlockItem ENENMOMY = register(new BlockItem(BlockInit.ENENMOMY_BLOCK, new Item.Settings()), "enenmomy");
 
     //SPAWN EGGS
     public static final Item ATLANTEAN_CRAB_EGG = register("atlantean_crab_egg", new SpawnEggItem(AtlantisEntities.CRAB, 0x800002, 0xff0f45, new Item.Settings().group(ItemGroup.MISC)));

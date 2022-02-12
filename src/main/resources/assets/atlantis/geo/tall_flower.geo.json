@@ -19,7 +19,7 @@
 							"origin": [-7, 0, 0],
 							"size": [14, 32, 0],
 							"uv": {
-								"north": {"uv": [28, 0], "uv_size": [14, 32]},
+								"north": {"uv": [47, 1], "uv_size": [14, 32]},
 								"east": {"uv": [0, 0], "uv_size": [0, 32]},
 								"south": {"uv": [28, 0], "uv_size": [14, 32]},
 								"west": {"uv": [0, 0], "uv_size": [0, 32]},
@@ -33,7 +33,7 @@
 							"pivot": [0, 0, 0],
 							"rotation": [0, -90, 0],
 							"uv": {
-								"north": {"uv": [28, 0], "uv_size": [14, 32]},
+								"north": {"uv": [43, 1], "uv_size": [14, 32]},
 								"east": {"uv": [0, 0], "uv_size": [0, 32]},
 								"south": {"uv": [28, 0], "uv_size": [14, 32]},
 								"west": {"uv": [0, 0], "uv_size": [0, 32]},

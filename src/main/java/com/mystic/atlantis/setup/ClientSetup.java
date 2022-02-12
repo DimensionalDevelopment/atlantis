@@ -1,10 +1,7 @@
 package com.mystic.atlantis.setup;
 
 import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
-import com.mystic.atlantis.blocks.blockentities.renderers.BlueLilyTileRenderer;
-import com.mystic.atlantis.blocks.blockentities.renderers.BurntDeepTileRenderer;
-import com.mystic.atlantis.blocks.blockentities.renderers.TuberUpTileRenderer;
-import com.mystic.atlantis.blocks.blockentities.renderers.UnderwaterShroomTileRenderer;
+import com.mystic.atlantis.blocks.blockentities.renderers.*;
 import com.mystic.atlantis.dimension.AltantisSkyRenderer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
@@ -65,6 +62,9 @@ public class ClientSetup implements ClientModInitializer {
 
         BlockEntityRendererRegistry.register(TileRegistry.BURNT_DEEP_TILE,
                 (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new BurntDeepTileRenderer());
+
+        BlockEntityRendererRegistry.register(TileRegistry.ENENMOMY_TILE,
+                (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new EnenmomyTileRenderer());
 
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
                 BlockInit.ATLANTEAN_LEAVES,

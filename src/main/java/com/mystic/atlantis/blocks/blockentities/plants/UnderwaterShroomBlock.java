@@ -28,7 +28,6 @@ public class UnderwaterShroomBlock extends PlantBlock implements BlockEntityProv
         super(AbstractBlock.Settings.of(Material.PLANT)
                         .nonOpaque()
                         .noCollision()
-                        .requiresTool()
                         .sounds(BlockSoundGroup.GRASS)
                         .strength(0.3f, 0.5f)
                         .ticksRandomly());

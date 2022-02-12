@@ -28,7 +28,6 @@ public class TuberUpBlock extends PlantBlock implements BlockEntityProvider, Wat
         super(Settings.of(Material.PLANT)
                         .nonOpaque()
                         .noCollision()
-                        .requiresTool()
                         .sounds(BlockSoundGroup.GRASS)
                         .strength(0.2f, 0.3f)
                         .ticksRandomly());
