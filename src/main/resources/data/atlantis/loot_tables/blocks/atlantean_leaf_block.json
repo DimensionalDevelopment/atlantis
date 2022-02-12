@@ -38,7 +38,7 @@
                   ]
                 }
               ],
-              "name": "minecraft:atlantean_leaf_block"
+              "name": "atlantis:atlantean_leaf_block"
             },
             {
               "type": "minecraft:item",
@@ -57,7 +57,7 @@
                   ]
                 }
               ],
-              "name": "minecraft:atlantean_sapling"
+              "name": "atlantis:atlantean_sapling"
             }
           ]
         }
