@@ -3,19 +3,28 @@ package com.mystic.atlantis.blocks.blockentities.registry;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.util.Reference;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.util.registry.Registry;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class TileRegistry {
-        public static final BlockEntityType<UnderwaterShroomTileEntity> UNDERWATER_SHROOM_TILE = Registry.register(Registry.BLOCK_ENTITY_TYPE, Reference.MODID + ":underwater_shroom",
-                FabricBlockEntityTypeBuilder.create(UnderwaterShroomTileEntity::new, BlockInit.UNDERWATER_SHROOM_BLOCK).build(null));
-        public static final BlockEntityType<TuberUpTileEntity> TUBER_UP_TILE = Registry.register(Registry.BLOCK_ENTITY_TYPE, Reference.MODID + ":tuber_up",
-                FabricBlockEntityTypeBuilder.create(TuberUpTileEntity::new, BlockInit.TUBER_UP_BLOCK).build(null));
-        public static final BlockEntityType<BlueLilyTileEntity> BLUE_LILY_TILE = Registry.register(Registry.BLOCK_ENTITY_TYPE, Reference.MODID + ":blue_lily",
-                FabricBlockEntityTypeBuilder.create(BlueLilyTileEntity::new, BlockInit.BLUE_LILY_BLOCK).build(null));
-        public static final BlockEntityType<BurntDeepTileEntity> BURNT_DEEP_TILE = Registry.register(Registry.BLOCK_ENTITY_TYPE, Reference.MODID + ":burnt_deep",
-                FabricBlockEntityTypeBuilder.create(BurntDeepTileEntity::new, BlockInit.BURNT_DEEP_BLOCK).build(null));
-        public static final BlockEntityType<EnenmomyTileEntity> ENENMOMY_TILE = Registry.register(Registry.BLOCK_ENTITY_TYPE, Reference.MODID + ":enenmomy",
-                FabricBlockEntityTypeBuilder.create(EnenmomyTileEntity::new, BlockInit.ENENMOMY_BLOCK).build(null));
+        private static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister
+                .create(ForgeRegistries.BLOCK_ENTITIES, Reference.MODID);
+
+        public static void init(IEventBus bus) {
+                TILES.register(bus);
+        }
+
+        public static final BlockEntityType<UnderwaterShroomTileEntity> UNDERWATER_SHROOM_TILE = register("underwater_shroom", BlockEntityType.Builder.create(UnderwaterShroomTileEntity::new, BlockInit.UNDERWATER_SHROOM_BLOCK).build(null));
+        public static final BlockEntityType<TuberUpTileEntity> TUBER_UP_TILE = register("tuber_up", BlockEntityType.Builder.create(TuberUpTileEntity::new, BlockInit.TUBER_UP_BLOCK).build(null));
+        public static final BlockEntityType<BlueLilyTileEntity> BLUE_LILY_TILE = register("blue_lily", BlockEntityType.Builder.create(BlueLilyTileEntity::new, BlockInit.BLUE_LILY_BLOCK).build(null));
+        public static final BlockEntityType<BurntDeepTileEntity> BURNT_DEEP_TILE = register("burnt_deep", BlockEntityType.Builder.create(BurntDeepTileEntity::new, BlockInit.BURNT_DEEP_BLOCK).build(null));
+        public static final BlockEntityType<EnenmomyTileEntity> ENENMOMY_TILE = register("enenmomy", BlockEntityType.Builder.create(EnenmomyTileEntity::new, BlockInit.ENENMOMY_BLOCK).build(null));
+
+        private static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> tile) {
+                TILES.register(name, () -> tile);
+                return tile;
+        }
 }

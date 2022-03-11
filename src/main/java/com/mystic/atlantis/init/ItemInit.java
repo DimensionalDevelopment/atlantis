@@ -9,28 +9,30 @@ import com.mystic.atlantis.items.item.*;
 import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
 import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.registry.Registry;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
 
-public class ItemInit
-{
+public class ItemInit {
+    private static DeferredRegister<Item> ITEMS = DeferredRegister.create(Item.class, Reference.MODID);
 
-    public static void init(){}
+    public static void init(IEventBus bus) {
+        ITEMS.register(bus);
+    }
 
     public static Item register(String name, Item item) {
-        return Registry.register(Registry.ITEM, new Identifier(Reference.MODID, name), item);
+        ITEMS.register(name, () -> item);
+        return item;
     }
 
     static <T extends Item> T register(T c, String id) {
-        Registry.register(Registry.ITEM, new Identifier(Reference.MODID, id), c);
+        register(id, c);
         return c;
     }
 
@@ -64,7 +66,7 @@ public class ItemInit
     public static final Item ATLANTEAN_POWER_TORCH = register("atlantean_power_torch", new WallStandingBlockItem(BlockInit.ATLANTEAN_POWER_TORCH, BlockInit.WALL_ATLANTEAN_POWER_TORCH, (new Item.Settings())));
     public static final Item ATLANTEAN_POWER_DUST = register("atlantean_power_dust", new AliasedBlockItem(BlockInit.ATLANTEAN_POWER_DUST_WIRE, (new Item.Settings())));
     public static final Item ATLANTEAN_STRING = register("atlantean_string", new AliasedBlockItem(BlockInit.ATLANTEAN_TRIPWIRE, (new Item.Settings())));
-    public static final Item SUBMARINE = register("submarine", new SubmarineItem(new FabricItemSettings()));
+    public static final Item SUBMARINE = register("submarine", new SubmarineItem(new Item.Settings()));
     public static final Item WATER_PILL = register("water_pill", new WaterPill());
 
     //Entity Buckets

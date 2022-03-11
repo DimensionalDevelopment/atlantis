@@ -37,6 +37,8 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreConfiguredFeatures;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.PlacedFeature;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -80,16 +82,13 @@ public class Atlantis implements ModInitializer
     public static ItemInit ITEMS;
 
     @Override
-    public void onInitialize() {
+    public void onInitialize(IEventBus bus) {
         AutoConfig.register(AtlantisConfig.class, GsonConfigSerializer::new);
 
-        BlockInit.init();
-        Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, "underwater_shroom"), BlockInit.UNDERWATER_SHROOM_BLOCK);
-        Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, "tuber_up"), BlockInit.TUBER_UP_BLOCK);
-        Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, "blue_lily"), BlockInit.BLUE_LILY_BLOCK);
-        Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, "burnt_deep"), BlockInit.BURNT_DEEP_BLOCK);
-        Registry.register(Registry.BLOCK, new Identifier(Reference.MODID, "enenmomy"), BlockInit.ENENMOMY_BLOCK);
-        ItemInit.init();
+        BlockInit.init(bus);
+        ItemInit.init(bus);
+        TileRegistry.init(bus);
+
         CustomPortalBuilder.beginPortal()
                 .frameBlock(BlockInit.ATLANTEAN_CORE)
                 .lightWithWater()
@@ -98,14 +97,8 @@ public class Atlantis implements ModInitializer
                 .customPortalBlock(BlockInit.ATLANTIS_CLEAR_PORTAL)
                 .registerPortal();
         AtlantisGroup.init();
-        ITEMS = new ItemInit();
         GeckoLib.initialize();
         AtlantisEntities.initialize();
-        UNDERWATER_SHROOM_TILE = TileRegistry.UNDERWATER_SHROOM_TILE;
-        TUBER_UP_TILE = TileRegistry.TUBER_UP_TILE;
-        BLUE_LILY_TILE = TileRegistry.BLUE_LILY_TILE;
-        BURNT_DEEP_TILE = TileRegistry.BURNT_DEEP_TILE;
-        ENENMOMY_TILE = TileRegistry.ENENMOMY_TILE;
 
         GeckoLibMod.DISABLE_IN_DEV = true;
         DimensionAtlantis.registerBiomeSources();
@@ -153,6 +146,11 @@ public class Atlantis implements ModInitializer
                 new Identifier("atlantis", "ore_aquamarine_overworld"));
         Registry.register(BuiltinRegistries.PLACED_FEATURE, oreAquamarineOverworld.getValue(), ORE_AQUAMARINE_OVERWORLD);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, oreAquamarineOverworld);
+
+    }
+
+    public void onBiomeLoad(BiomeLoadingEvent event) {
+
 
     }
 

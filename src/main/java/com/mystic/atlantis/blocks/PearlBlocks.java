@@ -1,8 +1,7 @@
 package com.mystic.atlantis.blocks;
 
 
-import org.jetbrains.annotations.Nullable;
-
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,17 +13,15 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import org.jetbrains.annotations.Nullable;
 
 public class PearlBlocks extends Block
 {
 
-    public PearlBlocks(FabricBlockSettings properties) {
+    public PearlBlocks(AbstractBlock.Settings properties) {
         super(properties
                 .strength(2.0F, 5.0F)
-                .breakByTool(FabricToolTags.PICKAXES, 1) //TODO: Update
+//                .breakByTool(FabricToolTags.PICKAXES, 1) //TODO: Fix this
                 .requiresTool()
                 .luminance((state) -> 5)
                 .nonOpaque()
