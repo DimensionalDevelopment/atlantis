@@ -1,113 +1,166 @@
+buildscript {
+    repositories {
+        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://maven.parchmentmc.org' }
+        jcenter()
+        mavenCentral()
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.parchmentmc:librarian:1.+'
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'eclipse'
     id 'maven-publish'
 }
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
+apply plugin: 'org.spongepowered.mixin'
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+version = mod_version
+group = 'com.mystic' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'atlantis'
 
-archivesBaseName = project.archives_base_name
-version = project.mod_version
-group = project.maven_group
+// Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-// JENKINS STUFF! LEAVE THIS ALONE!
-if (System.getenv('BUILD_NUMBER') != null) {
-    version = "-dev-" + System.getenv('BUILD_NUMBER')
+mixin {
+    add sourceSets.main, "atlantis.refmap.json"
 }
 
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+minecraft {
+    mappings channel: 'parchment', version: '2022.08.06'-minecraft_version
 
-repositories {
-    maven { url = 'https://jitpack.io' }
-    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
-    maven {
-        url = "http://maven.kyrptonaught.dev"
-        allowInsecureProtocol = true
-    }
-    maven {
-        name = 'TerraformersMC'
-        url = 'https://maven.terraformersmc.com/'
-    }
-    maven { url "https://maven.shedaniel.me/" }
-    maven {url "https://maven.quiltmc.org/repository/release/"}
-}
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
 
-dependencies {
-    // To change the versions see the gradle.properties file
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation 'software.bernie.geckolib:geckolib-fabric-1.18:3.0.32'
-    modImplementation 'net.kyrptonaught:customportalapi:0.0.1-beta49-1.18'
-    include 'net.kyrptonaught:customportalapi:0.0.1-beta49-1.18'
-    // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modApi("me.shedaniel.cloth:cloth-config-fabric:6.1.50") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
-    modImplementation ("com.terraformersmc:modmenu:3.0.1") {
-        exclude module: "fabric-api"
-    }
-    // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-    // You may need to force-disable transitiveness on them.
-//    modImplementation("com.github.Mysticpasta1:OpenWorlds:cce9fed") {
-//        exclude module: "fabric-api"
-//    }
-//    include 'com.github.Mysticpasta1:OpenWorlds:cce9fed'
-//    modImplementation(group: 'com.google.code.gson', name: 'gson', version: '2.8.7')
-}
+    // Default run configurations.
+    // These can be tweaked, removed, or duplicated as needed.
+    runs {
+        client {
+            workingDirectory project.file('run')
 
-processResources {
-    inputs.property "version", project.version
+            // Recommended logging data for a userdev environment
+            // The markers can be added/remove as needed separated by commas.
+            // "SCAN": For mods scan.
+            // "REGISTRIES": For firing of registry events.
+            // "REGISTRYDUMP": For getting the contents of all registries.
+            property 'forge.logging.markers', 'REGISTRIES'
 
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
-}
+            // Recommended logging level for the console
+            // You can set various levels here.
+            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+            property 'forge.logging.console.level', 'debug'
 
-tasks.withType(JavaCompile).configureEach {
-    // ensure that the encoding is set to UTF-8, no matter what the system default is
-    // this fixes some edge cases with special characters not displaying correctly
-    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-    // If Javadoc is generated, this must be specified in that task too.
-    it.options.encoding = "UTF-8"
+            arg "-mixin.config=doom.mixins.json"
+            workingDirectory project.file('run')
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            property 'forge.enabledGameTestNamespaces', 'examplemod'
 
-    it.options.release = 17
-}
-
-java {
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
-    withSourcesJar()
-}
-
-jar { // shit
-    from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}"}
-    }
-}
-
-loom {
-    accessWidenerPath =  file("src/main/resources/atlantis.accesswidener")
-}
-
-// configure the maven publication
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            // add all the jars that should be included when publishing to maven
-            artifact(remapJar) {
-                builtBy remapJar
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
             }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            arg "-mixin.config=doom.mixins.json"
+            workingDirectory project.file('run')
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            property 'forge.enabledGameTestNamespaces', 'examplemod'
+
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            arg "-mixin.config=atlantis.mixins.json"
+            workingDirectory project.file('run')
+            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
             }
         }
     }
+}
 
-    // Select the repositories you want to publish to
-    // To publish to maven local, no extra repositories are necessary. Just use the task `publishToMavenLocal`.
+// Include resources generated by data generators.
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+    maven {
+        name = "cursemaven"
+        url = "https://www.cursemaven.com"
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.18.1-39.1.2'
+    implementation "com.github.Waterpicker:customportalapi:1.18.1-forge-SNAPSHOT"
+    implementation fg.deobf('software.bernie.geckolib:geckolib-1.18-forge:3.0.12')
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    runtimeOnly fg.deobf("curse.maven:cloth_config_forge-348521:3546623")
+    compileOnly fg.deobf("curse.maven:cloth_config_forge-348521:3546623")
+}
+
+// Example for how to get properties into the manifest for reading at runtime.
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "Atlantis",
+                "Specification-Vendor"    : "Mystipasta1",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : '2022.3.11-1.18.1-1.0-forge',
+                "Implementation-Vendor"   : "Mysticpasta1",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfig": "atlantis.mixins.json"
+        ])
+    }
+}
+
+// Example configuration to allow publishing using the maven-publish plugin
+// This is the preferred method to reobfuscate your jar file
+jar.finalizedBy('reobfJar')
+// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
+// publish.dependsOn('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
     repositories {
-        // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
     }
 }
