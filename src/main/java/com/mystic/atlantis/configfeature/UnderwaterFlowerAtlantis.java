@@ -2,33 +2,33 @@ package com.mystic.atlantis.configfeature;
 
 import com.mojang.serialization.Codec;
 import com.mystic.atlantis.init.BlockInit;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.util.FeatureContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 import java.util.Random;
 
-public class UnderwaterFlowerAtlantis extends Feature<DefaultFeatureConfig> {
+public class UnderwaterFlowerAtlantis extends Feature<NoneFeatureConfiguration> {
 
-    public UnderwaterFlowerAtlantis(Codec<DefaultFeatureConfig> FeatureSpreadConfig) {
+    public UnderwaterFlowerAtlantis(Codec<NoneFeatureConfiguration> FeatureSpreadConfig) {
         super(FeatureSpreadConfig);
     }
 
-    public boolean generate(FeatureContext<DefaultFeatureConfig> config) {
-        StructureWorldAccess reader = config.getWorld();
-        Random rand = config.getRandom();
-        BlockPos pos = config.getOrigin();
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> config) {
+        WorldGenLevel reader = config.level();
+        Random rand = config.random();
+        BlockPos pos = config.origin();
             BlockState blockstate = switch (rand.nextInt(3)) {
-                case 1 -> BlockInit.RED_UNDERWATER_FLOWER.getDefaultState();
-                case 2 -> BlockInit.YELLOW_UNDERWATER_FLOWER.getDefaultState();
-                default -> BlockInit.UNDERWATER_FLOWER.getDefaultState();
+                case 1 -> BlockInit.RED_UNDERWATER_FLOWER.defaultBlockState();
+                case 2 -> BlockInit.YELLOW_UNDERWATER_FLOWER.defaultBlockState();
+                default -> BlockInit.UNDERWATER_FLOWER.defaultBlockState();
             };
-            if (reader.getBlockState(pos).isOf(Blocks.WATER) && blockstate.canPlaceAt(reader, pos)) {
-                reader.setBlockState(pos, blockstate, 2);
+            if (reader.getBlockState(pos).is(Blocks.WATER) && blockstate.canSurvive(reader, pos)) {
+                reader.setBlock(pos, blockstate, 2);
                 return true;
             }
         return false;

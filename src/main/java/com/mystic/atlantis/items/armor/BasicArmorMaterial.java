@@ -2,10 +2,10 @@ package com.mystic.atlantis.items.armor;
 
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Lazy;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -13,10 +13,10 @@ import java.util.function.Supplier;
 
 public class BasicArmorMaterial
 {
-    public static final net.minecraft.item.ArmorMaterial ARMOR_AQUAMARINE = new ArmorMaterial( "aquamarine", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.ofItems(ItemInit.AQUAMARINE_GEM));
-    public static final net.minecraft.item.ArmorMaterial ARMOR_BROWN_WROUGHT = new ArmorMaterial("wrought", 24, new int[] {3, 5, 5, 4} , 7, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.0F, 0.0F, () -> Ingredient.ofItems(ItemInit.BROWN_WROUGHT_PATCHES));
+    public static final net.minecraft.world.item.ArmorMaterial ARMOR_AQUAMARINE = new ArmorMaterial( "aquamarine", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM));
+    public static final net.minecraft.world.item.ArmorMaterial ARMOR_BROWN_WROUGHT = new ArmorMaterial("wrought", 24, new int[] {3, 5, 5, 4} , 7, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.0F, () -> Ingredient.of(ItemInit.BROWN_WROUGHT_PATCHES));
 
-    private static class ArmorMaterial implements net.minecraft.item.ArmorMaterial{
+    private static class ArmorMaterial implements net.minecraft.world.item.ArmorMaterial{
 
         private static final int[] Max_Damage_Array = new int[] {13,15,16,11};
         private final String name;
@@ -40,17 +40,17 @@ public class BasicArmorMaterial
         }
 
         @Override
-        public int getDurability(EquipmentSlot slotIn) {
-            return Max_Damage_Array[slotIn.getEntitySlotId()] * maxDamageFactor;
+        public int getDurabilityForSlot(EquipmentSlot slotIn) {
+            return Max_Damage_Array[slotIn.getIndex()] * maxDamageFactor;
         }
 
         @Override
-        public int getProtectionAmount(EquipmentSlot slotIn) {
-            return damageReductionAmountArray[slotIn.getEntitySlotId()];
+        public int getDefenseForSlot(EquipmentSlot slotIn) {
+            return damageReductionAmountArray[slotIn.getIndex()];
         }
 
         @Override
-        public int getEnchantability() {
+        public int getEnchantmentValue() {
             return enchantability;
         }
 

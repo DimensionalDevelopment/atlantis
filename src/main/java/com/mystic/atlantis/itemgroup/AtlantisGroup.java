@@ -1,24 +1,24 @@
 package com.mystic.atlantis.itemgroup;
 
 import com.mystic.atlantis.init.BlockInit;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.Registry;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
 public class AtlantisGroup
 {
     public static void init(){
-        new ItemGroup(ItemGroup.getGroupCountSafe(), "alantis.general") {
+        new CreativeModeTab(CreativeModeTab.getGroupCountSafe(), "alantis.general") {
             @Override
-            public ItemStack createIcon() {
-                return BlockInit.CHISELED_GOLDEN_AQUAMARINE.asItem().getDefaultStack();
+            public ItemStack makeIcon() {
+                return BlockInit.CHISELED_GOLDEN_AQUAMARINE.asItem().getDefaultInstance();
             }
 
             @Override
-            public void appendStacks(DefaultedList<ItemStack> stacks) {
+            public void fillItemList(NonNullList<ItemStack> stacks) {
                 Registry.ITEM.stream().filter((item) -> {
-                    return Registry.ITEM.getId(item).getNamespace().equals("atlantis");
+                    return Registry.ITEM.getKey(item).getNamespace().equals("atlantis");
                 }).forEach((item) -> stacks.add(new ItemStack(item)));
             }
         };

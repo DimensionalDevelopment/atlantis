@@ -1,15 +1,15 @@
 package com.mystic.atlantis.blocks;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.Waterloggable;
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
-public class AtlanteanLeaves extends LeavesBlock implements Waterloggable {
+public class AtlanteanLeaves extends LeavesBlock implements SimpleWaterloggedBlock {
 
-    public AtlanteanLeaves(AbstractBlock.Settings properties) {
+    public AtlanteanLeaves(BlockBehaviour.Properties properties) {
         super(properties
-                .sounds(BlockSoundGroup.GRASS)
+                .sound(SoundType.GRASS)
 //                .breakByTool(FabricToolTags.SHEARS, 1) //TODO: Update
                 .strength(1.0F, 2.0F));
     }

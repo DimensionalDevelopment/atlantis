@@ -1,11 +1,27 @@
 package com.mystic.atlantis.entities;
 
 import com.mystic.atlantis.init.ItemInit;
-import net.minecraft.entity.*;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.animal.AbstractSchoolingFish;
+import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -14,113 +30,95 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.passive.SchoolingFishEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
-
-public class ShrimpEntity extends SchoolingFishEntity implements IAnimatable, Bucketable {
+public class ShrimpEntity extends AbstractSchoolingFish implements IAnimatable, Bucketable {
     private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.shrimp.idle", true);
 
     private final AnimationFactory factory = new AnimationFactory(this);
 
-    public ShrimpEntity(EntityType<? extends SchoolingFishEntity> entityType, World world) {
+    public ShrimpEntity(EntityType<? extends AbstractSchoolingFish> entityType, Level world) {
         super(entityType, world);
     }
 
-    public static DefaultAttributeContainer.Builder createShrimpAttributes() {
-        return createFishAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 2d);
+    public static AttributeSupplier.Builder createShrimpAttributes() {
+        return createAttributes().add(Attributes.MOVEMENT_SPEED, 2d);
     }
 
     @Override
-    public float getScaleFactor() {
+    public float getScale() {
         return 0.5f;
     }
 
     @Override
-    protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
         return dimensions.height * 0.6875f;
     }
 
     @Override
-    public boolean isInSwimmingPose() {
+    public boolean isVisuallySwimming() {
         return true;
     }
 
     @Override
-    protected boolean shouldSwimInFluids() {
+    protected boolean isAffectedByFluids() {
         return true;
     }
 
     @Override
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if (player.getStackInHand(hand).getItem() == Items.SEAGRASS) {
-            if (player instanceof ServerPlayerEntity) {
-                this.emitGameEvent(GameEvent.MOB_INTERACT, this.getCameraBlockPos());
-                createChild((ServerWorld) player.getEntityWorld());
-                if (!player.getAbilities().creativeMode) {
-                    player.getStackInHand(hand).decrement(1);
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        if (player.getItemInHand(hand).getItem() == Items.SEAGRASS) {
+            if (player instanceof ServerPlayer) {
+                this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
+                createChild((ServerLevel) player.getCommandSenderWorld());
+                if (!player.getAbilities().instabuild) {
+                    player.getItemInHand(hand).shrink(1);
                 }
-                return ActionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
-            return ActionResult.FAIL;
-        } else if (player.getStackInHand(hand).getItem() == Items.WATER_BUCKET) {
-            return Bucketable.tryBucket(player, hand, this).orElse(super.interactMob(player, hand));
+            return InteractionResult.FAIL;
+        } else if (player.getItemInHand(hand).getItem() == Items.WATER_BUCKET) {
+            return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
         }
-        return ActionResult.FAIL;
+        return InteractionResult.FAIL;
     }
 
     @Override
-    protected void initGoals() {
-        super.initGoals();
-        goalSelector.add(6, new TemptGoal(this, 1, Ingredient.ofItems(Items.SEAGRASS), false));
+    protected void registerGoals() {
+        super.registerGoals();
+        goalSelector.addGoal(6, new TemptGoal(this, 1, Ingredient.of(Items.SEAGRASS), false));
     }
 
     @Override
-    public SoundEvent getBucketedSound() {
-        return SoundEvents.ITEM_BUCKET_FILL_FISH;
+    public SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_FILL_FISH;
     }
 
     @Override
     protected SoundEvent getFlopSound() {
-        return SoundEvents.ENTITY_TROPICAL_FISH_FLOP;
+        return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_TROPICAL_FISH_AMBIENT;
+        return SoundEvents.TROPICAL_FISH_AMBIENT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_TROPICAL_FISH_DEATH;
+        return SoundEvents.TROPICAL_FISH_DEATH;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_TROPICAL_FISH_HURT;
+        return SoundEvents.TROPICAL_FISH_HURT;
     }
 
     @Override
-    public ItemStack getBucketItem() {
-        return ItemInit.SHRIMP_BUCKET.getDefaultStack();
+    public ItemStack getBucketItemStack() {
+        return ItemInit.SHRIMP_BUCKET.getDefaultInstance();
     }
 
-    public void createChild(ServerWorld world) {
+    public void createChild(ServerLevel world) {
         ShrimpEntity child = (ShrimpEntity) getType().create(world);
         if(child != null) {
-            child.setPos(this.getX(), this.getY(), this.getZ());
-            world.spawnEntity(child);
+            child.setPosRaw(this.getX(), this.getY(), this.getZ());
+            world.addFreshEntity(child);
         }
     }
 
@@ -130,7 +128,7 @@ public class ShrimpEntity extends SchoolingFishEntity implements IAnimatable, Bu
     }
 
     @Override
-    public boolean canBeLeashedBy(PlayerEntity player) {
+    public boolean canBeLeashed(Player player) {
         return true;
     }
 

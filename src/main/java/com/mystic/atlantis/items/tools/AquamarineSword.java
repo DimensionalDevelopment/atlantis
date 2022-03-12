@@ -1,14 +1,14 @@
 package com.mystic.atlantis.items.tools;
 
 import com.mystic.atlantis.init.ItemInit;
-import net.minecraft.item.Item;
-import net.minecraft.item.SwordItem;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tier;
 
 public class AquamarineSword extends SwordItem {
-    public AquamarineSword(ToolMaterial tier, int attack) {
-        super(tier, attack, -3.2F, new Item.Settings()
-                .maxCount(1)
-                .maxDamageIfAbsent(tier.getDurability()));
+    public AquamarineSword(Tier tier, int attack) {
+        super(tier, attack, -3.2F, new Item.Properties()
+                .stacksTo(1)
+                .defaultDurability(tier.getUses()));
     }
 }

@@ -2,27 +2,27 @@ package com.mystic.atlantis.blocks.blockentities.models;
 
 import com.mystic.atlantis.blocks.blockentities.plants.EnenmomyTileEntity;
 import com.mystic.atlantis.util.Reference;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.GeckoLib;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class EnenmomyModel extends AnimatedGeoModel<EnenmomyTileEntity>
 {
     @Override
-    public Identifier getModelLocation(EnenmomyTileEntity object)
+    public ResourceLocation getModelLocation(EnenmomyTileEntity object)
     {
-        return new Identifier(Reference.MODID, "geo/enenmomy.geo.json");
+        return new ResourceLocation(Reference.MODID, "geo/enenmomy.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(EnenmomyTileEntity object)
+    public ResourceLocation getTextureLocation(EnenmomyTileEntity object)
     {
-        return new Identifier(Reference.MODID, "textures/block/anenomy.png");
+        return new ResourceLocation(Reference.MODID, "textures/block/anenomy.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(EnenmomyTileEntity object)
+    public ResourceLocation getAnimationFileLocation(EnenmomyTileEntity object)
     {
-        return new Identifier(GeckoLib.ModID, "animations/jackinthebox.animation.json");
+        return new ResourceLocation(GeckoLib.ModID, "animations/jackinthebox.animation.json");
     }
 }

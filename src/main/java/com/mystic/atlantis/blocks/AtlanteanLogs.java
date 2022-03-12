@@ -1,14 +1,14 @@
 package com.mystic.atlantis.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.PillarBlock;
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
-public class AtlanteanLogs extends PillarBlock {
+public class AtlanteanLogs extends RotatedPillarBlock {
 
-    public AtlanteanLogs(Block.Settings properties) {
+    public AtlanteanLogs(BlockBehaviour.Properties properties) {
         super(properties
-                .sounds(BlockSoundGroup.WOOD)
+                .sound(SoundType.WOOD)
 //                .breakByTool(FabricToolTags.AXES, 1) //TODO: Update
                 .strength(3.0F, 5.0F));
 

@@ -1,14 +1,14 @@
 package com.mystic.atlantis.blocks.blockentities.renderers;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mystic.atlantis.blocks.blockentities.models.BlueLilyModel;
 import com.mystic.atlantis.blocks.blockentities.models.EnenmomyModel;
 import com.mystic.atlantis.blocks.blockentities.plants.BlueLilyTileEntity;
 import com.mystic.atlantis.blocks.blockentities.plants.EnenmomyTileEntity;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.renderers.geo.GeoBlockRenderer;
 
 public class EnenmomyTileRenderer extends GeoBlockRenderer<EnenmomyTileEntity> {
@@ -17,9 +17,9 @@ public class EnenmomyTileRenderer extends GeoBlockRenderer<EnenmomyTileEntity> {
     }
 
     @Override
-    public RenderLayer getRenderType(EnenmomyTileEntity animatable, float partialTicks, MatrixStack stack,
-                                     VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn,
-                                     Identifier textureLocation) {
-        return RenderLayer.getEntityTranslucent(getTextureLocation(animatable));
+    public RenderType getRenderType(EnenmomyTileEntity animatable, float partialTicks, PoseStack stack,
+                                     MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn,
+                                     ResourceLocation textureLocation) {
+        return RenderType.entityTranslucent(getTextureLocation(animatable));
     }
 }

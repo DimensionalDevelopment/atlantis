@@ -4,51 +4,51 @@ import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.BlockInit;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.tag.Tag;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 
-public class AtlantisPortalBlock extends Block implements BlockEntityProvider {
+public class AtlantisPortalBlock extends Block implements EntityBlock {
 
-    public AtlantisPortalBlock(Settings properties) {
+    public AtlantisPortalBlock(Properties properties) {
         super(properties);
     }
 
     @SuppressWarnings({"ConstantConditions", "NullableProblems"})
     @Override
-    public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (!DimensionAtlantis.isAtlantisDimension(worldIn)) {
-            if(!worldIn.isClient) {
+            if(!worldIn.isClientSide) {
                 // From Overworld to Atlantis
-                ServerWorld atlantis = player.getServer().getWorld(DimensionAtlantis.ATLANTIS_WORLD);
-                ServerWorld overWorld = player.getServer().getWorld(Atlantis.getOverworldKey());
+                ServerLevel atlantis = player.getServer().getLevel(DimensionAtlantis.ATLANTIS_WORLD);
+                ServerLevel overWorld = player.getServer().getLevel(Atlantis.getOverworldKey());
                 atlantis.getBlockState(pos);
                 BlockEntity entity = worldIn.getBlockEntity(pos);
                 DummyDataStorage dataStorage = (DummyDataStorage) entity;
                 BlockPos atlantisPos;
-                BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(0, 0, 0);
+                BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(0, 0, 0);
 
                 if (dataStorage.getDestination() != null) {
-                    Vec3d vector3d = new Vec3d(dataStorage.getDestination().getX(), dataStorage.getDestination().getY(), dataStorage.getDestination().getZ());
-                    sendPlayerToDimension((ServerPlayerEntity) player, atlantis, vector3d);
-                    player.sendMessage(new TranslatableText("Welcome To Atlantis!!!"), true);
-                    return ActionResult.SUCCESS;
+                    Vec3 vector3d = new Vec3(dataStorage.getDestination().getX(), dataStorage.getDestination().getY(), dataStorage.getDestination().getZ());
+                    sendPlayerToDimension((ServerPlayer) player, atlantis, vector3d);
+                    player.displayClientMessage(new TranslatableComponent("Welcome To Atlantis!!!"), true);
+                    return InteractionResult.SUCCESS;
                 }
 
                 for (int y = 0; y < 255; y++) {
@@ -56,47 +56,47 @@ public class AtlantisPortalBlock extends Block implements BlockEntityProvider {
                         for (int z = (int) player.getZ() - 6; z < (int) player.getZ() + 6; z++) {
                             mutableBlockPos.set(x, y, z);
                             if (atlantis.getBlockState(mutableBlockPos).getBlock() == this.asBlock() && isPortalAt(atlantis, mutableBlockPos)) {
-                                atlantisPos = mutableBlockPos.add(0, 1, 0);
+                                atlantisPos = mutableBlockPos.offset(0, 1, 0);
                                 dataStorage.setDestination(atlantisPos);
-                                Vec3d vector3d = new Vec3d(atlantisPos.getX(), atlantisPos.getY(), atlantisPos.getZ());
-                                sendPlayerToDimension((ServerPlayerEntity) player, atlantis, vector3d);
-                                player.sendMessage(new TranslatableText("Welcome To Atlantis!!!"), true);
-                                return ActionResult.SUCCESS;
+                                Vec3 vector3d = new Vec3(atlantisPos.getX(), atlantisPos.getY(), atlantisPos.getZ());
+                                sendPlayerToDimension((ServerPlayer) player, atlantis, vector3d);
+                                player.displayClientMessage(new TranslatableComponent("Welcome To Atlantis!!!"), true);
+                                return InteractionResult.SUCCESS;
                             } else {
-                                atlantis.setBlockState(pos, this.asBlock().getDefaultState(), 2);
+                                atlantis.setBlock(pos, this.asBlock().defaultBlockState(), 2);
                                 if (atlantis.getBlockState(mutableBlockPos).getBlock() == this.asBlock() && isPortalAt(atlantis, mutableBlockPos)) {
-                                    atlantisPos = mutableBlockPos.add(0, 1, 0);
+                                    atlantisPos = mutableBlockPos.offset(0, 1, 0);
                                     dataStorage.setDestination(atlantisPos);
-                                    Vec3d vector3d = new Vec3d(atlantisPos.getX(), atlantisPos.getY(), atlantisPos.getZ());
-                                    sendPlayerToDimension((ServerPlayerEntity) player, atlantis, vector3d);
-                                    player.sendMessage(new TranslatableText("Welcome To Atlantis!!!"), true);
-                                    return ActionResult.SUCCESS;
+                                    Vec3 vector3d = new Vec3(atlantisPos.getX(), atlantisPos.getY(), atlantisPos.getZ());
+                                    sendPlayerToDimension((ServerPlayer) player, atlantis, vector3d);
+                                    player.displayClientMessage(new TranslatableComponent("Welcome To Atlantis!!!"), true);
+                                    return InteractionResult.SUCCESS;
                                 }
                             }
                         }
                     }
                 }
-                worldIn.setBlockState(pos, this.asBlock().getDefaultState(), 2);
+                worldIn.setBlock(pos, this.asBlock().defaultBlockState(), 2);
             } else {
-                player.sendMessage(new TranslatableText("NO PASSING THE GATES OF ATLANTIS!!!"), true);
-                return ActionResult.FAIL;
+                player.displayClientMessage(new TranslatableComponent("NO PASSING THE GATES OF ATLANTIS!!!"), true);
+                return InteractionResult.FAIL;
             }
         } else {
-            if (!worldIn.isClient) {
-                ServerWorld atlantis =  worldIn.getServer().getWorld(DimensionAtlantis.ATLANTIS_WORLD);
-                ServerWorld overWorld = worldIn.getServer().getWorld(Atlantis.getOverworldKey());
+            if (!worldIn.isClientSide) {
+                ServerLevel atlantis =  worldIn.getServer().getLevel(DimensionAtlantis.ATLANTIS_WORLD);
+                ServerLevel overWorld = worldIn.getServer().getLevel(Atlantis.getOverworldKey());
                 if (worldIn != null) {
                     overWorld.getBlockState(pos);
                     BlockEntity entity = worldIn.getBlockEntity(pos);
                     DummyDataStorage dataStorage = (DummyDataStorage) entity;
                     BlockPos overWorldPos;
-                    BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(0, 0, 0);
+                    BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(0, 0, 0);
 
                     if (dataStorage.getDestination() != null) {
-                        Vec3d vector3d = new Vec3d(dataStorage.getDestination().getX(), dataStorage.getDestination().getY(), dataStorage.getDestination().getZ());
-                        sendPlayerToDimension((ServerPlayerEntity) player, overWorld, vector3d);
-                        player.sendMessage(new TranslatableText("We Hope You Enjoyed Atlantis, Come Back Soon!"), true);
-                        return ActionResult.SUCCESS;
+                        Vec3 vector3d = new Vec3(dataStorage.getDestination().getX(), dataStorage.getDestination().getY(), dataStorage.getDestination().getZ());
+                        sendPlayerToDimension((ServerPlayer) player, overWorld, vector3d);
+                        player.displayClientMessage(new TranslatableComponent("We Hope You Enjoyed Atlantis, Come Back Soon!"), true);
+                        return InteractionResult.SUCCESS;
                     }
 
                     for (int y = 0; y < 255; y++) {
@@ -104,37 +104,37 @@ public class AtlantisPortalBlock extends Block implements BlockEntityProvider {
                             for (int z = (int) (player.getZ() - 6); z < (int) player.getZ() + 6; z++) {
                                 mutableBlockPos.set(x, y, z);
                                 if (overWorld.getBlockState(mutableBlockPos).getBlock() == this.asBlock() && isPortalAt(overWorld, mutableBlockPos)) {
-                                    overWorldPos = mutableBlockPos.add(0, 1, 0);
+                                    overWorldPos = mutableBlockPos.offset(0, 1, 0);
                                     dataStorage.setDestination(overWorldPos);
-                                    sendPlayerToDimension((ServerPlayerEntity) player, overWorld, new Vec3d(overWorldPos.getX(), overWorldPos.getY(), overWorldPos.getZ()));
-                                    player.sendMessage(new TranslatableText("We Hope You Enjoyed Atlantis, Come Back Soon!"), true);
-                                    return ActionResult.SUCCESS;
+                                    sendPlayerToDimension((ServerPlayer) player, overWorld, new Vec3(overWorldPos.getX(), overWorldPos.getY(), overWorldPos.getZ()));
+                                    player.displayClientMessage(new TranslatableComponent("We Hope You Enjoyed Atlantis, Come Back Soon!"), true);
+                                    return InteractionResult.SUCCESS;
                                 } else {
-                                    overWorld.setBlockState(pos, this.asBlock().getDefaultState(), 2);
+                                    overWorld.setBlock(pos, this.asBlock().defaultBlockState(), 2);
                                     if (overWorld.getBlockState(mutableBlockPos).getBlock() == this.asBlock() && isPortalAt(overWorld, mutableBlockPos)) {
-                                        overWorldPos = mutableBlockPos.add(0, 1, 0);
+                                        overWorldPos = mutableBlockPos.offset(0, 1, 0);
                                         dataStorage.setDestination(overWorldPos);
-                                        sendPlayerToDimension((ServerPlayerEntity) player, overWorld, new Vec3d(overWorldPos.getX(), overWorldPos.getY(), overWorldPos.getZ()));
-                                        player.sendMessage(new TranslatableText("We Hope You Enjoyed Atlantis, Come Back Soon!"), true);
-                                        return ActionResult.SUCCESS;
+                                        sendPlayerToDimension((ServerPlayer) player, overWorld, new Vec3(overWorldPos.getX(), overWorldPos.getY(), overWorldPos.getZ()));
+                                        player.displayClientMessage(new TranslatableComponent("We Hope You Enjoyed Atlantis, Come Back Soon!"), true);
+                                        return InteractionResult.SUCCESS;
                                     }
                                 }
                             }
                         }
                     }
-                    worldIn.setBlockState(pos, this.asBlock().getDefaultState(), 2);
+                    worldIn.setBlock(pos, this.asBlock().defaultBlockState(), 2);
                 } else {
-                    player.sendMessage(new TranslatableText("NO PASSING THE GATES OF ATLANTIS!!!"), true);
-                    return ActionResult.FAIL;
+                    player.displayClientMessage(new TranslatableComponent("NO PASSING THE GATES OF ATLANTIS!!!"), true);
+                    return InteractionResult.FAIL;
                 }
             }
         }
-        player.sendMessage(new TranslatableText("NO PASSING THE GATES OF ATLANTIS!!!"), true);
-        return ActionResult.PASS;
+        player.displayClientMessage(new TranslatableComponent("NO PASSING THE GATES OF ATLANTIS!!!"), true);
+        return InteractionResult.PASS;
     }
 
-    private boolean isPortalAt(ServerWorld world, BlockPos pos) {
-        return world.getBlockState(pos).isIn(getPortal());
+    private boolean isPortalAt(ServerLevel world, BlockPos pos) {
+        return world.getBlockState(pos).is(getPortal());
     }
 
     public Tag<Block> getPortal(){
@@ -145,7 +145,7 @@ public class AtlantisPortalBlock extends Block implements BlockEntityProvider {
             }
 
             @Override
-            public List<Block> values() {
+            public List<Block> getValues() {
                 List<Block> portal2 = new ArrayList<Block>();
                 portal2.add(BlockInit.ATLANTIS_PORTAL);
                 return portal2;
@@ -154,15 +154,15 @@ public class AtlantisPortalBlock extends Block implements BlockEntityProvider {
         return portal;
     }
 
-    public static void sendPlayerToDimension(ServerPlayerEntity serverPlayer, ServerWorld targetWorld, Vec3d targetVec) {
+    public static void sendPlayerToDimension(ServerPlayer serverPlayer, ServerLevel targetWorld, Vec3 targetVec) {
         // ensure destination chunk is loaded before we put the player in it
         targetWorld.getChunk(new BlockPos(targetVec));
-        serverPlayer.teleport(targetWorld, targetVec.getX(), targetVec.getY(), targetVec.getZ(), serverPlayer.getYaw(), serverPlayer.getPitch());
+        serverPlayer.teleportTo(targetWorld, targetVec.x(), targetVec.y(), targetVec.z(), serverPlayer.getYRot(), serverPlayer.getXRot());
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new DummyDataStorage(pos, state);
     }
 }

@@ -1,16 +1,16 @@
 package com.mystic.atlantis.blocks;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class AlgaeBlock extends Block {
 
-    public AlgaeBlock(AbstractBlock.Settings properties) {
+    public AlgaeBlock(BlockBehaviour.Properties properties) {
         super(properties
-                .sounds(BlockSoundGroup.GRASS)
+                .sound(SoundType.GRASS)
 //                .breakByTool(FabricToolTags.AXES, 1) //TODO: Update
-                .requiresTool()
+                .requiresCorrectToolForDrops()
                 .strength(5.0F));
     }
 }

@@ -1,12 +1,12 @@
 package com.mystic.atlantis.blocks.power;
 
-import net.minecraft.block.RedstoneLampBlock;
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.world.level.block.RedstoneLampBlock;
+import net.minecraft.world.level.block.SoundType;
 
 public class AtlanteanPowerLamp extends RedstoneLampBlock {
 
-    public AtlanteanPowerLamp(Settings settings) {
-        super(settings.sounds(BlockSoundGroup.GLASS).strength(0.3f).luminance(value -> value.get(LIT) ? 15 : 0).allowsSpawning((state, world, pos, type) -> true));
+    public AtlanteanPowerLamp(Properties settings) {
+        super(settings.sound(SoundType.GLASS).strength(0.3f).lightLevel(value -> value.getValue(LIT) ? 15 : 0).isValidSpawn((state, world, pos, type) -> true));
     }
 
 }

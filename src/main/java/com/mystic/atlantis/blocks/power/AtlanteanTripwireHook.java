@@ -1,53 +1,52 @@
 package com.mystic.atlantis.blocks.power;
 
 import com.google.common.base.MoreObjects;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.TripWireBlock;
+import net.minecraft.world.level.block.TripWireHookBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.TripwireBlock;
-import net.minecraft.block.TripwireHookBlock;
-import net.minecraft.block.Waterloggable;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Property;
-import net.minecraft.tag.FluidTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.event.GameEvent;
-
-public class AtlanteanTripwireHook extends TripwireHookBlock implements Waterloggable {
+public class AtlanteanTripwireHook extends TripWireHookBlock implements SimpleWaterloggedBlock {
     private static final Property<Boolean> WATERLOGGED = AtlanteanPowerTorch.WATERLOGGED;
 
-    public AtlanteanTripwireHook(Settings settings) {
-        super(settings.breakInstantly());
-        this.getDefaultState().with(WATERLOGGED, Boolean.TRUE);
+    public AtlanteanTripwireHook(Properties settings) {
+        super(settings.instabreak());
+        this.defaultBlockState().setValue(WATERLOGGED, Boolean.TRUE);
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return direction.getOpposite() == state.get(FACING) && !state.canPlaceAt(world, pos) ? Blocks.WATER.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        return direction.getOpposite() == state.getValue(FACING) && !state.canSurvive(world, pos) ? Blocks.WATER.defaultBlockState() : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
-    public void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    public void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, POWERED, ATTACHED, WATERLOGGED);
     }
 
 
 
     @Override
-    public void update(World world, BlockPos pos, BlockState state, boolean beingRemoved, boolean bl, int i, @Nullable BlockState blockState) {
-        Direction direction = state.get(TripwireHookBlock.FACING);
-        boolean bl2 = state.get(ATTACHED);
-        boolean bl3 = state.get(POWERED);
+    public void calculateState(Level world, BlockPos pos, BlockState state, boolean beingRemoved, boolean bl, int i, @Nullable BlockState blockState) {
+        Direction direction = state.getValue(TripWireHookBlock.FACING);
+        boolean bl2 = state.getValue(ATTACHED);
+        boolean bl3 = state.getValue(POWERED);
         boolean bl4 = !beingRemoved;
         boolean bl5 = false;
         int j = 0;
@@ -55,16 +54,16 @@ public class AtlanteanTripwireHook extends TripwireHookBlock implements Waterlog
 
         BlockPos blockPos2;
         for(int k = 1; k < 42; ++k) {
-            blockPos2 = pos.offset(direction, k);
+            blockPos2 = pos.relative(direction, k);
             BlockState blockState2 = world.getBlockState(blockPos2);
-            if (blockState2.isOf(this)) {
-                if (blockState2.get(TripwireHookBlock.FACING) == direction.getOpposite()) {
+            if (blockState2.is(this)) {
+                if (blockState2.getValue(TripWireHookBlock.FACING) == direction.getOpposite()) {
                     j = k;
                 }
                 break;
             }
 
-            if (!blockState2.isOf(this) && k != i) {
+            if (!blockState2.is(this) && k != i) {
                 blockStates[k] = null;
                 bl4 = false;
             } else {
@@ -72,12 +71,12 @@ public class AtlanteanTripwireHook extends TripwireHookBlock implements Waterlog
                     blockState2 = MoreObjects.firstNonNull(blockState, blockState2);
                 }
 
-                boolean bl6 = !(Boolean)blockState2.get(TripwireBlock.DISARMED);
-                boolean bl7 = blockState2.get(TripwireBlock.POWERED);
+                boolean bl6 = !(Boolean)blockState2.getValue(TripWireBlock.DISARMED);
+                boolean bl7 = blockState2.getValue(TripWireBlock.POWERED);
                 bl5 |= bl6 && bl7;
                 blockStates[k] = blockState2;
                 if (k == i) {
-                    world.createAndScheduleBlockTick(pos, this, 10);
+                    world.scheduleTick(pos, this, 10);
                     bl4 &= bl6;
                 }
             }
@@ -85,29 +84,29 @@ public class AtlanteanTripwireHook extends TripwireHookBlock implements Waterlog
 
         bl4 &= j > 1;
         bl5 &= bl4;
-        BlockState blockState3 = this.getDefaultState().with(ATTACHED, bl4).with(POWERED, bl5);
+        BlockState blockState3 = this.defaultBlockState().setValue(ATTACHED, bl4).setValue(POWERED, bl5);
         if (j > 0) {
-            blockPos2 = pos.offset(direction, j);
+            blockPos2 = pos.relative(direction, j);
             Direction direction2 = direction.getOpposite();
-            world.setBlockState(blockPos2, blockState3.with(TripwireHookBlock.FACING, direction2), Block.NOTIFY_ALL);
-            this.updateNeighborsOnAxis(world, blockPos2, direction2);
+            world.setBlock(blockPos2, blockState3.setValue(TripWireHookBlock.FACING, direction2), Block.UPDATE_ALL);
+            this.notifyNeighbors(world, blockPos2, direction2);
             this.playSound(world, blockPos2, bl4, bl5, bl2, bl3);
         }
 
         this.playSound(world, pos, bl4, bl5, bl2, bl3);
         if (!beingRemoved) {
-            world.setBlockState(pos, blockState3.with(TripwireHookBlock.FACING, direction), Block.NOTIFY_ALL);
+            world.setBlock(pos, blockState3.setValue(TripWireHookBlock.FACING, direction), Block.UPDATE_ALL);
             if (bl) {
-                this.updateNeighborsOnAxis(world, pos, direction);
+                this.notifyNeighbors(world, pos, direction);
             }
         }
 
         if (bl2 != bl4) {
             for(int l = 1; l < j; ++l) {
-                BlockPos blockPos3 = pos.offset(direction, l);
+                BlockPos blockPos3 = pos.relative(direction, l);
                 BlockState blockState4 = blockStates[l];
                 if (blockState4 != null) {
-                    world.setBlockState(blockPos3, blockState4.with(ATTACHED, bl4), Block.NOTIFY_ALL);
+                    world.setBlock(blockPos3, blockState4.setValue(ATTACHED, bl4), Block.UPDATE_ALL);
                     if (!world.getBlockState(blockPos3).isAir()) {
                     }
                 }
@@ -115,39 +114,39 @@ public class AtlanteanTripwireHook extends TripwireHookBlock implements Waterlog
         }
     }
 
-    private void playSound(World world, BlockPos pos, boolean attached, boolean on, boolean detached, boolean off) {
+    private void playSound(Level world, BlockPos pos, boolean attached, boolean on, boolean detached, boolean off) {
         if (on && !off) {
-            world.playSound(null, pos, SoundEvents.BLOCK_TRIPWIRE_CLICK_ON, SoundCategory.BLOCKS, 0.4F, 0.6F);
-            world.emitGameEvent(GameEvent.BLOCK_PRESS, pos);
+            world.playSound(null, pos, SoundEvents.TRIPWIRE_CLICK_ON, SoundSource.BLOCKS, 0.4F, 0.6F);
+            world.gameEvent(GameEvent.BLOCK_PRESS, pos);
         } else if (!on && off) {
-            world.playSound(null, pos, SoundEvents.BLOCK_TRIPWIRE_CLICK_OFF, SoundCategory.BLOCKS, 0.4F, 0.5F);
-            world.emitGameEvent(GameEvent.BLOCK_UNPRESS, pos);
+            world.playSound(null, pos, SoundEvents.TRIPWIRE_CLICK_OFF, SoundSource.BLOCKS, 0.4F, 0.5F);
+            world.gameEvent(GameEvent.BLOCK_UNPRESS, pos);
         } else if (attached && !detached) {
-            world.playSound(null, pos, SoundEvents.BLOCK_TRIPWIRE_ATTACH, SoundCategory.BLOCKS, 0.4F, 0.7F);
-            world.emitGameEvent(GameEvent.BLOCK_ATTACH, pos);
+            world.playSound(null, pos, SoundEvents.TRIPWIRE_ATTACH, SoundSource.BLOCKS, 0.4F, 0.7F);
+            world.gameEvent(GameEvent.BLOCK_ATTACH, pos);
         } else if (!attached && detached) {
-            world.playSound(null, pos, SoundEvents.BLOCK_TRIPWIRE_DETACH, SoundCategory.BLOCKS, 0.4F, 1.2F / (world.random.nextFloat() * 0.2F + 0.9F));
-            world.emitGameEvent(GameEvent.BLOCK_DETACH, pos);
+            world.playSound(null, pos, SoundEvents.TRIPWIRE_DETACH, SoundSource.BLOCKS, 0.4F, 1.2F / (world.random.nextFloat() * 0.2F + 0.9F));
+            world.gameEvent(GameEvent.BLOCK_DETACH, pos);
         }
     }
 
-    private void updateNeighborsOnAxis(World world, BlockPos pos, Direction direction) {
-        world.updateNeighborsAlways(pos, this);
-        world.updateNeighborsAlways(pos.offset(direction.getOpposite()), this);
+    private void notifyNeighbors(Level world, BlockPos pos, Direction direction) {
+        world.updateNeighborsAt(pos, this);
+        world.updateNeighborsAt(pos.relative(direction.getOpposite()), this);
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        if (world.getFluidState(pos).isIn(FluidTags.WATER)) {
-            Direction direction = state.get(FACING);
-            BlockPos blockPos = pos.offset(direction.getOpposite());
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        if (world.getFluidState(pos).is(FluidTags.WATER)) {
+            Direction direction = state.getValue(FACING);
+            BlockPos blockPos = pos.relative(direction.getOpposite());
             BlockState blockState = world.getBlockState(blockPos);
-            return direction.getAxis().isHorizontal() && blockState.isSideSolidFullSquare(world, blockPos, direction);
+            return direction.getAxis().isHorizontal() && blockState.isFaceSturdy(world, blockPos, direction);
         } else {
             return false;
         }

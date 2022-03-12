@@ -1,19 +1,19 @@
 package com.mystic.atlantis.mixin;
 
 import com.mystic.atlantis.dimension.DimensionAtlantis;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tag.FluidTags;
-import net.minecraft.world.World;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 public abstract class CanBreatheInDimension extends LivingEntity {
 
-    protected CanBreatheInDimension(EntityType<? extends LivingEntity> entityType, World world) {
+    protected CanBreatheInDimension(EntityType<? extends LivingEntity> entityType, Level world) {
         super(entityType, world);
     }
 
@@ -21,30 +21,30 @@ public abstract class CanBreatheInDimension extends LivingEntity {
 
     @Unique
     @Override
-    public boolean canBreatheInWater() {
-        if (world.getRegistryKey() == DimensionAtlantis.ATLANTIS_WORLD) {
+    public boolean canBreatheUnderwater() {
+        if (level.dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
             return true;
         } else if (FISH) {
             return true;
         } else {
-            return super.canBreatheInWater();
+            return super.canBreatheUnderwater();
         }
     }
 
     @Unique
     protected void tickWaterBreathingAir(int air) {
-        if (world.getRegistryKey() == DimensionAtlantis.ATLANTIS_WORLD) {
-            this.setAir(getNextAirOnLand(air));
+        if (level.dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
+            this.setAirSupply(increaseAirSupply(air));
         } else {
             if (FISH) {
-                if (this.isAlive() && !this.isSubmergedIn(FluidTags.WATER)) {
-                    this.setAir(air - 1);
-                    if (this.getAir() == -20) {
-                        this.setAir(0);
-                        this.damage(DamageSource.DROWN, 2.0F);
+                if (this.isAlive() && !this.isEyeInFluid(FluidTags.WATER)) {
+                    this.setAirSupply(air - 1);
+                    if (this.getAirSupply() == -20) {
+                        this.setAirSupply(0);
+                        this.hurt(DamageSource.DROWN, 2.0F);
                     }
                 } else {
-                    this.setAir(getNextAirOnLand(air));
+                    this.setAirSupply(increaseAirSupply(air));
                 }
             }
         }
@@ -52,7 +52,7 @@ public abstract class CanBreatheInDimension extends LivingEntity {
 
     @Override
     public void baseTick() {
-        int i = this.getAir();
+        int i = this.getAirSupply();
         super.baseTick();
         this.tickWaterBreathingAir(i);
     }

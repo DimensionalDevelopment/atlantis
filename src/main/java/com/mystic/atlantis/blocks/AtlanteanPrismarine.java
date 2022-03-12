@@ -1,37 +1,37 @@
 package com.mystic.atlantis.blocks;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 public class AtlanteanPrismarine extends Block {
-    public static final EnumProperty<Direction.Axis> AXIS = Properties.AXIS;
+    public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
 
-    public AtlanteanPrismarine(AbstractBlock.Settings properties) {
+    public AtlanteanPrismarine(BlockBehaviour.Properties properties) {
         super(properties
                 .strength(2.0F, 6.0F)
 //                .breakByTool(FabricToolTags.PICKAXES, 1) //TODO: Update
-                .requiresTool()
-                .sounds(BlockSoundGroup.STONE));
-        this.setDefaultState(this.getDefaultState().with(AXIS, Direction.Axis.Y));
+                .requiresCorrectToolForDrops()
+                .sound(SoundType.STONE));
+        this.registerDefaultState(this.defaultBlockState().setValue(AXIS, Direction.Axis.Y));
     }
 
-    public BlockState rotate(BlockState state, BlockRotation rot) {
+    public BlockState rotate(BlockState state, Rotation rot) {
         switch(rot) {
             case COUNTERCLOCKWISE_90:
             case CLOCKWISE_90:
-                switch((Direction.Axis)state.get(AXIS)) {
+                switch((Direction.Axis)state.getValue(AXIS)) {
                     case X:
-                        return state.with(AXIS, Direction.Axis.Z);
+                        return state.setValue(AXIS, Direction.Axis.Z);
                     case Z:
-                        return state.with(AXIS, Direction.Axis.X);
+                        return state.setValue(AXIS, Direction.Axis.X);
                     default:
                         return state;
                 }
@@ -40,12 +40,12 @@ public class AtlanteanPrismarine extends Block {
         }
     }
 
-    protected void appendProperties(StateManager.Builder< Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder< Block, BlockState> builder) {
         builder.add(AXIS);
     }
 
-    public BlockState getPlacementState(ItemPlacementContext context) {
-        return this.getDefaultState().with(AXIS, context.getSide().getAxis());
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis());
     }
 }
 

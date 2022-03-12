@@ -2,36 +2,35 @@ package com.mystic.atlantis.configfeature;
 
 import com.mojang.serialization.Codec;
 import com.mystic.atlantis.init.BlockInit;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.util.FeatureContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 import java.util.Random;
 
-public class GardenFoliagePlacerAtlantis extends Feature<DefaultFeatureConfig> {
+public class GardenFoliagePlacerAtlantis extends Feature<NoneFeatureConfiguration> {
 
-    public GardenFoliagePlacerAtlantis(Codec<DefaultFeatureConfig> FeatureSpreadConfig) {
+    public GardenFoliagePlacerAtlantis(Codec<NoneFeatureConfiguration> FeatureSpreadConfig) {
         super(FeatureSpreadConfig);
     }
 
-    public boolean generate(FeatureContext<DefaultFeatureConfig> config) {
-        StructureWorldAccess reader = config.getWorld();
-        Random rand = config.getRandom();
-        BlockPos pos = config.getOrigin();
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> config) {
+        WorldGenLevel reader = config.level();
+        Random rand = config.random();
+        BlockPos pos = config.origin();
             BlockState blockstate = switch (rand.nextInt(5)) {
-                case 1 -> BlockInit.TUBER_UP_BLOCK.getDefaultState();
-                case 2 -> BlockInit.ENENMOMY_BLOCK.getDefaultState();
-                case 3 -> BlockInit.BLUE_LILY_BLOCK.getDefaultState();
-                case 4 -> BlockInit.BURNT_DEEP_BLOCK.getDefaultState();
-                default -> BlockInit.UNDERWATER_SHROOM_BLOCK.getDefaultState();
+                case 1 -> BlockInit.TUBER_UP_BLOCK.defaultBlockState();
+                case 2 -> BlockInit.ENENMOMY_BLOCK.defaultBlockState();
+                case 3 -> BlockInit.BLUE_LILY_BLOCK.defaultBlockState();
+                case 4 -> BlockInit.BURNT_DEEP_BLOCK.defaultBlockState();
+                default -> BlockInit.UNDERWATER_SHROOM_BLOCK.defaultBlockState();
             };
-            if (reader.getBlockState(pos).isOf(Blocks.WATER) && blockstate.canPlaceAt(reader, pos)) {
-                reader.setBlockState(pos, blockstate, 2);
+            if (reader.getBlockState(pos).is(Blocks.WATER) && blockstate.canSurvive(reader, pos)) {
+                reader.setBlock(pos, blockstate, 2);
                 return true;
             }
         return false;

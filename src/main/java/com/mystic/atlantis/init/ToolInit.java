@@ -3,15 +3,15 @@ package com.mystic.atlantis.init;
 import com.google.common.collect.Lists;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.util.Lazy;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.TierSortingRegistry;
 
 import java.util.function.Supplier;
 
-public enum ToolInit implements ToolMaterial {
-    AQUAMARINE(286,5,4,2, 10, () -> Ingredient.ofItems(ItemInit.AQUAMARINE_GEM));
+public enum ToolInit implements Tier {
+    AQUAMARINE(286,5,4,2, 10, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM));
 
     private final int maxUses;
     private final float toolEfficiency;
@@ -30,27 +30,27 @@ public enum ToolInit implements ToolMaterial {
     }
 
     @Override
-    public int getDurability() {
+    public int getUses() {
         return maxUses;
     }
 
     @Override
-    public float getMiningSpeedMultiplier() {
+    public float getSpeed() {
         return toolEfficiency;
     }
 
     @Override
-    public float getAttackDamage() {
+    public float getAttackDamageBonus() {
         return attackDamage;
     }
 
     @Override
-    public int getMiningLevel() {
+    public int getLevel() {
         return harvestLvl;
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return enchantability;
     }
 
@@ -60,6 +60,6 @@ public enum ToolInit implements ToolMaterial {
     }
 
     public static void init() {
-        TierSortingRegistry.registerTier(AQUAMARINE, Atlantis.id("aquamarine"), Lists.newArrayList(new Identifier("stone")), Lists.newArrayList(new Identifier("iron")));
+        TierSortingRegistry.registerTier(AQUAMARINE, Atlantis.id("aquamarine"), Lists.newArrayList(new ResourceLocation("stone")), Lists.newArrayList(new ResourceLocation("iron")));
     }
 }

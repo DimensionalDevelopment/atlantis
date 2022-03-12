@@ -2,27 +2,27 @@ package com.mystic.atlantis.blocks.blockentities.models;
 
 import com.mystic.atlantis.blocks.blockentities.plants.UnderwaterShroomTileEntity;
 import com.mystic.atlantis.util.Reference;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.GeckoLib;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class UnderwaterShroomModel extends AnimatedGeoModel<UnderwaterShroomTileEntity>
 {
     @Override
-    public Identifier getModelLocation(UnderwaterShroomTileEntity object)
+    public ResourceLocation getModelLocation(UnderwaterShroomTileEntity object)
     {
-        return new Identifier(Reference.MODID, "geo/underwater_shroom.geo.json");
+        return new ResourceLocation(Reference.MODID, "geo/underwater_shroom.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(UnderwaterShroomTileEntity object)
+    public ResourceLocation getTextureLocation(UnderwaterShroomTileEntity object)
     {
-        return new Identifier(Reference.MODID, "textures/block/underwater_shroom.png");
+        return new ResourceLocation(Reference.MODID, "textures/block/underwater_shroom.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(UnderwaterShroomTileEntity object)
+    public ResourceLocation getAnimationFileLocation(UnderwaterShroomTileEntity object)
     {
-        return new Identifier(GeckoLib.ModID, "animations/jackinthebox.animation.json");
+        return new ResourceLocation(GeckoLib.ModID, "animations/jackinthebox.animation.json");
     }
 }

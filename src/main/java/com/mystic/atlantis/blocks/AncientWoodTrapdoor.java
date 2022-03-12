@@ -1,16 +1,16 @@
 package com.mystic.atlantis.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.TrapdoorBlock;
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
-public class AncientWoodTrapdoor extends TrapdoorBlock {
+public class AncientWoodTrapdoor extends TrapDoorBlock {
 
-    public AncientWoodTrapdoor(Block.Settings settings) {
+    public AncientWoodTrapdoor(BlockBehaviour.Properties settings) {
         super(settings
-                .sounds(BlockSoundGroup.WOOD)
+                .sound(SoundType.WOOD)
 //                .breakByTool(FabricToolTags.AXES, 2) //TODO: Update
-                .requiresTool()
+                .requiresCorrectToolForDrops()
                 .strength(3.0F, 6.0F));
     }
 }

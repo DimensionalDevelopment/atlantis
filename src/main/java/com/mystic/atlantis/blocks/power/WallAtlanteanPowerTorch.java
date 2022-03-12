@@ -3,91 +3,87 @@ package com.mystic.atlantis.blocks.power;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.mystic.atlantis.init.BlockInit;
-import net.minecraft.block.*;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Property;
-import net.minecraft.tag.FluidTags;
-import net.minecraft.tag.Tag;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class WallAtlanteanPowerTorch extends AtlanteanPowerTorch {
 
-    private static final Property<Direction> FACING = HorizontalFacingBlock.FACING;
+    private static final Property<Direction> FACING = HorizontalDirectionalBlock.FACING;
     private static final Property<Boolean> WATERLOGGED = AtlanteanPowerTorch.WATERLOGGED;
     private static final Map<Direction, VoxelShape> BOUNDING_SHAPES = Maps.newEnumMap((Map) ImmutableMap.of(
-            Direction.NORTH, Block.createCuboidShape(5.5D, 3.0D, 11.0D, 10.5D, 13.0D, 16.0D),
-            Direction.SOUTH, Block.createCuboidShape(5.5D, 3.0D, 0.0D, 10.5D, 13.0D, 5.0D),
-            Direction.WEST, Block.createCuboidShape(11.0D, 3.0D, 5.5D, 16.0D, 13.0D, 10.5D),
-            Direction.EAST, Block.createCuboidShape(0.0D, 3.0D, 5.5D, 5.0D, 13.0D, 10.5D)));
+            Direction.NORTH, Block.box(5.5D, 3.0D, 11.0D, 10.5D, 13.0D, 16.0D),
+            Direction.SOUTH, Block.box(5.5D, 3.0D, 0.0D, 10.5D, 13.0D, 5.0D),
+            Direction.WEST, Block.box(11.0D, 3.0D, 5.5D, 16.0D, 13.0D, 10.5D),
+            Direction.EAST, Block.box(0.0D, 3.0D, 5.5D, 5.0D, 13.0D, 10.5D)));
 
-    public WallAtlanteanPowerTorch(Settings settings) {
-        super(settings.dropsLike(BlockInit.ATLANTEAN_POWER_TORCH).noCollision().breakInstantly().luminance(level -> 7).sounds(BlockSoundGroup.WOOD));
+    public WallAtlanteanPowerTorch(Properties settings) {
+        super(settings.dropsLike(BlockInit.ATLANTEAN_POWER_TORCH).noCollission().instabreak().lightLevel(level -> 7).sound(SoundType.WOOD));
 
-        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(LIT, true).with(WATERLOGGED, true));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, true).setValue(WATERLOGGED, true));
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return direction.getOpposite() == state.get(FACING) && !this.canPlaceAt(state, world, pos) ? Blocks.WATER.getDefaultState() : state;
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        return direction.getOpposite() == state.getValue(FACING) && !this.canSurvive(state, world, pos) ? Blocks.WATER.defaultBlockState() : state;
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        if (world.getFluidState(pos).isIn(FluidTags.WATER)) {
-            return Blocks.WALL_TORCH.canPlaceAt(state, world, pos);
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        if (world.getFluidState(pos).is(FluidTags.WATER)) {
+            return Blocks.WALL_TORCH.canSurvive(state, world, pos);
         } else {
             return false;
         }
     }
 
     @Override
-    protected boolean shouldUnpower(World world, BlockPos pos, BlockState state) {
-        Direction direction = state.get(FACING).getOpposite();
-        return world.isEmittingRedstonePower(pos.offset(direction), direction);
+    protected boolean hasNeighborSignal(Level world, BlockPos pos, BlockState state) {
+        Direction direction = state.getValue(FACING).getOpposite();
+        return world.hasSignal(pos.relative(direction), direction);
     }
 
     @Override
-    public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
-        return state.get(LIT) && state.get(FACING) != direction ? 15 : 0;
+    public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
+        return state.getValue(LIT) && state.getValue(FACING) != direction ? 15 : 0;
     }
 
     @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(FACING)));
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return getBoundingShape(state);
     }
 
     @Override
     @Nullable
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockState blockState = this.getDefaultState();
-        WorldView worldView = ctx.getWorld();
-        BlockPos blockPos = ctx.getBlockPos();
-        Direction[] directions = ctx.getPlacementDirections();
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        BlockState blockState = this.defaultBlockState();
+        LevelReader worldView = ctx.getLevel();
+        BlockPos blockPos = ctx.getClickedPos();
+        Direction[] directions = ctx.getNearestLookingDirections();
         Direction[] var6 = directions;
         int var7 = directions.length;
 
@@ -95,9 +91,9 @@ public class WallAtlanteanPowerTorch extends AtlanteanPowerTorch {
             Direction direction = var6[var8];
             if (direction.getAxis().isHorizontal()) {
                 Direction direction2 = direction.getOpposite();
-                blockState = blockState.with(FACING, direction2).with(WATERLOGGED, true);
-                if (worldView.getFluidState(blockPos).isIn(FluidTags.WATER)) {
-                    if (this.canPlaceAt( blockState, worldView, blockPos )) {
+                blockState = blockState.setValue(FACING, direction2).setValue(WATERLOGGED, true);
+                if (worldView.getFluidState(blockPos).is(FluidTags.WATER)) {
+                    if (this.canSurvive( blockState, worldView, blockPos )) {
                         return blockState;
                     }
                 }
@@ -108,11 +104,11 @@ public class WallAtlanteanPowerTorch extends AtlanteanPowerTorch {
     }
 
     public static VoxelShape getBoundingShape(BlockState state) {
-        return BOUNDING_SHAPES.get(state.get(FACING));
+        return BOUNDING_SHAPES.get(state.getValue(FACING));
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, LIT, WATERLOGGED);
     }
 }

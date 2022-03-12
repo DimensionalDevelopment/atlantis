@@ -1,33 +1,32 @@
 package com.mystic.atlantis.entities;
 
 import com.mystic.atlantis.init.ItemInit;
-import net.minecraft.entity.Bucketable;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.WaterCreatureEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -37,139 +36,138 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class JellyfishEntity extends WaterCreatureEntity implements IAnimatable, Bucketable {
+public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketable {
 
-    private static final TrackedData<Boolean> FROM_BUCKET = DataTracker.registerData(JellyfishEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Integer> COLOR = DataTracker.registerData(JellyfishEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.INT);
     private static final AnimationBuilder HOVER_ANIMATION = new AnimationBuilder().addAnimation("animation.jellyfish.hover", true);
     private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.jellyfish.idle", true);
 
     private final AnimationFactory factory = new AnimationFactory(this);
 
-    public JellyfishEntity(EntityType<? extends WaterCreatureEntity> entityType, World world) {
+    public JellyfishEntity(EntityType<? extends WaterAnimal> entityType, Level world) {
         super(entityType, world);
     }
 
-    public static DefaultAttributeContainer.Builder createJellyfishAttributes() {
-        return createMobAttributes().add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2d).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5d);
+    public static AttributeSupplier.Builder createJellyfishAttributes() {
+        return createMobAttributes().add(Attributes.ATTACK_DAMAGE, 2d).add(Attributes.MOVEMENT_SPEED, 0.5d);
     }
 
     @Override
-    public boolean isInSwimmingPose() {
+    public boolean isVisuallySwimming() {
         return true;
     }
 
     @Override
-    protected boolean shouldSwimInFluids() {
+    protected boolean isAffectedByFluids() {
         return true;
     }
 
     @Override
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if (player.getStackInHand(hand).getItem() == ItemInit.CRAB_LEGS) {
-            if (player instanceof ServerPlayerEntity) {
-                this.emitGameEvent(GameEvent.MOB_INTERACT, this.getCameraBlockPos());
-                createChild((ServerWorld) player.getEntityWorld(), this);
-                if (!player.getAbilities().creativeMode) {
-                    player.getStackInHand(hand).decrement(1);
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        if (player.getItemInHand(hand).getItem() == ItemInit.CRAB_LEGS) {
+            if (player instanceof ServerPlayer) {
+                this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
+                createChild((ServerLevel) player.getCommandSenderWorld(), this);
+                if (!player.getAbilities().instabuild) {
+                    player.getItemInHand(hand).shrink(1);
                 }
-                return ActionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
-            return ActionResult.FAIL;
-        } else if (player.getStackInHand(hand).getItem() == Items.WATER_BUCKET) {
-            return Bucketable.tryBucket(player, hand, this).orElse(super.interactMob(player, hand));
+            return InteractionResult.FAIL;
+        } else if (player.getItemInHand(hand).getItem() == Items.WATER_BUCKET) {
+            return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
         }
-        return ActionResult.FAIL;
+        return InteractionResult.FAIL;
     }
 
     @Override
-    protected void initGoals() {
-        goalSelector.add(6, new TemptGoal(this, 1, Ingredient.ofItems(ItemInit.CRAB_LEGS), false));
-        goalSelector.add(5, new MoveIntoWaterGoal(this));
-        goalSelector.add(4, new LookAroundGoal(this));
-        goalSelector.add(3, new SwimGoal(this));
-        goalSelector.add(2, new SwimAroundGoal(this, 0.5, 1));
-        goalSelector.add(1, new AttackGoal(this));
+    protected void registerGoals() {
+        goalSelector.addGoal(6, new TemptGoal(this, 1, Ingredient.of(ItemInit.CRAB_LEGS), false));
+        goalSelector.addGoal(5, new TryFindWaterGoal(this));
+        goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        goalSelector.addGoal(3, new FloatGoal(this));
+        goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.5, 1));
+        goalSelector.addGoal(1, new OcelotAttackGoal(this));
     }
 
-    public boolean isFromBucket() {
-        return this.dataTracker.get(FROM_BUCKET);
+    public boolean fromBucket() {
+        return this.entityData.get(FROM_BUCKET);
     }
 
     public void setColor(int color){
-        this.dataTracker.set(COLOR, color);
+        this.entityData.set(COLOR, color);
     }
 
     public int getColor(){
-        return this.dataTracker.get(COLOR);
+        return this.entityData.get(COLOR);
     }
 
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        this.dataTracker.set(COLOR, betterNiceColor());
-        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
+        this.entityData.set(COLOR, betterNiceColor());
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
+    public void load(CompoundTag nbt) {
         this.setColor(nbt.getInt("Color"));
         this.setFromBucket(nbt.getBoolean("FromBucket"));
-        super.readNbt(nbt);
+        super.load(nbt);
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
+    public CompoundTag saveWithoutId(CompoundTag nbt) {
         nbt.putInt("Color", this.getColor());
-        nbt.putBoolean("FromBucket", this.isFromBucket());
-        return super.writeNbt(nbt);
+        nbt.putBoolean("FromBucket", this.fromBucket());
+        return super.saveWithoutId(nbt);
     }
 
     @Override
-    public SoundEvent getBucketedSound() {
-        return SoundEvents.ITEM_BUCKET_FILL_FISH;
+    public SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_FILL_FISH;
     }
 
     @Override
-    public ItemStack getBucketItem() {
-        return ItemInit.JELLYFISH_BUCKET.getDefaultStack();
+    public ItemStack getBucketItemStack() {
+        return ItemInit.JELLYFISH_BUCKET.getDefaultInstance();
     }
 
     @Override
-    public void copyDataFromNbt(NbtCompound nbt) {
-        Bucketable.copyDataFromNbt(this, nbt);
+    public void loadFromBucketTag(CompoundTag nbt) {
+        Bucketable.loadDefaultDataFromBucketTag(this, nbt);
     }
 
     @Override
-    public void copyDataToStack(ItemStack stack) {
-        Bucketable.copyDataToStack(this, stack);
+    public void saveToBucketTag(ItemStack stack) {
+        Bucketable.saveDefaultDataToBucketTag(this, stack);
     }
 
     public void setFromBucket(boolean fromBucket) {
-        this.dataTracker.set(FROM_BUCKET, fromBucket);
+        this.entityData.set(FROM_BUCKET, fromBucket);
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(FROM_BUCKET, false);
-        this.dataTracker.startTracking(COLOR, betterNiceColor());
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(FROM_BUCKET, false);
+        this.entityData.define(COLOR, betterNiceColor());
     }
 
     @Override
-    public void tickMovement() {
-        super.tickMovement();
+    public void aiStep() {
+        super.aiStep();
 
-        setTarget(world.getClosestPlayer(getX(), getY(), getZ(), 10, true));
+        setTarget(level.getNearestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
-    public void createChild(ServerWorld world, JellyfishEntity entity) {
+    public void createChild(ServerLevel world, JellyfishEntity entity) {
         JellyfishEntity child = (JellyfishEntity) getType().create(world);
         if(child != null) {
-            child.setPos(this.getX(), this.getY(), this.getZ());
-            world.spawnEntity(child);
+            child.setPosRaw(this.getX(), this.getY(), this.getZ());
+            world.addFreshEntity(child);
         }
     }
 
@@ -178,13 +176,13 @@ public class JellyfishEntity extends WaterCreatureEntity implements IAnimatable,
     }
 
     @Override
-    public boolean cannotDespawn() {
-        return super.cannotDespawn() || this.isFromBucket();
+    public boolean requiresCustomPersistence() {
+        return super.requiresCustomPersistence() || this.fromBucket();
     }
 
     @Override
-    public boolean canImmediatelyDespawn(double distanceSquared) {
-        return !this.isFromBucket() && !this.hasCustomName();
+    public boolean removeWhenFarAway(double distanceSquared) {
+        return !this.fromBucket() && !this.hasCustomName();
     }
 
     @Override
@@ -193,12 +191,12 @@ public class JellyfishEntity extends WaterCreatureEntity implements IAnimatable,
     }
 
     @Override
-    public boolean canBreatheInWater() {
+    public boolean canBreatheUnderwater() {
         return true;
     }
 
     @Override
-    public boolean canBeLeashedBy(PlayerEntity player) {
+    public boolean canBeLeashed(Player player) {
         return true;
     }
 
@@ -208,7 +206,7 @@ public class JellyfishEntity extends WaterCreatureEntity implements IAnimatable,
     }
 
     public boolean isMovingSlowly(){
-        return this.getVelocity().getX() != 0.0f && this.getVelocity().getY() != 0.0f && this.getVelocity().getZ() != 0.0f;
+        return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
     }
 
     private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {

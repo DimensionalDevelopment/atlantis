@@ -1,49 +1,50 @@
 package com.mystic.atlantis.blocks.power;
 
-import com.google.common.base.MoreObjects;
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
-import net.minecraft.block.*;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Property;
-import net.minecraft.tag.FluidTags;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.PipeBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.TripWireBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 
 import java.util.Map;
 
-public class AtlanteanTripwire extends TripwireBlock implements Waterloggable {
+public class AtlanteanTripwire extends TripWireBlock implements SimpleWaterloggedBlock {
 
-    private static final Map<Direction, BooleanProperty> FACING_PROPERTIES = ConnectingBlock.FACING_PROPERTIES.entrySet().stream().filter((entry) -> {
+    private static final Map<Direction, BooleanProperty> FACING_PROPERTIES = PipeBlock.PROPERTY_BY_DIRECTION.entrySet().stream().filter((entry) -> {
         return entry.getKey().getAxis().isHorizontal();
     }).collect(Util.toMap());
     private final AtlanteanTripwireHook hookBlock;
     private static final Property<Boolean> WATERLOGGED = UnderwaterFlower.WATERLOGGED;
 
-    public AtlanteanTripwire(AtlanteanTripwireHook hookBlock, Settings settings) {
-        super(hookBlock, settings.breakInstantly());
+    public AtlanteanTripwire(AtlanteanTripwireHook hookBlock, Properties settings) {
+        super(hookBlock, settings.instabreak());
         this.hookBlock = hookBlock;
-        this.setDefaultState(this.getDefaultState().with(POWERED, false).with(ATTACHED, false).with(DISARMED, false).with(NORTH, false).with(EAST, false).with(SOUTH, false).with(WEST, false).with(WATERLOGGED, true));
+        this.registerDefaultState(this.defaultBlockState().setValue(POWERED, false).setValue(ATTACHED, false).setValue(DISARMED, false).setValue(NORTH, false).setValue(EAST, false).setValue(SOUTH, false).setValue(WEST, false).setValue(WATERLOGGED, true));
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return direction.getAxis().isHorizontal() ? state.with(FACING_PROPERTIES.get(direction), this.shouldConnectTo(neighborState, direction)) : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        return direction.getAxis().isHorizontal() ? state.setValue(FACING_PROPERTIES.get(direction), this.shouldConnectTo(neighborState, direction)) : super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
     public boolean shouldConnectTo(BlockState state, Direction facing) {
-        if (state.getFluidState().isIn(FluidTags.WATER)) {
-            if (state.isOf(this.hookBlock)) {
-                return state.get(AtlanteanTripwireHook.FACING) == facing.getOpposite();
+        if (state.getFluidState().is(FluidTags.WATER)) {
+            if (state.is(this.hookBlock)) {
+                return state.getValue(AtlanteanTripwireHook.FACING) == facing.getOpposite();
             } else {
-                return state.isOf(this);
+                return state.is(this);
             }
         }
         return false;
@@ -51,12 +52,12 @@ public class AtlanteanTripwire extends TripwireBlock implements Waterloggable {
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
 
     @Override
-    public void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    public void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(POWERED, ATTACHED, DISARMED, NORTH, EAST, WEST, SOUTH, WATERLOGGED);
     }
 }

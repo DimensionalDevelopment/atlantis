@@ -1,15 +1,15 @@
 package com.mystic.atlantis.blocks.slabs;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class AncientWoodSlabs extends SlabBlock {
-    public AncientWoodSlabs(AbstractBlock.Settings settings) {
+    public AncientWoodSlabs(BlockBehaviour.Properties settings) {
         super(settings
-                .sounds(BlockSoundGroup.WOOD)
+                .sound(SoundType.WOOD)
 //                .breakByTool(FabricToolTags.AXES, 2) //TODO: Update
-                .requiresTool()
+                .requiresCorrectToolForDrops()
                 .strength(3.0F, 6.0F));
     }
 }

@@ -20,24 +20,30 @@ import com.mystic.atlantis.util.Reference;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.worldgen.features.OreFeatures;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.dimension.DimensionOptions;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.YOffset;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.FlatChunkGenerator;
-import net.minecraft.world.gen.chunk.StructuresConfig;
-import net.minecraft.world.gen.decorator.CountPlacementModifier;
-import net.minecraft.world.gen.decorator.HeightRangePlacementModifier;
-import net.minecraft.world.gen.decorator.SquarePlacementModifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.levelgen.FlatLevelSource;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.StructureSettings;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
+import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -68,14 +74,14 @@ public class Atlantis {
     public static final Logger LOGGER = LogManager.getLogger(Reference.MODID);
 
     private static final PlacedFeature ORE_AQUAMARINE_OVERWORLD = Feature.ORE
-            .configure(new OreFeatureConfig(
-                    OreConfiguredFeatures.STONE_ORE_REPLACEABLES,
-                    BlockInit.AQUAMARINE_ORE.getDefaultState(),
-                    9)).withPlacement(
-                    CountPlacementModifier.of(20), // number of veins per chunk
-                    SquarePlacementModifier.of(), // spreading horizontally
-                    HeightRangePlacementModifier.trapezoid(YOffset.getBottom(), YOffset.getTop())); // height
-    public static RegistryKey<PlacedFeature> oreAquamarineOverworld;
+            .configured(new OreConfiguration(
+                    OreFeatures.STONE_ORE_REPLACEABLES,
+                    BlockInit.AQUAMARINE_ORE.defaultBlockState(),
+                    9)).placed(
+                    CountPlacement.of(20), // number of veins per chunk
+                    InSquarePlacement.spread(), // spreading horizontally
+                    HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.top())); // height
+    public static ResourceKey<PlacedFeature> oreAquamarineOverworld;
 
     @NotNull @Deprecated
     public static MinecraftServer getServer() {
@@ -116,7 +122,7 @@ public class Atlantis {
                 .frameBlock(BlockInit.ATLANTEAN_CORE)
                 .lightWithWater()
                 .flatPortal()
-                .destDimID(new Identifier("atlantis", "atlantis"))
+                .destDimID(new ResourceLocation("atlantis", "atlantis"))
                 .tintColor(0, 125, 255)
                 .customPortalBlock(BlockInit.ATLANTIS_CLEAR_PORTAL)
                 .registerPortal();
@@ -129,31 +135,31 @@ public class Atlantis {
             AtlantisStructures.setupAndRegisterStructureFeatures();
             AtlantisConfiguredStructures.registerConfiguredStructures();
 
-            oreAquamarineOverworld = RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier("atlantis", "ore_aquamarine_overworld"));
-            Registry.register(BuiltinRegistries.PLACED_FEATURE, oreAquamarineOverworld.getValue(), ORE_AQUAMARINE_OVERWORLD);
+            oreAquamarineOverworld = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation("atlantis", "ore_aquamarine_overworld"));
+            Registry.register(BuiltinRegistries.PLACED_FEATURE, oreAquamarineOverworld.location(), ORE_AQUAMARINE_OVERWORLD);
         });
     }
 
     public void onBiomeLoad(BiomeLoadingEvent event) {
         //TODO: FIgure out how to get the overworld
-        event.getGeneration().feature(GenerationStep.Feature.UNDERGROUND_ORES, ORE_AQUAMARINE_OVERWORLD);
+        event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ORE_AQUAMARINE_OVERWORLD);
     }
 
 
     public void addDimensionalSpacing(final WorldEvent.Load event) {
-        if(event.getWorld() instanceof ServerWorld serverLevel) {
-            ChunkGenerator chunkGenerator = serverLevel.getChunkManager().getChunkGenerator();
+        if(event.getWorld() instanceof ServerLevel serverLevel) {
+            ChunkGenerator chunkGenerator = serverLevel.getChunkSource().getGenerator();
 
             // Skip superflat worlds to prevent issues with it. Plus, users don't want structures clogging up their superflat worlds.
-            if (chunkGenerator instanceof FlatChunkGenerator && serverLevel.getDimension().equals(World.OVERWORLD)) {
+            if (chunkGenerator instanceof FlatLevelSource && serverLevel.dimensionType().equals(Level.OVERWORLD)) {
                 return;
             }
 
-            StructuresConfig worldStructureConfig = chunkGenerator.getStructuresConfig();
+            StructureSettings worldStructureConfig = chunkGenerator.getSettings();
 
-            HashMap<StructureFeature<?>, HashMultimap<ConfiguredStructureFeature<?, ?>, RegistryKey<Biome>>> STStructureToMultiMap = new HashMap<>();
+            HashMap<StructureFeature<?>, HashMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>>> STStructureToMultiMap = new HashMap<>();
 
-            for (Map.Entry<RegistryKey<Biome>, Biome> biomeEntry : serverLevel.getRegistryManager().get(Registry.BIOME_KEY).getEntries()) {
+            for (Map.Entry<ResourceKey<Biome>, Biome> biomeEntry : serverLevel.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).entrySet()) {
                 // Skip all ocean, end, nether, and none category biomes.
                 // You can do checks for other traits that the biome has.
                 if(isAlanteanBiome(biomeEntry.getKey())) {
@@ -165,7 +171,7 @@ public class Atlantis {
                 }
             }
 
-            ImmutableMap.Builder<StructureFeature<?>, ImmutableMultimap<ConfiguredStructureFeature<?, ?>, RegistryKey<Biome>>> tempStructureToMultiMap = ImmutableMap.builder();
+            ImmutableMap.Builder<StructureFeature<?>, ImmutableMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>>> tempStructureToMultiMap = ImmutableMap.builder();
             worldStructureConfig.configuredStructures.entrySet().stream().filter(entry -> !STStructureToMultiMap.containsKey(entry.getKey())).forEach(tempStructureToMultiMap::put);
 
             // Add our structures to the structure map/multimap and set the world to use this combined map/multimap.
@@ -179,9 +185,9 @@ public class Atlantis {
     /**
      * Helper method that handles setting up the map to multimap relationship to help prevent issues.
      */
-    private static void associateBiomeToConfiguredStructure(Map<StructureFeature<?>, HashMultimap<ConfiguredStructureFeature<?, ?>, RegistryKey<Biome>>> STStructureToMultiMap, ConfiguredStructureFeature<?, ?> configuredStructureFeature, RegistryKey<Biome> biomeRegistryKey) {
+    private static void associateBiomeToConfiguredStructure(Map<StructureFeature<?>, HashMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>>> STStructureToMultiMap, ConfiguredStructureFeature<?, ?> configuredStructureFeature, ResourceKey<Biome> biomeRegistryKey) {
         STStructureToMultiMap.putIfAbsent(configuredStructureFeature.feature, HashMultimap.create());
-        HashMultimap<ConfiguredStructureFeature<?, ?>, RegistryKey<Biome>> configuredStructureToBiomeMultiMap = STStructureToMultiMap.get(configuredStructureFeature.feature);
+        HashMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>> configuredStructureToBiomeMultiMap = STStructureToMultiMap.get(configuredStructureFeature.feature);
         if(configuredStructureToBiomeMultiMap.containsValue(biomeRegistryKey)) {
             LOGGER.error(String.format("""
                     Detected 2 ConfiguredStructureFeatures that share the same base StructureFeature trying to be added to same biome. One will be prevented from spawning.
@@ -189,8 +195,8 @@ public class Atlantis {
                     The two conflicting ConfiguredStructures are: %s, %s
                     The biome that is attempting to be shared: %s
                 """,
-                    BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(configuredStructureFeature).toString(),
-                    BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(configuredStructureToBiomeMultiMap.entries().stream().filter(e -> e.getValue() == biomeRegistryKey).findFirst().get().getKey()).toString(),
+                    BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getKey(configuredStructureFeature).toString(),
+                    BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getKey(configuredStructureToBiomeMultiMap.entries().stream().filter(e -> e.getValue() == biomeRegistryKey).findFirst().get().getKey()).toString(),
                     biomeRegistryKey
             ));
         }
@@ -199,18 +205,18 @@ public class Atlantis {
         }
     }
 
-    private boolean isAlanteanBiome(RegistryKey<Biome> key) {
-        return key.getValue().getNamespace().
+    private boolean isAlanteanBiome(ResourceKey<Biome> key) {
+        return key.location().getNamespace().
                 equals(Reference.MODID);
     }
 
-    public static Identifier id(String id) {
-        return new Identifier("atlantis", id);
+    public static ResourceLocation id(String id) {
+        return new ResourceLocation("atlantis", id);
     }
 
     //Don't remove needed for legacy portal block!
-    public static RegistryKey<World> getOverworldKey() {
-        Identifier OVERWORLD_ID = DimensionOptions.OVERWORLD.getValue();
-        return RegistryKey.of(Registry.WORLD_KEY, OVERWORLD_ID);
+    public static ResourceKey<Level> getOverworldKey() {
+        ResourceLocation OVERWORLD_ID = LevelStem.OVERWORLD.location();
+        return ResourceKey.create(Registry.DIMENSION_REGISTRY, OVERWORLD_ID);
     }
 }

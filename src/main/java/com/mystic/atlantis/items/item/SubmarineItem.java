@@ -2,102 +2,100 @@ package com.mystic.atlantis.items.item;
 
 import java.util.List;
 import java.util.function.Predicate;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.entities.SubmarineEntity;
 
-import net.minecraft.block.FluidBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RaycastContext;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
-
 public class SubmarineItem extends Item {
     private static final Predicate<Entity> RIDERS;
-    public SubmarineItem(Settings settings) {
+    public SubmarineItem(Properties settings) {
         super(settings);
     }
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        ItemStack itemStack = user.getStackInHand(hand);
-        HitResult hitResult = raycast(world, user, RaycastContext.FluidHandling.SOURCE_ONLY);
+    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
+        ItemStack itemStack = user.getItemInHand(hand);
+        HitResult hitResult = getPlayerPOVHitResult(world, user, ClipContext.Fluid.SOURCE_ONLY);
         if (hitResult.getType() != HitResult.Type.BLOCK) {
-            return TypedActionResult.pass(itemStack);
-        } else if (!(world instanceof ServerWorld)) {
-            return TypedActionResult.success(itemStack);
+            return InteractionResultHolder.pass(itemStack);
+        } else if (!(world instanceof ServerLevel)) {
+            return InteractionResultHolder.success(itemStack);
         } else {
             BlockHitResult blockHitResult = (BlockHitResult)hitResult;
             BlockPos blockPos = blockHitResult.getBlockPos();
-            if (!(world.getBlockState(blockPos).getBlock() instanceof FluidBlock)) {
-                return TypedActionResult.pass(itemStack);
-            } else if (world.canPlayerModifyAt(user, blockPos) && user.canPlaceOn(blockPos, blockHitResult.getSide(), itemStack)) {
+            if (!(world.getBlockState(blockPos).getBlock() instanceof LiquidBlock)) {
+                return InteractionResultHolder.pass(itemStack);
+            } else if (world.mayInteract(user, blockPos) && user.mayUseItemAt(blockPos, blockHitResult.getDirection(), itemStack)) {
                 SubmarineEntity boatEntity = new SubmarineEntity(AtlantisEntities.SUBMARINE, world);
-                boatEntity.setPosition(hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z);
-                boatEntity.setYaw(user.getYaw());
-                world.spawnEntity(boatEntity);
-                world.emitGameEvent(user, GameEvent.ENTITY_PLACE, new BlockPos(hitResult.getPos()));
-                if (!user.getAbilities().creativeMode) {
-                    itemStack.decrement(1);
+                boatEntity.setPos(hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z);
+                boatEntity.setYRot(user.getYRot());
+                world.addFreshEntity(boatEntity);
+                world.gameEvent(user, GameEvent.ENTITY_PLACE, new BlockPos(hitResult.getLocation()));
+                if (!user.getAbilities().instabuild) {
+                    itemStack.shrink(1);
                 }
 
-                user.incrementStat(Stats.USED.getOrCreateStat(this));
-                world.emitGameEvent(GameEvent.ENTITY_PLACE, user);
-                return TypedActionResult.consume(itemStack);
+                user.awardStat(Stats.ITEM_USED.get(this));
+                world.gameEvent(GameEvent.ENTITY_PLACE, user);
+                return InteractionResultHolder.consume(itemStack);
             } else {
-                return TypedActionResult.fail(itemStack);
+                return InteractionResultHolder.fail(itemStack);
             }
         }
     }
 
-    public TypedActionResult<ItemStack> usee(World world, PlayerEntity user, Hand hand) {
-        ItemStack itemStack = user.getStackInHand(hand);
-        HitResult hitResult = raycast(world, user, RaycastContext.FluidHandling.SOURCE_ONLY);
-        if (hitResult.getType() == net.minecraft.util.hit.HitResult.Type.MISS) {
-            return TypedActionResult.pass(itemStack);
+    public InteractionResultHolder<ItemStack> usee(Level world, Player user, InteractionHand hand) {
+        ItemStack itemStack = user.getItemInHand(hand);
+        HitResult hitResult = getPlayerPOVHitResult(world, user, ClipContext.Fluid.SOURCE_ONLY);
+        if (hitResult.getType() == net.minecraft.world.phys.HitResult.Type.MISS) {
+            return InteractionResultHolder.pass(itemStack);
         } else {
-            Vec3d vec3d = user.getRotationVec(1.0F);
-            List<Entity> list = world.getOtherEntities(user, user.getBoundingBox().stretch(vec3d.multiply(5.0D)).expand(1.0D), RIDERS);
+            Vec3 vec3d = user.getViewVector(1.0F);
+            List<Entity> list = world.getEntities(user, user.getBoundingBox().expandTowards(vec3d.scale(5.0D)).inflate(1.0D), RIDERS);
             if (!list.isEmpty()) {
-                Vec3d vec3d2 = user.getEyePos();
+                Vec3 vec3d2 = user.getEyePosition();
 
                 for (Entity entity : list) {
-                    Box box = entity.getBoundingBox().expand(entity.getTargetingMargin());
+                    AABB box = entity.getBoundingBox().inflate(entity.getPickRadius());
                     if (box.contains(vec3d2)) {
-                        return TypedActionResult.pass(itemStack);
+                        return InteractionResultHolder.pass(itemStack);
                     }
                 }
             }
 
             //if (hitResult.getType() == HitResult.Type.BLOCK) {
                 SubmarineEntity boatEntity = new SubmarineEntity(AtlantisEntities.SUBMARINE, world);
-                boatEntity.setPosition(hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z);
-                boatEntity.setYaw(user.getYaw());
+                boatEntity.setPos(hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z);
+                boatEntity.setYRot(user.getYRot());
 //                if (!world.isSpaceEmpty(boatEntity, boatEntity.getBoundingBox())) {
 //                    return TypedActionResult.fail(itemStack);
 //                } else
                 {
-                    if (!world.isClient) {
-                        world.spawnEntity(boatEntity);
-                        world.emitGameEvent(user, GameEvent.ENTITY_PLACE, new BlockPos(hitResult.getPos()));
-                        if (!user.getAbilities().creativeMode) {
-                            itemStack.decrement(1);
+                    if (!world.isClientSide) {
+                        world.addFreshEntity(boatEntity);
+                        world.gameEvent(user, GameEvent.ENTITY_PLACE, new BlockPos(hitResult.getLocation()));
+                        if (!user.getAbilities().instabuild) {
+                            itemStack.shrink(1);
                         }
                     }
 
-                    user.incrementStat(Stats.USED.getOrCreateStat(this));
-                    return TypedActionResult.success(itemStack, world.isClient());
+                    user.awardStat(Stats.ITEM_USED.get(this));
+                    return InteractionResultHolder.sidedSuccess(itemStack, world.isClientSide());
                 }
             //} else {
                 //return TypedActionResult.pass(itemStack);
@@ -105,6 +103,6 @@ public class SubmarineItem extends Item {
         }
     }
     static {
-        RIDERS = EntityPredicates.EXCEPT_SPECTATOR.and(Entity::collides);
+        RIDERS = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
     }
 }

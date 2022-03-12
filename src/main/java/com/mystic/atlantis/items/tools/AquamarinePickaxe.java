@@ -1,13 +1,13 @@
 package com.mystic.atlantis.items.tools;
 
 import com.mystic.atlantis.init.ItemInit;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.Tier;
 
 public class AquamarinePickaxe extends PickaxeItem {
-    public AquamarinePickaxe(ToolMaterial tier, int attack) {
-        super(tier, attack, -3.2F, new Settings()
-                .maxCount(1)
-                .maxDamageIfAbsent(tier.getDurability()));
+    public AquamarinePickaxe(Tier tier, int attack) {
+        super(tier, attack, -3.2F, new Properties()
+                .stacksTo(1)
+                .defaultDurability(tier.getUses()));
     }
 }

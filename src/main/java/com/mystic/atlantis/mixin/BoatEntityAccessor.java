@@ -1,14 +1,13 @@
 package com.mystic.atlantis.mixin;
 
+import net.minecraft.world.entity.vehicle.Boat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-import net.minecraft.entity.vehicle.BoatEntity;
-
-@Mixin(BoatEntity.class)
+@Mixin(Boat.class)
 public interface BoatEntityAccessor {
     @Accessor
     void setTicksUnderwater(float ticksUnderwater);
     @Accessor
-    BoatEntity.Location getLocation();
+    Boat.Status getLocation();
 }

@@ -1,76 +1,69 @@
 package com.mystic.atlantis.structures;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mystic.atlantis.util.Reference;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.structure.*;
-import net.minecraft.structure.pool.StructurePoolBasedGenerator;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.Pool;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.registry.DynamicRegistryManager;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.HeightLimitView;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.SpawnSettings;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.VerticalBlockSample;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.StructureFeature;
-import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
+import net.minecraft.world.level.levelgen.feature.structures.JigsawPlacement;
+import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
+import net.minecraft.world.level.levelgen.structure.PostPlacementProcessor;
+import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
+import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
 
-import java.util.List;
 import java.util.Optional;
 
-public class AtlantisTower extends StructureFeature<StructurePoolFeatureConfig> {
+public class AtlantisTower extends StructureFeature<JigsawConfiguration> {
 
-    public AtlantisTower(Codec<StructurePoolFeatureConfig> codec) {
-        super(codec, AtlantisTower::createPiecesGenerator, PostPlacementProcessor.EMPTY);
+    public AtlantisTower(Codec<JigsawConfiguration> codec) {
+        super(codec, AtlantisTower::createPiecesGenerator, PostPlacementProcessor.NONE);
     }
 
     @Override
-    public GenerationStep.Feature getGenerationStep() {
-        return GenerationStep.Feature.SURFACE_STRUCTURES;
+    public GenerationStep.Decoration step() {
+        return GenerationStep.Decoration.SURFACE_STRUCTURES;
     }
 
-    public static final Pool<SpawnSettings.SpawnEntry> STRUCTURE_MONSTERS = Pool.of(
-            new SpawnSettings.SpawnEntry(EntityType.DROWNED, 30, 10, 15)
+    public static final WeightedRandomList<MobSpawnSettings.SpawnerData> STRUCTURE_MONSTERS = WeightedRandomList.create(
+            new MobSpawnSettings.SpawnerData(EntityType.DROWNED, 30, 10, 15)
     );
 
-    public static final Pool<SpawnSettings.SpawnEntry> STRUCTURE_CREATURES = Pool.of();
+    public static final WeightedRandomList<MobSpawnSettings.SpawnerData> STRUCTURE_CREATURES = WeightedRandomList.create();
 
-    public static Optional<StructurePiecesGenerator<StructurePoolFeatureConfig>> createPiecesGenerator(StructureGeneratorFactory.Context<StructurePoolFeatureConfig> context) {
+    public static Optional<PieceGenerator<JigsawConfiguration>> createPiecesGenerator(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
 
-        StructurePoolFeatureConfig newConfig = new StructurePoolFeatureConfig(
-                () -> context.registryManager().get(Registry.STRUCTURE_POOL_KEY)
-                        .get(new Identifier(Reference.MODID, "atlantean_tower/start_pool")),
+        JigsawConfiguration newConfig = new JigsawConfiguration(
+                () -> context.registryAccess().registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
+                        .get(new ResourceLocation(Reference.MODID, "atlantean_tower/start_pool")),
                 10
         );
 
-        StructureGeneratorFactory.Context<StructurePoolFeatureConfig> newContext = new StructureGeneratorFactory.Context<>(
+        PieceGeneratorSupplier.Context<JigsawConfiguration> newContext = new PieceGeneratorSupplier.Context<>(
                 context.chunkGenerator(),
                 context.biomeSource(),
                 context.seed(),
                 context.chunkPos(),
                 newConfig,
-                context.world(),
+                context.heightAccessor(),
                 context.validBiome(),
                 context.structureManager(),
-                context.registryManager()
+                context.registryAccess()
         );
 
-        BlockPos spawnXZPosition = context.chunkPos().getCenterAtY(0);
-        BlockPos blockpos = context.chunkPos().getCenterAtY(context.chunkGenerator().getHeightInGround(spawnXZPosition.getX(), spawnXZPosition.getZ(), Heightmap.Type.OCEAN_FLOOR_WG, context.world()));
+        BlockPos spawnXZPosition = context.chunkPos().getMiddleBlockPosition(0);
+        BlockPos blockpos = context.chunkPos().getMiddleBlockPosition(context.chunkGenerator().getFirstOccupiedHeight(spawnXZPosition.getX(), spawnXZPosition.getZ(), Heightmap.Types.OCEAN_FLOOR_WG, context.heightAccessor()));
 
-        Optional<StructurePiecesGenerator<StructurePoolFeatureConfig>> structurePiecesGenerator =
-                StructurePoolBasedGenerator.generate(
+        Optional<PieceGenerator<JigsawConfiguration>> structurePiecesGenerator =
+                JigsawPlacement.addPieces(
                         newContext,
-                        PoolStructurePiece::new,
+                        PoolElementStructurePiece::new,
                         blockpos,
                         false,
                         false

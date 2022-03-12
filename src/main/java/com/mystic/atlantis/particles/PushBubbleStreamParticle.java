@@ -1,18 +1,18 @@
 package com.mystic.atlantis.particles;
 
+import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.tag.FluidTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
-public class PushBubbleStreamParticle extends SpriteBillboardParticle {
+public class PushBubbleStreamParticle extends TextureSheetParticle {
    /**
     * The angle, in radians, of the horizontal acceleration of the particle.
     */
@@ -20,59 +20,59 @@ public class PushBubbleStreamParticle extends SpriteBillboardParticle {
 
    private Direction direction;
 
-   PushBubbleStreamParticle(ClientWorld clientWorld, double x, double y, double z, Direction direction) {
+   PushBubbleStreamParticle(ClientLevel clientWorld, double x, double y, double z, Direction direction) {
       super(clientWorld, x, y, z);
       this.direction = direction;
-      this.maxAge = (int)(Math.random() * 60.0D) + 30;
-      this.collidesWithWorld = false;
+      this.lifetime = (int)(Math.random() * 60.0D) + 30;
+      this.hasPhysics = false;
 
-      Vec3f vec = direction.getUnitVector();
-      vec.scale(0.5f);
+      Vector3f vec = direction.step();
+      vec.mul(0.5f);
 
-      this.setVelocity(vec.getX(), vec.getY(), vec.getZ());
+      this.setParticleSpeed(vec.x(), vec.y(), vec.z());
 
-      this.setBoundingBoxSpacing(0.02F, 0.02F);
-      this.scale *= this.random.nextFloat() * 0.6F + 0.2F;
-      this.gravityStrength = 0.002F;
+      this.setSize(0.02F, 0.02F);
+      this.quadSize *= this.random.nextFloat() * 0.6F + 0.2F;
+      this.gravity = 0.002F;
    }
 
-   public ParticleTextureSheet getType() {
-      return ParticleTextureSheet.PARTICLE_SHEET_OPAQUE;
+   public ParticleRenderType getRenderType() {
+      return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
    }
 
    public void tick() {
-      this.prevPosX = this.x;
-      this.prevPosY = this.y;
-      this.prevPosZ = this.z;
-      if (this.age++ >= this.maxAge) {
-         this.markDead();
+      this.xo = this.x;
+      this.yo = this.y;
+      this.zo = this.z;
+      if (this.age++ >= this.lifetime) {
+         this.remove();
       } else {
          float f = 0.6F;
 
          switch (direction.getAxis()) {
             case Y -> {
-               this.velocityX += f * MathHelper.cos(this.accelerationAngle);
-               this.velocityZ += f * MathHelper.sin(this.accelerationAngle);
-               this.velocityX *= 0.7F;
-               this.velocityZ *= 0.7F;
+               this.xd += f * Mth.cos(this.accelerationAngle);
+               this.zd += f * Mth.sin(this.accelerationAngle);
+               this.xd *= 0.7F;
+               this.zd *= 0.7F;
             }
             case X -> {
-               this.velocityY += f * MathHelper.cos(this.accelerationAngle);
-               this.velocityZ += f * MathHelper.sin(this.accelerationAngle);
-               this.velocityY *= 0.7F;
-               this.velocityZ *= 0.7F;
+               this.yd += f * Mth.cos(this.accelerationAngle);
+               this.zd += f * Mth.sin(this.accelerationAngle);
+               this.yd *= 0.7F;
+               this.zd *= 0.7F;
             }
             case Z -> {
-               this.velocityX += f * MathHelper.cos(this.accelerationAngle);
-               this.velocityY += f * MathHelper.sin(this.accelerationAngle);
-               velocityX *= 0.7F;
-               velocityY *= 0.7F;
+               this.xd += f * Mth.cos(this.accelerationAngle);
+               this.yd += f * Mth.sin(this.accelerationAngle);
+               xd *= 0.7F;
+               yd *= 0.7F;
             }
 
          }
-         this.move(this.velocityX, this.velocityY, this.velocityZ);
-         if (!this.world.getFluidState(new BlockPos(this.x, this.y, this.z)).isIn(FluidTags.WATER) || this.onGround) {
-            this.markDead();
+         this.move(this.xd, this.yd, this.zd);
+         if (!this.level.getFluidState(new BlockPos(this.x, this.y, this.z)).is(FluidTags.WATER) || this.onGround) {
+            this.remove();
          }
 
          this.accelerationAngle = (float)((double)this.accelerationAngle + ((direction.getAxis().equals(Direction.AxisDirection.NEGATIVE) ? 0.08D : -0.08D)));
@@ -80,16 +80,16 @@ public class PushBubbleStreamParticle extends SpriteBillboardParticle {
    }
 
    @Environment(EnvType.CLIENT)
-   public static class Factory implements ParticleFactory<DefaultParticleType> {
-      private final SpriteProvider spriteProvider;
+   public static class Factory implements ParticleProvider<SimpleParticleType> {
+      private final SpriteSet spriteProvider;
 
-      public Factory(SpriteProvider spriteProvider) {
+      public Factory(SpriteSet spriteProvider) {
          this.spriteProvider = spriteProvider;
       }
 
-      public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-         PushBubbleStreamParticle pushBubbleStreamParticle = new PushBubbleStreamParticle(clientWorld, d, e, f, Direction.byId((int) g));
-         pushBubbleStreamParticle.setSprite(this.spriteProvider);
+      public Particle createParticle(SimpleParticleType defaultParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i) {
+         PushBubbleStreamParticle pushBubbleStreamParticle = new PushBubbleStreamParticle(clientWorld, d, e, f, Direction.from3DDataValue((int) g));
+         pushBubbleStreamParticle.pickSprite(this.spriteProvider);
          return pushBubbleStreamParticle;
       }
    }

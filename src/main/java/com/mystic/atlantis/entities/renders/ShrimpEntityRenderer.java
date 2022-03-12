@@ -2,20 +2,22 @@ package com.mystic.atlantis.entities.renders;
 
 import com.mystic.atlantis.entities.ShrimpEntity;
 import com.mystic.atlantis.entities.models.ShrimpEntityModel;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.util.math.*;
-import net.minecraft.world.LightType;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib3.core.IAnimatableModel;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.geo.render.built.GeoModel;
@@ -27,41 +29,45 @@ import java.util.Collections;
 
 import static com.mystic.atlantis.entities.renders.JellyfishEntityRenderer.method_23187;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
+
 public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
-    public ShrimpEntityRenderer(EntityRendererFactory.Context ctx, ShrimpEntityModel modelProvider) {
+    public ShrimpEntityRenderer(EntityRendererProvider.Context ctx, ShrimpEntityModel modelProvider) {
         super(ctx, modelProvider);
     }
 
     @Override
-    public void render(ShrimpEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(ShrimpEntity mobEntity, float f, float g, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i) {
         renderStuff(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
 
-        Entity entity = mobEntity.getHoldingEntity();
+        Entity entity = mobEntity.getLeashHolder();
         if (entity != null) {
             this.method_4073(mobEntity, g, matrixStack, vertexConsumerProvider, entity);
         }
     }
 
     @Override
-    public Identifier getTexture(ShrimpEntity entity) {
+    public ResourceLocation getTexture(ShrimpEntity entity) {
         return getGeoModelProvider().getTextureLocation(entity);
     }
 
-    private void renderStuff(ShrimpEntity entity, float entityYaw, float partialTicks, MatrixStack stack,
-                             VertexConsumerProvider bufferIn, int packedLightIn) {
-        stack.push();
-        boolean shouldSit = entity.hasVehicle() && (entity.getVehicle() != null);
+    private void renderStuff(ShrimpEntity entity, float entityYaw, float partialTicks, PoseStack stack,
+                             MultiBufferSource bufferIn, int packedLightIn) {
+        stack.pushPose();
+        boolean shouldSit = entity.isPassenger() && (entity.getVehicle() != null);
         EntityModelData entityModelData = new EntityModelData();
         entityModelData.isSitting = shouldSit;
         entityModelData.isChild = entity.isBaby();
 
-        float f = MathHelper.lerpAngleDegrees(partialTicks, entity.prevBodyYaw, entity.bodyYaw);
-        float f1 = MathHelper.lerpAngleDegrees(partialTicks, entity.prevHeadYaw, entity.headYaw);
+        float f = Mth.rotLerp(partialTicks, entity.yBodyRotO, entity.yBodyRot);
+        float f1 = Mth.rotLerp(partialTicks, entity.yHeadRotO, entity.yHeadRot);
         float netHeadYaw = f1 - f;
         if (shouldSit && entity.getVehicle() instanceof LivingEntity livingentity) {
-            f = MathHelper.lerpAngleDegrees(partialTicks, livingentity.prevBodyYaw, livingentity.bodyYaw);
+            f = Mth.rotLerp(partialTicks, livingentity.yBodyRotO, livingentity.yBodyRot);
             netHeadYaw = f1 - f;
-            float f3 = MathHelper.wrapDegrees(netHeadYaw);
+            float f3 = Mth.wrapDegrees(netHeadYaw);
             if (f3 < -85.0F) {
                 f3 = -85.0F;
             }
@@ -78,12 +84,12 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
             netHeadYaw = f1 - f;
         }
 
-        float headPitch = MathHelper.lerp(partialTicks, entity.prevPitch, entity.getPitch());
-        if (entity.getPose() == EntityPose.SLEEPING) {
-            Direction direction = entity.getSleepingDirection();
+        float headPitch = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
+        if (entity.getPose() == Pose.SLEEPING) {
+            Direction direction = entity.getBedOrientation();
             if (direction != null) {
-                float f4 = entity.getEyeHeight(EntityPose.STANDING) - 0.1F;
-                stack.translate((float) (-direction.getOffsetX()) * f4, 0.0D, (float) (-direction.getOffsetZ()) * f4);
+                float f4 = entity.getEyeHeight(Pose.STANDING) - 0.1F;
+                stack.translate((float) (-direction.getStepX()) * f4, 0.0D, (float) (-direction.getStepZ()) * f4);
             }
         }
         float f7 = this.handleRotationFloat(entity, partialTicks);
@@ -92,8 +98,8 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
         float lastLimbDistance = 0.0F;
         float limbSwing = 0.0F;
         if (!shouldSit && entity.isAlive()) {
-            lastLimbDistance = MathHelper.lerp(partialTicks, entity.lastLimbDistance, entity.limbDistance);
-            limbSwing = entity.limbAngle - entity.limbDistance * (1.0F - partialTicks);
+            lastLimbDistance = Mth.lerp(partialTicks, entity.animationSpeedOld, entity.animationSpeed);
+            limbSwing = entity.animationPosition - entity.animationSpeed * (1.0F - partialTicks);
             if (entity.isBaby()) {
                 limbSwing *= 3.0F;
             }
@@ -113,16 +119,16 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
         }
 
         stack.translate(0, 0.01f, 0);
-        MinecraftClient.getInstance().getTextureManager().bindTexture(getTexture(entity));
+        Minecraft.getInstance().getTextureManager().bindForSetup(getTexture(entity));
 
         //Shrimp Rainbow color START
-        int n = entity.age / 25 + entity.getId();
+        int n = entity.tickCount / 25 + entity.getId();
         int o = DyeColor.values().length;
         int p = n % o;
         int q = (n + 1) % o;
-        float r = ((float)(entity.age % 25) + partialTicks) / 25.0F;
-        float[] fs = SheepEntity.getRgbColor(DyeColor.byId(p));
-        float[] gs = SheepEntity.getRgbColor(DyeColor.byId(q));
+        float r = ((float)(entity.tickCount % 25) + partialTicks) / 25.0F;
+        float[] fs = Sheep.getColorArray(DyeColor.byId(p));
+        float[] gs = Sheep.getColorArray(DyeColor.byId(q));
         float rColor = fs[0] * (1.0F - r) + gs[0] * r;
         float gColor = fs[1] * (1.0F - r) + gs[1] * r;
         float bColor = fs[2] * (1.0F - r) + gs[2] * r;
@@ -130,9 +136,9 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
 
         stack.scale(0.5f, 0.5f, 0.5f);
 
-        RenderLayer renderType = getRenderType(entity, partialTicks, stack, bufferIn, null, packedLightIn,
+        RenderType renderType = getRenderType(entity, partialTicks, stack, bufferIn, null, packedLightIn,
                 getTexture(entity));
-        boolean invis = entity.isInvisibleTo(MinecraftClient.getInstance().player);
+        boolean invis = entity.isInvisibleTo(Minecraft.getInstance().player);
         render(model, entity, partialTicks, renderType, stack, bufferIn, null, packedLightIn,
                 getPackedOverlay(entity, 0), rColor, gColor,
                 bColor, invis ? 0.0F : 1f);
@@ -146,39 +152,39 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
 //        if (FabricLoader.getInstance().isModLoaded("patchouli")) {
 //            PatchouliCompat.patchouliLoaded(stack);
 //        }
-        stack.pop();
+        stack.popPose();
 
-        if (this.hasLabel(entity)) {
-            this.renderLabelIfPresent(entity, entity.getDisplayName(), stack, bufferIn, packedLightIn);
+        if (this.shouldShowName(entity)) {
+            this.renderNameTag(entity, entity.getDisplayName(), stack, bufferIn, packedLightIn);
         }
     }
 
-    private <E extends Entity> void method_4073(ShrimpEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, E holdingEntity) {
-        matrices.push();
-        Vec3d vec3d = holdingEntity.getRotationVec(tickDelta);
-        double d = (double)(MathHelper.lerp(tickDelta, entity.bodyYaw, entity.prevBodyYaw) * 0.017453292F) + 1.5707963267948966D;
-        Vec3d vec3d2 = entity.getLeashOffset();
+    private <E extends Entity> void method_4073(ShrimpEntity entity, float tickDelta, PoseStack matrices, MultiBufferSource provider, E holdingEntity) {
+        matrices.pushPose();
+        Vec3 vec3d = holdingEntity.getViewVector(tickDelta);
+        double d = (double)(Mth.lerp(tickDelta, entity.yBodyRot, entity.yBodyRotO) * 0.017453292F) + 1.5707963267948966D;
+        Vec3 vec3d2 = entity.getLeashOffset();
         double e = Math.cos(d) * vec3d2.z + Math.sin(d) * vec3d2.x;
         double f = Math.sin(d) * vec3d2.z - Math.cos(d) * vec3d2.x;
-        double g = MathHelper.lerp(tickDelta, entity.prevX, entity.getX()) + e;
-        double h = MathHelper.lerp(tickDelta, entity.prevY, entity.getY()) + vec3d2.y;
-        double i = MathHelper.lerp(tickDelta, entity.prevZ, entity.getZ()) + f;
+        double g = Mth.lerp(tickDelta, entity.xo, entity.getX()) + e;
+        double h = Mth.lerp(tickDelta, entity.yo, entity.getY()) + vec3d2.y;
+        double i = Mth.lerp(tickDelta, entity.zo, entity.getZ()) + f;
         matrices.translate(e, vec3d2.y, f);
         float j = (float)(vec3d.x - g);
         float k = (float)(vec3d.y - h);
         float l = (float)(vec3d.z - i);
         float m = 0.025F;
-        VertexConsumer vertexConsumer = provider.getBuffer(RenderLayer.getLeash());
-        Matrix4f matrix4f = matrices.peek().getPositionMatrix();
-        float n = MathHelper.fastInverseSqrt(j * j + l * l) * 0.025F / 2.0F;
+        VertexConsumer vertexConsumer = provider.getBuffer(RenderType.leash());
+        Matrix4f matrix4f = matrices.last().pose();
+        float n = Mth.fastInvSqrt(j * j + l * l) * 0.025F / 2.0F;
         float o = l * n;
         float p = j * n;
-        BlockPos blockPos = new BlockPos(entity.getCameraPosVec(tickDelta));
-        BlockPos blockPos2 = new BlockPos(holdingEntity.getCameraPosVec(tickDelta));
-        int q = this.getBlockLight(entity, blockPos);
-        int r = this.dispatcher.getRenderer(holdingEntity).getBlockLight(holdingEntity, blockPos2);
-        int s = entity.world.getLightLevel(LightType.SKY, blockPos);
-        int t = entity.world.getLightLevel(LightType.SKY, blockPos2);
+        BlockPos blockPos = new BlockPos(entity.getEyePosition(tickDelta));
+        BlockPos blockPos2 = new BlockPos(holdingEntity.getEyePosition(tickDelta));
+        int q = this.getBlockLightLevel(entity, blockPos);
+        int r = this.entityRenderDispatcher.getRenderer(holdingEntity).getBlockLightLevel(holdingEntity, blockPos2);
+        int s = entity.level.getBrightness(LightLayer.SKY, blockPos);
+        int t = entity.level.getBrightness(LightLayer.SKY, blockPos2);
 
         int v;
         for(v = 0; v <= 24; ++v) {
@@ -189,6 +195,6 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
             method_23187(vertexConsumer, matrix4f, j, k, l, q, r, s, t, 0.025F, 0.0F, o, p, v, true);
         }
 
-        matrices.pop();
+        matrices.popPose();
     }
 }

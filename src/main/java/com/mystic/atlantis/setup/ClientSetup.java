@@ -30,23 +30,23 @@ import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.minecraft.block.Block;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.DimensionEffects;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.ResourceType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.BlockRenderView;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.DimensionSpecialEffects;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -58,26 +58,26 @@ import java.util.stream.Stream;
 public class ClientSetup {
     public static void onInitializeClient(FMLClientSetupEvent event) {
 
-        setupFluidRendering(FluidInit.STILL_JETSTREAM_WATER, FluidInit.FLOWING_JETSTREAM_WATER, new Identifier("minecraft", "water"), 0x52A9FF);
-        RenderLayers.setRenderLayer(FluidInit.STILL_JETSTREAM_WATER, RenderLayer.getTranslucent());
-        RenderLayers.setRenderLayer(FluidInit.FLOWING_JETSTREAM_WATER, RenderLayer.getTranslucent());
+        setupFluidRendering(FluidInit.STILL_JETSTREAM_WATER, FluidInit.FLOWING_JETSTREAM_WATER, new ResourceLocation("minecraft", "water"), 0x52A9FF);
+        ItemBlockRenderTypes.setRenderLayer(FluidInit.STILL_JETSTREAM_WATER, RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_JETSTREAM_WATER, RenderType.translucent());
 
         BlockEntityRendererRegistry.register(TileRegistry.UNDERWATER_SHROOM_TILE,
-                (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new UnderwaterShroomTileRenderer());
+                (BlockEntityRendererProvider.Context rendererDispatcherIn) -> new UnderwaterShroomTileRenderer());
 
         BlockEntityRendererRegistry.register(TileRegistry.TUBER_UP_TILE,
-                (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new TuberUpTileRenderer());
+                (BlockEntityRendererProvider.Context rendererDispatcherIn) -> new TuberUpTileRenderer());
 
         BlockEntityRendererRegistry.register(TileRegistry.BLUE_LILY_TILE,
-                (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new BlueLilyTileRenderer());
+                (BlockEntityRendererProvider.Context rendererDispatcherIn) -> new BlueLilyTileRenderer());
 
         BlockEntityRendererRegistry.register(TileRegistry.BURNT_DEEP_TILE,
-                (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new BurntDeepTileRenderer());
+                (BlockEntityRendererProvider.Context rendererDispatcherIn) -> new BurntDeepTileRenderer());
 
         BlockEntityRendererRegistry.register(TileRegistry.ENENMOMY_TILE,
-                (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new EnenmomyTileRenderer());
+                (BlockEntityRendererProvider.Context rendererDispatcherIn) -> new EnenmomyTileRenderer());
 
-        registerBlockRenderLayers(RenderLayer.getCutout(),
+        registerBlockRenderLayers(RenderType.cutout(),
                 BlockInit.ATLANTEAN_LEAVES,
                 BlockInit.ATLANTEAN_SAPLING,
                 BlockInit.UNDERWATER_FLOWER,
@@ -105,7 +105,7 @@ public class ClientSetup {
                 BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR,
                 BlockInit.PURPLE_GLOWING_MUSHROOM,
                 BlockInit.YELLOW_GLOWING_MUSHROOM);
-        registerBlockRenderLayers(RenderLayer.getTranslucent(),
+        registerBlockRenderLayers(RenderType.translucent(),
                 BlockInit.BLACK_PEARL_BLOCK,
                 BlockInit.GRAY_PEARL_BLOCK,
                 BlockInit.WHITE_PEARL_BLOCK,
@@ -124,14 +124,14 @@ public class ClientSetup {
                 BlockInit.BROWN_PEARL_BLOCK,
                 BlockInit.ATLANTIS_CLEAR_PORTAL);
 
-        DimensionEffects atlantis = new DimensionEffects(255.0F, true, DimensionEffects.SkyType.NORMAL, false, false) {
+        DimensionSpecialEffects atlantis = new DimensionSpecialEffects(255.0F, true, DimensionSpecialEffects.SkyType.NORMAL, false, false) {
             @Override
-            public Vec3d adjustFogColor(Vec3d vector3d, float v) {
+            public Vec3 getBrightnessDependentFogColor(Vec3 vector3d, float v) {
                 return vector3d;
             }
 
             @Override
-            public boolean useThickFog(int i, int i1) {
+            public boolean isFoggyAt(int i, int i1) {
                 return false;
             }
         };
@@ -148,28 +148,28 @@ public class ClientSetup {
         ModParticleTypes.init();
     }
 
-    private void registerBlockRenderLayers(RenderLayer layer, Block... blocks) {
-        Stream.of(blocks).forEach(block -> RenderLayers.setRenderLayer(block, layer));
+    private void registerBlockRenderLayers(RenderType layer, Block... blocks) {
+        Stream.of(blocks).forEach(block -> ItemBlockRenderTypes.setRenderLayer(block, layer));
     }
 
-    public static void setupFluidRendering(final Fluid still, final Fluid flowing, final Identifier textureFluidId, final int color) {
-        final Identifier stillSpriteId = new Identifier(textureFluidId.getNamespace(), "block/" + textureFluidId.getPath() + "_still");
-        final Identifier flowingSpriteId = new Identifier(textureFluidId.getNamespace(), "block/" + textureFluidId.getPath() + "_flow");
+    public static void setupFluidRendering(final Fluid still, final Fluid flowing, final ResourceLocation textureFluidId, final int color) {
+        final ResourceLocation stillSpriteId = new ResourceLocation(textureFluidId.getNamespace(), "block/" + textureFluidId.getPath() + "_still");
+        final ResourceLocation flowingSpriteId = new ResourceLocation(textureFluidId.getNamespace(), "block/" + textureFluidId.getPath() + "_flow");
 
         // If they're not already present, add the sprites to the block atlas
-        ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).register((atlasTexture, registry) -> {
+        ClientSpriteRegistryCallback.event(TextureAtlas.LOCATION_BLOCKS).register((atlasTexture, registry) -> {
             registry.register(stillSpriteId);
             registry.register(flowingSpriteId);
         });
 
-        final Identifier fluidId = Registry.FLUID.getId(still);
-        final Identifier listenerId = new Identifier(fluidId.getNamespace(), fluidId.getPath() + "_reload_listener");
+        final ResourceLocation fluidId = Registry.FLUID.getKey(still);
+        final ResourceLocation listenerId = new ResourceLocation(fluidId.getNamespace(), fluidId.getPath() + "_reload_listener");
 
-        final Sprite[] fluidSprites = { null, null };
+        final TextureAtlasSprite[] fluidSprites = { null, null };
 
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
+        ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
             @Override
-            public Identifier getFabricId() {
+            public ResourceLocation getFabricId() {
                 return listenerId;
             }
 
@@ -178,7 +178,7 @@ public class ClientSetup {
              */
             @Override
             public void reload(ResourceManager resourceManager) {
-                final Function<Identifier, Sprite> atlas = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
+                final Function<ResourceLocation, TextureAtlasSprite> atlas = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS);
                 fluidSprites[0] = atlas.apply(stillSpriteId);
                 fluidSprites[1] = atlas.apply(flowingSpriteId);
             }
@@ -188,12 +188,12 @@ public class ClientSetup {
         final FluidRenderHandler renderHandler = new FluidRenderHandler()
         {
             @Override
-            public Sprite[] getFluidSprites(BlockRenderView view, BlockPos pos, FluidState state) {
+            public TextureAtlasSprite[] getFluidSprites(BlockAndTintGetter view, BlockPos pos, FluidState state) {
                 return fluidSprites;
             }
 
             @Override
-            public int getFluidColor(BlockRenderView view, BlockPos pos, FluidState state) {
+            public int getFluidColor(BlockAndTintGetter view, BlockPos pos, FluidState state) {
                 return color;
             }
         };

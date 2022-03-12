@@ -1,17 +1,15 @@
 package com.mystic.atlantis.mixin;
 
 import java.util.Map;
-
-import net.minecraft.world.gen.chunk.StructureConfig;
-import net.minecraft.world.gen.chunk.StructuresConfig;
-import net.minecraft.world.gen.feature.StructureFeature;
-
+import net.minecraft.world.level.levelgen.StructureSettings;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(StructuresConfig.class)
+@Mixin(StructureSettings.class)
 public interface StructuresConfigAccessor {
     @Mutable @Accessor("structures")
-    void setStructures(Map<StructureFeature<?>, StructureConfig> structuresSpacingMap);
+    void setStructures(Map<StructureFeature<?>, StructureFeatureConfiguration> structuresSpacingMap);
 }

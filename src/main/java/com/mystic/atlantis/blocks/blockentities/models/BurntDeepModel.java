@@ -2,27 +2,27 @@ package com.mystic.atlantis.blocks.blockentities.models;
 
 import com.mystic.atlantis.blocks.blockentities.plants.BurntDeepTileEntity;
 import com.mystic.atlantis.util.Reference;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.GeckoLib;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class BurntDeepModel extends AnimatedGeoModel<BurntDeepTileEntity>
 {
     @Override
-    public Identifier getModelLocation(BurntDeepTileEntity object)
+    public ResourceLocation getModelLocation(BurntDeepTileEntity object)
     {
-        return new Identifier(Reference.MODID, "geo/flower_1.geo.json");
+        return new ResourceLocation(Reference.MODID, "geo/flower_1.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(BurntDeepTileEntity object)
+    public ResourceLocation getTextureLocation(BurntDeepTileEntity object)
     {
-        return new Identifier(Reference.MODID, "textures/block/burnt_deep.png");
+        return new ResourceLocation(Reference.MODID, "textures/block/burnt_deep.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(BurntDeepTileEntity object)
+    public ResourceLocation getAnimationFileLocation(BurntDeepTileEntity object)
     {
-        return new Identifier(GeckoLib.ModID, "animations/jackinthebox.animation.json");
+        return new ResourceLocation(GeckoLib.ModID, "animations/jackinthebox.animation.json");
     }
 }

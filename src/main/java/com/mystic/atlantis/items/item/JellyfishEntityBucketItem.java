@@ -1,41 +1,41 @@
 package com.mystic.atlantis.items.item;
 
-import net.minecraft.entity.Bucketable;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.EntityBucketItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.Nullable;
 
-public class JellyfishEntityBucketItem extends EntityBucketItem {
+public class JellyfishEntityBucketItem extends MobBucketItem {
     private final EntityType<?> entityType;
 
-    public JellyfishEntityBucketItem(EntityType<?> type, Fluid fluid, SoundEvent emptyingSound, Settings settings) {
+    public JellyfishEntityBucketItem(EntityType<?> type, Fluid fluid, SoundEvent emptyingSound, Properties settings) {
         super(type, fluid, emptyingSound, settings);
         this.entityType = type;
     }
 
     @Override
-    public void onEmptied(@Nullable PlayerEntity player, World world, ItemStack stack, BlockPos pos) {
-        if (world instanceof ServerWorld) {
-            this.spawnEntity((ServerWorld)world, stack, pos);
-            world.emitGameEvent(player, GameEvent.ENTITY_PLACE, pos);
+    public void checkExtraContent(@Nullable Player player, Level world, ItemStack stack, BlockPos pos) {
+        if (world instanceof ServerLevel) {
+            this.spawn((ServerLevel)world, stack, pos);
+            world.gameEvent(player, GameEvent.ENTITY_PLACE, pos);
         }
     }
 
-    private void spawnEntity(ServerWorld world, ItemStack stack, BlockPos pos) {
-        Entity entity = this.entityType.spawnFromItemStack(world, stack, (PlayerEntity)null, pos, SpawnReason.BUCKET, true, false);
+    private void spawn(ServerLevel world, ItemStack stack, BlockPos pos) {
+        Entity entity = this.entityType.spawn(world, stack, (Player)null, pos, MobSpawnType.BUCKET, true, false);
         if (entity instanceof Bucketable) {
             Bucketable bucketable = (Bucketable)entity;
-            bucketable.copyDataFromNbt(stack.getOrCreateNbt());
+            bucketable.loadFromBucketTag(stack.getOrCreateTag());
             bucketable.setFromBucket(true);
         }
     }

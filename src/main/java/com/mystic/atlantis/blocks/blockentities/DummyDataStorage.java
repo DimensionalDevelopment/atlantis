@@ -1,10 +1,10 @@
 package com.mystic.atlantis.blocks.blockentities;
 
 import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class DummyDataStorage extends BlockEntity {
 
@@ -19,8 +19,8 @@ public class DummyDataStorage extends BlockEntity {
     }
 
     @Override
-    public void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
+    public void saveAdditional(CompoundTag nbt) {
+        super.saveAdditional(nbt);
 
         // Save the current value of the number to the tag
         if(this.destination != null) {
@@ -32,9 +32,9 @@ public class DummyDataStorage extends BlockEntity {
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
+    public void load(CompoundTag nbt) {
         if(nbt.contains("destination_x")) {
-            super.readNbt(nbt);
+            super.load(nbt);
             int destination_x = nbt.getInt("destination_x");
             int destination_y = nbt.getInt("destination_y");
             int destination_z = nbt.getInt("destination_z");
