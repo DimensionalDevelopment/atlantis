@@ -1,19 +1,7 @@
 package com.mystic.atlantis.entities.renders;
 
-import static com.mystic.atlantis.entities.renders.JellyfishEntityRenderer.method_23187;
-
-import java.util.Collections;
-
 import com.mystic.atlantis.entities.ShrimpEntity;
 import com.mystic.atlantis.entities.models.ShrimpEntityModel;
-import software.bernie.geckolib3.compat.PatchouliCompat;
-import software.bernie.geckolib3.core.IAnimatableModel;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.geo.render.built.GeoModel;
-import software.bernie.geckolib3.model.provider.data.EntityModelData;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
-import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -25,14 +13,19 @@ import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.*;
 import net.minecraft.world.LightType;
+import software.bernie.geckolib3.core.IAnimatableModel;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.geo.render.built.GeoModel;
+import software.bernie.geckolib3.model.provider.data.EntityModelData;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 
-import net.fabricmc.loader.api.FabricLoader;
+import java.util.Collections;
+
+import static com.mystic.atlantis.entities.renders.JellyfishEntityRenderer.method_23187;
 
 public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
     public ShrimpEntityRenderer(EntityRendererFactory.Context ctx, ShrimpEntityModel modelProvider) {
@@ -47,6 +40,11 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
         if (entity != null) {
             this.method_4073(mobEntity, g, matrixStack, vertexConsumerProvider, entity);
         }
+    }
+
+    @Override
+    public Identifier getTexture(ShrimpEntity entity) {
+        return getGeoModelProvider().getTextureLocation(entity);
     }
 
     private void renderStuff(ShrimpEntity entity, float entityYaw, float partialTicks, MatrixStack stack,
@@ -145,9 +143,9 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
                         f7, netHeadYaw, headPitch);
             }
         }
-        if (FabricLoader.getInstance().isModLoaded("patchouli")) {
-            PatchouliCompat.patchouliLoaded(stack);
-        }
+//        if (FabricLoader.getInstance().isModLoaded("patchouli")) {
+//            PatchouliCompat.patchouliLoaded(stack);
+//        }
         stack.pop();
 
         if (this.hasLabel(entity)) {

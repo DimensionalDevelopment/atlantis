@@ -1,15 +1,12 @@
 package com.mystic.atlantis.mixin;
 
 import com.mystic.atlantis.dimension.DimensionAtlantis;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.core.util.Loader;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
@@ -20,7 +17,7 @@ public abstract class CanBreatheInDimension extends LivingEntity {
         super(entityType, world);
     }
 
-    boolean FISH = FabricLoader.getInstance().isModLoaded("youre-a-fish-now");
+    boolean FISH = false; //FabricLoader.getInstance().isModLoaded("youre-a-fish-now");
 
     @Unique
     @Override

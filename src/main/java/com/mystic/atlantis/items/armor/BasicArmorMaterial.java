@@ -1,16 +1,16 @@
 package com.mystic.atlantis.items.armor;
 
-import java.util.function.Supplier;
-
+import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Lazy;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-import com.mystic.atlantis.init.ItemInit;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import java.util.function.Supplier;
+
 public class BasicArmorMaterial
 {
     public static final net.minecraft.item.ArmorMaterial ARMOR_AQUAMARINE = new ArmorMaterial( "aquamarine", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.ofItems(ItemInit.AQUAMARINE_GEM));
@@ -64,7 +64,7 @@ public class BasicArmorMaterial
             return repairMaterial.get();
         }
 
-        @Environment(EnvType.CLIENT)
+        @OnlyIn(Dist.CLIENT)
         @Override
         public String getName() {
             return name;

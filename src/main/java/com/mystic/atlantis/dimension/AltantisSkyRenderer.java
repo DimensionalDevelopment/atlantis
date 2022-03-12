@@ -1,40 +1,30 @@
 package com.mystic.atlantis.dimension;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3f;
 
-import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
-
-public class AltantisSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
+public class AltantisSkyRenderer {
 
 
     private static final Identifier SUN_TEXTURES = new Identifier("atlantis:textures/environment/atlantis/sun.png");
     private static final Identifier MOON_PHASES_TEXTURES = new Identifier("atlantis:textures/environment/atlantis/moon_phases.png");
 
-    public void render(WorldRenderContext context) {
-        ClientWorld world = context.world();
-
+    public void render(ClientWorld world, MatrixStack matrixStack, float tickDelta) {
         RenderSystem.disableDepthTest();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.depthMask(false);
-        context.matrixStack().push();
+        matrixStack.push();
         assert world != null;
-        drawSun(context.tickDelta(), context.matrixStack(), world, MinecraftClient.getInstance());
-        drawMoonPhases(context.tickDelta(), context.matrixStack(), world, MinecraftClient.getInstance());
-        context.matrixStack().pop();
+        drawSun(tickDelta, matrixStack, world, MinecraftClient.getInstance());
+        drawMoonPhases(tickDelta, matrixStack, world, MinecraftClient.getInstance());
+        matrixStack.pop();
         RenderSystem.depthMask(true);
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();

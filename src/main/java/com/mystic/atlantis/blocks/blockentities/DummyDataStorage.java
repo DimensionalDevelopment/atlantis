@@ -1,6 +1,6 @@
 package com.mystic.atlantis.blocks.blockentities;
 
-import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 public class DummyDataStorage extends BlockEntity {
 
     public DummyDataStorage(BlockPos pos, BlockState state) {
-        super(Atlantis.DUMMY_DATA_STORAGE, pos, state);
+        super(TileRegistry.DUMMY_DATA_STORAGE, pos, state);
     }
 
     public BlockPos destination;

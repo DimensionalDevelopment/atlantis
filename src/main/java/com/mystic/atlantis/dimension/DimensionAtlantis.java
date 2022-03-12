@@ -2,15 +2,14 @@ package com.mystic.atlantis.dimension;
 
 import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.util.Reference;
-
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
-
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 
 public class DimensionAtlantis
 {
@@ -31,11 +30,13 @@ public class DimensionAtlantis
         return world != null && world.getRegistryKey().equals(ATLANTIS_WORLD);
     }
 
-    public static void init() {
-        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-            DimensionAtlantis.ATLANTIS_TYPE = server.getRegistryManager().get(Registry.DIMENSION_TYPE_KEY).get(ATLANTIS_DIMENSION_TYPE_KEY);
-            DimensionAtlantis.ATLANTIS_DIMENSION = server.getWorld(ATLANTIS_WORLD);
-        });
+    private static void onServerStarted(ServerStartedEvent event) {
+        DimensionAtlantis.ATLANTIS_TYPE = event.getServer().getRegistryManager().get(Registry.DIMENSION_TYPE_KEY).get(ATLANTIS_DIMENSION_TYPE_KEY);
+        DimensionAtlantis.ATLANTIS_DIMENSION = event.getServer().getWorld(ATLANTIS_WORLD);
+    }
+
+    public static void init(IEventBus bus) {
+        bus.addListener(DimensionAtlantis::onServerStarted);
     }
 
     public static void registerBiomeSources() {

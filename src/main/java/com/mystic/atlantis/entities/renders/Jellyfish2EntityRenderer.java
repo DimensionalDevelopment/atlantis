@@ -1,17 +1,6 @@
 package com.mystic.atlantis.entities.renders;
 
-import java.util.Collections;
-
 import com.mystic.atlantis.entities.Jellyfish2Entity;
-import software.bernie.geckolib3.compat.PatchouliCompat;
-import software.bernie.geckolib3.core.IAnimatableModel;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.geo.render.built.GeoModel;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
-import software.bernie.geckolib3.model.provider.data.EntityModelData;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
-import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.RenderLayer;
@@ -22,14 +11,18 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.*;
 import net.minecraft.world.LightType;
+import software.bernie.geckolib3.core.IAnimatableModel;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.geo.render.built.GeoModel;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib3.model.provider.data.EntityModelData;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 
-import net.fabricmc.loader.api.FabricLoader;
+import java.util.Collections;
 
 public class Jellyfish2EntityRenderer extends GeoEntityRenderer<Jellyfish2Entity> {
 
@@ -45,6 +38,11 @@ public class Jellyfish2EntityRenderer extends GeoEntityRenderer<Jellyfish2Entity
         if (entity != null) {
             this.method_4073(mobEntity, g, matrixStack, vertexConsumerProvider, entity);
         }
+    }
+
+    @Override
+    public Identifier getTexture(Jellyfish2Entity entity) {
+        return getGeoModelProvider().getTextureLocation(entity);
     }
 
     private void renderStuff(Jellyfish2Entity entity, float entityYaw, float partialTicks, MatrixStack stack,
@@ -128,9 +126,9 @@ public class Jellyfish2EntityRenderer extends GeoEntityRenderer<Jellyfish2Entity
                         f7, netHeadYaw, headPitch);
             }
         }
-        if (FabricLoader.getInstance().isModLoaded("patchouli")) {
-            PatchouliCompat.patchouliLoaded(stack);
-        }
+//        if (FabricLoader.getInstance().isModLoaded("patchouli")) {
+//            PatchouliCompat.patchouliLoaded(stack);
+//        }
         stack.pop();
 
         if (this.hasLabel(entity)) {

@@ -1,10 +1,14 @@
 package com.mystic.atlantis.init;
 
-import java.util.function.Supplier;
-
+import com.google.common.collect.Lists;
+import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.util.Lazy;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.util.Identifier;
+import net.minecraftforge.common.TierSortingRegistry;
+
+import java.util.function.Supplier;
 
 public enum ToolInit implements ToolMaterial {
     AQUAMARINE(286,5,4,2, 10, () -> Ingredient.ofItems(ItemInit.AQUAMARINE_GEM));
@@ -53,5 +57,9 @@ public enum ToolInit implements ToolMaterial {
     @Override
     public Ingredient getRepairIngredient() {
         return this.repairMaterial.get();
+    }
+
+    public static void init() {
+        TierSortingRegistry.registerTier(AQUAMARINE, Atlantis.id("aquamarine"), Lists.newArrayList(new Identifier("stone")), Lists.newArrayList(new Identifier("iron")));
     }
 }

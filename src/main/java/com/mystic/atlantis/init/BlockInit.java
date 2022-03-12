@@ -7,7 +7,6 @@ import com.mystic.atlantis.blocks.power.*;
 import com.mystic.atlantis.blocks.slabs.AncientWoodSlabs;
 import com.mystic.atlantis.configfeature.trees.AtlanteanTreeSaplingGenerator;
 import com.mystic.atlantis.util.Reference;
-import net.fabricmc.fabric.api.object.builder.v1.block.AbstractBlock.Settings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -15,8 +14,6 @@ import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 
@@ -47,11 +44,11 @@ public class BlockInit {
 
     //Stairs
     public static final AncientWoodStairs ANCIENT_DARK_OAK_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_dark_oak_wood_moss_stairs", new AncientWoodStairs(Blocks.DARK_OAK_STAIRS.getDefaultState(), AbstractBlock.Settings.of(Material.WOOD)));
-    public static final AncientWoodStairs ANCIENT_BIRCH_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_birch_wood_moss_stairs", new AncientWoodStairs(Blocks.BIRCH_STAIRS.getDefaultState(),AbstractBlock.Settings.of(Material.WOOD)));
-    public static final AncientWoodStairs ANCIENT_SPRUCE_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_spruce_wood_moss_stairs", new AncientWoodStairs(Blocks.SPRUCE_STAIRS.getDefaultState(),AbstractBlock.Settings.of(Material.WOOD)));
-    public static final AncientWoodStairs ANCIENT_JUNGLE_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_jungle_wood_moss_stairs", new AncientWoodStairs(Blocks.JUNGLE_STAIRS.getDefaultState(),AbstractBlock.Settings.of(Material.WOOD)));
-    public static final AncientWoodStairs ANCIENT_OAK_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_oak_wood_moss_stairs", new AncientWoodStairs(Blocks.OAK_STAIRS.getDefaultState(),AbstractBlock.Settings.of(Material.WOOD)));
-    public static final AncientWoodStairs ANCIENT_ACACIA_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_acacia_wood_moss_stairs", new AncientWoodStairs(Blocks.ACACIA_STAIRS.getDefaultState(),AbstractBlock.Settings.of(Material.WOOD)));
+    public static final AncientWoodStairs ANCIENT_BIRCH_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_birch_wood_moss_stairs", new AncientWoodStairs(Blocks.BIRCH_STAIRS.getDefaultState(), AbstractBlock.Settings.of(Material.WOOD)));
+    public static final AncientWoodStairs ANCIENT_SPRUCE_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_spruce_wood_moss_stairs", new AncientWoodStairs(Blocks.SPRUCE_STAIRS.getDefaultState(), AbstractBlock.Settings.of(Material.WOOD)));
+    public static final AncientWoodStairs ANCIENT_JUNGLE_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_jungle_wood_moss_stairs", new AncientWoodStairs(Blocks.JUNGLE_STAIRS.getDefaultState(), AbstractBlock.Settings.of(Material.WOOD)));
+    public static final AncientWoodStairs ANCIENT_OAK_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_oak_wood_moss_stairs", new AncientWoodStairs(Blocks.OAK_STAIRS.getDefaultState(), AbstractBlock.Settings.of(Material.WOOD)));
+    public static final AncientWoodStairs ANCIENT_ACACIA_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_acacia_wood_moss_stairs", new AncientWoodStairs(Blocks.ACACIA_STAIRS.getDefaultState(), AbstractBlock.Settings.of(Material.WOOD)));
 
     //Fences
     public static final AncientWoodFence ANCIENT_DARK_OAK_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_dark_oak_wood_moss_fence", new AncientWoodFence(AbstractBlock.Settings.of(Material.WOOD)));
@@ -161,7 +158,7 @@ public class BlockInit {
         return baseRegister(name, block, BlockInit::registerBlockItem);
     }
 
-    private static Block blockOnlyRegistry(String name, Block block) {
+    public static Block blockOnlyRegistry(String name, Block block) {
         BLOCKS.register(name, () -> block);
         return block;
     }

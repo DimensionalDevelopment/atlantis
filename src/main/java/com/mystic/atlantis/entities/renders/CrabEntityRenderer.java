@@ -1,6 +1,7 @@
 package com.mystic.atlantis.entities.renders;
 
 import com.mystic.atlantis.entities.CrabEntity;
+import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
@@ -30,6 +31,11 @@ public class CrabEntityRenderer extends GeoEntityRenderer<CrabEntity> {
         if (entity != null) {
             this.method_4073(mobEntity, g, matrixStack, vertexConsumerProvider, entity);
         }
+    }
+
+    @Override
+    public Identifier getTexture(CrabEntity entity) {
+        return getGeoModelProvider().getTextureLocation(entity);
     }
 
     private <E extends Entity> void method_4073(CrabEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, E holdingEntity) {

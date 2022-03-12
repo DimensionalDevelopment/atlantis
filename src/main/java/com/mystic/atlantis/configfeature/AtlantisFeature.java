@@ -25,6 +25,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class AtlantisFeature {
     public static final Feature<DefaultFeatureConfig> UNDERWATER_FLOWER_ATLANTIS = register(

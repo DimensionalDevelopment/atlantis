@@ -1,7 +1,15 @@
 package com.mystic.atlantis.setup;
 
+import com.mystic.atlantis.blocks.AncientWoodDoors;
+import com.mystic.atlantis.blocks.AncientWoodTrapdoor;
+import com.mystic.atlantis.blocks.AtlanteanLeaves;
 import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
 import com.mystic.atlantis.blocks.blockentities.renderers.*;
+import com.mystic.atlantis.blocks.plants.Algae;
+import com.mystic.atlantis.blocks.plants.PurpleGlowingMushroom;
+import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
+import com.mystic.atlantis.blocks.plants.YellowGlowingMushroom;
+import com.mystic.atlantis.blocks.power.*;
 import com.mystic.atlantis.dimension.AltantisSkyRenderer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
@@ -13,9 +21,6 @@ import com.mystic.atlantis.entities.renders.*;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.particles.ModParticleTypes;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
@@ -25,9 +30,11 @@ import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
@@ -40,16 +47,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockRenderView;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.function.Function;
+import java.util.stream.Stream;
 
-@Environment(EnvType.CLIENT)
-public class ClientSetup implements ClientModInitializer {
-    @Override
-    public void onInitializeClient() {
+@OnlyIn(Dist.CLIENT)
+public class ClientSetup {
+    public static void onInitializeClient(FMLClientSetupEvent event) {
 
         setupFluidRendering(FluidInit.STILL_JETSTREAM_WATER, FluidInit.FLOWING_JETSTREAM_WATER, new Identifier("minecraft", "water"), 0x52A9FF);
-        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), FluidInit.STILL_JETSTREAM_WATER, FluidInit.FLOWING_JETSTREAM_WATER);
+        RenderLayers.setRenderLayer(FluidInit.STILL_JETSTREAM_WATER, RenderLayer.getTranslucent());
+        RenderLayers.setRenderLayer(FluidInit.FLOWING_JETSTREAM_WATER, RenderLayer.getTranslucent());
 
         BlockEntityRendererRegistry.register(TileRegistry.UNDERWATER_SHROOM_TILE,
                 (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new UnderwaterShroomTileRenderer());
@@ -66,7 +77,7 @@ public class ClientSetup implements ClientModInitializer {
         BlockEntityRendererRegistry.register(TileRegistry.ENENMOMY_TILE,
                 (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new EnenmomyTileRenderer());
 
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
+        registerBlockRenderLayers(RenderLayer.getCutout(),
                 BlockInit.ATLANTEAN_LEAVES,
                 BlockInit.ATLANTEAN_SAPLING,
                 BlockInit.UNDERWATER_FLOWER,
@@ -94,7 +105,7 @@ public class ClientSetup implements ClientModInitializer {
                 BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR,
                 BlockInit.PURPLE_GLOWING_MUSHROOM,
                 BlockInit.YELLOW_GLOWING_MUSHROOM);
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(),
+        registerBlockRenderLayers(RenderLayer.getTranslucent(),
                 BlockInit.BLACK_PEARL_BLOCK,
                 BlockInit.GRAY_PEARL_BLOCK,
                 BlockInit.WHITE_PEARL_BLOCK,
@@ -135,6 +146,10 @@ public class ClientSetup implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(AtlantisEntities.SHRIMP, entityRenderDispatcher -> new ShrimpEntityRenderer(entityRenderDispatcher, new ShrimpEntityModel()));
         EntityRendererRegistry.INSTANCE.register(AtlantisEntities.SUBMARINE, SubmarineEntityRenderer::new);
         ModParticleTypes.init();
+    }
+
+    private void registerBlockRenderLayers(RenderLayer layer, Block... blocks) {
+        Stream.of(blocks).forEach(block -> RenderLayers.setRenderLayer(block, layer));
     }
 
     public static void setupFluidRendering(final Fluid still, final Fluid flowing, final Identifier textureFluidId, final int color) {

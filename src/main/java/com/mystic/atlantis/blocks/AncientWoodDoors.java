@@ -1,13 +1,7 @@
 package com.mystic.atlantis.blocks;
 
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
-import org.jetbrains.annotations.Nullable;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DoorBlock;
-import net.minecraft.block.Waterloggable;
+import net.minecraft.block.*;
 import net.minecraft.block.enums.DoorHinge;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.LivingEntity;
@@ -28,18 +22,16 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import org.jetbrains.annotations.Nullable;
 
 public class AncientWoodDoors extends DoorBlock implements Waterloggable {
 
     public static final Property<Boolean> WATERLOGGED = UnderwaterFlower.WATERLOGGED;
 
-    public AncientWoodDoors(FabricBlockSettings settings) {
+    public AncientWoodDoors(AbstractBlock.Settings settings) {
         super(settings
                 .sounds(BlockSoundGroup.WOOD)
-                .breakByTool(FabricToolTags.AXES, 2) //TODO: Update
+//                .breakByTool(FabricToolTags.AXES, 2) //TODO: Update
                 .requiresTool()
                 .strength(3.0F, 6.0F));
         this.setDefaultState(this.getDefaultState().with(FACING, Direction.NORTH).with(OPEN, false).with(HINGE, DoorHinge.LEFT).with(POWERED, false).with(HALF, DoubleBlockHalf.LOWER).with(WATERLOGGED, false));
