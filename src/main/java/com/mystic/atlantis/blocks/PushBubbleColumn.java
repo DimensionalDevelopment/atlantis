@@ -170,7 +170,7 @@ public class PushBubbleColumn extends Block implements BucketPickup {
         double y = pos.getY();
         double z = pos.getZ();
 
-        world.addAlwaysVisibleParticle(ModParticleTypes.PUSH_BUBBLESTREAM, x + 0.5D, y + 0.8D, z, state.getValue(PUSH).get3DDataValue(), 0.0D, 0.0D);
+        world.addAlwaysVisibleParticle(ModParticleTypes.PUSH_BUBBLESTREAM.get(), x + 0.5D, y + 0.8D, z, state.getValue(PUSH).get3DDataValue(), 0.0D, 0.0D);
 
         if (random.nextInt(200) == 0) {
             world.playLocalSound(x, y, z, SoundEvents.BUBBLE_COLUMN_WHIRLPOOL_AMBIENT, SoundSource.BLOCKS, 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);

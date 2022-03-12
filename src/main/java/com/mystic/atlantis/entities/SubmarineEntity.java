@@ -47,7 +47,7 @@ public class SubmarineEntity extends Boat implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
-        ((BoatEntityAccessor) this).setTicksUnderwater(0);
+        ((BoatEntityAccessor) this).setOutOfControlTicks(0);
         floatBoat();
         this.move(MoverType.SELF, this.getDeltaMovement());
         if (this.getFirstPassenger() != null && this.pressingForward) {
@@ -82,7 +82,7 @@ public class SubmarineEntity extends Boat implements IAnimatable {
     }
     private void floatBoat() {
         Vec3 vec3d = this.getDeltaMovement();
-        if (((BoatEntityAccessor) this).getLocation() == Boat.Status.UNDER_WATER && this.getFirstPassenger() != null && this.pressingForward) {
+        if (((BoatEntityAccessor) this).getStatus() == Boat.Status.UNDER_WATER && this.getFirstPassenger() != null && this.pressingForward) {
             this.setDeltaMovement(vec3d.x * 1.5, vec3d.y - (this.getXRot()) * 0.001, vec3d.z * 1.5);
         }
         Vec3 velocity = this.getDeltaMovement();

@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.LightLayer;
@@ -30,11 +29,6 @@ public class CrabEntityRenderer extends GeoEntityRenderer<CrabEntity> {
         if (entity != null) {
             this.method_4073(mobEntity, g, matrixStack, vertexConsumerProvider, entity);
         }
-    }
-
-    @Override
-    public ResourceLocation getTexture(CrabEntity entity) {
-        return getGeoModelProvider().getTextureLocation(entity);
     }
 
     private <E extends Entity> void method_4073(CrabEntity entity, float tickDelta, PoseStack matrices, MultiBufferSource provider, E holdingEntity) {

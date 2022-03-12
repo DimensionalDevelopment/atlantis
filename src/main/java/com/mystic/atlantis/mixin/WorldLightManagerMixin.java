@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(LevelLightEngine.class)
 public class WorldLightManagerMixin {
-    @Inject(method = "addLightSource", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "onBlockEmissionIncrease", at = @At("HEAD"), cancellable = true)
     public void onBlockEmissionIncrease(BlockPos blockPos, int lightLevel, CallbackInfo ci) {
         if (lightLevel == 0) {
             ci.cancel();

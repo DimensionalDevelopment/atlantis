@@ -27,7 +27,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -132,7 +131,7 @@ public class Atlantis {
         event.enqueueWork(() -> {
             DimensionAtlantis.registerBiomeSources();
             AtlantisFeature.ConfiguredFeaturesAtlantis.registerConfiguredFeatures();
-            AtlantisStructures.setupAndRegisterStructureFeatures();
+            AtlantisStructures.setupStructures();
             AtlantisConfiguredStructures.registerConfiguredStructures();
 
             oreAquamarineOverworld = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation("atlantis", "ore_aquamarine_overworld"));

@@ -7,9 +7,9 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(RedStoneWireBlock.class)
 public interface RedstoneAccessor {
-    @Accessor("wiresGivePower")
-    boolean getWiresGivePower();
+    @Accessor("shouldSignal")
+    boolean getShouldSignal();
 
-    @Accessor("wiresGivePower")
-    void setWiresGivePower(boolean wiresGivePower);
+    @Accessor("shouldSignal")
+    void setShouldSignal(boolean shouldSignal);
 }

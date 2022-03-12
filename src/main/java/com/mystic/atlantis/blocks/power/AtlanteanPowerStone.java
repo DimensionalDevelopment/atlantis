@@ -1,6 +1,5 @@
 package com.mystic.atlantis.blocks.power;
 
-import net.minecraft.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;

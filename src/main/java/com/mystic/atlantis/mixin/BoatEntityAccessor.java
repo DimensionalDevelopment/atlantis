@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(Boat.class)
 public interface BoatEntityAccessor {
     @Accessor
-    void setTicksUnderwater(float ticksUnderwater);
+    void setOutOfControlTicks(float outOfControlTicks);
     @Accessor
-    Boat.Status getLocation();
+    Boat.Status getStatus();
 }

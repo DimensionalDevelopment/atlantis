@@ -1,7 +1,6 @@
 package com.mystic.atlantis.blocks;
 
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
-import net.minecraft.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -46,8 +45,8 @@ public class AncientWoodDoors extends DoorBlock implements SimpleWaterloggedBloc
     @Override
     public boolean isPathfindable(BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
         return switch (type) {
-            case LAND, AIR -> state.get(OPEN);
-            case WATER -> state.get(WATERLOGGED);
+            case LAND, AIR -> state.getValue(OPEN);
+            case WATER -> state.getValue(WATERLOGGED);
         };
     }
 

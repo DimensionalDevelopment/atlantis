@@ -8,12 +8,14 @@ import com.mystic.atlantis.blocks.blockentities.plants.TuberUpTileEntity;
 import com.mystic.atlantis.blocks.blockentities.plants.UnderwaterShroomTileEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoBlockRenderer;
 
 public class TuberUpTileRenderer extends GeoBlockRenderer<TuberUpTileEntity> {
-    public TuberUpTileRenderer() {
-        super(new TuberUpModel());
+    public TuberUpTileRenderer(BlockEntityRendererProvider.Context rendererDispatcherIn) {
+        super(rendererDispatcherIn, new TuberUpModel());
     }
 
     @Override

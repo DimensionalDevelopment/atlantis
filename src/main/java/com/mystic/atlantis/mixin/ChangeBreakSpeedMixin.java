@@ -37,7 +37,7 @@ public abstract class ChangeBreakSpeedMixin extends LivingEntity {
      * @author j, Mysticpasta1
      * @reason for breaking speed faster in water in the custom dimension!
      */
-    @Inject(method = "getBlockBreakingSpeed", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "getDestroySpeed", at = @At(value = "HEAD"), cancellable = true)
     public void getBlockBreakingSpeed(BlockState block, CallbackInfoReturnable<Float> cir) {
         cir.cancel();
         float f = this.inventory.getDestroySpeed(block);

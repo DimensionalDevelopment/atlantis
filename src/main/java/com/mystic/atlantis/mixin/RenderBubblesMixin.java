@@ -23,43 +23,43 @@ public abstract class RenderBubblesMixin extends GuiComponent {
 
     @Shadow
     @Final
-    private Minecraft client;
+    private Minecraft minecraft;
     @Shadow
-    private int scaledWidth;
+    private int screenWidth;
     @Shadow
-    private int scaledHeight;
+    private int screenHeight;
     private LivingEntity getCameraPlayer;
 
     @Shadow
     protected abstract Player getCameraPlayer();
 
     @Shadow
-    protected abstract int getHeartCount(LivingEntity entity);
+    protected abstract int getVehicleMaxHearts(LivingEntity entity);
 
     @Shadow
-    protected abstract int getHeartRows(int heartCount);
+    protected abstract int getVisibleVehicleHeartRows(int heartCount);
 
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;swap(Ljava/lang/String;)V", ordinal = 2), method = "renderStatusBars", cancellable = true)
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;popPush(Ljava/lang/String;)V", ordinal = 2), method = "renderPlayerHealth", cancellable = true)
     public void RenderBubbles(PoseStack matrices, CallbackInfo ci) {
         ci.cancel();
         int ah;
         int ai;
         int ad;
         int ae;
-        int o = this.scaledHeight - 39;
+        int o = this.screenHeight - 39;
         int t = o - 10 - 10;
         int al;
         Entity playerEntity = this.getCameraPlayer();
         LivingEntity livingEntity = this.getCameraPlayer;
-        int aa = this.getHeartCount(livingEntity);
-        int n = this.scaledWidth / 2 + 91;
+        int aa = this.getVehicleMaxHearts(livingEntity);
+        int n = this.screenWidth / 2 + 91;
 
-        this.client.getProfiler().popPush("air");
+        this.minecraft.getProfiler().popPush("air");
         ah = playerEntity.getMaxAirSupply();
         ai = Math.min(playerEntity.getAirSupply(), ah);
         if (playerEntity.level.dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
             if (!playerEntity.isEyeInFluid(FluidTags.WATER) || ai < ah) {/*change*/
-                ad = this.getHeartRows(aa) - 1;
+                ad = this.getVisibleVehicleHeartRows(aa) - 1;
                 t -= ad * 10;
                 ae = Mth.ceil((double) (ai - 2) * 10.0D / (double) ah);
                 al = Mth.ceil((double) ai * 10.0D / (double) ah) - ae;
@@ -74,7 +74,7 @@ public abstract class RenderBubblesMixin extends GuiComponent {
             }
         } else {
             if (playerEntity.isEyeInFluid(FluidTags.WATER) || ai < ah) {/*change*/
-                ad = this.getHeartRows(aa) - 1;
+                ad = this.getVisibleVehicleHeartRows(aa) - 1;
                 t -= ad * 10;
                 ae = Mth.ceil((double) (ai - 2) * 10.0D / (double) ah);
                 al = Mth.ceil((double) ai * 10.0D / (double) ah) - ae;
@@ -88,6 +88,6 @@ public abstract class RenderBubblesMixin extends GuiComponent {
                 }
             }
         }
-        this.client.getProfiler().pop();
+        this.minecraft.getProfiler().pop();
     }
 }

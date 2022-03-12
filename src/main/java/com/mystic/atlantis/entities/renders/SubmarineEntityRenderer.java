@@ -45,10 +45,10 @@ public class SubmarineEntityRenderer extends EntityRenderer<SubmarineEntity> imp
         tickDelta.translate(0, -0.5, 0);
         tickDelta.scale(3,3,3);
 
-        Minecraft.getInstance().getTextureManager().bindForSetup(getTexture(entityIn));
+        Minecraft.getInstance().getTextureManager().bindForSetup(getTextureLocation(entityIn));
         Color renderColor = getRenderColor(entityIn, yaw, tickDelta, matrices, null, vertexConsumers);
         RenderType renderType = getRenderType(entityIn, yaw, tickDelta, matrices, null, vertexConsumers,
-                getTexture(entityIn));
+                getTextureLocation(entityIn));
         render(model, entityIn, yaw, renderType, tickDelta, matrices, null, vertexConsumers,
                 getPackedOverlay(entityIn, 0), (float) renderColor.getRed() / 255f,
                 (float) renderColor.getGreen() / 255f, (float) renderColor.getBlue() / 255f,
@@ -78,10 +78,4 @@ public class SubmarineEntityRenderer extends EntityRenderer<SubmarineEntity> imp
     public ResourceLocation getTextureLocation(SubmarineEntity instance) {
         return this.modelProvider.getTextureLocation(instance);
     }
-
-    @Override
-    public ResourceLocation getTexture(SubmarineEntity entity) {
-        return getTextureLocation(entity);
-    }
-
 }

@@ -11,9 +11,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.util.math.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
@@ -43,11 +41,6 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
         if (entity != null) {
             this.method_4073(mobEntity, g, matrixStack, vertexConsumerProvider, entity);
         }
-    }
-
-    @Override
-    public ResourceLocation getTexture(JellyfishEntity entity) {
-        return getGeoModelProvider().getTextureLocation(entity);
     }
 
     private void renderStuff(JellyfishEntity entity, float entityYaw, float partialTicks, PoseStack stack,
@@ -116,10 +109,10 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
         }
 
         stack.translate(0, 0.01f, 0);
-        Minecraft.getInstance().getTextureManager().bindForSetup(getTexture(entity));
+        Minecraft.getInstance().getTextureManager().bindForSetup(getTextureLocation(entity));
         int renderColor = entity.getColor();
         RenderType renderType = getRenderType(entity, partialTicks, stack, bufferIn, null, packedLightIn,
-                getTexture(entity));
+                getTextureLocation(entity));
         boolean invis = entity.isInvisibleTo(Minecraft.getInstance().player);
         render(model, entity, partialTicks, renderType, stack, bufferIn, null, packedLightIn,
                 getPackedOverlay(entity, 0), (float) ((renderColor >> 16) & 0xFF) / 255f, (float) ((renderColor >> 8) & 0xFF) / 255f,

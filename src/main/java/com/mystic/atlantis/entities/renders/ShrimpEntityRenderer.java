@@ -1,5 +1,8 @@
 package com.mystic.atlantis.entities.renders;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
 import com.mystic.atlantis.entities.ShrimpEntity;
 import com.mystic.atlantis.entities.models.ShrimpEntityModel;
 import net.minecraft.client.Minecraft;
@@ -8,9 +11,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.util.math.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
@@ -29,10 +30,6 @@ import java.util.Collections;
 
 import static com.mystic.atlantis.entities.renders.JellyfishEntityRenderer.method_23187;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-
 public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
     public ShrimpEntityRenderer(EntityRendererProvider.Context ctx, ShrimpEntityModel modelProvider) {
         super(ctx, modelProvider);
@@ -46,11 +43,6 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
         if (entity != null) {
             this.method_4073(mobEntity, g, matrixStack, vertexConsumerProvider, entity);
         }
-    }
-
-    @Override
-    public ResourceLocation getTexture(ShrimpEntity entity) {
-        return getGeoModelProvider().getTextureLocation(entity);
     }
 
     private void renderStuff(ShrimpEntity entity, float entityYaw, float partialTicks, PoseStack stack,
@@ -119,7 +111,7 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
         }
 
         stack.translate(0, 0.01f, 0);
-        Minecraft.getInstance().getTextureManager().bindForSetup(getTexture(entity));
+        Minecraft.getInstance().getTextureManager().bindForSetup(getTextureLocation(entity));
 
         //Shrimp Rainbow color START
         int n = entity.tickCount / 25 + entity.getId();
@@ -137,7 +129,7 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
         stack.scale(0.5f, 0.5f, 0.5f);
 
         RenderType renderType = getRenderType(entity, partialTicks, stack, bufferIn, null, packedLightIn,
-                getTexture(entity));
+                getTextureLocation(entity));
         boolean invis = entity.isInvisibleTo(Minecraft.getInstance().player);
         render(model, entity, partialTicks, renderType, stack, bufferIn, null, packedLightIn,
                 getPackedOverlay(entity, 0), rColor, gColor,

@@ -50,7 +50,7 @@ dependencies {
 
     modImplementation "blank:customportalapi:0.0.2:forge"
 
-    modImplementation 'software.bernie.geckolib:geckolib-1.18-forge:3.0.12'
+    modImplementation 'software.bernie.geckolib:geckolib-1.18-forge:3.0.11' //3.0.12 is 1.18.2
 
     modImplementation "curse.maven:cloth_config_forge-348521:3546623"
 //    compileOnly "curse.maven:cloth_config_forge-348521:3546623"

@@ -89,7 +89,7 @@ public class AtlanteanPowerDust extends RedStoneWireBlock implements SimpleWater
 
     @Override
     public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
-        if (((RedstoneAccessor) this).getWiresGivePower() && direction != Direction.DOWN) {
+        if (((RedstoneAccessor) this).getShouldSignal() && direction != Direction.DOWN) {
             int i = state.getValue(POWER);
             if (i == 0) {
                 return 0;
@@ -103,11 +103,11 @@ public class AtlanteanPowerDust extends RedStoneWireBlock implements SimpleWater
 
     @Override
     public int getDirectSignal(BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
-        return !((RedstoneAccessor) this).getWiresGivePower() ? 0 : state.getSignal(world, pos, direction);
+        return !((RedstoneAccessor) this).getShouldSignal() ? 0 : state.getSignal(world, pos, direction);
     }
 
     @Override
-    protected void updatePowerStrength(Level world, BlockPos pos, BlockState state) {
+    public void updatePowerStrength(Level world, BlockPos pos, BlockState state) {
         int receivedPower = this.calculateTargetStrength(world, pos);
         if (state.getValue(POWER) != receivedPower) {
             if (world.getBlockState(pos) == state) {
@@ -130,9 +130,9 @@ public class AtlanteanPowerDust extends RedStoneWireBlock implements SimpleWater
 
     @Override
     public int calculateTargetStrength(Level world, BlockPos pos) {
-        ((RedstoneAccessor) this).setWiresGivePower(false);
+        ((RedstoneAccessor) this).setShouldSignal(false);
         int receivedPower = world.getBestNeighborSignal(pos);
-        ((RedstoneAccessor) this).setWiresGivePower(true);
+        ((RedstoneAccessor) this).setShouldSignal(true);
         int calculatedPower = 0;
         if (receivedPower < 15 && receivedPower > 0) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
@@ -169,7 +169,7 @@ public class AtlanteanPowerDust extends RedStoneWireBlock implements SimpleWater
 
     @Override
     public boolean isSignalSource(BlockState state) {
-        return ((RedstoneAccessor) this).getWiresGivePower();
+        return ((RedstoneAccessor) this).getShouldSignal();
     }
 
     private int getWireSignal(BlockState state) {
@@ -184,7 +184,7 @@ public class AtlanteanPowerDust extends RedStoneWireBlock implements SimpleWater
     public AtlanteanPowerDust(Properties settings) {
         super(settings.noCollission().instabreak());
         this.registerDefaultState(defaultBlockState().setValue(NORTH, RedstoneSide.NONE).setValue(EAST, RedstoneSide.NONE).setValue(SOUTH, RedstoneSide.NONE).setValue(WEST, RedstoneSide.NONE).setValue(POWER, 0).setValue(WATERLOGGED, Boolean.TRUE));
-        ((RedstoneAccessor) this).setWiresGivePower(true);
+        ((RedstoneAccessor) this).setShouldSignal(true);
     }
 
     @Override
