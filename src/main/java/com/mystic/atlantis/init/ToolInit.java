@@ -11,7 +11,7 @@ import net.minecraftforge.common.TierSortingRegistry;
 import java.util.function.Supplier;
 
 public enum ToolInit implements Tier {
-    AQUAMARINE(286,5,4,2, 10, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM));
+    AQUAMARINE(286,5,4,2, 10, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get()));
 
     private final int maxUses;
     private final float toolEfficiency;

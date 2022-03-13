@@ -37,7 +37,7 @@ public class SubmarineEntity extends Boat implements IAnimatable {
     }
     @Override
     public Item getDropItem() {
-        return ItemInit.SUBMARINE;
+        return ItemInit.SUBMARINE.get();
     }
 
     @Override

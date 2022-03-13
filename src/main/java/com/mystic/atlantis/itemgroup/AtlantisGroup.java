@@ -12,7 +12,7 @@ public class AtlantisGroup
         new CreativeModeTab(CreativeModeTab.getGroupCountSafe(), "alantis.general") {
             @Override
             public ItemStack makeIcon() {
-                return BlockInit.CHISELED_GOLDEN_AQUAMARINE.asItem().getDefaultInstance();
+                return BlockInit.CHISELED_GOLDEN_AQUAMARINE.get().asItem().getDefaultInstance();
             }
 
             @Override

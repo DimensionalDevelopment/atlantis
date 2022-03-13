@@ -95,22 +95,22 @@ public class JetstreamWaterFluid extends FlowingFluid{
 
     @Override
     public Fluid getSource() {
-        return FluidInit.STILL_JETSTREAM_WATER;
+        return FluidInit.STILL_JETSTREAM_WATER.get();
     }
 
     @Override
     public Fluid getFlowing() {
-        return FluidInit.FLOWING_JETSTREAM_WATER;
+        return FluidInit.FLOWING_JETSTREAM_WATER.get();
     }
 
     @Override
     public Item getBucket() {
-        return FluidInit.JETSTREAM_WATER_BUCKET;
+        return FluidInit.JETSTREAM_WATER_BUCKET.get();
     }
 
     @Override
     protected BlockState createLegacyBlock(FluidState fluidState) {
-        return FluidInit.JETSTREAM_WATER.defaultBlockState().setValue(BlockStateProperties.LEVEL, getLegacyLevel(fluidState));
+        return FluidInit.JETSTREAM_WATER.get().defaultBlockState().setValue(BlockStateProperties.LEVEL, getLegacyLevel(fluidState));
     }
 
     @Override

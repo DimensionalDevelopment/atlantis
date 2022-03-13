@@ -94,7 +94,7 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return ItemInit.CRAB_BUCKET.getDefaultInstance();
+        return ItemInit.CRAB_BUCKET.get().getDefaultInstance();
     }
 
     @Override

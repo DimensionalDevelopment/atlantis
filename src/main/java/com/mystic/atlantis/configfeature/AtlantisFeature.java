@@ -59,12 +59,12 @@ public class AtlantisFeature {
         public static final ConfiguredFeature<?, ?> GARDEN_FOLIAGE_PLACER_ATLANTIS = AtlantisFeature.GARDEN_FOLIAGE_PLACER_ATLANTIS.configured(NoneFeatureConfiguration.NONE);
         public static final ConfiguredFeature<?, ?> ATLANTEAN_ISLANDS_FEATURE_ATLANTIS = AtlantisFeature.ATLANTEAN_ISLANDS.configured(NoneFeatureConfiguration.NONE);
         public static final ConfiguredFeature<?, ?> ATLANTEAN_VOLCANO_FEATURE_ATLANTIS = AtlantisFeature.ATLANTEAN_VOLCANO.configured(NoneFeatureConfiguration.NONE);
-        public static final ConfiguredFeature<?, ?> JETSTREAM_LAKE_FEATURE_ATLANTIS = AtlantisFeature.JETSTREAM_LAKE_FEATURE_ATLANTIS.configured(new LakeFeature.Configuration(BlockStateProvider.simple(FluidInit.JETSTREAM_WATER), BlockStateProvider.simple(Blocks.STONE)));
+        public static final ConfiguredFeature<?, ?> JETSTREAM_LAKE_FEATURE_ATLANTIS = AtlantisFeature.JETSTREAM_LAKE_FEATURE_ATLANTIS.configured(new LakeFeature.Configuration(BlockStateProvider.simple(FluidInit.JETSTREAM_WATER.get()), BlockStateProvider.simple(Blocks.STONE)));
         public static final ConfiguredFeature<TreeConfiguration, ?> ATLANTEAN_TREE =
                 registerTree("atlantean_tree", Feature.TREE.configured(new TreeConfiguration.TreeConfigurationBuilder(
-                        BlockStateProvider.simple(BlockInit.ATLANTEAN_LOGS),
+                        BlockStateProvider.simple(BlockInit.ATLANTEAN_LOGS.get()),
                         new StraightTrunkPlacer(5, 6, 3),
-                        BlockStateProvider.simple(BlockInit.ATLANTEAN_LEAVES),
+                        BlockStateProvider.simple(BlockInit.ATLANTEAN_LEAVES.get()),
                         new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 4),
                         new TwoLayersFeatureSize(1, 0, 2)).build()));
 

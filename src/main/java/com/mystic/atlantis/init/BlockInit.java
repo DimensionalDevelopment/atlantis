@@ -7,18 +7,22 @@ import com.mystic.atlantis.blocks.power.*;
 import com.mystic.atlantis.blocks.slabs.AncientWoodSlabs;
 import com.mystic.atlantis.configfeature.trees.AtlanteanTreeSaplingGenerator;
 import com.mystic.atlantis.util.Reference;
+import net.kyrptonaught.customportalapi.mixin.portalLighters.FluidBlockPlacedMixin;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class BlockInit {
     private static DeferredRegister<Block> BLOCKS = DeferredRegister.create(Block.class, Reference.MODID);
@@ -28,146 +32,165 @@ public class BlockInit {
     }
 
     //Geckolib blocktypes
-    public static final UnderwaterShroomBlock UNDERWATER_SHROOM_BLOCK = new UnderwaterShroomBlock();
-    public static final TuberUpBlock TUBER_UP_BLOCK = (TuberUpBlock) register("tuber_up", new TuberUpBlock());
-    public static final BlueLilyBlock BLUE_LILY_BLOCK = (BlueLilyBlock) register("blue_lily", new BlueLilyBlock());
-    public static final BurntDeepBlock BURNT_DEEP_BLOCK = (BurntDeepBlock) register("burnt_deep", new BurntDeepBlock());
-    public static final EnenmomyBlock ENENMOMY_BLOCK = (EnenmomyBlock) register("enenmomy", new EnenmomyBlock());
+    public static final RegistryObject<Block> UNDERWATER_SHROOM_BLOCK = registerBlock("underwater_shroom_block", UnderwaterShroomBlock::new);
+    public static final RegistryObject<Block> TUBER_UP_BLOCK = registerBlock("tuber_up", TuberUpBlock::new);
+    public static final RegistryObject<Block> BLUE_LILY_BLOCK = registerBlock("blue_lily", BlueLilyBlock::new);
+    public static final RegistryObject<Block> BURNT_DEEP_BLOCK = registerBlock("burnt_deep", BurntDeepBlock::new);
+    public static final RegistryObject<Block> ENENMOMY_BLOCK = registerBlock("enenmomy", EnenmomyBlock::new);
 
     //Trapdoors
-    public static final AncientWoodTrapdoor ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_dark_oak_wood_moss_trapdoor", new AncientWoodTrapdoor(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodTrapdoor ANCIENT_BIRCH_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_birch_wood_moss_trapdoor", new AncientWoodTrapdoor(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodTrapdoor ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_spruce_wood_moss_trapdoor", new AncientWoodTrapdoor(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodTrapdoor ANCIENT_JUNGLE_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_jungle_wood_moss_trapdoor", new AncientWoodTrapdoor(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodTrapdoor ANCIENT_OAK_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_oak_wood_moss_trapdoor", new AncientWoodTrapdoor(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodTrapdoor ANCIENT_ACACIA_WOOD_MOSS_TRAPDOOR = (AncientWoodTrapdoor) register("ancient_acacia_wood_moss_trapdoor", new AncientWoodTrapdoor(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR = registerBlock("ancient_dark_oak_wood_moss_trapdoor",()-> new AncientWoodTrapdoor(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_BIRCH_WOOD_MOSS_TRAPDOOR = registerBlock("ancient_birch_wood_moss_trapdoor",()-> new AncientWoodTrapdoor(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR = registerBlock("ancient_spruce_wood_moss_trapdoor",()-> new AncientWoodTrapdoor(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_JUNGLE_WOOD_MOSS_TRAPDOOR = registerBlock("ancient_jungle_wood_moss_trapdoor",()-> new AncientWoodTrapdoor(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_OAK_WOOD_MOSS_TRAPDOOR = registerBlock("ancient_oak_wood_moss_trapdoor",()-> new AncientWoodTrapdoor(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_ACACIA_WOOD_MOSS_TRAPDOOR = registerBlock("ancient_acacia_wood_moss_trapdoor",()-> new AncientWoodTrapdoor(BlockBehaviour.Properties.of(Material.WOOD)));
 
     //Stairs
-    public static final AncientWoodStairs ANCIENT_DARK_OAK_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_dark_oak_wood_moss_stairs", new AncientWoodStairs(Blocks.DARK_OAK_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodStairs ANCIENT_BIRCH_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_birch_wood_moss_stairs", new AncientWoodStairs(Blocks.BIRCH_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodStairs ANCIENT_SPRUCE_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_spruce_wood_moss_stairs", new AncientWoodStairs(Blocks.SPRUCE_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodStairs ANCIENT_JUNGLE_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_jungle_wood_moss_stairs", new AncientWoodStairs(Blocks.JUNGLE_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodStairs ANCIENT_OAK_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_oak_wood_moss_stairs", new AncientWoodStairs(Blocks.OAK_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodStairs ANCIENT_ACACIA_WOOD_MOSS_STAIRS = (AncientWoodStairs) register("ancient_acacia_wood_moss_stairs", new AncientWoodStairs(Blocks.ACACIA_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_DARK_OAK_WOOD_MOSS_STAIRS = registerBlock("ancient_dark_oak_wood_moss_stairs",()-> new AncientWoodStairs(Blocks.DARK_OAK_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_BIRCH_WOOD_MOSS_STAIRS = registerBlock("ancient_birch_wood_moss_stairs",()-> new AncientWoodStairs(Blocks.BIRCH_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_SPRUCE_WOOD_MOSS_STAIRS = registerBlock("ancient_spruce_wood_moss_stairs",()-> new AncientWoodStairs(Blocks.SPRUCE_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_JUNGLE_WOOD_MOSS_STAIRS = registerBlock("ancient_jungle_wood_moss_stairs",()-> new AncientWoodStairs(Blocks.JUNGLE_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_OAK_WOOD_MOSS_STAIRS = registerBlock("ancient_oak_wood_moss_stairs",()-> new AncientWoodStairs(Blocks.OAK_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_ACACIA_WOOD_MOSS_STAIRS = registerBlock("ancient_acacia_wood_moss_stairs",()-> new AncientWoodStairs(Blocks.ACACIA_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD)));
 
     //Fences
-    public static final AncientWoodFence ANCIENT_DARK_OAK_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_dark_oak_wood_moss_fence", new AncientWoodFence(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodFence ANCIENT_BIRCH_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_birch_wood_moss_fence", new AncientWoodFence(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodFence ANCIENT_SPRUCE_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_spruce_wood_moss_fence", new AncientWoodFence(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodFence ANCIENT_JUNGLE_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_jungle_wood_moss_fence", new AncientWoodFence(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodFence ANCIENT_OAK_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_oak_wood_moss_fence", new AncientWoodFence(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodFence ANCIENT_ACACIA_WOOD_MOSS_FENCE = (AncientWoodFence) register("ancient_acacia_wood_moss_fence", new AncientWoodFence(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_DARK_OAK_WOOD_MOSS_FENCE = registerBlock("ancient_dark_oak_wood_moss_fence",()-> new AncientWoodFence(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_BIRCH_WOOD_MOSS_FENCE = registerBlock("ancient_birch_wood_moss_fence",()-> new AncientWoodFence(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_SPRUCE_WOOD_MOSS_FENCE = registerBlock("ancient_spruce_wood_moss_fence",()-> new AncientWoodFence(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_JUNGLE_WOOD_MOSS_FENCE = registerBlock("ancient_jungle_wood_moss_fence",()-> new AncientWoodFence(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_OAK_WOOD_MOSS_FENCE = registerBlock("ancient_oak_wood_moss_fence",()-> new AncientWoodFence(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_ACACIA_WOOD_MOSS_FENCE = registerBlock("ancient_acacia_wood_moss_fence",()-> new AncientWoodFence(BlockBehaviour.Properties.of(Material.WOOD)));
 
     //Doors
-    public static final AncientWoodDoors ANCIENT_DARK_OAK_WOOD_MOSS_DOOR = (AncientWoodDoors) register("ancient_dark_oak_wood_moss_door", new AncientWoodDoors(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodDoors ANCIENT_BIRCH_WOOD_MOSS_DOOR = (AncientWoodDoors) register("ancient_birch_wood_moss_door", new AncientWoodDoors(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodDoors ANCIENT_SPRUCE_WOOD_MOSS_DOOR = (AncientWoodDoors) register("ancient_spruce_wood_moss_door", new AncientWoodDoors(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodDoors ANCIENT_JUNGLE_WOOD_MOSS_DOOR = (AncientWoodDoors) register("ancient_jungle_wood_moss_door", new AncientWoodDoors(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodDoors ANCIENT_OAK_WOOD_MOSS_DOOR = (AncientWoodDoors) register("ancient_oak_wood_moss_door", new AncientWoodDoors(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodDoors ANCIENT_ACACIA_WOOD_MOSS_DOOR = (AncientWoodDoors) register("ancient_acacia_wood_moss_door", new AncientWoodDoors(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_DARK_OAK_WOOD_MOSS_DOOR = registerBlock("ancient_dark_oak_wood_moss_door",()-> new AncientWoodDoors(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_BIRCH_WOOD_MOSS_DOOR = registerBlock("ancient_birch_wood_moss_door",()-> new AncientWoodDoors(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_SPRUCE_WOOD_MOSS_DOOR = registerBlock("ancient_spruce_wood_moss_door",()-> new AncientWoodDoors(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_JUNGLE_WOOD_MOSS_DOOR = registerBlock("ancient_jungle_wood_moss_door",()-> new AncientWoodDoors(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_OAK_WOOD_MOSS_DOOR = registerBlock("ancient_oak_wood_moss_door",()-> new AncientWoodDoors(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_ACACIA_WOOD_MOSS_DOOR = registerBlock("ancient_acacia_wood_moss_door",()-> new AncientWoodDoors(BlockBehaviour.Properties.of(Material.WOOD)));
 
     //Regular blocks
-    public static final AtlanteanLeaves ATLANTEAN_LEAVES = (AtlanteanLeaves) register("atlantean_leaf_block", new AtlanteanLeaves(BlockBehaviour.Properties.of(Material.LEAVES)));
-    public static final AtlanteanLogs ATLANTEAN_LOGS = (AtlanteanLogs) register("atlantean_log", new AtlanteanLogs(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWood ANCIENT_ACACIA_WOOD_MOSS = (AncientWood) register("ancient_acacia_wood_moss", new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWood ANCIENT_OAK_WOOD_MOSS = (AncientWood) register("ancient_oak_wood_moss", new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWood ANCIENT_JUNGLE_WOOD_MOSS = (AncientWood) register("ancient_jungle_wood_moss", new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWood ANCIENT_SPRUCE_WOOD_MOSS = (AncientWood) register("ancient_spruce_wood_moss", new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWood ANCIENT_BIRCH_WOOD_MOSS = (AncientWood) register("ancient_birch_wood_moss", new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWood ANCIENT_DARK_OAK_WOOD_MOSS = (AncientWood) register("ancient_dark_oak_wood_moss", new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AquamarineOre AQUAMARINE_ORE = (AquamarineOre) register("aquamarine_ore", new AquamarineOre(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final OceanLantern OCEAN_LANTERN = (OceanLantern) register("ocean_lantern", new OceanLantern(BlockBehaviour.Properties.of(Material.METAL)));
-    public static final AtlantianSeaLantern ATLANTIAN_SEA_LANTERN = (AtlantianSeaLantern) register("atlantean_sea_lantern", new AtlantianSeaLantern(BlockBehaviour.Properties.of(Material.GLASS)));
-    public static final AtlanteanCore ATLANTEAN_CORE = (AtlanteanCore) register("atlantean_core", new AtlanteanCore(BlockBehaviour.Properties.of(Material.GLASS)));
-    public static final BlockAquamarine BLOCK_OF_AQUAMARINE = (BlockAquamarine) register("block_of_aquamarine", new BlockAquamarine(BlockBehaviour.Properties.of(Material.METAL)));
-    public static final BlockAquamarine CHISELED_GOLDEN_BLOCK = (BlockAquamarine) register("chiseled_golden_block", new BlockAquamarine(BlockBehaviour.Properties.of(Material.METAL)));
-    public static final BlockAquamarine CHISELED_GOLDEN_AQUAMARINE = (BlockAquamarine) register("chiseled_golden_aquamarine", new BlockAquamarine(BlockBehaviour.Properties.of(Material.METAL)));;
-    public static final ColoredShellBlocks BLACK_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("black_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks BLUE_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("blue_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks BROWN_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("brown_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks CYAN_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("cyan_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks GRAY_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("gray_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks GREEN_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("green_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks LIGHT_BLUE_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("light_blue_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks LIGHT_GRAY_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("light_gray_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks LIME_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("lime_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks MAGENTA_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("magenta_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks ORANGE_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("orange_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks PINK_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("pink_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks PURPLE_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("purple_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks RED_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("red_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks WHITE_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("white_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final ColoredShellBlocks YELLOW_COLORED_SHELL_BLOCK = (ColoredShellBlocks) register("yellow_colored_shell_block", new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks BLACK_PEARL_BLOCK = (PearlBlocks) register("black_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks BLUE_PEARL_BLOCK = (PearlBlocks) register("blue_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks BROWN_PEARL_BLOCK = (PearlBlocks) register("brown_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks CYAN_PEARL_BLOCK = (PearlBlocks) register("cyan_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks GRAY_PEARL_BLOCK = (PearlBlocks) register("gray_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks GREEN_PEARL_BLOCK = (PearlBlocks) register("green_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks LIGHT_BLUE_PEARL_BLOCK = (PearlBlocks) register("light_blue_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks LIGHT_GRAY_PEARL_BLOCK = (PearlBlocks) register("light_gray_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks LIME_PEARL_BLOCK = (PearlBlocks) register("lime_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks MAGENTA_PEARL_BLOCK = (PearlBlocks) register("magenta_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks ORANGE_PEARL_BLOCK = (PearlBlocks) register("orange_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks PINK_PEARL_BLOCK = (PearlBlocks) register("pink_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks PURPLE_PEARL_BLOCK = (PearlBlocks) register("purple_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks RED_PEARL_BLOCK = (PearlBlocks) register("red_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks WHITE_PEARL_BLOCK = (PearlBlocks) register("white_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PearlBlocks YELLOW_PEARL_BLOCK = (PearlBlocks) register("yellow_pearl_block", new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final OysterShellBlock OYSTER_SHELL_BLOCK = (OysterShellBlock) register("oyster_shell_block", new OysterShellBlock(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final AtlantisPortalBlock ATLANTIS_PORTAL = (AtlantisPortalBlock) register("atlantis_portal", new AtlantisPortalBlock(BlockBehaviour.Properties.of(Material.PORTAL)));
-    public static final UnderwaterFlower UNDERWATER_FLOWER = (UnderwaterFlower) register("underwater_flower", new UnderwaterFlower(BlockBehaviour.Properties.of(Material.PLANT)));
-    public static final UnderwaterFlower RED_UNDERWATER_FLOWER = (UnderwaterFlower) register("red_underwater_flower", new UnderwaterFlower(BlockBehaviour.Properties.of(Material.PLANT)));
-    public static final PurpleGlowingMushroom PURPLE_GLOWING_MUSHROOM = (PurpleGlowingMushroom) register("purple_glowing_mushroom", new PurpleGlowingMushroom(BlockBehaviour.Properties.of(Material.PLANT)));
-    public static final YellowGlowingMushroom YELLOW_GLOWING_MUSHROOM = (YellowGlowingMushroom) register("yellow_glowing_mushroom", new YellowGlowingMushroom(BlockBehaviour.Properties.of(Material.PLANT)));
-    public static final UnderwaterFlower YELLOW_UNDERWATER_FLOWER = (UnderwaterFlower) register("yellow_underwater_flower", new UnderwaterFlower(BlockBehaviour.Properties.of(Material.PLANT)));
-    public static final Algae ALGAE = (Algae) register("algae", new Algae(BlockBehaviour.Properties.of(Material.PLANT)));
-    public static final AtlantisClearPortalBlock ATLANTIS_CLEAR_PORTAL = (AtlantisClearPortalBlock) register("atlantis_clear_portal", new AtlantisClearPortalBlock(BlockBehaviour.Properties.of(Material.PORTAL)));
-    public static final AtlanteanPowerStone ATLANTEAN_POWER_STONE = (AtlanteanPowerStone) register("atlantean_power_stone", new AtlanteanPowerStone(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final AtlanteanPowerLamp ATLANTEAN_POWER_LAMP = (AtlanteanPowerLamp) register("atlantean_power_lamp", new AtlanteanPowerLamp(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).strength(0.3F)));
-    public static final AtlanteanPowerTorch ATLANTEAN_POWER_TORCH = (AtlanteanPowerTorch) blockOnlyRegistry("atlantean_power_torch", new AtlanteanPowerTorch(BlockBehaviour.Properties.of(Material.DECORATION)));
-    public static final WallAtlanteanPowerTorch WALL_ATLANTEAN_POWER_TORCH = (WallAtlanteanPowerTorch) blockOnlyRegistry("atlantean_power_wall_torch", new WallAtlanteanPowerTorch(BlockBehaviour.Properties.of(Material.DECORATION)));
-    public static final AtlanteanPowerDust ATLANTEAN_POWER_DUST_WIRE = (AtlanteanPowerDust) blockOnlyRegistry("atlantean_power_dust", new AtlanteanPowerDust(BlockBehaviour.Properties.of(Material.DECORATION)));
-    public static final AtlanteanPowerRepeater ATLANTEAN_POWER_REPEATER = (AtlanteanPowerRepeater) register("atlantean_power_repeater", new AtlanteanPowerRepeater(BlockBehaviour.Properties.of(Material.DECORATION)));
-    public static final AtlanteanTripwireHook ATLANTEAN_TRIPWIRE_HOOK = (AtlanteanTripwireHook) register("atlantean_tripwire_hook", new AtlanteanTripwireHook(BlockBehaviour.Properties.of(Material.DECORATION).noCollission()));
-    public static final AtlanteanTripwire ATLANTEAN_TRIPWIRE = (AtlanteanTripwire) blockOnlyRegistry("atlantean_tripwire", new AtlanteanTripwire(ATLANTEAN_TRIPWIRE_HOOK, BlockBehaviour.Properties.of(Material.DECORATION).noCollission()));
-    public static final AtlanteanPowerLever ATLANTEAN_POWER_LEVER = (AtlanteanPowerLever) register("atlantean_power_lever", new AtlanteanPowerLever(BlockBehaviour.Properties.of(Material.DECORATION).noCollission().strength(0.5F).sound(SoundType.WOOD)));
-    public static final AtlanteanPowerComparator ATLANTEAN_POWER_COMPARATOR = (AtlanteanPowerComparator) register("atlantean_power_comparator", new AtlanteanPowerComparator(BlockBehaviour.Properties.of(Material.DECORATION)));
-    public static final CalciteBlock CALCITE_BLOCK = (CalciteBlock) register("calcite_block", new CalciteBlock(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final PushBubbleColumn PUSH_BUBBLE_COLUMN = (PushBubbleColumn) blockOnlyRegistry("push_bubble_column", new PushBubbleColumn(BlockBehaviour.Properties.of(Material.BUBBLE_COLUMN)));
-    public static final AncientWoodSlabs ANCIENT_ACACIA_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_acacia_wood_moss_slab", new AncientWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodSlabs ANCIENT_OAK_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_oak_wood_moss_slab", new AncientWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodSlabs ANCIENT_JUNGLE_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_jungle_wood_moss_slab", new AncientWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodSlabs ANCIENT_SPRUCE_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_spruce_wood_moss_slab", new AncientWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodSlabs ANCIENT_BIRCH_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_birch_wood_moss_slab", new AncientWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AncientWoodSlabs ANCIENT_DARK_OAK_WOOD_MOSS_SLAB = (AncientWoodSlabs) register("ancient_dark_oak_wood_moss_slab", new AncientWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final AlgaeBlock ALGAE_BLOCK = (AlgaeBlock) register("algae_block", new AlgaeBlock(BlockBehaviour.Properties.of(Material.PLANT)));
-    public static final ChiseledAquamarine CHISELED_AQUAMARINE = (ChiseledAquamarine) register("chiseled_aquamarine", new ChiseledAquamarine(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> ATLANTEAN_LEAVES = registerBlock("atlantean_leaf_block",()-> new AtlanteanLeaves(BlockBehaviour.Properties.of(Material.LEAVES)));
+    public static final RegistryObject<Block> ATLANTEAN_LOGS = registerBlock("atlantean_log",()-> new AtlanteanLogs(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_ACACIA_WOOD_MOSS = registerBlock("ancient_acacia_wood_moss",()-> new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_OAK_WOOD_MOSS = registerBlock("ancient_oak_wood_moss",()-> new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_JUNGLE_WOOD_MOSS = registerBlock("ancient_jungle_wood_moss",()-> new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_SPRUCE_WOOD_MOSS = registerBlock("ancient_spruce_wood_moss",()-> new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_BIRCH_WOOD_MOSS = registerBlock("ancient_birch_wood_moss",()-> new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_DARK_OAK_WOOD_MOSS = registerBlock("ancient_dark_oak_wood_moss",()-> new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> AQUAMARINE_ORE = registerBlock("aquamarine_ore",()-> new AquamarineOre(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> OCEAN_LANTERN = registerBlock("ocean_lantern",()-> new OceanLantern(BlockBehaviour.Properties.of(Material.METAL)));
+    public static final RegistryObject<Block> ATLANTIAN_SEA_LANTERN = registerBlock("atlantean_sea_lantern",()-> new AtlantianSeaLantern(BlockBehaviour.Properties.of(Material.GLASS)));
+    public static final RegistryObject<Block> ATLANTEAN_CORE = registerBlock("atlantean_core",()-> new AtlanteanCore(BlockBehaviour.Properties.of(Material.GLASS)));
+    public static final RegistryObject<Block> BLOCK_OF_AQUAMARINE = registerBlock("block_of_aquamarine",()-> new BlockAquamarine(BlockBehaviour.Properties.of(Material.METAL)));
+    public static final RegistryObject<Block> CHISELED_GOLDEN_BLOCK = registerBlock("chiseled_golden_block",()-> new BlockAquamarine(BlockBehaviour.Properties.of(Material.METAL)));
+    public static final RegistryObject<Block> CHISELED_GOLDEN_AQUAMARINE = registerBlock("chiseled_golden_aquamarine",()-> new BlockAquamarine(BlockBehaviour.Properties.of(Material.METAL)));;
+    public static final RegistryObject<Block> BLACK_COLORED_SHELL_BLOCK = registerBlock("black_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> BLUE_COLORED_SHELL_BLOCK = registerBlock("blue_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> BROWN_COLORED_SHELL_BLOCK = registerBlock("brown_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> CYAN_COLORED_SHELL_BLOCK = registerBlock("cyan_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> GRAY_COLORED_SHELL_BLOCK = registerBlock("gray_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> GREEN_COLORED_SHELL_BLOCK = registerBlock("green_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> LIGHT_BLUE_COLORED_SHELL_BLOCK = registerBlock("light_blue_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> LIGHT_GRAY_COLORED_SHELL_BLOCK = registerBlock("light_gray_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> LIME_COLORED_SHELL_BLOCK = registerBlock("lime_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> MAGENTA_COLORED_SHELL_BLOCK = registerBlock("magenta_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> ORANGE_COLORED_SHELL_BLOCK = registerBlock("orange_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> PINK_COLORED_SHELL_BLOCK = registerBlock("pink_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> PURPLE_COLORED_SHELL_BLOCK = registerBlock("purple_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> RED_COLORED_SHELL_BLOCK = registerBlock("red_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> WHITE_COLORED_SHELL_BLOCK = registerBlock("white_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> YELLOW_COLORED_SHELL_BLOCK = registerBlock("yellow_colored_shell_block",()-> new ColoredShellBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> BLACK_PEARL_BLOCK = registerBlock("black_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> BLUE_PEARL_BLOCK = registerBlock("blue_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> BROWN_PEARL_BLOCK = registerBlock("brown_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> CYAN_PEARL_BLOCK = registerBlock("cyan_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> GRAY_PEARL_BLOCK = registerBlock("gray_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> GREEN_PEARL_BLOCK = registerBlock("green_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> LIGHT_BLUE_PEARL_BLOCK = registerBlock("light_blue_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> LIGHT_GRAY_PEARL_BLOCK = registerBlock("light_gray_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> LIME_PEARL_BLOCK = registerBlock("lime_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> MAGENTA_PEARL_BLOCK = registerBlock("magenta_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> ORANGE_PEARL_BLOCK = registerBlock("orange_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> PINK_PEARL_BLOCK = registerBlock("pink_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> PURPLE_PEARL_BLOCK = registerBlock("purple_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> RED_PEARL_BLOCK = registerBlock("red_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> WHITE_PEARL_BLOCK = registerBlock("white_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> YELLOW_PEARL_BLOCK = registerBlock("yellow_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> OYSTER_SHELL_BLOCK = registerBlock("oyster_shell_block",()-> new OysterShellBlock(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> ATLANTIS_PORTAL = registerBlock("atlantis_portal",()-> new AtlantisPortalBlock(BlockBehaviour.Properties.of(Material.PORTAL)));
+    public static final RegistryObject<Block> UNDERWATER_FLOWER = registerBlock("underwater_flower",()-> new UnderwaterFlower(BlockBehaviour.Properties.of(Material.PLANT)));
+    public static final RegistryObject<Block> RED_UNDERWATER_FLOWER = registerBlock("red_underwater_flower",()-> new UnderwaterFlower(BlockBehaviour.Properties.of(Material.PLANT)));
+    public static final RegistryObject<Block> PURPLE_GLOWING_MUSHROOM = registerBlock("purple_glowing_mushroom",()-> new PurpleGlowingMushroom(BlockBehaviour.Properties.of(Material.PLANT)));
+    public static final RegistryObject<Block> YELLOW_GLOWING_MUSHROOM = registerBlock("yellow_glowing_mushroom",()-> new YellowGlowingMushroom(BlockBehaviour.Properties.of(Material.PLANT)));
+    public static final RegistryObject<Block> YELLOW_UNDERWATER_FLOWER = registerBlock("yellow_underwater_flower",()-> new UnderwaterFlower(BlockBehaviour.Properties.of(Material.PLANT)));
+    public static final RegistryObject<Block> ALGAE = registerBlock("algae",()-> new Algae(BlockBehaviour.Properties.of(Material.PLANT)));
+    public static final RegistryObject<Block> ATLANTIS_CLEAR_PORTAL = registerBlock("atlantis_clear_portal",()-> new AtlantisClearPortalBlock(BlockBehaviour.Properties.of(Material.PORTAL)));
+    public static final RegistryObject<Block> ATLANTEAN_POWER_STONE = registerBlock("atlantean_power_stone",()-> new AtlanteanPowerStone(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> ATLANTEAN_POWER_LAMP = registerBlock("atlantean_power_lamp",()-> new AtlanteanPowerLamp(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).strength(0.3F)));
+    public static final RegistryObject<Block> ATLANTEAN_POWER_TORCH = registerOnlyBlock("atlantean_power_torch",()-> new AtlanteanPowerTorch(BlockBehaviour.Properties.of(Material.DECORATION)));
+    public static final RegistryObject<Block> WALL_ATLANTEAN_POWER_TORCH = registerOnlyBlock("atlantean_power_wall_torch",()-> new WallAtlanteanPowerTorch(BlockBehaviour.Properties.of(Material.DECORATION)));
+    public static final RegistryObject<Block> ATLANTEAN_POWER_DUST_WIRE = registerOnlyBlock("atlantean_power_dust",()-> new AtlanteanPowerDust(BlockBehaviour.Properties.of(Material.DECORATION)));
+    public static final RegistryObject<Block> ATLANTEAN_POWER_REPEATER = registerBlock("atlantean_power_repeater",()-> new AtlanteanPowerRepeater(BlockBehaviour.Properties.of(Material.DECORATION)));
+    public static final RegistryObject<Block> ATLANTEAN_TRIPWIRE_HOOK = registerBlock("atlantean_tripwire_hook",()-> new AtlanteanTripwireHook(BlockBehaviour.Properties.of(Material.DECORATION).noCollission()));
+    public static final RegistryObject<Block> ATLANTEAN_TRIPWIRE = registerOnlyBlock("atlantean_tripwire",()-> new AtlanteanTripwire((AtlanteanTripwireHook)ATLANTEAN_TRIPWIRE_HOOK.get(), BlockBehaviour.Properties.of(Material.DECORATION).noCollission()));
+    public static final RegistryObject<Block> ATLANTEAN_POWER_LEVER = registerBlock("atlantean_power_lever",()-> new AtlanteanPowerLever(BlockBehaviour.Properties.of(Material.DECORATION).noCollission().strength(0.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> ATLANTEAN_POWER_COMPARATOR = registerBlock("atlantean_power_comparator",()-> new AtlanteanPowerComparator(BlockBehaviour.Properties.of(Material.DECORATION)));
+    public static final RegistryObject<Block> CALCITE_BLOCK = registerBlock("calcite_block",()-> new CalciteBlock(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> PUSH_BUBBLE_COLUMN = registerOnlyBlock("push_bubble_column",()-> new PushBubbleColumn(BlockBehaviour.Properties.of(Material.BUBBLE_COLUMN)));
+    public static final RegistryObject<Block> ANCIENT_ACACIA_WOOD_MOSS_SLAB = registerBlock("ancient_acacia_wood_moss_slab",()-> new AncientWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_OAK_WOOD_MOSS_SLAB = registerBlock("ancient_oak_wood_moss_slab",()-> new AncientWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_JUNGLE_WOOD_MOSS_SLAB = registerBlock("ancient_jungle_wood_moss_slab",()-> new AncientWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_SPRUCE_WOOD_MOSS_SLAB = registerBlock("ancient_spruce_wood_moss_slab",()-> new AncientWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_BIRCH_WOOD_MOSS_SLAB = registerBlock("ancient_birch_wood_moss_slab",()-> new AncientWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ANCIENT_DARK_OAK_WOOD_MOSS_SLAB = registerBlock("ancient_dark_oak_wood_moss_slab",()-> new AncientWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ALGAE_BLOCK = registerBlock("algae_block",()-> new AlgaeBlock(BlockBehaviour.Properties.of(Material.PLANT)));
+    public static final RegistryObject<Block> CHISELED_AQUAMARINE = registerBlock("chiseled_aquamarine",()-> new ChiseledAquamarine(BlockBehaviour.Properties.of(Material.STONE)));
 
-    public static final Block ATLANTEAN_SAPLING = register("atlantean_sapling",
+    public static final RegistryObject<Block> ATLANTEAN_SAPLING = registerBlock("atlantean_sapling", ()->
             new AtlanteanSapling(new AtlanteanTreeSaplingGenerator(),
                     BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
-    private static Block baseRegister(String name, Block block, Function<Block, Item> item) {
-        BLOCKS.register(name, () -> block);
-        register(name, item.apply(block));
-        return block;
-    }
 
-    private static Block register(String name, Block block) {
-        return baseRegister(name, block, BlockInit::registerBlockItem);
-    }
 
-    public static Block blockOnlyRegistry(String name, Block block) {
-        BLOCKS.register(name, () -> block);
-        return block;
-    }
 
-    private static BlockItem registerBlockItem(Block block) {
-        return new BlockItem(Objects.requireNonNull(block), new Item.Properties());
+    private static RegistryObject<Block> registerBlock(String name, Supplier<Block> block) {
+        return registerBlock(name, block, b -> () -> new BlockItem(b.get(),new Item.Properties()));
     }
-
-    public static Item register(String name, Item item) {
-        return ItemInit.register(name, item);
+    public static RegistryObject<Block> registerOnlyBlock(String name, Supplier<Block> block) {
+        var reg = BLOCKS.register(name, block);
+        return reg;
     }
+    public static RegistryObject<LiquidBlock> registerFluidBlock(String name, Supplier<LiquidBlock> block) {
+        var reg = BLOCKS.register(name, block);
+        return reg;
+    }
+    private static RegistryObject<Block> registerBlock(String name, Supplier<Block> block, Function<RegistryObject<Block>, Supplier<? extends BlockItem>> item) {
+        var reg = BLOCKS.register(name, block);
+        ItemInit.ITEMS.register(name, () -> item.apply(reg).get());
+        return reg;
+    }
+//    private static Block baseregisterBlock(String name, Block block, Function<Block, Item> item) {
+//        BLOCKS.registerBlock(name, () -> block);
+//        registerBlock(name, item.apply(block));
+//        return block;
+//    }
+//
+//    private static Block registerBlock(String name, Block block) {
+//        return baseregisterBlock(name, block, BlockInit::registerBlockItem);
+//    }
+//
+//    public static Block blockOnlyRegistry(String name, Block block) {
+//        BLOCKS.registerBlock(name, () -> block);
+//        return block;
+//    }
+//
+//    private static BlockItem registerBlockItem(Block block) {
+//        return new BlockItem(Objects.requireNonNull(block),()-> new Item.Properties());
+//    }
+//
+//    public static Item registerBlock(String name, Item item) {
+//        return ItemInit.registerBlock(name, item);
+//    }
 }
