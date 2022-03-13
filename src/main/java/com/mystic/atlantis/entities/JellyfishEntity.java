@@ -67,7 +67,7 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
 
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        if (player.getItemInHand(hand).getItem() == ItemInit.CRAB_LEGS) {
+        if (player.getItemInHand(hand).getItem() == ItemInit.CRAB_LEGS.get()) {
             if (player instanceof ServerPlayer) {
                 this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
                 createChild((ServerLevel) player.getCommandSenderWorld(), this);
@@ -85,7 +85,7 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
 
     @Override
     protected void registerGoals() {
-        goalSelector.addGoal(6, new TemptGoal(this, 1, Ingredient.of(ItemInit.CRAB_LEGS), false));
+        goalSelector.addGoal(6, new TemptGoal(this, 1, Ingredient.of(ItemInit.CRAB_LEGS.get()), false));
         goalSelector.addGoal(5, new TryFindWaterGoal(this));
         goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         goalSelector.addGoal(3, new FloatGoal(this));
@@ -132,7 +132,7 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
 
     @Override
     public ItemStack getBucketItemStack() {
-        return ItemInit.JELLYFISH_BUCKET.getDefaultInstance();
+        return ItemInit.JELLYFISH_BUCKET.get().getDefaultInstance();
     }
 
     @Override

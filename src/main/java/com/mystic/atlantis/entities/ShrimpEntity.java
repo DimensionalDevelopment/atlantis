@@ -111,7 +111,7 @@ public class ShrimpEntity extends AbstractSchoolingFish implements IAnimatable, 
 
     @Override
     public ItemStack getBucketItemStack() {
-        return ItemInit.SHRIMP_BUCKET.getDefaultInstance();
+        return ItemInit.SHRIMP_BUCKET.get().getDefaultInstance();
     }
 
     public void createChild(ServerLevel world) {

@@ -30,7 +30,7 @@ public class Jellyfish2Entity extends JellyfishEntity {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return ItemInit.JELLYFISH_2_BUCKET.getDefaultInstance();
+        return ItemInit.JELLYFISH_2_BUCKET.get().getDefaultInstance();
     }
 
     @Override

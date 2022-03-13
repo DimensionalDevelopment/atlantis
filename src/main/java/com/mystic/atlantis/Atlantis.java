@@ -19,6 +19,7 @@ import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import net.kyrptonaught.customportalapi.CustomPortalBlock;
 import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
@@ -61,6 +62,7 @@ import java.util.Map;
 
 @Mod(Reference.MODID)
 public class Atlantis {
+    public static final Logger LOGGER = LogManager.getLogger(Reference.MODID);
     /**
      * @deprecated this is not a thread-safe thing.
      * Imagine that you open your single-player level and close it
@@ -68,31 +70,62 @@ public class Atlantis {
      * is absolutely wrong, AND stops JVM from removing it from
      * your RAM.
      */
-    @Deprecated @SuppressWarnings({"unused"})
+    @Deprecated
+    @SuppressWarnings({"unused"})
     private static final MinecraftServer server = null;
-    public static final Logger LOGGER = LogManager.getLogger(Reference.MODID);
-
     private static final PlacedFeature ORE_AQUAMARINE_OVERWORLD = Feature.ORE
             .configured(new OreConfiguration(
                     OreFeatures.STONE_ORE_REPLACEABLES,
-                    BlockInit.AQUAMARINE_ORE.defaultBlockState(),
+                    BlockInit.AQUAMARINE_ORE.get().defaultBlockState(),
                     9)).placed(
                     CountPlacement.of(20), // number of veins per chunk
                     InSquarePlacement.spread(), // spreading horizontally
                     HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.top())); // height
     public static ResourceKey<PlacedFeature> oreAquamarineOverworld;
-
-    @NotNull @Deprecated
-    public static MinecraftServer getServer() {
-        throw new UnsupportedOperationException();
-    }
-
     public static AtlantisConfig CONFIG;
 
     public Atlantis() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(ClientSetup::onInitializeClient);
         onInitialize(bus);
+    }
+
+    @NotNull
+    @Deprecated
+    public static MinecraftServer getServer() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Helper method that handles setting up the map to multimap relationship to help prevent issues.
+     */
+    private static void associateBiomeToConfiguredStructure(Map<StructureFeature<?>, HashMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>>> STStructureToMultiMap, ConfiguredStructureFeature<?, ?> configuredStructureFeature, ResourceKey<Biome> biomeRegistryKey) {
+        STStructureToMultiMap.putIfAbsent(configuredStructureFeature.feature, HashMultimap.create());
+        HashMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>> configuredStructureToBiomeMultiMap = STStructureToMultiMap.get(configuredStructureFeature.feature);
+        if (configuredStructureToBiomeMultiMap.containsValue(biomeRegistryKey)) {
+            LOGGER.error(String.format("""
+                                Detected 2 ConfiguredStructureFeatures that share the same base StructureFeature trying to be added to same biome. One will be prevented from spawning.
+                                This issue happens with vanilla too and is why a Snowy Village and Plains Village cannot spawn in the same biome because they both use the Village base structure.
+                                The two conflicting ConfiguredStructures are: %s, %s
+                                The biome that is attempting to be shared: %s
+                            """,
+                    BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getKey(configuredStructureFeature).toString(),
+                    BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getKey(configuredStructureToBiomeMultiMap.entries().stream().filter(e -> e.getValue() == biomeRegistryKey).findFirst().get().getKey()).toString(),
+                    biomeRegistryKey
+            ));
+        } else {
+            configuredStructureToBiomeMultiMap.put(configuredStructureFeature, biomeRegistryKey);
+        }
+    }
+
+    public static ResourceLocation id(String id) {
+        return new ResourceLocation("atlantis", id);
+    }
+
+    //Don't remove needed for legacy portal block!
+    public static ResourceKey<Level> getOverworldKey() {
+        ResourceLocation OVERWORLD_ID = LevelStem.OVERWORLD.location();
+        return ResourceKey.create(Registry.DIMENSION_REGISTRY, OVERWORLD_ID);
     }
 
     public void onInitialize(IEventBus bus) {
@@ -118,12 +151,12 @@ public class Atlantis {
         ToolInit.init();
 
         CustomPortalBuilder.beginPortal()
-                .frameBlock(BlockInit.ATLANTEAN_CORE)
+                .frameBlock(BlockInit.ATLANTEAN_CORE.get())
                 .lightWithWater()
                 .flatPortal()
                 .destDimID(new ResourceLocation("atlantis", "atlantis"))
                 .tintColor(0, 125, 255)
-                .customPortalBlock(BlockInit.ATLANTIS_CLEAR_PORTAL)
+                .customPortalBlock((CustomPortalBlock) BlockInit.ATLANTIS_CLEAR_PORTAL.get())
                 .registerPortal();
 
         GeckoLibMod.DISABLE_IN_DEV = true;
@@ -144,9 +177,8 @@ public class Atlantis {
         event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ORE_AQUAMARINE_OVERWORLD);
     }
 
-
     public void addDimensionalSpacing(final WorldEvent.Load event) {
-        if(event.getWorld() instanceof ServerLevel serverLevel) {
+        if (event.getWorld() instanceof ServerLevel serverLevel) {
             ChunkGenerator chunkGenerator = serverLevel.getChunkSource().getGenerator();
 
             // Skip superflat worlds to prevent issues with it. Plus, users don't want structures clogging up their superflat worlds.
@@ -161,7 +193,7 @@ public class Atlantis {
             for (Map.Entry<ResourceKey<Biome>, Biome> biomeEntry : serverLevel.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).entrySet()) {
                 // Skip all ocean, end, nether, and none category biomes.
                 // You can do checks for other traits that the biome has.
-                if(isAlanteanBiome(biomeEntry.getKey())) {
+                if (isAlanteanBiome(biomeEntry.getKey())) {
                     associateBiomeToConfiguredStructure(STStructureToMultiMap, AtlantisConfiguredStructures.CONFIGURED_ATLANTEAN_FOUNTAIN, biomeEntry.getKey());
                     associateBiomeToConfiguredStructure(STStructureToMultiMap, AtlantisConfiguredStructures.CONFIGURED_ATLANTEAN_HOUSE_1, biomeEntry.getKey());
                     associateBiomeToConfiguredStructure(STStructureToMultiMap, AtlantisConfiguredStructures.CONFIGURED_ATLANTEAN_HOUSE_3, biomeEntry.getKey());
@@ -181,41 +213,8 @@ public class Atlantis {
         }
     }
 
-    /**
-     * Helper method that handles setting up the map to multimap relationship to help prevent issues.
-     */
-    private static void associateBiomeToConfiguredStructure(Map<StructureFeature<?>, HashMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>>> STStructureToMultiMap, ConfiguredStructureFeature<?, ?> configuredStructureFeature, ResourceKey<Biome> biomeRegistryKey) {
-        STStructureToMultiMap.putIfAbsent(configuredStructureFeature.feature, HashMultimap.create());
-        HashMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>> configuredStructureToBiomeMultiMap = STStructureToMultiMap.get(configuredStructureFeature.feature);
-        if(configuredStructureToBiomeMultiMap.containsValue(biomeRegistryKey)) {
-            LOGGER.error(String.format("""
-                    Detected 2 ConfiguredStructureFeatures that share the same base StructureFeature trying to be added to same biome. One will be prevented from spawning.
-                    This issue happens with vanilla too and is why a Snowy Village and Plains Village cannot spawn in the same biome because they both use the Village base structure.
-                    The two conflicting ConfiguredStructures are: %s, %s
-                    The biome that is attempting to be shared: %s
-                """,
-                    BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getKey(configuredStructureFeature).toString(),
-                    BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getKey(configuredStructureToBiomeMultiMap.entries().stream().filter(e -> e.getValue() == biomeRegistryKey).findFirst().get().getKey()).toString(),
-                    biomeRegistryKey
-            ));
-        }
-        else{
-            configuredStructureToBiomeMultiMap.put(configuredStructureFeature, biomeRegistryKey);
-        }
-    }
-
     private boolean isAlanteanBiome(ResourceKey<Biome> key) {
         return key.location().getNamespace().
                 equals(Reference.MODID);
-    }
-
-    public static ResourceLocation id(String id) {
-        return new ResourceLocation("atlantis", id);
-    }
-
-    //Don't remove needed for legacy portal block!
-    public static ResourceKey<Level> getOverworldKey() {
-        ResourceLocation OVERWORLD_ID = LevelStem.OVERWORLD.location();
-        return ResourceKey.create(Registry.DIMENSION_REGISTRY, OVERWORLD_ID);
     }
 }
