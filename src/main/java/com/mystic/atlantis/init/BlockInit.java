@@ -158,9 +158,8 @@ public class BlockInit {
     private static RegistryObject<Block> registerBlock(String name, Supplier<Block> block) {
         return registerBlock(name, block, b -> () -> new BlockItem(b.get(),new Item.Properties()));
     }
-    public static RegistryObject<Block> registerOnlyBlock(String name, Supplier<Block> block) {
-        var reg = BLOCKS.register(name, block);
-        return reg;
+    public static RegistryObject<Block>registerOnlyBlock(String name, Supplier<Block> block) {
+        return BLOCKS.register(name, block);
     }
     public static RegistryObject<LiquidBlock> registerFluidBlock(String name, Supplier<LiquidBlock> block) {
         var reg = BLOCKS.register(name, block);

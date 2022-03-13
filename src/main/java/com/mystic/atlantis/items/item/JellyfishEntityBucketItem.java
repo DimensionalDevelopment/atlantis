@@ -15,12 +15,14 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.Nullable;
 
-public class JellyfishEntityBucketItem extends MobBucketItem {
-    private final EntityType<?> entityType;
+import java.util.function.Supplier;
 
-    public JellyfishEntityBucketItem(EntityType<?> type, Fluid fluid, SoundEvent emptyingSound, Properties settings) {
-        super(type, fluid, emptyingSound, settings);
-        this.entityType = type;
+public class JellyfishEntityBucketItem extends MobBucketItem {
+    private final Supplier<? extends EntityType<?>> entityType;
+
+    public JellyfishEntityBucketItem(Supplier<? extends EntityType<?>> entitySupplier, Supplier<? extends Fluid> fluidSupplier, Supplier<? extends SoundEvent> soundSupplier, Properties properties) {
+        super(entitySupplier, fluidSupplier, soundSupplier, properties);
+        this.entityType = entitySupplier;
     }
 
     @Override
@@ -32,7 +34,7 @@ public class JellyfishEntityBucketItem extends MobBucketItem {
     }
 
     private void spawn(ServerLevel world, ItemStack stack, BlockPos pos) {
-        Entity entity = this.entityType.spawn(world, stack, (Player)null, pos, MobSpawnType.BUCKET, true, false);
+        Entity entity = this.entityType.get().spawn(world, stack, (Player)null, pos, MobSpawnType.BUCKET, true, false);
         if (entity instanceof Bucketable) {
             Bucketable bucketable = (Bucketable)entity;
             bucketable.loadFromBucketTag(stack.getOrCreateTag());

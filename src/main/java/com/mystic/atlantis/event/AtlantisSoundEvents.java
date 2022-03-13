@@ -4,14 +4,17 @@ import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class AtlantisSoundEvents {
-//TODO: FIx
-    //MUSIC DISC SOUNDS
-    public static final SoundEvent PANBEE = register("panbee");
+    public static DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Reference.MODID);
 
-    private static SoundEvent register(String name) {
-        ResourceLocation id = new ResourceLocation(Reference.MODID, name);
-        return Registry.register(Registry.SOUND_EVENT, id, new SoundEvent(id));
+    public static final RegistryObject<SoundEvent> PANBEE = registerSound("panbee");
+
+    private static RegistryObject<SoundEvent> registerSound(String name) {
+        return SOUNDS.register(name, () -> new SoundEvent(new ResourceLocation(Reference.MODID, name)));
     }
 }

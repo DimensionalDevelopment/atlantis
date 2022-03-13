@@ -26,7 +26,7 @@ public class FluidInit<T extends Block> {
     static final ResourceLocation FLUID_FLOWING_TEXTURE = new ResourceLocation("minecraft", "block/" + "water" + "_flow");
     private static DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(Fluid.class, Reference.MODID);
     public static final RegistryObject<FlowingFluid> STILL_JETSTREAM_WATER = FLUIDS.register("jetstream_water", () -> new JetstreamWaterFluid.Still());
-    public static final RegistryObject<Item> JETSTREAM_WATER_BUCKET = ItemInit.register("jetstream_water_bucket", new BucketItem(STILL_JETSTREAM_WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final RegistryObject<Item> JETSTREAM_WATER_BUCKET = ItemInit.register("jetstream_water_bucket", ()->new BucketItem(STILL_JETSTREAM_WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final RegistryObject<LiquidBlock> JETSTREAM_WATER = BlockInit.registerFluidBlock("jetstream_water", () -> new LiquidBlock(STILL_JETSTREAM_WATER, BlockBehaviour.Properties.copy(Blocks.WATER)));
     public static final RegistryObject<FlowingFluid> FLOWING_JETSTREAM_WATER = FLUIDS.register("flowing_jetstream_water", () -> new JetstreamWaterFluid.Flowing());
     public static final ForgeFlowingFluid.Properties JETSTREAM_WATER_PROPERTIES = new ForgeFlowingFluid.Properties(STILL_JETSTREAM_WATER, FLOWING_JETSTREAM_WATER,
