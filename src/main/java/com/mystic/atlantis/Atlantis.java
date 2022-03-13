@@ -8,6 +8,7 @@ import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
+import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.init.ItemInit;
@@ -137,7 +138,7 @@ public class Atlantis {
         AtlantisGroup.init();
         GeckoLib.initialize();
         AtlantisEntities.initialize(bus);
-
+        AtlantisSoundEvents.SOUNDS.register(bus);
         DimensionAtlantis.init(bus);
 
         bus.addListener(this::onCommonSet);

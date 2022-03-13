@@ -15,10 +15,12 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.Nullable;
 
-public class CrabEntityBucketItem extends MobBucketItem {
-    private final EntityType<?> entityType;
+import java.util.function.Supplier;
 
-    public CrabEntityBucketItem(EntityType<?> type, Fluid fluid, SoundEvent emptyingSound, Properties settings) {
+public class CrabEntityBucketItem extends MobBucketItem {
+    private final Supplier<? extends EntityType<?>> entityType;
+
+    public CrabEntityBucketItem(Supplier<? extends EntityType<?>> type, Supplier<Fluid> fluid, Supplier<SoundEvent> emptyingSound, Properties settings) {
         super(type, fluid, emptyingSound, settings);
         this.entityType = type;
     }
@@ -32,7 +34,7 @@ public class CrabEntityBucketItem extends MobBucketItem {
     }
 
     private void spawn(ServerLevel world, ItemStack stack, BlockPos pos) {
-        Entity entity = this.entityType.spawn(world, stack, (Player)null, pos, MobSpawnType.BUCKET, true, false);
+        Entity entity = this.entityType.get().spawn(world, stack, (Player)null, pos, MobSpawnType.BUCKET, true, false);
         if (entity instanceof Bucketable) {
             Bucketable bucketable = (Bucketable)entity;
             bucketable.loadFromBucketTag(stack.getOrCreateTag());

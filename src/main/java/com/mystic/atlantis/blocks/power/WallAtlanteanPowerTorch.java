@@ -32,7 +32,7 @@ public class WallAtlanteanPowerTorch extends AtlanteanPowerTorch {
             Direction.EAST, Block.box(0.0D, 3.0D, 5.5D, 5.0D, 13.0D, 10.5D)));
 
     public WallAtlanteanPowerTorch(Properties settings) {
-        super(settings.dropsLike(BlockInit.ATLANTEAN_POWER_TORCH).noCollission().instabreak().lightLevel(level -> 7).sound(SoundType.WOOD));
+        super(settings.dropsLike(BlockInit.ATLANTEAN_POWER_TORCH.get()).noCollission().instabreak().lightLevel(level -> 7).sound(SoundType.WOOD));
 
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, true).setValue(WATERLOGGED, true));
     }
