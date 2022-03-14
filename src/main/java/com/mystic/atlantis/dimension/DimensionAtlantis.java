@@ -12,8 +12,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.IModBusEvent;
 
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class DimensionAtlantis
 {
     //public static final Identifier ATLANTIS_ID = new Identifier(Reference.MODID,  "atlantis");
@@ -33,13 +36,10 @@ public class DimensionAtlantis
         return world != null && world.dimension().equals(ATLANTIS_WORLD);
     }
 
-    private static void onServerStarted(ServerStartedEvent event) {
+    @SubscribeEvent
+    public static void onServerStarted(ServerStartedEvent event) {
         DimensionAtlantis.ATLANTIS_TYPE = event.getServer().registryAccess().registryOrThrow(Registry.DIMENSION_TYPE_REGISTRY).get(ATLANTIS_DIMENSION_TYPE_KEY);
         DimensionAtlantis.ATLANTIS_DIMENSION = event.getServer().getLevel(ATLANTIS_WORLD);
-    }
-
-    public static void init() {
-        MinecraftForge.EVENT_BUS.addListener(DimensionAtlantis::onServerStarted);
     }
 
     public static void registerBiomeSources() {
