@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "atlantis:underwater_shroom"
+          "name": "atlantis:underwater_shroom_block"
         }
       ],
       "conditions": [
