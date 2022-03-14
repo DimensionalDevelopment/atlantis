@@ -227,7 +227,7 @@ public class PushBubbleColumn extends Block implements BucketPickup {
     }
 
     public void onBubbleColumnSurfaceCollision(Entity entity, Direction drag) {
-        adjust(entity, drag, AtlantisConfig.get().calciteAcceleration, AtlantisConfig.get().calciteThreshold);
+        adjust(entity, drag, AtlantisConfig.INSTANCE.calciteAcceleration.get(), AtlantisConfig.INSTANCE.calciteThreshold.get());
     }
 
     public void adjust(Entity entity, Direction drag, double value, double limit) {
