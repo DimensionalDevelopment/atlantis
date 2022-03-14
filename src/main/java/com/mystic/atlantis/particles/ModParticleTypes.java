@@ -18,9 +18,5 @@ public class ModParticleTypes {
     public static DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Reference.MODID);
     public static final RegistryObject<SimpleParticleType> PUSH_BUBBLESTREAM = PARTICLES.register("push_bubblestream", () -> new SimpleParticleType(false));
 
-    @SubscribeEvent
-    public static void init(ParticleFactoryRegisterEvent bus) {
-        Registry.register(Registry.PARTICLE_TYPE, new ResourceLocation(Reference.MODID, "push_bubblestream"), PUSH_BUBBLESTREAM.get());
-        Minecraft.getInstance().particleEngine.register(PUSH_BUBBLESTREAM.get(), PushBubbleStreamParticle.Factory::new);
-    }
+
 }
