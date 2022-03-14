@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "atlantis",
+  "version": "2022.3.14-1.18.1-1.0-forge",
+
+  "name": "Atlantis",
+  "description": "An Underwater Atlantis like Dimension Mod.",
+  "authors": [
+    "Mysticpasta1, Gami, LordHugo02, DTRaptor, Waterpicker, LimeShulkerBox"
+  ],
+  "contact": {
+    "homepage": "https://mystic.hypherionmc.me/",
+    "sources": "https://github.com/Exploding-Creeper/atlantis",
+    "issues": "https://github.com/Exploding-Creeper/atlantis/issues"
+  },
+
+  "license": "LGPL3",
+  "icon": "logo.png",
+
+  "mixins": [
+    "atlantis.mixins.json"
+  ],
+  "accessWidener": "atlantis.accesswidener"
+}

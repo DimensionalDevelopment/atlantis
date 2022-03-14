@@ -19,6 +19,7 @@ public class AtlantisClearPortalBlock extends CustomPortalBlock implements Simpl
     public static final EnumProperty<Direction.Axis> AXIS = CustomPortalBlock.AXIS;
     protected static final VoxelShape X_SHAPE = Block.box(0.0D, 0.0D, 6.0D, 16.0D, 16.0D, 10.0D);
     protected static final VoxelShape Z_SHAPE = Block.box(6.0D, 0.0D, 0.0D, 10.0D, 16.0D, 16.0D);
+    protected static final VoxelShape Y_SHAPE = Block.box (0.0D, 6.0D, 0.0D, 16.0D, 10.0D, 16.0D);
 
     public AtlantisClearPortalBlock(Properties settings) {
         super(settings
@@ -35,6 +36,8 @@ public class AtlantisClearPortalBlock extends CustomPortalBlock implements Simpl
         switch (state.getValue(AXIS)) {
             case Z:
                 return Z_SHAPE;
+            case Y:
+                return Y_SHAPE;
             case X:
             default:
                 return X_SHAPE;

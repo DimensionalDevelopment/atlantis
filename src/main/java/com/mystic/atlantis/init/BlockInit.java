@@ -32,7 +32,7 @@ public class BlockInit {
     }
 
     //Geckolib blocktypes
-    public static final RegistryObject<Block> UNDERWATER_SHROOM_BLOCK = registerBlock("underwater_shroom_block", UnderwaterShroomBlock::new);
+    public static final RegistryObject<Block> UNDERWATER_SHROOM_BLOCK = registerBlock("underwater_shroom", UnderwaterShroomBlock::new);
     public static final RegistryObject<Block> TUBER_UP_BLOCK = registerBlock("tuber_up", TuberUpBlock::new);
     public static final RegistryObject<Block> BLUE_LILY_BLOCK = registerBlock("blue_lily", BlueLilyBlock::new);
     public static final RegistryObject<Block> BURNT_DEEP_BLOCK = registerBlock("burnt_deep", BurntDeepBlock::new);

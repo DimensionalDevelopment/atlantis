@@ -3,6 +3,9 @@
     "axis=x": {
       "model": "atlantis:block/atlantis_clear_portal_ns"
     },
+    "axis=y": {
+      "model": "atlantis:block/atlantis_clear_portal_ud"
+    },
     "axis=z": {
       "model": "atlantis:block/atlantis_clear_portal_ew"
     }
