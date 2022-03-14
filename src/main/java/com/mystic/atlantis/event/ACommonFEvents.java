@@ -58,7 +58,7 @@ public class ACommonFEvents {
             for (Map.Entry<ResourceKey<Biome>, Biome> biomeEntry : serverLevel.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).entrySet()) {
                 // Skip all ocean, end, nether, and none category biomes.
                 // You can do checks for other traits that the biome has.
-                if (isAlanteanBiome(biomeEntry.getKey())) {
+                if (isAtlanteanBiome(biomeEntry.getKey())) {
                     associateBiomeToConfiguredStructure(STStructureToMultiMap, AtlantisConfiguredStructures.CONFIGURED_ATLANTEAN_FOUNTAIN, biomeEntry.getKey());
                     associateBiomeToConfiguredStructure(STStructureToMultiMap, AtlantisConfiguredStructures.CONFIGURED_ATLANTEAN_HOUSE_1, biomeEntry.getKey());
                     associateBiomeToConfiguredStructure(STStructureToMultiMap, AtlantisConfiguredStructures.CONFIGURED_ATLANTEAN_HOUSE_3, biomeEntry.getKey());
@@ -98,7 +98,9 @@ public class ACommonFEvents {
             configuredStructureToBiomeMultiMap.put(configuredStructureFeature, biomeRegistryKey);
         }
     }
-    private static boolean isAlanteanBiome(ResourceKey<Biome> key) {
+  
+    private static boolean isAtlanteanBiome(ResourceKey<Biome> key) {
+
         return key.location().getNamespace().
                 equals(Reference.MODID);
     }
