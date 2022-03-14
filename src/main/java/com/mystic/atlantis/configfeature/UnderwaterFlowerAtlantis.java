@@ -23,9 +23,9 @@ public class UnderwaterFlowerAtlantis extends Feature<NoneFeatureConfiguration> 
         Random rand = config.random();
         BlockPos pos = config.origin();
             BlockState blockstate = switch (rand.nextInt(3)) {
-                case 1 -> BlockInit.RED_UNDERWATER_FLOWER.defaultBlockState();
-                case 2 -> BlockInit.YELLOW_UNDERWATER_FLOWER.defaultBlockState();
-                default -> BlockInit.UNDERWATER_FLOWER.defaultBlockState();
+                case 1 -> BlockInit.RED_UNDERWATER_FLOWER.get().defaultBlockState();
+                case 2 -> BlockInit.YELLOW_UNDERWATER_FLOWER.get().defaultBlockState();
+                default -> BlockInit.UNDERWATER_FLOWER.get().defaultBlockState();
             };
             if (reader.getBlockState(pos).is(Blocks.WATER) && blockstate.canSurvive(reader, pos)) {
                 reader.setBlock(pos, blockstate, 2);

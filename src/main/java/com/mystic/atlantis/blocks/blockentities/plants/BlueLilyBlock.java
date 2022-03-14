@@ -136,6 +136,6 @@ public class BlueLilyBlock extends BushBlock implements EntityBlock, SimpleWater
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return TileRegistry.BLUE_LILY_TILE.create(pos, state);
+        return TileRegistry.BLUE_LILY_TILE.get().create(pos, state);
     }
 }

@@ -15,7 +15,7 @@ public class UnderwaterShroomTileEntity extends BlockEntity implements IAnimatab
     private final AnimationFactory manager = new AnimationFactory(this);
 
     public UnderwaterShroomTileEntity(BlockPos pos, BlockState state) {
-        super(TileRegistry.UNDERWATER_SHROOM_TILE, pos, state);
+        super(TileRegistry.UNDERWATER_SHROOM_TILE.get(), pos, state);
     }
 
     private <E extends BlockEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {

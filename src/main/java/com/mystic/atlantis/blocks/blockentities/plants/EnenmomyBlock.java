@@ -136,6 +136,6 @@ public class EnenmomyBlock extends BushBlock implements EntityBlock, SimpleWater
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return TileRegistry.ENENMOMY_TILE.create(pos, state);
+        return TileRegistry.ENENMOMY_TILE.get().create(pos, state);
     }
 }

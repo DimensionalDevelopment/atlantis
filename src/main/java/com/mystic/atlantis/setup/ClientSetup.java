@@ -35,19 +35,19 @@ public class ClientSetup {
         ItemBlockRenderTypes.setRenderLayer(FluidInit.STILL_JETSTREAM_WATER.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_JETSTREAM_WATER.get(), RenderType.translucent());
 
-        BlockEntityRenderers.register(TileRegistry.UNDERWATER_SHROOM_TILE,
+        BlockEntityRenderers.register(TileRegistry.UNDERWATER_SHROOM_TILE.get(),
                 UnderwaterShroomTileRenderer::new);
 
-        BlockEntityRenderers.register(TileRegistry.TUBER_UP_TILE,
+        BlockEntityRenderers.register(TileRegistry.TUBER_UP_TILE.get(),
                 TuberUpTileRenderer::new);
 
-        BlockEntityRenderers.register(TileRegistry.BLUE_LILY_TILE,
+        BlockEntityRenderers.register(TileRegistry.BLUE_LILY_TILE.get(),
                 BlueLilyTileRenderer::new);
 
-        BlockEntityRenderers.register(TileRegistry.BURNT_DEEP_TILE,
+        BlockEntityRenderers.register(TileRegistry.BURNT_DEEP_TILE.get(),
                 BurntDeepTileRenderer::new);
 
-        BlockEntityRenderers.register(TileRegistry.ENENMOMY_TILE,
+        BlockEntityRenderers.register(TileRegistry.ENENMOMY_TILE.get(),
                 EnenmomyTileRenderer::new);
 
         registerBlockRenderLayers(RenderType.cutout(),
@@ -123,11 +123,11 @@ public class ClientSetup {
     }
 
     public static void entityRegisterEvent(EntityRenderersEvent.RegisterRenderers bus) {
-        bus.registerEntityRenderer(AtlantisEntities.CRAB, entityRenderDispatcher -> new CrabEntityRenderer(entityRenderDispatcher, new CrabEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntities.JELLYFISH, entityRenderDispatcher -> new JellyfishEntityRenderer(entityRenderDispatcher, new JellyfishEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntities.JELLYFISH2, entityRenderDispatcher -> new Jellyfish2EntityRenderer(entityRenderDispatcher, new Jellyfish2EntityModel()));
-        bus.registerEntityRenderer(AtlantisEntities.SHRIMP, entityRenderDispatcher -> new ShrimpEntityRenderer(entityRenderDispatcher, new ShrimpEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntities.SUBMARINE, SubmarineEntityRenderer::new);
+        bus.registerEntityRenderer(AtlantisEntities.CRAB.get(), entityRenderDispatcher -> new CrabEntityRenderer(entityRenderDispatcher, new CrabEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntities.JELLYFISH.get(), entityRenderDispatcher -> new JellyfishEntityRenderer(entityRenderDispatcher, new JellyfishEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntities.JELLYFISH2.get(), entityRenderDispatcher -> new Jellyfish2EntityRenderer(entityRenderDispatcher, new Jellyfish2EntityModel()));
+        bus.registerEntityRenderer(AtlantisEntities.SHRIMP.get(), entityRenderDispatcher -> new ShrimpEntityRenderer(entityRenderDispatcher, new ShrimpEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntities.SUBMARINE.get(), SubmarineEntityRenderer::new);
     }
 
     public static void initClientSetup(IEventBus bus) {

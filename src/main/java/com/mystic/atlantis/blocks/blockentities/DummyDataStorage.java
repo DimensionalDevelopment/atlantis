@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class DummyDataStorage extends BlockEntity {
 
     public DummyDataStorage(BlockPos pos, BlockState state) {
-        super(TileRegistry.DUMMY_DATA_STORAGE, pos, state);
+        super(TileRegistry.DUMMY_DATA_STORAGE.get(), pos, state);
     }
 
     public BlockPos destination;

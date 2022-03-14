@@ -15,7 +15,7 @@ public class BurntDeepTileEntity extends BlockEntity implements IAnimatable {
     private final AnimationFactory manager = new AnimationFactory(this);
 
     public BurntDeepTileEntity(BlockPos pos, BlockState state) {
-        super(TileRegistry.BURNT_DEEP_TILE, pos, state);
+        super(TileRegistry.BURNT_DEEP_TILE.get(), pos, state);
     }
 
     private <E extends BlockEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {

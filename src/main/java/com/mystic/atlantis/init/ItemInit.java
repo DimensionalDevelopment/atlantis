@@ -41,11 +41,6 @@ public class ItemInit {
 
     private static final Item.Properties ATLANTIS_SETTINGS = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).stacksTo(1);
 
-    public static final RegistryObject<Item> TUBER_UP = register(()-> new BlockItem(BlockInit.TUBER_UP_BLOCK.get(), new Item.Properties()), "tuber_up");
-    public static final RegistryObject<Item> BLUE_LILY = register(()-> new BlockItem(BlockInit.BLUE_LILY_BLOCK.get(), new Item.Properties()), "blue_lily");
-    public static final RegistryObject<Item> BURNT_DEEP = register(()-> new BlockItem(BlockInit.BURNT_DEEP_BLOCK.get(), new Item.Properties()), "burnt_deep");
-    public static final RegistryObject<Item> ENENMOMY = register(()-> new BlockItem(BlockInit.ENENMOMY_BLOCK.get(), new Item.Properties()), "enenmomy");
-
     //SPAWN EGGS
     public static final RegistryObject<Item> ATLANTEAN_CRAB_EGG = register("atlantean_crab_egg",()->new ForgeSpawnEggItem(AtlantisEntities.CRAB, 0x800002, 0xff0f45, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     public static final RegistryObject<Item> ATLANTEAN_JELLYFISH_EGG = register("atlantean_jellyfish_egg", ()->new ForgeSpawnEggItem(AtlantisEntities.JELLYFISH, 0x00458a, 0x0582ff, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));

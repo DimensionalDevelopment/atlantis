@@ -1,8 +1,10 @@
 package com.mystic.atlantis.fluids;
 
 import com.mystic.atlantis.init.FluidInit;
+import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -15,6 +17,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.fluids.FluidAttributes;
+import org.jetbrains.annotations.NotNull;
 
 public class JetstreamWaterFluid extends FlowingFluid{
 
@@ -53,6 +58,12 @@ public class JetstreamWaterFluid extends FlowingFluid{
     @Override
     protected boolean canBeReplacedWith(FluidState fluidState, BlockGetter blockView, BlockPos blockPos, Fluid fluid, Direction direction) {
         return false;
+    }
+
+    @Override
+    protected @NotNull FluidAttributes createAttributes() {
+        return FluidAttributes.builder(new ResourceLocation(Reference.MODID, "block/jetstream_water"), new ResourceLocation(Reference.MODID, "block/flowing_jetstream_water"))
+                .build(this);
     }
 
     /**

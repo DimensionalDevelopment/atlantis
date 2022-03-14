@@ -175,7 +175,7 @@ public class AtlanteanPowerDust extends RedStoneWireBlock implements SimpleWater
     private int getWireSignal(BlockState state) {
         if (state.is(Blocks.REDSTONE_WIRE)) {
             return state.getValue(RedStoneWireBlock.POWER);
-        } else if (state.is(BlockInit.ATLANTEAN_POWER_DUST_WIRE)) {
+        } else if (state.is(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get())) {
             return state.getValue(RedStoneWireBlock.POWER);
         }
         return 0;

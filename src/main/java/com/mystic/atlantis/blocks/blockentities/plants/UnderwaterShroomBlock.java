@@ -137,6 +137,6 @@ public class UnderwaterShroomBlock extends BushBlock implements EntityBlock, Sim
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return TileRegistry.UNDERWATER_SHROOM_TILE.create(pos, state);
+        return TileRegistry.UNDERWATER_SHROOM_TILE.get().create(pos, state);
     }
 }

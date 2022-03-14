@@ -8,6 +8,7 @@ import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
+import com.mystic.atlantis.entities.CrabEntity;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
@@ -19,34 +20,26 @@ import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
 import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.kyrptonaught.customportalapi.CustomPortalBlock;
 import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.FlatLevelSource;
-import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.StructureSettings;
-import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.placement.CountPlacement;
-import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
-import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -74,15 +67,6 @@ public class Atlantis {
     @Deprecated
     @SuppressWarnings({"unused"})
     private static final MinecraftServer server = null;
-    private static final PlacedFeature ORE_AQUAMARINE_OVERWORLD = Feature.ORE
-            .configured(new OreConfiguration(
-                    OreFeatures.STONE_ORE_REPLACEABLES,
-                    BlockInit.AQUAMARINE_ORE.get().defaultBlockState(),
-                    9)).placed(
-                    CountPlacement.of(20), // number of veins per chunk
-                    InSquarePlacement.spread(), // spreading horizontally
-                    HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.top())); // height
-    public static ResourceKey<PlacedFeature> oreAquamarineOverworld;
     public static AtlantisConfig CONFIG;
 
     public Atlantis() {
@@ -130,25 +114,28 @@ public class Atlantis {
     }
 
     public void onInitialize(IEventBus bus) {
+
         BlockInit.init(bus);
         ItemInit.init(bus);
+        GeckoLib.initialize();
         TileRegistry.init(bus);
         FluidInit.init(bus);
 
         AtlantisGroup.init();
-        GeckoLib.initialize();
         AtlantisEntities.initialize(bus);
         AtlantisSoundEvents.SOUNDS.register(bus);
-        DimensionAtlantis.init(bus);
+        DimensionAtlantis.init();
 
-        bus.addListener(this::onCommonSet);
+        // Register config file.
+        AutoConfig.register(AtlantisConfig.class, Toml4jConfigSerializer::new);
+        // Get config.
+        CONFIG = AutoConfig.getConfigHolder(AtlantisConfig.class).getConfig();
 
-        MinecraftForge.EVENT_BUS.addListener(this::onBiomeLoad);
+        MinecraftForge.EVENT_BUS.addListener(Atlantis::onCommonSet);
         MinecraftForge.EVENT_BUS.addListener(this::addDimensionalSpacing);
     }
 
-    public void onCommonSet(FMLCommonSetupEvent event) {
-        AutoConfig.register(AtlantisConfig.class, GsonConfigSerializer::new);
+    public static void onCommonSet(FMLCommonSetupEvent event) {
         ToolInit.init();
 
         CustomPortalBuilder.beginPortal()
@@ -161,21 +148,14 @@ public class Atlantis {
                 .registerPortal();
 
         GeckoLibMod.DISABLE_IN_DEV = true;
-
         event.enqueueWork(() -> {
             DimensionAtlantis.registerBiomeSources();
             AtlantisFeature.ConfiguredFeaturesAtlantis.registerConfiguredFeatures();
             AtlantisStructures.setupStructures();
             AtlantisConfiguredStructures.registerConfiguredStructures();
-
-            oreAquamarineOverworld = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation("atlantis", "ore_aquamarine_overworld"));
-            Registry.register(BuiltinRegistries.PLACED_FEATURE, oreAquamarineOverworld.location(), ORE_AQUAMARINE_OVERWORLD);
         });
-    }
 
-    public void onBiomeLoad(BiomeLoadingEvent event) {
-        //TODO: FIgure out how to get the overworld
-        event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ORE_AQUAMARINE_OVERWORLD);
+        SpawnPlacements.register(AtlantisEntities.CRAB.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrabEntity::canSpawn);
     }
 
     public void addDimensionalSpacing(final WorldEvent.Load event) {

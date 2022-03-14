@@ -136,6 +136,6 @@ public class TuberUpBlock extends BushBlock implements EntityBlock, SimpleWaterl
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return TileRegistry.TUBER_UP_TILE.create(pos, state);
+        return TileRegistry.TUBER_UP_TILE.get().create(pos, state);
     }
 }

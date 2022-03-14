@@ -136,6 +136,6 @@ public class BurntDeepBlock extends BushBlock implements EntityBlock, SimpleWate
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return TileRegistry.BURNT_DEEP_TILE.create(pos, state);
+        return TileRegistry.BURNT_DEEP_TILE.get().create(pos, state);
     }
 }

@@ -23,9 +23,9 @@ public class UnderwaterMushroomAtlantis extends Feature<NoneFeatureConfiguration
         BlockPos pos = config.origin();
         BlockState blockstate;
         if (rand.nextInt(2) == 1) {
-            blockstate = BlockInit.PURPLE_GLOWING_MUSHROOM.defaultBlockState();
+            blockstate = BlockInit.PURPLE_GLOWING_MUSHROOM.get().defaultBlockState();
         } else {
-            blockstate = BlockInit.YELLOW_GLOWING_MUSHROOM.defaultBlockState();
+            blockstate = BlockInit.YELLOW_GLOWING_MUSHROOM.get().defaultBlockState();
         }
         if (reader.getBlockState(pos).is(Blocks.WATER) && blockstate.canSurvive(reader, pos)) {
                 reader.setBlock(pos, blockstate, 2);

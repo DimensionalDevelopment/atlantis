@@ -127,25 +127,25 @@ public class PushBubbleColumn extends Block implements BucketPickup {
     }
 
     private static Optional<BlockState> getBubbleState(BlockState previous, BlockState current, Direction dir) {
-        if(!current.is(BlockInit.CALCITE_BLOCK)) {
+        if(!current.is(BlockInit.CALCITE_BLOCK.get())) {
             if(isStillWater(previous)) {
-                if(!isStillWater(current) && !current.is(BlockInit.PUSH_BUBBLE_COLUMN)) {
+                if(!isStillWater(current) && !current.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
                     return Optional.empty();
                 } else {
                     return Optional.of(Blocks.WATER.defaultBlockState());
                 }
-            } else if (previous.is(BlockInit.CALCITE_BLOCK)) {
-                if (isStillWater(current) || current.is(BlockInit.PUSH_BUBBLE_COLUMN)) {
-                    return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.defaultBlockState().setValue(PUSH, dir).setValue(DECAY, 29));
+            } else if (previous.is(BlockInit.CALCITE_BLOCK.get())) {
+                if (isStillWater(current) || current.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
+                    return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, dir).setValue(DECAY, 29));
                 } else {
                     return Optional.empty();
                 }
-            } else if (previous.is(BlockInit.PUSH_BUBBLE_COLUMN)) {
+            } else if (previous.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
                 if (previous.getValue(DECAY) == 0) {
                     return Optional.of(Blocks.WATER.defaultBlockState());
                 } else if (previous.getValue(PUSH).equals(dir)) {
-                    if (isStillWater(current) || current.is(BlockInit.PUSH_BUBBLE_COLUMN)) {
-                        return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.defaultBlockState().setValue(PUSH, dir).setValue(DECAY, previous.getValue(DECAY) - 1));
+                    if (isStillWater(current) || current.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
+                        return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, dir).setValue(DECAY, previous.getValue(DECAY) - 1));
                     } else {
                         return Optional.empty();
                     }
@@ -153,7 +153,7 @@ public class PushBubbleColumn extends Block implements BucketPickup {
                     return Optional.of(Blocks.WATER.defaultBlockState());
                 }
             } else {
-                if (current.is(BlockInit.PUSH_BUBBLE_COLUMN)) {
+                if (current.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
                     return Optional.of(Blocks.WATER.defaultBlockState());
                 } else {
                     return Optional.empty();
@@ -181,7 +181,7 @@ public class PushBubbleColumn extends Block implements BucketPickup {
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
         world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
-        if (!this.canSurvive(state, world, pos) && !neighborState.is(BlockInit.PUSH_BUBBLE_COLUMN) && isStillWater(neighborState)) {
+        if (!this.canSurvive(state, world, pos) && !neighborState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()) && isStillWater(neighborState)) {
             world.scheduleTick(pos, this, 1);
         }
 
@@ -193,11 +193,11 @@ public class PushBubbleColumn extends Block implements BucketPickup {
 
         BlockState blockState = world.getBlockState(pos.relative(dir.getOpposite()));
 
-        if(blockState.is(BlockInit.PUSH_BUBBLE_COLUMN) && blockState.getValue(PUSH).equals(dir)) {
+        if(blockState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()) && blockState.getValue(PUSH).equals(dir)) {
             return blockState.getValue(DECAY) >= 0;
         }
 
-        return blockState.is(BlockInit.CALCITE_BLOCK);
+        return blockState.is(BlockInit.CALCITE_BLOCK.get());
     }
 
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {

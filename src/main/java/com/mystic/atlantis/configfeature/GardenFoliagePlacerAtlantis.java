@@ -23,11 +23,11 @@ public class GardenFoliagePlacerAtlantis extends Feature<NoneFeatureConfiguratio
         Random rand = config.random();
         BlockPos pos = config.origin();
             BlockState blockstate = switch (rand.nextInt(5)) {
-                case 1 -> BlockInit.TUBER_UP_BLOCK.defaultBlockState();
-                case 2 -> BlockInit.ENENMOMY_BLOCK.defaultBlockState();
-                case 3 -> BlockInit.BLUE_LILY_BLOCK.defaultBlockState();
-                case 4 -> BlockInit.BURNT_DEEP_BLOCK.defaultBlockState();
-                default -> BlockInit.UNDERWATER_SHROOM_BLOCK.defaultBlockState();
+                case 1 -> BlockInit.TUBER_UP_BLOCK.get().defaultBlockState();
+                case 2 -> BlockInit.ENENMOMY_BLOCK.get().defaultBlockState();
+                case 3 -> BlockInit.BLUE_LILY_BLOCK.get().defaultBlockState();
+                case 4 -> BlockInit.BURNT_DEEP_BLOCK.get().defaultBlockState();
+                default -> BlockInit.UNDERWATER_SHROOM_BLOCK.get().defaultBlockState();
             };
             if (reader.getBlockState(pos).is(Blocks.WATER) && blockstate.canSurvive(reader, pos)) {
                 reader.setBlock(pos, blockstate, 2);

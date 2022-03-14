@@ -15,7 +15,7 @@ public class EnenmomyTileEntity extends BlockEntity implements IAnimatable {
     private final AnimationFactory manager = new AnimationFactory(this);
 
     public EnenmomyTileEntity(BlockPos pos, BlockState state) {
-        super(TileRegistry.ENENMOMY_TILE, pos, state);
+        super(TileRegistry.ENENMOMY_TILE.get(), pos, state);
     }
 
     private <E extends BlockEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {

@@ -15,7 +15,7 @@ public class TuberUpTileEntity extends BlockEntity implements IAnimatable {
     private final AnimationFactory manager = new AnimationFactory(this);
 
     public TuberUpTileEntity(BlockPos pos, BlockState state) {
-        super(TileRegistry.TUBER_UP_TILE, pos, state);
+        super(TileRegistry.TUBER_UP_TILE.get(), pos, state);
     }
 
     private <E extends BlockEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {

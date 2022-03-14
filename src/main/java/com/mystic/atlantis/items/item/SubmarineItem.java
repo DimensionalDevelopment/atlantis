@@ -41,7 +41,7 @@ public class SubmarineItem extends Item {
             if (!(world.getBlockState(blockPos).getBlock() instanceof LiquidBlock)) {
                 return InteractionResultHolder.pass(itemStack);
             } else if (world.mayInteract(user, blockPos) && user.mayUseItemAt(blockPos, blockHitResult.getDirection(), itemStack)) {
-                SubmarineEntity boatEntity = new SubmarineEntity(AtlantisEntities.SUBMARINE, world);
+                SubmarineEntity boatEntity = new SubmarineEntity(AtlantisEntities.SUBMARINE.get(), world);
                 boatEntity.setPos(hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z);
                 boatEntity.setYRot(user.getYRot());
                 world.addFreshEntity(boatEntity);
@@ -79,7 +79,7 @@ public class SubmarineItem extends Item {
             }
 
             //if (hitResult.getType() == HitResult.Type.BLOCK) {
-                SubmarineEntity boatEntity = new SubmarineEntity(AtlantisEntities.SUBMARINE, world);
+                SubmarineEntity boatEntity = new SubmarineEntity(AtlantisEntities.SUBMARINE.get(), world);
                 boatEntity.setPos(hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z);
                 boatEntity.setYRot(user.getYRot());
 //                if (!world.isSpaceEmpty(boatEntity, boatEntity.getBoundingBox())) {

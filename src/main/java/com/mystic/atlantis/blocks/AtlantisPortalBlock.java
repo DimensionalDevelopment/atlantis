@@ -147,7 +147,7 @@ public class AtlantisPortalBlock extends Block implements EntityBlock {
             @Override
             public List<Block> getValues() {
                 List<Block> portal2 = new ArrayList<Block>();
-                portal2.add(BlockInit.ATLANTIS_PORTAL);
+                portal2.add(BlockInit.ATLANTIS_PORTAL.get());
                 return portal2;
             }
         };

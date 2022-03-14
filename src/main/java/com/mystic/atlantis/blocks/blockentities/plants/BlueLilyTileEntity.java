@@ -15,7 +15,7 @@ public class BlueLilyTileEntity extends BlockEntity implements IAnimatable {
     private final AnimationFactory manager = new AnimationFactory(this);
 
     public BlueLilyTileEntity(BlockPos pos, BlockState state) {
-        super(TileRegistry.BLUE_LILY_TILE, pos, state);
+        super(TileRegistry.BLUE_LILY_TILE.get(), pos, state);
     }
 
     private <E extends BlockEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {

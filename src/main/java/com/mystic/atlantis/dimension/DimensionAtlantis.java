@@ -8,8 +8,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.event.IModBusEvent;
 
 public class DimensionAtlantis
 {
@@ -35,8 +38,8 @@ public class DimensionAtlantis
         DimensionAtlantis.ATLANTIS_DIMENSION = event.getServer().getLevel(ATLANTIS_WORLD);
     }
 
-    public static void init(IEventBus bus) {
-        bus.addListener(DimensionAtlantis::onServerStarted);
+    public static void init() {
+        MinecraftForge.EVENT_BUS.addListener(DimensionAtlantis::onServerStarted);
     }
 
     public static void registerBiomeSources() {

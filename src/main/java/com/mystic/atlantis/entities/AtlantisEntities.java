@@ -9,10 +9,13 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = Reference.MODID)
 public class AtlantisEntities {
     private static DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Reference.MODID);
 
@@ -30,7 +33,8 @@ public class AtlantisEntities {
         return ENTITIES.register(name, ()->builder.build("atlantis:" + name));
     }
 
-    private static void onAttributeModify(EntityAttributeCreationEvent event) {
+    @SubscribeEvent
+    public static void onAttributeModify(EntityAttributeCreationEvent event) {
         event.put(AtlantisEntities.CRAB.get(), CrabEntity.createCrabAttributes().build());
         event.put(AtlantisEntities.JELLYFISH.get(), JellyfishEntity.createJellyfishAttributes().build());
         event.put(AtlantisEntities.JELLYFISH2.get(), Jellyfish2Entity.createJellyfishAttributes().build());
@@ -39,8 +43,5 @@ public class AtlantisEntities {
 
     public static void initialize(IEventBus bus) {
         ENTITIES.register(bus);
-        MinecraftForge.EVENT_BUS.addListener(AtlantisEntities::onAttributeModify);
-
-        SpawnPlacements.register(AtlantisEntities.CRAB.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrabEntity::canSpawn);
     }
 }
