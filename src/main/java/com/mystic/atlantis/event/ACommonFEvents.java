@@ -42,7 +42,7 @@ import java.util.Map;
 public class ACommonFEvents {
 
     @SubscribeEvent
-    public void addDimensionalSpacing(final WorldEvent.Load event) {
+    public static void addDimensionalSpacing(final WorldEvent.Load event) {
         if (event.getWorld() instanceof ServerLevel serverLevel) {
             ChunkGenerator chunkGenerator = serverLevel.getChunkSource().getGenerator();
 
@@ -98,7 +98,7 @@ public class ACommonFEvents {
             configuredStructureToBiomeMultiMap.put(configuredStructureFeature, biomeRegistryKey);
         }
     }
-    private boolean isAlanteanBiome(ResourceKey<Biome> key) {
+    private static boolean isAlanteanBiome(ResourceKey<Biome> key) {
         return key.location().getNamespace().
                 equals(Reference.MODID);
     }

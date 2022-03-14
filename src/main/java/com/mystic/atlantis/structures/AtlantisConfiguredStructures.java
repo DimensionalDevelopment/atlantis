@@ -7,6 +7,7 @@ import net.minecraft.data.worldgen.PlainVillagePools;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class AtlantisConfiguredStructures {
     public static ConfiguredStructureFeature<?, ?> CONFIGURED_OYSTER_STRUCTURE = AtlantisStructures.OYSTER_STRUCTURE.get().configured(new JigsawConfiguration(() -> PlainVillagePools.START, 0));
