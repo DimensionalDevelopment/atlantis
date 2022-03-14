@@ -44,7 +44,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -70,10 +72,10 @@ public class Atlantis {
     @Deprecated
     @SuppressWarnings({"unused"})
     private static final MinecraftServer server = null;
-    public static AtlantisConfig CONFIG;
 
     public Atlantis() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC);
         ModParticleTypes.PARTICLES.register(bus);
         onInitialize(bus);
         AtlantisFeature.FEATURES.register(bus);
@@ -109,12 +111,6 @@ public class Atlantis {
         AtlantisGroup.init();
         AtlantisEntities.initialize(bus);
         AtlantisSoundEvents.SOUNDS.register(bus);
-
-        // Register config file.
-        AutoConfig.register(AtlantisConfig.class, Toml4jConfigSerializer::new);
-        // Get config.
-        CONFIG = AutoConfig.getConfigHolder(AtlantisConfig.class).getConfig();
-
     }
 
     @SubscribeEvent
