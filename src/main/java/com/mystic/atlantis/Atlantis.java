@@ -30,9 +30,8 @@ import net.minecraftforge.client.ConfigGuiHandler;
 import net.minecraftforge.client.ConfigGuiHandler.ConfigGuiFactory;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -56,10 +55,10 @@ public class Atlantis {
     @Deprecated
     @SuppressWarnings({"unused"})
     private static final MinecraftServer server = null;
-    public static AtlantisConfig CONFIG;
 
     public Atlantis() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC);
         ModParticleTypes.PARTICLES.register(bus);
         onInitialize(bus);
         AtlantisFeature.FEATURES.register(bus);
