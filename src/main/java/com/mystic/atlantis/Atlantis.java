@@ -26,10 +26,15 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.client.ConfigGuiHandler;
+import net.minecraftforge.client.ConfigGuiHandler.ConfigGuiFactory;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModContainer;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -59,6 +64,8 @@ public class Atlantis {
         onInitialize(bus);
         AtlantisFeature.FEATURES.register(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
+
+        bus.addListener(this::loadCompleted);
     }
 
     @NotNull
@@ -67,7 +74,12 @@ public class Atlantis {
         throw new UnsupportedOperationException();
     }
 
-
+    public void loadCompleted(FMLLoadCompleteEvent event) {
+        ModContainer createContainer = ModList.get()
+                .getModContainerById(Reference.MODID)
+                .orElseThrow(() -> new IllegalStateException("Create Mod Container missing after loadCompleted"));
+        createContainer.registerExtensionPoint(ConfigGuiFactory.class, () -> new ConfigGuiFactory((mc, previousScreen) -> AutoConfig.getConfigScreen(AtlantisConfig.class, previousScreen).get()));
+    }
 
     public static ResourceLocation id(String id) {
         return new ResourceLocation("atlantis", id);
