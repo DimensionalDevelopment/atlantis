@@ -22,9 +22,9 @@ import java.util.HashMap;
 
 public class FluidInit<T extends Block> {
     public static final HashMap<RegistryObject<? extends Block>, CustomRenderType> CUSTOM_RENDER_TYPES = new HashMap<RegistryObject<? extends Block>, CustomRenderType>();
-    static final ResourceLocation FLUID_STILL_TEXTURE = new ResourceLocation("minecraft", "block/" + "water" + "_still");
-    static final ResourceLocation FLUID_FLOWING_TEXTURE = new ResourceLocation("minecraft", "block/" + "water" + "_flow");
-    static final ResourceLocation FLUID_OVERLAY_TEXTURE = new ResourceLocation("minecraft", "block/" + "water" + "_overlay");
+    public static final ResourceLocation FLUID_STILL_TEXTURE = new ResourceLocation("minecraft", "block/" + "water" + "_still");
+    public static final ResourceLocation FLUID_FLOWING_TEXTURE = new ResourceLocation("minecraft", "block/" + "water" + "_flow");
+    public static final ResourceLocation FLUID_OVERLAY_TEXTURE = new ResourceLocation("minecraft", "block/" + "water" + "_overlay");
     private static DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(Fluid.class, Reference.MODID);
     public static final RegistryObject<FlowingFluid> STILL_JETSTREAM_WATER = FLUIDS.register("jetstream_water", () -> new JetstreamWaterFluid.Still());
     public static final RegistryObject<Item> JETSTREAM_WATER_BUCKET = ItemInit.register("jetstream_water_bucket", ()->new BucketItem(STILL_JETSTREAM_WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));

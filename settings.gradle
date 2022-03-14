@@ -8,6 +8,10 @@ pluginManagement {
         }
         maven { url "https://maven.architectury.dev/" }
         maven { url "https://files.minecraftforge.net/maven/" }
+        maven {
+            name = 'Cotton'
+            url = 'https://server.bbkr.space/artifactory/libs-release/'
+        }
         gradlePluginPortal()
     }
 }
