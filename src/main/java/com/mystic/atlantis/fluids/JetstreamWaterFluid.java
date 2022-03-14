@@ -62,8 +62,8 @@ public class JetstreamWaterFluid extends FlowingFluid{
 
     @Override
     protected @NotNull FluidAttributes createAttributes() {
-        return FluidAttributes.builder(new ResourceLocation(Reference.MODID, "block/jetstream_water"), new ResourceLocation(Reference.MODID, "block/flowing_jetstream_water"))
-                .build(this);
+        return  FluidAttributes.Water.builder(FluidInit.FLUID_STILL_TEXTURE, FluidInit.FLUID_FLOWING_TEXTURE).overlay(FluidInit.FLUID_OVERLAY_TEXTURE).viscosity(1000).color(0x52A9FF)
+            .build(FluidInit.FLOWING_JETSTREAM_WATER.get());
     }
 
     /**
