@@ -5,6 +5,7 @@ import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -55,7 +56,7 @@ public class AtlantisFeature {
     }
 
     public static <T extends FeatureConfiguration> RegistryObject<Feature<T>> register(String id, Supplier<Feature<T>> t) {
-        return FEATURES.register("id", t);
+        return FEATURES.register(id, t);
     }
 
     public static final class ConfiguredFeaturesAtlantis {
@@ -74,14 +75,14 @@ public class AtlantisFeature {
                         new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 4),
                         new TwoLayersFeatureSize(1, 0, 2)).build()));
 
-        public static final ResourceKey<PlacedFeature> GARDEN_FOLIAGE_PLACER_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "garden_foliage_placer_atlantis"));
-        public static final ResourceKey<PlacedFeature> UNDERWATER_FLOWER_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "underwater_flower_atlantis"));
-        public static final ResourceKey<PlacedFeature> UNDERWATER_MUSHROOM_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "underwater_mushroom_atlantis"));
-        public static final ResourceKey<PlacedFeature> SHELL_BLOCK_FEATURE_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "shell_block_feature_atlantis"));
-        public static final ResourceKey<PlacedFeature> ATLANTEAN_ISLANDS_FEATURE_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "atlantean_islands_feature_atlantis"));
-        public static final ResourceKey<PlacedFeature> ATLANTEAN_VOLCANO_FEATURE_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "atlantean_volcano_feature_atlantis"));
-        public static final ResourceKey<PlacedFeature> JETSTREAM_LAKE_FEATURE_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "jetstream_lake_feature_atlantis"));
-        public static final ResourceKey<PlacedFeature> ATLANTEAN_TREE_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "atlantean_tree"));
+//        public static final ResourceKey<PlacedFeature> GARDEN_FOLIAGE_PLACER_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "garden_foliage_placer_atlantis"));
+//        public static final ResourceKey<PlacedFeature> UNDERWATER_FLOWER_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "underwater_flower_atlantis"));
+//        public static final ResourceKey<PlacedFeature> UNDERWATER_MUSHROOM_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "underwater_mushroom_atlantis"));
+//        public static final ResourceKey<PlacedFeature> SHELL_BLOCK_FEATURE_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "shell_block_feature_atlantis"));
+//        public static final ResourceKey<PlacedFeature> ATLANTEAN_ISLANDS_FEATURE_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "atlantean_islands_feature_atlantis"));
+//        public static final ResourceKey<PlacedFeature> ATLANTEAN_VOLCANO_FEATURE_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "atlantean_volcano_feature_atlantis"));
+//        public static final ResourceKey<PlacedFeature> JETSTREAM_LAKE_FEATURE_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "jetstream_lake_feature_atlantis"));
+//        public static final ResourceKey<PlacedFeature> ATLANTEAN_TREE_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "atlantean_tree"));
 
         public static final PlacedFeature GARDEN_FOLIAGE_PLACER_ATLANTIS_PLACED =  ConfiguredFeaturesAtlantis.GARDEN_FOLIAGE_PLACER_ATLANTIS.placed(HeightRangePlacement.of(UniformHeight.of(VerticalAnchor.bottom(), VerticalAnchor.top())), InSquarePlacement.spread(), CountPlacement.of(200));
         public static final PlacedFeature UNDERWATER_FLOWER_ATLANTIS_PLACED = ConfiguredFeaturesAtlantis.UNDERWATER_FLOWER_ATLANTIS.placed(HeightRangePlacement.of(UniformHeight.of(VerticalAnchor.bottom(), VerticalAnchor.top())), InSquarePlacement.spread(), CountPlacement.of(100));
@@ -93,17 +94,17 @@ public class AtlantisFeature {
         public static final PlacedFeature ATLANTEAN_TREE_PLACED = ConfiguredFeaturesAtlantis.ATLANTEAN_TREE.placed();
         
         public static void registerConfiguredFeatures() {
-            register("garden_foliage_placer_atlantis", GARDEN_FOLIAGE_PLACER_ATLANTIS_PLACED);
-            register("underwater_flower_atlantis", UNDERWATER_FLOWER_ATLANTIS_PLACED);
-            register("underwater_mushroom_atlantis", UNDERWATER_FLOWER_ATLANTIS_PLACED);
-            register("shell_block_feature_atlantis", SHELL_BLOCK_FEATURE_ATLANTIS_PLACED);
-            register("atlantean_islands_feature_atlantis", ATLANTEAN_ISLANDS_FEATURE_ATLANTIS_PLACED);
-            register("atlantean_volcano_feature_atlantis", ATLANTEAN_VOLCANO_FEATURE_ATLANTIS_PLACED);
-            register("jetstream_lake_feature_atlantis", JETSTREAM_LAKE_FEATURE_ATLANTIS_PLACED);
+//            register("garden_foliage_placer_atlantis", GARDEN_FOLIAGE_PLACER_ATLANTIS_PLACED);
+//            register("underwater_flower_atlantis", UNDERWATER_FLOWER_ATLANTIS_PLACED);
+//            register("underwater_mushroom_atlantis", UNDERWATER_FLOWER_ATLANTIS_PLACED);
+//            register("shell_block_feature_atlantis", SHELL_BLOCK_FEATURE_ATLANTIS_PLACED);
+//            register("atlantean_islands_feature_atlantis", ATLANTEAN_ISLANDS_FEATURE_ATLANTIS_PLACED);
+//            register("atlantean_volcano_feature_atlantis", ATLANTEAN_VOLCANO_FEATURE_ATLANTIS_PLACED);
+//            register("jetstream_lake_feature_atlantis", JETSTREAM_LAKE_FEATURE_ATLANTIS_PLACED);
         }
 
         private static void register(String name, PlacedFeature feature) {
-            Registry.register(BuiltinRegistries.PLACED_FEATURE, new ResourceLocation(Reference.MODID, name), feature);
+//            Registry.register(BuiltinRegistries.PLACED_FEATURE, new ResourceLocation(Reference.MODID, name), feature);
         }
     }
 }

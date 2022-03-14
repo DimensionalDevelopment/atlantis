@@ -76,6 +76,8 @@ public class Atlantis {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         ModParticleTypes.PARTICLES.register(bus);
         onInitialize(bus);
+        AtlantisFeature.FEATURES.register(bus);
+        AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
     }
 
     @NotNull
