@@ -36,7 +36,7 @@ public class AtlanteanIslands extends Feature<NoneFeatureConfiguration> {
             return false;
         }
 
-        if(AtlantisConfig.get().islandsOn) {
+        if(AtlantisConfig.INSTANCE.islandsOn.get()) {
             BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
             for (double x = -radius; x <= radius; x++) {
                 for (double y = 1; y <= radius; y++) {
