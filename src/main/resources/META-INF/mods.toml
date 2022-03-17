@@ -25,6 +25,12 @@ authors="Mysticpasta1, Nyfaria, Gami, LordHugo02, DTRaptor, TelepathicGrunt, Wat
 description='''
 An Underwater Atlantis like dimension mod.
 '''
+[[dependencies.atlantis]] #optional
+    modId="cloth_config" #mandatory
+    mandatory=true #mandatory
+    versionRange="[6.0.45,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
 
 [[dependencies.atlantis]] #optional
     modId="geckolib3" #mandatory
