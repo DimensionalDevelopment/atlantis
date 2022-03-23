@@ -6,8 +6,8 @@ import com.mystic.atlantis.blocks.plants.*;
 import com.mystic.atlantis.blocks.power.*;
 import com.mystic.atlantis.blocks.slabs.AncientWoodSlabs;
 import com.mystic.atlantis.configfeature.trees.AtlanteanTreeSaplingGenerator;
+import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.util.Reference;
-import net.kyrptonaught.customportalapi.mixin.portalLighters.FluidBlockPlacedMixin;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -20,7 +20,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -152,13 +151,15 @@ public class BlockInit {
             new AtlanteanSapling(new AtlanteanTreeSaplingGenerator(),
                     BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
+    public static final RegistryObject<Block> ATLANTEAN_FIRE_MELON_FRUIT = registerOnlyBlock("atlantean_fire_melon_fruit", () -> new AtlanteanFireMelonFruit(BlockBehaviour.Properties.of(Material.PLANT)));
 
-
+    public static final RegistryObject<AtlanteanFireMelonBody> ATLANTEAN_FIRE_MELON_STEM = registerOnlyBlock("atlantean_fire_melon_stem", () -> new AtlanteanFireMelonBody(BlockBehaviour.Properties.of(Material.PLANT)));
+    public static final RegistryObject<AtlanteanFireMelonHead> ATLANTEAN_FIRE_MELON_TOP = registerOnlyBlock("atlantean_fire_melon_top", () -> new AtlanteanFireMelonHead(BlockBehaviour.Properties.of(Material.PLANT)));
 
     private static RegistryObject<Block> registerBlock(String name, Supplier<Block> block) {
-        return registerBlock(name, block, b -> () -> new BlockItem(b.get(),new Item.Properties()));
+        return registerBlock(name, block, b -> () -> new BlockItem(b.get(),new Item.Properties().tab(AtlantisGroup.INSTANCE)));
     }
-    public static RegistryObject<Block>registerOnlyBlock(String name, Supplier<Block> block) {
+    public static <T extends Block> RegistryObject<T>registerOnlyBlock(String name, Supplier<T> block) {
         return BLOCKS.register(name, block);
     }
     public static RegistryObject<LiquidBlock> registerFluidBlock(String name, Supplier<LiquidBlock> block) {
