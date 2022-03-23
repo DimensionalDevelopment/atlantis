@@ -1,23 +1,24 @@
 buildscript {
     repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
-        maven { url = "https://files.minecraftforge.net/maven" }
+        mavenCentral()
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
-//Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
-version = project.modversion
-group = "com.mystic.atlantis" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+version = "0.3.1-1.12.2-forge"
+group = "com.mystic" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "atlantis"
-
-if (project.hasProperty('buildNumber')) {
-    version = project.modversion + "." + buildNumber
-    jar.archiveName = archivesBaseName + "-dev-" + buildNumber + ".jar"
-}
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
@@ -25,55 +26,41 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2847"
-    runDir = "run"
-    replace "@VERSION@", project.minecraft.version + "-" + project.version
-    // the mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   snapshot are built nightly.
-    // stable_#            stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
-    // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "stable_39"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    mappings channel: 'stable', version: '39-1.12'
+    runs {
+        create("client") {
+            property("forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP")
+            property("forge.logging.console.level", "debug")
+        }
+
+        create("server") {
+            property("forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP")
+            property("forge.logging.console.level", "debug")
+        }
+    }
 }
+
 
 repositories {
     mavenCentral()
-    maven { setUrl("https://oss.sonatype.org/content/repositories/public/") }
-    maven { setUrl("https://minecraft.curseforge.com/api/maven/") }
-    maven { setUrl("https://repo.spongepowered.org/maven") }
-    maven { setUrl("https://oss.sonatype.org/content/repositories/snapshots/") }
-    maven {
-        name = "SpongePowered"
-        url = "https://repo.spongepowered.org/maven/"
-    }
-    maven {
-        name = "elytradev"
-        url = "https://repo.elytradev.com"
-    }
 }
-
 
 dependencies {
-    deobfProvided ("io.github.opencubicchunks:cubicchunks-api:1.12.2-0.0-SNAPSHOT")
-    deobfProvided ("io.github.opencubicchunks:cubicchunks:1.12.2-0.0-SNAPSHOT")
+    minecraft("net.minecraftforge:forge:1.12.2-14.23.5.2860")
 }
 
-processResources {
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
+jar.finalizedBy('reobfJar')
 
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
     }
-
-    // copy everything else except the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
     }
 }
