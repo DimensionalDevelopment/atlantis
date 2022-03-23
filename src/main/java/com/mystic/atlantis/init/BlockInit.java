@@ -1,20 +1,22 @@
 package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.blocks.*;
+import com.mystic.atlantis.blocks.blockentities.AtlanteanWoodTrapdoor;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.blocks.plants.*;
 import com.mystic.atlantis.blocks.power.*;
+import com.mystic.atlantis.blocks.signs.AtlanteanSignBlock;
+import com.mystic.atlantis.blocks.signs.AtlanteanWallSign;
 import com.mystic.atlantis.blocks.slabs.AncientWoodSlabs;
+import com.mystic.atlantis.blocks.slabs.AtlanteanWoodSlabs;
 import com.mystic.atlantis.configfeature.trees.AtlanteanTreeSaplingGenerator;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LiquidBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -25,10 +27,26 @@ import java.util.function.Supplier;
 
 public class BlockInit {
     private static DeferredRegister<Block> BLOCKS = DeferredRegister.create(Block.class, Reference.MODID);
-    
+
     public static void init(IEventBus bus) {
         BLOCKS.register(bus);
     }
+
+    //Atlantean Wood Type
+    public static final WoodType ATLANTEAN = WoodType.register(WoodType.create("atlantean"));
+
+    //Atlantean Wood Variants
+    public static final RegistryObject<Block> ATLANTEAN_BUTTON = registerBlock("atlantean_button", () -> new AtlanteanButton(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ATLANTEAN_DOOR = registerBlock("atlantean_door", () -> new AtlanteanWoodDoors(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ATLANTEAN_FENCE = registerBlock("atlantean_fence", () -> new AtlanteanWoodFence(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ATLANTEAN_FENCE_GATE = registerBlock("atlantean_fence_gate", () -> new AtlanteanFenceGate(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ATLANTEAN_PLANKS = registerBlock("atlantean_planks", () -> new AtlanteanWood(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ATLANTEAN_PRESSURE_PLATE = registerBlock("atlantean_pressure_plate", () -> new AtlanteanPressurePlate(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ATLANTEAN_SIGNS = registerBlock("atlantean_sign", () -> new AtlanteanSignBlock(BlockBehaviour.Properties.of(Material.WOOD), ATLANTEAN));
+    public static final RegistryObject<Block> ATLANTEAN_SLAB = registerOnlyBlock("atlantean_slab", () -> new AtlanteanWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ATLANTEAN_STAIRS = registerBlock("atlantean_stairs", () -> new AtlanteanWoodStairs(BlockInit.ATLANTEAN_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ATLANTEAN_TRAPDOOR = registerBlock("atlantean_trapdoor", () -> new AtlanteanWoodTrapdoor(BlockBehaviour.Properties.of(Material.WOOD)));
+    public static final RegistryObject<Block> ATLANTEAN_WALL_SIGN = registerOnlyBlock("atlantean_wall_sign", () -> new AtlanteanWallSign(BlockBehaviour.Properties.of(Material.WOOD), ATLANTEAN));
 
     //Geckolib blocktypes
     public static final RegistryObject<Block> UNDERWATER_SHROOM_BLOCK = registerBlock("underwater_shroom", UnderwaterShroomBlock::new);
@@ -70,6 +88,7 @@ public class BlockInit {
     public static final RegistryObject<Block> ANCIENT_ACACIA_WOOD_MOSS_DOOR = registerBlock("ancient_acacia_wood_moss_door",()-> new AncientWoodDoors(BlockBehaviour.Properties.of(Material.WOOD)));
 
     //Regular blocks
+    public static final RegistryObject<Block> ATLANTEAN_PRISMARINE = registerBlock("atlantean_prismarine", () -> new AtlanteanPrismarine(BlockBehaviour.Properties.of(Material.STONE)));
     public static final RegistryObject<Block> ATLANTEAN_LEAVES = registerBlock("atlantean_leaf_block",()-> new AtlanteanLeaves(BlockBehaviour.Properties.of(Material.LEAVES)));
     public static final RegistryObject<Block> ATLANTEAN_LOGS = registerBlock("atlantean_log",()-> new AtlanteanLogs(BlockBehaviour.Properties.of(Material.WOOD)));
     public static final RegistryObject<Block> ANCIENT_ACACIA_WOOD_MOSS = registerBlock("ancient_acacia_wood_moss",()-> new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
