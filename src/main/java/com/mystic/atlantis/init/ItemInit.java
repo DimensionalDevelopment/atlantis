@@ -66,7 +66,7 @@ public class ItemInit {
     public static final RegistryObject<Item> ATLANTEAN_STRING = register("atlantean_string",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_TRIPWIRE.get(), (new Item.Properties().tab(AtlantisGroup.INSTANCE))));
     public static final RegistryObject<Item> SUBMARINE = register("submarine", () -> new SubmarineItem(new Item.Properties().tab(AtlantisGroup.INSTANCE)));
     public static final RegistryObject<Item> WATER_PILL = register("water_pill", WaterPill::new);
-    public static final RegistryObject<Item> ATLANTEAN_SIGN = register("atlantean_sign", () -> new StandingAndWallBlockItem(BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get(), new Item.Properties().tab(AtlantisGroup.INSTANCE)));
+    public static final RegistryObject<Item> ATLANTEAN_SIGN = register("atlantean_sign", () -> new SignItem(new Item.Properties().tab(AtlantisGroup.INSTANCE), BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get()));
 
     public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_FRUIT = register("atlantean_fire_melon_fruit", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(1).build())));
     public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_FRUIT_SPIKED = register("atlantean_fire_melon_fruit_spiked", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(1).effect(() -> new MobEffectInstance(MobEffects.HARM, 60), 1.0f).build())));

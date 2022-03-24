@@ -10,7 +10,8 @@
     "RedstoneAccessor",
     "RedstoneWireBlockMixin",
     "RenderBubblesMixin",
-    "WorldLightManagerMixin"
+    "WorldLightManagerMixin",
+    "BlockEntityTypeMixin"
   ],
   "client": [],
   "injectors": {
