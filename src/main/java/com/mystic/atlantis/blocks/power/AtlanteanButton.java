@@ -7,13 +7,14 @@ import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.WoodButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import static com.mystic.atlantis.blocks.power.AtlanteanPowerTorch.WATERLOGGED;
 
 public class AtlanteanButton extends WoodButtonBlock implements SimpleWaterloggedBlock {
     public AtlanteanButton(Properties arg) {
         super(arg);
-        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(WATERLOGGED, false));
     }
 
     @Override
@@ -23,6 +24,6 @@ public class AtlanteanButton extends WoodButtonBlock implements SimpleWaterlogge
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> arg) {
-        arg.add(WATERLOGGED);
+        arg.add(FACING, POWERED, FACE ,WATERLOGGED);
     }
 }

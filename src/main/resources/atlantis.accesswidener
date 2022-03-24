@@ -8,3 +8,5 @@ accessible field net/minecraft/world/level/levelgen/feature/StructureFeature NOI
 accessible field net/minecraft/world/level/levelgen/StructureSettings DEFAULTS Lcom/google/common/collect/ImmutableMap;
 accessible field net/minecraft/world/level/levelgen/StructureSettings structureConfig Ljava/util/Map;
 accessible field net/minecraft/world/level/levelgen/StructureSettings configuredStructures Lcom/google/common/collect/ImmutableMap;
+accessible method net/minecraft/world/level/block/CropBlock getGrowthSpeed (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)F
+accessible method net/minecraft/world/level/block/GrowingPlantBlock canAttachTo (Lnet/minecraft/world/level/block/state/BlockState;)Z

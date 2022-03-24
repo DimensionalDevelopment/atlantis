@@ -12,12 +12,14 @@ import com.mystic.atlantis.blocks.slabs.AtlanteanWoodSlabs;
 import com.mystic.atlantis.configfeature.trees.AtlanteanTreeSaplingGenerator;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.util.Reference;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -42,7 +44,7 @@ public class BlockInit {
     public static final RegistryObject<Block> ATLANTEAN_FENCE_GATE = registerBlock("atlantean_fence_gate", () -> new AtlanteanFenceGate(BlockBehaviour.Properties.of(Material.WOOD)));
     public static final RegistryObject<Block> ATLANTEAN_PLANKS = registerBlock("atlantean_planks", () -> new AtlanteanWood(BlockBehaviour.Properties.of(Material.WOOD)));
     public static final RegistryObject<Block> ATLANTEAN_PRESSURE_PLATE = registerBlock("atlantean_pressure_plate", () -> new AtlanteanPressurePlate(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final RegistryObject<Block> ATLANTEAN_SIGNS = registerBlock("atlantean_sign", () -> new AtlanteanSignBlock(BlockBehaviour.Properties.of(Material.WOOD), ATLANTEAN));
+    public static final RegistryObject<Block> ATLANTEAN_SIGNS = registerOnlyBlock("atlantean_sign", () -> new AtlanteanSignBlock(BlockBehaviour.Properties.of(Material.WOOD), ATLANTEAN));
     public static final RegistryObject<Block> ATLANTEAN_SLAB = registerOnlyBlock("atlantean_slab", () -> new AtlanteanWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
     public static final RegistryObject<Block> ATLANTEAN_STAIRS = registerBlock("atlantean_stairs", () -> new AtlanteanWoodStairs(BlockInit.ATLANTEAN_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD)));
     public static final RegistryObject<Block> ATLANTEAN_TRAPDOOR = registerBlock("atlantean_trapdoor", () -> new AtlanteanWoodTrapdoor(BlockBehaviour.Properties.of(Material.WOOD)));
@@ -170,6 +172,7 @@ public class BlockInit {
             new AtlanteanSapling(new AtlanteanTreeSaplingGenerator(),
                     BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
+    public static final RegistryObject<Block> ATLANTEAN_FIRE_MELON_FRUIT_SPIKED = registerOnlyBlock("atlantean_fire_melon_fruit_spiked", () -> new AtlanteanFireMelonFruitSpiked(BlockBehaviour.Properties.of(Material.PLANT)));
     public static final RegistryObject<Block> ATLANTEAN_FIRE_MELON_FRUIT = registerOnlyBlock("atlantean_fire_melon_fruit", () -> new AtlanteanFireMelonFruit(BlockBehaviour.Properties.of(Material.PLANT)));
 
     public static final RegistryObject<AtlanteanFireMelonBody> ATLANTEAN_FIRE_MELON_STEM = registerOnlyBlock("atlantean_fire_melon_stem", () -> new AtlanteanFireMelonBody(BlockBehaviour.Properties.of(Material.PLANT)));

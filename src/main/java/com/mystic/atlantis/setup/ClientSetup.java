@@ -68,6 +68,12 @@ public class ClientSetup {
                 EnenmomyTileRenderer::new);
 
         registerBlockRenderLayers(RenderType.cutout(),
+                BlockInit.ATLANTEAN_FIRE_MELON_FRUIT.get(),
+                BlockInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get(),
+                BlockInit.ATLANTEAN_FIRE_MELON_STEM.get(),
+                BlockInit.ATLANTEAN_FIRE_MELON_TOP.get(),
+                BlockInit.ATLANTEAN_DOOR.get(),
+                BlockInit.ATLANTEAN_TRAPDOOR.get(),
                 BlockInit.ATLANTEAN_LEAVES.get(),
                 BlockInit.ATLANTEAN_SAPLING.get(),
                 BlockInit.UNDERWATER_FLOWER.get(),

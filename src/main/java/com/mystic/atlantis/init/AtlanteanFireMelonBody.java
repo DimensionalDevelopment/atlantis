@@ -27,14 +27,16 @@ import net.minecraftforge.common.PlantType;
 import java.util.Random;
 import java.util.function.Supplier;
 
+import static com.mystic.atlantis.blocks.power.AtlanteanPowerTorch.WATERLOGGED;
+
 public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements LiquidBlockContainer {
     public static final int MAX_AGE = 7;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
     protected static final float AABB_OFFSET = 1.0F;
     protected static final VoxelShape BLOCK = Shapes.block();
 
-    public AtlanteanFireMelonBody(BlockBehaviour.Properties arg2) {
-        super(arg2);
+    public AtlanteanFireMelonBody(Properties arg) {
+        super(arg.noCollission().noOcclusion(), Direction.UP, BLOCK, true);
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
     }
 
@@ -58,6 +60,11 @@ public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements Liq
     }
 
     @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> arg) {
+        arg.add(AGE, WATERLOGGED);
+    }
+
+    @Override
     protected GrowingPlantHeadBlock getHeadBlock() {
         return BlockInit.ATLANTEAN_FIRE_MELON_TOP.get();
     }
@@ -73,7 +80,7 @@ public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements Liq
     }
 
     @Override
-    protected boolean canAttachTo(BlockState arg) {
+    public boolean canAttachTo(BlockState arg) {
         return this.getHeadBlock().canAttachTo(arg);
     }
 

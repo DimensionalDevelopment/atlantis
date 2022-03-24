@@ -1,34 +1,41 @@
 package com.mystic.atlantis.blocks;
 
+import com.mystic.atlantis.blocks.power.AtlanteanPowerTorch;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.fluids.capability.wrappers.BlockWrapper;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-public class AtlanteanFireMelonFruit extends HorizontalDirectionalBlock implements BonemealableBlock {
-    public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
+import static com.mystic.atlantis.blocks.AtlanteanWoodDoors.WATERLOGGED;
+import static net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_1;
+
+public class AtlanteanFireMelonFruit extends HorizontalDirectionalBlock implements BonemealableBlock, SimpleWaterloggedBlock {
+    public static final IntegerProperty AGE = AGE_1;
     public static final BooleanProperty SPIKED = BooleanProperty.create("spiked");
 
     protected static final VoxelShape[] EAST_AABB = new VoxelShape[]{Block.box(11.0D, 7.0D, 6.0D, 15.0D, 12.0D, 10.0D), Block.box(9.0D, 5.0D, 5.0D, 15.0D, 12.0D, 11.0D), Block.box(7.0D, 3.0D, 4.0D, 15.0D, 12.0D, 12.0D)};
@@ -38,26 +45,51 @@ public class AtlanteanFireMelonFruit extends HorizontalDirectionalBlock implemen
 
     public AtlanteanFireMelonFruit(Properties arg) {
         super(arg);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AGE, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AGE, 0).setValue(WATERLOGGED, Boolean.TRUE));
     }
 
     public boolean isRandomlyTicking(BlockState arg) {
-        return arg.getValue(AGE) < 3;
+        return arg.getValue(AGE) < 5;
     }
 
     public void randomTick(BlockState blockState, ServerLevel level, BlockPos blockPos, Random random) {
         int i = blockState.getValue(AGE);
-        if (i < 3 && ForgeHooks.onCropsGrowPre(level, blockPos, blockState, level.random.nextInt(5) == 0)) {
-            level.setBlock(blockPos, BlockInit.ATLANTEAN_FIRE_MELON_FRUIT.get().defaultBlockState(), 2);
+        if (i < 4 && ForgeHooks.onCropsGrowPre(level, blockPos, blockState, level.random.nextInt(4) == 0)) {
+            level.setBlock(blockPos, BlockInit.ATLANTEAN_FIRE_MELON_FRUIT.get().withPropertiesOf(blockState), 0);
             ForgeHooks.onCropsGrowPost(level, blockPos, blockState);
         } else {
-            level.setBlock(blockPos, BlockInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get().defaultBlockState(), 2);
+            level.setBlock(blockPos, BlockInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get().withPropertiesOf(blockState), 4);
         }
     }
 
+    public Tag<Block> getAir(){
+        Tag<Block> air = new Tag<Block>() {
+            @Override
+            public boolean contains(Block element) {
+                return true;
+            }
+
+            @Override
+            public List<Block> getValues() {
+                List<Block> air2 = new ArrayList<Block>();
+                air2.add(Blocks.AIR);
+                return air2;
+            }
+        };
+        return air;
+    }
+
+    public boolean OnlyWater(LevelReader worldReader, BlockPos pos, BlockState state) {
+        return worldReader.isWaterAt(pos);
+    }
+
     public boolean canSurvive(BlockState arg, LevelReader arg2, BlockPos arg3) {
-        BlockState blockstate = arg2.getBlockState(arg3.relative(arg.getValue(FACING)));
-        return blockstate.is(BlockTags.JUNGLE_LOGS);
+        BlockState state = arg2.getBlockState(arg3.relative(arg.getValue(FACING)));
+        if(OnlyWater(arg2, arg3, arg)){
+            return state.is(BlockInit.ATLANTEAN_FIRE_MELON_STEM.get());
+        }else{
+            return false;
+        }
     }
 
     public VoxelShape getShape(BlockState arg, BlockGetter arg2, BlockPos arg3, CollisionContext arg4) {
@@ -94,8 +126,13 @@ public class AtlanteanFireMelonFruit extends HorizontalDirectionalBlock implemen
         return null;
     }
 
+    @Override
+    public FluidState getFluidState(BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    }
+
     public BlockState updateShape(BlockState arg, Direction arg2, BlockState arg3, LevelAccessor arg4, BlockPos arg5, BlockPos arg6) {
-        return arg2 == arg.getValue(FACING) && !arg.canSurvive(arg4, arg5) ? Blocks.AIR.defaultBlockState() : super.updateShape(arg, arg2, arg3, arg4, arg5, arg6);
+        return arg2 == arg.getValue(FACING) && !arg.canSurvive(arg4, arg5) ? Blocks.WATER.defaultBlockState() : super.updateShape(arg, arg2, arg3, arg4, arg5, arg6);
     }
 
     public boolean isValidBonemealTarget(BlockGetter arg, BlockPos arg2, BlockState arg3, boolean bl) {
@@ -107,15 +144,15 @@ public class AtlanteanFireMelonFruit extends HorizontalDirectionalBlock implemen
     }
 
     public void performBonemeal(ServerLevel arg, Random random, BlockPos arg2, BlockState arg3) {
-        if(arg3.getValue(AGE) == 1) {
-            arg.setBlock(arg2, BlockInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get().defaultBlockState(), 2);
+        if(arg3.getValue(AGE) == 0) {
+            arg.setBlock(arg2, BlockInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get().withPropertiesOf(arg3), 4);
         } else {
-            arg.setBlock(arg2, arg3.setValue(AGE, arg3.getValue(AGE) + 1), 2);
+            arg.setBlock(arg2, arg3.setValue(AGE, arg3.getValue(AGE)), 0);
         }
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> arg) {
-        arg.add(FACING, AGE);
+        arg.add(FACING, AGE, WATERLOGGED);
     }
 
     public boolean isPathfindable(BlockState arg, BlockGetter arg2, BlockPos arg3, PathComputationType arg4) {
