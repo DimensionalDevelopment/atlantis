@@ -12,6 +12,7 @@ import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.init.ToolInit;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
+import com.mystic.atlantis.mixin.BlockEntityTypeMixin;
 import com.mystic.atlantis.particles.ModParticleTypes;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.structures.AtlantisStructures;
@@ -25,6 +26,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.client.ConfigGuiHandler;
@@ -127,6 +129,8 @@ public class Atlantis {
             AtlantisStructures.setupStructures();
             AtlantisConfiguredStructures.registerConfiguredStructures();
         });
+
+        ((BlockEntityTypeMixin) (Object) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get());
 
         SpawnPlacements.register(AtlantisEntities.CRAB.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrabEntity::canSpawn);
     }
