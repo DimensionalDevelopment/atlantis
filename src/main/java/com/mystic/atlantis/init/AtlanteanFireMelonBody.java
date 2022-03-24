@@ -36,16 +36,18 @@ public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements Liq
 
     @Override
     public void randomTick(BlockState blockState, ServerLevel level, BlockPos blockPos, Random random) {
-        if (level.isAreaLoaded(blockPos, 1)) {
-            float f = CropBlock.getGrowthSpeed(this, level, blockPos);
-            if (ForgeHooks.onCropsGrowPre(level, blockPos, blockState, random.nextInt((int)(5.0F / f) + 1) == 5 || random.nextInt((int)(5.0F / f) + 1) == 0)) {
-                Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-                BlockPos blockpos = blockPos.relative(direction);
-                if (level.isFluidAtPosition(blockpos, fluidState -> fluidState.is(Fluids.WATER))) {
-                    level.setBlockAndUpdate(blockpos.offset(direction.getOpposite().getNormal().multiply(2)), BlockInit.ATLANTEAN_FIRE_MELON_FRUIT.get().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
-                }
+        Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+        BlockPos blockpos = blockPos.relative(direction);
+        if(level.getBlockState(blockpos.offset(direction.getOpposite().getNormal().multiply(2))) == Blocks.WATER.defaultBlockState()) {
+            if (level.isAreaLoaded(blockPos, 1)) {
+                float f = CropBlock.getGrowthSpeed(this, level, blockPos);
+                if (ForgeHooks.onCropsGrowPre(level, blockPos, blockState, random.nextInt((int) (5.0F / f) + 1) == 5 || random.nextInt((int) (5.0F / f) + 1) == 0)) {
+                    if (level.isFluidAtPosition(blockpos, fluidState -> fluidState.is(Fluids.WATER))) {
+                        level.setBlockAndUpdate(blockpos.offset(direction.getOpposite().getNormal().multiply(2)), BlockInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
+                    }
 
-                ForgeHooks.onCropsGrowPost(level, blockPos, blockState);
+                    ForgeHooks.onCropsGrowPost(level, blockPos, blockState);
+                }
             }
         }
     }

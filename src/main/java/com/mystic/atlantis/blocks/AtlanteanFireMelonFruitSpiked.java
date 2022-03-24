@@ -63,10 +63,12 @@ public class AtlanteanFireMelonFruitSpiked extends HorizontalDirectionalBlock im
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AGE, 0).setValue(SPIKED, true).setValue(WATERLOGGED, Boolean.TRUE));
     }
 
+    @Override
     public boolean isRandomlyTicking(BlockState arg) {
         return arg.getValue(AGE) < 4;
     }
 
+    @Override
     public void randomTick(BlockState blockState, ServerLevel level, BlockPos blockPos, Random random) {
         int i = blockState.getValue(AGE);
         if (i < 4 && ForgeHooks.onCropsGrowPre(level, blockPos, blockState, level.random.nextInt(4) == 0)) {
@@ -111,6 +113,7 @@ public class AtlanteanFireMelonFruitSpiked extends HorizontalDirectionalBlock im
         }
     }
 
+    @Override
     public VoxelShape getShape(BlockState arg, BlockGetter arg2, BlockPos arg3, CollisionContext arg4) {
         int i = arg.getValue(AGE);
         switch(arg.getValue(FACING)) {
@@ -126,6 +129,7 @@ public class AtlanteanFireMelonFruitSpiked extends HorizontalDirectionalBlock im
         }
     }
 
+    @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext arg) {
         BlockState blockstate = this.defaultBlockState();
@@ -147,26 +151,32 @@ public class AtlanteanFireMelonFruitSpiked extends HorizontalDirectionalBlock im
         return null;
     }
 
+    @Override
     public BlockState updateShape(BlockState arg, Direction arg2, BlockState arg3, LevelAccessor arg4, BlockPos arg5, BlockPos arg6) {
         return arg2 == arg.getValue(FACING) && !arg.canSurvive(arg4, arg5) ? Blocks.WATER.defaultBlockState() : super.updateShape(arg, arg2, arg3, arg4, arg5, arg6);
     }
 
+    @Override
     public boolean isValidBonemealTarget(BlockGetter arg, BlockPos arg2, BlockState arg3, boolean bl) {
         return arg3.getValue(AGE) < 4;
     }
 
+    @Override
     public boolean isBonemealSuccess(Level arg, Random random, BlockPos arg2, BlockState arg3) {
         return true;
     }
 
+    @Override
     public void performBonemeal(ServerLevel arg, Random random, BlockPos arg2, BlockState arg3) {
-        arg.setBlock(arg2, arg3.setValue(AGE, arg3.getValue(AGE) + 1), 4);
+        arg.setBlock(arg2, arg3.setValue(AGE, arg3.getValue(AGE) + 1), 2);
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> arg) {
         arg.add(FACING, AGE, SPIKED, WATERLOGGED);
     }
 
+    @Override
     public boolean isPathfindable(BlockState arg, BlockGetter arg2, BlockPos arg3, PathComputationType arg4) {
         return false;
     }
