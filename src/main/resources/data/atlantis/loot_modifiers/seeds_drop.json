@@ -1,0 +1,9 @@
+{
+  "type": "atlantis:seeds_drop",
+  "conditions": [
+    {
+      "condition": "minecraft:random_chance",
+      "chance": 0.5
+    }
+  ]
+}

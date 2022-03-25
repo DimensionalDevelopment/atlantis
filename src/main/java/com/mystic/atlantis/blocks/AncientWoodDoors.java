@@ -36,6 +36,7 @@ public class AncientWoodDoors extends DoorBlock implements SimpleWaterloggedBloc
     public AncientWoodDoors(BlockBehaviour.Properties settings) {
         super(settings
                 .sound(SoundType.WOOD)
+                .noOcclusion()
 //                .breakByTool(FabricToolTags.AXES, 2) //TODO: Update
                 .requiresCorrectToolForDrops()
                 .strength(3.0F, 6.0F));

@@ -1,5 +1,6 @@
 package com.mystic.atlantis.items.item;
 
+import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -12,7 +13,8 @@ import net.minecraft.world.level.Level;
 
 public class AtlanteanCrystal extends Item {
     public AtlanteanCrystal() {
-        super(new Properties().stacksTo(16));
+        super(new Properties().stacksTo(16)
+                .tab(AtlantisGroup.INSTANCE));
     }
 
     @Override

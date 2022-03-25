@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"WW ",
+		"WW ",
+		"WW "
+	],
+	"key":
+	{
+		"W":
+		{
+			"item": "atlantis:atlantean_planks"
+		}
+	},
+	"result":
+	{
+		"item": "atlantis:atlantean_door",
+		"count": 3
+	}
+
+}	

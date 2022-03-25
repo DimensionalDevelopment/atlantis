@@ -158,5 +158,20 @@
   "block.atlantis.tuber_up": "Atlantean Tuber",
   "block.atlantis.blue_lily": "Blue Lily Flower",
   "block.atlantis.burnt_deep": "Burnt Deep Flower",
-  "block.atlantis.enenmomy": "Atlantean Anemone"
+  "block.atlantis.enenmomy": "Atlantean Anemone",
+  "item.atlantis.fire_melon_jelly_bottle": "Atlantean Fire Melon Jelly in a Bottle",
+  "item.atlantis.jellyfish_jelly_bottle": "Jellyfish Jelly in a Bottle",
+  "block.atlantis.atlantean_sign": "Atlantean Sign",
+  "item.atlantis.atlantean_fire_melon_fruit_seeds": "Atlantean Fire Melon Seeds",
+  "item.atlantis.atlantean_fire_melon_spikes": "Atlantean Fire Melon Spikes",
+  "block.atlantis.atlantean_door": "Atlantean Door",
+  "block.atlantis.atlantean_fence": "Atlantean Fence",
+  "block.atlantis.atlantean_fence_gate": "Atlantean Fence Gate",
+  "block.atlantis.atlantean_planks": "Atlantean Planks",
+  "block.atlantis.atlantean_pressure_plate": "Atlantean Pressure Plate",
+  "block.atlantis.atlantean_stairs": "Atlantean Stairs",
+  "block.atlantis.atlantean_button": "Atlantean Button",
+  "block.atlantis.atlantean_trapdoor": "Atlantean Trapdoor",
+  "block.atlantis.atlantean_slab": "Atlantean Slab",
+  "effect.atlantis.spikes": "Spikes"
 }

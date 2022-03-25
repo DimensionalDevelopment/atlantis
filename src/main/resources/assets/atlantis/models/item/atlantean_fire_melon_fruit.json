@@ -1,3 +1,6 @@
 {
-  "parent": "atlantis:block/atlantean_fire_melon_fruit"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "atlantis:items/fire_melon_fruit_despiked"
+  }
 }

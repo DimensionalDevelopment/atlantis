@@ -12,7 +12,12 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
@@ -28,9 +33,10 @@ public class AtlanteanWoodDoors extends DoorBlock implements SimpleWaterloggedBl
 
     public static final Property<Boolean> WATERLOGGED = UnderwaterFlower.WATERLOGGED;
 
-    public AtlanteanWoodDoors(Properties settings) {
+    public AtlanteanWoodDoors(BlockBehaviour.Properties settings) {
         super(settings
                 .sound(SoundType.WOOD)
+                .noOcclusion()
 //                .breakByTool(FabricToolTags.AXES, 2) //TODO: Update
                 .requiresCorrectToolForDrops()
                 .strength(3.0F, 6.0F));

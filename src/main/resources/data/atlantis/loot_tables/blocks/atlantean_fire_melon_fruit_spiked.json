@@ -15,7 +15,7 @@
                   "condition": "minecraft:block_state_property",
                   "block": "atlantis:atlantean_fire_melon_fruit_spiked",
                   "properties": {
-                    "age": "3",
+                    "age": "4",
                     "spiked": false
                   }
                 },
@@ -49,7 +49,7 @@
                   "condition": "minecraft:block_state_property",
                   "block": "atlantis:atlantean_fire_melon_fruit_spiked",
                   "properties": {
-                    "age": "3",
+                    "age": "4",
                     "spiked": true
                   }
                 },

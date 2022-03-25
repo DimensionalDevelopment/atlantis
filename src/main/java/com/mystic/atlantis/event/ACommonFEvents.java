@@ -4,12 +4,18 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
 import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.data.AtlantisModifer;
+import com.mystic.atlantis.init.EffectsInit;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -17,15 +23,37 @@ import net.minecraft.world.level.levelgen.FlatLevelSource;
 import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ACommonFEvents {
+
+    @SubscribeEvent
+    public static void spikesEffectEvent(final LivingHurtEvent event) {
+        if (event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity();
+            Random random = player.getRandom();
+            Entity entity = event.getSource().getEntity();
+            if (player.hasEffect(EffectsInit.SPIKES.get())) {
+                if (player.isHurt()) {
+                    entity.hurt(DamageSource.thorns(player), (float)getDamage(3, random));
+                }
+            }
+        }
+    }
+
+    private static int getDamage(int i, Random random) {
+        return i > 10 ? i - 10 : 1 + random.nextInt(4);
+    }
 
     @SubscribeEvent
     public static void addDimensionalSpacing(final WorldEvent.Load event) {

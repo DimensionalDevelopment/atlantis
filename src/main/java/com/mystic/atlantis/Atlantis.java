@@ -4,16 +4,13 @@ import com.mystic.atlantis.blocks.ExtendedBlockEntity;
 import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
+import com.mystic.atlantis.data.AtlantisModifer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.entities.CrabEntity;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
-import com.mystic.atlantis.init.BlockInit;
-import com.mystic.atlantis.init.FluidInit;
-import com.mystic.atlantis.init.ItemInit;
-import com.mystic.atlantis.init.ToolInit;
+import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
-import com.mystic.atlantis.mixin.BlockEntityTypeMixin;
 import com.mystic.atlantis.particles.ModParticleTypes;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.structures.AtlantisStructures;
@@ -30,8 +27,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.client.ConfigGuiHandler;
 import net.minecraftforge.client.ConfigGuiHandler.ConfigGuiFactory;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModContainer;
@@ -70,8 +68,12 @@ public class Atlantis {
         onInitialize(bus);
         AtlantisFeature.FEATURES.register(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
-
         bus.addListener(this::loadCompleted);
+    }
+
+    @SubscribeEvent
+    public static void registerModifierSerializers(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
+        event.getRegistry().register(new AtlantisModifer.Serializer().setRegistryName(new ResourceLocation("atlantis:seeds_drop")));
     }
 
     @NotNull
@@ -104,10 +106,10 @@ public class Atlantis {
         GeckoLib.initialize();
         TileRegistry.init(bus);
         FluidInit.init(bus);
-
         AtlantisGroup.init();
         AtlantisEntities.initialize(bus);
         AtlantisSoundEvents.SOUNDS.register(bus);
+        EffectsInit.init(bus);
     }
 
     @SubscribeEvent

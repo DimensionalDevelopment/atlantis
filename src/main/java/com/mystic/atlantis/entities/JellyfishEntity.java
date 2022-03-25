@@ -22,6 +22,7 @@ import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -79,6 +80,15 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
             return InteractionResult.FAIL;
         } else if (player.getItemInHand(hand).getItem() == Items.WATER_BUCKET) {
             return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+        } else if (player.getItemInHand(hand).getItem() == Items.GLASS_BOTTLE) {
+            ItemStack itemStack = player.getItemInHand(hand);
+            if (!player.getAbilities().instabuild) {
+                player.playSound(SoundEvents.BOTTLE_FILL, 1.0F, 1.0F);
+                ItemStack itemStack2 = ItemUtils.createFilledResult(itemStack, player, ItemInit.JELLY_BOTTLE.get().getDefaultInstance());
+                player.setItemInHand(hand, itemStack2);
+                player.getItemInHand(hand).shrink(1);
+            }
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.FAIL;
     }

@@ -8,6 +8,8 @@ import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
 import com.mystic.atlantis.items.armor.ItemArmorWrought;
 import com.mystic.atlantis.items.item.*;
+import com.mystic.atlantis.items.item.bottles.FireMelonJellyBottle;
+import com.mystic.atlantis.items.item.bottles.JellyfishJellyBottle;
 import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
 import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
@@ -52,6 +54,8 @@ public class ItemInit {
     public static final RegistryObject<Item> PANBEE = register("panbee", () -> new AtlantisMusicDisc(15, AtlantisSoundEvents.PANBEE, ATLANTIS_SETTINGS));
 
     //ITEMS
+    public static final RegistryObject<Item> FIRE_MELON_JELLY_BOTTLE = register("fire_melon_jelly_bottle", () -> new FireMelonJellyBottle(new Item.Properties()));
+    public static final RegistryObject<Item> JELLY_BOTTLE = register("jellyfish_jelly_bottle", () -> new JellyfishJellyBottle(new Item.Properties()));
     public static final RegistryObject<Item> AQUAMARINE_GEM = register("aquamarine_gem", DefaultItem::new);
     public static final RegistryObject<Item> ORB_OF_ATLANTIS = register("orb_of_atlantis", DefaultItem::new);
     public static final RegistryObject<Item> ATLANTEAN_CRYSTAL = register("atlantean_crystal", AtlanteanCrystal::new);
