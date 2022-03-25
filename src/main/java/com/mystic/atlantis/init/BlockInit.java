@@ -89,6 +89,7 @@ public class BlockInit {
 
     //Regular blocks
     //TODO: see about public static final RegistryObject<Block> ATLANTEAN_PRISMARINE = registerBlock("atlantean_prismarine", () -> new AtlanteanPrismarine(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> BUBBLE_MAGMA = registerBlock("bubble_magma", () -> new BubbleMagma(BlockBehaviour.Properties.of(Material.STONE)));
     public static final RegistryObject<Block> ATLANTEAN_LEAVES = registerBlock("atlantean_leaf_block",()-> new AtlanteanLeaves(BlockBehaviour.Properties.of(Material.LEAVES)));
     public static final RegistryObject<Block> ATLANTEAN_LOGS = registerBlock("atlantean_log",()-> new AtlanteanLogs(BlockBehaviour.Properties.of(Material.WOOD)));
     public static final RegistryObject<Block> ANCIENT_ACACIA_WOOD_MOSS = registerBlock("ancient_acacia_wood_moss",()-> new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
@@ -155,7 +156,7 @@ public class BlockInit {
     public static final RegistryObject<Block> ATLANTEAN_TRIPWIRE = registerOnlyBlock("atlantean_tripwire",()-> new AtlanteanTripwire((AtlanteanTripwireHook)ATLANTEAN_TRIPWIRE_HOOK.get(), BlockBehaviour.Properties.of(Material.DECORATION).noCollission()));
     public static final RegistryObject<Block> ATLANTEAN_POWER_LEVER = registerBlock("atlantean_power_lever",()-> new AtlanteanPowerLever(BlockBehaviour.Properties.of(Material.DECORATION).noCollission().strength(0.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> ATLANTEAN_POWER_COMPARATOR = registerBlock("atlantean_power_comparator",()-> new AtlanteanPowerComparator(BlockBehaviour.Properties.of(Material.DECORATION)));
-    public static final RegistryObject<Block> CALCITE_BLOCK = registerBlock("calcite_block",()-> new CalciteBlock(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> CALCITE_BLOCK = registerBlock("calcite_block",()-> new BubbleMagma(BlockBehaviour.Properties.of(Material.STONE)));
     public static final RegistryObject<Block> PUSH_BUBBLE_COLUMN = registerOnlyBlock("push_bubble_column",()-> new PushBubbleColumn(BlockBehaviour.Properties.of(Material.BUBBLE_COLUMN)));
     public static final RegistryObject<Block> ANCIENT_ACACIA_WOOD_MOSS_SLAB = registerBlock("ancient_acacia_wood_moss_slab",()-> new AncientWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));
     public static final RegistryObject<Block> ANCIENT_OAK_WOOD_MOSS_SLAB = registerBlock("ancient_oak_wood_moss_slab",()-> new AncientWoodSlabs(BlockBehaviour.Properties.of(Material.WOOD)));

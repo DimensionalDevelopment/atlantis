@@ -80,13 +80,16 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
             return InteractionResult.FAIL;
         } else if (player.getItemInHand(hand).getItem() == Items.WATER_BUCKET) {
             return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
-        } else if (player.getItemInHand(hand).getItem() == Items.GLASS_BOTTLE) {
+        } else if (player.getItemInHand(hand).getItem() == Items.HONEY_BOTTLE) {
             ItemStack itemStack = player.getItemInHand(hand);
             if (!player.getAbilities().instabuild) {
                 player.playSound(SoundEvents.BOTTLE_FILL, 1.0F, 1.0F);
                 ItemStack itemStack2 = ItemUtils.createFilledResult(itemStack, player, ItemInit.JELLY_BOTTLE.get().getDefaultInstance());
                 player.setItemInHand(hand, itemStack2);
-                player.getItemInHand(hand).shrink(1);
+            } else {
+                player.playSound(SoundEvents.BOTTLE_FILL, 1.0F, 1.0F);
+                ItemStack itemStack2 = ItemUtils.createFilledResult(itemStack, player, ItemInit.JELLY_BOTTLE.get().getDefaultInstance());
+                player.setItemInHand(hand, itemStack2);
             }
             return InteractionResult.SUCCESS;
         }

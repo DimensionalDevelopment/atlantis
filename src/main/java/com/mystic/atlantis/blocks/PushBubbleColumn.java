@@ -127,14 +127,14 @@ public class PushBubbleColumn extends Block implements BucketPickup {
     }
 
     private static Optional<BlockState> getBubbleState(BlockState previous, BlockState current, Direction dir) {
-        if(!current.is(BlockInit.CALCITE_BLOCK.get())) {
+        if(!current.is(BlockInit.BUBBLE_MAGMA.get())) {
             if(isStillWater(previous)) {
                 if(!isStillWater(current) && !current.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
                     return Optional.empty();
                 } else {
                     return Optional.of(Blocks.WATER.defaultBlockState());
                 }
-            } else if (previous.is(BlockInit.CALCITE_BLOCK.get())) {
+            } else if (previous.is(BlockInit.BUBBLE_MAGMA.get())) {
                 if (isStillWater(current) || current.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
                     return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, dir).setValue(DECAY, 29));
                 } else {
@@ -197,7 +197,7 @@ public class PushBubbleColumn extends Block implements BucketPickup {
             return blockState.getValue(DECAY) >= 0;
         }
 
-        return blockState.is(BlockInit.CALCITE_BLOCK.get());
+        return blockState.is(BlockInit.BUBBLE_MAGMA.get());
     }
 
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
@@ -227,7 +227,7 @@ public class PushBubbleColumn extends Block implements BucketPickup {
     }
 
     public void onBubbleColumnSurfaceCollision(Entity entity, Direction drag) {
-        adjust(entity, drag, AtlantisConfig.INSTANCE.calciteAcceleration.get(), AtlantisConfig.INSTANCE.calciteThreshold.get());
+        adjust(entity, drag, AtlantisConfig.INSTANCE.magmaAcceleration.get(), AtlantisConfig.INSTANCE.magmaThreshold.get());
     }
 
     public void adjust(Entity entity, Direction drag, double value, double limit) {

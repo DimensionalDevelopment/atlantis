@@ -1,0 +1,23 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"SS ",
+		"SS ",
+		"   "
+	],
+	"key":
+	{
+
+		"S":
+		{
+			"item": "minecraft:magma"
+		}
+	},
+	"result":
+	{
+		"item": "atlantis:bubble_magma",
+		"count": 1
+	}
+	
+}					

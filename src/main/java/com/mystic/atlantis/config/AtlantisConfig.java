@@ -19,8 +19,8 @@ public class AtlantisConfig implements ConfigData {
     public ForgeConfigSpec.BooleanValue volcanoesOn;
     public ForgeConfigSpec.IntValue minCrabSpawnHeight;
     public ForgeConfigSpec.IntValue maxCrabSpawnHeight;
-    public ForgeConfigSpec.DoubleValue calciteAcceleration;
-    public ForgeConfigSpec.DoubleValue calciteThreshold;
+    public ForgeConfigSpec.DoubleValue magmaAcceleration;
+    public ForgeConfigSpec.DoubleValue magmaThreshold;
 
 
 
@@ -30,7 +30,7 @@ public class AtlantisConfig implements ConfigData {
         this.volcanoesOn = builder.comment("Should Volcanoes Generate?").define("volcanoesOn", false);
         this.minCrabSpawnHeight = builder.comment("Minimum Crab Spawn Height").defineInRange("minCrabSpawnHeight", 75,0,128);
         this.maxCrabSpawnHeight = builder.comment("Maximum Crab Spawn Height").defineInRange("maxCrabSpawnHeight", 85,0,128);
-        this.calciteAcceleration = builder.comment("Rate at which Calcite Accelerates you").defineInRange("calciteAcceleration", 0.1d,0.0d,100.0d);
-        this.calciteThreshold = builder.comment("Max Calcite Velocity ").defineInRange("calciteThreshold", 1.8d,0.0d,100.0d);
+        this.magmaAcceleration = builder.comment("Rate at which Magma Accelerates you").defineInRange("magmaAcceleration", 0.1d,0.0d,100.0d);
+        this.magmaThreshold = builder.comment("Max Magma Velocity ").defineInRange("magmaThreshold", 1.8d,0.0d,100.0d);
     }
 }
