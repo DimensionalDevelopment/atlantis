@@ -2,11 +2,15 @@ package com.mystic.atlantis.data;
 
 import com.google.gson.JsonObject;
 import com.mystic.atlantis.init.ItemInit;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -36,7 +40,10 @@ public class AtlantisModifer extends LootModifier {
         int bonusLevel = ctxTool != null ? EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, ctxTool) : 0;
         int seedRarity = (int) (0.5f - (bonusLevel * 2));
         if (seedRarity < 1 || random.nextInt(seedRarity) == 0) {
-            generatedLoot.add(new ItemStack(ItemInit.ATLANTEAN_FIRE_MELON_SEEDS.get()));
+            BlockState ctxBlockState = context.getParamOrNull(LootContextParams.BLOCK_STATE);
+            if (ctxBlockState == Blocks.SEAGRASS.defaultBlockState() || ctxBlockState == Blocks.TALL_SEAGRASS.defaultBlockState()) {
+                generatedLoot.add(new ItemStack(ItemInit.ATLANTEAN_FIRE_MELON_SEEDS.get()));
+            }
         }
         return generatedLoot;
     }
