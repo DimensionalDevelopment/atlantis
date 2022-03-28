@@ -10,4 +10,8 @@ public interface BoatEntityAccessor {
     void setOutOfControlTicks(float outOfControlTicks);
     @Accessor
     Boat.Status getStatus();
+    @Accessor("status")
+    Boat.Status getStatusField();
+    @Accessor("status")
+    void setStatusField(Boat.Status status);
 }
