@@ -8,6 +8,7 @@ import com.mystic.atlantis.data.AtlantisModifer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.entities.CrabEntity;
+import com.mystic.atlantis.event.ACommonFEvents;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
@@ -23,11 +24,13 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.client.ConfigGuiHandler.ConfigGuiFactory;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -50,16 +53,6 @@ import software.bernie.geckolib3.GeckoLib;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Atlantis {
     public static final Logger LOGGER = LogManager.getLogger(Reference.MODID);
-    /**
-     * @deprecated this is not a thread-safe thing.
-     * Imagine that you open your single-player level and close it
-     * soon, and join a dedicated server. At that time this value
-     * is absolutely wrong, AND stops JVM from removing it from
-     * your RAM.
-     */
-    @Deprecated
-    @SuppressWarnings({"unused"})
-    private static final MinecraftServer server = null;
 
     public Atlantis() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -68,7 +61,7 @@ public class Atlantis {
         onInitialize(bus);
         AtlantisFeature.FEATURES.register(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
-        bus.addListener(this::loadCompleted);
+
     }
 
     @SubscribeEvent
@@ -76,12 +69,7 @@ public class Atlantis {
         event.getRegistry().register(new AtlantisModifer.Serializer().setRegistryName(new ResourceLocation("atlantis:seeds_drop")));
     }
 
-    @NotNull
-    @Deprecated
-    public static MinecraftServer getServer() {
-        throw new UnsupportedOperationException();
-    }
-
+    @SubscribeEvent
     public void loadCompleted(FMLLoadCompleteEvent event) {
         ModContainer createContainer = ModList.get()
                 .getModContainerById(Reference.MODID)
@@ -100,7 +88,6 @@ public class Atlantis {
     }
 
     public void onInitialize(IEventBus bus) {
-
         BlockInit.init(bus);
         ItemInit.init(bus);
         GeckoLib.initialize();
@@ -111,6 +98,7 @@ public class Atlantis {
         AtlantisSoundEvents.SOUNDS.register(bus);
         EffectsInit.init(bus);
     }
+
 
     @SubscribeEvent
     public static void onCommonSet(FMLCommonSetupEvent event) {

@@ -2,6 +2,7 @@
   "type": "atlantis:atlantis",
   "generator": {
     "type": "minecraft:noise",
+    "forge:use_server_seed": true,
     "seed": 0,
     "settings": "atlantis:atlantis",
     "biome_source": {

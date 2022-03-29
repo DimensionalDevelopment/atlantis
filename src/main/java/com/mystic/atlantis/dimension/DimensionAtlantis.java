@@ -23,7 +23,7 @@ public class DimensionAtlantis
     //public static final RegistryKey<DimensionType> ATLANTIS_DIMENSION_TYPE_KEY = RegistryKey.of(Registry.DIMENSION_TYPE_KEY, ATLANTIS_ID);
     //public static final RegistryKey<World> ATLANTIS_WORLD_KEY = RegistryKey.of(Registry.WORLD_KEY, ATLANTIS_ID);
 
-    public static final ResourceKey<Level> ATLANTIS_WORLD = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("atlantis:atlantis"));
+    public static ResourceKey<Level> ATLANTIS_WORLD = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("atlantis:atlantis"));
     public static final ResourceKey<DimensionType> ATLANTIS_DIMENSION_TYPE_KEY = ResourceKey.create(Registry.DIMENSION_TYPE_REGISTRY, new ResourceLocation("atlantis:atlantis"));
 
     public static final ResourceLocation ATLANTIS_DIMENSION_EFFECT = new ResourceLocation("atlantis:atlantis");

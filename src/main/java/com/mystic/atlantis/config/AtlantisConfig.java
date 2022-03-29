@@ -21,6 +21,7 @@ public class AtlantisConfig implements ConfigData {
     public ForgeConfigSpec.IntValue maxCrabSpawnHeight;
     public ForgeConfigSpec.DoubleValue magmaAcceleration;
     public ForgeConfigSpec.DoubleValue magmaThreshold;
+    public ForgeConfigSpec.BooleanValue startInAtlantis;
 
 
 
@@ -32,5 +33,6 @@ public class AtlantisConfig implements ConfigData {
         this.maxCrabSpawnHeight = builder.comment("Maximum Crab Spawn Height").defineInRange("maxCrabSpawnHeight", 85,0,128);
         this.magmaAcceleration = builder.comment("Rate at which Magma Accelerates you").defineInRange("magmaAcceleration", 0.1d,0.0d,100.0d);
         this.magmaThreshold = builder.comment("Max Magma Velocity ").defineInRange("magmaThreshold", 1.8d,0.0d,100.0d);
+        this.startInAtlantis = builder.comment("Start In Atlantis?").define("startInAtlantis", false);
     }
 }
