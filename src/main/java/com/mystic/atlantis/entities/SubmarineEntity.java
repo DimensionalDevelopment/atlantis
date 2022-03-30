@@ -46,6 +46,7 @@ public class SubmarineEntity extends Boat implements IAnimatable {
     }
     @Override
     public void tick() {
+        ((BoatEntityAccessor) this).setStatusField(Status.UNDER_WATER);
         super.tick();
         ((BoatEntityAccessor) this).setOutOfControlTicks(0);
         floatBoat();

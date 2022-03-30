@@ -10,8 +10,10 @@ import com.mystic.atlantis.blocks.signs.AtlanteanWallSign;
 import com.mystic.atlantis.blocks.slabs.AncientWoodSlabs;
 import com.mystic.atlantis.blocks.slabs.AtlanteanWoodSlabs;
 import com.mystic.atlantis.configfeature.trees.AtlanteanTreeSaplingGenerator;
+import com.mystic.atlantis.entities.AtlanteanBoatEntity;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.util.Reference;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
@@ -22,6 +24,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.function.Function;
 import java.util.function.Supplier;
 

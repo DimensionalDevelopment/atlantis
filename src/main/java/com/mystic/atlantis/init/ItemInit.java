@@ -1,6 +1,6 @@
 package com.mystic.atlantis.init;
 
-import com.mystic.atlantis.blocks.AtlanteanFireMelonFruit;
+import com.mystic.atlantis.entities.AtlanteanBoatEntity;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
@@ -17,6 +17,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.material.Fluids;
@@ -43,6 +44,9 @@ public class ItemInit {
     }
 
     private static final Item.Properties ATLANTIS_SETTINGS = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).stacksTo(1).tab(AtlantisGroup.INSTANCE);
+
+    //BOATS
+    public static final RegistryObject<Item> ATLANTEAN_BOAT = register("atlantean_boat", () -> new AtlanteanBoatItem(new Item.Properties().stacksTo(1).tab(AtlantisGroup.INSTANCE)));
 
     //SPAWN EGGS
     public static final RegistryObject<Item> ATLANTEAN_CRAB_EGG = register("atlantean_crab_egg",() -> new ForgeSpawnEggItem(AtlantisEntities.CRAB, 0x800002, 0xff0f45, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
