@@ -1,21 +1,29 @@
 package com.mystic.atlantis.blocks;
 
 
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
-public class PearlBlocks extends Block
+import static com.mystic.atlantis.blocks.AtlanteanWoodDoors.WATERLOGGED;
+
+public class PearlBlocks extends HalfTransparentBlock implements SimpleWaterloggedBlock
 {
 
     public PearlBlocks(BlockBehaviour.Properties properties) {
@@ -26,6 +34,7 @@ public class PearlBlocks extends Block
                 .lightLevel((state) -> 5)
                 .noOcclusion()
                 .sound(SoundType.STONE));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(WATERLOGGED, true));
     }
 
     @Override
@@ -45,5 +54,10 @@ public class PearlBlocks extends Block
             worldIn.removeBlock(pos, false);
             return;
         }
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> arg) {
+        arg.add(WATERLOGGED);
     }
 }
