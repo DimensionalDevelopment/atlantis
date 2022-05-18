@@ -3,6 +3,7 @@ package com.mystic.atlantis.init;
 import com.mystic.atlantis.blocks.*;
 import com.mystic.atlantis.blocks.AtlanteanWoodTrapdoor;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
+import com.mystic.atlantis.blocks.linguisticsblocks.AtlanteanBrick;
 import com.mystic.atlantis.blocks.plants.*;
 import com.mystic.atlantis.blocks.power.*;
 import com.mystic.atlantis.blocks.signs.AtlanteanSignBlock;
@@ -173,6 +174,7 @@ public class BlockInit {
     public static final RegistryObject<Block> CHISELED_AQUAMARINE = registerBlock("chiseled_aquamarine",()-> new ChiseledAquamarine(BlockBehaviour.Properties.of(Material.STONE)));
 
     public static final RegistryObject<Block> LINGUISTIC_BLOCK = registerBlock("linguistic_block", () -> new LinguisticBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> ATLANTEAN_BRICK = registerBlock("atlantean_brick", () -> new AtlanteanBrick(BlockBehaviour.Properties.of(Material.STONE)));
 
     public static final RegistryObject<Block> ATLANTEAN_SAPLING = registerBlock("atlantean_sapling", ()->
             new AtlanteanSapling(new AtlanteanTreeSaplingGenerator(),
@@ -205,9 +207,17 @@ public class BlockInit {
 
     public static RegistryObject<Block> getLinguisticBlock(LinguisticSymbol symbol, DyeColor color) {
         if(color != null) {
-            return dyedLinguistic.get(symbol).get(color);
+            if(symbol != null && symbol != LinguisticSymbol.BLANK) {
+                return dyedLinguistic.get(symbol).get(color);
+            } else {
+                return dyedLinguistic.get(LinguisticSymbol.BLANK).get(color);
+            }
         } else {
-            return nonLinguistic.get(symbol);
+            if (symbol != null && symbol != LinguisticSymbol.BLANK) {
+                return nonLinguistic.get(symbol);
+            } else {
+                return nonLinguistic.get(LinguisticSymbol.BLANK);
+            }
         }
     }
 
