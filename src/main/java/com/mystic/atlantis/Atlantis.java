@@ -11,14 +11,17 @@ import com.mystic.atlantis.entities.CrabEntity;
 import com.mystic.atlantis.event.ACommonFEvents;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.init.*;
+import com.mystic.atlantis.inventory.MenuTypeInit;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.particles.ModParticleTypes;
+import com.mystic.atlantis.screen.LinguisticScreen;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.kyrptonaught.customportalapi.CustomPortalBlock;
 import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -40,6 +43,7 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -97,8 +101,14 @@ public class Atlantis {
         AtlantisEntities.initialize(bus);
         AtlantisSoundEvents.SOUNDS.register(bus);
         EffectsInit.init(bus);
+        MenuTypeInit.init(bus);
     }
 
+
+    @SubscribeEvent
+    public static void onClientSet(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> MenuScreens.register(MenuTypeInit.LINGUISTIC.get(), LinguisticScreen::new));
+    }
 
     @SubscribeEvent
     public static void onCommonSet(FMLCommonSetupEvent event) {

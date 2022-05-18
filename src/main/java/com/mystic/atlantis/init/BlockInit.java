@@ -10,11 +10,10 @@ import com.mystic.atlantis.blocks.signs.AtlanteanWallSign;
 import com.mystic.atlantis.blocks.slabs.AncientWoodSlabs;
 import com.mystic.atlantis.blocks.slabs.AtlanteanWoodSlabs;
 import com.mystic.atlantis.configfeature.trees.AtlanteanTreeSaplingGenerator;
-import com.mystic.atlantis.entities.AtlanteanBoatEntity;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.util.Reference;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -23,8 +22,11 @@ import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.swing.text.html.parser.Entity;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -170,6 +172,8 @@ public class BlockInit {
     public static final RegistryObject<Block> ALGAE_BLOCK = registerBlock("algae_block",()-> new AlgaeBlock(BlockBehaviour.Properties.of(Material.PLANT)));
     public static final RegistryObject<Block> CHISELED_AQUAMARINE = registerBlock("chiseled_aquamarine",()-> new ChiseledAquamarine(BlockBehaviour.Properties.of(Material.STONE)));
 
+    public static final RegistryObject<Block> LINGUISTIC_BLOCK = registerBlock("linguistic_block", () -> new LinguisticBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
+
     public static final RegistryObject<Block> ATLANTEAN_SAPLING = registerBlock("atlantean_sapling", ()->
             new AtlanteanSapling(new AtlanteanTreeSaplingGenerator(),
                     BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
@@ -195,6 +199,32 @@ public class BlockInit {
         ItemInit.ITEMS.register(name, () -> item.apply(reg).get());
         return reg;
     }
+
+    private static Map<LinguisticSymbol, Map<DyeColor, RegistryObject<Block>>> dyedLinguistic = new HashMap<>();
+    private static Map<LinguisticSymbol, RegistryObject<Block>> nonLinguistic = new HashMap<>();
+
+    public static RegistryObject<Block> getLinguisticBlock(LinguisticSymbol symbol, DyeColor color) {
+        if(color != null) {
+            return dyedLinguistic.get(symbol).get(color);
+        } else {
+            return nonLinguistic.get(symbol);
+        }
+    }
+
+    static {
+        Supplier<Block> blockSupplier = () -> new Block(BlockBehaviour.Properties.of(Material.CLAY));
+
+        for(LinguisticSymbol symbol : LinguisticSymbol.values()) {
+            String name = "linguistic"  + symbol.toString();
+
+            for (DyeColor color : DyeColor.values()) {
+                registerBlock(color.getSerializedName() + "_" + name, blockSupplier);
+            }
+
+            registerBlock(name, blockSupplier);
+        }
+    }
+
 //    private static Block baseregisterBlock(String name, Block block, Function<Block, Item> item) {
 //        BLOCKS.registerBlock(name, () -> block);
 //        registerBlock(name, item.apply(block));

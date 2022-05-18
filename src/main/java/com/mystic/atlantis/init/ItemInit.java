@@ -1,5 +1,6 @@
 package com.mystic.atlantis.init;
 
+import com.mystic.atlantis.blocks.LinguisticSymbol;
 import com.mystic.atlantis.entities.AtlanteanBoatEntity;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
@@ -82,6 +83,41 @@ public class ItemInit {
     public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_SEEDS = register("atlantean_fire_melon_fruit_seeds",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_FIRE_MELON_TOP.get(), new Item.Properties().tab(AtlantisGroup.INSTANCE)));
     public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_SPIKE = register("atlantean_fire_melon_spike",  DefaultItem::new);
 
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_A = register("linguistic_symbol_a", () -> new LinguisticSymbolItem(LinguisticSymbol.A, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_B = register("linguistic_symbol_b", () -> new LinguisticSymbolItem(LinguisticSymbol.B, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_C = register("linguistic_symbol_c", () -> new LinguisticSymbolItem(LinguisticSymbol.C, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_D = register("linguistic_symbol_d", () -> new LinguisticSymbolItem(LinguisticSymbol.D, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_E = register("linguistic_symbol_e", () -> new LinguisticSymbolItem(LinguisticSymbol.E, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_F = register("linguistic_symbol_f", () -> new LinguisticSymbolItem(LinguisticSymbol.F, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_G = register("linguistic_symbol_g", () -> new LinguisticSymbolItem(LinguisticSymbol.G, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_H = register("linguistic_symbol_h", () -> new LinguisticSymbolItem(LinguisticSymbol.H, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_I = register("linguistic_symbol_i", () -> new LinguisticSymbolItem(LinguisticSymbol.I, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_J = register("linguistic_symbol_j", () -> new LinguisticSymbolItem(LinguisticSymbol.J, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_K = register("linguistic_symbol_k", () -> new LinguisticSymbolItem(LinguisticSymbol.K, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_L = register("linguistic_symbol_l", () -> new LinguisticSymbolItem(LinguisticSymbol.L, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_M = register("linguistic_symbol_m", () -> new LinguisticSymbolItem(LinguisticSymbol.M, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_N = register("linguistic_symbol_n", () -> new LinguisticSymbolItem(LinguisticSymbol.N, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_O = register("linguistic_symbol_o", () -> new LinguisticSymbolItem(LinguisticSymbol.O, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_P = register("linguistic_symbol_p", () -> new LinguisticSymbolItem(LinguisticSymbol.P, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_Q = register("linguistic_symbol_q", () -> new LinguisticSymbolItem(LinguisticSymbol.Q, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_R = register("linguistic_symbol_r", () -> new LinguisticSymbolItem(LinguisticSymbol.R, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_S = register("linguistic_symbol_s", () -> new LinguisticSymbolItem(LinguisticSymbol.S, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_T = register("linguistic_symbol_t", () -> new LinguisticSymbolItem(LinguisticSymbol.T, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_U = register("linguistic_symbol_u", () -> new LinguisticSymbolItem(LinguisticSymbol.U, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_V = register("linguistic_symbol_v", () -> new LinguisticSymbolItem(LinguisticSymbol.V, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_W = register("linguistic_symbol_w", () -> new LinguisticSymbolItem(LinguisticSymbol.W, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_X = register("linguistic_symbol_x", () -> new LinguisticSymbolItem(LinguisticSymbol.X, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_Z = register("linguistic_symbol_z", () -> new LinguisticSymbolItem(LinguisticSymbol.Z, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_ONE = register("linguistic_symbol_one", () -> new LinguisticSymbolItem(LinguisticSymbol.ONE, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_TWO = register("linguistic_symbol_two", () -> new LinguisticSymbolItem(LinguisticSymbol.TWO, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_THREE = register("linguistic_symbol_three", () -> new LinguisticSymbolItem(LinguisticSymbol.THREE, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_FOUR = register("linguistic_symbol_four", () -> new LinguisticSymbolItem(LinguisticSymbol.FOUR, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_FIVE = register("linguistic_symbol_five", () -> new LinguisticSymbolItem(LinguisticSymbol.FIVE, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_SIX = register("linguistic_symbol_six", () -> new LinguisticSymbolItem(LinguisticSymbol.SIX, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_SEVEN = register("linguistic_symbol_seven", () -> new LinguisticSymbolItem(LinguisticSymbol.SEVEN, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_EIGHT = register("linguistic_symbol_eight", () -> new LinguisticSymbolItem(LinguisticSymbol.EIGHT, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_NINE = register("linguistic_symbol_nine", () -> new LinguisticSymbolItem(LinguisticSymbol.NINE, new Item.Properties()));
+
     //Entity Buckets
     public static final RegistryObject<Item> CRAB_BUCKET = register("crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntities.CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.INSTANCE)));
     public static final RegistryObject<Item> JELLYFISH_BUCKET = register("jellyfish_bucket", ()->new JellyfishEntityBucketItem(AtlantisEntities.JELLYFISH, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.INSTANCE)));
@@ -104,4 +140,6 @@ public class ItemInit {
     public static final RegistryObject<Item> BROWN_WROUGHT_CHESTPLATE = register("brown_wrought_chestplate", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.CHEST, new Item.Properties().tab(AtlantisGroup.INSTANCE)));
     public static final RegistryObject<Item> BROWN_WROUGHT_LEGGINGS= register("brown_wrought_leggings", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.LEGS, new Item.Properties().tab(AtlantisGroup.INSTANCE)));
     public static final RegistryObject<Item> BROWN_WROUGHT_BOOTS = register("brown_wrought_boots", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.FEET, new Item.Properties().tab(AtlantisGroup.INSTANCE)));
+
+
 }
