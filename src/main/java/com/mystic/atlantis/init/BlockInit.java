@@ -228,10 +228,10 @@ public class BlockInit {
             String name = "linguistic"  + symbol.toString();
 
             for (DyeColor color : DyeColor.values()) {
-                registerBlock(color.getSerializedName() + "_" + name, blockSupplier);
+                dyedLinguistic.putIfAbsent(symbol, new HashMap<>()).put(color, registerBlock(color.getSerializedName() + "_" + name, blockSupplier));
             }
 
-            registerBlock(name, blockSupplier);
+            nonLinguistic.put(symbol, registerBlock(name, blockSupplier));
         }
     }
 
