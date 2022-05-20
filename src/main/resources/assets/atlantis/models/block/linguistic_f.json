@@ -1,0 +1,12 @@
+{
+   "parent": "block/cube",
+   "textures": {
+     "particle": "atlantis:block/blank/blank_bottom",
+     "up": "atlantis:block/blank/blank_top_f",
+     "down": "atlantis:block/blank/blank_bottom",
+     "east": "atlantis:block/blank/blank_side_f",
+     "west": "atlantis:block/blank/blank_side_f",
+     "north": "atlantis:block/blank/blank_side_f",
+     "south": "atlantis:block/blank/blank_side_f"
+   }
+}
