@@ -9,7 +9,7 @@ public class AquamarineAxe extends AxeItem {
         super(tier, attack, -3.2F, new Properties()
                 .stacksTo(1)
                 .defaultDurability(tier.getUses())
-                .tab(AtlantisGroup.INSTANCE));
+                .tab(AtlantisGroup.MAIN));
     }
 
 }

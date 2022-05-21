@@ -1,9 +1,8 @@
 package com.mystic.atlantis.inventory;
 
-import com.mystic.atlantis.blocks.LinguisticSymbol;
+import com.mystic.atlantis.blocks.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
-import com.mystic.atlantis.items.item.LinguisticSymbolItem;
-import net.minecraft.nbt.CompoundTag;
+import com.mystic.atlantis.items.item.LinguisticGlyphScrollItem;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -13,7 +12,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BannerPattern;
 
 public class LinguisticMenu extends AbstractContainerMenu {
 	private static final int INV_SLOT_START = 4;
@@ -53,7 +51,7 @@ public class LinguisticMenu extends AbstractContainerMenu {
 		this.blankSlot = this.addSlot(new Slot(this.inputContainer, 0, 13, 26) {
 			@Override
 			public boolean mayPlace(ItemStack arg) {
-				return BlockInit.getLinguisticBlock(LinguisticSymbol.BLANK, null).map(Block::asItem).filter(a -> a == arg.getItem()).isPresent();
+				return BlockInit.getLinguisticBlock(LinguisticGlyph.BLANK, null).map(Block::asItem).filter(a -> a == arg.getItem()).isPresent();
 			}
 		});
 		this.dyeSlot = this.addSlot(new Slot(this.inputContainer, 1, 33, 26) {
@@ -65,7 +63,7 @@ public class LinguisticMenu extends AbstractContainerMenu {
 		this.symbolSlot = this.addSlot(new Slot(this.inputContainer, 2, 23, 45) {
 			@Override
 			public boolean mayPlace(ItemStack arg) {
-				return arg.getItem() instanceof LinguisticSymbolItem;
+				return arg.getItem() instanceof LinguisticGlyphScrollItem;
 			}
 		});
 		this.resultSlot = this.addSlot(new Slot(this.outputContainer, 0, 143, 58) {
@@ -144,7 +142,7 @@ public class LinguisticMenu extends AbstractContainerMenu {
 
 				slot.onQuickCraft(itemStack2, itemStack);
 			} else if (i != this.dyeSlot.index && i != this.blankSlot.index && i != this.symbolSlot.index) {
-				if (BlockInit.getLinguisticBlock(LinguisticSymbol.BLANK, null).map(Block::asItem).filter(a -> a == itemStack2.getItem()).isPresent()) {
+				if (BlockInit.getLinguisticBlock(LinguisticGlyph.BLANK, null).map(Block::asItem).filter(a -> a == itemStack2.getItem()).isPresent()) {
 					if (!this.moveItemStackTo(itemStack2, this.blankSlot.index, this.blankSlot.index + 1, false)) {
 						return ItemStack.EMPTY;
 					}
@@ -152,7 +150,7 @@ public class LinguisticMenu extends AbstractContainerMenu {
 					if (!this.moveItemStackTo(itemStack2, this.dyeSlot.index, this.dyeSlot.index + 1, false)) {
 						return ItemStack.EMPTY;
 					}
-				} else if (itemStack2.getItem() instanceof LinguisticSymbolItem) {
+				} else if (itemStack2.getItem() instanceof LinguisticGlyphScrollItem) {
 					if (!this.moveItemStackTo(itemStack2, this.symbolSlot.index, this.symbolSlot.index + 1, false)) {
 						return ItemStack.EMPTY;
 					}
@@ -191,7 +189,7 @@ public class LinguisticMenu extends AbstractContainerMenu {
 
 	private void setupResultSlot() {
 		DyeColor dye = this.dyeSlot.hasItem() ? ((DyeItem) this.dyeSlot.getItem().getItem()).getDyeColor() : null;
-		LinguisticSymbol symbol = this.symbolSlot.hasItem() ? ((LinguisticSymbolItem) this.symbolSlot.getItem().getItem()).getSymbol() : LinguisticSymbol.BLANK;
+		LinguisticGlyph symbol = this.symbolSlot.hasItem() ? ((LinguisticGlyphScrollItem) this.symbolSlot.getItem().getItem()).getSymbol() : LinguisticGlyph.BLANK;
 		ItemStack result = ItemStack.EMPTY;
 
 		if(this.blankSlot.hasItem()) {

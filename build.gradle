@@ -75,6 +75,16 @@ loom {
         mixinConfigs = [
             "atlantis.mixins.json"
         ]
+
+        dataGen {
+            mod "atlantis"
+        }
+    }
+
+    launches {
+        data {
+            arg "--existing", file("src/main/resources").absolutePath
+        }
     }
 }
 

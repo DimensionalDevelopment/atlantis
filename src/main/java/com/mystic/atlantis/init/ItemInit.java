@@ -1,7 +1,6 @@
 package com.mystic.atlantis.init;
 
-import com.mystic.atlantis.blocks.LinguisticSymbol;
-import com.mystic.atlantis.entities.AtlanteanBoatEntity;
+import com.mystic.atlantis.blocks.LinguisticGlyph;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
@@ -18,7 +17,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.material.Fluids;
@@ -36,18 +34,24 @@ public class ItemInit {
         ITEMS.register(bus);
     }
 
-    public static RegistryObject<Item> register(String name, Supplier<Item> item) {
+    public static <T extends Item> RegistryObject<T> register(String name, Supplier<T> item) {
         return ITEMS.register(name, item);
     }
 
-    static RegistryObject<Item> register(Supplier<Item> c, String id) {
+    static <T extends Item> RegistryObject<T> register(Supplier<T> c, String id) {
         return register(id, c);
     }
 
-    private static final Item.Properties ATLANTIS_SETTINGS = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).stacksTo(1).tab(AtlantisGroup.INSTANCE);
+    static RegistryObject<Item> registerGlyph(LinguisticGlyph symbol) {
+        return register(() -> new LinguisticGlyphScrollItem(symbol), "linguistic_glyph_scroll" + symbol.toString());
+    }
+
+    private static final Item.Properties ATLANTIS_SETTINGS = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).stacksTo(1).tab(AtlantisGroup.MAIN);
+
+    private static final Item.Properties ATLANTIS_GLYPH = new Item.Properties().tab(AtlantisGroup.GLYPH);
 
     //BOATS
-    public static final RegistryObject<Item> ATLANTEAN_BOAT = register("atlantean_boat", () -> new AtlanteanBoatItem(new Item.Properties().stacksTo(1).tab(AtlantisGroup.INSTANCE)));
+    public static final RegistryObject<Item> ATLANTEAN_BOAT = register("atlantean_boat", () -> new AtlanteanBoatItem(new Item.Properties().stacksTo(1).tab(AtlantisGroup.MAIN)));
 
     //SPAWN EGGS
     public static final RegistryObject<Item> ATLANTEAN_CRAB_EGG = register("atlantean_crab_egg",() -> new ForgeSpawnEggItem(AtlantisEntities.CRAB, 0x800002, 0xff0f45, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
@@ -67,62 +71,64 @@ public class ItemInit {
     public static final RegistryObject<Item> OCEAN_STONE = register("ocean_stone", DefaultItem::new);
     public static final RegistryObject<Item> DROP_OF_ATLANTIS = register("drop_of_atlantis", DefaultItem::new);
     public static final RegistryObject<Item> BROWN_WROUGHT_PATCHES = register("brown_wrought_patches", DefaultItem::new);
-    public static final RegistryObject<Item> CRAB_LEGS = register("crab_legs", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(6).saturationMod(10.0f).build()).tab(AtlantisGroup.INSTANCE)));
-    public static final RegistryObject<Item> SHRIMP = register("shrimp", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(5).saturationMod(2.0f).effect(new MobEffectInstance(MobEffects.CONFUSION, 100), 0.05f).build()).tab(AtlantisGroup.INSTANCE)));
-    public static final RegistryObject<Item> COOKED_SHRIMP = register("cooked_shrimp", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(2).saturationMod(5.0f).build()).tab(AtlantisGroup.INSTANCE)));
-    public static final RegistryObject<Item> ATLANTEAN_POWER_TORCH = register("atlantean_power_torch", () -> new StandingAndWallBlockItem(BlockInit.ATLANTEAN_POWER_TORCH.get(), BlockInit.WALL_ATLANTEAN_POWER_TORCH.get(), (new Item.Properties().tab(AtlantisGroup.INSTANCE))));
-    public static final RegistryObject<Item> ATLANTEAN_POWER_DUST = register("atlantean_power_dust",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get(), (new Item.Properties().tab(AtlantisGroup.INSTANCE))));
-    public static final RegistryObject<Item> ATLANTEAN_STRING = register("atlantean_string",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_TRIPWIRE.get(), (new Item.Properties().tab(AtlantisGroup.INSTANCE))));
-    public static final RegistryObject<Item> SUBMARINE = register("submarine", () -> new SubmarineItem(new Item.Properties().tab(AtlantisGroup.INSTANCE)));
+    public static final RegistryObject<Item> CRAB_LEGS = register("crab_legs", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(6).saturationMod(10.0f).build()).tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> SHRIMP = register("shrimp", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(5).saturationMod(2.0f).effect(new MobEffectInstance(MobEffects.CONFUSION, 100), 0.05f).build()).tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> COOKED_SHRIMP = register("cooked_shrimp", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(2).saturationMod(5.0f).build()).tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> ATLANTEAN_POWER_TORCH = register("atlantean_power_torch", () -> new StandingAndWallBlockItem(BlockInit.ATLANTEAN_POWER_TORCH.get(), BlockInit.WALL_ATLANTEAN_POWER_TORCH.get(), (new Item.Properties().tab(AtlantisGroup.MAIN))));
+    public static final RegistryObject<Item> ATLANTEAN_POWER_DUST = register("atlantean_power_dust",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get(), (new Item.Properties().tab(AtlantisGroup.MAIN))));
+    public static final RegistryObject<Item> ATLANTEAN_STRING = register("atlantean_string",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_TRIPWIRE.get(), (new Item.Properties().tab(AtlantisGroup.MAIN))));
+    public static final RegistryObject<Item> SUBMARINE = register("submarine", () -> new SubmarineItem(new Item.Properties().tab(AtlantisGroup.MAIN)));
     public static final RegistryObject<Item> WATER_PILL = register("water_pill", WaterPill::new);
-    public static final RegistryObject<Item> ATLANTEAN_SIGN = register("atlantean_sign", () -> new SignItem(new Item.Properties().tab(AtlantisGroup.INSTANCE), BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get()));
+    public static final RegistryObject<Item> ATLANTEAN_SIGN = register("atlantean_sign", () -> new SignItem(new Item.Properties().tab(AtlantisGroup.MAIN), BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get()));
 
     public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_FRUIT = register("atlantean_fire_melon_fruit", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(1).build())));
     public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_FRUIT_SPIKED = register("atlantean_fire_melon_fruit_spiked", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(1).effect(() -> new MobEffectInstance(MobEffects.HARM, 60), 1.0f).build())));
 
-    public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_SEEDS = register("atlantean_fire_melon_fruit_seeds",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_FIRE_MELON_TOP.get(), new Item.Properties().tab(AtlantisGroup.INSTANCE)));
+    public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_SEEDS = register("atlantean_fire_melon_fruit_seeds",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_FIRE_MELON_TOP.get(), new Item.Properties().tab(AtlantisGroup.MAIN)));
     public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_SPIKE = register("atlantean_fire_melon_spike",  DefaultItem::new);
 
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_A = register("linguistic_symbol_a", () -> new LinguisticSymbolItem(LinguisticSymbol.A, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_B = register("linguistic_symbol_b", () -> new LinguisticSymbolItem(LinguisticSymbol.B, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_C = register("linguistic_symbol_c", () -> new LinguisticSymbolItem(LinguisticSymbol.C, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_D = register("linguistic_symbol_d", () -> new LinguisticSymbolItem(LinguisticSymbol.D, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_E = register("linguistic_symbol_e", () -> new LinguisticSymbolItem(LinguisticSymbol.E, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_F = register("linguistic_symbol_f", () -> new LinguisticSymbolItem(LinguisticSymbol.F, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_G = register("linguistic_symbol_g", () -> new LinguisticSymbolItem(LinguisticSymbol.G, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_H = register("linguistic_symbol_h", () -> new LinguisticSymbolItem(LinguisticSymbol.H, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_I = register("linguistic_symbol_i", () -> new LinguisticSymbolItem(LinguisticSymbol.I, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_J = register("linguistic_symbol_j", () -> new LinguisticSymbolItem(LinguisticSymbol.J, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_K = register("linguistic_symbol_k", () -> new LinguisticSymbolItem(LinguisticSymbol.K, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_L = register("linguistic_symbol_l", () -> new LinguisticSymbolItem(LinguisticSymbol.L, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_M = register("linguistic_symbol_m", () -> new LinguisticSymbolItem(LinguisticSymbol.M, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_N = register("linguistic_symbol_n", () -> new LinguisticSymbolItem(LinguisticSymbol.N, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_O = register("linguistic_symbol_o", () -> new LinguisticSymbolItem(LinguisticSymbol.O, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_P = register("linguistic_symbol_p", () -> new LinguisticSymbolItem(LinguisticSymbol.P, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_Q = register("linguistic_symbol_q", () -> new LinguisticSymbolItem(LinguisticSymbol.Q, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_R = register("linguistic_symbol_r", () -> new LinguisticSymbolItem(LinguisticSymbol.R, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_S = register("linguistic_symbol_s", () -> new LinguisticSymbolItem(LinguisticSymbol.S, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_T = register("linguistic_symbol_t", () -> new LinguisticSymbolItem(LinguisticSymbol.T, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_U = register("linguistic_symbol_u", () -> new LinguisticSymbolItem(LinguisticSymbol.U, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_V = register("linguistic_symbol_v", () -> new LinguisticSymbolItem(LinguisticSymbol.V, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_W = register("linguistic_symbol_w", () -> new LinguisticSymbolItem(LinguisticSymbol.W, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_X = register("linguistic_symbol_x", () -> new LinguisticSymbolItem(LinguisticSymbol.X, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_Z = register("linguistic_symbol_z", () -> new LinguisticSymbolItem(LinguisticSymbol.Z, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_ONE = register("linguistic_symbol_one", () -> new LinguisticSymbolItem(LinguisticSymbol.ONE, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_TWO = register("linguistic_symbol_two", () -> new LinguisticSymbolItem(LinguisticSymbol.TWO, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_THREE = register("linguistic_symbol_three", () -> new LinguisticSymbolItem(LinguisticSymbol.THREE, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_FOUR = register("linguistic_symbol_four", () -> new LinguisticSymbolItem(LinguisticSymbol.FOUR, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_FIVE = register("linguistic_symbol_five", () -> new LinguisticSymbolItem(LinguisticSymbol.FIVE, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_SIX = register("linguistic_symbol_six", () -> new LinguisticSymbolItem(LinguisticSymbol.SIX, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_SEVEN = register("linguistic_symbol_seven", () -> new LinguisticSymbolItem(LinguisticSymbol.SEVEN, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_EIGHT = register("linguistic_symbol_eight", () -> new LinguisticSymbolItem(LinguisticSymbol.EIGHT, new Item.Properties()));
-    public static final RegistryObject<Item> LINGUISTIC_SYMBOL_NINE = register("linguistic_symbol_nine", () -> new LinguisticSymbolItem(LinguisticSymbol.NINE, new Item.Properties()));
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL = registerGlyph(LinguisticGlyph.BLANK);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_A = registerGlyph(LinguisticGlyph.A);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_B = registerGlyph(LinguisticGlyph.B);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_C = registerGlyph(LinguisticGlyph.C);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_D = registerGlyph(LinguisticGlyph.D);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_E = registerGlyph(LinguisticGlyph.E);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_F = registerGlyph(LinguisticGlyph.F);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_G = registerGlyph(LinguisticGlyph.G);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_H = registerGlyph(LinguisticGlyph.H);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_I = registerGlyph(LinguisticGlyph.I);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_J = registerGlyph(LinguisticGlyph.J);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_K = registerGlyph(LinguisticGlyph.K);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_L = registerGlyph(LinguisticGlyph.L);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_M = registerGlyph(LinguisticGlyph.M);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_N = registerGlyph(LinguisticGlyph.N);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_O = registerGlyph(LinguisticGlyph.O);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_P = registerGlyph(LinguisticGlyph.P);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_Q = registerGlyph(LinguisticGlyph.Q);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_R = registerGlyph(LinguisticGlyph.R);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_S = registerGlyph(LinguisticGlyph.S);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_T = registerGlyph(LinguisticGlyph.T);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_U = registerGlyph(LinguisticGlyph.U);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_V = registerGlyph(LinguisticGlyph.V);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_W = registerGlyph(LinguisticGlyph.W);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_X = registerGlyph(LinguisticGlyph.X);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_Z = registerGlyph(LinguisticGlyph.Z);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_0 = registerGlyph(LinguisticGlyph.ZERO);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_1 = registerGlyph(LinguisticGlyph.ONE);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_2 = registerGlyph(LinguisticGlyph.TWO);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_3 = registerGlyph(LinguisticGlyph.THREE);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_4 = registerGlyph(LinguisticGlyph.FOUR);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_5 = registerGlyph(LinguisticGlyph.FIVE);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_6 = registerGlyph(LinguisticGlyph.SIX);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_7 = registerGlyph(LinguisticGlyph.SEVEN);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_8 = registerGlyph(LinguisticGlyph.EIGHT);
+    public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_9 = registerGlyph(LinguisticGlyph.NINE);
 
     //Entity Buckets
-    public static final RegistryObject<Item> CRAB_BUCKET = register("crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntities.CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.INSTANCE)));
-    public static final RegistryObject<Item> JELLYFISH_BUCKET = register("jellyfish_bucket", ()->new JellyfishEntityBucketItem(AtlantisEntities.JELLYFISH, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.INSTANCE)));
-    public static final RegistryObject<Item> JELLYFISH_2_BUCKET = register("jellyfish_2_bucket", ()->new JellyfishEntityBucketItem(AtlantisEntities.JELLYFISH2, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.INSTANCE)));
-    public static final RegistryObject<Item> SHRIMP_BUCKET = register("shrimp_bucket", ()->new JellyfishEntityBucketItem(AtlantisEntities.SHRIMP, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.INSTANCE)));
+    public static final RegistryObject<Item> CRAB_BUCKET = register("crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntities.CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> JELLYFISH_BUCKET = register("jellyfish_bucket", ()->new JellyfishEntityBucketItem(AtlantisEntities.JELLYFISH, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> JELLYFISH_2_BUCKET = register("jellyfish_2_bucket", ()->new JellyfishEntityBucketItem(AtlantisEntities.JELLYFISH2, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> SHRIMP_BUCKET = register("shrimp_bucket", ()->new JellyfishEntityBucketItem(AtlantisEntities.SHRIMP, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
 
     //TOOLS
     public static final RegistryObject<Item> AXE_AQUMARINE = register("axe_aquamarine", () -> new AquamarineAxe(ToolInit.AQUAMARINE, 4));
@@ -132,14 +138,12 @@ public class ItemInit {
     public static final RegistryObject<Item> SWORD_AQUMARINE = register("sword_aquamarine", () -> new AquamarineSword(ToolInit.AQUAMARINE, 6));
 
     //ARMOR
-    public static final RegistryObject<Item> AQUAMARINE_HELMET = register("aquamarine_helmet", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, EquipmentSlot.HEAD, new Item.Properties().tab(AtlantisGroup.INSTANCE)));
-    public static final RegistryObject<Item> AQUAMARINE_CHESTPLATE = register("aquamarine_chestplate", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, EquipmentSlot.CHEST, new Item.Properties().tab(AtlantisGroup.INSTANCE)));
-    public static final RegistryObject<Item> AQUAMARINE_LEGGINGS= register("aquamarine_leggings", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, EquipmentSlot.LEGS, new Item.Properties().tab(AtlantisGroup.INSTANCE)));
-    public static final RegistryObject<Item> AQUAMARINE_BOOTS = register("aquamarine_boots", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, EquipmentSlot.FEET, new Item.Properties().tab(AtlantisGroup.INSTANCE)));
-    public static final RegistryObject<Item> BROWN_WROUGHT_HELMET = register("brown_wrought_helmet", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.HEAD, new Item.Properties().tab(AtlantisGroup.INSTANCE)));
-    public static final RegistryObject<Item> BROWN_WROUGHT_CHESTPLATE = register("brown_wrought_chestplate", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.CHEST, new Item.Properties().tab(AtlantisGroup.INSTANCE)));
-    public static final RegistryObject<Item> BROWN_WROUGHT_LEGGINGS= register("brown_wrought_leggings", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.LEGS, new Item.Properties().tab(AtlantisGroup.INSTANCE)));
-    public static final RegistryObject<Item> BROWN_WROUGHT_BOOTS = register("brown_wrought_boots", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.FEET, new Item.Properties().tab(AtlantisGroup.INSTANCE)));
-
-
+    public static final RegistryObject<Item> AQUAMARINE_HELMET = register("aquamarine_helmet", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, EquipmentSlot.HEAD, new Item.Properties().tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> AQUAMARINE_CHESTPLATE = register("aquamarine_chestplate", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, EquipmentSlot.CHEST, new Item.Properties().tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> AQUAMARINE_LEGGINGS= register("aquamarine_leggings", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, EquipmentSlot.LEGS, new Item.Properties().tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> AQUAMARINE_BOOTS = register("aquamarine_boots", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, EquipmentSlot.FEET, new Item.Properties().tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> BROWN_WROUGHT_HELMET = register("brown_wrought_helmet", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.HEAD, new Item.Properties().tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> BROWN_WROUGHT_CHESTPLATE = register("brown_wrought_chestplate", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.CHEST, new Item.Properties().tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> BROWN_WROUGHT_LEGGINGS= register("brown_wrought_leggings", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.LEGS, new Item.Properties().tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> BROWN_WROUGHT_BOOTS = register("brown_wrought_boots", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.FEET, new Item.Properties().tab(AtlantisGroup.MAIN)));
 }

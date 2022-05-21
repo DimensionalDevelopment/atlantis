@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 public class AtlanteanCrystal extends Item {
     public AtlanteanCrystal() {
         super(new Properties().stacksTo(16)
-                .tab(AtlantisGroup.INSTANCE));
+                .tab(AtlantisGroup.MAIN));
     }
 
     @Override

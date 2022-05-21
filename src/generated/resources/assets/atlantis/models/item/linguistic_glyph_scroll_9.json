@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "atlantis:items/linguistic_glyph_scroll_9"
+  }
+}

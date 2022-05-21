@@ -3,10 +3,7 @@ package com.mystic.atlantis.items.item.bottles;
 import com.mystic.atlantis.init.EffectsInit;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BottleItem;
 
-import com.mystic.atlantis.init.EffectsInit;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -14,7 +11,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -24,7 +20,7 @@ public class FireMelonJellyBottle extends Item {
     private static final int DRINK_DURATION = 30;
 
     public FireMelonJellyBottle(Properties arg) {
-        super(arg.tab(AtlantisGroup.INSTANCE));
+        super(arg.tab(AtlantisGroup.MAIN));
     }
 
     @Override

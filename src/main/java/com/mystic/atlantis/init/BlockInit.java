@@ -1,5 +1,6 @@
 package com.mystic.atlantis.init;
 
+import com.google.common.collect.ArrayListMultimap;
 import com.mystic.atlantis.blocks.*;
 import com.mystic.atlantis.blocks.AtlanteanWoodTrapdoor;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
@@ -13,26 +14,35 @@ import com.mystic.atlantis.blocks.slabs.AtlanteanWoodSlabs;
 import com.mystic.atlantis.configfeature.trees.AtlanteanTreeSaplingGenerator;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.util.Reference;
+import net.minecraft.client.color.block.BlockColor;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class BlockInit {
-    private static DeferredRegister<Block> BLOCKS = DeferredRegister.create(Block.class, Reference.MODID);
+    public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(Block.class, Reference.MODID);
 
     public static void init(IEventBus bus) {
         BLOCKS.register(bus);
@@ -173,7 +183,7 @@ public class BlockInit {
     public static final RegistryObject<Block> ALGAE_BLOCK = registerBlock("algae_block",()-> new AlgaeBlock(BlockBehaviour.Properties.of(Material.PLANT)));
     public static final RegistryObject<Block> CHISELED_AQUAMARINE = registerBlock("chiseled_aquamarine",()-> new ChiseledAquamarine(BlockBehaviour.Properties.of(Material.STONE)));
 
-    public static final RegistryObject<Block> LINGUISTIC_BLOCK = registerBlock("linguistic_block", () -> new LinguisticBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> LINGUISTIC_BLOCK = registerLinguisticBlock("linguistic_block", () -> new LinguisticBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> ATLANTEAN_BRICK = registerBlock("atlantean_brick", () -> new AtlanteanBrick(BlockBehaviour.Properties.of(Material.STONE)));
 
     public static final RegistryObject<Block> ATLANTEAN_SAPLING = registerBlock("atlantean_sapling", ()->
@@ -187,8 +197,12 @@ public class BlockInit {
     public static final RegistryObject<AtlanteanFireMelonHead> ATLANTEAN_FIRE_MELON_TOP = registerOnlyBlock("atlantean_fire_melon_top", () -> new AtlanteanFireMelonHead(BlockBehaviour.Properties.of(Material.PLANT)));
 
     private static RegistryObject<Block> registerBlock(String name, Supplier<Block> block) {
-        return registerBlock(name, block, b -> () -> new BlockItem(b.get(),new Item.Properties().tab(AtlantisGroup.INSTANCE)));
+        return registerBlock(name, block, b -> () -> new BlockItem(b.get(),new Item.Properties().tab(AtlantisGroup.MAIN)));
     }
+    public static RegistryObject<Block> registerLinguisticBlock(String name, Supplier<Block> block) {
+        return registerBlock(name, block, b -> () -> new BlockItem(b.get(),new Item.Properties().tab(AtlantisGroup.GLYPH)));
+    }
+
     public static <T extends Block> RegistryObject<T>registerOnlyBlock(String name, Supplier<T> block) {
         return BLOCKS.register(name, block);
     }
@@ -202,21 +216,21 @@ public class BlockInit {
         return reg;
     }
 
-    private static Map<LinguisticSymbol, Map<DyeColor, RegistryObject<Block>>> dyedLinguistic = new HashMap<>();
-    private static Map<LinguisticSymbol, RegistryObject<Block>> nonLinguistic = new HashMap<>();
+    private static Map<LinguisticGlyph, Map<DyeColor, RegistryObject<Block>>> dyedLinguistic = new HashMap<>();
+    private static Map<LinguisticGlyph, RegistryObject<Block>> nonLinguistic = new HashMap<>();
 
-    public static RegistryObject<Block> getLinguisticBlock(LinguisticSymbol symbol, DyeColor color) {
+    public static RegistryObject<Block> getLinguisticBlock(LinguisticGlyph symbol, DyeColor color) {
         if(color != null) {
-            if(symbol != null && symbol != LinguisticSymbol.BLANK) {
+            if(symbol != null && symbol != LinguisticGlyph.BLANK) {
                 return dyedLinguistic.get(symbol).get(color);
             } else {
-                return dyedLinguistic.get(LinguisticSymbol.BLANK).get(color);
+                return dyedLinguistic.get(LinguisticGlyph.BLANK).get(color);
             }
         } else {
-            if (symbol != null && symbol != LinguisticSymbol.BLANK) {
+            if (symbol != null && symbol != LinguisticGlyph.BLANK) {
                 return nonLinguistic.get(symbol);
             } else {
-                return nonLinguistic.get(LinguisticSymbol.BLANK);
+                return nonLinguistic.get(LinguisticGlyph.BLANK);
             }
         }
     }
@@ -224,37 +238,109 @@ public class BlockInit {
     static {
         Supplier<Block> blockSupplier = () -> new Block(BlockBehaviour.Properties.of(Material.CLAY));
 
-        for(LinguisticSymbol symbol : LinguisticSymbol.values()) {
-            String name = "linguistic"  + symbol.toString();
+        for(LinguisticGlyph symbol : LinguisticGlyph.values()) {
+            String name = "linguistic_glyph"  + symbol.toString();
 
             for (DyeColor color : DyeColor.values()) {
-                dyedLinguistic.computeIfAbsent(symbol, c -> new HashMap<>()).put(color, registerBlock(color.getSerializedName() + "_" + name, blockSupplier));
+                dyedLinguistic.computeIfAbsent(symbol, c -> new HashMap<>()).put(color, registerLinguisticBlock(color.getSerializedName() + "_" + name, blockSupplier));
             }
 
-            nonLinguistic.put(symbol, registerBlock(name, blockSupplier));
+            nonLinguistic.put(symbol, registerLinguisticBlock(name, blockSupplier));
         }
     }
 
-//    private static Block baseregisterBlock(String name, Block block, Function<Block, Item> item) {
-//        BLOCKS.registerBlock(name, () -> block);
-//        registerBlock(name, item.apply(block));
-//        return block;
-//    }
-//
-//    private static Block registerBlock(String name, Block block) {
-//        return baseregisterBlock(name, block, BlockInit::registerBlockItem);
-//    }
-//
-//    public static Block blockOnlyRegistry(String name, Block block) {
-//        BLOCKS.registerBlock(name, () -> block);
-//        return block;
-//    }
-//
-//    private static BlockItem registerBlockItem(Block block) {
-//        return new BlockItem(Objects.requireNonNull(block),()-> new Item.Properties());
-//    }
-//
-//    public static Item registerBlock(String name, Item item) {
-//        return ItemInit.registerBlock(name, item);
-//    }
+    public static void registerBlockColor(ColorHandlerEvent.Block event) {
+        ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.<DyeColor, Block>create();
+
+        for(Map<DyeColor, RegistryObject<Block>> colorMap : dyedLinguistic.values()) {
+            colorMap.forEach((k,v) -> map.put(k, v.get()));
+        }
+
+        BlockColors blockColors = event.getBlockColors();
+
+        BlockColor WHITE = (arg, arg2, arg3, i) -> 0xf9fffe;
+        map.get(DyeColor.WHITE).forEach(block -> blockColors.register(WHITE, block));
+        BlockColor ORANGE = (arg, arg2, arg3, i) -> 0xf9801d;
+        map.get(DyeColor.ORANGE).forEach(block -> blockColors.register(ORANGE, block));
+        BlockColor MAGENTA = (arg, arg2, arg3, i) -> 0xc74ebd;
+        map.get(DyeColor.MAGENTA).forEach(block -> blockColors.register(MAGENTA, block));
+        BlockColor LIGHT_BLUE = (arg, arg2, arg3, i) -> 0x3ab3da;
+        map.get(DyeColor.LIGHT_BLUE).forEach(block -> blockColors.register(LIGHT_BLUE, block));
+        BlockColor YELLOW = (arg, arg2, arg3, i) -> 0xfed83d;
+        map.get(DyeColor.YELLOW).forEach(block -> blockColors.register(YELLOW, block));
+        BlockColor LIME = (arg, arg2, arg3, i) -> 0x80c71f;
+        map.get(DyeColor.LIME).forEach(block -> blockColors.register(LIME, block));
+        BlockColor PINK = (arg, arg2, arg3, i) -> 0xf38baa;
+        map.get(DyeColor.PINK).forEach(block -> blockColors.register(PINK, block));
+        BlockColor GRAY = (arg, arg2, arg3, i) -> 0x474f52;
+        map.get(DyeColor.GRAY).forEach(block -> blockColors.register(GRAY, block));
+        BlockColor LIGHT_GRAY = (arg, arg2, arg3, i) -> 0x9d9d97;
+        map.get(DyeColor.LIGHT_GRAY).forEach(block -> blockColors.register(LIGHT_GRAY, block));
+        BlockColor CYAN = (arg, arg2, arg3, i) -> 0x169c9c;
+        map.get(DyeColor.CYAN).forEach(block -> blockColors.register(CYAN, block));
+        BlockColor PURPLE = (arg, arg2, arg3, i) -> 0x8932b8;
+        map.get(DyeColor.PURPLE).forEach(block -> blockColors.register(PURPLE, block));
+        BlockColor BLUE = (arg, arg2, arg3, i) -> 0x3c44aa;
+        map.get(DyeColor.BLUE).forEach(block -> blockColors.register(BLUE, block));
+        BlockColor BROWN = (arg, arg2, arg3, i) -> 0x835432;
+        map.get(DyeColor.BROWN).forEach(block -> blockColors.register(BROWN, block));
+        BlockColor GREEN = (arg, arg2, arg3, i) -> 0x5e7c16;
+        map.get(DyeColor.GREEN).forEach(block -> blockColors.register(GREEN, block));
+        BlockColor RED = (arg, arg2, arg3, i) -> 0xb02e26;
+        map.get(DyeColor.RED).forEach(block -> blockColors.register(RED, block));
+        BlockColor BLACK = (arg, arg2, arg3, i) -> 0x1d1d21;
+        map.get(DyeColor.BLACK).forEach(block -> blockColors.register(BLACK, block));
+
+        BlockColor REGUALR = (arg, arg2, arg3, i) -> 0x8caed2; nonLinguistic.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGUALR, block));
+    }
+
+    public static void registerItemColor(ColorHandlerEvent.Item event) {
+        ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.<DyeColor, Block>create();
+
+        for(Map<DyeColor, RegistryObject<Block>> colorMap : dyedLinguistic.values()) {
+            colorMap.forEach((k,v) -> map.put(k, v.get()));
+        }
+
+        ItemColors blockColors = event.getItemColors();
+
+        ItemColor WHITE = (arg, i) -> 0xf9fffe;
+        map.get(DyeColor.WHITE).forEach(block -> blockColors.register(WHITE, block));
+        ItemColor ORANGE = (arg, i) -> 0xf9801d;
+        map.get(DyeColor.ORANGE).forEach(block -> blockColors.register(ORANGE, block));
+        ItemColor MAGENTA = (arg, i) -> 0xc74ebd;
+        map.get(DyeColor.MAGENTA).forEach(block -> blockColors.register(MAGENTA, block));
+        ItemColor LIGHT_BLUE = (arg, i) -> 0x3ab3da;
+        map.get(DyeColor.LIGHT_BLUE).forEach(block -> blockColors.register(LIGHT_BLUE, block));
+        ItemColor YELLOW = (arg, i) -> 0xfed83d;
+        map.get(DyeColor.YELLOW).forEach(block -> blockColors.register(YELLOW, block));
+        ItemColor LIME = (arg, i) -> 0x80c71f;
+        map.get(DyeColor.LIME).forEach(block -> blockColors.register(LIME, block));
+        ItemColor PINK = (arg, i) -> 0xf38baa;
+        map.get(DyeColor.PINK).forEach(block -> blockColors.register(PINK, block));
+        ItemColor GRAY = (arg, i) -> 0x474f52;
+        map.get(DyeColor.GRAY).forEach(block -> blockColors.register(GRAY, block));
+        ItemColor LIGHT_GRAY = (arg, i) -> 0x9d9d97;
+        map.get(DyeColor.LIGHT_GRAY).forEach(block -> blockColors.register(LIGHT_GRAY, block));
+        ItemColor CYAN = (arg, i) -> 0x169c9c;
+        map.get(DyeColor.CYAN).forEach(block -> blockColors.register(CYAN, block));
+        ItemColor PURPLE = (arg, i) -> 0x8932b8;
+        map.get(DyeColor.PURPLE).forEach(block -> blockColors.register(PURPLE, block));
+        ItemColor BLUE = (arg, i) -> 0x3c44aa;
+        map.get(DyeColor.BLUE).forEach(block -> blockColors.register(BLUE, block));
+        ItemColor BROWN = (arg, i) -> 0x835432;
+        map.get(DyeColor.BROWN).forEach(block -> blockColors.register(BROWN, block));
+        ItemColor GREEN = (arg, i) -> 0x5e7c16;
+        map.get(DyeColor.GREEN).forEach(block -> blockColors.register(GREEN, block));
+        ItemColor RED = (arg, i) -> 0xb02e26;
+        map.get(DyeColor.RED).forEach(block -> blockColors.register(RED, block));
+        ItemColor BLACK = (arg, i) -> 0x1d1d21;
+        map.get(DyeColor.BLACK).forEach(block -> blockColors.register(BLACK, block));
+
+        ItemColor REGUALR = (arg, i) -> 0x8caed2; nonLinguistic.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGUALR, block));
+    }
+
+    public static void registerColor(IEventBus bus) {
+        bus.addListener(BlockInit::registerBlockColor);
+        bus.addListener(BlockInit::registerItemColor);
+    }
 }
