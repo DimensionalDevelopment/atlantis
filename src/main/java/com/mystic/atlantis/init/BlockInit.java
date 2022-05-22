@@ -37,6 +37,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -236,16 +237,16 @@ public class BlockInit {
     }
 
     static {
-        Supplier<Block> blockSupplier = () -> new Block(BlockBehaviour.Properties.of(Material.CLAY));
+        BiFunction<LinguisticGlyph, DyeColor, Supplier<Block>> blockSupplier = (glyph, dyeColor) -> () -> new GlyphBlock(glyph, dyeColor, BlockBehaviour.Properties.of(Material.CLAY));
 
         for(LinguisticGlyph symbol : LinguisticGlyph.values()) {
             String name = "linguistic_glyph"  + symbol.toString();
 
             for (DyeColor color : DyeColor.values()) {
-                dyedLinguistic.computeIfAbsent(symbol, c -> new HashMap<>()).put(color, registerLinguisticBlock(color.getSerializedName() + "_" + name, blockSupplier));
+                dyedLinguistic.computeIfAbsent(symbol, c -> new HashMap<>()).put(color, registerLinguisticBlock(color.getSerializedName() + "_" + name, blockSupplier.apply(symbol, color)));
             }
 
-            nonLinguistic.put(symbol, registerLinguisticBlock(name, blockSupplier));
+            nonLinguistic.put(symbol, registerLinguisticBlock(name, blockSupplier.apply(symbol, null)));
         }
     }
 

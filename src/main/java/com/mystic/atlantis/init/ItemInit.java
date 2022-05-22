@@ -25,10 +25,13 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class ItemInit {
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(Item.class, Reference.MODID);
+    private static Map<LinguisticGlyph, RegistryObject<Item>> scrolls = new HashMap<>();
 
     public static void init(IEventBus bus) {
         ITEMS.register(bus);
@@ -43,7 +46,9 @@ public class ItemInit {
     }
 
     static RegistryObject<Item> registerGlyph(LinguisticGlyph symbol) {
-        return register(() -> new LinguisticGlyphScrollItem(symbol), "linguistic_glyph_scroll" + symbol.toString());
+        RegistryObject<Item> registryObject = register(() -> new LinguisticGlyphScrollItem(symbol), "linguistic_glyph_scroll" + symbol.toString());
+        scrolls.put(symbol, registryObject);
+        return registryObject;
     }
 
     private static final Item.Properties ATLANTIS_SETTINGS = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).stacksTo(1).tab(AtlantisGroup.MAIN);
@@ -146,4 +151,8 @@ public class ItemInit {
     public static final RegistryObject<Item> BROWN_WROUGHT_CHESTPLATE = register("brown_wrought_chestplate", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.CHEST, new Item.Properties().tab(AtlantisGroup.MAIN)));
     public static final RegistryObject<Item> BROWN_WROUGHT_LEGGINGS= register("brown_wrought_leggings", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.LEGS, new Item.Properties().tab(AtlantisGroup.MAIN)));
     public static final RegistryObject<Item> BROWN_WROUGHT_BOOTS = register("brown_wrought_boots", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.FEET, new Item.Properties().tab(AtlantisGroup.MAIN)));
+
+    public static RegistryObject<Item> getScroll(LinguisticGlyph a) {
+        return scrolls.get(a);
+    }
 }

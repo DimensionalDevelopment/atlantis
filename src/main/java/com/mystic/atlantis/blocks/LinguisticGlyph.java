@@ -1,8 +1,36 @@
 package com.mystic.atlantis.blocks;
 
+import com.mystic.atlantis.Atlantis;
+import net.minecraft.resources.ResourceLocation;
+
 public enum LinguisticGlyph {
-    BLANK,
-    A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
+    BLANK(""),
+    A("a"),
+    B("b"),
+    C("c"),
+    D("d"),
+    E("e"),
+    F("f"),
+    G("g"),
+    H("h"),
+    I("i"),
+    J("j"),
+    K("k"),
+    L("l"),
+    M("m"),
+    N("n"),
+    O("o"),
+    P("p"),
+    Q("q"),
+    R("r"),
+    S("s"),
+    T("t"),
+    U("u"),
+    V("v"),
+    W("w"),
+    X("x"),
+    Y("y"),
+    Z("z"),
     ZERO("0"),
     ONE("1"),
     TWO("2"),
@@ -14,18 +42,20 @@ public enum LinguisticGlyph {
     EIGHT("8"),
     NINE("9");
 
-    private String properName;
+    private final ResourceLocation texture;
+    private final String properName;
 
     LinguisticGlyph(String properName) {
-        this.properName = "_" + properName;
-    }
-
-    LinguisticGlyph() {
-        properName = "_" + name().toLowerCase();
+        this.properName = properName.isEmpty() ? "" : "_" + properName;
+        texture = Atlantis.id("textures/block/blank/blank_side" + this.toString() + ".png");
     }
 
     @Override
     public String toString() {
-        return this != BLANK ? properName : "";
+        return properName;
+    }
+
+    public ResourceLocation getTexture() {
+        return texture;
     }
 }

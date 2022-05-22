@@ -1,18 +1,25 @@
 package com.mystic.atlantis.screen;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
+import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.init.GlyphBlock;
 import com.mystic.atlantis.inventory.LinguisticMenu;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.nbt.CompoundTag;
@@ -30,23 +37,28 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
 public class LinguisticScreen extends AbstractContainerScreen<LinguisticMenu> {
-	private static final ResourceLocation BG_LOCATION = new ResourceLocation("textures/gui/container/loom.png");
-	private static final int BASE_PATTERN_INDEX = 1;
-	private static final int PATTERN_COLUMNS = 4;
-	private static final int PATTERN_ROWS = 4;
-	private static final int TOTAL_PATTERN_ROWS = (BannerPattern.COUNT - BannerPattern.PATTERN_ITEM_COUNT - 1 + 4 - 1) / 4;
-	private static final int SCROLLER_WIDTH = 12;
-	private static final int SCROLLER_HEIGHT = 15;
-	private static final int PATTERN_IMAGE_SIZE = 14;
-	private static final int SCROLLER_FULL_HEIGHT = 56;
-	private static final int PATTERNS_X = 60;
-	private static final int PATTERNS_Y = 13;
+	private static final ResourceLocation BG_LOCATION = Atlantis.id("textures/gui/container/linguistic.png");
+
+	private static final Map<DyeColor, Color> colorMap = Stream.of(DyeColor.values()).collect(Collectors.toMap(a -> a, a -> new Color(a.getTextureDiffuseColors())));
+
+	private static final Color defaultColor = new Color(140f / 255f, 174f / 255f, 210f / 255f);
 
 	public LinguisticScreen(LinguisticMenu arg, Inventory arg2, Component arg3) {
 		super(arg, arg2, arg3);
-		this.titleLabelY -= 2;
+		this.imageWidth = 184;
+		this.imageHeight = 174;
+
+		this.titleLabelX = 10;
+		this.titleLabelY = 8;
+		this.inventoryLabelX = 12;
+		this.inventoryLabelY = imageHeight - 98;
 	}
 
 	@Override
@@ -71,6 +83,7 @@ public class LinguisticScreen extends AbstractContainerScreen<LinguisticMenu> {
 		Slot slot = this.menu.getBlankSlot();
 		Slot slot2 = this.menu.getDyeSlot();
 		Slot slot3 = this.menu.getSymbolSlot();
+		Slot slot4 = this.menu.getResultSlot();
 
 		if (!slot.hasItem()) {
 			this.blit(arg, k + slot.x, l + slot.y, this.imageWidth, 0, 16, 16);
@@ -82,6 +95,37 @@ public class LinguisticScreen extends AbstractContainerScreen<LinguisticMenu> {
 
 		if (!slot3.hasItem()) {
 			this.blit(arg, k + slot3.x, l + slot3.y, this.imageWidth + 32, 0, 16, 16);
+		}
+
+		if (slot4.hasItem()) {
+			if(slot4.getItem().getItem() instanceof BlockItem item && item.getBlock() instanceof GlyphBlock glyphBlock) {
+				arg.pushPose();
+				arg.translate(k + 74, l + 29, 0);
+
+				RenderSystem.setShaderColor(1, 1, 1, 1);
+
+				RenderSystem.setShader(GameRenderer::getPositionTexShader);
+				RenderSystem.setShaderTexture(0, glyphBlock.getGlyph().getTexture());
+				Color color = colorMap.get(glyphBlock.getDyeColor());
+
+				Objects.requireNonNullElse(color, defaultColor).setup();
+
+				blit(arg, 0, 0, 34, 34, 0,0, 16,16,16,16);
+
+				RenderSystem.setShaderColor(1, 1, 1, 1);
+
+				arg.popPose();
+			}
+		}
+	}
+
+	private static record Color(float r, float g, float b) {
+		public Color(float[] color) {
+			this(color[0], color[1], color[2]);
+		}
+
+		public void setup() {
+			RenderSystem.setShaderColor(r, g, b, 1.0f);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package com.mystic.atlantis;
 
 import com.mystic.atlantis.blocks.ExtendedBlockEntity;
+import com.mystic.atlantis.blocks.LinguisticGlyph;
 import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
@@ -14,10 +15,12 @@ import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.inventory.MenuTypeInit;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
+import com.mystic.atlantis.items.item.LinguisticGlyphScrollItem;
 import com.mystic.atlantis.particles.ModParticleTypes;
 import com.mystic.atlantis.screen.LinguisticScreen;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.structures.AtlantisStructures;
+import com.mystic.atlantis.util.ItemStackUtil;
 import com.mystic.atlantis.util.Reference;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.kyrptonaught.customportalapi.CustomPortalBlock;
@@ -30,6 +33,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.dimension.LevelStem;
@@ -38,6 +42,7 @@ import net.minecraftforge.client.ConfigGuiHandler.ConfigGuiFactory;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -55,6 +60,8 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.example.GeckoLibMod;
 import software.bernie.geckolib3.GeckoLib;
+
+import java.util.Locale;
 
 @Mod(Reference.MODID)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -106,6 +113,19 @@ public class Atlantis {
         AtlantisSoundEvents.SOUNDS.register(bus);
         EffectsInit.init(bus);
         MenuTypeInit.init(bus);
+        MinecraftForge.EVENT_BUS.addListener(this::onAnvilUpdate);
+    }
+
+    public void onAnvilUpdate(AnvilUpdateEvent event) {
+        if(event.getLeft().getItem() instanceof LinguisticGlyphScrollItem && ItemStackUtil.isGlyphNameTag(event.getRight())) {
+            LinguisticGlyph a =  LinguisticGlyph.valueOf(event.getRight().getDisplayName().plainCopy().getString().substring(0,1).toLowerCase(Locale.ROOT));
+
+            if(a != null) {
+                event.setMaterialCost(0);
+                event.setCost(1);
+                event.setOutput(ItemInit.getScroll(a).map(ItemStack::new).get());
+            }
+        }
     }
 
 

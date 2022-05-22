@@ -33,12 +33,18 @@ repositories {
     flatDir {
         dir 'libs'
     }
+    maven {
+        url = "https://maven.parchmentmc.org"
+    }
 }
 
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
+    mappings loom.layered() {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-1.18.2:2022.05.02@zip")
+    }
     forge "net.minecraftforge:forge:${project.forge_version}"
 
 //    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"

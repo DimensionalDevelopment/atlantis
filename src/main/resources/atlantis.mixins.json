@@ -11,7 +11,9 @@
     "RedstoneWireBlockMixin",
     "RenderBubblesMixin",
     "WorldLightManagerMixin",
-    "BlockEntityTypeMixin"
+    "BlockEntityTypeMixin",
+    "ItemCombinerMenuMixin",
+    "AnvilMenuMixin"
   ],
   "client": [],
   "injectors": {

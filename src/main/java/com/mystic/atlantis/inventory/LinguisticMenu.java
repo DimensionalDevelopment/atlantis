@@ -2,6 +2,7 @@ package com.mystic.atlantis.inventory;
 
 import com.mystic.atlantis.blocks.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.init.GlyphBlock;
 import com.mystic.atlantis.items.item.LinguisticGlyphScrollItem;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -48,25 +49,25 @@ public class LinguisticMenu extends AbstractContainerMenu {
 	public LinguisticMenu(int i, Inventory arg, ContainerLevelAccess arg2) {
 		super(MenuTypeInit.LINGUISTIC.get(), i);
 		this.access = arg2;
-		this.blankSlot = this.addSlot(new Slot(this.inputContainer, 0, 13, 26) {
+		this.blankSlot = this.addSlot(new Slot(this.inputContainer, 0, 28, 28) {
 			@Override
 			public boolean mayPlace(ItemStack arg) {
-				return BlockInit.getLinguisticBlock(LinguisticGlyph.BLANK, null).map(Block::asItem).filter(a -> a == arg.getItem()).isPresent();
+				return arg.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof GlyphBlock;
 			}
 		});
-		this.dyeSlot = this.addSlot(new Slot(this.inputContainer, 1, 33, 26) {
+		this.dyeSlot = this.addSlot(new Slot(this.inputContainer, 1, 48,28) {
 			@Override
 			public boolean mayPlace(ItemStack arg) {
 				return arg.getItem() instanceof DyeItem;
 			}
 		});
-		this.symbolSlot = this.addSlot(new Slot(this.inputContainer, 2, 23, 45) {
+		this.symbolSlot = this.addSlot(new Slot(this.inputContainer, 2, 38, 48) {
 			@Override
 			public boolean mayPlace(ItemStack arg) {
 				return arg.getItem() instanceof LinguisticGlyphScrollItem;
 			}
 		});
-		this.resultSlot = this.addSlot(new Slot(this.outputContainer, 0, 143, 58) {
+		this.resultSlot = this.addSlot(new Slot(this.outputContainer, 0, 122, 38) {
 			@Override
 			public boolean mayPlace(ItemStack arg) {
 				return false;
@@ -96,12 +97,12 @@ public class LinguisticMenu extends AbstractContainerMenu {
 
 		for(int j = 0; j < 3; ++j) {
 			for(int k = 0; k < 9; ++k) {
-				this.addSlot(new Slot(arg, k + j * 9 + 9, 8 + k * 18, 84 + j * 18));
+				this.addSlot(new Slot(arg, k + j * 9 + 9, 12 + k * 18, 88 + j * 18));
 			}
 		}
 
 		for(int j = 0; j < 9; ++j) {
-			this.addSlot(new Slot(arg, j, 8 + j * 18, 142));
+			this.addSlot(new Slot(arg, j, 12 + j * 18, 146));
 		}
 	}
 
