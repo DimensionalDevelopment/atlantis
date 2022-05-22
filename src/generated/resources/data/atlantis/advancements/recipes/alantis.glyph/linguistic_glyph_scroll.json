@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "atlantis:linguistic_glyph_scroll"
+    ]
+  },
+  "criteria": {
+    "has_fire_melon_spike": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "atlantis:atlantean_fire_melon_spike"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "atlantis:linguistic_glyph_scroll"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_fire_melon_spike",
+      "has_the_recipe"
+    ]
+  ]
+}

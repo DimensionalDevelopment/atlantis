@@ -7,10 +7,16 @@ import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.items.item.LinguisticGlyphScrollItem;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -34,6 +40,22 @@ public class Providers {
     public static void dataGather(GatherDataEvent event) {
         if(event.includeServer()) {
             event.getGenerator().addProvider(new AtlantisLootTables(event.getGenerator()));
+            event.getGenerator().addProvider(new RecipeProvider(event.getGenerator()) {
+                @Override
+                protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+                    ShapelessRecipeBuilder.shapeless(ItemInit.LINGUISTIC_GLYPH_SCROLL.get(), 1).requires(Items.INK_SAC).requires(Items.PAPER).requires(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get()).unlockedBy("has_fire_melon_spike", RecipeProvider.has(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get())).save(consumer);
+                    ShapedRecipeBuilder.shaped(BlockInit.getLinguisticBlock(LinguisticGlyph.BLANK, null).get(), 2).pattern("XX").pattern("XX").define('X', BlockInit.ATLANTEAN_PRISMARINE.get()).unlockedBy("has_atlantean_prismarine", RecipeProvider.has(BlockInit.ATLANTEAN_PRISMARINE.get())).save(consumer);
+                    ShapedRecipeBuilder.shaped(BlockInit.LINGUISTIC_BLOCK.get())
+                            .pattern("XXX")
+                            .pattern("YZY")
+                            .pattern("XXX")
+                            .define('X', ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get())
+                            .define('Y', Items.BOOK)
+                            .define('Z', Blocks.CRAFTING_TABLE)
+                            .unlockedBy("has_fire_melon_spike", RecipeProvider.has(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get()))
+                            .save(consumer);
+                }
+            });
         }
 
         if(event.includeClient()) {
