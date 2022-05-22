@@ -19,21 +19,31 @@ import java.util.regex.Pattern;
 public abstract class AnvilMenuMixin extends ItemCombinerMenuMixin {
     @Unique boolean isGlyph;
 
+    @Unique ItemStack stack = ItemStack.EMPTY;
+
     @Inject(method = "Lnet/minecraft/world/inventory/AnvilMenu;onTake(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;)V", at = @At("HEAD"))
     public void checkIfGlyph(Player player, ItemStack stack, CallbackInfo callbackInfo) {
         isGlyph = this.inputSlots.getItem(0).getItem() instanceof LinguisticGlyphScrollItem;
     }
 
-    @Redirect(method = "Lnet/minecraft/world/inventory/AnvilMenu;onTake(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;)V", at = @At(value = "FIELD", target = "Lnet/minecraft/world/item/ItemStack;EMPTY:Lnet/minecraft/world/item/ItemStack;", ordinal = 3, opcode = Opcodes.H_GETSTATIC))
-    public ItemStack check(ItemStack stack) {
+    @Inject(method = "onTake", at = @At(value = "INVOKE", target = "net/minecraft/world/Container.setItem(ILnet/minecraft/world/item/ItemStack;)V", ordinal = 3))
+    public void checkBefore(Player player, ItemStack itemStack, CallbackInfo callbackInfo) {
         if(isGlyph) {
             ItemStack tag = this.inputSlots.getItem(1);
 
             if(ItemStackUtil.isGlyphNameTag(tag)) {
-                return tag;
+                this.stack = tag;
+                return;
             }
         }
 
-        return stack;
+        stack = ItemStack.EMPTY;
+    }
+
+    @Inject(method = "onTake", at = @At(value = "INVOKE", target = "net/minecraft/world/Container.setItem(ILnet/minecraft/world/item/ItemStack;)V", ordinal = 3, shift = At.Shift.AFTER))
+    public void checkAfter(Player player, ItemStack itemStack, CallbackInfo callbackInfo) {
+        if(!stack.isEmpty()) {
+            this.inputSlots.setItem(1, stack);
+        }
     }
 }

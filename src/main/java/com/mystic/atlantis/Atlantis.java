@@ -118,7 +118,7 @@ public class Atlantis {
 
     public void onAnvilUpdate(AnvilUpdateEvent event) {
         if(event.getLeft().getItem() instanceof LinguisticGlyphScrollItem && ItemStackUtil.isGlyphNameTag(event.getRight())) {
-            LinguisticGlyph a =  LinguisticGlyph.valueOf(event.getRight().getDisplayName().plainCopy().getString().substring(0,1).toLowerCase(Locale.ROOT));
+            LinguisticGlyph a =  LinguisticGlyph.getFromStringChar(event.getRight().getHoverName().getContents().substring(0,1).toLowerCase(Locale.ROOT));
 
             if(a != null) {
                 event.setMaterialCost(0);

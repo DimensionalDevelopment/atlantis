@@ -44,10 +44,20 @@ public enum LinguisticGlyph {
 
     private final ResourceLocation texture;
     private final String properName;
+    private final String id;
 
     LinguisticGlyph(String properName) {
+        this.id = properName;
         this.properName = properName.isEmpty() ? "" : "_" + properName;
         texture = Atlantis.id("textures/block/blank/blank_side" + this.toString() + ".png");
+    }
+
+    public static LinguisticGlyph getFromStringChar(String name) {
+        for(LinguisticGlyph glyph : values()) {
+            if(glyph.id.equals(name)) return glyph;
+        }
+
+        return null;
     }
 
     @Override
