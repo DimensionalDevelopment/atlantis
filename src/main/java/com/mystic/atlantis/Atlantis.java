@@ -18,6 +18,7 @@ import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.items.item.LinguisticGlyphScrollItem;
 import com.mystic.atlantis.particles.ModParticleTypes;
 import com.mystic.atlantis.screen.LinguisticScreen;
+import com.mystic.atlantis.screen.WritingScreen;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.ItemStackUtil;
@@ -113,25 +114,15 @@ public class Atlantis {
         AtlantisSoundEvents.SOUNDS.register(bus);
         EffectsInit.init(bus);
         MenuTypeInit.init(bus);
-        MinecraftForge.EVENT_BUS.addListener(this::onAnvilUpdate);
+        RecipesInit.init(bus);
     }
-
-    public void onAnvilUpdate(AnvilUpdateEvent event) {
-        if(event.getLeft().getItem() instanceof LinguisticGlyphScrollItem && ItemStackUtil.isGlyphNameTag(event.getRight())) {
-            LinguisticGlyph a =  LinguisticGlyph.getFromStringChar(event.getRight().getHoverName().getContents().substring(0,1).toLowerCase(Locale.ROOT));
-
-            if(a != null) {
-                event.setMaterialCost(0);
-                event.setCost(1);
-                event.setOutput(ItemInit.getScroll(a).map(ItemStack::new).get());
-            }
-        }
-    }
-
 
     @SubscribeEvent
     public static void onClientSet(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> MenuScreens.register(MenuTypeInit.LINGUISTIC.get(), LinguisticScreen::new));
+        event.enqueueWork(() -> {
+            MenuScreens.register(MenuTypeInit.LINGUISTIC.get(), LinguisticScreen::new);
+            MenuScreens.register(MenuTypeInit.WRITING.get(), WritingScreen::new);
+        });
     }
 
     @SubscribeEvent

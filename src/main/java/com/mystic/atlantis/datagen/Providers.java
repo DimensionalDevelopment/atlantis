@@ -2,19 +2,17 @@ package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.LinguisticGlyph;
-import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
-import com.mystic.atlantis.items.item.LinguisticGlyphScrollItem;
-import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import com.mystic.atlantis.init.RecipesInit;
+import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -29,6 +27,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import java.lang.reflect.Modifier;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
 
@@ -54,6 +53,23 @@ public class Providers {
                             .define('Z', Blocks.CRAFTING_TABLE)
                             .unlockedBy("has_fire_melon_spike", RecipeProvider.has(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get()))
                             .save(consumer);
+
+                    Ingredient ingredient = Ingredient.of(Stream.of(
+                            LinguisticGlyph.values())
+                            .map(ItemInit::getScroll)
+                            .map(RegistryObject::get)
+                            .map(ItemStack::new));
+
+                    for(LinguisticGlyph glyph : LinguisticGlyph.values()) {
+                        writing(ingredient, ItemInit.getScroll(glyph).get())
+//                                .group("glyph_scroll")
+                                .unlockedBy("has_fire_melon_spike", RecipeProvider.has(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get()))
+                                .save(consumer, "atlantis:" + ItemInit.getScroll(glyph).get().getRegistryName().getPath() + "_writing");
+                    }
+                }
+
+                public static SingleItemRecipeBuilder writing(Ingredient ingredient, ItemLike result) {
+                    return new SingleItemRecipeBuilder(RecipesInit.Serializers.WRITING_SERIALIZER.get(), ingredient, result, 1);
                 }
             });
         }
@@ -88,6 +104,7 @@ public class Providers {
                     glyphScroll(ItemInit.LINGUISTIC_GLYPH_SCROLL_V);
                     glyphScroll(ItemInit.LINGUISTIC_GLYPH_SCROLL_W);
                     glyphScroll(ItemInit.LINGUISTIC_GLYPH_SCROLL_X);
+                    glyphScroll(ItemInit.LINGUISTIC_GLYPH_SCROLL_Y);
                     glyphScroll(ItemInit.LINGUISTIC_GLYPH_SCROLL_Z);
                     glyphScroll(ItemInit.LINGUISTIC_GLYPH_SCROLL_0);
                     glyphScroll(ItemInit.LINGUISTIC_GLYPH_SCROLL_1);

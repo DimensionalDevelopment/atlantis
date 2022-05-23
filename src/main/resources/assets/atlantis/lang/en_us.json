@@ -2,6 +2,7 @@
   "itemGroup.atlantis.general": "Atlantis",
   "itemGroup.atlantis.glyph": "Atlantean Glyphs",
   "container.linguistic": "Linguistic",
+  "container.writing": "Writing",
   "item.atlantis.aquamarine_gem": "Aquamarine Gem",
   "item.atlantis.orb_of_atlantis": "Orb Of Atlantis",
   "item.atlantis.atlantean_crystal": "Atlantean Crystal",
@@ -844,5 +845,6 @@
   "item.atlantis.linguistic_glyph_scroll_v": "Linguistic Glyph Scroll V",
   "item.atlantis.linguistic_glyph_scroll_w": "Linguistic Glyph Scroll W",
   "item.atlantis.linguistic_glyph_scroll_x": "Linguistic Glyph Scroll X",
+  "item.atlantis.linguistic_glyph_scroll_y": "Linguistic Glyph Scroll Y",
   "item.atlantis.linguistic_glyph_scroll_z": "Linguistic Glyph Scroll Z"
 }

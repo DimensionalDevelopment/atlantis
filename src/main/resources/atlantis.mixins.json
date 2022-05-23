@@ -12,10 +12,10 @@
     "RenderBubblesMixin",
     "WorldLightManagerMixin",
     "BlockEntityTypeMixin",
-    "ItemCombinerMenuMixin",
-    "AnvilMenuMixin"
+    "ItemCombinerMenuMixin"
   ],
-  "client": [],
+  "client": [
+  ],
   "injectors": {
     "defaultRequire": 1
   },

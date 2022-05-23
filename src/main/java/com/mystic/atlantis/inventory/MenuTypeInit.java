@@ -15,6 +15,8 @@ public class MenuTypeInit {
 
     public static RegistryObject<MenuType<LinguisticMenu>> LINGUISTIC = CONTAINERS.register("linguistic", () -> new MenuType<>(LinguisticMenu::new));
 
+    public static RegistryObject<MenuType<WritingMenu>> WRITING = CONTAINERS.register("writing", () -> new MenuType<>(WritingMenu::new));
+
     public static void init(IEventBus bus) {
         CONTAINERS.register(bus);
     }

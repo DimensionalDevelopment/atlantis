@@ -185,8 +185,8 @@ public class BlockInit {
     public static final RegistryObject<Block> CHISELED_AQUAMARINE = registerBlock("chiseled_aquamarine",()-> new ChiseledAquamarine(BlockBehaviour.Properties.of(Material.STONE)));
 
     public static final RegistryObject<Block> LINGUISTIC_BLOCK = registerLinguisticBlock("linguistic_block", () -> new LinguisticBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
-    public static final RegistryObject<Block> ATLANTEAN_BRICK = registerBlock("atlantean_brick", () -> new AtlanteanBrick(BlockBehaviour.Properties.of(Material.STONE)));
 
+    public static final RegistryObject<Block> WRITING_BLOCK = registerBlock("writing_block", () -> new WritingBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> ATLANTEAN_SAPLING = registerBlock("atlantean_sapling", ()->
             new AtlanteanSapling(new AtlanteanTreeSaplingGenerator(),
                     BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
