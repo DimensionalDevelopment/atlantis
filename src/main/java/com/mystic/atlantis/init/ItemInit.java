@@ -66,7 +66,6 @@ public class ItemInit {
 
     //MUSIC DISC
     public static final RegistryObject<Item> PANBEE = register("panbee", () -> new AtlantisMusicDisc(15, AtlantisSoundEvents.PANBEE, ATLANTIS_SETTINGS));
-    public static final RegistryObject<Item> COLUMN = register("column_cavitation", () -> new AtlantisMusicDisc(15, AtlantisSoundEvents.COLUMN, ATLANTIS_SETTINGS));
 
     //ITEMS
     public static final RegistryObject<Item> FIRE_MELON_JELLY_BOTTLE = register("fire_melon_jelly_bottle", () -> new FireMelonJellyBottle(new Item.Properties()));
