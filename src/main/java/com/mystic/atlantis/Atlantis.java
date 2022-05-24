@@ -128,6 +128,7 @@ public class Atlantis {
     @SubscribeEvent
     public static void onCommonSet(FMLCommonSetupEvent event) {
         ToolInit.init();
+        TagsInit.init();
 
         CustomPortalBuilder.beginPortal()
                 .frameBlock(BlockInit.ATLANTEAN_CORE.get())

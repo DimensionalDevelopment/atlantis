@@ -66,12 +66,14 @@ public class ItemInit {
 
     //MUSIC DISC
     public static final RegistryObject<Item> PANBEE = register("panbee", () -> new AtlantisMusicDisc(15, AtlantisSoundEvents.PANBEE, ATLANTIS_SETTINGS));
-    public static final RegistryObject<Item> COLUMN = register("column_cavitation", () -> new AtlantisMusicDisc(15, AtlantisSoundEvents.COLUMN, ATLANTIS_SETTINGS));
+    public static final RegistryObject<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new AtlantisMusicDisc(15, AtlantisSoundEvents.COLUMN, ATLANTIS_SETTINGS));
 
     //ITEMS
     public static final RegistryObject<Item> FIRE_MELON_JELLY_BOTTLE = register("fire_melon_jelly_bottle", () -> new FireMelonJellyBottle(new Item.Properties()));
     public static final RegistryObject<Item> JELLY_BOTTLE = register("jellyfish_jelly_bottle", () -> new JellyfishJellyBottle(new Item.Properties()));
     public static final RegistryObject<Item> AQUAMARINE_GEM = register("aquamarine_gem", DefaultItem::new);
+    public static final RegistryObject<Item> ORICHALCUM_IGNOT = register("orichalcum_ignot", DefaultItem::new);
+    public static final RegistryObject<Item> ORICHALCUM_BLEND = register("orichalcum_blend", DefaultItem::new);
     public static final RegistryObject<Item> ORB_OF_ATLANTIS = register("orb_of_atlantis", DefaultItem::new);
     public static final RegistryObject<Item> ATLANTEAN_CRYSTAL = register("atlantean_crystal", AtlanteanCrystal::new);
     public static final RegistryObject<Item> OCEAN_STONE = register("ocean_stone", DefaultItem::new);
@@ -138,11 +140,16 @@ public class ItemInit {
     public static final RegistryObject<Item> SHRIMP_BUCKET = register("shrimp_bucket", ()->new JellyfishEntityBucketItem(AtlantisEntities.SHRIMP, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
 
     //TOOLS
-    public static final RegistryObject<Item> AXE_AQUMARINE = register("axe_aquamarine", () -> new AquamarineAxe(ToolInit.AQUAMARINE, 4));
-    public static final RegistryObject<Item> PICKAXE_AQUMARINE = register("pickaxe_aquamarine", () -> new AquamarinePickaxe(ToolInit.AQUAMARINE, 3));
-    public static final RegistryObject<Item> SHOVEL_AQUMARINE = register("shovel_aquamarine", () -> new AquamarineShovel(ToolInit.AQUAMARINE, 1));
-    public static final RegistryObject<Item> HOE_AQUMARINE = register("hoe_aquamarine", () -> new AquamarineHoe(ToolInit.AQUAMARINE, 2));
-    public static final RegistryObject<Item> SWORD_AQUMARINE = register("sword_aquamarine", () -> new AquamarineSword(ToolInit.AQUAMARINE, 6));
+    public static final RegistryObject<Item> AXE_AQUAMARINE = register("axe_aquamarine", () -> new AquamarineAxe(ToolInit.AQUAMARINE, 4));
+    public static final RegistryObject<Item> PICKAXE_AQUAMARINE = register("pickaxe_aquamarine", () -> new AquamarinePickaxe(ToolInit.AQUAMARINE, 3));
+    public static final RegistryObject<Item> SHOVEL_AQUAMARINE = register("shovel_aquamarine", () -> new AquamarineShovel(ToolInit.AQUAMARINE, 1));
+    public static final RegistryObject<Item> HOE_AQUAMARINE = register("hoe_aquamarine", () -> new AquamarineHoe(ToolInit.AQUAMARINE, 2));
+    public static final RegistryObject<Item> SWORD_AQUAMARINE = register("sword_aquamarine", () -> new AquamarineSword(ToolInit.AQUAMARINE, 6));
+    public static final RegistryObject<Item> AXE_ORICHALCUM = register("axe_orichalcum", () -> new AquamarineAxe(ToolInit.ORICHAClUM, 4));
+    public static final RegistryObject<Item> PICKAXE_ORICHALCUM = register("pickaxe_orichalcum", () -> new AquamarinePickaxe(ToolInit.ORICHAClUM, 3));
+    public static final RegistryObject<Item> SHOVEL_ORICHALCUM = register("shovel_orichalcum", () -> new AquamarineShovel(ToolInit.ORICHAClUM, 1));
+    public static final RegistryObject<Item> HOE_ORICHALCUM = register("hoe_orichalcum", () -> new AquamarineHoe(ToolInit.ORICHAClUM, 2));
+    public static final RegistryObject<Item> SWORD_ORICHALCUM = register("sword_orichalcum", () -> new AquamarineSword(ToolInit.ORICHAClUM, 6));
 
     //ARMOR
     public static final RegistryObject<Item> AQUAMARINE_HELMET = register("aquamarine_helmet", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, EquipmentSlot.HEAD, new Item.Properties().tab(AtlantisGroup.MAIN)));

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "atlantis:orichalcum_blend"
+    ]
+  },
+  "criteria": {
+    "has_aquamarine_gem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "atlantis:aquamarine_gem"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "atlantis:orichalcum_blend"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_aquamarine_gem",
+      "has_the_recipe"
+    ]
+  ]
+}

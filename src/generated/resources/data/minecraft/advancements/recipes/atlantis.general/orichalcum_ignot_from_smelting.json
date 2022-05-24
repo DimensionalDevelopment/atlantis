@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:orichalcum_ignot_from_smelting"
+    ]
+  },
+  "criteria": {
+    "has_orichalcum_blend": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "atlantis:orichalcum_blend"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:orichalcum_ignot_from_smelting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_orichalcum_blend",
+      "has_the_recipe"
+    ]
+  ]
+}

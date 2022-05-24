@@ -12,7 +12,9 @@
     "RenderBubblesMixin",
     "WorldLightManagerMixin",
     "BlockEntityTypeMixin",
-    "ItemCombinerMenuMixin"
+    "ItemCombinerMenuMixin",
+    "ItemEntityMixin",
+    "EntityMixin"
   ],
   "client": [
   ],

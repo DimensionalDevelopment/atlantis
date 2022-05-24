@@ -15,6 +15,7 @@ import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashSet;
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class AtlantisLootTables extends LootTableProvider {
+
     List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> tables = ImmutableList.of(
             Pair.of(BlockTables::new, LootContextParamSets.BLOCK)
     );
@@ -43,35 +45,34 @@ public class AtlantisLootTables extends LootTableProvider {
         map.forEach((arg, arg2) -> LootTables.validate(validationtracker, arg, arg2));
     }
 
-    public static class BlockTables extends BlockLoot {
+    public class BlockTables extends BlockLoot {
+        private Set<Block> blockSet = new HashSet<>();
+
         @Override
         protected void addTables() {
             for (LinguisticGlyph glyph : LinguisticGlyph.values()) {
                 for (DyeColor color : DyeColor.values()) {
-                    dropSelf(BlockInit.getLinguisticBlock(glyph, color).get());
+                    dropSelf(BlockInit.getLinguisticBlock(glyph, color));
                 }
 
-                dropSelf(BlockInit.getLinguisticBlock(glyph, null).get());
+                dropSelf(BlockInit.getLinguisticBlock(glyph, null));
             }
 
 
-            dropSelf(BlockInit.LINGUISTIC_BLOCK.get());
+            dropSelf(BlockInit.LINGUISTIC_BLOCK);
+
+            dropSelf(BlockInit.ORICHALCUM_BLOCK);
         }
+
+        private void dropSelf(RegistryObject<Block> block) {
+            dropSelf(block.get());
+            blockSet.add(block.get());
+        }
+
+
 
         @Override
         protected Iterable<Block> getKnownBlocks() {
-            Set<Block> blockSet = new HashSet<>();
-
-            for (LinguisticGlyph glyph : LinguisticGlyph.values()) {
-                for (DyeColor color : DyeColor.values()) {
-                    blockSet.add(BlockInit.getLinguisticBlock(glyph, color).get());
-                }
-
-                blockSet.add(BlockInit.getLinguisticBlock(glyph, null).get());
-            }
-
-            blockSet.add(BlockInit.LINGUISTIC_BLOCK.get());
-
             return blockSet;
         }
     }

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "atlantis:orichalcum_block"
+    ]
+  },
+  "criteria": {
+    "has_orichalcum_ignot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "atlantis:orichalcum_block"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "atlantis:orichalcum_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_orichalcum_ignot",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "group": "orichalcum_ignot",
+  "ingredient": {
+    "item": "atlantis:orichalcum_blend"
+  },
+  "result": "atlantis:orichalcum_ignot",
+  "experience": 0.7,
+  "cookingtime": 100
+}
