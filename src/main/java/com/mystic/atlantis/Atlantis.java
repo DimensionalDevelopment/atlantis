@@ -19,6 +19,7 @@ import com.mystic.atlantis.items.item.LinguisticGlyphScrollItem;
 import com.mystic.atlantis.particles.ModParticleTypes;
 import com.mystic.atlantis.screen.LinguisticScreen;
 import com.mystic.atlantis.screen.WritingScreen;
+import com.mystic.atlantis.setup.ClientSetup;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.ItemStackUtil;
@@ -76,7 +77,7 @@ public class Atlantis {
         onInitialize(bus);
         AtlantisFeature.FEATURES.register(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
-        BlockInit.registerColor(bus);
+        ClientSetup.registerColor(bus);
         Providers.init(bus);
     }
 
