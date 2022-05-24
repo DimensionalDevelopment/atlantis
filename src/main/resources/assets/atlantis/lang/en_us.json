@@ -76,6 +76,8 @@
   "itemGroup.alantis.general": "Atlantis",
   "item.atlantis.panbee": "Music Disc",
   "item.atlantis.panbee.desc": "LudoCrypt - panbee",
+  "item.atlantis.column_cavitation": "Music Disc",
+  "item.atlantis.column_cavitation.desc": "Firel - column cavitation",
   "entity.atlantis.atlantean_crab": "Atlantean Crab",
   "item.atlantis.atlantean_crab_egg": "Atlantean Crab Spawn Egg",
   "item.atlantis.crab_legs": "Crab Legs",

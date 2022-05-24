@@ -29,6 +29,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -186,7 +188,7 @@ public class BlockInit {
 
     public static final RegistryObject<Block> LINGUISTIC_BLOCK = registerLinguisticBlock("linguistic_block", () -> new LinguisticBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
 
-    public static final RegistryObject<Block> WRITING_BLOCK = registerBlock("writing_block", () -> new WritingBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> WRITING_BLOCK = registerLinguisticBlock("writing_block", () -> new WritingBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> ATLANTEAN_SAPLING = registerBlock("atlantean_sapling", ()->
             new AtlanteanSapling(new AtlanteanTreeSaplingGenerator(),
                     BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
@@ -251,6 +253,7 @@ public class BlockInit {
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static void registerBlockColor(ColorHandlerEvent.Block event) {
         ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.<DyeColor, Block>create();
 
@@ -296,6 +299,7 @@ public class BlockInit {
         BlockColor REGUALR = (arg, arg2, arg3, i) -> 0x8caed2; nonLinguistic.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGUALR, block));
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static void registerItemColor(ColorHandlerEvent.Item event) {
         ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.<DyeColor, Block>create();
 
@@ -341,6 +345,7 @@ public class BlockInit {
         ItemColor REGUALR = (arg, i) -> 0x8caed2; nonLinguistic.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGUALR, block));
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static void registerColor(IEventBus bus) {
         bus.addListener(BlockInit::registerBlockColor);
         bus.addListener(BlockInit::registerItemColor);
