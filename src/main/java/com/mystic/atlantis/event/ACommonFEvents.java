@@ -132,7 +132,7 @@ public class ACommonFEvents {
                 return;
             }
 
-            StructureSettings worldStructureConfig = chunkGenerator.possibleStructureSets().getSettings();
+            StructureSettings worldStructureConfig = chunkGenerator.getSettings();
 
             HashMap<StructureFeature<?>, HashMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>>> STStructureToMultiMap = new HashMap<>();
 

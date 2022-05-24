@@ -10,7 +10,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfigura
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class AtlantisConfiguredStructures {
-    public static ConfiguredStructureFeature<?, ?> CONFIGURED_OYSTER_STRUCTURE = AtlantisStructures.OYSTER_STRUCTURE.get()..configured(new JigsawConfiguration(() -> PlainVillagePools.START, 0));
+    public static ConfiguredStructureFeature<?, ?> CONFIGURED_OYSTER_STRUCTURE = AtlantisStructures.OYSTER_STRUCTURE.get().configured(new JigsawConfiguration(() -> PlainVillagePools.START, 0));
     public static ConfiguredStructureFeature<?, ?> CONFIGURED_ATLANTEAN_FOUNTAIN = AtlantisStructures.ATLANTEAN_FOUNTAIN.get().configured(new JigsawConfiguration(() -> PlainVillagePools.START, 0));
     public static ConfiguredStructureFeature<?, ?> CONFIGURED_ATLANTEAN_HOUSE_1 = AtlantisStructures.ATLANTEAN_HOUSE_1.get().configured(new JigsawConfiguration(() -> PlainVillagePools.START, 0));
     public static ConfiguredStructureFeature<?, ?> CONFIGURED_ATLANTEAN_HOUSE_3 = AtlantisStructures.ATLANTEAN_HOUSE_3.get().configured(new JigsawConfiguration(() -> PlainVillagePools.START, 0));
