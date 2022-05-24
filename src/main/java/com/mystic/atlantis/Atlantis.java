@@ -77,7 +77,6 @@ public class Atlantis {
         onInitialize(bus);
         AtlantisFeature.FEATURES.register(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
-        ClientSetup.registerColor(bus);
         Providers.init(bus);
     }
 

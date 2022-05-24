@@ -172,6 +172,7 @@ public class ClientSetup {
     }
 
     @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
     public static void registerBlockColor(ColorHandlerEvent.Block event) {
         ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.<DyeColor, Block>create();
 
@@ -218,6 +219,7 @@ public class ClientSetup {
     }
 
     @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
     public static void registerItemColor(ColorHandlerEvent.Item event) {
         ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.<DyeColor, Block>create();
 
@@ -261,11 +263,5 @@ public class ClientSetup {
         map.get(DyeColor.BLACK).forEach(block -> blockColors.register(BLACK, block));
 
         ItemColor REGUALR = (arg, i) -> 0x8caed2; nonLinguistic.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGUALR, block));
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static void registerColor(IEventBus bus) {
-        bus.addListener(ClientSetup::registerBlockColor);
-        bus.addListener(ClientSetup::registerItemColor);
     }
 }
