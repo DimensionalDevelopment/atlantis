@@ -237,7 +237,8 @@ public class BlockInit {
     }
 
     static {
-        BiFunction<LinguisticGlyph, DyeColor, Supplier<Block>> blockSupplier = (glyph, dyeColor) -> () -> new GlyphBlock(glyph, dyeColor, BlockBehaviour.Properties.of(Material.CLAY));
+        BiFunction<LinguisticGlyph, DyeColor, Supplier<Block>> blockSupplier = (glyph, dyeColor) -> () -> new GlyphBlock(glyph, dyeColor, BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 6.0f
+        ));
 
         for(LinguisticGlyph symbol : LinguisticGlyph.values()) {
             String name = "linguistic_glyph"  + symbol.toString();

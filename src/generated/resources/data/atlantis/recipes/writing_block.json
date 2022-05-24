@@ -1,22 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "XYX",
+    "XXX",
     "YZY",
-    "XYX"
+    "XXX"
   ],
   "key": {
     "X": {
-      "item": "atlantis:aquamarine_gem"
+      "item": "atlantis:atlantean_fire_melon_spike"
     },
     "Y": {
-      "item": "atlantis:atlantean_planks"
+      "item": "minecraft:book"
     },
     "Z": {
       "item": "minecraft:crafting_table"
     }
   },
   "result": {
-    "item": "atlantis:linguistic_block"
+    "item": "atlantis:writing_block"
   }
 }

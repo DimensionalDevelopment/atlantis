@@ -44,7 +44,7 @@ public class Providers {
                 protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
                     ShapelessRecipeBuilder.shapeless(ItemInit.LINGUISTIC_GLYPH_SCROLL.get(), 1).requires(Items.INK_SAC).requires(Items.PAPER).requires(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get()).unlockedBy("has_fire_melon_spike", RecipeProvider.has(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get())).save(consumer);
                     ShapedRecipeBuilder.shaped(BlockInit.getLinguisticBlock(LinguisticGlyph.BLANK, null).get(), 2).pattern("XX").pattern("XX").define('X', BlockInit.ATLANTEAN_PRISMARINE.get()).unlockedBy("has_atlantean_prismarine", RecipeProvider.has(BlockInit.ATLANTEAN_PRISMARINE.get())).save(consumer);
-                    ShapedRecipeBuilder.shaped(BlockInit.LINGUISTIC_BLOCK.get())
+                    ShapedRecipeBuilder.shaped(BlockInit.WRITING_BLOCK.get())
                             .pattern("XXX")
                             .pattern("YZY")
                             .pattern("XXX")
@@ -54,6 +54,15 @@ public class Providers {
                             .unlockedBy("has_fire_melon_spike", RecipeProvider.has(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get()))
                             .save(consumer);
 
+                    ShapedRecipeBuilder.shaped(BlockInit.LINGUISTIC_BLOCK.get())
+                            .pattern("XYX")
+                            .pattern("YZY")
+                            .pattern("XYX")
+                            .define('X', ItemInit.AQUAMARINE_GEM.get())
+                            .define('Y', BlockInit.ATLANTEAN_PLANKS.get())
+                            .define('Z', Blocks.CRAFTING_TABLE)
+                            .unlockedBy("has_atlantean_planks", RecipeProvider.has(BlockInit.ATLANTEAN_PLANKS.get()))
+                            .save(consumer);
                     Ingredient ingredient = Ingredient.of(Stream.of(
                             LinguisticGlyph.values())
                             .map(ItemInit::getScroll)

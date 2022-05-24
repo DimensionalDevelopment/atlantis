@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "atlantis:linguistic_block"
+      "atlantis:writing_block"
     ]
   },
   "criteria": {
-    "has_atlantean_planks": {
+    "has_fire_melon_spike": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "atlantis:atlantean_planks"
+              "atlantis:atlantean_fire_melon_spike"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "atlantis:linguistic_block"
+        "recipe": "atlantis:writing_block"
       }
     }
   },
   "requirements": [
     [
-      "has_atlantean_planks",
+      "has_fire_melon_spike",
       "has_the_recipe"
     ]
   ]
