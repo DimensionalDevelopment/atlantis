@@ -1,9 +1,16 @@
 {
   "panbee": {
-    "category": "records",
     "sounds": [
       {
         "name": "atlantis:panbee",
+        "stream": true
+      }
+    ]
+  },
+  "column_cavitation": {
+    "sounds": [
+      {
+        "name": "atlantis:column_cavitation",
         "stream": true
       }
     ]
