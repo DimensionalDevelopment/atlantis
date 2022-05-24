@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "atlantis:block/writing_block"
+    },
+    "facing=south": {
+      "model": "atlantis:block/writing_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "atlantis:block/writing_block",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "atlantis:block/writing_block",
+      "y": 90
+    }
+  }
+}

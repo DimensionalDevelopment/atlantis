@@ -5,6 +5,7 @@ import com.mystic.atlantis.blocks.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.init.RecipesInit;
+import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
@@ -15,7 +16,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.client.model.generators.BlockModelProvider;
+import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
@@ -84,6 +88,20 @@ public class Providers {
         }
 
         if(event.includeClient()) {
+            event.getGenerator().addProvider(new BlockModelProvider(event.getGenerator(), "atlantis", event.getExistingFileHelper()) {
+                @Override
+                protected void registerModels() {
+                    this.cubeBottomTop("writing_block", Atlantis.id("block/writing_table_side"), Atlantis.id("block/atlantean_planks"), Atlantis.id("block/writing_table_top"));
+                }
+            });
+
+            event.getGenerator().addProvider(new BlockStateProvider(event.getGenerator(), "altantis", event.getExistingFileHelper()) {
+                @Override
+                protected void registerStatesAndModels() {
+                    this.horizontalBlock(BlockInit.WRITING_BLOCK.get(), new ModelFile.ExistingModelFile(Atlantis.id("block/writing_block"), event.getExistingFileHelper()));
+                }
+            });
+
             event.getGenerator().addProvider(new ItemModelProvider(event.getGenerator(), "atlantis", event.getExistingFileHelper()) {
 
                 @Override
@@ -133,11 +151,17 @@ public class Providers {
 
                         withParent(BlockInit.getLinguisticBlock(glyph, null), glyph);
                     }
+
+                    block(BlockInit.WRITING_BLOCK);
                 }
 
                 private void withParent(RegistryObject<Block> block, LinguisticGlyph glyph) {
                         withExistingParent(block.getId().getPath(), block(Atlantis.id("linguistic_" + glyph.name().toLowerCase())));
 
+                }
+
+                private void block(RegistryObject<Block> block) {
+                    withExistingParent(block.getId().getPath(), block(block.getId()));
                 }
 
                 private void glyphScroll(RegistryObject<Item> block) {
