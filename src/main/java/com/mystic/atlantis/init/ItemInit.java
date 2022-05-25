@@ -145,11 +145,11 @@ public class ItemInit {
     public static final RegistryObject<Item> SHOVEL_AQUAMARINE = register("shovel_aquamarine", () -> new AquamarineShovel(ToolInit.AQUAMARINE, 1));
     public static final RegistryObject<Item> HOE_AQUAMARINE = register("hoe_aquamarine", () -> new AquamarineHoe(ToolInit.AQUAMARINE, 2));
     public static final RegistryObject<Item> SWORD_AQUAMARINE = register("sword_aquamarine", () -> new AquamarineSword(ToolInit.AQUAMARINE, 6));
-    public static final RegistryObject<Item> AXE_ORICHALCUM = register("axe_orichalcum", () -> new AquamarineAxe(ToolInit.ORICHAClUM, 4));
-    public static final RegistryObject<Item> PICKAXE_ORICHALCUM = register("pickaxe_orichalcum", () -> new AquamarinePickaxe(ToolInit.ORICHAClUM, 3));
-    public static final RegistryObject<Item> SHOVEL_ORICHALCUM = register("shovel_orichalcum", () -> new AquamarineShovel(ToolInit.ORICHAClUM, 1));
-    public static final RegistryObject<Item> HOE_ORICHALCUM = register("hoe_orichalcum", () -> new AquamarineHoe(ToolInit.ORICHAClUM, 2));
-    public static final RegistryObject<Item> SWORD_ORICHALCUM = register("sword_orichalcum", () -> new AquamarineSword(ToolInit.ORICHAClUM, 6));
+    public static final RegistryObject<Item> ORICHALCUM_AXE = register("orichalcum_axe", () -> new AquamarineAxe(ToolInit.ORICHAClUM, 4));
+    public static final RegistryObject<Item> ORICHALCUM_PICKAXE = register("orichalcum_pickaxe", () -> new AquamarinePickaxe(ToolInit.ORICHAClUM, 3));
+    public static final RegistryObject<Item> ORICHALCUM_SHOVEL = register("orichalcum_shovel", () -> new AquamarineShovel(ToolInit.ORICHAClUM, 1));
+    public static final RegistryObject<Item> ORICHALCUM_HOE = register("orichalcum_hoe", () -> new AquamarineHoe(ToolInit.ORICHAClUM, 2));
+    public static final RegistryObject<Item> ORICHALCUM_SWORD = register("orichalcum_sword", () -> new AquamarineSword(ToolInit.ORICHAClUM, 6));
 
     //ARMOR
     public static final RegistryObject<Item> AQUAMARINE_HELMET = register("aquamarine_helmet", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, EquipmentSlot.HEAD, new Item.Properties().tab(AtlantisGroup.MAIN)));
@@ -160,6 +160,10 @@ public class ItemInit {
     public static final RegistryObject<Item> BROWN_WROUGHT_CHESTPLATE = register("brown_wrought_chestplate", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.CHEST, new Item.Properties().tab(AtlantisGroup.MAIN)));
     public static final RegistryObject<Item> BROWN_WROUGHT_LEGGINGS= register("brown_wrought_leggings", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.LEGS, new Item.Properties().tab(AtlantisGroup.MAIN)));
     public static final RegistryObject<Item> BROWN_WROUGHT_BOOTS = register("brown_wrought_boots", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.FEET, new Item.Properties().tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> ORICHALCUM_HELMET = register("orichalcum_helmet", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_ORICHALCUM, EquipmentSlot.HEAD, new Item.Properties().tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> ORICHALCUM_CHESTPLATE = register("orichalcum_chestplate", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_ORICHALCUM, EquipmentSlot.CHEST, new Item.Properties().tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> ORICHALCUM_LEGGINGS= register("orichalcum_leggings", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_ORICHALCUM, EquipmentSlot.LEGS, new Item.Properties().tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> ORICHALCUM_BOOTS = register("orichalcum_boots", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_ORICHALCUM, EquipmentSlot.FEET, new Item.Properties().tab(AtlantisGroup.MAIN)));
 
     public static RegistryObject<Item> getScroll(LinguisticGlyph a) {
         return scrolls.get(a);

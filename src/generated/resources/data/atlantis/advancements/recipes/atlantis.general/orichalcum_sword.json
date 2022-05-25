@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "atlantis:orichalcum_block"
+      "atlantis:orichalcum_sword"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "atlantis:orichalcum_block"
+        "recipe": "atlantis:orichalcum_sword"
       }
     }
   },

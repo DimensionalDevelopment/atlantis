@@ -5,9 +5,11 @@ import com.mystic.atlantis.blocks.LinguisticGlyph;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
+import net.minecraft.data.models.model.ModelLocationUtils;
+import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.tags.BlockTagsProvider;
-import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.*;
@@ -19,7 +21,6 @@ import net.minecraftforge.client.model.generators.BlockModelProvider;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
@@ -86,12 +87,30 @@ public class Providers {
                             .pattern("XX")
                             .pattern("XX")
                             .define('X', ItemInit.ORICHALCUM_IGNOT.get())
-                            .unlockedBy("has_orichalcum_ignot", RecipeProvider.has(BlockInit.ORICHALCUM_BLOCK.get()))
+                            .unlockedBy("has_orichalcum_ignot", RecipeProvider.has(ItemInit.ORICHALCUM_IGNOT.get()))
                             .save(consumer);
 
+                    orichalcumUpgrade(ItemInit.AQUAMARINE_HELMET, ItemInit.ORICHALCUM_HELMET, consumer);
+                    orichalcumUpgrade(ItemInit.AQUAMARINE_CHESTPLATE, ItemInit.ORICHALCUM_CHESTPLATE, consumer);
+                    orichalcumUpgrade(ItemInit.AQUAMARINE_LEGGINGS, ItemInit.ORICHALCUM_LEGGINGS, consumer);
+                    orichalcumUpgrade(ItemInit.AQUAMARINE_BOOTS, ItemInit.ORICHALCUM_BOOTS, consumer);
+                    orichalcumUpgrade(ItemInit.AXE_AQUAMARINE, ItemInit.ORICHALCUM_AXE, consumer);
+                    orichalcumUpgrade(ItemInit.PICKAXE_AQUAMARINE, ItemInit.ORICHALCUM_PICKAXE, consumer);
+                    orichalcumUpgrade(ItemInit.HOE_AQUAMARINE, ItemInit.ORICHALCUM_HOE, consumer);
+                    orichalcumUpgrade(ItemInit.SHOVEL_AQUAMARINE, ItemInit.ORICHALCUM_SHOVEL, consumer);
+                    orichalcumUpgrade(ItemInit.SWORD_AQUAMARINE, ItemInit.ORICHALCUM_SWORD, consumer);
 
                     SimpleCookingRecipeBuilder.smelting(ItemInit.ORICHALCUM_BLEND.lazyMap(Ingredient::of).get(), ItemInit.ORICHALCUM_IGNOT.get(), 0.7f, 200).group("orichalcum_ignot").unlockedBy("has_orichalcum_blend", ItemInit.ORICHALCUM_BLEND.map(RecipeProvider::has).get()).save(consumer, "orichalcum_ignot_from_smelting");
                     SimpleCookingRecipeBuilder.blasting(ItemInit.ORICHALCUM_BLEND.lazyMap(Ingredient::of).get(), ItemInit.ORICHALCUM_IGNOT.get(), 0.7f, 100).group("orichalcum_ignot").unlockedBy("has_orichalcum_blend", ItemInit.ORICHALCUM_BLEND.map(RecipeProvider::has).get()).save(consumer, "orichalcum_ignot_from_blasting");
+                }
+
+                public void orichalcumUpgrade(RegistryObject<Item> base, RegistryObject<Item> result, Consumer<FinishedRecipe> consumer) {
+                    UpgradeRecipeBuilder.smithing(
+                            base.lazyMap(Ingredient::of).get(),
+                                    ItemInit.ORICHALCUM_IGNOT.lazyMap(Ingredient::of).get(),
+                                    result.lazyMap(ItemLike::asItem).get())
+                            .unlocks("has_orichalcum_ignot", RecipeProvider.has(ItemInit.ORICHALCUM_IGNOT.get()))
+                            .save(consumer, result.getId());
                 }
 
                 public static SingleItemRecipeBuilder writing(Ingredient ingredient, ItemLike result) {
@@ -181,6 +200,22 @@ public class Providers {
 
                     item(ItemInit.ORICHALCUM_IGNOT);
                     item(ItemInit.ORICHALCUM_BLEND);
+
+                    item(ItemInit.ORICHALCUM_HELMET);
+                    item(ItemInit.ORICHALCUM_CHESTPLATE);
+                    item(ItemInit.ORICHALCUM_LEGGINGS);
+                    item(ItemInit.ORICHALCUM_BOOTS);
+                    itemTool(ItemInit.ORICHALCUM_AXE);
+                    itemTool(ItemInit.ORICHALCUM_PICKAXE);
+                    itemTool(ItemInit.ORICHALCUM_SHOVEL);
+                    itemTool(ItemInit.ORICHALCUM_SWORD);
+                    itemTool(ItemInit.ORICHALCUM_HOE);
+                }
+
+                private void itemTool(RegistryObject<Item> tool) {
+                    getBuilder(tool.getId().getPath())
+                            .parent(getExistingFile(mcLoc("item/handheld")))
+                            .texture("layer0", items(tool.getId()));
                 }
 
                 private void withParent(RegistryObject<Block> block, LinguisticGlyph glyph) {
@@ -264,6 +299,16 @@ public class Providers {
                     addItem(ItemInit.ATLANTEAN_FIRE_MELON_SEEDS, "Atlantean Fire Melon Seeds");
                     addItem(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE, "Atlantean Fire Melon Spike");
                     addItem(ItemInit.ATLANTEAN_BOAT, "Atlantean Wood Boat");
+
+                    addItem(ItemInit.ORICHALCUM_HELMET);
+                    addItem(ItemInit.ORICHALCUM_CHESTPLATE);
+                    addItem(ItemInit.ORICHALCUM_LEGGINGS);
+                    addItem(ItemInit.ORICHALCUM_BOOTS);
+                    addItem(ItemInit.ORICHALCUM_AXE);
+                    addItem(ItemInit.ORICHALCUM_PICKAXE);
+                    addItem(ItemInit.ORICHALCUM_SHOVEL);
+                    addItem(ItemInit.ORICHALCUM_SWORD);
+                    addItem(ItemInit.ORICHALCUM_HOE);
 
                     addItem(ItemInit.LINGUISTIC_GLYPH_SCROLL);
                     addItem(ItemInit.LINGUISTIC_GLYPH_SCROLL_A);
@@ -449,6 +494,7 @@ public class Providers {
                     addBlock(BlockInit.ORICHALCUM_BLOCK);
                     addItem(ItemInit.ORICHALCUM_BLEND);
                     addItem(ItemInit.ORICHALCUM_IGNOT);
+
                     addBlock(BlockInit.LINGUISTIC_BLOCK);
                     addBlock(BlockInit.WRITING_BLOCK);
                 }
