@@ -10,7 +10,7 @@ issueTrackerURL="https://github.com/Exploding-Creeper/atlantis/issues" #optional
 
 modId="atlantis" #mandatory
 
-version="2022.3.11-1.18.1-1.0-forge" #mandatory
+version="2022.5.25-1.18.1-3.0-forge" #mandatory
 
 displayName="Atlantis" #mandatory
 
