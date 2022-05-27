@@ -1,5 +1,6 @@
 package com.mystic.atlantis.mixin;
 
+import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -20,8 +21,12 @@ public abstract class CanBreatheInDimension extends LivingEntity {
     @Unique
     @Override
     public boolean canBreatheUnderwater() {
-        if (level.dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
-            return true;
+        if (AtlantisConfig.INSTANCE.turnOnDimensionalWaterBreathing.get()) {
+            if (level.dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
+                return true;
+            } else {
+                return super.canBreatheUnderwater();
+            }
         } else {
             return super.canBreatheUnderwater();
         }
@@ -29,8 +34,10 @@ public abstract class CanBreatheInDimension extends LivingEntity {
 
     @Unique
     protected void tickWaterBreathingAir(int air) {
-        if (level.dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
-            this.setAirSupply(increaseAirSupply(air));
+        if (AtlantisConfig.INSTANCE.turnOnDimensionalWaterBreathing.get()) {
+            if (level.dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
+                this.setAirSupply(increaseAirSupply(air));
+            }
         }
     }
 

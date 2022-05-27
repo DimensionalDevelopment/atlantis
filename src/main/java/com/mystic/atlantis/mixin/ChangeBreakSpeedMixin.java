@@ -1,5 +1,6 @@
 package com.mystic.atlantis.mixin;
 
+import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffectUtil;
@@ -39,44 +40,46 @@ public abstract class ChangeBreakSpeedMixin extends LivingEntity {
      */
     @Inject(method = "getDestroySpeed", at = @At(value = "HEAD"), cancellable = true)
     public void getBlockBreakingSpeed(BlockState block, CallbackInfoReturnable<Float> cir) {
-        cir.cancel();
-        float f = this.inventory.getDestroySpeed(block);
-        if (f > 1.0F) {
-            int i = EnchantmentHelper.getBlockEfficiency(this);
-            ItemStack itemStack = this.getMainHandItem();
-            if (i > 0 && !itemStack.isEmpty()) {
-                f += (float) (i * i + 1);
+        if (AtlantisConfig.INSTANCE.turnOnDimensionalHaste.get()) {
+            cir.cancel();
+            float f = this.inventory.getDestroySpeed(block);
+            if (f > 1.0F) {
+                int i = EnchantmentHelper.getBlockEfficiency(this);
+                ItemStack itemStack = this.getMainHandItem();
+                if (i > 0 && !itemStack.isEmpty()) {
+                    f += (float) (i * i + 1);
+                }
             }
-        }
 
-        if (MobEffectUtil.hasDigSpeed(this)) {
-            f *= 1.0F + (float) (MobEffectUtil.getDigSpeedAmplification(this) + 1) * 0.2F;
-        }
-
-        if (this.hasEffect(MobEffects.DIG_SLOWDOWN)) {
-            float k = switch (Objects.requireNonNull(this.getEffect(MobEffects.DIG_SLOWDOWN)).getAmplifier()) {
-                case 0 -> 0.3F;
-                case 1 -> 0.09F;
-                case 2 -> 0.0027F;
-                default -> 8.1E-4F;
-            };
-
-            f *= k;
-        }
-
-        if (level.dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
-            if (!this.isEyeInFluid(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(this)) {
-                f /= 5.0F;
+            if (MobEffectUtil.hasDigSpeed(this)) {
+                f *= 1.0F + (float) (MobEffectUtil.getDigSpeedAmplification(this) + 1) * 0.2F;
             }
-        }
 
-        if (level.dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
+            if (this.hasEffect(MobEffects.DIG_SLOWDOWN)) {
+                float k = switch (Objects.requireNonNull(this.getEffect(MobEffects.DIG_SLOWDOWN)).getAmplifier()) {
+                    case 0 -> 0.3F;
+                    case 1 -> 0.09F;
+                    case 2 -> 0.0027F;
+                    default -> 8.1E-4F;
+                };
 
-            if (!this.onGround && !this.isEyeInFluid(FluidTags.WATER)) {
-                f /= 5.0F;
+                f *= k;
             }
-        }
 
-        cir.setReturnValue(f);
+            if (level.dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
+                if (!this.isEyeInFluid(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(this)) {
+                    f /= 5.0F;
+                }
+            }
+
+            if (level.dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
+
+                if (!this.onGround && !this.isEyeInFluid(FluidTags.WATER)) {
+                    f /= 5.0F;
+                }
+            }
+
+            cir.setReturnValue(f);
+        }
     }
 }

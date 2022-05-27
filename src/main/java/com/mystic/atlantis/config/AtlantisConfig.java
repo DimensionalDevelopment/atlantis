@@ -22,6 +22,8 @@ public class AtlantisConfig implements ConfigData {
     public ForgeConfigSpec.DoubleValue magmaAcceleration;
     public ForgeConfigSpec.DoubleValue magmaThreshold;
     public ForgeConfigSpec.BooleanValue startInAtlantis;
+    public ForgeConfigSpec.BooleanValue turnOnDimensionalWaterBreathing;
+    public ForgeConfigSpec.BooleanValue turnOnDimensionalHaste;
 
 
 
@@ -34,5 +36,7 @@ public class AtlantisConfig implements ConfigData {
         this.magmaAcceleration = builder.comment("Rate at which Magma Accelerates you").defineInRange("magmaAcceleration", 0.1d,0.0d,100.0d);
         this.magmaThreshold = builder.comment("Max Magma Velocity ").defineInRange("magmaThreshold", 1.8d,0.0d,100.0d);
         this.startInAtlantis = builder.comment("Start In Atlantis?").define("startInAtlantis", false);
+        this.turnOnDimensionalWaterBreathing = builder.comment("Should Dimension Wide Water Breathing Be On?").define("turnOnDimensionalWaterBreathing", true);
+        this.turnOnDimensionalHaste = builder.comment("Should Dimension Wide Haste Be On?").define("turnOnDimensionalHaste", true);
     }
 }
