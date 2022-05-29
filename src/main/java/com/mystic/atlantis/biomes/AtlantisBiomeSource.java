@@ -20,11 +20,12 @@ public class AtlantisBiomeSource extends BiomeSource {
                     biomeSource.biomeSize), Codec.LONG.fieldOf("seed").stable().forGetter((biomeSource) ->
                     biomeSource.seed)).apply(instance, instance.stable(AtlantisBiomeSource::new)));
 
+    public static final ResourceLocation ATLANTEAN_GARDEN = new ResourceLocation(Reference.MODID, "atlantean_garden");
     public static final ResourceLocation ATLANTIS_BIOME = new ResourceLocation(Reference.MODID, "atlantis_biome");
     public static final ResourceLocation JELLYFISH_FIELDS = new ResourceLocation(Reference.MODID, "jellyfish_fields");
     public static final ResourceLocation ATLANTEAN_ISLANDS = new ResourceLocation(Reference.MODID, "atlantean_islands_biome");
     public static final ResourceLocation VOLCANIC_DARKSEA = new ResourceLocation(Reference.MODID, "volcanic_darksea");
-    private final Registry<Biome> BIOME_REGISTRY;
+    public static Registry<Biome> BIOME_REGISTRY;
     public static Registry<Biome> LAYERS_BIOME_REGISTRY;
     private final long seed;
     private final int biomeSize;
@@ -34,7 +35,7 @@ public class AtlantisBiomeSource extends BiomeSource {
                 .filter(entry -> entry.getKey().location().getNamespace().equals(Reference.MODID))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList()));
-        this.BIOME_REGISTRY = biomeRegistry;
+        BIOME_REGISTRY = biomeRegistry;
         AtlantisBiomeSource.LAYERS_BIOME_REGISTRY = biomeRegistry;
         this.biomeSize = biomeSize;
         this.seed = seed;
@@ -52,7 +53,9 @@ public class AtlantisBiomeSource extends BiomeSource {
 
     @Override
     public Biome getNoiseBiome(int x, int y, int z, Climate.Sampler noise) {
-        if ((int) noise.sample(x, y, z).temperature() > 0.30) {
+        if ((int) noise.sample(x, y, z).temperature() > 0.40) {
+            return BIOME_REGISTRY.get(AtlantisBiomeSource.ATLANTEAN_GARDEN);
+        } else if ((int) noise.sample(x, y, z).temperature() > 0.30 && noise.sample(x, y, z).temperature() < 0.40) {
             return BIOME_REGISTRY.get(AtlantisBiomeSource.JELLYFISH_FIELDS);
         } else if ((int) noise.sample(x, y, z).temperature() > 0.20 && noise.sample(x, y, z).temperature() < 0.30) {
             return BIOME_REGISTRY.get(AtlantisBiomeSource.ATLANTIS_BIOME);
