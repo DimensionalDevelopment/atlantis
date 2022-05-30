@@ -107,6 +107,7 @@ public class Atlantis {
         BlockInit.init(bus);
         ItemInit.init(bus);
         GeckoLib.initialize();
+        GeckoLibMod.DISABLE_IN_DEV = true;
         TileRegistry.init(bus);
         FluidInit.init(bus);
         AtlantisGroup.init();
