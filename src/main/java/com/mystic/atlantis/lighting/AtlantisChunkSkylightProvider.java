@@ -29,31 +29,33 @@ public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 		}
 
 		if (chunkSource.getLevel() instanceof Level world && DimensionAtlantis.isAtlantisDimension(world)) {
-			return getLightLevel(world, targetId);
+			return getLightLevel(world, targetId, propagatedLevel);
 		} else {
 			return propagatedLevel;
 		}
 	}
 
-	public static int getLightLevel(Level level, Long targetId) {
+	public static int getLightLevel(Level level, Long targetId, int propagatedLevel) {
 
-		Registry<Biome> biomes = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
+			if (level.getServer() != null && BlockPos.getY(targetId) >= 50 && BlockPos.getY(targetId) < 384 && !level.isClientSide) {
+				Biome biome = Objects.requireNonNull(level.getServer().getLevel(DimensionAtlantis.ATLANTIS_WORLD)).getUncachedNoiseBiome(BlockPos.getX(targetId), BlockPos.getY(targetId), BlockPos.getZ(targetId));
 
-		ResourceKey<Biome> biomeResourceKeys = ResourceKey.create(Registry.BIOME_REGISTRY, Registry.BIOME_REGISTRY.getRegistryName());
+				Registry<Biome> biomes = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
 
-		if (DimensionAtlantis.isAtlantisDimension(level)) {
-				if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
-					return 11;
-				} else if (biome == biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS)) {
-					return 8;
-				} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS)) {
-					return 3;
-				} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
-					return 3;
-				} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
-					return 0;
+				if (DimensionAtlantis.isAtlantisDimension(level)) {
+					if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
+						return 11;
+					} else if (biome == biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS)) {
+						return 8;
+					} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS)) {
+						return 3;
+					} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
+						return 3;
+					} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
+						return 0;
+					}
 				}
 			}
-		return 15;
+		return propagatedLevel;
 	}
 }
