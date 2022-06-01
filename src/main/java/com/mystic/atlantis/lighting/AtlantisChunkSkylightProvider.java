@@ -4,15 +4,15 @@ import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeManager;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.chunk.LightChunkGetter;
 import net.minecraft.world.level.lighting.SkyLightEngine;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 
@@ -29,29 +29,32 @@ public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 		}
 
 		if (chunkSource.getLevel() instanceof Level world && DimensionAtlantis.isAtlantisDimension(world)) {
-			return getLightLevel(world, targetId, propagatedLevel);
+			return getLightLevel(world, new ChunkPos(targetId * 15), propagatedLevel);
 		} else {
 			return propagatedLevel;
 		}
 	}
 
-	public static int getLightLevel(Level level, Long targetId, int propagatedLevel) {
+	public static int getLightLevel(Level level, ChunkPos chunkPos, int propagatedLevel) {
 
-			if (level.getServer() != null && BlockPos.getY(targetId) >= 50 && BlockPos.getY(targetId) < 384 && !level.isClientSide) {
-				Biome biome = Objects.requireNonNull(level.getServer().getLevel(DimensionAtlantis.ATLANTIS_WORLD)).getUncachedNoiseBiome(BlockPos.getX(targetId), BlockPos.getY(targetId), BlockPos.getZ(targetId));
 
+			if (level.getServer() != null && !level.isClientSide) {
 				Registry<Biome> biomes = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
 
+				Set<Biome> biomeSet = Objects.requireNonNull(level.getServer().getLevel(DimensionAtlantis.ATLANTIS_WORLD)).getChunkSource().getGenerator().getBiomeSource().possibleBiomes();
+
+				Biome biome = Objects.requireNonNull(level.getChunk(chunkPos.x, chunkPos.z).getNoiseBiome(chunkPos.x, 70, chunkPos.z)); //biomes are the same throughout the whole column until 3d biomes!
+
 				if (DimensionAtlantis.isAtlantisDimension(level)) {
-					if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
+					if (biome == Objects.requireNonNull(biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA))) {
 						return 11;
-					} else if (biome == biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS)) {
+					} else if (biome == Objects.requireNonNull(biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS))) {
 						return 8;
-					} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS)) {
+					} else if (biome == Objects.requireNonNull(biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS))) {
 						return 3;
-					} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
+					} else if (biome == Objects.requireNonNull(biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME))) {
 						return 3;
-					} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
+					} else if (biome == Objects.requireNonNull(biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN))) {
 						return 0;
 					}
 				}

@@ -2,15 +2,21 @@ package com.mystic.atlantis.biomes;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.util.Reference;
-import java.util.Map;
-import java.util.stream.Collectors;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.RegistryLookupCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class AtlantisBiomeSource extends BiomeSource {
@@ -30,7 +36,7 @@ public class AtlantisBiomeSource extends BiomeSource {
     private final long seed;
     private final int biomeSize;
 
-    protected AtlantisBiomeSource(Registry<Biome> biomeRegistry, int biomeSize, long seed) {
+    public AtlantisBiomeSource(Registry<Biome> biomeRegistry, int biomeSize, long seed) {
         super(biomeRegistry.entrySet().stream()
                 .filter(entry -> entry.getKey().location().getNamespace().equals(Reference.MODID))
                 .map(Map.Entry::getValue)
@@ -42,27 +48,27 @@ public class AtlantisBiomeSource extends BiomeSource {
     }
 
     @Override
-    protected Codec<? extends BiomeSource> codec() {
+    protected @NotNull Codec<? extends BiomeSource> codec() {
         return CODEC;
     }
 
     @Override
-    public BiomeSource withSeed(long seed) {
-        return new AtlantisBiomeSource(this.BIOME_REGISTRY, this.biomeSize, seed);
+    public @NotNull BiomeSource withSeed(long seed) {
+        return new AtlantisBiomeSource(BIOME_REGISTRY, this.biomeSize, seed);
     }
 
     @Override
-    public Biome getNoiseBiome(int x, int y, int z, Climate.Sampler noise) {
+    public @NotNull Biome getNoiseBiome(int x, int y, int z, Climate.Sampler noise) {
         if ((int) noise.sample(x, y, z).temperature() > 0.40) {
-            return BIOME_REGISTRY.get(AtlantisBiomeSource.ATLANTEAN_GARDEN);
+            return Objects.requireNonNull(BIOME_REGISTRY.get(AtlantisBiomeSource.ATLANTEAN_GARDEN));
         } else if ((int) noise.sample(x, y, z).temperature() > 0.30 && noise.sample(x, y, z).temperature() < 0.40) {
-            return BIOME_REGISTRY.get(AtlantisBiomeSource.JELLYFISH_FIELDS);
+            return Objects.requireNonNull(BIOME_REGISTRY.get(AtlantisBiomeSource.JELLYFISH_FIELDS));
         } else if ((int) noise.sample(x, y, z).temperature() > 0.20 && noise.sample(x, y, z).temperature() < 0.30) {
-            return BIOME_REGISTRY.get(AtlantisBiomeSource.ATLANTIS_BIOME);
+            return Objects.requireNonNull(BIOME_REGISTRY.get(AtlantisBiomeSource.ATLANTIS_BIOME));
         } else if ((int) noise.sample(x, y, z).temperature() > 0.10 && noise.sample(x, y, z).temperature() < 0.20) {
-            return BIOME_REGISTRY.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+            return Objects.requireNonNull(BIOME_REGISTRY.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS));
         } else {
-            return BIOME_REGISTRY.get(AtlantisBiomeSource.VOLCANIC_DARKSEA);
+            return Objects.requireNonNull(BIOME_REGISTRY.get(AtlantisBiomeSource.VOLCANIC_DARKSEA));
         }
     }
 }
