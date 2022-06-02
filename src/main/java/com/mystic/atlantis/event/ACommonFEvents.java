@@ -77,7 +77,7 @@ public class ACommonFEvents {
         Registry<Biome> biomes = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
 
         if (blockPos != null) {
-            Biome biome = level.getBiome(blockPos);
+            Biome biome = level.getBiomeManager().getBiome(blockPos);
 
             if (DimensionAtlantis.isAtlantisDimension(level)) {
                 if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {

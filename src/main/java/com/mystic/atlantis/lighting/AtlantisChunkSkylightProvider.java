@@ -17,27 +17,7 @@ public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 
 	@Override
 	protected int computeLevelFromNeighbor(long sourceId, long targetId, int level) {
-		int propagatedLevel = super.computeLevelFromNeighbor(sourceId, targetId, level);
-
-		if (propagatedLevel == 15) {
-			return propagatedLevel;
-		}
-
-		if (chunkSource.getLevel() instanceof Level world && DimensionAtlantis.isAtlantisDimension(world)) {
-			try {
-				blockPos = BlockPos.of(targetId);
-				return getLightLevel(world);
-			} catch (InterruptedException e) {
-				return propagatedLevel;
-			}
-		}
-		return propagatedLevel;
-	}
-
-	public static int getLightLevel(Level level) throws InterruptedException {
-			if (level.getServer() != null && !level.isClientSide) {
-				return lightValue;
-			}
-		return 15;
+		blockPos = BlockPos.of(targetId);
+		return lightValue;
 	}
 }
