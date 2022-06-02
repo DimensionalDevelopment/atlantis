@@ -1,19 +1,15 @@
 package com.mystic.atlantis.lighting;
 
-import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.LightChunkGetter;
 import net.minecraft.world.level.lighting.SkyLightEngine;
-
-import java.util.Objects;
 
 public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 
 	public static int lightValue;
+	public static BlockPos blockPos;
 
 	public AtlantisChunkSkylightProvider(LightChunkGetter chunkProvider) {
 		super(chunkProvider);
@@ -29,6 +25,7 @@ public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 
 		if (chunkSource.getLevel() instanceof Level world && DimensionAtlantis.isAtlantisDimension(world)) {
 			try {
+				blockPos = BlockPos.of(targetId);
 				return getLightLevel(world);
 			} catch (InterruptedException e) {
 				return propagatedLevel;

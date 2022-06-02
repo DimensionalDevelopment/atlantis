@@ -16,6 +16,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -45,6 +46,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
+import org.apache.logging.log4j.core.jmx.Server;
 
 import java.util.*;
 
@@ -69,11 +71,13 @@ public class ACommonFEvents {
     }
 
     @SubscribeEvent
-    public static void worldTickEvent(TickEvent.PlayerTickEvent event) {
-        Level level = event.player.getLevel();
+    public static void serverTickEvent(TickEvent.ServerTickEvent event) {
+        BlockPos blockPos = AtlantisChunkSkylightProvider.blockPos;
+        Level level = DimensionAtlantis.ATLANTIS_DIMENSION.getLevel();
         Registry<Biome> biomes = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
 
-            Biome biome = level.getBiome(event.player.blockPosition());
+        if (blockPos != null) {
+            Biome biome = level.getBiome(blockPos);
 
             if (DimensionAtlantis.isAtlantisDimension(level)) {
                 if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
@@ -89,6 +93,7 @@ public class ACommonFEvents {
                 }
             }
         }
+    }
 
     @SubscribeEvent
     public static void onPlayerLoginEvent(PlayerEvent.PlayerLoggedInEvent event) {
