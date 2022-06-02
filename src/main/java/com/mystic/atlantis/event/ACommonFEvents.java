@@ -4,9 +4,11 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
 import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.EffectsInit;
+import com.mystic.atlantis.lighting.AtlantisChunkSkylightProvider;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.BlockPos;
@@ -22,18 +24,26 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Climate;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.FlatLevelSource;
 import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.*;
@@ -57,6 +67,28 @@ public class ACommonFEvents {
             }
         }
     }
+
+    @SubscribeEvent
+    public static void worldTickEvent(TickEvent.PlayerTickEvent event) {
+        Level level = event.player.getLevel();
+        Registry<Biome> biomes = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
+
+            Biome biome = level.getBiome(event.player.blockPosition());
+
+            if (DimensionAtlantis.isAtlantisDimension(level)) {
+                if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
+                    AtlantisChunkSkylightProvider.lightValue = 11;
+                } else if (biome == biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS)) {
+                    AtlantisChunkSkylightProvider.lightValue = 8;
+                } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS)) {
+                    AtlantisChunkSkylightProvider.lightValue = 3;
+                } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
+                    AtlantisChunkSkylightProvider.lightValue = 3;
+                } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
+                    AtlantisChunkSkylightProvider.lightValue = 0;
+                }
+            }
+        }
 
     @SubscribeEvent
     public static void onPlayerLoginEvent(PlayerEvent.PlayerLoggedInEvent event) {
