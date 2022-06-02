@@ -71,9 +71,9 @@ public class ACommonFEvents {
     }
 
     @SubscribeEvent
-    public static void serverTickEvent(TickEvent.ServerTickEvent event) {
+    public static void worldTickEvent(TickEvent.WorldTickEvent event) {
         BlockPos blockPos = AtlantisChunkSkylightProvider.blockPos;
-        Level level = DimensionAtlantis.ATLANTIS_DIMENSION.getLevel();
+        Level level = event.world;
         Registry<Biome> biomes = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
 
         if (blockPos != null) {
