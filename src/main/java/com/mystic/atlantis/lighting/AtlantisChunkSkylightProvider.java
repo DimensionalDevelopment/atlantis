@@ -4,12 +4,13 @@ import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LightChunkGetter;
 import net.minecraft.world.level.lighting.SkyLightEngine;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 
@@ -21,30 +22,26 @@ public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 	protected int computeLevelFromNeighbor(long sourceId, long targetId, int level) {
 		int propagatedLevel = super.computeLevelFromNeighbor(sourceId, targetId, level);
 
-		int[] lightLevel = new int[1];
-		Level world = ((Level) chunkSource.getLevel());
-		MinecraftServer server = world.getServer();
-		if(server != null) {
-			server.execute(() -> {
-				Registry<Biome> biomes = world.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
+		Level world = (Level) chunkSource.getLevel();
+		Registry<Biome> biomes = world.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
+		BlockPos blockPos = BlockPos.of(targetId);
+		ChunkPos chunkPos = new ChunkPos(blockPos);
 
-				BlockPos blockPos = BlockPos.of(targetId);
+		BlockGetter blockGetter = chunkSource.getChunkForLighting(chunkPos.x, chunkPos.z);
+		if (blockGetter instanceof ChunkAccess chunkAccess) {
+			Biome biome = chunkAccess.getNoiseBiome(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
-				Biome biome = world.getBiomeManager().getBiome(blockPos);
-
-				if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
-					lightLevel[0] = 11;
-				} else if (biome == biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS)) {
-					lightLevel[0] = 8;
-				} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS)) {
-					lightLevel[0] = 3;
-				} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
-					lightLevel[0] = 3;
-				} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
-					lightLevel[0] = 0;
-				}
-			});
-			return lightLevel[0];
+			if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
+				return Math.max(11, propagatedLevel);
+			} else if (biome == biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS)) {
+				return Math.max(8, propagatedLevel);
+			} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS)) {
+				return Math.max(3, propagatedLevel);
+			} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
+				return Math.max(3, propagatedLevel);
+			} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
+				return propagatedLevel; //Math.max(0, propagatedLevel) == propagatedLevel
+			}
 		}
 		return propagatedLevel;
 	}
