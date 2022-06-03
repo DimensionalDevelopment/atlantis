@@ -1,5 +1,6 @@
 package com.mystic.atlantis.capiablities.player;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
@@ -34,7 +35,10 @@ public class PlayerCapProvider implements ICapabilitySerializable<CompoundTag> {
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
         if (instance.isPresent()) {
-            instance.ifPresent(cap -> tag.putInt("lightValue", cap.getLightValue()));
+            instance.ifPresent(cap -> {
+                tag.putInt("lightValue", cap.getLightValue());
+                tag.putLong("blockPosLong", cap.getLong());
+            });
         }
         return tag;
     }
@@ -44,6 +48,7 @@ public class PlayerCapProvider implements ICapabilitySerializable<CompoundTag> {
         if (instance.isPresent()) {
             instance.ifPresent(cap -> {
                 cap.setLightValue(nbt.getInt("lightValue"));
+                cap.setLong(nbt.getLong("blockPosLong"));
             });
         }
     }

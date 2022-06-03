@@ -1,5 +1,6 @@
 package com.mystic.atlantis.networking;
 
+import com.mystic.atlantis.networking.packets.clientbound.AtlantisLightClientBoundPacket;
 import com.mystic.atlantis.networking.packets.serverbound.AtlantisLightServerBoundPacket;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.resources.ResourceLocation;
@@ -23,5 +24,6 @@ public class AtlantisPacketHandler {
     @SubscribeEvent
     public static void registryNetworkPackets (FMLCommonSetupEvent event) {
         INSTANCE.registerMessage(index++, AtlantisLightServerBoundPacket.class, AtlantisLightServerBoundPacket::encode, AtlantisLightServerBoundPacket::decode, AtlantisLightServerBoundPacket::handle);
+        INSTANCE.registerMessage(index++, AtlantisLightClientBoundPacket.class, AtlantisLightClientBoundPacket::encode, AtlantisLightClientBoundPacket::decode, AtlantisLightClientBoundPacket::handle);
     }
 }

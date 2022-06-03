@@ -5,12 +5,13 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.biomes.AtlantisBiomeSource;
-import com.mystic.atlantis.capiablities.player.IPlayerCap;
 import com.mystic.atlantis.capiablities.player.PlayerCapProvider;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.EffectsInit;
 import com.mystic.atlantis.lighting.AtlantisChunkSkylightProvider;
+import com.mystic.atlantis.networking.AtlantisPacketHandler;
+import com.mystic.atlantis.networking.packets.clientbound.AtlantisLightClientBoundPacket;
 import com.mystic.atlantis.structures.AtlantisConfiguredStructures;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.BlockPos;
@@ -18,7 +19,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.TickTask;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -27,30 +28,25 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Climate;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.FlatLevelSource;
 import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
-import org.apache.logging.log4j.core.jmx.Server;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ACommonFEvents {
@@ -73,30 +69,36 @@ public class ACommonFEvents {
     }
 
     @SubscribeEvent
-    public static void playerTickEvent(TickEvent.PlayerTickEvent event) {
-        if(event.player != null) {
-            if (event.player instanceof ServerPlayer player) {
-                player.getCapability(PlayerCapProvider.PLAYER_CAP).ifPresent(cap -> {
-                    BlockPos blockPos = AtlantisChunkSkylightProvider.blockPos; //receive from client
-                    Level level = event.player.getLevel();
+    public static void worldTickEvent(TickEvent.WorldTickEvent event) {
+        AtomicReference<BlockPos> blockPos = new AtomicReference<>();
+        MinecraftServer server = event.world.getServer();
+        if (server != null) {
+            for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+                if (player != null) {
+
+                    player.getCapability(PlayerCapProvider.PLAYER_CAP).ifPresent(cap -> {
+                        blockPos.set(BlockPos.of(cap.getLong())); //receive from client
+                    });
+
+                    Level level = player.getLevel();
                     Registry<Biome> biomes = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
 
-                    if (blockPos != null) {
-                        Biome biome = level.getBiomeManager().getBiome(blockPos);
+                    if (blockPos.get() != null) {
+                        Biome biome = level.getBiomeManager().getBiome(blockPos.get());
 
                         if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
-                            cap.setLightValue(11); //send to client
+                            AtlantisPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new AtlantisLightClientBoundPacket(11)); //send to client
                         } else if (biome == biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS)) {
-                            cap.setLightValue(8); //send to client
+                            AtlantisPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new AtlantisLightClientBoundPacket(8)); //send to client
                         } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS)) {
-                            cap.setLightValue(3); //send to client
+                            AtlantisPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new AtlantisLightClientBoundPacket(3)); //send to client
                         } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
-                            cap.setLightValue(3); //send to client
+                            AtlantisPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new AtlantisLightClientBoundPacket(3)); //send to client
                         } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
-                            cap.setLightValue(0); //send to client
+                            AtlantisPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new AtlantisLightClientBoundPacket(0)); //send to client
                         }
                     }
-                });
+                }
             }
         }
     }

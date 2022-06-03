@@ -1,8 +1,6 @@
 package com.mystic.atlantis.networking.packets.serverbound;
 
 import com.mystic.atlantis.capiablities.player.PlayerCapProvider;
-import com.mystic.atlantis.lighting.AtlantisChunkSkylightProvider;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
@@ -11,28 +9,29 @@ import java.util.function.Supplier;
 
 public class AtlantisLightServerBoundPacket {
 
-    private final BlockPos pos;
+    private final long pos;
 
-    public AtlantisLightServerBoundPacket(BlockPos blockPos) {
+    public AtlantisLightServerBoundPacket(long blockPos) {
         this.pos = blockPos;
     }
 
     public static void encode(AtlantisLightServerBoundPacket atlantisLightServerBoundPacket, FriendlyByteBuf friendlyByteBuf) {
-        friendlyByteBuf.writeBlockPos(atlantisLightServerBoundPacket.pos);
+        friendlyByteBuf.writeLong(atlantisLightServerBoundPacket.pos);
     }
 
     public static AtlantisLightServerBoundPacket decode(FriendlyByteBuf friendlyByteBuf) {
-        return new AtlantisLightServerBoundPacket(friendlyByteBuf.readBlockPos());
+        return new AtlantisLightServerBoundPacket(friendlyByteBuf.readLong());
     }
 
     public void handle(Supplier<NetworkEvent.Context> contextSupplier) {
         contextSupplier.get().enqueueWork(() -> {
             ServerPlayer player = contextSupplier.get().getSender();
-            if(player != null) {
+            if (player != null) {
                 player.getCapability(PlayerCapProvider.PLAYER_CAP).ifPresent(cap -> {
-                    AtlantisChunkSkylightProvider.lightValue = cap.getLightValue();
+                    cap.setLong(this.pos);
                 });
             }
         });
+        contextSupplier.get().setPacketHandled(true);
     }
 }
