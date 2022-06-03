@@ -40,7 +40,7 @@ public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 			} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
 				return Math.min(3, propagatedLevel);
 			} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
-				return propagatedLevel;
+				return Math.min(0, propagatedLevel);
 			}
 		}
 		return propagatedLevel;
