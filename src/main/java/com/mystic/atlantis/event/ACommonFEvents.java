@@ -72,24 +72,24 @@ public class ACommonFEvents {
 
     @SubscribeEvent
     public static void worldTickEvent(TickEvent.WorldTickEvent event) {
-        BlockPos blockPos = AtlantisChunkSkylightProvider.blockPos;
-        Level level = event.world;
-        Registry<Biome> biomes = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
+        if(event.side == LogicalSide.SERVER) {
+            BlockPos blockPos = AtlantisChunkSkylightProvider.blockPos; //receive from client
+            Level level = event.world;
+            Registry<Biome> biomes = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
 
-        if (blockPos != null) {
-            Biome biome = level.getBiomeManager().getBiome(blockPos);
+            if (blockPos != null) {
+                Biome biome = level.getBiomeManager().getBiome(blockPos);
 
-            if (DimensionAtlantis.isAtlantisDimension(level)) {
                 if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
-                    AtlantisChunkSkylightProvider.lightValue = 11;
+                    AtlantisChunkSkylightProvider.lightValue = 11; //send to client
                 } else if (biome == biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS)) {
-                    AtlantisChunkSkylightProvider.lightValue = 8;
+                    AtlantisChunkSkylightProvider.lightValue = 8; //send to client
                 } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS)) {
-                    AtlantisChunkSkylightProvider.lightValue = 3;
+                    AtlantisChunkSkylightProvider.lightValue = 3; //send to client
                 } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
-                    AtlantisChunkSkylightProvider.lightValue = 3;
+                    AtlantisChunkSkylightProvider.lightValue = 3; //send to client
                 } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
-                    AtlantisChunkSkylightProvider.lightValue = 0;
+                    AtlantisChunkSkylightProvider.lightValue = 0; //send to client
                 }
             }
         }
