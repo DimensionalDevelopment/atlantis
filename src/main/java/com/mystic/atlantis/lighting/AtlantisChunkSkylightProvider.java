@@ -32,15 +32,15 @@ public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 			Biome biome = chunkAccess.getNoiseBiome(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
 			if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
-				return Math.max(11, propagatedLevel);
+				return Math.min(11, propagatedLevel);
 			} else if (biome == biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS)) {
-				return Math.max(8, propagatedLevel);
+				return Math.min(8, propagatedLevel);
 			} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS)) {
-				return Math.max(3, propagatedLevel);
+				return Math.min(3, propagatedLevel);
 			} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
-				return Math.max(3, propagatedLevel);
+				return Math.min(3, propagatedLevel);
 			} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
-				return propagatedLevel; //Math.max(0, propagatedLevel) == propagatedLevel
+				return propagatedLevel;
 			}
 		}
 		return propagatedLevel;
