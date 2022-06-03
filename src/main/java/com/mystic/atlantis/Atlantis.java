@@ -3,6 +3,7 @@ package com.mystic.atlantis;
 import com.mystic.atlantis.blocks.ExtendedBlockEntity;
 import com.mystic.atlantis.blocks.LinguisticGlyph;
 import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
+import com.mystic.atlantis.capiablities.player.IPlayerCap;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.data.AtlantisModifer;
@@ -43,6 +44,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.client.ConfigGuiHandler.ConfigGuiFactory;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -74,10 +76,15 @@ public class Atlantis {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC);
         ModParticleTypes.PARTICLES.register(bus);
+        bus.addListener(this::registerAllCapabilities);
         onInitialize(bus);
         AtlantisFeature.FEATURES.register(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
         Providers.init(bus);
+    }
+
+    private void registerAllCapabilities(final RegisterCapabilitiesEvent event) {
+        event.register(IPlayerCap.class);
     }
 
     @SubscribeEvent

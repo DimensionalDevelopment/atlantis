@@ -5,6 +5,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.biomes.AtlantisBiomeSource;
+import com.mystic.atlantis.capiablities.player.IPlayerCap;
+import com.mystic.atlantis.capiablities.player.PlayerCapProvider;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.EffectsInit;
@@ -71,26 +73,30 @@ public class ACommonFEvents {
     }
 
     @SubscribeEvent
-    public static void worldTickEvent(TickEvent.WorldTickEvent event) {
-        if(event.side == LogicalSide.SERVER) {
-            BlockPos blockPos = AtlantisChunkSkylightProvider.blockPos; //receive from client
-            Level level = event.world;
-            Registry<Biome> biomes = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
+    public static void playerTickEvent(TickEvent.PlayerTickEvent event) {
+        if(event.player != null) {
+            if (event.player instanceof ServerPlayer player) {
+                player.getCapability(PlayerCapProvider.PLAYER_CAP).ifPresent(cap -> {
+                    BlockPos blockPos = AtlantisChunkSkylightProvider.blockPos; //receive from client
+                    Level level = event.player.getLevel();
+                    Registry<Biome> biomes = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
 
-            if (blockPos != null) {
-                Biome biome = level.getBiomeManager().getBiome(blockPos);
+                    if (blockPos != null) {
+                        Biome biome = level.getBiomeManager().getBiome(blockPos);
 
-                if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
-                    AtlantisChunkSkylightProvider.lightValue = 11; //send to client
-                } else if (biome == biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS)) {
-                    AtlantisChunkSkylightProvider.lightValue = 8; //send to client
-                } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS)) {
-                    AtlantisChunkSkylightProvider.lightValue = 3; //send to client
-                } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
-                    AtlantisChunkSkylightProvider.lightValue = 3; //send to client
-                } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
-                    AtlantisChunkSkylightProvider.lightValue = 0; //send to client
-                }
+                        if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
+                            cap.setLightValue(11); //send to client
+                        } else if (biome == biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS)) {
+                            cap.setLightValue(8); //send to client
+                        } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS)) {
+                            cap.setLightValue(3); //send to client
+                        } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
+                            cap.setLightValue(3); //send to client
+                        } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
+                            cap.setLightValue(0); //send to client
+                        }
+                    }
+                });
             }
         }
     }
