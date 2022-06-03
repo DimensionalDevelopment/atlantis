@@ -1,24 +1,17 @@
 package com.mystic.atlantis.lighting;
 
-import com.mystic.atlantis.dimension.DimensionAtlantis;
-import com.mystic.atlantis.event.ACommonFEvents;
-import com.mystic.atlantis.networking.AtlantisPacketHandler;
-import com.mystic.atlantis.networking.packets.serverbound.AtlantisLightServerBoundPacket;
-import com.mystic.atlantis.networking.proxy.ClientProxy;
+import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.LightChunkGetter;
 import net.minecraft.world.level.lighting.SkyLightEngine;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.network.PacketDistributor;
 
-import java.util.function.Supplier;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AtlantisChunkSkylightProvider extends SkyLightEngine {
-
-	public static int lightValue;
 
 	public AtlantisChunkSkylightProvider(LightChunkGetter chunkProvider) {
 		super(chunkProvider);
@@ -28,10 +21,31 @@ public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 	protected int computeLevelFromNeighbor(long sourceId, long targetId, int level) {
 		int propagatedLevel = super.computeLevelFromNeighbor(sourceId, targetId, level);
 
-		if(FMLEnvironment.dist == Dist.CLIENT) {
-			AtlantisPacketHandler.INSTANCE.sendToServer(new AtlantisLightServerBoundPacket(targetId)); //sent to server side
-		}
+		int[] lightLevel = new int[1];
+		Level world = ((Level) chunkSource.getLevel());
+		MinecraftServer server = world.getServer();
+		if(server != null) {
+			server.execute(() -> {
+				Registry<Biome> biomes = world.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
 
-		return lightValue; //receive from server side
+				BlockPos blockPos = BlockPos.of(targetId);
+
+				Biome biome = world.getBiomeManager().getBiome(blockPos);
+
+				if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
+					lightLevel[0] = 11;
+				} else if (biome == biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS)) {
+					lightLevel[0] = 8;
+				} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS)) {
+					lightLevel[0] = 3;
+				} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
+					lightLevel[0] = 3;
+				} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
+					lightLevel[0] = 0;
+				}
+			});
+			return lightLevel[0];
+		}
+		return propagatedLevel;
 	}
 }

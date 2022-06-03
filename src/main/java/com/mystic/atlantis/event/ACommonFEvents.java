@@ -68,7 +68,7 @@ public class ACommonFEvents {
         }
     }
 
-    @SubscribeEvent
+
     public static void worldTickEvent(TickEvent.WorldTickEvent event) {
         AtomicReference<BlockPos> blockPos = new AtomicReference<>();
         MinecraftServer server = event.world.getServer();
@@ -80,24 +80,7 @@ public class ACommonFEvents {
                         blockPos.set(BlockPos.of(cap.getLong())); //receive from client
                     });
 
-                    Level level = player.getLevel();
-                    Registry<Biome> biomes = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
 
-                    if (blockPos.get() != null) {
-                        Biome biome = level.getBiomeManager().getBiome(blockPos.get());
-
-                        if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
-                            AtlantisPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new AtlantisLightClientBoundPacket(11)); //send to client
-                        } else if (biome == biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS)) {
-                            AtlantisPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new AtlantisLightClientBoundPacket(8)); //send to client
-                        } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS)) {
-                            AtlantisPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new AtlantisLightClientBoundPacket(3)); //send to client
-                        } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
-                            AtlantisPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new AtlantisLightClientBoundPacket(3)); //send to client
-                        } else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
-                            AtlantisPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new AtlantisLightClientBoundPacket(0)); //send to client
-                        }
-                    }
                 }
             }
         }
