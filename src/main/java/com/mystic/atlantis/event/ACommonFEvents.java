@@ -19,6 +19,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -39,7 +40,10 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -68,21 +72,35 @@ public class ACommonFEvents {
         }
     }
 
+    @SubscribeEvent
+    public static void onBiomeLightingRegister(BiomeLightingRegister event) {
+        event.register(AtlantisBiomeSource.VOLCANIC_DARKSEA, 11);
+        event.register(AtlantisBiomeSource.JELLYFISH_FIELDS, 8);
+        event.register(AtlantisBiomeSource.ATLANTEAN_ISLANDS, 3);
+        event.register(AtlantisBiomeSource.ATLANTIS_BIOME, 3);
+        event.register(AtlantisBiomeSource.ATLANTEAN_GARDEN, 0);
+    }
 
-    public static void worldTickEvent(TickEvent.WorldTickEvent event) {
-        AtomicReference<BlockPos> blockPos = new AtomicReference<>();
-        MinecraftServer server = event.world.getServer();
-        if (server != null) {
-            for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-                if (player != null) {
+    public static Map<ResourceLocation, Integer> map;
 
-                    player.getCapability(PlayerCapProvider.PLAYER_CAP).ifPresent(cap -> {
-                        blockPos.set(BlockPos.of(cap.getLong())); //receive from client
-                    });
+    @SubscribeEvent
+    public static void onServerLoad(ServerStartingEvent event) {
+        BiomeLightingRegister biomeLightingRegister = new BiomeLightingRegister();
+        MinecraftForge.EVENT_BUS.post(biomeLightingRegister);
+        map = biomeLightingRegister.getBiomeMap();
+    }
 
+    public static class BiomeLightingRegister extends Event {
+        Map<ResourceLocation, Integer> biomeMap = new HashMap<>();
 
-                }
-            }
+        public BiomeLightingRegister() {}
+
+        public void register(ResourceLocation resourceLocation, int lightLevel) {
+            biomeMap.put(resourceLocation, lightLevel);
+        }
+
+        public Map<ResourceLocation, Integer> getBiomeMap() {
+            return biomeMap;
         }
     }
 

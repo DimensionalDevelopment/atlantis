@@ -1,7 +1,9 @@
 package com.mystic.atlantis.lighting;
 
 import com.mystic.atlantis.biomes.AtlantisBiomeSource;
+import com.mystic.atlantis.event.ACommonFEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.QuartPos;
 import net.minecraft.core.Registry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.BlockGetter;
@@ -11,6 +13,8 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LightChunkGetter;
 import net.minecraft.world.level.lighting.SkyLightEngine;
+
+import java.util.Objects;
 
 public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 
@@ -22,25 +26,19 @@ public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 	protected int computeLevelFromNeighbor(long sourceId, long targetId, int level) {
 		int propagatedLevel = super.computeLevelFromNeighbor(sourceId, targetId, level);
 
-		Level world = (Level) chunkSource.getLevel();
-		Registry<Biome> biomes = world.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY);
 		BlockPos blockPos = BlockPos.of(targetId);
 		ChunkPos chunkPos = new ChunkPos(blockPos);
 
 		BlockGetter blockGetter = chunkSource.getChunkForLighting(chunkPos.x, chunkPos.z);
 		if (blockGetter instanceof ChunkAccess chunkAccess) {
-			Biome biome = chunkAccess.getNoiseBiome(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+			Biome biome = chunkAccess.getNoiseBiome(
+					QuartPos.fromBlock(blockPos.getX()),
+					QuartPos.fromBlock(blockPos.getY()),
+					QuartPos.fromBlock(blockPos.getZ())
+			);
 
-			if (biome == biomes.get(AtlantisBiomeSource.VOLCANIC_DARKSEA)) {
-				return Math.min(11, propagatedLevel);
-			} else if (biome == biomes.get(AtlantisBiomeSource.JELLYFISH_FIELDS)) {
-				return Math.min(8, propagatedLevel);
-			} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_ISLANDS)) {
-				return Math.min(3, propagatedLevel);
-			} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTIS_BIOME)) {
-				return Math.min(3, propagatedLevel);
-			} else if (biome == biomes.get(AtlantisBiomeSource.ATLANTEAN_GARDEN)) {
-				return Math.min(0, propagatedLevel);
+			if(ACommonFEvents.map.containsKey(biome.getRegistryName())) {
+				return Math.min(ACommonFEvents.map.get(biome.getRegistryName()), propagatedLevel);
 			}
 		}
 		return propagatedLevel;
