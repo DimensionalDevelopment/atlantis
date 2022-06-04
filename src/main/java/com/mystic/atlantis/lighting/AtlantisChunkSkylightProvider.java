@@ -1,20 +1,14 @@
 package com.mystic.atlantis.lighting;
 
-import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.event.ACommonFEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.QuartPos;
-import net.minecraft.core.Registry;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LightChunkGetter;
 import net.minecraft.world.level.lighting.SkyLightEngine;
-
-import java.util.Objects;
 
 public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 
