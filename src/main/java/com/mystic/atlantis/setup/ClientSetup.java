@@ -11,6 +11,7 @@ import com.mystic.atlantis.entities.models.Jellyfish2EntityModel;
 import com.mystic.atlantis.entities.models.JellyfishEntityModel;
 import com.mystic.atlantis.entities.models.ShrimpEntityModel;
 import com.mystic.atlantis.entities.renders.*;
+import com.mystic.atlantis.fluids.SaltySeaWaterFluid;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.particles.PushBubbleStreamParticle;
@@ -222,7 +223,10 @@ public class ClientSetup {
         BlockColor REGULAR = (arg, arg2, arg3, i) -> 0x8caed2; nonLinguistic.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
 
         BlockColor SaltySeaWaterColor = (arg, arg2, arg3, i) -> 0x100a60;
-        block -> blockColors.register(SaltySeaWaterColor, );
+        blockColors.register(SaltySeaWaterColor, FluidInit.SALTY_SEA_WATER.get());
+
+        BlockColor JetstreamWaterColor = (arg, arg2, arg3, i) -> 0x52A9FF;
+        blockColors.register(JetstreamWaterColor, FluidInit.JETSTREAM_WATER.get());
     }
 
     @OnlyIn(Dist.CLIENT)
