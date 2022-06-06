@@ -4,6 +4,8 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "atlantis-refmap.json",
   "mixins": [
+    "ItemMixin",
+    "BucketItemMixin",
     "BlockMixin",
     "LightingProviderMixin",
     "BoatEntityAccessor",

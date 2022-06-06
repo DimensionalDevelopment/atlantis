@@ -43,6 +43,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.stream.Stream;
@@ -59,6 +60,9 @@ public class ClientSetup {
     public static void onInitializeClient(FMLClientSetupEvent event) {
         ItemBlockRenderTypes.setRenderLayer(FluidInit.STILL_JETSTREAM_WATER.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_JETSTREAM_WATER.get(), RenderType.translucent());
+
+        ItemBlockRenderTypes.setRenderLayer(FluidInit.STILL_SALTY_SEA_WATER.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_SALTY_SEA_WATER.get(), RenderType.translucent());
 
         BlockEntityRenderers.register(TileRegistry.UNDERWATER_SHROOM_TILE.get(),
                 UnderwaterShroomTileRenderer::new);
@@ -140,7 +144,7 @@ public class ClientSetup {
             }
 
             @Override
-            public Vec3 getBrightnessDependentFogColor(Vec3 vector3d, float v) {
+            public @NotNull Vec3 getBrightnessDependentFogColor(Vec3 vector3d, float v) {
                 return vector3d;
             }
 
@@ -215,7 +219,10 @@ public class ClientSetup {
         BlockColor BLACK = (arg, arg2, arg3, i) -> 0x1d1d21;
         map.get(DyeColor.BLACK).forEach(block -> blockColors.register(BLACK, block));
 
-        BlockColor REGUALR = (arg, arg2, arg3, i) -> 0x8caed2; nonLinguistic.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGUALR, block));
+        BlockColor REGULAR = (arg, arg2, arg3, i) -> 0x8caed2; nonLinguistic.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
+
+        BlockColor SaltySeaWaterColor = (arg, arg2, arg3, i) -> 0x100a60;
+        block -> blockColors.register(SaltySeaWaterColor, );
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -262,6 +269,6 @@ public class ClientSetup {
         ItemColor BLACK = (arg, i) -> 0x1d1d21;
         map.get(DyeColor.BLACK).forEach(block -> blockColors.register(BLACK, block));
 
-        ItemColor REGUALR = (arg, i) -> 0x8caed2; nonLinguistic.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGUALR, block));
+        ItemColor REGULAR = (arg, i) -> 0x8caed2; nonLinguistic.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
     }
 }
