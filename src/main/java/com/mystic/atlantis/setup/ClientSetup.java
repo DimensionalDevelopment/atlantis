@@ -6,10 +6,7 @@ import com.mystic.atlantis.blocks.blockentities.renderers.*;
 import com.mystic.atlantis.dimension.AltantisSkyRenderer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
-import com.mystic.atlantis.entities.models.CrabEntityModel;
-import com.mystic.atlantis.entities.models.Jellyfish2EntityModel;
-import com.mystic.atlantis.entities.models.JellyfishEntityModel;
-import com.mystic.atlantis.entities.models.ShrimpEntityModel;
+import com.mystic.atlantis.entities.models.*;
 import com.mystic.atlantis.entities.renders.*;
 import com.mystic.atlantis.fluids.SaltySeaWaterFluid;
 import com.mystic.atlantis.init.BlockInit;
@@ -166,6 +163,7 @@ public class ClientSetup {
         bus.registerEntityRenderer(AtlantisEntities.SHRIMP.get(), entityRenderDispatcher -> new ShrimpEntityRenderer(entityRenderDispatcher, new ShrimpEntityModel()));
         bus.registerEntityRenderer(AtlantisEntities.SUBMARINE.get(), SubmarineEntityRenderer::new);
         bus.registerEntityRenderer(AtlantisEntities.ATLANTEAN_BOAT.get(), AtlanteanBoatRenderer::new);
+        bus.registerEntityRenderer(AtlantisEntities.LEVIATHAN.get(), entityRenderDispatcher -> new LeviathanEntityRenderer(entityRenderDispatcher, new LeviathanEntityModel()));
     }
     @SubscribeEvent
     public static void init(ParticleFactoryRegisterEvent bus) {

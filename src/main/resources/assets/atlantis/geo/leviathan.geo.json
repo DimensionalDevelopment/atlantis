@@ -1,0 +1,171 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 256,
+				"texture_height": 256,
+				"visible_bounds_width": 12,
+				"visible_bounds_height": 1.5,
+				"visible_bounds_offset": [0, 0.25, 0]
+			},
+			"bones": [
+				{
+					"name": "Body2",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-8, 0, 0], "size": [16, 7, 32], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Body3",
+					"parent": "Body2",
+					"pivot": [0, 0, 39]
+				},
+				{
+					"name": "bone",
+					"parent": "Body3",
+					"pivot": [0, 0, 39],
+					"cubes": [
+						{"origin": [-7, 0, 32], "size": [14, 7, 8], "uv": [57, 71]}
+					]
+				},
+				{
+					"name": "bone2",
+					"parent": "bone",
+					"pivot": [0, 0, 39],
+					"cubes": [
+						{"origin": [-6, 0, 40], "size": [12, 7, 8], "uv": [66, 86]}
+					]
+				},
+				{
+					"name": "bone3",
+					"parent": "bone2",
+					"pivot": [0, 0, 39],
+					"cubes": [
+						{"origin": [-5, 0, 48], "size": [10, 7, 8], "uv": [11, 149]}
+					]
+				},
+				{
+					"name": "STING3",
+					"parent": "bone3",
+					"pivot": [0, 4, 57],
+					"cubes": [
+						{"origin": [-1, 3, 56], "size": [2, 2, 8], "uv": [36, 90]}
+					]
+				},
+				{
+					"name": "STING4",
+					"parent": "STING3",
+					"pivot": [0, 4, 64],
+					"cubes": [
+						{"origin": [-1, 3, 64], "size": [2, 2, 8], "uv": [88, 31]}
+					]
+				},
+				{
+					"name": "STING5",
+					"parent": "STING4",
+					"pivot": [0, 4, 72],
+					"cubes": [
+						{"origin": [-1, 3, 72], "size": [2, 2, 8], "uv": [52, 49]}
+					]
+				},
+				{
+					"name": "STING6",
+					"parent": "STING5",
+					"pivot": [0, 4, 80],
+					"cubes": [
+						{"origin": [-1, 3, 80], "size": [2, 2, 8], "uv": [52, 39]}
+					]
+				},
+				{
+					"name": "LWing",
+					"parent": "Body2",
+					"pivot": [8, 4, 17],
+					"cubes": [
+						{"origin": [8, 2, 5], "size": [13, 3, 26], "uv": [0, 39]}
+					]
+				},
+				{
+					"name": "E",
+					"parent": "LWing",
+					"pivot": [21, 4, 21],
+					"cubes": [
+						{"origin": [21, 3, 10], "size": [9, 2, 5], "uv": [64, 19]},
+						{"origin": [21, 3, 15], "size": [20, 2, 17], "uv": [0, 71]},
+						{"origin": [23, 3, 32], "size": [14, 2, 2], "uv": [0, 26]},
+						{"origin": [41, 3, 18], "size": [4, 2, 9], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "LWingSting",
+					"parent": "E",
+					"pivot": [30, 0, 27],
+					"cubes": [
+						{"origin": [29, 3, 34], "size": [2, 2, 6], "uv": [0, 80]}
+					]
+				},
+				{
+					"name": "sting2",
+					"parent": "LWingSting",
+					"pivot": [30, 4, 39.5],
+					"cubes": [
+						{"origin": [29, 3, 40], "size": [2, 2, 9], "uv": [0, 39]}
+					]
+				},
+				{
+					"name": "RWing",
+					"parent": "Body2",
+					"pivot": [-7, 2, 17],
+					"cubes": [
+						{"origin": [-21, 2, 5], "size": [13, 3, 26], "uv": [52, 42]}
+					]
+				},
+				{
+					"name": "R",
+					"parent": "RWing",
+					"pivot": [-22, 5, 20],
+					"cubes": [
+						{"origin": [-30, 3, 10], "size": [9, 2, 5], "uv": [87, 21]},
+						{"origin": [-37, 3, 32], "size": [14, 2, 2], "uv": [0, 22]},
+						{"origin": [-41, 3, 15], "size": [20, 2, 17], "uv": [64, 0]},
+						{"origin": [-45, 3, 18], "size": [4, 2, 9], "uv": [0, 11]}
+					]
+				},
+				{
+					"name": "RWingSting",
+					"parent": "R",
+					"pivot": [-30, 0, 27],
+					"cubes": [
+						{"origin": [-31, 3, 34], "size": [2, 2, 6], "uv": [28, 90]}
+					]
+				},
+				{
+					"name": "sting",
+					"parent": "RWingSting",
+					"pivot": [-30, 4, 39.5],
+					"cubes": [
+						{"origin": [-31, 3, 40], "size": [2, 2, 9], "uv": [0, 50]}
+					]
+				},
+				{
+					"name": "LMFlap",
+					"parent": "Body2",
+					"pivot": [-7, 3, 0],
+					"cubes": [
+						{"origin": [-7, 1, -7], "size": [1, 5, 7], "uv": [0, 68]}
+					]
+				},
+				{
+					"name": "RMFlap",
+					"parent": "Body2",
+					"pivot": [6, 4, 0],
+					"cubes": [
+						{"origin": [6, 1, -7], "size": [1, 5, 7], "uv": [64, 0]}
+					]
+				}
+			]
+		}
+	]
+}

@@ -18,16 +18,26 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 
-public class LeviathanEntity extends WaterAnimal {
+public class LeviathanEntity extends WaterAnimal implements IAnimatable {
 
     private Vec3 moveTargetPoint;
     private BlockPos anchorPoint;
     private LeviathanEntity.AttackPhase attackPhase;
+    private static final AnimationBuilder SWIM_IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.leviathan.swim", true);
+
+    private final AnimationFactory factory = new AnimationFactory(this);
 
     public LeviathanEntity(EntityType<? extends WaterAnimal> arg, Level arg2) {
         super(arg, arg2);
@@ -44,6 +54,22 @@ public class LeviathanEntity extends WaterAnimal {
         this.goalSelector.addGoal(2, new LeviathanEntity.LeviathanEntitySweepAttackGoal());
         this.goalSelector.addGoal(3, new LeviathanEntity.LeviathanEntityCircleAroundAnchorGoal());
         this.targetSelector.addGoal(1, new LeviathanEntity.LeviathanEntityAttackPlayerTargetGoal());
+    }
+
+    @Override
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
+    }
+
+    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+        event.getController().setAnimation(SWIM_IDLE_ANIMATION);
+
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return factory;
     }
 
     // Literally all of this is from the LeviathanEntity class

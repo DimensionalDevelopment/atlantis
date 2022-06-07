@@ -853,5 +853,18 @@
   "item.atlantis.linguistic_glyph_scroll_w": "Linguistic Glyph Scroll W",
   "item.atlantis.linguistic_glyph_scroll_x": "Linguistic Glyph Scroll X",
   "item.atlantis.linguistic_glyph_scroll_y": "Linguistic Glyph Scroll Y",
-  "item.atlantis.linguistic_glyph_scroll_z": "Linguistic Glyph Scroll Z"
+  "item.atlantis.linguistic_glyph_scroll_z": "Linguistic Glyph Scroll Z",
+  "block.atlantis.orichalcum_block": "Orichalcum Block",
+  "entity.atlantis.atlantean_submarine": "Atlantean Submarine",
+  "item.atlantis.orichalcum_axe": "Orichalcum Axe",
+  "item.atlantis.orichalcum_blend": "Orichalcum Blend",
+  "item.atlantis.orichalcum_boots": "Orichalcum Boots",
+  "item.atlantis.orichalcum_chestplate": "Orichalcum Chestplate",
+  "item.atlantis.orichalcum_helmet": "Orichalcum Helmet",
+  "item.atlantis.orichalcum_hoe": "Orichalcum Hoe",
+  "item.atlantis.orichalcum_ignot": "Orichalcum Ignot",
+  "item.atlantis.orichalcum_leggings": "Orichalcum Leggings",
+  "item.atlantis.orichalcum_pickaxe": "Orichalcum Pickaxe",
+  "item.atlantis.orichalcum_shovel": "Orichalcum Shovel",
+  "item.atlantis.orichalcum_sword": "Orichalcum Sword"
 }
