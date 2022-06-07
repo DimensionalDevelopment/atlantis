@@ -1,5 +1,6 @@
 package com.mystic.atlantis.entities;
 
+import com.mystic.atlantis.entities.goal.JellyFishFloatGoal;
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -9,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -19,6 +21,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.animal.Squid;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -45,11 +48,16 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.INT);
     private static final AnimationBuilder HOVER_ANIMATION = new AnimationBuilder().addAnimation("animation.jellyfish.hover", true);
     private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.jellyfish.idle", true);
+    private int randomTimer;
+    private float tx;
+    private float ty;
+    private float tz;
 
     private final AnimationFactory factory = new AnimationFactory(this);
 
     public JellyfishEntity(EntityType<? extends WaterAnimal> entityType, Level world) {
         super(entityType, world);
+        this.randomTimer = this.getRandom().nextInt(61);
     }
 
     public static AttributeSupplier.Builder createJellyfishAttributes() {
@@ -98,12 +106,10 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
 
     @Override
     protected void registerGoals() {
-        goalSelector.addGoal(6, new TemptGoal(this, 1, Ingredient.of(ItemInit.CRAB_LEGS.get()), false));
-        goalSelector.addGoal(5, new TryFindWaterGoal(this));
-        goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        goalSelector.addGoal(3, new FloatGoal(this));
-        goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.5, 1));
-        goalSelector.addGoal(1, new OcelotAttackGoal(this));
+        goalSelector.addGoal(0, new JellyFishRandomMovementGoal(this));
+        goalSelector.addGoal(1, new RandomLookAroundGoal(this));
+        goalSelector.addGoal(2, new TryFindWaterGoal(this));
+        goalSelector.addGoal(3, new TemptGoal(this, 1, Ingredient.of(ItemInit.CRAB_LEGS.get()), false));
     }
 
     public boolean fromBucket() {
@@ -172,7 +178,12 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
     @Override
     public void aiStep() {
         super.aiStep();
-
+        if (!this.level.isClientSide) {
+            if (--this.randomTimer <= 0) {
+                this.randomTimer = this.getRandom().nextInt(61);
+                this.setDeltaMovement(this.tx * 1.2, this.ty * 1.2, this.tz * 1.2);
+            }
+        }
         setTarget(level.getNearestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
@@ -229,5 +240,43 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
             event.getController().setAnimation(IDLE_ANIMATION);
         }
         return PlayState.CONTINUE;
+    }
+
+    static class JellyFishRandomMovementGoal extends Goal {
+        private final JellyfishEntity jellyfishEntity;
+
+        public JellyFishRandomMovementGoal(JellyfishEntity arg2) {
+            this.jellyfishEntity = arg2;
+        }
+
+        @Override
+        public boolean canUse() {
+            return true;
+        }
+
+        @Override
+        public void tick() {
+            int i = this.jellyfishEntity.getNoActionTime();
+            if (i > 100) {
+                this.jellyfishEntity.setMovementVector(0.0f, 0.0f, 0.0f);
+            }
+            else if (this.jellyfishEntity.getRandom().nextInt(JellyfishEntity.JellyFishRandomMovementGoal.reducedTickDelay(50)) == 0 || !this.jellyfishEntity.wasTouchingWater || !this.jellyfishEntity.hasMovementVector()) {
+                float f = this.jellyfishEntity.getRandom().nextFloat() * ((float)Math.PI * 2);
+                float g = Mth.cos(f) * 0.2f;
+                float h = -0.1f + this.jellyfishEntity.getRandom().nextFloat() * 0.2f;
+                float j = Mth.sin(f) * 0.2f;
+                this.jellyfishEntity.setMovementVector(g, h, j);
+            }
+        }
+    }
+
+    public void setMovementVector(float randomMotionVecX, float randomMotionVecY, float randomMotionVecZ) {
+        this.tx = randomMotionVecX;
+        this.ty = randomMotionVecY;
+        this.tz = randomMotionVecZ;
+    }
+
+    public boolean hasMovementVector() {
+        return this.tx != 0.0f || this.ty != 0.0f || this.tz != 0.0f;
     }
 }
