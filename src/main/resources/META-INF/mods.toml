@@ -1,6 +1,6 @@
 modLoader="javafml" #mandatory
 
-loaderVersion="[39,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion="[40,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 
 license="LGPLv3"
 
@@ -10,7 +10,7 @@ issueTrackerURL="https://github.com/Exploding-Creeper/atlantis/issues" #optional
 
 modId="atlantis" #mandatory
 
-version="2022.5.25-1.18.1-3.0-forge" #mandatory
+version="2022.6.8-1.18.2-1.0.0-forge" #mandatory
 
 displayName="Atlantis" #mandatory
 
@@ -20,7 +20,7 @@ logoFile= "logo.png" #optional
 
 credits="To all the people of the MMD server!, Gami for his work on the creative tab, LordHugo02 for his work on correcting the aquamarine ore, DTRaptor for his work on the Drop of Atlantis, TelepathicGrunt for his help with the JSON files, WaterPicker for his work on the fabric branch, BingJ for his work on all the entity animations and models, LudoCrypt for the music and texture on the music disc for atlantis, and LimeShulkerBox for the Atlantean Portal and for removing the need for effects in the dimension" #optional
 
-authors="Mysticpasta1, Nyfaria, Gami, LordHugo02, DTRaptor, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulkerBox" #optional
+authors="Mysticpasta1, Nyfaria, Gami, LordHugo02, DTRaptor, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity" #optional
 
 description='''
 An Underwater Atlantis like dimension mod.
@@ -35,7 +35,7 @@ An Underwater Atlantis like dimension mod.
 [[dependencies.atlantis]] #optional
     modId="geckolib3" #mandatory
     mandatory=true #mandatory
-    versionRange="[3.0.11,)" #mandatory
+    versionRange="[3.0.12,)" #mandatory
     ordering="NONE"
     side="BOTH"
 
@@ -49,13 +49,13 @@ An Underwater Atlantis like dimension mod.
 [[dependencies.atlantis]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[39,)" #mandatory
+    versionRange="[40,)" #mandatory
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.atlantis]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.1,1.19)"
+    versionRange="[1.18.2,1.19)"
     ordering="NONE"
     side="BOTH"
