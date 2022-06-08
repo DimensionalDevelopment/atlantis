@@ -4,6 +4,9 @@ import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.BlockInit;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -137,21 +140,9 @@ public class AtlantisPortalBlock extends Block implements EntityBlock {
         return world.getBlockState(pos).is(getPortal());
     }
 
-    public Tag<Block> getPortal(){
-        Tag<Block> portal = new Tag<Block>() {
-            @Override
-            public boolean contains(Block element) {
-                return true;
-            }
-
-            @Override
-            public List<Block> getValues() {
-                List<Block> portal2 = new ArrayList<Block>();
-                portal2.add(BlockInit.ATLANTIS_PORTAL.get());
-                return portal2;
-            }
-        };
-        return portal;
+    public HolderSet<Block> getPortal(){
+        Holder<Block> airHolderSet = Holder.direct(BlockInit.ATLANTIS_PORTAL.get());
+        return HolderSet.direct(airHolderSet);
     }
 
     public static void sendPlayerToDimension(ServerPlayer serverPlayer, ServerLevel targetWorld, Vec3 targetVec) {

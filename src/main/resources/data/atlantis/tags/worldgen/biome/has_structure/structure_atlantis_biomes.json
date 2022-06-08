@@ -1,0 +1,10 @@
+{
+  "replace": false,
+
+  "_comment": " This biome tag can specify the biome directly. Or specify another biome tag by starting with # ",
+  "values": [
+    "atlantis:atlantean_biome",
+    "atlantis:atlantean_islands_biome",
+    "atlantis:atlantean_garden"
+  ]
+}

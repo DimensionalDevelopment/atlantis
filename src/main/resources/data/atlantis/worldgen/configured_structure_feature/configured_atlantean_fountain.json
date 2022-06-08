@@ -3,5 +3,6 @@
   "config": {
     "start_pool": "atlantis:atlantean_fountain/start_pool",
     "size": 1
-  }
+  },
+  "biomes": "#atlantis:has_structure/structure_atlantis_biomes"
 }

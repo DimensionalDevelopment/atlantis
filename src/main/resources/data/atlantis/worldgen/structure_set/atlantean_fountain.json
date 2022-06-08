@@ -1,0 +1,15 @@
+
+{
+  "structures": [
+    {
+      "structure": "atlantis:atlantean_fountain",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 4287362921,
+    "spacing": 18,
+    "separation": 8,
+    "type": "minecraft:random_spread"
+  }
+}

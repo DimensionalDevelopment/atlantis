@@ -3,6 +3,8 @@ package com.mystic.atlantis.blocks;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -43,21 +45,9 @@ public class AtlanteanFireMelonFruit extends HorizontalDirectionalBlock implemen
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AGE, 0).setValue(WATERLOGGED, Boolean.TRUE));
     }
 
-    public Tag<Block> getAir(){
-        Tag<Block> air = new Tag<Block>() {
-            @Override
-            public boolean contains(Block element) {
-                return true;
-            }
-
-            @Override
-            public List<Block> getValues() {
-                List<Block> air2 = new ArrayList<Block>();
-                air2.add(Blocks.AIR);
-                return air2;
-            }
-        };
-        return air;
+    public HolderSet<Block> getAir(){
+        Holder<Block> airHolderSet = Holder.direct(Blocks.AIR);
+        return HolderSet.direct(airHolderSet);
     }
 
     public boolean OnlyWater(LevelReader worldReader, BlockPos pos, BlockState state) {

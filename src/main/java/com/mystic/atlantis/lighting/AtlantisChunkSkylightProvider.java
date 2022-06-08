@@ -2,6 +2,7 @@ package com.mystic.atlantis.lighting;
 
 import com.mystic.atlantis.event.ACommonFEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.QuartPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ChunkPos;
@@ -25,14 +26,14 @@ public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 
 		BlockGetter blockGetter = chunkSource.getChunkForLighting(chunkPos.x, chunkPos.z);
 		if (blockGetter instanceof ChunkAccess chunkAccess) {
-			Biome biome = chunkAccess.getNoiseBiome(
+			Holder<Biome> biome = chunkAccess.getNoiseBiome(
 					QuartPos.fromBlock(blockPos.getX()),
 					QuartPos.fromBlock(blockPos.getY()),
 					QuartPos.fromBlock(blockPos.getZ())
 			);
 
-			if(ACommonFEvents.map.containsKey(biome.getRegistryName())) {
-				return Math.min(ACommonFEvents.map.get(biome.getRegistryName()), propagatedLevel);
+			if(ACommonFEvents.map.containsKey(biome.value().getRegistryName())) {
+				return Math.min(ACommonFEvents.map.get(biome.value().getRegistryName()), propagatedLevel);
 			}
 		}
 		return propagatedLevel;

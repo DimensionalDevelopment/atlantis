@@ -1,10 +1,11 @@
 package com.mystic.atlantis.blocks.blockentities.plants;
 
 import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.core.*;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -23,10 +24,10 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static com.mystic.atlantis.blocks.plants.UnderwaterFlower.WATERLOGGED;
 
@@ -111,21 +112,9 @@ public class BlueLilyBlock extends BushBlock implements EntityBlock, SimpleWater
         return !worldReader.getBlockState(pos).is(getAir()) || !this.canBlockStay(worldReader, pos, state);
     }
 
-    public Tag<Block> getAir(){
-        Tag<Block> air = new Tag<Block>() {
-            @Override
-            public boolean contains(Block element) {
-                return true;
-            }
-
-            @Override
-            public List<Block> getValues() {
-                List<Block> air2 = new ArrayList<Block>();
-                air2.add(Blocks.AIR);
-                return air2;
-            }
-        };
-        return air;
+    public HolderSet<Block> getAir(){
+        Holder<Block> airHolderSet = Holder.direct(Blocks.AIR);
+        return HolderSet.direct(airHolderSet);
     }
 
     @Override

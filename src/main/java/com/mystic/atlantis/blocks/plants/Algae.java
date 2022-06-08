@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -112,21 +114,9 @@ public class Algae extends Block implements SimpleWaterloggedBlock {
         return !worldReader.getBlockState(pos).is(getAir()) || !this.canBlockStay(worldReader, pos, state);
     }
 
-    public Tag<Block> getAir(){
-        Tag<Block> air = new Tag<Block>() {
-            @Override
-            public boolean contains(Block element) {
-                return true;
-            }
-
-            @Override
-            public List<Block> getValues() {
-                List<Block> air2 = new ArrayList<Block>();
-                air2.add(Blocks.AIR);
-                return air2;
-            }
-        };
-        return air;
+    public HolderSet<Block> getAir(){
+        Holder<Block> airHolderSet = Holder.direct(Blocks.AIR);
+        return HolderSet.direct(airHolderSet);
     }
 
     public boolean canBlockStay(LevelReader worldReader, BlockPos pos, BlockState state) {

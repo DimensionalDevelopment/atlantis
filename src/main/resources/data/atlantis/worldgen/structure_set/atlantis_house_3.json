@@ -1,0 +1,15 @@
+
+{
+  "structures": [
+    {
+      "structure": "atlantis:atlantean_house_3",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 44639473921,
+    "spacing": 18,
+    "separation": 8,
+    "type": "minecraft:random_spread"
+  }
+}

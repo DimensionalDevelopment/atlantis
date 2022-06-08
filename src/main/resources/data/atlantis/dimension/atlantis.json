@@ -7,13 +7,15 @@
     "settings": "atlantis:atlantis",
     "biome_source": {
       "type": "minecraft:multi_noise",
+      "forge:use_server_seed": true,
+      "seed": 0,
       "biomes": [
         {
           "biome": "atlantis:atlantean_garden",
           "parameters": {
             "temperature": 0.2,
             "humidity": 0.5,
-            "continentalness": 0.1,
+            "continentalness": 0,
             "erosion": 0,
             "weirdness": 0.2,
             "depth": 0.1,

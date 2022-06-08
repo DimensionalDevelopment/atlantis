@@ -3,6 +3,7 @@ package com.mystic.atlantis.event;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.util.Reference;
+import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -25,9 +26,9 @@ public class WorldGenEvents {
     @SubscribeEvent
     public void onBiomeLoad(BiomeLoadingEvent event) {
         List<OreConfiguration.TargetBlockState> ORE_IRON_TARGET_LIST = List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, BlockInit.AQUAMARINE_ORE.get().defaultBlockState()));
-        ConfiguredFeature<?,?> AQUAMARINE_ORE = FeatureUtils.register("ore_money", Feature.ORE.configured(new OreConfiguration(ORE_IRON_TARGET_LIST, 9)));
+        Holder<ConfiguredFeature<OreConfiguration, ?>> AQUAMARINE_ORE = FeatureUtils.register("aquamarine", Feature.ORE, new OreConfiguration(ORE_IRON_TARGET_LIST, 9));
         BiomeGenerationSettingsBuilder generation = event.getGeneration();
-        PlacedFeature ORE_AQUAMARINE_OVERWORLD = PlacementUtils.register("ore_money", AQUAMARINE_ORE.placed(commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.top()))));
+        Holder<PlacedFeature> ORE_AQUAMARINE_OVERWORLD = PlacementUtils.register("aquamarine", AQUAMARINE_ORE, commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.top())));
 
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ORE_AQUAMARINE_OVERWORLD);
 

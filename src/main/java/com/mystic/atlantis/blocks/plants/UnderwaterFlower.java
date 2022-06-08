@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -98,21 +100,9 @@ public class UnderwaterFlower extends BushBlock implements SimpleWaterloggedBloc
         builder.add(WATERLOGGED);
     }
 
-    public Tag<Block> getAir(){
-        Tag<Block> air = new Tag<Block>() {
-            @Override
-            public boolean contains(Block element) {
-                return true;
-            }
-
-            @Override
-            public List<Block> getValues() {
-                List<Block> air2 = new ArrayList<Block>();
-                air2.add(Blocks.AIR);
-                return air2;
-            }
-        };
-        return air;
+    public HolderSet<Block> getAir(){
+        Holder<Block> airHolderSet = Holder.direct(Blocks.AIR);
+        return HolderSet.direct(airHolderSet);
     }
 
     public boolean OnlyWater(LevelReader worldReader, BlockPos pos, BlockState state) {
