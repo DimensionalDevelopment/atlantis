@@ -40,7 +40,7 @@ public class AtlantisEntities {
         event.put(AtlantisEntities.JELLYFISH.get(), JellyfishEntity.createJellyfishAttributes().build());
         event.put(AtlantisEntities.JELLYFISH2.get(), Jellyfish2Entity.createJellyfishAttributes().build());
         event.put(AtlantisEntities.SHRIMP.get(), ShrimpEntity.createShrimpAttributes().build());
-        event.put(AtlantisEntities.LEVIATHAN.get(), LeviathanEntity.createMobAttributes().build());
+        event.put(AtlantisEntities.LEVIATHAN.get(), LeviathanEntity.createLeviathanAttributes().build());
     }
 
     public static void initialize(IEventBus bus) {

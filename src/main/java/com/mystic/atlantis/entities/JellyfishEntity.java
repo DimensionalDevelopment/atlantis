@@ -31,6 +31,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -58,6 +59,7 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
     public JellyfishEntity(EntityType<? extends WaterAnimal> entityType, Level world) {
         super(entityType, world);
         this.randomTimer = this.getRandom().nextInt(61);
+        this.setNoGravity(true);
     }
 
     public static AttributeSupplier.Builder createJellyfishAttributes() {
@@ -180,8 +182,8 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
         super.aiStep();
         if (!this.level.isClientSide) {
             if (--this.randomTimer <= 0) {
-                this.randomTimer = this.getRandom().nextInt(61);
-                this.setDeltaMovement(this.tx * 1.2, this.ty * 1.2, this.tz * 1.2);
+                this.randomTimer = this.getRandom().nextInt(21);
+                this.setDeltaMovement(this.tx * 1.2, this.ty * 1.6, this.tz * 1.2);
             }
         }
         setTarget(level.getNearestPlayer(getX(), getY(), getZ(), 10, true));
@@ -220,7 +222,7 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
     }
 
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed(@NotNull Player player) {
         return true;
     }
 
@@ -236,7 +238,8 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
     private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if(isMovingSlowly()) {
             event.getController().setAnimation(HOVER_ANIMATION);
-        } else {
+        }
+        else {
             event.getController().setAnimation(IDLE_ANIMATION);
         }
         return PlayState.CONTINUE;

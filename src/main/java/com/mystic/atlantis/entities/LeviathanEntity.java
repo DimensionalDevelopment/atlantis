@@ -15,6 +15,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.LookControl;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -53,6 +55,11 @@ public class LeviathanEntity extends WaterAnimal implements IAnimatable {
 
     private final AnimationFactory factory = new AnimationFactory(this);
 
+    public static AttributeSupplier.Builder createLeviathanAttributes() {
+        var builder = Mob.createMobAttributes();
+        return builder.add(Attributes.ATTACK_DAMAGE, 2d);
+    }
+
     public LeviathanEntity(EntityType<? extends WaterAnimal> arg, Level arg2) {
         super(arg, arg2);
         this.moveTargetPoint = Vec3.ZERO;
@@ -81,7 +88,6 @@ public class LeviathanEntity extends WaterAnimal implements IAnimatable {
             if (f > 0.0F && f1 <= 0.0F) {
                 this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.PHANTOM_FLAP, this.getSoundSource(), 0.95F + this.random.nextFloat() * 0.05F, 0.95F + this.random.nextFloat() * 0.05F, false);
             }
-
             int i = this.getLeviathanEntitySize();
             float f2 = Mth.cos(this.getYRot() * ((float)Math.PI / 180F)) * (1.3F + 0.21F * (float)i);
             float f3 = Mth.sin(this.getYRot() * ((float)Math.PI / 180F)) * (1.3F + 0.21F * (float)i);
@@ -93,6 +99,12 @@ public class LeviathanEntity extends WaterAnimal implements IAnimatable {
 
     public void setLeviathanEntitySize(int pSize) {
         this.entityData.set(ID_SIZE, Mth.clamp(pSize, 0, 64));
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(ID_SIZE, 0);
     }
 
     @Override
@@ -280,14 +292,14 @@ public class LeviathanEntity extends WaterAnimal implements IAnimatable {
 
         @Override
         public void start() {
-            LeviathanEntity.this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE - 1));
             super.start();
+            LeviathanEntity.this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE - 1));
         }
 
         @Override
         public void stop() {
-            LeviathanEntity.this.removeEffect(MobEffects.INVISIBILITY);
             super.stop();
+            LeviathanEntity.this.removeEffect(MobEffects.INVISIBILITY);
         }
     }
 
@@ -335,14 +347,14 @@ public class LeviathanEntity extends WaterAnimal implements IAnimatable {
 
         @Override
         public void start() {
-            LeviathanEntity.this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE - 1));
             super.start();
+            LeviathanEntity.this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE - 1));
         }
 
         @Override
         public void stop() {
-            LeviathanEntity.this.removeEffect(MobEffects.INVISIBILITY);
             super.stop();
+            LeviathanEntity.this.removeEffect(MobEffects.INVISIBILITY);
         }
     }
 

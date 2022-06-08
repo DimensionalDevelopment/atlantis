@@ -36,7 +36,6 @@ public class Jellyfish2EntityRenderer extends GeoEntityRenderer<Jellyfish2Entity
     @Override
     public void render(Jellyfish2Entity mobEntity, float f, float g, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i) {
         renderStuff(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
-
         Entity entity = mobEntity.getLeashHolder();
         if (entity != null) {
             this.method_4073(mobEntity, g, matrixStack, vertexConsumerProvider, entity);
