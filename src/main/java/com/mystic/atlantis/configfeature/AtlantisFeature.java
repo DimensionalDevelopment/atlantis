@@ -67,7 +67,7 @@ public class AtlantisFeature {
         public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> GARDEN_FOLIAGE_PLACER_ATLANTIS = FeatureUtils.register("garden_foliage_placer_atlantis", AtlantisFeature.GARDEN_FOLIAGE_PLACER_ATLANTIS.get());
         public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> ATLANTEAN_ISLANDS_FEATURE_ATLANTIS = FeatureUtils.register("atlantean_islands_feature_atlantis", AtlantisFeature.ATLANTEAN_ISLANDS.get());
         public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> ATLANTEAN_VOLCANO_FEATURE_ATLANTIS = FeatureUtils.register("atlantean_volcano_feature_atlantis", AtlantisFeature.ATLANTEAN_VOLCANO.get());
-        public static final Holder<ConfiguredFeature<LakeFeature.Configuration, ?>> JETSTREAM_LAKE_FEATURE_ATLANTIS = FeatureUtils.register("jetstream_lava", Feature.LAKE, new LakeFeature.Configuration(BlockStateProvider.simple(FluidInit.JETSTREAM_WATER.get().defaultBlockState()), BlockStateProvider.simple(Blocks.STONE.defaultBlockState())));
+        public static final Holder<ConfiguredFeature<LakeFeature.Configuration, ?>> JETSTREAM_LAKE_FEATURE_ATLANTIS = FeatureUtils.register("jetstream_lake", Feature.LAKE, new LakeFeature.Configuration(BlockStateProvider.simple(FluidInit.JETSTREAM_WATER.get().defaultBlockState()), BlockStateProvider.simple(Blocks.STONE.defaultBlockState())));
         public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> ATLANTEAN_TREE = FeatureUtils.register("atlantean_tree", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(BlockInit.ATLANTEAN_LOGS.get()),
                 new StraightTrunkPlacer(5, 6, 3),

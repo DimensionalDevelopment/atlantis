@@ -2664,6 +2664,23 @@
       }
     }
   },
+  "noise_router": {
+    "barrier": "minecraft:overworld/factor",
+    "fluid_level_floodedness": "minecraft:overworld/factor",
+    "fluid_level_spread": "minecraft:overworld/factor",
+    "lava": "minecraft:zero",
+    "temperature": "minecraft:overworld/base_3d_noise",
+    "vegetation": "minecraft:overworld/factor",
+    "continents": "minecraft:overworld/continents",
+    "erosion": "minecraft:overworld_large_biomes/erosion",
+    "depth": "minecraft:overworld/depth",
+    "ridges": "minecraft:overworld/ridges",
+    "initial_density_without_jaggedness": "minecraft:overworld/caves/spaghetti_2d",
+    "final_density": "minecraft:overworld/factor",
+    "vein_toggle": "minecraft:overworld/caves/noodle",
+    "vein_ridged": "minecraft:overworld/caves/noodle",
+    "vein_gap": "minecraft:overworld/caves/noodle"
+  },
   "surface_rule": {
     "type": "minecraft:sequence",
     "sequence": [

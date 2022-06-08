@@ -1,5 +1,18 @@
 {
   "type": "atlantis:atlantean_house_1",
+  "spawn_overrides": {
+    "water_ambient": {
+      "bounding_box": "full",
+      "spawns": [
+        {
+          "type": "minecraft:tropical_fish",
+          "weight": 1,
+          "minCount": 4,
+          "maxCount": 16
+        }
+      ]
+    }
+  },
   "config": {
     "start_pool": "atlantis:atlantean_house_1/start_pool",
     "size": 1
