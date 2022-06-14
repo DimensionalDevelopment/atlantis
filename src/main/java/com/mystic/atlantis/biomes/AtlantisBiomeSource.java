@@ -1,6 +1,7 @@
 package com.mystic.atlantis.biomes;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.util.Reference;
@@ -15,9 +16,11 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -40,10 +43,9 @@ public class AtlantisBiomeSource extends BiomeSource {
     private int biomeSize;
 
     public AtlantisBiomeSource(Registry<Biome> biomeRegistry, int biomeSize, long seed) {
-        super((Stream<Holder<Biome>>) biomeRegistry.entrySet().stream()
-                .filter(entry -> entry.getKey().location().getNamespace().equals(Reference.MODID))
-                .map(Map.Entry::getValue)
-                .collect(Collectors.toList()));
+        super(biomeRegistry.getResourceKey(Objects.requireNonNull(biomeRegistry.get(biomeRegistry.keySet().stream().reduce(
+                (resourceLocation, resourceLocation2) -> resourceLocation).orElse(Biomes.WARM_OCEAN.getRegistryName()))
+        )).stream().map(biomeRegistry::getHolderOrThrow));
         BIOME_REGISTRY = biomeRegistry;
         this.LAYERS_BIOME_REGISTRY = biomeRegistry;
         this.biomeSize = biomeSize;
