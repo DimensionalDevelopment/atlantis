@@ -1,8 +1,6 @@
 {
   "sea_level": 384,
   "disable_mob_generation": false,
-  "noise_caves_enabled": false,
-  "noodle_caves_enabled": false,
   "aquifers_enabled": true,
   "ore_veins_enabled": true,
   "legacy_random_source": false,
@@ -2972,34 +2970,5 @@
         }
       }
     ]
-  },
-  "structures": {
-    "structures": {
-      "atlantis:atlantean_fountain": {
-        "spacing": 8,
-        "separation": 4,
-        "salt": 584262839
-      },
-      "atlantis:atlantean_house_1": {
-        "spacing": 6,
-        "separation": 5,
-        "salt": 1293091209
-      },
-      "atlantis:atlantean_house_3": {
-        "spacing": 7,
-        "separation": 4,
-        "salt": 965487684
-      },
-      "atlantis:atlantean_tower": {
-        "spacing": 9,
-        "separation": 7,
-        "salt": 763754364
-      },
-      "atlantis:oyster_structure": {
-        "spacing": 10,
-        "separation": 5,
-        "salt": 482739847
-      }
-    }
   }
 }
