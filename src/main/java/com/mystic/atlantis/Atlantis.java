@@ -134,7 +134,7 @@ public class Atlantis {
         GeckoLibMod.DISABLE_IN_DEV = true;
         event.enqueueWork(() -> {
             DimensionAtlantis.registerBiomeSources();
-            AtlantisFeature.ConfiguredFeaturesAtlantis.registerConfiguredFeatures();
+            // AtlantisFeature.ConfiguredFeaturesAtlantis.registerConfiguredFeatures();
         });
 
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get());
