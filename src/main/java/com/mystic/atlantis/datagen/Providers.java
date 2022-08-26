@@ -17,10 +17,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.client.model.generators.BlockModelProvider;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
@@ -125,6 +122,7 @@ public class Providers {
                 protected void registerModels() {
                     this.cubeAll(BlockInit.ORICHALCUM_BLOCK);
                     this.cubeBottomTop("writing_block", Atlantis.id("block/writing_table_side"), Atlantis.id("block/atlantean_planks"), Atlantis.id("block/writing_table_top"));
+
                 }
 
                 private void cubeAll(RegistryObject<Block> block) {
@@ -142,6 +140,8 @@ public class Providers {
                 protected void registerStatesAndModels() {
                     this.horizontalBlock(BlockInit.WRITING_BLOCK.get(), new ModelFile.ExistingModelFile(Atlantis.id("block/writing_block"), event.getExistingFileHelper()));
                     this.simpleBlock(BlockInit.ORICHALCUM_BLOCK.get());
+
+                    getVariantBuilder(BlockInit.PUSH_BUBBLE_COLUMN.get()).forAllStates(a -> ConfiguredModel.builder().modelFile(new ModelFile.UncheckedModelFile(new ResourceLocation("minecraft:block/air"))).build());
                 }
             });
 
