@@ -4,18 +4,13 @@ import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.BlockInit;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.Tag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -26,6 +21,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 public class AtlantisPortalBlock extends Block implements EntityBlock {
 
@@ -50,7 +46,7 @@ public class AtlantisPortalBlock extends Block implements EntityBlock {
                 if (dataStorage.getDestination() != null) {
                     Vec3 vector3d = new Vec3(dataStorage.getDestination().getX(), dataStorage.getDestination().getY(), dataStorage.getDestination().getZ());
                     sendPlayerToDimension((ServerPlayer) player, atlantis, vector3d);
-                    player.displayClientMessage(new TranslatableComponent("Welcome To Atlantis!!!"), true);
+                    player.displayClientMessage(Component.translatable("Welcome To Atlantis!!!"), true);
                     return InteractionResult.SUCCESS;
                 }
 
@@ -63,7 +59,7 @@ public class AtlantisPortalBlock extends Block implements EntityBlock {
                                 dataStorage.setDestination(atlantisPos);
                                 Vec3 vector3d = new Vec3(atlantisPos.getX(), atlantisPos.getY(), atlantisPos.getZ());
                                 sendPlayerToDimension((ServerPlayer) player, atlantis, vector3d);
-                                player.displayClientMessage(new TranslatableComponent("Welcome To Atlantis!!!"), true);
+                                player.displayClientMessage(Component.translatable("Welcome To Atlantis!!!"), true);
                                 return InteractionResult.SUCCESS;
                             } else {
                                 atlantis.setBlock(pos, this.asBlock().defaultBlockState(), 2);
@@ -72,7 +68,7 @@ public class AtlantisPortalBlock extends Block implements EntityBlock {
                                     dataStorage.setDestination(atlantisPos);
                                     Vec3 vector3d = new Vec3(atlantisPos.getX(), atlantisPos.getY(), atlantisPos.getZ());
                                     sendPlayerToDimension((ServerPlayer) player, atlantis, vector3d);
-                                    player.displayClientMessage(new TranslatableComponent("Welcome To Atlantis!!!"), true);
+                                    player.displayClientMessage(Component.translatable("Welcome To Atlantis!!!"), true);
                                     return InteractionResult.SUCCESS;
                                 }
                             }
@@ -81,7 +77,7 @@ public class AtlantisPortalBlock extends Block implements EntityBlock {
                 }
                 worldIn.setBlock(pos, this.asBlock().defaultBlockState(), 2);
             } else {
-                player.displayClientMessage(new TranslatableComponent("NO PASSING THE GATES OF ATLANTIS!!!"), true);
+                player.displayClientMessage(Component.translatable("NO PASSING THE GATES OF ATLANTIS!!!"), true);
                 return InteractionResult.FAIL;
             }
         } else {
@@ -98,7 +94,7 @@ public class AtlantisPortalBlock extends Block implements EntityBlock {
                     if (dataStorage.getDestination() != null) {
                         Vec3 vector3d = new Vec3(dataStorage.getDestination().getX(), dataStorage.getDestination().getY(), dataStorage.getDestination().getZ());
                         sendPlayerToDimension((ServerPlayer) player, overWorld, vector3d);
-                        player.displayClientMessage(new TranslatableComponent("We Hope You Enjoyed Atlantis, Come Back Soon!"), true);
+                        player.displayClientMessage(Component.translatable("We Hope You Enjoyed Atlantis, Come Back Soon!"), true);
                         return InteractionResult.SUCCESS;
                     }
 
@@ -110,7 +106,7 @@ public class AtlantisPortalBlock extends Block implements EntityBlock {
                                     overWorldPos = mutableBlockPos.offset(0, 1, 0);
                                     dataStorage.setDestination(overWorldPos);
                                     sendPlayerToDimension((ServerPlayer) player, overWorld, new Vec3(overWorldPos.getX(), overWorldPos.getY(), overWorldPos.getZ()));
-                                    player.displayClientMessage(new TranslatableComponent("We Hope You Enjoyed Atlantis, Come Back Soon!"), true);
+                                    player.displayClientMessage(Component.translatable("We Hope You Enjoyed Atlantis, Come Back Soon!"), true);
                                     return InteractionResult.SUCCESS;
                                 } else {
                                     overWorld.setBlock(pos, this.asBlock().defaultBlockState(), 2);
@@ -118,7 +114,7 @@ public class AtlantisPortalBlock extends Block implements EntityBlock {
                                         overWorldPos = mutableBlockPos.offset(0, 1, 0);
                                         dataStorage.setDestination(overWorldPos);
                                         sendPlayerToDimension((ServerPlayer) player, overWorld, new Vec3(overWorldPos.getX(), overWorldPos.getY(), overWorldPos.getZ()));
-                                        player.displayClientMessage(new TranslatableComponent("We Hope You Enjoyed Atlantis, Come Back Soon!"), true);
+                                        player.displayClientMessage(Component.translatable("We Hope You Enjoyed Atlantis, Come Back Soon!"), true);
                                         return InteractionResult.SUCCESS;
                                     }
                                 }
@@ -127,12 +123,12 @@ public class AtlantisPortalBlock extends Block implements EntityBlock {
                     }
                     worldIn.setBlock(pos, this.asBlock().defaultBlockState(), 2);
                 } else {
-                    player.displayClientMessage(new TranslatableComponent("NO PASSING THE GATES OF ATLANTIS!!!"), true);
+                    player.displayClientMessage(Component.translatable("NO PASSING THE GATES OF ATLANTIS!!!"), true);
                     return InteractionResult.FAIL;
                 }
             }
         }
-        player.displayClientMessage(new TranslatableComponent("NO PASSING THE GATES OF ATLANTIS!!!"), true);
+        player.displayClientMessage(Component.translatable("NO PASSING THE GATES OF ATLANTIS!!!"), true);
         return InteractionResult.PASS;
     }
 

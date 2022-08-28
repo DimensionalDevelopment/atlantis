@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -142,7 +143,7 @@ public class AtlanteanFenceGate extends FenceGateBlock implements SimpleWaterlog
                 arg2.setBlock(arg3, arg.setValue(POWERED, bl2).setValue(OPEN, bl2), 2);
                 if (arg.getValue(OPEN) != bl2) {
                     arg2.levelEvent(null, bl2 ? 1008 : 1014, arg3, 0);
-                    arg2.gameEvent(bl2 ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, arg3);
+                    arg2.gameEvent(null, bl2 ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, arg3);
                 }
             }
 

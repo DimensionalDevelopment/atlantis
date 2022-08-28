@@ -67,7 +67,7 @@ public class ShrimpEntity extends AbstractSchoolingFish implements IAnimatable, 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (player.getItemInHand(hand).getItem() == Items.SEAGRASS) {
             if (player instanceof ServerPlayer) {
-                this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
+                this.gameEvent(GameEvent.ENTITY_INTERACT, this);
                 createChild((ServerLevel) player.getCommandSenderWorld());
                 if (!player.getAbilities().instabuild) {
                     player.getItemInHand(hand).shrink(1);

@@ -3,6 +3,7 @@ package com.mystic.atlantis.init;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -35,7 +36,7 @@ public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements Liq
     }
 
     @Override
-    public void randomTick(BlockState blockState, ServerLevel level, BlockPos blockPos, Random random) {
+    public void randomTick(BlockState blockState, ServerLevel level, BlockPos blockPos, RandomSource random) {
         Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
         BlockPos blockpos = blockPos.relative(direction);
         if(level.getBlockState(blockpos.offset(direction.getOpposite().getNormal().multiply(2))) == Blocks.WATER.defaultBlockState()) {

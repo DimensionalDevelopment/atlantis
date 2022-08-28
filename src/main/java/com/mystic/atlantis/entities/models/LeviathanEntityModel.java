@@ -8,17 +8,17 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class LeviathanEntityModel extends AnimatedGeoModel<LeviathanEntity> {
     @Override
-    public ResourceLocation getModelLocation(LeviathanEntity object) {
+    public ResourceLocation getModelResource(LeviathanEntity object) {
         return Atlantis.id("geo/leviathan.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(LeviathanEntity entity) {
+    public ResourceLocation getTextureResource(LeviathanEntity entity) {
         return Atlantis.id("textures/entity/leviathan.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(LeviathanEntity animatable) {
+    public ResourceLocation getAnimationResource(LeviathanEntity animatable) {
         return Atlantis.id("animations/leviathan.animation.json");
     }
 }

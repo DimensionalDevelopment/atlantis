@@ -1,9 +1,7 @@
 package com.mystic.atlantis.blocks;
 
-import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -12,8 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -28,14 +25,11 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -44,8 +38,6 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ToolActions;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import static com.mystic.atlantis.blocks.AtlanteanWoodDoors.WATERLOGGED;
@@ -71,7 +63,7 @@ public class AtlanteanFireMelonFruitSpiked extends HorizontalDirectionalBlock im
     }
 
     @Override
-    public void randomTick(BlockState blockState, ServerLevel level, BlockPos blockPos, Random random) {
+    public void randomTick(BlockState blockState, ServerLevel level, BlockPos blockPos, RandomSource random) {
         int i = blockState.getValue(AGE);
         if (i < 4 && ForgeHooks.onCropsGrowPre(level, blockPos, blockState, level.random.nextInt(4) == 0)) {
             level.setBlock(blockPos, blockState.setValue(AGE, i + 1), 4);
@@ -152,12 +144,12 @@ public class AtlanteanFireMelonFruitSpiked extends HorizontalDirectionalBlock im
     }
 
     @Override
-    public boolean isBonemealSuccess(Level arg, Random random, BlockPos arg2, BlockState arg3) {
+    public boolean isBonemealSuccess(Level arg, RandomSource random, BlockPos arg2, BlockState arg3) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel arg, Random random, BlockPos arg2, BlockState arg3) {
+    public void performBonemeal(ServerLevel arg, RandomSource random, BlockPos arg2, BlockState arg3) {
         arg.setBlock(arg2, arg3.setValue(AGE, arg3.getValue(AGE) + 1), 2);
     }
 

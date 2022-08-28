@@ -9,6 +9,7 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -51,7 +52,7 @@ public class AtlanteanPowerLever extends LeverBlock implements SimpleWaterlogged
             blockState = this.pull(state, world, pos);
             float f = blockState.getValue(POWERED) ? 0.6F : 0.5F;
             world.playSound(null, pos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.3F, f);
-            world.gameEvent(player, blockState.getValue(POWERED) ? GameEvent.BLOCK_SWITCH : GameEvent.BLOCK_UNSWITCH, pos);
+            world.gameEvent(player, blockState.getValue(POWERED).booleanValue() ? GameEvent.BLOCK_ACTIVATE : GameEvent.BLOCK_DEACTIVATE, pos);
             return InteractionResult.CONSUME;
         }
     }
@@ -71,7 +72,7 @@ public class AtlanteanPowerLever extends LeverBlock implements SimpleWaterlogged
     }
 
     @Override
-    public void animateTick(BlockState state, Level world, BlockPos pos, Random random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         if (state.getValue(POWERED) && random.nextFloat() < 0.25F) {
             makeParticle(state, world, pos, 0.5F);
         }

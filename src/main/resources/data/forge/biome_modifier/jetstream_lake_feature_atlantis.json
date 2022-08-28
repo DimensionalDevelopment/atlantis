@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_features",
+  "biomes": [
+    "atlantis:atlantean_garden",
+    "atlantis:atlantean_islands_biome",
+    "atlantis:atlantis_biome",
+    "atlantis:jellyfish_fields"
+  ],
+  "features": "atlantis:jetstream_lake_feature_atlantis",
+  "step": "lakes"
+}

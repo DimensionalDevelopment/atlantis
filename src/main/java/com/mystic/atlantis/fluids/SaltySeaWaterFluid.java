@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 
 public class SaltySeaWaterFluid extends FlowingFluid{
@@ -24,7 +24,7 @@ public class SaltySeaWaterFluid extends FlowingFluid{
      * @return whether the given fluid an instance of this fluid
      */
     @Override
-    public boolean isSame(Fluid fluid) {
+    public boolean isSame(@NotNull Fluid fluid) {
         return fluid == getSource() || fluid == getFlowing();
     }
 
@@ -55,12 +55,6 @@ public class SaltySeaWaterFluid extends FlowingFluid{
     @Override
     protected boolean canBeReplacedWith(FluidState fluidState, BlockGetter blockView, BlockPos blockPos, Fluid fluid, Direction direction) {
         return false;
-    }
-
-    @Override
-    protected @NotNull FluidAttributes createAttributes() {
-        return  FluidAttributes.Water.builder(FluidInit.FLUID_STILL_TEXTURE, FluidInit.FLUID_FLOWING_TEXTURE).overlay(FluidInit.FLUID_OVERLAY_TEXTURE).viscosity(1).color(0x110a60)
-            .build(FluidInit.FLOWING_SALTY_SEA_WATER.get());
     }
 
     /**
@@ -119,6 +113,11 @@ public class SaltySeaWaterFluid extends FlowingFluid{
     @Override
     protected BlockState createLegacyBlock(FluidState fluidState) {
         return FluidInit.SALTY_SEA_WATER.get().defaultBlockState().setValue(BlockStateProperties.LEVEL, getLegacyLevel(fluidState));
+    }
+
+    @Override
+    public @NotNull FluidType getFluidType() {
+        return new FluidType(FluidType.Properties.create().canSwim(true).canDrown(true));
     }
 
     @Override

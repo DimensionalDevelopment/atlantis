@@ -14,6 +14,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -54,7 +55,7 @@ public class AtlanteanPowerDust extends RedStoneWireBlock implements SimpleWater
     });
 
     @Override
-    public void animateTick(BlockState state, Level world, BlockPos pos, Random random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         int i = state.getValue(POWER);
         if (i != 0) {
 
@@ -62,13 +63,13 @@ public class AtlanteanPowerDust extends RedStoneWireBlock implements SimpleWater
                 RedstoneSide wireConnection = state.getValue(PROPERTY_BY_DIRECTION.get(direction));
                 switch (wireConnection) {
                     case UP:
-                        this.spawnParticlesAlongLine(world, random, pos, COLOR[i], direction, Direction.UP, -0.5F, 0.5F);
+                        this.spawnParticlesAlongLine(world, (Random) random, pos, COLOR[i], direction, Direction.UP, -0.5F, 0.5F);
                     case SIDE:
-                        this.spawnParticlesAlongLine(world, random, pos, COLOR[i], Direction.DOWN, direction, 0.0F, 0.5F);
+                        this.spawnParticlesAlongLine(world, (Random) random, pos, COLOR[i], Direction.DOWN, direction, 0.0F, 0.5F);
                         break;
                     case NONE:
                     default:
-                        this.spawnParticlesAlongLine(world, random, pos, COLOR[i], Direction.DOWN, direction, 0.0F, 0.3F);
+                        this.spawnParticlesAlongLine(world, (Random) random, pos, COLOR[i], Direction.DOWN, direction, 0.0F, 0.3F);
                 }
             }
 

@@ -105,7 +105,7 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
 
         AnimationEvent<ShrimpEntity> predicate = new AnimationEvent<>(entity, limbSwing, lastLimbDistance, partialTicks,
                 !(lastLimbDistance > -0.15F && lastLimbDistance < 0.15F), Collections.singletonList(entityModelData));
-        GeoModel model = getGeoModelProvider().getModel(getGeoModelProvider().getModelLocation(entity));
+        GeoModel model = getGeoModelProvider().getModel(getGeoModelProvider().getModelResource(entity));
         if (getGeoModelProvider() instanceof IAnimatableModel) {
             ((IAnimatableModel<ShrimpEntity>) getGeoModelProvider()).setLivingAnimations(entity, this.getUniqueID(entity), predicate);
         }

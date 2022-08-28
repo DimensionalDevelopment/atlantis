@@ -51,11 +51,6 @@ public class AtlantisFeature {
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> UNDERWATER_MUSHROOM_ATLANTIS = register(
             "underwater_mushroom_atlantis",()-> new UnderwaterMushroomAtlantis(NoneFeatureConfiguration.CODEC));
 
-    public static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> registerTree(String name, ConfiguredFeature<FC, ?> feature) {
-        return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(Reference.MODID, name),
-                feature);
-    }
-
     public static <T extends FeatureConfiguration> RegistryObject<Feature<T>> register(String id, Supplier<Feature<T>> t) {
         return FEATURES.register(id, t);
     }
@@ -68,12 +63,12 @@ public class AtlantisFeature {
         public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> ATLANTEAN_ISLANDS_FEATURE_ATLANTIS = FeatureUtils.register("atlantean_islands_feature_atlantis", AtlantisFeature.ATLANTEAN_ISLANDS.get());
         public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> ATLANTEAN_VOLCANO_FEATURE_ATLANTIS = FeatureUtils.register("atlantean_volcano_feature_atlantis", AtlantisFeature.ATLANTEAN_VOLCANO.get());
         public static final Holder<ConfiguredFeature<LakeFeature.Configuration, ?>> JETSTREAM_LAKE_FEATURE_ATLANTIS = FeatureUtils.register("jetstream_lake", Feature.LAKE, new LakeFeature.Configuration(BlockStateProvider.simple(FluidInit.JETSTREAM_WATER.get().defaultBlockState()), BlockStateProvider.simple(Blocks.STONE.defaultBlockState())));
-        public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> ATLANTEAN_TREE = FeatureUtils.register("atlantean_tree", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
-                BlockStateProvider.simple(BlockInit.ATLANTEAN_LOGS.get()),
-                new StraightTrunkPlacer(5, 6, 3),
-                BlockStateProvider.simple(BlockInit.ATLANTEAN_LEAVES.get()),
-                new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 4),
-                new TwoLayersFeatureSize(1, 0, 2)).build());
+     //   public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> ATLANTEAN_TREE = FeatureUtils.register("atlantean_tree", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
+     //           BlockStateProvider.simple(BlockInit.ATLANTEAN_LOGS.get()),
+     //           new StraightTrunkPlacer(5, 6, 3),
+     //           BlockStateProvider.simple(BlockInit.ATLANTEAN_LEAVES.get()),
+     //           new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 4),
+     //           new TwoLayersFeatureSize(1, 0, 2)).build());
 
 //        public static final ResourceKey<PlacedFeature> GARDEN_FOLIAGE_PLACER_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "garden_foliage_placer_atlantis"));
 //        public static final ResourceKey<PlacedFeature> UNDERWATER_FLOWER_ATLANTIS_KEY = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Reference.MODID, "underwater_flower_atlantis"));
@@ -91,16 +86,17 @@ public class AtlantisFeature {
         public static final Holder<PlacedFeature> ATLANTEAN_ISLANDS_FEATURE_ATLANTIS_PLACED = PlacementUtils.register("atlantean_islands_feature_atlantis", ConfiguredFeaturesAtlantis.ATLANTEAN_ISLANDS_FEATURE_ATLANTIS, HeightRangePlacement.of(UniformHeight.of(VerticalAnchor.bottom(), VerticalAnchor.top())), InSquarePlacement.spread(), CountPlacement.of(45));
         public static final Holder<PlacedFeature> ATLANTEAN_VOLCANO_FEATURE_ATLANTIS_PLACED = PlacementUtils.register("atlantean_volcano_feature_atlantis", ConfiguredFeaturesAtlantis.ATLANTEAN_VOLCANO_FEATURE_ATLANTIS, HeightRangePlacement.of(UniformHeight.of(VerticalAnchor.bottom(), VerticalAnchor.top())), InSquarePlacement.spread(), CountPlacement.of(18));
         public static final Holder<PlacedFeature> JETSTREAM_LAKE_FEATURE_ATLANTIS_PLACED = PlacementUtils.register("jetstream_lake", ConfiguredFeaturesAtlantis.JETSTREAM_LAKE_FEATURE_ATLANTIS, (CountPlacement.of(10)));
-        public static final Holder<PlacedFeature> ATLANTEAN_TREE_PLACED = PlacementUtils.register("atlantean_tree", ConfiguredFeaturesAtlantis.ATLANTEAN_TREE);
+       // public static final Holder<PlacedFeature> ATLANTEAN_TREE_PLACED = PlacementUtils.register("atlantean_tree", ConfiguredFeaturesAtlantis.ATLANTEAN_TREE);
         
         public static void registerConfiguredFeatures() {
             register("garden_foliage_placer_atlantis", GARDEN_FOLIAGE_PLACER_ATLANTIS_PLACED.value());
             register("underwater_flower_atlantis", UNDERWATER_FLOWER_ATLANTIS_PLACED.value());
-            register("underwater_mushroom_atlantis", UNDERWATER_FLOWER_ATLANTIS_PLACED.value());
+            register("underwater_mushroom_atlantis", UNDERWATER_MUSHROOM_ATLANTIS_PLACED.value());
             register("shell_block_feature_atlantis", SHELL_BLOCK_FEATURE_ATLANTIS_PLACED.value());
             register("atlantean_islands_feature_atlantis", ATLANTEAN_ISLANDS_FEATURE_ATLANTIS_PLACED.value());
             register("atlantean_volcano_feature_atlantis", ATLANTEAN_VOLCANO_FEATURE_ATLANTIS_PLACED.value());
             register("jetstream_lake_feature_atlantis", JETSTREAM_LAKE_FEATURE_ATLANTIS_PLACED.value());
+            //register("atlantean_tree", ATLANTEAN_TREE_PLACED.value());
         }
 
         private static void register(String name, PlacedFeature feature) {

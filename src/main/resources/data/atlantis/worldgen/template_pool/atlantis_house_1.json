@@ -1,11 +1,11 @@
 {
-  "name": "atlantis:oyster_structure/start_pool",
+  "name": "atlantis:atlantis_house_1",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
-        "location": "atlantis:oyster_structure",
+        "location": "atlantis:atlantean_house_1",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

@@ -7,6 +7,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.IExtensibleEnum;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
@@ -20,7 +21,7 @@ public class AtlanteanBoatEntity extends Boat implements IAnimatable {
     }
 
     @Override
-    public Item getDropItem() {
+    public @NotNull Item getDropItem() {
         return ItemInit.ATLANTEAN_BOAT.get();
     }
 

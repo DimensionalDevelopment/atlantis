@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "atlantis:atlantean_islands_biome",
+  "features": "atlantis:atlantean_islands_feature_atlantis",
+  "step": "raw_generation"
+}

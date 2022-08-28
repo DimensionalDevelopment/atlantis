@@ -43,7 +43,6 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.layered() {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.18.2:2022.05.02@zip")
     }
     forge "net.minecraftforge:forge:${project.forge_version}"
 
@@ -51,11 +50,13 @@ dependencies {
 //    modImplementation 'software.bernie.geckolib:geckolib-fabric-1.18:3.0.32'
 //    modImplementation 'net.kyrptonaught:customportalapi:0.0.1-beta49-1.18'
 
-    modImplementation 'com.github.Mysticpasta1:customportalapi:ab40780bf3'
+    modImplementation 'com.github.Mysticpasta1:customportalapi:1.19.2-forge-SNAPSHOT'
 
-    modImplementation 'software.bernie.geckolib:geckolib-1.18-forge:3.0.12' //3.0.12 is 1.18.2
+    modImplementation 'software.bernie.geckolib:geckolib-forge-1.19:3.1.18'
 
-    modImplementation "curse.maven:cloth_config_forge-348521:3782776"
+    modImplementation "curse.maven:cloth_config_forge-348521:3906388"
+
+    modImplementation "curse.maven:cyanide_forge-541676:3832812"
 //    compileOnly "curse.maven:cloth_config_forge-348521:3546623"
 
 //    include 'net.kyrptonaught:customportalapi:0.0.1-beta49-1.18'

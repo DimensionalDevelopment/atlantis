@@ -1,15 +1,22 @@
-
 {
   "structures": [
     {
-      "structure": "atlantis:atlantean_house_3",
+      "structure": "atlantis:configured_atlantean_house_3",
       "weight": 1
     }
   ],
   "placement": {
+    "type": "minecraft:random_spread",
     "salt": 1639473921,
+    "frequency_reduction_method": "default",
+    "frequency": 0.5,
+    "locate_offset": [
+      0,
+      0,
+      0
+    ],
+    "spread_type": "linear",
     "spacing": 18,
-    "separation": 8,
-    "type": "minecraft:random_spread"
+    "separation": 8
   }
 }

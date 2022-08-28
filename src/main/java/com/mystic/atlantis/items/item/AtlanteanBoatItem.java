@@ -53,7 +53,7 @@ public class AtlanteanBoatItem extends Item {
                 }
 
                 user.awardStat(Stats.ITEM_USED.get(this));
-                world.gameEvent(GameEvent.ENTITY_PLACE, user);
+                world.gameEvent(user, GameEvent.ENTITY_PLACE, blockPos);
                 return InteractionResultHolder.consume(itemStack);
             } else {
                 return InteractionResultHolder.fail(itemStack);

@@ -71,9 +71,7 @@
     "liquid": []
   },
   "features": [
-    [
-      "atlantis:atlantean_tree"
-    ],
+    [],
     [
       "atlantis:configured_jetstream_lake_feature_atlantis"
     ],

@@ -24,6 +24,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashMap;
@@ -31,7 +32,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class ItemInit {
-    public static DeferredRegister<Item> ITEMS = DeferredRegister.create(Item.class, Reference.MODID);
+    public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MODID);
     private static Map<LinguisticGlyph, RegistryObject<Item>> scrolls = new HashMap<>();
 
     public static void init(IEventBus bus) {
@@ -67,8 +68,8 @@ public class ItemInit {
     public static final RegistryObject<Item> LEVIATHAN_EGG = register("leviathan_egg", () -> new ForgeSpawnEggItem(AtlantisEntities.LEVIATHAN, 0x01ddddd, 0xaddedb, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
     //MUSIC DISC
-    public static final RegistryObject<Item> PANBEE = register("panbee", () -> new AtlantisMusicDisc(15, AtlantisSoundEvents.PANBEE, ATLANTIS_SETTINGS));
-    public static final RegistryObject<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new AtlantisMusicDisc(15, AtlantisSoundEvents.COLUMN, ATLANTIS_SETTINGS));
+    public static final RegistryObject<Item> PANBEE = register("panbee", () -> new AtlantisMusicDisc(15, AtlantisSoundEvents.PANBEE, ATLANTIS_SETTINGS, 10));
+    public static final RegistryObject<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new AtlantisMusicDisc(15, AtlantisSoundEvents.COLUMN, ATLANTIS_SETTINGS, 10));
 
     //ITEMS
     public static final RegistryObject<Item> FIRE_MELON_JELLY_BOTTLE = register("fire_melon_jelly_bottle", () -> new FireMelonJellyBottle(new Item.Properties()));

@@ -3,11 +3,11 @@
   "generator": {
     "type": "minecraft:noise",
     "forge:use_server_seed": true,
-    "seed": 123,
+    "seed": 0,
     "settings": "atlantis:atlantis",
     "biome_source": {
       "type": "minecraft:multi_noise",
-      "seed": 123,
+      "seed": 0,
       "biomes": [
         {
           "biome": "atlantis:atlantean_garden",

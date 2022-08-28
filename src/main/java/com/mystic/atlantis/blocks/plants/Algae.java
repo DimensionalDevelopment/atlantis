@@ -1,32 +1,19 @@
 package com.mystic.atlantis.blocks.plants;
 
 import com.google.common.collect.ImmutableMap;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.Tag;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.PipeBlock;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -38,7 +25,13 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
+import java.util.Random;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Algae extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty UP = PipeBlock.UP;
@@ -203,7 +196,7 @@ public class Algae extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, @NotNull RandomSource random) {
         if (worldIn.random.nextInt(4) == 0 && worldIn.hasChunkAt(pos)) { // Forge: check area to prevent loading unloaded chunks
             Direction direction = Direction.getRandom(random);
             BlockPos blockpos = pos.above();
@@ -271,7 +264,7 @@ public class Algae extends Block implements SimpleWaterloggedBlock {
                     boolean isWater = isWater(blockstate, blockpos1);
                     if (isWater || blockstate.is(this)) {
                         BlockState blockstate1 = isWater ? this.defaultBlockState() : blockstate;
-                        BlockState blockstate2 = this.func_196544_a(state, blockstate1, random);
+                        BlockState blockstate2 = this.func_196544_a(state, blockstate1, (Random) random);
                         if (blockstate1 != blockstate2 && this.isFacingCardinal(blockstate2)) {
                             worldIn.setBlock(blockpos1, blockstate2, 2);
                         }

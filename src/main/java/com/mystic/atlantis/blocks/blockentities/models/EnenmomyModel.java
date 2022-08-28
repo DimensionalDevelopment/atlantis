@@ -9,19 +9,19 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class EnenmomyModel extends AnimatedGeoModel<EnenmomyTileEntity>
 {
     @Override
-    public ResourceLocation getModelLocation(EnenmomyTileEntity object)
+    public ResourceLocation getModelResource(EnenmomyTileEntity object)
     {
         return new ResourceLocation(Reference.MODID, "geo/enenmomy.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EnenmomyTileEntity object)
+    public ResourceLocation getTextureResource(EnenmomyTileEntity object)
     {
         return new ResourceLocation(Reference.MODID, "textures/block/anenomy.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(EnenmomyTileEntity object)
+    public ResourceLocation getAnimationResource(EnenmomyTileEntity object)
     {
         return new ResourceLocation(GeckoLib.ModID, "animations/jackinthebox.animation.json");
     }

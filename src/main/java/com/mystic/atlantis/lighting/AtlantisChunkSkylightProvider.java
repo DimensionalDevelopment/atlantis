@@ -6,6 +6,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.QuartPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LightChunkGetter;
@@ -31,9 +32,10 @@ public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 					QuartPos.fromBlock(blockPos.getY()),
 					QuartPos.fromBlock(blockPos.getZ())
 			);
-
-			if(ACommonFEvents.map.containsKey(biome.value().getRegistryName())) {
-				return Math.min(ACommonFEvents.map.get(biome.value().getRegistryName()), propagatedLevel);
+			if(biome.unwrapKey().isPresent()) {
+				if (ACommonFEvents.map.containsKey(biome.unwrapKey().get().location())) {
+					return Math.min(ACommonFEvents.map.get(biome.unwrapKey().get().location()), propagatedLevel);
+				}
 			}
 		}
 		return propagatedLevel;

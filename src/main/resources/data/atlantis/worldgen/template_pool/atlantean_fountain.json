@@ -1,11 +1,11 @@
 {
-  "name": "atlantis:atlantean_house_1/start_pool",
+  "name": "atlantis:atlantean_fountain",
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 2,
+      "weight": 1,
       "element": {
-        "location": "atlantis:atlantean_house_1",
+        "location": "atlantis:atlantean_fountain",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

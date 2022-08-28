@@ -80,7 +80,7 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (player.getItemInHand(hand).getItem() == ItemInit.CRAB_LEGS.get()) {
             if (player instanceof ServerPlayer) {
-                this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
+                this.gameEvent(GameEvent.ENTITY_INTERACT, this);
                 createChild((ServerLevel) player.getCommandSenderWorld(), this);
                 if (!player.getAbilities().instabuild) {
                     player.getItemInHand(hand).shrink(1);

@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -37,7 +38,7 @@ public class AtlanteanPowerTorch extends RedstoneTorchBlock implements SimpleWat
     }
 
     @Override
-    public void animateTick(BlockState state, Level world, BlockPos pos, Random random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         if (state.getValue(LIT)) {
             double d = (double)pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * 0.2D;
             double e = (double)pos.getY() + 0.7D + (random.nextDouble() - 0.5D) * 0.2D;

@@ -6,7 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.Tag;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -24,9 +24,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import static com.mystic.atlantis.blocks.AtlanteanWoodDoors.WATERLOGGED;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_1;
@@ -116,12 +113,12 @@ public class AtlanteanFireMelonFruit extends HorizontalDirectionalBlock implemen
     }
 
     @Override
-    public boolean isBonemealSuccess(Level arg, Random random, BlockPos arg2, BlockState arg3) {
+    public boolean isBonemealSuccess(Level arg, RandomSource random, BlockPos arg2, BlockState arg3) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel arg, Random random, BlockPos arg2, BlockState arg3) {
+    public void performBonemeal(ServerLevel arg, RandomSource random, BlockPos arg2, BlockState arg3) {
         if(arg3.getValue(AGE) == 0) {
             arg.setBlock(arg2, BlockInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get().withPropertiesOf(arg3), 4);
         } else {

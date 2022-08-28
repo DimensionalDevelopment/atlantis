@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -42,6 +43,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.init.ItemInit;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -183,7 +185,7 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
                     if (!this.level.isClientSide && this.canFallInLove()) {
                         this.usePlayerItem(player, hand, Blocks.SEAGRASS.asItem().getDefaultInstance());
                         this.setInLove(player);
-                        this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
+                        this.gameEvent(GameEvent.ENTITY_INTERACT, this);
                         getBreedOffspring((ServerLevel) player.getCommandSenderWorld(), this);
                         if (!player.getAbilities().instabuild) {
                             player.getItemInHand(hand).shrink(1);
@@ -246,7 +248,7 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
         return factory;
     }
 
-    public static boolean canSpawn(EntityType<CrabEntity> crabEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, Random random) {
+    public static boolean canSpawn(EntityType<CrabEntity> crabEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
         return pos.getY() >= AtlantisConfig.INSTANCE.minCrabSpawnHeight.get() && AtlantisConfig.INSTANCE.maxCrabSpawnHeight.get() >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
     }
 }

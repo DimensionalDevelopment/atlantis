@@ -9,19 +9,19 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class UnderwaterShroomModel extends AnimatedGeoModel<UnderwaterShroomTileEntity>
 {
     @Override
-    public ResourceLocation getModelLocation(UnderwaterShroomTileEntity object)
+    public ResourceLocation getModelResource(UnderwaterShroomTileEntity object)
     {
         return new ResourceLocation(Reference.MODID, "geo/underwater_shroom.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(UnderwaterShroomTileEntity object)
+    public ResourceLocation getTextureResource(UnderwaterShroomTileEntity object)
     {
         return new ResourceLocation(Reference.MODID, "textures/block/underwater_shroom.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(UnderwaterShroomTileEntity object)
+    public ResourceLocation getAnimationResource(UnderwaterShroomTileEntity object)
     {
         return new ResourceLocation(GeckoLib.ModID, "animations/jackinthebox.animation.json");
     }

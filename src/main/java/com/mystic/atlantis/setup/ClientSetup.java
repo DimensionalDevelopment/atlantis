@@ -1,6 +1,8 @@
 package com.mystic.atlantis.setup;
 
 import com.google.common.collect.ArrayListMultimap;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Matrix4f;
 import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
 import com.mystic.atlantis.blocks.blockentities.renderers.*;
 import com.mystic.atlantis.dimension.AltantisSkyRenderer;
@@ -8,16 +10,17 @@ import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.entities.models.*;
 import com.mystic.atlantis.entities.renders.*;
-import com.mystic.atlantis.fluids.SaltySeaWaterFluid;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.particles.PushBubbleStreamParticle;
 import com.mystic.atlantis.util.Reference;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -29,12 +32,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.ICloudRenderHandler;
-import net.minecraftforge.client.ISkyRenderHandler;
-import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.DimensionSpecialEffectsManager;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -132,13 +133,18 @@ public class ClientSetup {
 
         DimensionSpecialEffects atlantis = new DimensionSpecialEffects(255.0F, true, DimensionSpecialEffects.SkyType.NORMAL, false, false) {
             @Override
-            public void setSkyRenderHandler(ISkyRenderHandler skyRenderHandler) {
-                super.setSkyRenderHandler(new AltantisSkyRenderer());
+            public boolean renderSky(@NotNull ClientLevel level, int ticks, float partialTick, @NotNull PoseStack poseStack, @NotNull Camera camera, @NotNull Matrix4f projectionMatrix, boolean isFoggy, @NotNull Runnable setupFog) {
+                return new AltantisSkyRenderer().renderSky(level, ticks, partialTick, poseStack, camera, projectionMatrix, isFoggy, setupFog);
             }
 
             @Override
-            public void setCloudRenderHandler(ICloudRenderHandler cloudRenderHandler) {
-                super.setCloudRenderHandler(null);
+            public boolean renderClouds(@NotNull ClientLevel level, int ticks, float partialTick, @NotNull PoseStack poseStack, double camX, double camY, double camZ, @NotNull Matrix4f projectionMatrix) {
+                return super.renderClouds(level, ticks, partialTick, poseStack, camX, camY, camZ, projectionMatrix);
+            }
+
+            @Override
+            public float getCloudHeight() {
+                return 400.0f;
             }
 
             @Override
@@ -166,7 +172,7 @@ public class ClientSetup {
         bus.registerEntityRenderer(AtlantisEntities.LEVIATHAN.get(), entityRenderDispatcher -> new LeviathanEntityRenderer(entityRenderDispatcher, new LeviathanEntityModel()));
     }
     @SubscribeEvent
-    public static void init(ParticleFactoryRegisterEvent bus) {
+    public static void init(RegisterParticleProvidersEvent bus) {
         Minecraft.getInstance().particleEngine.register(PUSH_BUBBLESTREAM.get(), PushBubbleStreamParticle.Factory::new);
     }
 
@@ -176,7 +182,7 @@ public class ClientSetup {
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public static void registerBlockColor(ColorHandlerEvent.Block event) {
+    public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
         ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.<DyeColor, Block>create();
 
         for(Map<DyeColor, RegistryObject<Block>> colorMap : dyedLinguistic.values()) {
@@ -229,7 +235,7 @@ public class ClientSetup {
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public static void registerItemColor(ColorHandlerEvent.Item event) {
+    public static void registerItemColor(RegisterColorHandlersEvent.Item event) {
         ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.<DyeColor, Block>create();
 
         for(Map<DyeColor, RegistryObject<Block>> colorMap : dyedLinguistic.values()) {

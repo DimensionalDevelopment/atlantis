@@ -1,20 +1,25 @@
 package com.mystic.atlantis.event;
 
+import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.EffectsInit;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
@@ -40,11 +45,11 @@ public class ACommonFEvents {
     public static void spikesEffectEvent(final LivingHurtEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
-            Random random = player.getRandom();
+            RandomSource random = player.getRandom();
             Entity entity = event.getSource().getEntity();
             if (player.hasEffect(EffectsInit.SPIKES.get())) {
                 if (player.isHurt()) {
-                    entity.hurt(DamageSource.thorns(player), (float) getDamage(3, random));
+                    entity.hurt(DamageSource.thorns(player), (float) getDamage(3, (Random) random));
                 }
             }
         }
@@ -68,6 +73,7 @@ public class ACommonFEvents {
         map = biomeLightingRegister.getBiomeMap();
     }
 
+
     public static class BiomeLightingRegister extends Event {
         Map<ResourceLocation, Integer> biomeMap = new HashMap<>();
 
@@ -85,9 +91,9 @@ public class ACommonFEvents {
     @SubscribeEvent
     public static void onPlayerLoginEvent(PlayerEvent.PlayerLoggedInEvent event) {
         if (AtlantisConfig.INSTANCE.startInAtlantis.get()) {
-            if (event.getPlayer().getServer() != null) {
-                ServerLevel atlantisLevel = event.getPlayer().getServer().getLevel(DimensionAtlantis.ATLANTIS_WORLD);
-                CompoundTag tag = event.getPlayer().getPersistentData();
+            if (event.getEntity().getServer() != null) {
+                ServerLevel atlantisLevel = event.getEntity().getServer().getLevel(DimensionAtlantis.ATLANTIS_WORLD);
+                CompoundTag tag = event.getEntity().getPersistentData();
                 CompoundTag persistedTag = tag.getCompound(Player.PERSISTED_NBT_TAG);
                 if (DimensionAtlantis.ATLANTIS_WORLD != null) {
                     boolean isFirstTimeSpawning = !persistedTag.getBoolean(NOT_FIRST_SPAWN_NBT);
@@ -95,7 +101,7 @@ public class ACommonFEvents {
                         if (atlantisLevel != null) {
                             persistedTag.putBoolean(NOT_FIRST_SPAWN_NBT, true);
                             tag.put(Player.PERSISTED_NBT_TAG, persistedTag);
-                            if (event.getPlayer() instanceof ServerPlayer serverPlayer) {
+                            if (event.getEntity() instanceof ServerPlayer serverPlayer) {
                                 sendPlayerToDimension(serverPlayer, atlantisLevel, new Vec3(atlantisLevel.getLevel().getLevelData().getXSpawn(), 100, atlantisLevel.getLevel().getLevelData().getZSpawn()));
                             }
                         }
@@ -107,7 +113,7 @@ public class ACommonFEvents {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onPlayerRespawnEvent(PlayerEvent.PlayerRespawnEvent event) {
-        LivingEntity livingEntity = event.getEntityLiving();
+        LivingEntity livingEntity = event.getEntity();
         if (livingEntity instanceof ServerPlayer serverPlayer) {
             ServerLevel serverLevel = serverPlayer.getLevel();
             if (DimensionAtlantis.ATLANTIS_DIMENSION != null) {
@@ -128,7 +134,7 @@ public class ACommonFEvents {
 
     @SubscribeEvent
     public static void onDeathEvent(LivingDeathEvent event) {
-        previousDimension = event.getEntityLiving().getLevel().dimension();
+        previousDimension = event.getEntity().getLevel().dimension();
     }
 
 

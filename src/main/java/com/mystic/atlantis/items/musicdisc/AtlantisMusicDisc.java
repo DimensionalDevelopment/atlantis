@@ -7,7 +7,7 @@ import net.minecraft.world.item.RecordItem;
 import java.util.function.Supplier;
 
 public class AtlantisMusicDisc extends RecordItem {
-    public AtlantisMusicDisc(int comparatorOutput, Supplier<SoundEvent> sound, Item.Properties settings){
-        super(comparatorOutput, sound, settings);
+    public AtlantisMusicDisc(int comparatorValue, Supplier<SoundEvent> soundSupplier, Properties builder, int lengthInTicks) {
+        super(comparatorValue, soundSupplier, builder, lengthInTicks);
     }
 }

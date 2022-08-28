@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.mystic.atlantis.entities.SubmarineEntity;
 import com.mystic.atlantis.entities.models.SubmarineEntityModel;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.core.IAnimatableModel;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.geo.render.built.GeoModel;
@@ -35,7 +36,7 @@ public class SubmarineEntityRenderer extends EntityRenderer<SubmarineEntity> imp
     @Override
     public void render(SubmarineEntity entityIn, float entity, float yaw, PoseStack tickDelta,
                        MultiBufferSource matrices, int vertexConsumers) {
-        GeoModel model = modelProvider.getModel(modelProvider.getModelLocation(entityIn));
+        GeoModel model = modelProvider.getModel(modelProvider.getModelResource(entityIn));
         tickDelta.pushPose();
         tickDelta.mulPose(Vector3f.YP
                 .rotationDegrees(-Mth.lerp(yaw, entityIn.yRotO, entityIn.getYRot())));
@@ -75,7 +76,7 @@ public class SubmarineEntityRenderer extends EntityRenderer<SubmarineEntity> imp
     }
 
     @Override
-    public ResourceLocation getTextureLocation(SubmarineEntity instance) {
-        return this.modelProvider.getTextureLocation(instance);
+    public @NotNull ResourceLocation getTextureLocation(@NotNull SubmarineEntity instance) {
+        return this.modelProvider.getTextureResource(instance);
     }
 }

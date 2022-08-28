@@ -6,6 +6,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
@@ -16,7 +17,7 @@ public class EffectsInit {
         MOB_EFFECTS.register(bus);
     }
 
-    private static DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(MobEffect.class, Reference.MODID);
+    private static DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Reference.MODID);
 
     private static RegistryObject<MobEffect> registerEffects(String name, Supplier<MobEffect> mobEffect) {
         var reg = MOB_EFFECTS.register(name, mobEffect);

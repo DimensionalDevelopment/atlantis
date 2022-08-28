@@ -13,7 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class TileRegistry {
         private static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister
-                .create(ForgeRegistries.BLOCK_ENTITIES, Reference.MODID);
+                .create(ForgeRegistries.BLOCK_ENTITY_TYPES, Reference.MODID);
 
         public static void init(IEventBus bus) {
                 TILES.register(bus);

@@ -5,7 +5,7 @@ import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
 import com.mystic.atlantis.capiablities.player.IPlayerCap;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
-import com.mystic.atlantis.data.AtlantisModifer;
+import com.mystic.atlantis.data.AtlantisModifier;
 import com.mystic.atlantis.datagen.Providers;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
@@ -31,10 +31,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.client.ConfigGuiHandler.ConfigGuiFactory;
+import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModContainer;
@@ -72,16 +70,11 @@ public class Atlantis {
     }
 
     @SubscribeEvent
-    public static void registerModifierSerializers(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
-        event.getRegistry().register(new AtlantisModifer.Serializer().setRegistryName(new ResourceLocation("atlantis:seeds_drop")));
-    }
-
-    @SubscribeEvent
     public void loadCompleted(FMLLoadCompleteEvent event) {
         ModContainer createContainer = ModList.get()
                 .getModContainerById(Reference.MODID)
                 .orElseThrow(() -> new IllegalStateException("Create Mod Container missing after loadCompleted"));
-        createContainer.registerExtensionPoint(ConfigGuiFactory.class, () -> new ConfigGuiFactory((mc, previousScreen) -> AutoConfig.getConfigScreen(AtlantisConfig.class, previousScreen).get()));
+        createContainer.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((mc, previousScreen) -> AutoConfig.getConfigScreen(AtlantisConfig.class, previousScreen).get()));
     }
 
     public static ResourceLocation id(String id) {
@@ -97,6 +90,7 @@ public class Atlantis {
     public void onInitialize(IEventBus bus) {
         BlockInit.init(bus);
         ItemInit.init(bus);
+        AtlantisModifier.init(bus);
         GeckoLib.initialize();
         GeckoLibMod.DISABLE_IN_DEV = true;
         TileRegistry.init(bus);
@@ -134,7 +128,7 @@ public class Atlantis {
         GeckoLibMod.DISABLE_IN_DEV = true;
         event.enqueueWork(() -> {
             DimensionAtlantis.registerBiomeSources();
-            // AtlantisFeature.ConfiguredFeaturesAtlantis.registerConfiguredFeatures();
+            AtlantisFeature.ConfiguredFeaturesAtlantis.registerConfiguredFeatures();
         });
 
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get());

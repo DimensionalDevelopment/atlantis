@@ -9,19 +9,19 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class BurntDeepModel extends AnimatedGeoModel<BurntDeepTileEntity>
 {
     @Override
-    public ResourceLocation getModelLocation(BurntDeepTileEntity object)
+    public ResourceLocation getModelResource(BurntDeepTileEntity object)
     {
         return new ResourceLocation(Reference.MODID, "geo/flower_1.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(BurntDeepTileEntity object)
+    public ResourceLocation getTextureResource(BurntDeepTileEntity object)
     {
         return new ResourceLocation(Reference.MODID, "textures/block/burnt_deep.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(BurntDeepTileEntity object)
+    public ResourceLocation getAnimationResource(BurntDeepTileEntity object)
     {
         return new ResourceLocation(GeckoLib.ModID, "animations/jackinthebox.animation.json");
     }

@@ -1,11 +1,11 @@
 {
-  "name": "atlantis:atlantean_fountain/start_pool",
+  "name": "atlantis:oyster_structure",
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 2,
+      "weight": 1,
       "element": {
-        "location": "atlantis:atlantean_fountain",
+        "location": "atlantis:oyster_structure",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

@@ -8,9 +8,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.ISkyRenderHandler;
+import net.minecraftforge.client.extensions.IForgeDimensionSpecialEffects;
 
-public class AltantisSkyRenderer implements ISkyRenderHandler {
+public class AltantisSkyRenderer implements IForgeDimensionSpecialEffects {
 
 
     private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("atlantis:textures/environment/atlantis/sun.png");

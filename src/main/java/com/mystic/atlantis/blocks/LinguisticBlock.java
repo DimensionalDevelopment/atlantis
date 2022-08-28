@@ -3,7 +3,6 @@ package com.mystic.atlantis.blocks;
 import com.mystic.atlantis.inventory.LinguisticMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -11,7 +10,6 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.LoomMenu;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -22,7 +20,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class LinguisticBlock extends HorizontalDirectionalBlock {
-    private static final Component CONTAINER_TITLE = new TranslatableComponent("container.linguistic");
+    private static final Component CONTAINER_TITLE = Component.translatable("container.linguistic");
 
     public LinguisticBlock(BlockBehaviour.Properties arg) {
         super(arg);

@@ -117,16 +117,16 @@ public class AtlanteanTripwireHook extends TripWireHookBlock implements SimpleWa
     private void playSound(Level world, BlockPos pos, boolean attached, boolean on, boolean detached, boolean off) {
         if (on && !off) {
             world.playSound(null, pos, SoundEvents.TRIPWIRE_CLICK_ON, SoundSource.BLOCKS, 0.4F, 0.6F);
-            world.gameEvent(GameEvent.BLOCK_PRESS, pos);
+            world.gameEvent(null, GameEvent.BLOCK_ACTIVATE, pos);
         } else if (!on && off) {
             world.playSound(null, pos, SoundEvents.TRIPWIRE_CLICK_OFF, SoundSource.BLOCKS, 0.4F, 0.5F);
-            world.gameEvent(GameEvent.BLOCK_UNPRESS, pos);
+            world.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, pos);
         } else if (attached && !detached) {
             world.playSound(null, pos, SoundEvents.TRIPWIRE_ATTACH, SoundSource.BLOCKS, 0.4F, 0.7F);
-            world.gameEvent(GameEvent.BLOCK_ATTACH, pos);
+            world.gameEvent(null, GameEvent.BLOCK_ATTACH, pos);
         } else if (!attached && detached) {
             world.playSound(null, pos, SoundEvents.TRIPWIRE_DETACH, SoundSource.BLOCKS, 0.4F, 1.2F / (world.random.nextFloat() * 0.2F + 0.9F));
-            world.gameEvent(GameEvent.BLOCK_DETACH, pos);
+            world.gameEvent(null, GameEvent.BLOCK_DETACH, pos);
         }
     }
 

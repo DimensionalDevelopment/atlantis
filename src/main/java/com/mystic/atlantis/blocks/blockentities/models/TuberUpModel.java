@@ -9,19 +9,19 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class TuberUpModel extends AnimatedGeoModel<TuberUpTileEntity>
 {
     @Override
-    public ResourceLocation getModelLocation(TuberUpTileEntity object)
+    public ResourceLocation getModelResource(TuberUpTileEntity object)
     {
         return new ResourceLocation(Reference.MODID, "geo/tall_flower.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(TuberUpTileEntity object)
+    public ResourceLocation getTextureResource(TuberUpTileEntity object)
     {
         return new ResourceLocation(Reference.MODID, "textures/block/tuber_up.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(TuberUpTileEntity object)
+    public ResourceLocation getAnimationResource(TuberUpTileEntity object)
     {
         return new ResourceLocation(GeckoLib.ModID, "animations/jackinthebox.animation.json");
     }

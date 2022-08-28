@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.vehicle.Boat;
+import org.jetbrains.annotations.NotNull;
 
 public class AtlanteanBoatRenderer extends EntityRenderer<AtlanteanBoatEntity> {
 
@@ -65,7 +66,7 @@ public class AtlanteanBoatRenderer extends EntityRenderer<AtlanteanBoatEntity> {
      * Returns the location of an entity's texture.
      */
     @Deprecated // forge: override getModelWithLocation to change the texture / model
-    public ResourceLocation getTextureLocation(AtlanteanBoatEntity pEntity) {
+    public @NotNull ResourceLocation getTextureLocation(AtlanteanBoatEntity pEntity) {
         return new ResourceLocation(Reference.MODID, "textures/entity/boat/atlantean.png");
     }
 

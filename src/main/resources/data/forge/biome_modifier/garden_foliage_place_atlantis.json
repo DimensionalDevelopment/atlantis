@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "atlantis:atlantean_garden",
+  "features": "atlantis:garden_foliage_placer_atlantis",
+  "step": "vegetal_decoration"
+}

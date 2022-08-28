@@ -44,7 +44,7 @@ public class AtlantisBiomeSource extends BiomeSource {
 
     public AtlantisBiomeSource(Registry<Biome> biomeRegistry, int biomeSize, long seed) {
         super(biomeRegistry.getResourceKey(Objects.requireNonNull(biomeRegistry.get(biomeRegistry.keySet().stream().reduce(
-                (resourceLocation, resourceLocation2) -> resourceLocation).orElse(Biomes.WARM_OCEAN.getRegistryName()))
+                (resourceLocation, resourceLocation2) -> resourceLocation).orElse(Biomes.WARM_OCEAN.registry()))
         )).stream().map(biomeRegistry::getHolderOrThrow));
         BIOME_REGISTRY = biomeRegistry;
         this.LAYERS_BIOME_REGISTRY = biomeRegistry;
@@ -59,11 +59,6 @@ public class AtlantisBiomeSource extends BiomeSource {
     @Override
     protected @NotNull Codec<? extends BiomeSource> codec() {
         return CODEC;
-    }
-
-    @Override
-    public @NotNull BiomeSource withSeed(long seed) {
-        return new AtlantisBiomeSource(BIOME_REGISTRY, biomeSize, seed);
     }
 
     @Override

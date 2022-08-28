@@ -7,17 +7,17 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class JellyfishEntityModel extends AnimatedGeoModel<JellyfishEntity> {
     @Override
-    public ResourceLocation getModelLocation(JellyfishEntity object) {
+    public ResourceLocation getModelResource(JellyfishEntity object) {
         return Atlantis.id("geo/jellyfish.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(JellyfishEntity entity) {
+    public ResourceLocation getTextureResource(JellyfishEntity entity) {
         return Atlantis.id("textures/entity/jellyfish.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(JellyfishEntity animatable) {
+    public ResourceLocation getAnimationResource(JellyfishEntity animatable) {
         return Atlantis.id("animations/jellyfish.animation.json");
     }
 }

@@ -1,15 +1,22 @@
-
 {
   "structures": [
     {
-      "structure": "atlantis:atlantis_tower",
+      "structure": "atlantis:configured_atlantean_tower",
       "weight": 1
     }
   ],
   "placement": {
+    "type": "minecraft:random_spread",
     "salt": 1857029430,
+    "frequency_reduction_method": "default",
+    "frequency": 0.5,
+    "locate_offset": [
+      0,
+      0,
+      0
+    ],
+    "spread_type": "linear",
     "spacing": 18,
-    "separation": 8,
-    "type": "minecraft:random_spread"
+    "separation": 8
   }
 }

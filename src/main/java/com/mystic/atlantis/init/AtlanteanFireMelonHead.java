@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -34,7 +35,7 @@ public class AtlanteanFireMelonHead extends GrowingPlantHeadBlock implements Liq
     }
 
     @Override
-    public void randomTick(BlockState arg, ServerLevel arg2, BlockPos arg3, Random random) {
+    public void randomTick(BlockState arg, ServerLevel arg2, BlockPos arg3, RandomSource random) {
         if (arg.getValue(AGE) < 8 && ForgeHooks.onCropsGrowPre(arg2, arg3.relative(this.growthDirection), arg2.getBlockState(arg3.relative(this.growthDirection)), random.nextDouble() < GROW_PER_TICK_PROBABILITY)) {
             BlockPos blockpos = arg3.relative(this.growthDirection);
             if (this.canGrowInto(arg2.getBlockState(blockpos))) {
@@ -80,7 +81,7 @@ public class AtlanteanFireMelonHead extends GrowingPlantHeadBlock implements Liq
     }
 
     @Override
-    protected int getBlocksToGrowWhenBonemealed(Random random) {
+    protected int getBlocksToGrowWhenBonemealed(RandomSource random) {
         return 1;
     }
 

@@ -21,6 +21,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashMap;
@@ -30,7 +31,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class BlockInit {
-    public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(Block.class, Reference.MODID);
+    public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MODID);
 
     public static void init(IEventBus bus) {
         BLOCKS.register(bus);

@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -35,6 +36,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.particles.ModParticleTypes;
+import org.jetbrains.annotations.NotNull;
 
 public class PushBubbleColumn extends Block implements BucketPickup {
     public static final DirectionProperty PUSH = BlockStateProperties.FACING;
@@ -42,7 +44,7 @@ public class PushBubbleColumn extends Block implements BucketPickup {
     private static final int SCHEDULED_TICK_DELAY = 1;
 
     public PushBubbleColumn(BlockBehaviour.Properties settings) {
-        super(settings.noCollission().noDrops());
+        super(settings.noCollission());
         this.registerDefaultState(this.stateDefinition.any().setValue(DECAY, 0));
     }
 
@@ -66,7 +68,7 @@ public class PushBubbleColumn extends Block implements BucketPickup {
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
+    public void tick(BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull RandomSource random) {
         update(world, pos, state.getValue(PUSH));
     }
 
@@ -102,7 +104,7 @@ public class PushBubbleColumn extends Block implements BucketPickup {
      }
 
     @Override
-    public FluidState getFluidState(BlockState state) {
+    public @NotNull FluidState getFluidState(@NotNull BlockState state) {
         return Fluids.WATER.getSource(false);
     }
 
@@ -165,7 +167,7 @@ public class PushBubbleColumn extends Block implements BucketPickup {
     }
 
     @Override
-    public void animateTick(BlockState state, Level world, BlockPos pos, Random random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         double x = pos.getX();
         double y = pos.getY();
         double z = pos.getZ();

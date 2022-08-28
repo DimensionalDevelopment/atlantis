@@ -7,17 +7,17 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class ShrimpEntityModel extends AnimatedGeoModel<ShrimpEntity> {
     @Override
-    public ResourceLocation getModelLocation(ShrimpEntity object) {
+    public ResourceLocation getModelResource(ShrimpEntity object) {
         return Atlantis.id("geo/shrimp.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ShrimpEntity entity) {
+    public ResourceLocation getTextureResource(ShrimpEntity entity) {
         return Atlantis.id("textures/entity/shrimp.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(ShrimpEntity animatable) {
+    public ResourceLocation getAnimationResource(ShrimpEntity animatable) {
         return Atlantis.id("animations/shrimp.animation.json");
     }
 }

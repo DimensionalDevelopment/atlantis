@@ -3,6 +3,7 @@ package com.mystic.atlantis.blocks;
 import java.util.Random;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -36,8 +37,7 @@ public class ColoredShellBlocks extends Block {
         return this.defaultBlockState().setValue(FACING, context.getClickedFace());
     }
 
-
-    public static Direction getGenerationDirection(Random rand) {
+    public static Direction getGenerationDirection(RandomSource rand) {
         return Util.getRandom(GENERATE_DIRECTIONS, rand);
     }
 

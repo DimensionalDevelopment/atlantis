@@ -1,10 +1,8 @@
 package com.mystic.atlantis.fluids;
 
 import com.mystic.atlantis.init.FluidInit;
-import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -17,8 +15,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 
 public class JetstreamWaterFluid extends FlowingFluid{
@@ -61,9 +58,8 @@ public class JetstreamWaterFluid extends FlowingFluid{
     }
 
     @Override
-    protected @NotNull FluidAttributes createAttributes() {
-        return  FluidAttributes.Water.builder(FluidInit.FLUID_STILL_TEXTURE, FluidInit.FLUID_FLOWING_TEXTURE).overlay(FluidInit.FLUID_OVERLAY_TEXTURE).viscosity(1000).color(0x52A9FF)
-            .build(FluidInit.FLOWING_JETSTREAM_WATER.get());
+    public @NotNull FluidType getFluidType() {
+        return new FluidType(FluidType.Properties.create().canSwim(true).canDrown(true));
     }
 
     /**

@@ -3,6 +3,7 @@ package com.mystic.atlantis.configfeature;
 import com.mojang.serialization.Codec;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,7 +22,7 @@ public class ShellBlockFeature extends Feature<NoneFeatureConfiguration> {
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> config) {
         WorldGenLevel reader = config.level();
-        Random rand = config.random();
+        RandomSource rand = config.random();
         BlockPos pos = config.origin();
 
         BlockState blockstate = switch (rand.nextInt(16)) {

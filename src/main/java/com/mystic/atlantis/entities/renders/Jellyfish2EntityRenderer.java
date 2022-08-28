@@ -102,7 +102,7 @@ public class Jellyfish2EntityRenderer extends GeoEntityRenderer<Jellyfish2Entity
 
         AnimationEvent<Jellyfish2Entity> predicate = new AnimationEvent<Jellyfish2Entity>(entity, limbSwing, lastLimbDistance, partialTicks,
                 !(lastLimbDistance > -0.15F && lastLimbDistance < 0.15F), Collections.singletonList(entityModelData));
-        GeoModel model = getGeoModelProvider().getModel(getGeoModelProvider().getModelLocation(entity));
+        GeoModel model = getGeoModelProvider().getModel(getGeoModelProvider().getModelResource(entity));
         if (getGeoModelProvider() instanceof IAnimatableModel) {
             ((IAnimatableModel<Jellyfish2Entity>) getGeoModelProvider()).setLivingAnimations(entity, this.getUniqueID(entity), predicate);
         }

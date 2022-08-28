@@ -5,9 +5,6 @@ import com.mystic.atlantis.blocks.LinguisticGlyph;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
-import net.minecraft.data.models.model.ModelLocationUtils;
-import net.minecraft.data.models.model.ModelTemplates;
-import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -22,8 +19,8 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -39,8 +36,8 @@ public class Providers {
 
     public static void dataGather(GatherDataEvent event) {
         if(event.includeServer()) {
-            event.getGenerator().addProvider(new AtlantisLootTables(event.getGenerator()));
-            event.getGenerator().addProvider(new RecipeProvider(event.getGenerator()) {
+            event.getGenerator().addProvider(true, new AtlantisLootTables(event.getGenerator()));
+            event.getGenerator().addProvider(true, new RecipeProvider(event.getGenerator()) {
                 @Override
                 protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
                     ShapelessRecipeBuilder.shapeless(ItemInit.LINGUISTIC_GLYPH_SCROLL.get(), 1).requires(Items.INK_SAC).requires(Items.PAPER).requires(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get()).unlockedBy("has_fire_melon_spike", RecipeProvider.has(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get())).save(consumer);
@@ -74,7 +71,7 @@ public class Providers {
                         writing(ingredient, ItemInit.getScroll(glyph).get())
 //                                .group("glyph_scroll")
                                 .unlockedBy("has_fire_melon_spike", RecipeProvider.has(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get()))
-                                .save(consumer, "atlantis:" + ItemInit.getScroll(glyph).get().getRegistryName().getPath() + "_writing");
+                                .save(consumer, "atlantis:" + ItemInit.getScroll(glyph).get().getName(ItemInit.getScroll(glyph).get().getDefaultInstance()).getString() + "_writing");
                     }
 
                     ShapelessRecipeBuilder.shapeless(ItemInit.ORICHALCUM_BLEND.get(), 3)
@@ -120,7 +117,7 @@ public class Providers {
         }
 
         if(event.includeClient()) {
-            event.getGenerator().addProvider(new BlockModelProvider(event.getGenerator(), "atlantis", event.getExistingFileHelper()) {
+            event.getGenerator().addProvider(true, new BlockModelProvider(event.getGenerator(), "atlantis", event.getExistingFileHelper()) {
                 @Override
                 protected void registerModels() {
                     this.cubeAll(BlockInit.ORICHALCUM_BLOCK);
@@ -137,7 +134,7 @@ public class Providers {
 
             });
 
-            event.getGenerator().addProvider(new BlockStateProvider(event.getGenerator(), "atlantis", event.getExistingFileHelper()) {
+            event.getGenerator().addProvider(true, new BlockStateProvider(event.getGenerator(), "atlantis", event.getExistingFileHelper()) {
                 @Override
                 protected void registerStatesAndModels() {
                     this.horizontalBlock(BlockInit.WRITING_BLOCK.get(), new ModelFile.ExistingModelFile(Atlantis.id("block/writing_block"), event.getExistingFileHelper()));
@@ -145,7 +142,7 @@ public class Providers {
                 }
             });
 
-            event.getGenerator().addProvider(new ItemModelProvider(event.getGenerator(), "atlantis", event.getExistingFileHelper()) {
+            event.getGenerator().addProvider(true, new ItemModelProvider(event.getGenerator(), "atlantis", event.getExistingFileHelper()) {
 
                 @Override
                 protected void registerModels() {
@@ -248,7 +245,7 @@ public class Providers {
 
 
             //TODO Convert lang to pure data gen in the future. This will complain about duplicates if run without removing the existing en_us.json first
-            event.getGenerator().addProvider(new LanguageProvider(event.getGenerator(), "atlantis", "en_us") {
+            event.getGenerator().addProvider(true, new LanguageProvider(event.getGenerator(), "atlantis", "en_us") {
                 @Override
                 protected void addTranslations() {
                     this.add(AtlantisGroup.MAIN, "Atlantis");
@@ -518,7 +515,7 @@ public class Providers {
                 }
             });
 
-            event.getGenerator().addProvider(new BlockTagsProvider(event.getGenerator(), "atlantis", event.getExistingFileHelper()) {
+            event.getGenerator().addProvider(true, new BlockTagsProvider(event.getGenerator(), "atlantis", event.getExistingFileHelper()) {
                 @Override
                 protected void addTags() {
                     tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.ORICHALCUM_BLOCK.get());

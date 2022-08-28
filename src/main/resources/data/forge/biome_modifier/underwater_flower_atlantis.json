@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_features",
+  "biomes": [
+    "atlantis:atlantean_garden",
+    "atlantis:jellyfish_fields",
+    "atlantis:atlantean_islands_biome",
+    "atlantis:atlantis_biome"
+    ],
+  "features": "atlantis:garden_flower_atlantis",
+  "step": "vegetal_decoration"
+}
