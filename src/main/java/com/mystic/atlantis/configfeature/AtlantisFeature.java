@@ -1,5 +1,6 @@
 package com.mystic.atlantis.configfeature;
 
+import com.mystic.atlantis.configfeature.ores.AtlantisPlacedFeatures;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.util.Reference;

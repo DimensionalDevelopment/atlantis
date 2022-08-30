@@ -36,6 +36,7 @@ repositories {
     maven {
         url = "https://maven.parchmentmc.org"
     }
+    maven { url 'https://maven.wispforest.io' }
 }
 
 dependencies {

@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "minecraft:ocean",
-  "features": "atlantis:aquamarine",
+  "biomes": "#minecraft:is_overworld",
+  "features": "atlantis:aquamarine_placed",
   "step": "underground_ores"
 }

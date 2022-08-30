@@ -1,10 +1,10 @@
 {
   "type": "minecraft:smithing",
-  "base": {
-    "item": "atlantis:aquamarine_leggings"
-  },
   "addition": {
     "item": "atlantis:orichalcum_ignot"
+  },
+  "base": {
+    "item": "atlantis:aquamarine_leggings"
   },
   "result": {
     "item": "atlantis:orichalcum_leggings"

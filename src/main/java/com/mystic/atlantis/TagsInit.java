@@ -2,6 +2,7 @@ package com.mystic.atlantis;
 
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -33,6 +34,8 @@ public class TagsInit {
                     BlockInit.ORICHALCUM_BLOCK.lazyMap(Block::asItem));
         }
 
-        public static void init() {}
+        public static void init() {
+
+        }
     }
 }

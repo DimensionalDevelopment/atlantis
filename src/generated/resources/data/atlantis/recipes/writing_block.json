@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "XXX",
-    "YZY",
-    "XXX"
-  ],
   "key": {
     "X": {
       "item": "atlantis:atlantean_fire_melon_spike"
@@ -16,6 +11,11 @@
       "item": "minecraft:crafting_table"
     }
   },
+  "pattern": [
+    "XXX",
+    "YZY",
+    "XXX"
+  ],
   "result": {
     "item": "atlantis:writing_block"
   }

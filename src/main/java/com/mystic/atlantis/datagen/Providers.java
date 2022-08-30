@@ -1,12 +1,14 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.TagsInit;
 import com.mystic.atlantis.blocks.LinguisticGlyph;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.*;
@@ -18,6 +20,7 @@ import net.minecraftforge.client.model.generators.BlockModelProvider;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.common.data.ForgeItemTagsProvider;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -515,11 +518,21 @@ public class Providers {
                 }
             });
 
-            event.getGenerator().addProvider(true, new BlockTagsProvider(event.getGenerator(), "atlantis", event.getExistingFileHelper()) {
+            BlockTagsProvider blockTagsProvider = new BlockTagsProvider(event.getGenerator(), "atlantis", event.getExistingFileHelper()) {
                 @Override
                 protected void addTags() {
                     tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.ORICHALCUM_BLOCK.get());
                     tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.ORICHALCUM_BLOCK.get());
+                }
+            };
+
+            event.getGenerator().addProvider(true, blockTagsProvider);
+
+            event.getGenerator().addProvider(true, new ItemTagsProvider(event.getGenerator(), blockTagsProvider,"atlantis", event.getExistingFileHelper()) {
+                @Override
+                public void addTags() {
+                    TagAppender<Item> tag = tag(TagsInit.Item.CAN_ITEM_SINK);
+                    TagsInit.Item.getItemsThatCanSink().forEach(itemSupplier -> (tag).add(itemSupplier.get()));
                 }
             });
         }

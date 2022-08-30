@@ -10,11 +10,6 @@
     "salt": 1239750231,
     "frequency_reduction_method": "default",
     "frequency": 0.5,
-    "locate_offset": [
-      0,
-      0,
-      0
-    ],
     "spread_type": "linear",
     "spacing": 18,
     "separation": 8

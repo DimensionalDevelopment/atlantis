@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "XYX",
-    "YZY",
-    "XYX"
-  ],
   "key": {
     "X": {
       "item": "atlantis:aquamarine_gem"
@@ -16,6 +11,11 @@
       "item": "minecraft:crafting_table"
     }
   },
+  "pattern": [
+    "XYX",
+    "YZY",
+    "XYX"
+  ],
   "result": {
     "item": "atlantis:linguistic_block"
   }

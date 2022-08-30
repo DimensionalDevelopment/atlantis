@@ -10,7 +10,7 @@
   ],
   "step": "surface_structures",
   "start_height": {
-    "absolute": 60
+    "absolute": 1
   },
   "project_start_to_heightmap": "OCEAN_FLOOR_WG",
   "spawn_overrides": {
@@ -25,6 +25,5 @@
         }
       ]
     }
-  },
-  "terrain_adaptation": "none"
+  }
 }

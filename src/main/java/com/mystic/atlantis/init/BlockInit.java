@@ -103,7 +103,11 @@ public class BlockInit {
     public static final RegistryObject<Block> ANCIENT_SPRUCE_WOOD_MOSS = registerBlock("ancient_spruce_wood_moss",()-> new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
     public static final RegistryObject<Block> ANCIENT_BIRCH_WOOD_MOSS = registerBlock("ancient_birch_wood_moss",()-> new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
     public static final RegistryObject<Block> ANCIENT_DARK_OAK_WOOD_MOSS = registerBlock("ancient_dark_oak_wood_moss",()-> new AncientWood(BlockBehaviour.Properties.of(Material.WOOD)));
-    public static final RegistryObject<Block> AQUAMARINE_ORE = registerBlock("aquamarine_ore",()-> new AquamarineOre(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> AQUAMARINE_ORE = registerBlock("aquamarine_ore",()-> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
+            .sound(SoundType.STONE)
+            .requiresCorrectToolForDrops()
+            .strength(3.0F, 15.0F)
+            .lightLevel((state) -> 2)));
     public static final RegistryObject<Block> OCEAN_LANTERN = registerBlock("ocean_lantern",()-> new OceanLantern(BlockBehaviour.Properties.of(Material.METAL)));
     public static final RegistryObject<Block> ATLANTIAN_SEA_LANTERN = registerBlock("atlantean_sea_lantern",()-> new AtlantianSeaLantern(BlockBehaviour.Properties.of(Material.GLASS)));
     public static final RegistryObject<Block> ATLANTEAN_CORE = registerBlock("atlantean_core",()-> new AtlanteanCore(BlockBehaviour.Properties.of(Material.GLASS)));
