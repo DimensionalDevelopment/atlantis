@@ -239,7 +239,7 @@ public class ClientSetup {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
-        ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.<DyeColor, Block>create();
+        ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.create();
 
         for(Map<DyeColor, RegistryObject<Block>> colorMap : dyedLinguistic.values()) {
             colorMap.forEach((k,v) -> map.put(k, v.get()));
