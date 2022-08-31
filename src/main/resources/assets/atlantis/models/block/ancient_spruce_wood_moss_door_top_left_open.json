@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_left_open",
+  "textures": {
+    "bottom": "atlantis:block/ancient_spruce_wood_moss_door_bottom",
+    "top": "atlantis:block/ancient_spruce_wood_moss_door_top"
+  }
+}

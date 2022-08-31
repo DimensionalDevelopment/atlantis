@@ -136,6 +136,14 @@ public class ItemInit {
     public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_8 = registerGlyph(LinguisticGlyph.EIGHT);
     public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_9 = registerGlyph(LinguisticGlyph.NINE);
 
+    //Fluid Buckets
+    public static final RegistryObject<Item> JETSTREAM_WATER_BUCKET = ITEMS.register("jetstream_water_bucket",
+            () -> new BucketItem(FluidInit.JETSTREAM_WATER,
+                    new Item.Properties().tab(AtlantisGroup.MAIN).craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final RegistryObject<Item> SALTY_SEA_WATER_BUCKET = ITEMS.register("salty_sea_water_bucket",
+            () -> new BucketItem(FluidInit.SALTY_SEA_WATER,
+                    new Item.Properties().tab(AtlantisGroup.MAIN).craftRemainder(Items.BUCKET).stacksTo(1)));
+
     //Entity Buckets
     public static final RegistryObject<Item> CRAB_BUCKET = register("crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntities.CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
     public static final RegistryObject<Item> JELLYFISH_BUCKET = register("jellyfish_bucket", ()->new JellyfishEntityBucketItem(AtlantisEntities.JELLYFISH, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));

@@ -14,7 +14,7 @@ public class AtlantisModifierSerializer {
     static DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIER_SERIALIZERS =
             DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, "atlantis");
 
-    static RegistryObject<Codec<AtlantisBiomeModifier>> ATLANTIS_SERIALIZED_CODEC = BIOME_MODIFIER_SERIALIZERS.register("example", () ->
+    static RegistryObject<Codec<AtlantisBiomeModifier>> ATLANTIS_SERIALIZED_CODEC = BIOME_MODIFIER_SERIALIZERS.register("atlantis", () ->
             RecordCodecBuilder.create(builder -> builder.group(
                     // declare fields
                     Biome.LIST_CODEC.fieldOf("biomes").forGetter(AtlantisBiomeModifier::biomes),

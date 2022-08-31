@@ -61,6 +61,7 @@ public class ACommonFEvents {
         event.register(AtlantisBiomeSource.JELLYFISH_FIELDS, 8);
         event.register(AtlantisBiomeSource.ATLANTEAN_ISLANDS, 3);
         event.register(AtlantisBiomeSource.ATLANTIS_BIOME, 3);
+        event.register(AtlantisBiomeSource.GOO_LAGOONS, 1);
         event.register(AtlantisBiomeSource.ATLANTEAN_GARDEN, 0);
     }
 

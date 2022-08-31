@@ -1,0 +1,38 @@
+{
+	"feature": {
+		"type": "atlantis:salty_sea_lake_feature_atlantis",
+		"config": {
+			"fluid": {
+				"type": "minecraft:simple_state_provider",
+				"state": {
+					"Name": "atlantis:salty_sea_water"
+				}
+			},
+			"barrier": {
+				"type": "minecraft:simple_state_provider",
+				"state": {
+					"Name": "minecraft:stone"
+				}
+			}
+		}
+	},
+	"placement": [
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "OCEAN_FLOOR_WG"
+		},
+		{
+			"type": "minecraft:count_on_every_layer",
+			"count": {
+				"type": "minecraft:biased_to_bottom",
+				"value": {
+					"min_inclusive": 0,
+					"max_inclusive": 30
+				}
+			}
+		},
+		{
+			"type": "minecraft:biome"
+		}
+	]
+}

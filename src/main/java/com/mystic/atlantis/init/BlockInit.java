@@ -37,6 +37,13 @@ public class BlockInit {
         BLOCKS.register(bus);
     }
 
+    //Fluid Blocks
+    public static final RegistryObject<LiquidBlock> JETSTREAM_WATER_BLOCK = BLOCKS.register("jetstream_water",
+            () -> new LiquidBlock(FluidInit.JETSTREAM_WATER, BlockBehaviour.Properties.copy(Blocks.WATER)));
+
+    public static final RegistryObject<LiquidBlock> SALTY_SEA_WATER_BLOCK = BLOCKS.register("salty_sea_water",
+            () -> new LiquidBlock(FluidInit.SALTY_SEA_WATER, BlockBehaviour.Properties.copy(Blocks.WATER)));
+
     //Atlantean Wood Type
     public static final WoodType ATLANTEAN = WoodType.register(WoodType.create("atlantean"));
 

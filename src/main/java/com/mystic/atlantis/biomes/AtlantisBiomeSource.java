@@ -37,6 +37,7 @@ public class AtlantisBiomeSource extends BiomeSource {
     public static final ResourceLocation JELLYFISH_FIELDS = new ResourceLocation(Reference.MODID, "jellyfish_fields");
     public static final ResourceLocation ATLANTEAN_ISLANDS = new ResourceLocation(Reference.MODID, "atlantean_islands_biome");
     public static final ResourceLocation VOLCANIC_DARKSEA = new ResourceLocation(Reference.MODID, "volcanic_darksea");
+    public static final ResourceLocation GOO_LAGOONS = new ResourceLocation(Reference.MODID, "goo_lagoons");
     public static Registry<Biome> BIOME_REGISTRY;
     public Registry<Biome> LAYERS_BIOME_REGISTRY;
     private long seed;
@@ -63,7 +64,9 @@ public class AtlantisBiomeSource extends BiomeSource {
 
     @Override
     public @NotNull Holder<Biome> getNoiseBiome(int x, int y, int z, Climate.Sampler noise) {
-        if ((int) noise.sample(x, y, z).temperature() > 0.40) {
+        if ((int) noise.sample(x, y, z).temperature() > 0.50) {
+            return getHolderBiome(AtlantisBiomeSource.GOO_LAGOONS);
+        } else if ((int) noise.sample(x, y, z).temperature() > 0.40 && (int) noise.sample(x, y, z).temperature() < 0.50) {
             return getHolderBiome(AtlantisBiomeSource.VOLCANIC_DARKSEA);
         } else if ((int) noise.sample(x, y, z).temperature() > 0.30 && noise.sample(x, y, z).temperature() < 0.40) {
             return getHolderBiome(AtlantisBiomeSource.JELLYFISH_FIELDS);

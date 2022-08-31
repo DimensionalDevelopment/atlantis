@@ -38,12 +38,7 @@
       "xz_scale": 1,
       "y_scale": 0.7142857142857143
     },
-    "lava": {
-      "type": "minecraft:noise",
-      "noise": "minecraft:aquifer_lava",
-      "xz_scale": 1,
-      "y_scale": 1
-    },
+    "lava": "minecraft:zero",
     "temperature": {
       "type": "minecraft:shifted_noise",
       "noise": "minecraft:temperature",
@@ -265,10 +260,10 @@
           "type": "minecraft:vertical_gradient",
           "random_name": "minecraft:bedrock_floor",
           "true_at_and_below": {
-            "above_bottom": 0
+            "absolute": -58
           },
           "false_at_and_above": {
-            "above_bottom": 5
+            "absolute": -59
           }
         },
         "then_run": {
@@ -279,53 +274,85 @@
         }
       },
       {
-        "type": "minecraft:condition",
-        "if_true": {
-          "type": "minecraft:above_preliminary_surface"
-        },
-        "then_run": {
-          "type": "minecraft:sequence",
-          "sequence": [
-            {
-              "type": "minecraft:condition",
-              "if_true": {
-                "type": "minecraft:vertical_gradient",
-                "random_name": "atlantis:sand_layer",
-                "true_at_and_below": {
-                  "above_bottom": 68
-                },
-                "false_at_and_above": {
-                  "above_bottom": 69
-                }
+        "type": "minecraft:sequence",
+        "sequence": [
+          {
+            "type": "minecraft:condition",
+            "if_true": {
+              "type": "minecraft:vertical_gradient",
+              "random_name": "atlantis:deepslate_layer",
+              "true_at_and_below": {
+                "absolute": -1
               },
-              "then_run": {
-                "type": "minecraft:block",
-                "result_state": {
-                  "Name": "minecraft:sand"
-                }
+              "false_at_and_above": {
+                "absolute": 0
+              }
+            },
+            "then_run": {
+              "type": "minecraft:block",
+              "result_state": {
+                "Name": "minecraft:deepslate"
               }
             }
-          ]
-        }
-      },
-      {
-        "type": "minecraft:condition",
-        "if_true": {
-          "type": "minecraft:vertical_gradient",
-          "random_name": "atlantis:sandstone_layer",
-          "true_at_and_below": {
-            "absolute": 69
           },
-          "false_at_and_above": {
-            "absolute": 75
+          {
+            "type": "minecraft:condition",
+            "if_true": {
+              "type": "minecraft:vertical_gradient",
+              "random_name": "atlantis:stone_layer",
+              "true_at_and_below": {
+                "absolute": 49
+              },
+              "false_at_and_above": {
+                "absolute": 50
+              }
+            },
+            "then_run": {
+              "type": "minecraft:block",
+              "result_state": {
+                "Name": "minecraft:stone"
+              }
+            }
+          },
+          {
+            "type": "minecraft:condition",
+            "if_true": {
+              "type": "minecraft:vertical_gradient",
+              "random_name": "atlantis:sandstone_layer",
+              "true_at_and_below": {
+                "absolute": 58
+              },
+              "false_at_and_above": {
+                "absolute": 59
+              }
+            },
+            "then_run": {
+              "type": "minecraft:block",
+              "result_state": {
+                "Name": "minecraft:sandstone"
+              }
+            }
+          },
+          {
+            "type": "minecraft:condition",
+            "if_true": {
+              "type": "minecraft:vertical_gradient",
+              "random_name": "atlantis:sand_layer",
+              "true_at_and_below": {
+                "absolute": 74
+              },
+              "false_at_and_above": {
+                "absolute": 75
+              }
+            },
+            "then_run": {
+              "type": "minecraft:block",
+              "result_state": {
+                "Name": "minecraft:sand"
+              }
+            }
           }
-        },
-        "then_run": {
-          "type": "minecraft:block",
-          "result_state": {
-            "Name": "minecraft:sandstone"
-          }
-        }
+        ]
       }
     ]
   }

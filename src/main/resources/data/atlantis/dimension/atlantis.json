@@ -2,20 +2,29 @@
   "type": "atlantis:atlantis",
   "generator": {
     "type": "minecraft:noise",
-    "forge:use_server_seed": true,
-    "seed": 0,
     "settings": "atlantis:atlantis",
     "biome_source": {
       "type": "minecraft:multi_noise",
-      "seed": 0,
       "biomes": [
+        {
+          "biome": "atlantis:goo_lagoons",
+          "parameters": {
+            "temperature": 0.9,
+            "humidity": 0.6,
+            "continentalness": 0.2,
+            "erosion": 0.3,
+            "weirdness": 0.4,
+            "depth": 0.5,
+            "offset": 0.2
+          }
+        },
         {
           "biome": "atlantis:atlantean_garden",
           "parameters": {
             "temperature": 0.2,
             "humidity": 0.5,
-            "continentalness": 0,
-            "erosion": 0,
+            "continentalness": 0.1,
+            "erosion": 0.2,
             "weirdness": 0.2,
             "depth": 0.1,
             "offset": 0.4
@@ -25,11 +34,11 @@
           "biome": "atlantis:atlantis_biome",
           "parameters": {
             "temperature": 0.1,
-            "humidity": 0,
-            "continentalness": 0,
-            "erosion": 0,
+            "humidity": 0.1,
+            "continentalness": 0.3,
+            "erosion": 0.3,
             "weirdness": 0.1,
-            "depth": 0,
+            "depth": 0.4,
             "offset": 0.4
           }
         },
@@ -37,11 +46,11 @@
           "biome": "atlantis:jellyfish_fields",
           "parameters": {
             "temperature": 0.1,
-            "humidity": 0,
-            "continentalness": 0,
-            "erosion": 0,
+            "humidity": 0.3,
+            "continentalness": 0.4,
+            "erosion": 0.5,
             "weirdness": 0.3,
-            "depth": 0,
+            "depth": 0.1,
             "offset": 0.3
           }
         },
@@ -49,11 +58,11 @@
           "biome": "atlantis:atlantean_islands_biome",
           "parameters": {
             "temperature": 0.1,
-            "humidity": 0,
-            "continentalness": 0,
-            "erosion": 0,
+            "humidity": 0.5,
+            "continentalness": 0.2,
+            "erosion": 0.5,
             "weirdness": 0.2,
-            "depth": 0,
+            "depth": 0.2,
             "offset": 0.3
           }
         },
@@ -61,11 +70,11 @@
           "biome": "atlantis:volcanic_darksea",
           "parameters": {
             "temperature": 0.3,
-            "humidity": 0,
-            "continentalness": 0,
-            "erosion": 0,
+            "humidity": 0.8,
+            "continentalness": 0.2,
+            "erosion": 0.9,
             "weirdness": 0.1,
-            "depth": 0,
+            "depth": 0.2,
             "offset": 0.3
           }
         }

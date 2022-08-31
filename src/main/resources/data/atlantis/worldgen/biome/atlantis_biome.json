@@ -100,7 +100,8 @@
       "minecraft:ore_iron_middle",
       "minecraft:ore_lapis_buried",
       "minecraft:ore_redstone_lower",
-      "minecraft:ore_tuff"
+      "minecraft:ore_tuff",
+      "atlantis:aquamarine_placed"
     ],
     [],
     [

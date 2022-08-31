@@ -5,8 +5,6 @@ import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
 import com.mystic.atlantis.capiablities.player.IPlayerCap;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
-import com.mystic.atlantis.configfeature.ores.AtlantisConfiguredFeatures;
-import com.mystic.atlantis.configfeature.ores.AtlantisPlacedFeatures;
 import com.mystic.atlantis.data.AtlantisModifier;
 import com.mystic.atlantis.datagen.Providers;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
@@ -62,8 +60,6 @@ public class Atlantis {
         ModParticleTypes.PARTICLES.register(bus);
         bus.addListener(this::registerAllCapabilities);
         onInitialize(bus);
-        AtlantisConfiguredFeatures.register(bus);
-        AtlantisPlacedFeatures.register(bus);
         AtlantisFeature.FEATURES.register(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
         Providers.init(bus);
@@ -98,6 +94,7 @@ public class Atlantis {
         GeckoLib.initialize();
         GeckoLibMod.DISABLE_IN_DEV = true;
         TileRegistry.init(bus);
+        FluidTypesInit.init(bus);
         FluidInit.init(bus);
         AtlantisGroup.init();
         AtlantisEntities.initialize(bus);

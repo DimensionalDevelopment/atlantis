@@ -287,7 +287,8 @@ public class Providers {
                     addItem(ItemInit.ATLANTEAN_STRING, "Atlantean String");
                     addItem(ItemInit.JELLYFISH_2_BUCKET, "Jellyfish Var. 2 in a Bucket");
                     addItem(ItemInit.ATLANTEAN_JELLYFISH_2_EGG, "Atlantean Jellyfish Var. 2 Spawn Egg");
-                    addItem(FluidInit.JETSTREAM_WATER_BUCKET, "Jetstream Water Bucket");
+                    addItem(ItemInit.JETSTREAM_WATER_BUCKET, "Jetstream Water Bucket");
+                    addItem(ItemInit.SALTY_SEA_WATER_BUCKET, "Salty Sea Water Bucket");
                     addItem(ItemInit.SUBMARINE, "Atlantean Submarine");
                     addItem(ItemInit.SHRIMP_BUCKET, "Shrimp in a Bucket");
                     addItem(ItemInit.SHRIMP, "Shrimp");
@@ -335,6 +336,7 @@ public class Providers {
                     addItem(ItemInit.LINGUISTIC_GLYPH_SCROLL_V);
                     addItem(ItemInit.LINGUISTIC_GLYPH_SCROLL_W);
                     addItem(ItemInit.LINGUISTIC_GLYPH_SCROLL_X);
+                    addItem(ItemInit.LINGUISTIC_GLYPH_SCROLL_Y);
                     addItem(ItemInit.LINGUISTIC_GLYPH_SCROLL_Z);
                     addItem(ItemInit.LINGUISTIC_GLYPH_SCROLL_0);
                     addItem(ItemInit.LINGUISTIC_GLYPH_SCROLL_1);

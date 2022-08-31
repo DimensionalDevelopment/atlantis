@@ -59,10 +59,10 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void onInitializeClient(FMLClientSetupEvent event) {
-        ItemBlockRenderTypes.setRenderLayer(FluidInit.STILL_JETSTREAM_WATER.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(FluidInit.JETSTREAM_WATER.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_JETSTREAM_WATER.get(), RenderType.translucent());
 
-        ItemBlockRenderTypes.setRenderLayer(FluidInit.STILL_SALTY_SEA_WATER.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(FluidInit.SALTY_SEA_WATER.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_SALTY_SEA_WATER.get(), RenderType.translucent());
 
         BlockEntityRenderers.register(TileRegistry.UNDERWATER_SHROOM_TILE.get(),
@@ -282,11 +282,11 @@ public class ClientSetup {
 
         BlockColor REGULAR = (arg, arg2, arg3, i) -> 0x8caed2; nonLinguistic.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
 
-        BlockColor SaltySeaWaterColor = (arg, arg2, arg3, i) -> 0x100a60;
-        blockColors.register(SaltySeaWaterColor, FluidInit.SALTY_SEA_WATER.get());
+        BlockColor SaltySeaWaterColor = (arg, arg2, arg3, i) -> 0x100a60D0;
+        blockColors.register(SaltySeaWaterColor, BlockInit.SALTY_SEA_WATER_BLOCK.get());
 
-        BlockColor JetstreamWaterColor = (arg, arg2, arg3, i) -> 0x52A9FF;
-        blockColors.register(JetstreamWaterColor, FluidInit.JETSTREAM_WATER.get());
+        BlockColor JetstreamWaterColor = (arg, arg2, arg3, i) -> 0x52A9FFD0;
+        blockColors.register(JetstreamWaterColor, BlockInit.JETSTREAM_WATER_BLOCK.get());
     }
 
     @OnlyIn(Dist.CLIENT)

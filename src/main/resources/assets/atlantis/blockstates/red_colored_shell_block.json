@@ -1,5 +1,6 @@
 {
   "forge_marker": 1,
+  "uvlock": false,
   "defaults": {
     "model": "atlantis:red_colored_shell_block"
   },

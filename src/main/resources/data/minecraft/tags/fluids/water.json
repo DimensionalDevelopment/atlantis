@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:water",
+    "minecraft:flowing_water",
+    "atlantis:jetstream_water",
+    "atlantis:salty_sea_water",
+    "atlantis:flowing_salty_sea_water",
+    "atlantis:flowing_jetstream_water"
+  ]
+}

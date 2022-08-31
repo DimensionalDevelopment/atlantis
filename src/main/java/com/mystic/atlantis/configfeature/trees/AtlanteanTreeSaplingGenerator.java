@@ -15,6 +15,6 @@ public class AtlanteanTreeSaplingGenerator extends AbstractTreeGrower {
 
     @Override
     protected Holder<ConfiguredFeature<TreeConfiguration, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean bees) {
-        return null; //AtlantisFeature.ConfiguredFeaturesAtlantis.ATLANTEAN_TREE;
+        return AtlantisFeature.ConfiguredFeaturesAtlantis.ATLANTEAN_TREE;
     }
 }
