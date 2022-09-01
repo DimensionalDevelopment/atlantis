@@ -32,7 +32,7 @@ public class BucketItemMixin extends ItemMixin{
 
     @Shadow @Final private Fluid content;
 
-    @Inject(method = "use", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/Level;isClientSide:Z"))
+    @Inject(method = "use", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/Level;isClientSide:Z"), cancellable = true)
     public void onBucketUse(Level level, Player player, InteractionHand usedHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         BlockHitResult blockhitresult = getPlayerPOVHitResult(level, player, content == Fluids.EMPTY ? ClipContext.Fluid.SOURCE_ONLY : ClipContext.Fluid.NONE);
         BlockPos blockpos = blockhitresult.getBlockPos();
@@ -42,10 +42,16 @@ public class BucketItemMixin extends ItemMixin{
         if(DimensionAtlantis.isAtlantisDimension(level)) {
             cir.cancel();
             if(blockstate1.getBlock() instanceof BucketPickup && !(itemstack1 = ((BucketPickup) blockstate1.getBlock()).pickupBlock(level, blockpos, blockstate1)).isEmpty()) {
-                if(itemstack1.getItem() != Blocks.WATER.asItem()){
-                    CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, itemstack1);
-                    cir.setReturnValue(InteractionResultHolder.success(itemStack));
+                if(itemstack1.getItem() != Blocks.WATER.asItem()) {
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        CriteriaTriggers.FILLED_BUCKET.trigger(serverPlayer, itemstack1);
+                        cir.setReturnValue(InteractionResultHolder.success(itemStack));
+                    } else {
+                        cir.setReturnValue(InteractionResultHolder.pass(itemStack));
+                    }
                 }
+            } else {
+                cir.setReturnValue(InteractionResultHolder.pass(itemStack));
             }
         }
     }

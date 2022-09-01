@@ -9,12 +9,12 @@
         {
           "biome": "atlantis:goo_lagoons",
           "parameters": {
-            "temperature": 0.9,
-            "humidity": 0.6,
+            "temperature": 0.4,
+            "humidity": 0.3,
             "continentalness": 0.2,
-            "erosion": 0.3,
+            "erosion": 0.4,
             "weirdness": 0.4,
-            "depth": 0.5,
+            "depth": 0.2,
             "offset": 0.2
           }
         },
@@ -23,11 +23,11 @@
           "parameters": {
             "temperature": 0.2,
             "humidity": 0.5,
-            "continentalness": 0.1,
-            "erosion": 0.2,
+            "continentalness": 0.3,
+            "erosion": 0.3,
             "weirdness": 0.2,
-            "depth": 0.1,
-            "offset": 0.4
+            "depth": 0.2,
+            "offset": 0.3
           }
         },
         {
@@ -60,7 +60,7 @@
             "temperature": 0.1,
             "humidity": 0.5,
             "continentalness": 0.2,
-            "erosion": 0.5,
+            "erosion": 0.4,
             "weirdness": 0.2,
             "depth": 0.2,
             "offset": 0.3
@@ -69,13 +69,13 @@
         {
           "biome": "atlantis:volcanic_darksea",
           "parameters": {
-            "temperature": 0.3,
-            "humidity": 0.8,
-            "continentalness": 0.2,
-            "erosion": 0.9,
+            "temperature": 0.4,
+            "humidity": 0.4,
+            "continentalness": 0.3,
+            "erosion": 0.5,
             "weirdness": 0.1,
-            "depth": 0.2,
-            "offset": 0.3
+            "depth": 0.1,
+            "offset": 0.4
           }
         }
       ]
