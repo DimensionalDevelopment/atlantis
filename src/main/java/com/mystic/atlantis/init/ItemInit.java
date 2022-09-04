@@ -2,7 +2,6 @@ package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.blocks.LinguisticGlyph;
 import com.mystic.atlantis.entities.AtlantisEntities;
-import com.mystic.atlantis.entities.LeviathanEntity;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.items.armor.BasicArmorMaterial;
@@ -32,6 +31,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class ItemInit {
+
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MODID);
     private static Map<LinguisticGlyph, RegistryObject<Item>> scrolls = new HashMap<>();
 

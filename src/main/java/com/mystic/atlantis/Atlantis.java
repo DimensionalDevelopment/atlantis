@@ -90,6 +90,7 @@ public class Atlantis {
     public void onInitialize(IEventBus bus) {
         BlockInit.init(bus);
         ItemInit.init(bus);
+        PaintingVariantsInit.init(bus);
         AtlantisModifier.init(bus);
         GeckoLib.initialize();
         GeckoLibMod.DISABLE_IN_DEV = true;
