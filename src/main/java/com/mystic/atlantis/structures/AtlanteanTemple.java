@@ -53,27 +53,11 @@ public class AtlanteanTemple extends Structure {
         this.maxDistanceFromCenter = maxDistanceFromCenter;
     }
 
-    private static boolean extraSpawningChecks(GenerationContext context) {
-        ChunkPos chunkpos = context.chunkPos();
-
-        return context.chunkGenerator().getFirstOccupiedHeight(
-                chunkpos.getMinBlockX(),
-                chunkpos.getMinBlockZ(),
-                Heightmap.Types.OCEAN_FLOOR,
-                context.heightAccessor(),
-                context.randomState()) > 0;
-    }
-
     @Override
     public @NotNull Optional<GenerationStub> findGenerationPoint(@NotNull GenerationContext context) {
 
-        if (!AtlanteanTemple.extraSpawningChecks(context)) {
-            return Optional.empty();
-        }
-
         ChunkPos chunkPos = context.chunkPos();
-        BlockPos blockPos = context.chunkPos().getMiddleBlockPosition(context.chunkGenerator().getFirstOccupiedHeight(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), Heightmap.Types.OCEAN_FLOOR_WG,
-                context.heightAccessor(), context.randomState()));
+        BlockPos blockPos = new BlockPos(chunkPos.getMinBlockX(), context.heightAccessor().getHeight() - context.chunkGenerator().getSeaLevel(), chunkPos.getMinBlockZ());
 
         Optional<GenerationStub> structurePiecesGenerator =
                 JigsawPlacement.addPieces(

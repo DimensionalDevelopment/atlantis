@@ -55,27 +55,10 @@ public class AtlantisHouse3 extends Structure {
         this.maxDistanceFromCenter = maxDistanceFromCenter;
     }
 
-    private static boolean extraSpawningChecks(Structure.GenerationContext context) {
-        ChunkPos chunkpos = context.chunkPos();
-
-        return context.chunkGenerator().getFirstOccupiedHeight(
-                chunkpos.getMinBlockX(),
-                chunkpos.getMinBlockZ(),
-                Heightmap.Types.OCEAN_FLOOR,
-                context.heightAccessor(),
-                context.randomState()) > 0;
-    }
-
     @Override
     public @NotNull Optional<Structure.GenerationStub> findGenerationPoint(Structure.@NotNull GenerationContext context) {
-
-        if (!AtlantisHouse3.extraSpawningChecks(context)) {
-            return Optional.empty();
-        }
-
         ChunkPos chunkPos = context.chunkPos();
-        BlockPos blockPos = context.chunkPos().getMiddleBlockPosition(context.chunkGenerator().getFirstOccupiedHeight(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), Heightmap.Types.OCEAN_FLOOR_WG,
-                context.heightAccessor(), context.randomState()));
+        BlockPos blockPos = new BlockPos(chunkPos.getMinBlockX(), context.heightAccessor().getHeight() - context.chunkGenerator().getSeaLevel(), chunkPos.getMinBlockZ());
 
         Optional<Structure.GenerationStub> structurePiecesGenerator =
                 JigsawPlacement.addPieces(
