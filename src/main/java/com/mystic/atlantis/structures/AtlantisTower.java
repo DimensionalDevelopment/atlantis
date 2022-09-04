@@ -61,7 +61,7 @@ public class AtlantisTower extends Structure {
         return context.chunkGenerator().getFirstOccupiedHeight(
                 chunkpos.getMinBlockX(),
                 chunkpos.getMinBlockZ(),
-                Heightmap.Types.OCEAN_FLOOR_WG,
+                Heightmap.Types.OCEAN_FLOOR,
                 context.heightAccessor(),
                 context.randomState()) > 0;
     }
