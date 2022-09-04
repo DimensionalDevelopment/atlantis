@@ -1,40 +1,51 @@
 {
-    "parent": "atlantis:jellyfish_fields_biome_advancement",
     "display": {
+        "icon": {
+            "item": "atlantis:atlantean_jellyfish_egg"
+        },
         "title": {
             "text": "Jellyshocked",
             "color": "aqua",
-            "bold": false
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
         },
         "description": {
             "text": "Get hurt by a Jellyfish",
-            "color": "blue"
+            "color": "blue",
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
         },
-        "icon": {
-            "item": "atlantis:jellyfish_bucket"
-        },
+        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
         "frame": "task",
         "show_toast": true,
         "announce_to_chat": true,
-        "hidden": false,
-        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+        "hidden": false
     },
+    "parent": "atlantis:jellyfish_fields_biome_advancement",
     "criteria": {
         "atlantis": {
             "trigger": "minecraft:entity_hurt_player",
             "conditions": {
-                "entity": {
-                    "type": "atlantis:jellyfish"
+                "damage": {
+                    "source_entity": {
+                        "type": "atlantis:atlantean_jellyfish"
+                    }
                 }
             }
         }
-    },
-    "rewards": {
-        "experience": 200
     },
     "requirements": [
         [
             "atlantis"
         ]
-    ]
+    ],
+    "rewards": {
+        "experience": 200
+    }
 }

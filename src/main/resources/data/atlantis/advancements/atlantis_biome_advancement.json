@@ -1,41 +1,48 @@
 {
-    "parent": "atlantis:dimension_advancement",
     "display": {
+        "icon": {
+            "item": "atlantis:orb_of_atlantis"
+        },
         "title": {
             "text": "Atlantis!",
             "color": "aqua",
-            "bold": false
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
         },
         "description": {
             "text": "Locate the Atlantis Biome",
             "color": "blue"
         },
-        "icon": {
-            "item": "atlantis:orb_of_atlantis"
-        },
+        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
         "frame": "task",
         "show_toast": true,
         "announce_to_chat": true,
-        "hidden": false,
-        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+        "hidden": false
     },
+    "parent": "atlantis:dimension_advancement",
     "criteria": {
         "atlantis": {
             "trigger": "minecraft:location",
             "conditions": {
-                "location": {
-                    "biome": "atlantis:atlantis_biome",
-                    "dimension": "atlantis:atlantis"
+                "player": {
+                    "type": "minecraft:player",
+                    "location": {
+                        "biome": "atlantis:atlantis_biome",
+                        "dimension": "atlantis:atlantis"
+                    }
                 }
             }
         }
-    },
-    "rewards": {
-        "experience": 200
     },
     "requirements": [
         [
             "atlantis"
         ]
-    ]
+    ],
+    "rewards": {
+        "experience": 200
+    }
 }

@@ -1,0 +1,17 @@
+{
+  "structures": [
+    {
+      "structure": "atlantis:configured_atlantean_temple",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1287372921,
+    "frequency_reduction_method": "default",
+    "frequency": 0.5,
+    "spread_type": "linear",
+    "spacing": 20,
+    "separation": 5
+  }
+}

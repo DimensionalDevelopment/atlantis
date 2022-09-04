@@ -1,10 +1,10 @@
 {
     "display": {
         "icon": {
-            "item": "atlantis:crab_bucket"
+            "item": "atlantis:orb_of_atlantis"
         },
         "title": {
-            "text": "Crab Raves",
+            "text": "The garden of the Atlanteans",
             "color": "aqua",
             "bold": false,
             "italic": false,
@@ -13,13 +13,8 @@
             "obfuscated": false
         },
         "description": {
-            "text": "Pick up a crab in a bucket",
-            "color": "blue",
-            "bold": false,
-            "italic": false,
-            "underlined": false,
-            "strikethrough": false,
-            "obfuscated": false
+            "text": "Locate the Atlantean Garden Biome",
+            "color": "blue"
         },
         "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
         "frame": "task",
@@ -27,19 +22,17 @@
         "announce_to_chat": true,
         "hidden": false
     },
-    "parent": "atlantis:island_atlantis_biome_advancement",
+    "parent": "atlantis:dimension_advancement",
     "criteria": {
         "atlantis": {
-            "trigger": "minecraft:player_interacted_with_entity",
+            "trigger": "minecraft:location",
             "conditions": {
-                "item": {
-                    "items": [
-                        "minecraft:water_bucket"
-                    ],
-                    "count": 1
-                },
-                "entity": {
-                    "type": "atlantis:atlantean_crab"
+                "player": {
+                    "type": "minecraft:player",
+                    "location": {
+                        "biome": "atlantis:atlantean_gardens",
+                        "dimension": "atlantis:atlantis"
+                    }
                 }
             }
         }

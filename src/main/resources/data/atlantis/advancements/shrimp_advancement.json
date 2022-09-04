@@ -1,30 +1,41 @@
 {
-    "parent": "atlantis:island_atlantis_biome_advancement",
     "display": {
-        "title": {
-            "text": "Shrimpify",
-            "color": "aqua",
-            "bold": false
-        },
-        "description": {
-            "text": "Pick up a shrimp in a bucket",
-            "color": "blue"
-        },
         "icon": {
             "item": "atlantis:shrimp_bucket"
         },
+        "title": {
+            "text": "Shrimpify",
+            "color": "aqua",
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
+        },
+        "description": {
+            "text": "Pick up a shrimp in a bucket",
+            "color": "blue",
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
+        },
+        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
         "frame": "task",
         "show_toast": true,
         "announce_to_chat": true,
-        "hidden": false,
-        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+        "hidden": false
     },
+    "parent": "atlantis:island_atlantis_biome_advancement",
     "criteria": {
         "atlantis": {
             "trigger": "minecraft:player_interacted_with_entity",
             "conditions": {
                 "item": {
-                    "item": "minecraft:water_bucket"
+                    "items": [
+                        "minecraft:water_bucket"
+                    ]
                 },
                 "entity": {
                     "type": "atlantis:atlantean_shrimp"
@@ -32,12 +43,12 @@
             }
         }
     },
-    "rewards": {
-        "experience": 200
-    },
     "requirements": [
         [
             "atlantis"
         ]
-    ]
+    ],
+    "rewards": {
+        "experience": 200
+    }
 }

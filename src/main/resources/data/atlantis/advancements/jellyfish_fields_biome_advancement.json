@@ -1,41 +1,52 @@
 {
-    "parent": "atlantis:dimension_advancement",
     "display": {
-        "title": {
-            "text": "Jellyfishing, Jellyfishing",
-            "color": "aqua",
-            "bold": false
-        },
-        "description": {
-            "text": "Locate the Jellyfish Fields Biome",
-            "color": "blue"
-        },
         "icon": {
             "item": "atlantis:orb_of_atlantis"
         },
+        "title": {
+            "text": "Jellyfishing, Jellyfishing",
+            "color": "aqua",
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
+        },
+        "description": {
+            "text": "Locate the Jellyfish Fields Biome",
+            "color": "blue",
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
+        },
+        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
         "frame": "task",
         "show_toast": true,
         "announce_to_chat": true,
-        "hidden": false,
-        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+        "hidden": false
     },
+    "parent": "atlantis:dimension_advancement",
     "criteria": {
         "atlantis": {
             "trigger": "minecraft:location",
             "conditions": {
-                "location": {
-                    "biome": "atlantis:jellyfish_fields",
-                    "dimension": "atlantis:atlantis"
+                "player": {
+                    "location": {
+                        "biome": "atlantis:jellyfish_fields",
+                        "dimension": "atlantis:atlantis"
+                    }
                 }
             }
         }
-    },
-    "rewards": {
-        "experience": 200
     },
     "requirements": [
         [
             "atlantis"
         ]
-    ]
+    ],
+    "rewards": {
+        "experience": 200
+    }
 }
