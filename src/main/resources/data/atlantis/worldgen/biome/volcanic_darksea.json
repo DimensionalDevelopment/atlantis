@@ -73,7 +73,8 @@
   },
   "features": [
     [
-      "atlantis:configured_atlantean_volcano_feature"
+      "atlantis:configured_atlantean_volcano_feature",
+      "atlantis:configured_atlantean_glowstones_feature"
     ],
     [],
     [],
@@ -95,7 +96,8 @@
       "minecraft:ore_lapis_buried",
       "minecraft:ore_redstone_lower",
       "minecraft:ore_tuff",
-      "atlantis:aquamarine_placed"
+      "atlantis:aquamarine_placed",
+      "atlantis:ore_sunken_gravel_placed"
     ],
     [],
     [

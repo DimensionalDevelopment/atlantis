@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 0.5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "atlantis:sunken_gravel"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flint"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

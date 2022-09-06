@@ -1,5 +1,6 @@
 package com.mystic.atlantis.config;
 
+import com.mystic.atlantis.blocks.PushBubbleColumn;
 import me.shedaniel.autoconfig.ConfigData;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
@@ -17,6 +18,7 @@ public class AtlantisConfig implements ConfigData {
 
     public ForgeConfigSpec.BooleanValue islandsOn;
     public ForgeConfigSpec.BooleanValue volcanoesOn;
+    public ForgeConfigSpec.BooleanValue glowstoneCrystsOn;
     public ForgeConfigSpec.IntValue minCrabSpawnHeight;
     public ForgeConfigSpec.IntValue maxCrabSpawnHeight;
     public ForgeConfigSpec.DoubleValue magmaAcceleration;
@@ -29,8 +31,9 @@ public class AtlantisConfig implements ConfigData {
 
     private AtlantisConfig(ForgeConfigSpec.Builder builder) {
 
-        this.islandsOn = builder.comment("Should Islands Generate?").define("islandsOn", false);
-        this.volcanoesOn = builder.comment("Should Volcanoes Generate?").define("volcanoesOn", false);
+        this.islandsOn = builder.comment("Should Islands Generate?").define("islandsOn", true);
+        this.volcanoesOn = builder.comment("Should Volcanoes Generate?").define("volcanoesOn", true);
+        this.glowstoneCrystsOn = builder.comment("Should Glowstone Crysts Generate?").define("glowstoneCrystsOn", true);
         this.minCrabSpawnHeight = builder.comment("Minimum Crab Spawn Height").defineInRange("minCrabSpawnHeight", 75,0,128);
         this.maxCrabSpawnHeight = builder.comment("Maximum Crab Spawn Height").defineInRange("maxCrabSpawnHeight", 85,0,128);
         this.magmaAcceleration = builder.comment("Rate at which Magma Accelerates you").defineInRange("magmaAcceleration", 0.1d,0.0d,100.0d);

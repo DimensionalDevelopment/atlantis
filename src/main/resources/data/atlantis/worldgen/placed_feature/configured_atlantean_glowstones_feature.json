@@ -1,0 +1,18 @@
+{
+  "feature": {
+    "type": "atlantis:atlantean_glowstones_feature_atlantis",
+    "config": {}
+  },
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR_WG"
+    }
+  ]
+}

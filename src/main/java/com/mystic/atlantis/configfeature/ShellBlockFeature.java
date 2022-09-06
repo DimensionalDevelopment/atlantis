@@ -25,7 +25,7 @@ public class ShellBlockFeature extends Feature<NoneFeatureConfiguration> {
         RandomSource rand = config.random();
         BlockPos pos = config.origin();
 
-        BlockState blockstate = switch (rand.nextInt(16)) {
+        BlockState blockstate = switch (rand.nextInt(17)) {
             case 0 -> BlockInit.BLACK_COLORED_SHELL_BLOCK.get().defaultBlockState();
             case 1 -> BlockInit.BLUE_COLORED_SHELL_BLOCK.get().defaultBlockState();
             case 2 -> BlockInit.LIGHT_BLUE_COLORED_SHELL_BLOCK.get().defaultBlockState();
@@ -42,7 +42,8 @@ public class ShellBlockFeature extends Feature<NoneFeatureConfiguration> {
             case 13 -> BlockInit.CYAN_COLORED_SHELL_BLOCK.get().defaultBlockState();
             case 14 -> BlockInit.WHITE_COLORED_SHELL_BLOCK.get().defaultBlockState();
             case 15 -> BlockInit.GRAY_COLORED_SHELL_BLOCK.get().defaultBlockState();
-            default -> throw new IllegalStateException("Unexpected value: " + rand.nextInt(16));
+            case 16 -> BlockInit.NAUTILUS_SHELL_BLOCK.get().defaultBlockState();
+            default -> throw new IllegalStateException("Unexpected value: " + rand.nextInt(17));
         };
         if (reader.getBlockState(pos).is(Blocks.WATER) && blockstate.canSurvive(reader, pos)) {
             reader.setBlock(pos, blockstate, 2);

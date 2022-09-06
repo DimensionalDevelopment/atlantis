@@ -72,7 +72,6 @@
   },
   "features": [
     [
-      "atlantis:atlantean_tree"
     ],
     [
       "atlantis:configured_jetstream_lake_feature_atlantis"
@@ -96,7 +95,8 @@
       "minecraft:ore_lapis_buried",
       "minecraft:ore_redstone_lower",
       "minecraft:ore_tuff",
-      "atlantis:aquamarine_placed"
+      "atlantis:aquamarine_placed",
+      "atlantis:ore_sunken_gravel_placed"
     ],
     [],
     [
@@ -110,7 +110,8 @@
       "minecraft:seagrass_deep_warm",
       "minecraft:seagrass_simple",
       "atlantis:configured_flower_feature",
-      "atlantis:configured_garden_foliage_placer_atlantis"
+      "atlantis:configured_garden_foliage_placer_atlantis",
+      "atlantis:atlantean_tree"
     ],
     [
       "atlantis:configured_shell_block_feature"

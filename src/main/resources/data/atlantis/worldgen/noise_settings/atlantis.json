@@ -301,6 +301,25 @@
               "type": "minecraft:vertical_gradient",
               "random_name": "atlantis:stone_layer",
               "true_at_and_below": {
+                "absolute": 29
+              },
+              "false_at_and_above": {
+                "absolute": 30
+              }
+            },
+            "then_run": {
+              "type": "minecraft:block",
+              "result_state": {
+                "Name": "minecraft:stone"
+              }
+            }
+          },
+          {
+            "type": "minecraft:condition",
+            "if_true": {
+              "type": "minecraft:vertical_gradient",
+              "random_name": "atlantis:detritus_sandstone_layer",
+              "true_at_and_below": {
                 "absolute": 49
               },
               "false_at_and_above": {
@@ -310,7 +329,7 @@
             "then_run": {
               "type": "minecraft:block",
               "result_state": {
-                "Name": "minecraft:stone"
+                "Name": "atlantis:detritus_sandstone"
               }
             }
           },
