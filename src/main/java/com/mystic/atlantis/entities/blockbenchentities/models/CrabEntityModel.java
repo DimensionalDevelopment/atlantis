@@ -1,7 +1,7 @@
-package com.mystic.atlantis.entities.models;
+package com.mystic.atlantis.entities.blockbenchentities.models;
 
 import com.mystic.atlantis.Atlantis;
-import com.mystic.atlantis.entities.CrabEntity;
+import com.mystic.atlantis.entities.blockbenchentities.CrabEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

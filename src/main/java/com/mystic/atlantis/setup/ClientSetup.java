@@ -9,12 +9,14 @@ import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
 import com.mystic.atlantis.blocks.blockentities.renderers.*;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
-import com.mystic.atlantis.entities.models.*;
-import com.mystic.atlantis.entities.renders.*;
+import com.mystic.atlantis.entities.blockbenchentities.models.*;
+import com.mystic.atlantis.entities.blockbenchentities.renders.*;
+import com.mystic.atlantis.entities.gltfentities.CoconutCrabRenderer;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.particles.PushBubbleStreamParticle;
 import com.mystic.atlantis.util.Reference;
+import com.timlee9024.mcgltf.MCglTF;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
@@ -227,6 +229,17 @@ public class ClientSetup {
         bus.registerEntityRenderer(AtlantisEntities.ATLANTEAN_BOAT.get(), AtlanteanBoatRenderer::new);
         bus.registerEntityRenderer(AtlantisEntities.LEVIATHAN.get(), entityRenderDispatcher -> new LeviathanEntityRenderer(entityRenderDispatcher, new LeviathanEntityModel()));
     }
+
+    @SubscribeEvent
+    public static void registerGLTFEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        //Coconut Crab
+        event.registerEntityRenderer(AtlantisEntities.COCONUT_CRAB.get(), (context) -> {
+            CoconutCrabRenderer entityRenderer = new CoconutCrabRenderer(context);
+            MCglTF.getInstance().addGltfModelReceiver(entityRenderer);
+            return entityRenderer;
+        });
+    }
+
     @SubscribeEvent
     public static void init(RegisterParticleProvidersEvent bus) {
         Minecraft.getInstance().particleEngine.register(PUSH_BUBBLESTREAM.get(), PushBubbleStreamParticle.Factory::new);

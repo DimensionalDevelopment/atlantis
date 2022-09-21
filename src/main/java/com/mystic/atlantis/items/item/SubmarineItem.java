@@ -21,7 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import com.mystic.atlantis.entities.AtlantisEntities;
-import com.mystic.atlantis.entities.SubmarineEntity;
+import com.mystic.atlantis.entities.blockbenchentities.SubmarineEntity;
 
 public class SubmarineItem extends Item {
     private static final Predicate<Entity> RIDERS;

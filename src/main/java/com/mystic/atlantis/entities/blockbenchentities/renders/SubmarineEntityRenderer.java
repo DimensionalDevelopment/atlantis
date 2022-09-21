@@ -1,9 +1,9 @@
-package com.mystic.atlantis.entities.renders;
+package com.mystic.atlantis.entities.blockbenchentities.renders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.mystic.atlantis.entities.SubmarineEntity;
-import com.mystic.atlantis.entities.models.SubmarineEntityModel;
+import com.mystic.atlantis.entities.blockbenchentities.SubmarineEntity;
+import com.mystic.atlantis.entities.blockbenchentities.models.SubmarineEntityModel;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.core.IAnimatableModel;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;

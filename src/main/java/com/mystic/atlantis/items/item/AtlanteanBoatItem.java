@@ -1,8 +1,7 @@
 package com.mystic.atlantis.items.item;
 
-import com.mystic.atlantis.entities.AtlanteanBoatEntity;
+import com.mystic.atlantis.entities.blockbenchentities.AtlanteanBoatEntity;
 import com.mystic.atlantis.entities.AtlantisEntities;
-import com.mystic.atlantis.entities.SubmarineEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;

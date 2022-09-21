@@ -9,7 +9,7 @@ import com.mystic.atlantis.data.AtlantisModifier;
 import com.mystic.atlantis.datagen.Providers;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
-import com.mystic.atlantis.entities.CrabEntity;
+import com.mystic.atlantis.entities.blockbenchentities.CrabEntity;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.inventory.MenuTypeInit;

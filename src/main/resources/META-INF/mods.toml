@@ -18,8 +18,26 @@ displayURL="https://github.com/Exploding-Creeper/atlantis" #optional
 
 logoFile= "logo.png" #optional
 
-credits="To all the people of the MMD server!, Gami for his work on the creative tab, LordHugo02 for his work on correcting the aquamarine ore, DTRaptor for his work on the Drop of Atlantis, TelepathicGrunt for his help with the JSON files, WaterPicker for his work on the fabric branch, BingJ for his work on all the entity animations and models, LudoCrypt for the music and texture on the music disc for atlantis, and LimeShulkerBox for the Atlantean Portal and for removing the need for effects in the dimension" #optional
+credits='''
+To all the people of the MMD server!,
+Gami for his work on the creative tab,
+LordHugo02 for his work on correcting the aquamarine ore,
+DTRaptor for his work on the Drop of Atlantis,
+TelepathicGrunt for his help with the JSON files,
+WaterPicker for his work on the fabric branch,
+BingJ for his work on some of the entity animations and models,
+LudoCrypt for the music and texture on the music disc for atlantis,
+and LimeShulkerBox for the Atlantean Portal and for removing the need for effects in the dimension"
 
+Extra Credits from Sketchfab:
+"Coconut Crab" (https://skfb.ly/oqAyI) by GlacierArts is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
+"Upgraded enchanting table" (https://skfb.ly/ov9EF) by omegaru010 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
+"CoconutCrab" (https://skfb.ly/owrXF) by mamickabee is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
+"Fish" (https://skfb.ly/ovWOo) by Zuzuga is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+'''
 authors="Mysticpasta1, Nyfaria, Gami, LordHugo02, DTRaptor, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity" #optional
 
 description='''

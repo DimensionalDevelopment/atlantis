@@ -1,4 +1,4 @@
-package com.mystic.atlantis.entities;
+package com.mystic.atlantis.entities.blockbenchentities;
 
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.world.entity.EntityType;

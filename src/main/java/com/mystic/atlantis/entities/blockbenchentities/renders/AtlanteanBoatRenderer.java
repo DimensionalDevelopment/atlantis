@@ -1,11 +1,11 @@
-package com.mystic.atlantis.entities.renders;
+package com.mystic.atlantis.entities.blockbenchentities.renders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
-import com.mystic.atlantis.entities.AtlanteanBoatEntity;
-import com.mystic.atlantis.entities.models.AtlanteanBoatModel;
+import com.mystic.atlantis.entities.blockbenchentities.AtlanteanBoatEntity;
+import com.mystic.atlantis.entities.blockbenchentities.models.AtlanteanBoatModel;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;

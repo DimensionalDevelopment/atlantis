@@ -1,6 +1,9 @@
 package com.mystic.atlantis.entities;
 
+import com.mystic.atlantis.entities.blockbenchentities.*;
+import com.mystic.atlantis.entities.gltfentities.CoconutCrabEntity;
 import com.mystic.atlantis.util.Reference;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -10,6 +13,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = Reference.MODID)
@@ -19,13 +23,15 @@ public class AtlantisEntities {
     //Boats
     public static final RegistryObject<EntityType<AtlanteanBoatEntity>> ATLANTEAN_BOAT = register("atlantean_boat", EntityType.Builder.of(AtlanteanBoatEntity::new, MobCategory.MISC).sized(1.375f, 0.5625f).clientTrackingRange(10));
 
-    //Creatures
+    //Geckolib Creatures
     public static final RegistryObject<EntityType<CrabEntity>> CRAB = register("atlantean_crab", EntityType.Builder.of(CrabEntity::new, MobCategory.WATER_CREATURE).sized(1.2f, 0.3f));
     public static final RegistryObject<EntityType<JellyfishEntity>> JELLYFISH = register("atlantean_jellyfish", EntityType.Builder.of(JellyfishEntity::new, MobCategory.WATER_AMBIENT).sized(0.4f, 0.8f));
     public static final RegistryObject<EntityType<Jellyfish2Entity>> JELLYFISH2 = register("atlantean_jellyfish_2", EntityType.Builder.of(Jellyfish2Entity::new, MobCategory.WATER_AMBIENT).sized(0.4f, 0.8f));
     public static final RegistryObject<EntityType<ShrimpEntity>> SHRIMP = register("atlantean_shrimp", EntityType.Builder.of(ShrimpEntity::new, MobCategory.WATER_AMBIENT).sized(0.5f, 0.5f));
     public static final RegistryObject<EntityType<LeviathanEntity>> LEVIATHAN = register("leviathan", EntityType.Builder.of(LeviathanEntity::new, MobCategory.WATER_CREATURE).sized(1.5f, 0.7f));
 
+    //GLTF Creatures
+    public static final RegistryObject<EntityType<CoconutCrabEntity>> COCONUT_CRAB = register("coconut_crab", EntityType.Builder.of(CoconutCrabEntity::new, MobCategory.WATER_CREATURE).sized(2f, 1.5f));
 
     //Submarines
     public static final RegistryObject<EntityType<SubmarineEntity>> SUBMARINE = register("atlantean_submarine", EntityType.Builder.of(SubmarineEntity::new, MobCategory.MISC).sized(1.6F, 1.6F).clientTrackingRange(1));
@@ -41,6 +47,8 @@ public class AtlantisEntities {
         event.put(AtlantisEntities.JELLYFISH2.get(), Jellyfish2Entity.createJellyfishAttributes().build());
         event.put(AtlantisEntities.SHRIMP.get(), ShrimpEntity.createShrimpAttributes().build());
         event.put(AtlantisEntities.LEVIATHAN.get(), LeviathanEntity.createLeviathanAttributes().build());
+
+        event.put(AtlantisEntities.COCONUT_CRAB.get(), CoconutCrabEntity.createCoconutCrabAttributes().build());
     }
 
     public static void initialize(IEventBus bus) {

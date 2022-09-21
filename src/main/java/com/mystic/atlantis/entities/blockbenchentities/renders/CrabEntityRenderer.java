@@ -1,10 +1,9 @@
-package com.mystic.atlantis.entities.renders;
+package com.mystic.atlantis.entities.blockbenchentities.renders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
-import com.mystic.atlantis.entities.CrabEntity;
-import com.mystic.atlantis.entities.LeviathanEntity;
+import com.mystic.atlantis.entities.blockbenchentities.CrabEntity;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -14,32 +13,25 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
-public class LeviathanEntityRenderer extends GeoEntityRenderer<LeviathanEntity> {
+public class CrabEntityRenderer extends GeoEntityRenderer<CrabEntity> {
 
-    public LeviathanEntityRenderer(EntityRendererProvider.Context renderManager, AnimatedGeoModel<LeviathanEntity> modelProvider) {
+    public CrabEntityRenderer(EntityRendererProvider.Context renderManager, AnimatedGeoModel<CrabEntity> modelProvider) {
         super(renderManager, modelProvider);
     }
 
     @Override
-    public void render(@NotNull LeviathanEntity mobEntity, float f, float g, @NotNull PoseStack matrixStack, @NotNull MultiBufferSource vertexConsumerProvider, int i) {
-        if (mobEntity.isInvisible()) {
-            matrixStack.pushPose();
-            matrixStack.popPose();
-        }
-        else {
-            super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
-        }
+    public void render(CrabEntity mobEntity, float f, float g, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i) {
+        super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
         Entity entity = mobEntity.getLeashHolder();
         if (entity != null) {
             this.method_4073(mobEntity, g, matrixStack, vertexConsumerProvider, entity);
         }
     }
 
-    private <E extends Entity> void method_4073(LeviathanEntity entity, float tickDelta, PoseStack matrices, MultiBufferSource provider, E holdingEntity) {
+    private <E extends Entity> void method_4073(CrabEntity entity, float tickDelta, PoseStack matrices, MultiBufferSource provider, E holdingEntity) {
         matrices.pushPose();
         Vec3 vec3d = holdingEntity.getViewVector(tickDelta);
         double d = (double)(Mth.lerp(tickDelta, entity.yBodyRot, entity.yBodyRotO) * 0.017453292F) + 1.5707963267948966D;
@@ -65,13 +57,16 @@ public class LeviathanEntityRenderer extends GeoEntityRenderer<LeviathanEntity> 
         int r = this.entityRenderDispatcher.getRenderer(holdingEntity).getBlockLightLevel(holdingEntity, blockPos2);
         int s = entity.level.getBrightness(LightLayer.SKY, blockPos);
         int t = entity.level.getBrightness(LightLayer.SKY, blockPos2);
+
         int v;
         for(v = 0; v <= 24; ++v) {
             method_23187(vertexConsumer, matrix4f, j, k, l, q, r, s, t, 0.025F, 0.025F, o, p, v, false);
         }
+
         for(v = 24; v >= 0; --v) {
             method_23187(vertexConsumer, matrix4f, j, k, l, q, r, s, t, 0.025F, 0.0F, o, p, v, true);
         }
+
         matrices.popPose();
     }
 
