@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "atlantis",
-  "version": "2022.9.4-1.19.2-1.0.3-forge",
+  "version": "2022.11.6-1.19.2-1.1.0-forge",
 
   "name": "Atlantis",
   "description": "An Underwater Atlantis like Dimension Mod.",
@@ -10,8 +10,8 @@
   ],
   "contact": {
     "homepage": "https://mystic.hypherionmc.me/",
-    "sources": "https://github.com/Exploding-Creeper/atlantis",
-    "issues": "https://github.com/Exploding-Creeper/atlantis/issues"
+    "sources": "https://github.com/DimensionalDevelopment/atlantis",
+    "issues": "https://github.com/DimensionalDevelopment/atlantis/issues"
   },
 
   "license": "LGPL3",

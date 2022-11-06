@@ -34,8 +34,8 @@ public class AtlantisConfig implements ConfigData {
         this.islandsOn = builder.comment("Should Islands Generate?").define("islandsOn", true);
         this.volcanoesOn = builder.comment("Should Volcanoes Generate?").define("volcanoesOn", true);
         this.glowstoneCrystsOn = builder.comment("Should Glowstone Crysts Generate?").define("glowstoneCrystsOn", true);
-        this.minCrabSpawnHeight = builder.comment("Minimum Crab Spawn Height").defineInRange("minCrabSpawnHeight", 75,0,128);
-        this.maxCrabSpawnHeight = builder.comment("Maximum Crab Spawn Height").defineInRange("maxCrabSpawnHeight", 85,0,128);
+        this.minCrabSpawnHeight = builder.comment("Minimum Crab Spawn Height").defineInRange("minCrabSpawnHeight", 100,-64,320);
+        this.maxCrabSpawnHeight = builder.comment("Maximum Crab Spawn Height").defineInRange("maxCrabSpawnHeight", 125,-64,320);
         this.magmaAcceleration = builder.comment("Rate at which Magma Accelerates you").defineInRange("magmaAcceleration", 0.1d,0.0d,100.0d);
         this.magmaThreshold = builder.comment("Max Magma Velocity ").defineInRange("magmaThreshold", 1.8d,0.0d,100.0d);
         this.startInAtlantis = builder.comment("Start In Atlantis?").define("startInAtlantis", false);

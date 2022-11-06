@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "atlantis:salty_sea_water_bucket"
+  },
+  "result": "atlantis:sea_salt",
+  "experience": 0.25,
+  "cookingtime": 150
+}

@@ -40,6 +40,12 @@
         "maxCount": 18
       },
       {
+        "type": "atlantis:coconut_crab",
+        "weight": 25,
+        "minCount": 18,
+        "maxCount": 22
+      },
+      {
         "type": "minecraft:dolphin",
         "weight": 25,
         "minCount": 1,

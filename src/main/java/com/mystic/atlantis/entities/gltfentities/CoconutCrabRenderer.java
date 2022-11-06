@@ -4,12 +4,12 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Quaternion;
 import com.mystic.atlantis.util.Reference;
-import com.timlee9024.mcgltf.IGltfModelReceiver;
-import com.timlee9024.mcgltf.MCglTF;
-import com.timlee9024.mcgltf.RenderedGltfModel;
-import com.timlee9024.mcgltf.RenderedGltfScene;
-import com.timlee9024.mcgltf.animation.GltfAnimationCreator;
-import com.timlee9024.mcgltf.animation.InterpolatedChannel;
+import com.modularmods.mcgltf.IGltfModelReceiver;
+import com.modularmods.mcgltf.MCglTF;
+import com.modularmods.mcgltf.RenderedGltfModel;
+import com.modularmods.mcgltf.RenderedGltfScene;
+import com.modularmods.mcgltf.animation.GltfAnimationCreator;
+import com.modularmods.mcgltf.animation.InterpolatedChannel;
 import de.javagl.jgltf.model.AnimationModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -134,7 +134,7 @@ public class CoconutCrabRenderer extends EntityRenderer<CoconutCrabEntity> imple
 		GL30.glBindVertexArray(currentVAO);
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, currentArrayBuffer);
 		GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, currentElementArrayBuffer);
-		RenderedGltfModel.nodeGlobalTransformLookup.clear();
+		RenderedGltfModel.NODE_GLOBAL_TRANSFORMATION_LOOKUP_CACHE.clear();
 		super.render(coconutCrabEntity, p_114486_, p_114487_, p_114488_, p_114489_, p_114490_);
 	}
 

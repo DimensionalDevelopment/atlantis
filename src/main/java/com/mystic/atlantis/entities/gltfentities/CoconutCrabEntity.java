@@ -25,7 +25,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
-import net.minecraft.world.entity.animal.PolarBear;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -203,10 +202,6 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
 
     public boolean isMovingSlowly(){
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
-    }
-
-    public static boolean canSpawn(EntityType<CoconutCrabEntity> crabEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= AtlantisConfig.INSTANCE.minCrabSpawnHeight.get() && AtlantisConfig.INSTANCE.maxCrabSpawnHeight.get() >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
     }
 
     @Override

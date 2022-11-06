@@ -39,6 +39,14 @@
         "minCount": 22,
         "maxCount": 22
       }
+    ],
+    "water_creature": [
+      {
+        "type": "atlantis:coconut_crab",
+        "weight": 25,
+        "minCount": 18,
+        "maxCount": 22
+      }
     ]
   },
   "spawn_costs": {},

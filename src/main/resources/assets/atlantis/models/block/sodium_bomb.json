@@ -1,0 +1,26 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "atlantis:block/sodium_bomb_side",
+        "down": "atlantis:block/sodium_bomb_bottom",
+        "up": "atlantis:block/sodium_bomb_top",
+        "north": "atlantis:block/sodium_bomb_side",
+        "east": "atlantis:block/sodium_bomb_side",
+        "south": "atlantis:block/sodium_bomb_side",
+        "west": "atlantis:block/sodium_bomb_side"
+    },
+    "elements": [
+        {
+            "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  {"texture": "#down", "cullface": "down" },
+                "up":    {"texture": "#up", "cullface": "up" },
+                "north": {"texture": "#north", "cullface": "north" },
+                "south": {"texture": "#south", "cullface": "south" },
+                "west":  {"texture": "#west", "cullface": "west" },
+                "east":  {"texture": "#east", "cullface": "east" }
+            }
+        }
+    ]
+}

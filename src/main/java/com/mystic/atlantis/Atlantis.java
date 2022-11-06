@@ -10,6 +10,7 @@ import com.mystic.atlantis.datagen.Providers;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.entities.blockbenchentities.CrabEntity;
+import com.mystic.atlantis.entities.gltfentities.CoconutCrabEntity;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
 import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.inventory.MenuTypeInit;
@@ -129,8 +130,8 @@ public class Atlantis {
 
         GeckoLibMod.DISABLE_IN_DEV = true;
         event.enqueueWork(() -> {
-            DimensionAtlantis.registerBiomeSources();
             AtlantisFeature.ConfiguredFeaturesAtlantis.registerConfiguredFeatures();
+            DimensionAtlantis.registerBiomeSources();
         });
 
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get());

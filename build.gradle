@@ -53,7 +53,7 @@ dependencies {
 
     modImplementation 'com.github.Mysticpasta1:customportalapi:0b103ce270'
 
-    modImplementation 'curse.maven:MCglTF-591547:3973101'
+    modImplementation 'curse.maven:MCglTF-591547:4056278'
 
     modImplementation 'software.bernie.geckolib:geckolib-forge-1.19:3.1.18'
 

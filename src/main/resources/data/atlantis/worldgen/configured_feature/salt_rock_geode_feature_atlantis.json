@@ -1,0 +1,83 @@
+{
+  "type": "minecraft:geode",
+  "config": {
+    "blocks": {
+      "filling_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:air"
+        }
+      },
+      "inner_layer_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "atlantis:sea_salt_chunk"
+        }
+      },
+      "alternate_inner_layer_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "atlantis:sea_salt_chunk"
+        }
+      },
+      "middle_layer_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:calcite"
+        }
+      },
+      "outer_layer_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "atlantis:calcite_block"
+        }
+      },
+      "inner_placements": [
+        {
+          "Name": "atlantis:sea_salt_chunk"
+        }
+      ],
+      "cannot_replace": "#minecraft:ancient_city_replaceable",
+      "invalid_blocks": "#minecraft:redstone_ores"
+    },
+    "layers": {
+      "filling": 3.7,
+      "inner_layer": 4.2,
+      "middle_layer": 5.3,
+      "outer_layer": 6.2
+    },
+    "crack": {
+      "generate_crack_chance": 0.95,
+      "base_crack_size": 2.0,
+      "crack_point_offset": 2
+    },
+    "noise_multiplier": 0.05,
+    "use_potential_placements_chance": 0.35,
+    "use_alternate_layer0_chance": 0.085,
+    "placements_require_layer0_alternate": false,
+    "outer_wall_distance": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": 25,
+        "max_inclusive": 30
+      }
+    },
+    "distribution_points": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": 3,
+        "max_inclusive": 4
+      }
+    },
+    "point_offset": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": 1,
+        "max_inclusive": 2
+      }
+    },
+    "min_gen_offset": -16,
+    "max_gen_offset": 16,
+    "invalid_blocks_threshold": 1
+  }
+}

@@ -16,7 +16,7 @@ import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.particles.PushBubbleStreamParticle;
 import com.mystic.atlantis.util.Reference;
-import com.timlee9024.mcgltf.MCglTF;
+import com.modularmods.mcgltf.MCglTF;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
@@ -29,6 +29,8 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
@@ -228,6 +230,8 @@ public class ClientSetup {
         bus.registerEntityRenderer(AtlantisEntities.SUBMARINE.get(), SubmarineEntityRenderer::new);
         bus.registerEntityRenderer(AtlantisEntities.ATLANTEAN_BOAT.get(), AtlanteanBoatRenderer::new);
         bus.registerEntityRenderer(AtlantisEntities.LEVIATHAN.get(), entityRenderDispatcher -> new LeviathanEntityRenderer(entityRenderDispatcher, new LeviathanEntityModel()));
+
+        bus.registerEntityRenderer(AtlantisEntities.BOMB.get(), SodiumBombRenderer::new);
     }
 
     @SubscribeEvent

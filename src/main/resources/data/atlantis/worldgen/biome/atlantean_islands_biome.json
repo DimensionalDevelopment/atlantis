@@ -84,7 +84,9 @@
     [
       "atlantis:configured_jetstream_lake_feature_atlantis"
     ],
-    [],
+    [
+      "atlantis:configured_salt_rock_geode_feature_atlantis"
+    ],
     [],
     [],
     [],

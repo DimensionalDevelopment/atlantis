@@ -18,7 +18,8 @@
     "BlockEntityTypeMixin",
     "ItemCombinerMenuMixin",
     "ItemEntityMixin",
-    "EntityMixin"
+    "EntityMixin",
+    "ExplosionDamageCalculatorMixin"
   ],
   "client": [
   ],

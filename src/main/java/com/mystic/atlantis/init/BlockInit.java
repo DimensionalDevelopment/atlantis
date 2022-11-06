@@ -124,6 +124,8 @@ public class BlockInit {
     public static final RegistryObject<Block> NAUTILUS_SHELL_BLOCK = registerBlock("nautilus_shell_block",()-> new NautilusShellBlock(BlockBehaviour.Properties.of(Material.STONE)));
 
     //Regular blocks
+    public static final RegistryObject<Block> SODIUM_BOMB = registerBlock("sodium_bomb",()-> new SodiumBomb(BlockBehaviour.Properties.of(Material.EXPLOSIVE)));
+    public static final RegistryObject<Block> SEA_SALT_CHUNK = registerBlock("sea_salt_chunk",()-> new SeaSaltChunkBlock(BlockBehaviour.Properties.of(Material.STONE)));
     public static final RegistryObject<Block> SUNKEN_GRAVEL = registerBlock("sunken_gravel",()-> new SunkenGravel(BlockBehaviour.Properties.of(Material.SAND)));
     public static final RegistryObject<Block> CRACKED_GLOWSTONE = registerBlock("cracked_glowstone",()-> new CrackedGlowStone(BlockBehaviour.Properties.of(Material.GLASS)));
     public static final RegistryObject<Block> DEAD_GLOWSTONE = registerBlock("dead_glowstone",()-> new DeadGlowStone(BlockBehaviour.Properties.of(Material.GLASS)));

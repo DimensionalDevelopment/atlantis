@@ -1,9 +1,10 @@
 package com.mystic.atlantis.entities;
 
+import com.mystic.atlantis.blocks.blockentities.renderers.SodiumBombRenderer;
+import com.mystic.atlantis.blocks.power.SodiumPrimedBomb;
 import com.mystic.atlantis.entities.blockbenchentities.*;
 import com.mystic.atlantis.entities.gltfentities.CoconutCrabEntity;
 import com.mystic.atlantis.util.Reference;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -13,7 +14,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = Reference.MODID)
@@ -29,6 +29,9 @@ public class AtlantisEntities {
     public static final RegistryObject<EntityType<Jellyfish2Entity>> JELLYFISH2 = register("atlantean_jellyfish_2", EntityType.Builder.of(Jellyfish2Entity::new, MobCategory.WATER_AMBIENT).sized(0.4f, 0.8f));
     public static final RegistryObject<EntityType<ShrimpEntity>> SHRIMP = register("atlantean_shrimp", EntityType.Builder.of(ShrimpEntity::new, MobCategory.WATER_AMBIENT).sized(0.5f, 0.5f));
     public static final RegistryObject<EntityType<LeviathanEntity>> LEVIATHAN = register("leviathan", EntityType.Builder.of(LeviathanEntity::new, MobCategory.WATER_CREATURE).sized(1.5f, 0.7f));
+
+    //Explosives
+    public static final RegistryObject<EntityType<SodiumPrimedBomb>> BOMB = register("sodium_bomb", EntityType.Builder.<SodiumPrimedBomb>of(SodiumPrimedBomb::new, MobCategory.MISC).fireImmune().sized(0.98f, 0.98f).clientTrackingRange(10).updateInterval(10));
 
     //GLTF Creatures
     public static final RegistryObject<EntityType<CoconutCrabEntity>> COCONUT_CRAB = register("coconut_crab", EntityType.Builder.of(CoconutCrabEntity::new, MobCategory.WATER_CREATURE).sized(2f, 1.5f));

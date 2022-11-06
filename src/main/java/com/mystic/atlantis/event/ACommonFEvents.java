@@ -1,14 +1,12 @@
 package com.mystic.atlantis.event;
 
-import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.EffectsInit;
+import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -18,12 +16,15 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityEvent;
+import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -37,6 +38,22 @@ import java.util.*;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ACommonFEvents {
+
+    @SubscribeEvent
+    public static void onLightningStrikeItem(EntityStruckByLightningEvent event) {
+        if(event.getEntity() instanceof ItemEntity item) {
+            if(item.getItem().getItem() == ItemInit.SEA_SALT.get()) {
+                Level world = item.level;
+                ItemEntity item2 = new ItemEntity(world, item.getX(), item.getY(), item.getZ(), new ItemStack(ItemInit.SODIUM_NUGGET.get(), item.getItem().getCount()));
+                if(!world.isClientSide) {
+                    world.addFreshEntity(item2);
+                    if (item2.isOnFire()) {
+                        item2.clearFire();
+                    }
+                }
+            }
+        }
+    }
 
     public static final String NOT_FIRST_SPAWN_NBT = "atlantis.not_first_spawn";
     public static ResourceKey<Level> previousDimension;
@@ -137,7 +154,6 @@ public class ACommonFEvents {
     public static void onDeathEvent(LivingDeathEvent event) {
         previousDimension = event.getEntity().getLevel().dimension();
     }
-
 
     public static ServerLevel getDimension(ResourceKey<Level> arg, ServerPlayer player) {
         return Objects.requireNonNull(player.getServer()).getLevel(arg);

@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.SoundType;
 
 public class CalciteBlock extends Block {
     public CalciteBlock(Properties settings) {
-        super(settings.sound(SoundType.STONE)
+        super(settings.sound(SoundType.CALCITE)
 //      .breakByTool(FabricToolTags.PICKAXES, 2) //TODO: Update
         .requiresCorrectToolForDrops()
         .strength(5.0F, 30.0F));
