@@ -21,4 +21,8 @@ public class SodiumItem extends Item {
                 .tab(AtlantisGroup.MAIN));
     }
 
+    @Override
+    public boolean canBeHurtBy(@NotNull DamageSource arg) {
+        return !(arg == DamageSource.LIGHTNING_BOLT);
+    }
 }
