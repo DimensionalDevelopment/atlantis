@@ -1,6 +1,6 @@
 package com.mystic.atlantis.mixin;
 
-import com.mystic.atlantis.blocks.power.SodiumPrimedBomb;
+import com.mystic.atlantis.blocks.power.atlanteanstone.SodiumPrimedBomb;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;

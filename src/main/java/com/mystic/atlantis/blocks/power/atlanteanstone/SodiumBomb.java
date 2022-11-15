@@ -1,7 +1,5 @@
-package com.mystic.atlantis.blocks.power;
+package com.mystic.atlantis.blocks.power.atlanteanstone;
 
-import com.mystic.atlantis.blocks.blockentities.plants.UnderwaterShroomBlock;
-import com.mystic.atlantis.blocks.blockentities.plants.UnderwaterShroomTileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;

@@ -1,7 +1,6 @@
 package com.mystic.atlantis.entities;
 
-import com.mystic.atlantis.blocks.blockentities.renderers.SodiumBombRenderer;
-import com.mystic.atlantis.blocks.power.SodiumPrimedBomb;
+import com.mystic.atlantis.blocks.power.atlanteanstone.SodiumPrimedBomb;
 import com.mystic.atlantis.entities.blockbenchentities.*;
 import com.mystic.atlantis.entities.gltfentities.CoconutCrabEntity;
 import com.mystic.atlantis.util.Reference;

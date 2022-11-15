@@ -1,4 +1,4 @@
-package com.mystic.atlantis.blocks.power;
+package com.mystic.atlantis.blocks.power.atlanteanstone;
 
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
 import net.minecraft.core.BlockPos;

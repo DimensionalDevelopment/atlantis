@@ -1,11 +1,10 @@
-package com.mystic.atlantis.blocks.power;
+package com.mystic.atlantis.blocks.power.atlanteanstone;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -18,7 +17,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
@@ -26,7 +24,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import static com.mystic.atlantis.blocks.power.AtlanteanPowerDust.WATERLOGGED;
+import static com.mystic.atlantis.blocks.power.atlanteanstone.AtlanteanPowerDust.WATERLOGGED;
 
 public class AtlanteanFenceGate extends FenceGateBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty OPEN;

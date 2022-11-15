@@ -1,4 +1,4 @@
-package com.mystic.atlantis.blocks.power;
+package com.mystic.atlantis.blocks.power.atlanteanstone;
 
 import com.mystic.atlantis.entities.AtlantisEntities;
 import net.minecraft.core.particles.ParticleTypes;

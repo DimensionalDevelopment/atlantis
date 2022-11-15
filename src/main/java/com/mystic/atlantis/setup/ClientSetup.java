@@ -14,7 +14,10 @@ import com.mystic.atlantis.entities.blockbenchentities.renders.*;
 import com.mystic.atlantis.entities.gltfentities.CoconutCrabRenderer;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
+import com.mystic.atlantis.inventory.MenuTypeInit;
 import com.mystic.atlantis.particles.PushBubbleStreamParticle;
+import com.mystic.atlantis.inventory.CrystalGeneratorMenu;
+import com.mystic.atlantis.screen.CrystalGeneratorScreen;
 import com.mystic.atlantis.util.Reference;
 import com.modularmods.mcgltf.MCglTF;
 import net.minecraft.client.Camera;
@@ -23,14 +26,13 @@ import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
@@ -63,6 +65,8 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void onInitializeClient(FMLClientSetupEvent event) {
+        MenuScreens.register(MenuTypeInit.CRYSTAL_GENERATOR_MENU.get(), CrystalGeneratorScreen::new);
+
         ItemBlockRenderTypes.setRenderLayer(FluidInit.JETSTREAM_WATER.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_JETSTREAM_WATER.get(), RenderType.translucent());
 

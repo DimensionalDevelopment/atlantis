@@ -4,7 +4,9 @@ import com.mystic.atlantis.blocks.DetritusSandStone;
 import com.mystic.atlantis.blocks.*;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.blocks.plants.*;
-import com.mystic.atlantis.blocks.power.*;
+import com.mystic.atlantis.blocks.power.atlanteanstone.*;
+import com.mystic.atlantis.blocks.power.energy.CrystalGeneratorBlock;
+import com.mystic.atlantis.blocks.power.energy.CrystalStorageBlock;
 import com.mystic.atlantis.blocks.shells.ColoredShellBlocks;
 import com.mystic.atlantis.blocks.shells.NautilusShellBlock;
 import com.mystic.atlantis.blocks.shells.OysterShellBlock;
@@ -35,11 +37,16 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class BlockInit {
+
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MODID);
 
     public static void init(IEventBus bus) {
         BLOCKS.register(bus);
     }
+
+    //Energy
+    public static final RegistryObject<Block> CRYSTAL_GENERATOR = registerBlock("crystal_generator", () -> new CrystalGeneratorBlock(BlockBehaviour.Properties.of(Material.AMETHYST)));
+    public static final RegistryObject<Block> CRYSTAL_STORAGE = registerBlock("crystal_storage", () -> new CrystalStorageBlock(BlockBehaviour.Properties.of(Material.AMETHYST)));
 
     //Fluid Blocks
     public static final RegistryObject<LiquidBlock> JETSTREAM_WATER_BLOCK = BLOCKS.register("jetstream_water",

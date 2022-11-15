@@ -19,10 +19,9 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IPlantable;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
-
-import static com.mystic.atlantis.blocks.power.AtlanteanPowerTorch.WATERLOGGED;
+import static com.mystic.atlantis.blocks.power.atlanteanstone.AtlanteanPowerTorch.WATERLOGGED;
 
 public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements LiquidBlockContainer, IPlantable {
     public static final int MAX_AGE = 7;
@@ -74,7 +73,7 @@ public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements Liq
     }
 
     @Override
-    public boolean canAttachTo(BlockState arg) {
+    public boolean canAttachTo(@NotNull BlockState arg) {
         return this.getHeadBlock().canAttachTo(arg);
     }
 

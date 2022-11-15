@@ -1,11 +1,10 @@
 plugins {
-    id 'dev.architectury.loom' version '0.12.0-SNAPSHOT'
-    id 'io.github.juuxel.loom-quiltflower' version '1.6.0'
-    id 'maven-publish'
-}
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+    id 'eclipse'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'org.spongepowered.mixin' version '0.7.+'
+}
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -16,6 +15,81 @@ if (System.getenv('BUILD_NUMBER') != null) {
     version = "${version}." + System.getenv('BUILD_NUMBER')
 }
 
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+minecraft {
+    mappings channel: 'official', version: '1.19.2'
+
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', 'examplemod'
+
+            mods {
+                atlantis {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', 'examplemod'
+
+            mods {
+                atlantis {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        gameTestServer {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', 'examplemod'
+
+            mods {
+                atlantis {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', 'atlantis', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                atlantis {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven { url 'https://jitpack.io' }
@@ -34,123 +108,76 @@ repositories {
         dir 'libs'
     }
     maven {
-        url = "https://maven.parchmentmc.org"
+        url = "https://maven.theillusivec4.top/"
     }
-    maven { url 'https://maven.wispforest.io' }
+    maven {
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
 }
 
 dependencies {
-    // To change the versions see the gradle.properties file
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.layered() {
-        officialMojangMappings()
-    }
-    forge "net.minecraftforge:forge:${project.forge_version}"
+    minecraft "net.minecraftforge:forge:1.19.2-${forge_version}"
 
-//    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-//    modImplementation 'software.bernie.geckolib:geckolib-fabric-1.18:3.0.32'
-//    modImplementation 'net.kyrptonaught:customportalapi:0.0.1-beta49-1.18'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    modImplementation 'com.github.Mysticpasta1:customportalapi:0b103ce270'
+    implementation fg.deobf('com.github.Mysticpasta1:customportalapi:376c81e5ef')
+    implementation fg.deobf('curse.maven:MCglTF-591547:4056278')
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.18')
+    implementation fg.deobf("curse.maven:cloth_config_forge-348521:3906388")
+    implementation fg.deobf("curse.maven:cyanide_forge-348521:3906388")
 
-    modImplementation 'curse.maven:MCglTF-591547:4056278'
+    compileOnly fg.deobf("mezz.jei:jei-1.19.2-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-1.19.2-forge-api:${jei_version}")
+    // at runtime, use the full JEI
+    runtimeOnly fg.deobf("mezz.jei:jei-1.19.2-common:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.19.2-forge:${jei_version}")
 
-    modImplementation 'software.bernie.geckolib:geckolib-forge-1.19:3.1.18'
+    implementation fg.deobf('org.reflections:reflections:0.10.2')
 
-    modImplementation "curse.maven:cloth_config_forge-348521:3906388"
-
-    modImplementation "curse.maven:cyanide_forge-541676:3832812"
-//    compileOnly "curse.maven:cloth_config_forge-348521:3546623"
-
-//    include 'net.kyrptonaught:customportalapi:0.0.1-beta49-1.18'
-    // Fabric API. This is technically optional, but you probably want it anyway.
-//    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-//    modApi("me.shedaniel.cloth:cloth-config-fabric:6.1.50") {
-//        exclude(group: "net.fabricmc.fabric-api")
-//    }
-//    modImplementation ("com.terraformersmc:modmenu:3.0.1") {
-//        exclude module: "fabric-api"
-//    }
-    // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-    // You may need to force-disable transitiveness on them.
-//    modImplementation("com.github.Mysticpasta1:OpenWorlds:cce9fed") {
-//        exclude module: "fabric-api"
-//    }
-//    include 'com.github.Mysticpasta1:OpenWorlds:cce9fed'
-//    modImplementation(group: 'com.google.code.gson', name: 'gson', version: '2.8.7')
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0")
 }
 
-loom {
-    forge {
-        mixinConfigs = [
-            "atlantis.mixins.json"
-        ]
+mixin {
+    add sourceSets.main, "atlantis.refmap.json"
+    config "atlantis.mixins.json"
+    debug.verbose = true
+}
 
-        dataGen {
-            mod "atlantis"
-        }
-    }
-
-    launches {
-        data {
-            arg "--existing", file("src/main/resources").absolutePath
-        }
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "atlantis",
+                "Specification-Vendor"    : "Mysticpasta1",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : "Mysticpasta1",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
     }
 }
 
+jar.finalizedBy('reobfJar')
 
-processResources {
-    inputs.property "version", project.version
-
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
-    // ensure that the encoding is set to UTF-8, no matter what the system default is
-    // this fixes some edge cases with special characters not displaying correctly
-    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-    // If Javadoc is generated, this must be specified in that task too.
-    it.options.encoding = "UTF-8"
-
-    it.options.release = 17
-}
-
-java {
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
-    withSourcesJar()
-}
-
-jar { // shit
-    from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}"}
-    }
-}
-
-loom {
-    accessWidenerPath =  file("src/main/resources/atlantis.accesswidener")
-}
-
-// configure the maven publication
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            // add all the jars that should be included when publishing to maven
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
-        }
-    }
-
-    // Select the repositories you want to publish to
-    // To publish to maven local, no extra repositories are necessary. Just use the task `publishToMavenLocal`.
-    repositories {
-        // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    }
+    options.encoding = 'UTF-8'
 }

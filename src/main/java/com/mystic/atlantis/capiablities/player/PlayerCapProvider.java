@@ -28,7 +28,7 @@ public class PlayerCapProvider implements ICapabilitySerializable<CompoundTag> {
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        return getCapability(cap);
+        return getCapability(cap, null);
     }
 
     @Override

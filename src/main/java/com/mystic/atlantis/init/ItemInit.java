@@ -10,6 +10,9 @@ import com.mystic.atlantis.items.armor.ItemArmorWrought;
 import com.mystic.atlantis.items.item.*;
 import com.mystic.atlantis.items.item.bottles.FireMelonJellyBottle;
 import com.mystic.atlantis.items.item.bottles.JellyfishJellyBottle;
+import com.mystic.atlantis.items.item.energybased.AtlanteanAmuletItem;
+import com.mystic.atlantis.items.item.energybased.AtlanteanCrystal;
+import com.mystic.atlantis.items.item.energybased.AtlanteanSpearItem;
 import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
 import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
@@ -56,6 +59,10 @@ public class ItemInit {
     private static final Item.Properties ATLANTIS_SETTINGS = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).stacksTo(1).tab(AtlantisGroup.MAIN);
 
     private static final Item.Properties ATLANTIS_GLYPH = new Item.Properties().tab(AtlantisGroup.GLYPH);
+
+    //Energy
+    public static final RegistryObject<Item> ATLANTEAN_AMULET = register("atlantean_amulet", () -> new AtlanteanAmuletItem(new Item.Properties().tab(AtlantisGroup.MAIN).rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> ATLANTEAN_SPEAR = register("atlantean_spear", () -> new AtlanteanSpearItem(new Item.Properties().tab(AtlantisGroup.MAIN).rarity(Rarity.UNCOMMON)));
 
     //BOATS
     public static final RegistryObject<Item> ATLANTEAN_BOAT = register("atlantean_boat", () -> new AtlanteanBoatItem(new Item.Properties().stacksTo(1).tab(AtlantisGroup.MAIN)));

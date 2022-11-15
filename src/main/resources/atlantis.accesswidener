@@ -1,9 +1,0 @@
-accessWidener   v1	named
-accessible field net/minecraft/client/renderer/DimensionSpecialEffects EFFECTS Lit/unimi/dsi/fastutil/objects/Object2ObjectMap;
-accessible method net/minecraft/client/renderer/entity/EntityRenderer getBlockLightLevel (Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;)I
-accessible method net/minecraft/world/level/block/RedStoneWireBlock updatePowerStrength (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
-accessible method net/minecraft/world/level/block/RedStoneWireBlock calculateTargetStrength (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)I
-accessible method net/minecraft/world/level/block/RedStoneWireBlock getConnectionState (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
-accessible method net/minecraft/world/level/block/CropBlock getGrowthSpeed (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)F
-accessible method net/minecraft/world/level/block/GrowingPlantBlock canAttachTo (Lnet/minecraft/world/level/block/state/BlockState;)Z
-accessible class net/minecraft/world/level/lighting/SkyLightEngine
