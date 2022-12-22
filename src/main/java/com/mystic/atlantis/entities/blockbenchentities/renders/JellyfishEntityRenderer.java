@@ -82,7 +82,7 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
                 stack.translate((float) (-direction.getStepX()) * f4, 0.0D, (float) (-direction.getStepZ()) * f4);
             }
         }
-        float f7 = this.handleRotationFloat(entity, partialTicks);
+        float f7 = this.getLerpedAge(entity, partialTicks);
         this.applyRotations(entity, stack, f7, f, partialTicks);
         float lastLimbDistance = 0.0F;
         float limbSwing = 0.0F;
@@ -102,7 +102,7 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
                 !(lastLimbDistance > -0.15F && lastLimbDistance < 0.15F), Collections.singletonList(entityModelData));
         GeoModel model = getGeoModelProvider().getModel(getGeoModelProvider().getModelResource(entity));
         if (getGeoModelProvider() instanceof IAnimatableModel model1) {
-            model1.setLivingAnimations(entity, this.getUniqueID(entity), predicate);
+            model1.setCustomAnimations(entity, this.getInstanceId(entity), predicate);
         }
 
         stack.translate(0, 0.01f, 0);
@@ -112,7 +112,7 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
                 getTextureLocation(entity));
         boolean invis = Minecraft.getInstance().player != null && entity.isInvisibleTo(Minecraft.getInstance().player);
         render(model, entity, partialTicks, renderType, stack, bufferIn, null, packedLightIn,
-                getPackedOverlay(entity, 0), (float) ((renderColor >> 16) & 0xFF) / 255f, (float) ((renderColor >> 8) & 0xFF) / 255f,
+                getOverlay(entity, 0), (float) ((renderColor >> 16) & 0xFF) / 255f, (float) ((renderColor >> 8) & 0xFF) / 255f,
                 (float) ((renderColor) & 0xFF) / 255f, invis ? 0.0F : 125f / 255f);
         if (!entity.isSpectator()) {
             for (GeoLayerRenderer<JellyfishEntity> layerRenderer : this.layerRenderers) {

@@ -37,7 +37,7 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
     private static BlockPos pos;
 
     public CrystalGenerator(BlockPos arg, BlockState arg2) {
-        super(TileRegistry.CRYSTAL_GENERATOR.get(), arg, arg2);
+       super(/*TileRegistry.CRYSTAL_GENERATOR.get()*/ null, arg, arg2);
         CrystalGenerator.pos = arg;
         this.data = new ContainerData() {
             @Override
@@ -65,7 +65,7 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
     }
 
     public static CrystalGenerator getCrystalGenerator() {
-        return new CrystalGenerator(pos, BlockInit.CRYSTAL_GENERATOR.get().defaultBlockState());
+        return null; // new CrystalGenerator(pos, BlockInit.CRYSTAL_GENERATOR.get().defaultBlockState());
     }
 
     @Override
@@ -83,7 +83,7 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             return switch (slot) {
                 case 0 -> stack.getItem() == ItemInit.ATLANTEAN_CRYSTAL.get();
-                case 1 -> stack.getItem() == ItemInit.ATLANTEAN_AMULET.get() || stack.getItem() == ItemInit.ATLANTEAN_SPEAR.get() || stack.getItem() == BlockInit.CRYSTAL_STORAGE.get().asItem();
+        //        case 1 -> stack.getItem() == ItemInit.ATLANTEAN_AMULET.get() || stack.getItem() == ItemInit.ATLANTEAN_SPEAR.get() || stack.getItem() == BlockInit.CRYSTAL_STORAGE.get().asItem();
                 default -> super.isItemValid(slot, stack);
             };
         }
@@ -101,7 +101,7 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
         return new CrystalGeneratorMenu(id, inventory, this, this.data);
     }
 
-    public final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(10000, 32, 32) {
+    public final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(10000, 32, 20) {
         @Override
         public void onEnergyChanged() {
             setChanged();
@@ -192,13 +192,13 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
         if(!blockEntity.itemHandler.getStackInSlot(1).isEmpty()) {
             blockEntity.progress++;
             setChanged(level, pos, state);
-            if(blockEntity.progress >= blockEntity.maxProgress) {
+       /*     if(blockEntity.progress >= blockEntity.maxProgress) {
                 if(blockEntity.itemHandler.getStackInSlot(1).getItem() == ItemInit.ATLANTEAN_SPEAR.get()) {
                     AtlanteanSpearItem.chargeItem(blockEntity.itemHandler.getStackInSlot(1), blockEntity);
                 } else if (blockEntity.itemHandler.getStackInSlot(1).getItem() == ItemInit.ATLANTEAN_AMULET.get()) {
                     AtlanteanAmuletItem.chargeItem(blockEntity.itemHandler.getStackInSlot(1), blockEntity);
                 }
-            }
+            } */
         } else {
             blockEntity.resetProgress();
             setChanged(level, pos, state);

@@ -24,7 +24,7 @@ import static com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator.E
 
 public class CrystalStorage extends BlockEntity {
     public CrystalStorage(BlockPos arg2, BlockState arg3) {
-        super(TileRegistry.CRYSTAL_STORAGE.get() ,arg2, arg3);
+        super(/*TileRegistry.CRYSTAL_STORAGE.get()*/ null, arg2, arg3);
     }
 
     private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(25000, 256, 256) {
@@ -69,7 +69,7 @@ public class CrystalStorage extends BlockEntity {
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, CrystalGenerator blockEntity, CrystalStorage blockEntity2) {
-        if (level.getBlockState(pos.above()).getBlock() == BlockInit.CRYSTAL_GENERATOR.get()) {
+        /*if (level.getBlockState(pos.above()).getBlock() == BlockInit.CRYSTAL_GENERATOR.get()) {
             if (blockEntity.ENERGY_STORAGE.getEnergyStored() < blockEntity.ENERGY_STORAGE.getMaxEnergyStored()) {
                 if (blockEntity.ENERGY_STORAGE.getEnergyStored() >= ENERGY_REQ) {
                     blockEntity.ENERGY_STORAGE.extractEnergy(ENERGY_REQ, false);
@@ -83,6 +83,6 @@ public class CrystalStorage extends BlockEntity {
                     blockEntity.ENERGY_STORAGE.receiveEnergy(ENERGY_REQ, false);
                 }
             }
-        }
+        }*/
     }
 }

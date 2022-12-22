@@ -2,7 +2,6 @@ package com.mystic.atlantis.networking;
 
 import com.mystic.atlantis.networking.packets.clientbound.AtlantisLightClientBoundPacket;
 import com.mystic.atlantis.networking.packets.clientbound.EnergySyncS2CPacket;
-import com.mystic.atlantis.networking.packets.clientbound.EnergySyncS2CPacket2;
 import com.mystic.atlantis.networking.packets.serverbound.AtlantisLightServerBoundPacket;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.resources.ResourceLocation;
@@ -28,6 +27,5 @@ public class AtlantisPacketHandler {
         INSTANCE.registerMessage(index++, AtlantisLightServerBoundPacket.class, AtlantisLightServerBoundPacket::encode, AtlantisLightServerBoundPacket::decode, AtlantisLightServerBoundPacket::handle);
         INSTANCE.registerMessage(index++, AtlantisLightClientBoundPacket.class, AtlantisLightClientBoundPacket::encode, AtlantisLightClientBoundPacket::decode, AtlantisLightClientBoundPacket::handle);
         INSTANCE.registerMessage(index++, EnergySyncS2CPacket.class, EnergySyncS2CPacket::encode, EnergySyncS2CPacket::decode, EnergySyncS2CPacket::handle);
-        INSTANCE.registerMessage(index++, EnergySyncS2CPacket2.class, EnergySyncS2CPacket2::encode, EnergySyncS2CPacket2::decode, EnergySyncS2CPacket2::handle);
     }
 }

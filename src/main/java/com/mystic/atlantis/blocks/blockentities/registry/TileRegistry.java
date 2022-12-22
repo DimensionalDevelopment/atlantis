@@ -28,6 +28,6 @@ public class TileRegistry {
         public static final RegistryObject<BlockEntityType<EnenmomyTileEntity>> ENENMOMY_TILE = TILES.register("enenmomy", () -> BlockEntityType.Builder.of(EnenmomyTileEntity::new, BlockInit.ENENMOMY_BLOCK.get()).build(null));
 
         public static final RegistryObject<BlockEntityType<DummyDataStorage>> DUMMY_DATA_STORAGE = TILES.register("dummydatastorage", () -> BlockEntityType.Builder.of(DummyDataStorage::new, BlockInit.ATLANTIS_PORTAL.get()).build(null));
-        public static final RegistryObject<BlockEntityType<CrystalGenerator>> CRYSTAL_GENERATOR = TILES.register("crystal_generator", () -> BlockEntityType.Builder.of(CrystalGenerator::new, BlockInit.CRYSTAL_GENERATOR.get()).build(null));
-        public static final RegistryObject<BlockEntityType<CrystalStorage>> CRYSTAL_STORAGE = TILES.register("crystal_storage", () -> BlockEntityType.Builder.of(CrystalStorage::new, BlockInit.CRYSTAL_STORAGE.get()).build(null));
+      //  public static final RegistryObject<BlockEntityType<CrystalGenerator>> CRYSTAL_GENERATOR = TILES.register("crystal_generator", () -> BlockEntityType.Builder.of(CrystalGenerator::new, BlockInit.CRYSTAL_GENERATOR.get()).build(null));
+     //   public static final RegistryObject<BlockEntityType<CrystalStorage>> CRYSTAL_STORAGE = TILES.register("crystal_storage", () -> BlockEntityType.Builder.of(CrystalStorage::new, BlockInit.CRYSTAL_STORAGE.get()).build(null));
 }

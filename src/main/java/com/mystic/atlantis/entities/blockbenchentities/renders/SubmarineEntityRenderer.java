@@ -11,6 +11,7 @@ import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.model.provider.GeoModelProvider;
 import software.bernie.geckolib3.model.provider.data.EntityModelData;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 import software.bernie.geckolib3.core.util.Color;
 
@@ -27,9 +28,11 @@ import net.minecraft.world.entity.Entity;
 
 public class SubmarineEntityRenderer extends EntityRenderer<SubmarineEntity> implements IGeoRenderer<SubmarineEntity> {
     private final AnimatedGeoModel<SubmarineEntity> modelProvider;
+    protected MultiBufferSource rtb;
 
     public SubmarineEntityRenderer(EntityRendererProvider.Context ctx) {
         super(ctx);
+        rtb = Minecraft.getInstance().renderBuffers().bufferSource();
         this.modelProvider = new SubmarineEntityModel();
     }
 
@@ -61,13 +64,23 @@ public class SubmarineEntityRenderer extends EntityRenderer<SubmarineEntity> imp
         AnimationEvent<SubmarineEntity> predicate = new AnimationEvent<>(entityIn, limbSwing, lastLimbDistance, yaw,
                 !(lastLimbDistance > -0.15F && lastLimbDistance < 0.15F), Collections.singletonList(entityModelData));
 
-        ((IAnimatableModel<SubmarineEntity>) modelProvider).setLivingAnimations(entityIn, this.getUniqueID(entityIn), predicate);
+        ((IAnimatableModel<SubmarineEntity>) modelProvider).setCustomAnimations(entityIn, this.getInstanceId(entityIn), predicate);
         tickDelta.popPose();
         super.render(entityIn, entity, yaw, tickDelta, matrices, vertexConsumers);
     }
 
     public static int getPackedOverlay(Entity livingEntityIn, float uIn) {
         return OverlayTexture.pack(OverlayTexture.u(uIn), false);
+    }
+
+    @Override
+    public void setCurrentRTB(MultiBufferSource bufferSource) {
+        this.rtb = bufferSource;
+    }
+
+    @Override
+    public MultiBufferSource getCurrentRTB() {
+        return this.rtb;
     }
 
     @Override

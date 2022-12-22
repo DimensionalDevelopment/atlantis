@@ -63,20 +63,20 @@ public class AtlanteanPowerDust extends RedStoneWireBlock implements SimpleWater
                 RedstoneSide wireConnection = state.getValue(PROPERTY_BY_DIRECTION.get(direction));
                 switch (wireConnection) {
                     case UP:
-                        this.spawnParticlesAlongLine(world, (Random) random, pos, COLOR[i], direction, Direction.UP, -0.5F, 0.5F);
+                        this.spawnParticlesAlongLine(world, random, pos, COLOR[i], direction, Direction.UP, -0.5F, 0.5F);
                     case SIDE:
-                        this.spawnParticlesAlongLine(world, (Random) random, pos, COLOR[i], Direction.DOWN, direction, 0.0F, 0.5F);
+                        this.spawnParticlesAlongLine(world, random, pos, COLOR[i], Direction.DOWN, direction, 0.0F, 0.5F);
                         break;
                     case NONE:
                     default:
-                        this.spawnParticlesAlongLine(world, (Random) random, pos, COLOR[i], Direction.DOWN, direction, 0.0F, 0.3F);
+                        this.spawnParticlesAlongLine(world, random, pos, COLOR[i], Direction.DOWN, direction, 0.0F, 0.3F);
                 }
             }
 
         }
     }
 
-    private void spawnParticlesAlongLine(Level world, Random random, BlockPos pos, Vec3 color, Direction direction, Direction direction2, float f, float g) {
+    private void spawnParticlesAlongLine(Level world, RandomSource random, BlockPos pos, Vec3 color, Direction direction, Direction direction2, float f, float g) {
         float h = g - f;
         if (!(random.nextFloat() >= 0.2F * h)) {
             float i = 0.4375F;

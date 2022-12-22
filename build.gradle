@@ -127,9 +127,11 @@ dependencies {
 
     implementation fg.deobf('com.github.Mysticpasta1:customportalapi:376c81e5ef')
     implementation fg.deobf('curse.maven:MCglTF-591547:4056278')
-    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.18')
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.38')
     implementation fg.deobf("curse.maven:cloth_config_forge-348521:3906388")
     implementation fg.deobf("curse.maven:cyanide_forge-348521:3906388")
+    implementation fg.deobf("curse.maven:artifacts-forge-312353:4013928")
+    implementation fg.deobf("curse.maven:expandability-forge-465066:3984029")
 
     compileOnly fg.deobf("mezz.jei:jei-1.19.2-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-1.19.2-forge-api:${jei_version}")

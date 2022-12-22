@@ -3,11 +3,13 @@ package com.mystic.atlantis.items.item.energybased;
 import com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator;
 import com.mystic.atlantis.capiablities.energy.AtlanteanCrystalEnergy;
 import com.mystic.atlantis.capiablities.energy.AtlanteanCrystalEnergyCapability;
+import com.mystic.atlantis.capiablities.energy.IAtlanteanCrystalEnergy;
 import com.mystic.atlantis.items.item.DefaultItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -22,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,26 +32,37 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-public class AtlanteanSpearItem extends DefaultItem implements ICapabilitySerializable<CompoundTag> {
+public class AtlanteanSpearItem extends DefaultItem {
     public AtlanteanSpearItem(Properties settings) {
         super (settings
                 .stacksTo(1));
     }
 
-    public static AtlanteanCrystalEnergy getEnergyStorage(ItemStack stack) {
+    public static IAtlanteanCrystalEnergy getEnergyStorage(ItemStack stack) {
         return stack.getCapability(AtlanteanCrystalEnergyCapability.ATLANTEAN_CRYSTAL_ENERGY_CAPABILITY, null).resolve().get();
     }
 
     @Override
-    public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag tag) {
-        return new ICapabilityProvider() {
-            @Override
-            public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-                if (cap == AtlanteanCrystalEnergyCapability.ATLANTEAN_CRYSTAL_ENERGY_CAPABILITY) {
-                    return LazyOptional.of(() -> AtlanteanCrystalEnergyCapability.createEnergyCap(1000, stack)).cast();
-                }
+    public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
+        return new ICapabilitySerializable<CompoundTag>() {
+            AtlanteanCrystalEnergy storage = new AtlanteanCrystalEnergy(1000);
+            LazyOptional<IAtlanteanCrystalEnergy> opt = LazyOptional.of(() -> storage);
 
-                return LazyOptional.empty();
+            @Override
+            public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+                return AtlanteanCrystalEnergyCapability.ATLANTEAN_CRYSTAL_ENERGY_CAPABILITY.orEmpty(cap, opt);
+            }
+
+            @Override
+            public CompoundTag serializeNBT() {
+                CompoundTag tag = new CompoundTag();
+                tag.put("energy", storage.serializeNBT());
+                return tag;
+            }
+
+            @Override
+            public void deserializeNBT(CompoundTag tag) {
+                storage.deserializeNBT(tag.get("energy"));
             }
         };
     }
@@ -56,8 +70,8 @@ public class AtlanteanSpearItem extends DefaultItem implements ICapabilitySerial
     public static void chargeItem(ItemStack stack, CrystalGenerator generator) {
         if (stack.getItem() instanceof AtlanteanSpearItem) {
             if (!getEnergyStorage(stack).isFullyCharged()) {
-                generator.ENERGY_STORAGE.extractEnergy(32, false);
-                getEnergyStorage(stack).receiveEnergy(32, false);
+                generator.ENERGY_STORAGE.extractEnergy(20, false);
+                getEnergyStorage(stack).receiveEnergy(20, false);
             }
         }
     }
@@ -79,11 +93,11 @@ public class AtlanteanSpearItem extends DefaultItem implements ICapabilitySerial
 
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
-        if (getEnergyStorage(this.getDefaultInstance()).getEnergyStored() >= 32) {
+        if (getEnergyStorage(player.getItemInHand(hand)).getEnergyStored() >= 50) {
             if(!level.isClientSide && level instanceof ServerLevel serverLevel) {
                 LightningBolt lightningBoltEntity = EntityType.LIGHTNING_BOLT.create(serverLevel, new CompoundTag(), Component.empty(), player, getDistanceForLightningSummon(15, player), MobSpawnType.MOB_SUMMONED, false, false);
                 if(lightningBoltEntity != null) {
-                    getEnergyStorage(this.getDefaultInstance()).extractEnergy(32, false);
+                    getEnergyStorage(this.getDefaultInstance()).extractEnergy(50, false);
                     serverLevel.addFreshEntity(lightningBoltEntity);
                 }
             }
@@ -98,28 +112,24 @@ public class AtlanteanSpearItem extends DefaultItem implements ICapabilitySerial
     }
 
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        return Objects.requireNonNull(initCapabilities(this.getDefaultInstance(), null)).getCapability(cap, side);
-    }
-
-    @Override
-    public CompoundTag serializeNBT() {
-        CompoundTag tag = new CompoundTag();
-        tag.putInt("energy", getEnergyStorage(this.getDefaultInstance()).getEnergyStored());
+    @SuppressWarnings("unchecked")
+    public @Nullable CompoundTag getShareTag(ItemStack stack) {
+        INBTSerializable<Tag> storage = ((INBTSerializable<Tag>) getEnergyStorage(stack));
+        CompoundTag tag = super.getShareTag(stack);
+        if(tag == null) tag = new CompoundTag();
+        tag.put("energy", storage.serializeNBT());
         return tag;
     }
 
     @Override
-    public void deserializeNBT(CompoundTag tag) {
-        getEnergyStorage(this.getDefaultInstance()).setEnergy(tag.getInt("energy"));
-    }
-
-    @Override
-    public void verifyTagAfterLoad(@NotNull CompoundTag tag) {
-        super.verifyTagAfterLoad(tag);
-        if (tag.contains("energy")) {
-            getEnergyStorage(this.getDefaultInstance()).setEnergy(tag.getInt("energy"));
+    @SuppressWarnings("unchecked")
+    public void readShareTag(ItemStack stack, @Nullable CompoundTag nbt) {
+        if(nbt != null) {
+            INBTSerializable<Tag> storage = ((INBTSerializable<Tag>) getEnergyStorage(stack));
+            storage.deserializeNBT(nbt.get("energy"));
+            nbt.remove("energy");
         }
+        super.readShareTag(stack, nbt);
     }
 }
 

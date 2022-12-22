@@ -44,9 +44,9 @@ public class BlockInit {
         BLOCKS.register(bus);
     }
 
-    //Energy
-    public static final RegistryObject<Block> CRYSTAL_GENERATOR = registerBlock("crystal_generator", () -> new CrystalGeneratorBlock(BlockBehaviour.Properties.of(Material.AMETHYST)));
-    public static final RegistryObject<Block> CRYSTAL_STORAGE = registerBlock("crystal_storage", () -> new CrystalStorageBlock(BlockBehaviour.Properties.of(Material.AMETHYST)));
+    //Energy TODO fix Energy Blocks
+    // public static final RegistryObject<Block> CRYSTAL_GENERATOR = registerBlock("crystal_generator", () -> new CrystalGeneratorBlock(BlockBehaviour.Properties.of(Material.AMETHYST)));
+    // public static final RegistryObject<Block> CRYSTAL_STORAGE = registerBlock("crystal_storage", () -> new CrystalStorageBlock(BlockBehaviour.Properties.of(Material.AMETHYST)));
 
     //Fluid Blocks
     public static final RegistryObject<LiquidBlock> JETSTREAM_WATER_BLOCK = BLOCKS.register("jetstream_water",

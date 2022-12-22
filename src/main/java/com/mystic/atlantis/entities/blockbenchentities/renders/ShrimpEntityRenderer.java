@@ -84,7 +84,7 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
                 stack.translate((float) (-direction.getStepX()) * f4, 0.0D, (float) (-direction.getStepZ()) * f4);
             }
         }
-        float f7 = this.handleRotationFloat(entity, partialTicks);
+        float f7 = this.getLerpedAge(entity, partialTicks);
         this.applyRotations(entity, stack, f7, f, partialTicks);
 
         float lastLimbDistance = 0.0F;
@@ -107,7 +107,7 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
                 !(lastLimbDistance > -0.15F && lastLimbDistance < 0.15F), Collections.singletonList(entityModelData));
         GeoModel model = getGeoModelProvider().getModel(getGeoModelProvider().getModelResource(entity));
         if (getGeoModelProvider() instanceof IAnimatableModel) {
-            ((IAnimatableModel<ShrimpEntity>) getGeoModelProvider()).setLivingAnimations(entity, this.getUniqueID(entity), predicate);
+            ((IAnimatableModel<ShrimpEntity>) getGeoModelProvider()).setCustomAnimations(entity, this.getInstanceId(entity), predicate);
         }
 
         stack.translate(0, 0.01f, 0);
@@ -132,7 +132,7 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
                 getTextureLocation(entity));
         boolean invis = entity.isInvisibleTo(Minecraft.getInstance().player);
         render(model, entity, partialTicks, renderType, stack, bufferIn, null, packedLightIn,
-                getPackedOverlay(entity, 0), rColor, gColor,
+                getOverlay(entity, 0), rColor, gColor,
                 bColor, invis ? 0.0F : 1f);
 
         if (!entity.isSpectator()) {
