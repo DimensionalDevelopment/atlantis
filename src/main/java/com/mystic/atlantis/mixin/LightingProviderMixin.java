@@ -25,8 +25,10 @@ abstract public class LightingProviderMixin implements LightEventListener {
 
 	@Inject(at = @At("TAIL"), method = "<init>")
 	public void init(LightChunkGetter chunkProvider, boolean hasBlockLight, boolean hasSkyLight, CallbackInfo ci) {
-		if (DimensionAtlantis.isAtlantisDimension((Level) chunkProvider.getLevel())) {
-			skyEngine = hasSkyLight ? new AtlantisChunkSkylightProvider(chunkProvider) : null;
+		if(chunkProvider.getLevel() instanceof Level level){
+			if (DimensionAtlantis.isAtlantisDimension(level)) {
+				skyEngine = hasSkyLight ? new AtlantisChunkSkylightProvider(chunkProvider) : null;
+			}
 		}
 	}
 }

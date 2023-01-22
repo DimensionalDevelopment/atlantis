@@ -126,7 +126,7 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     implementation fg.deobf('com.github.Mysticpasta1:customportalapi:376c81e5ef')
-    implementation fg.deobf('curse.maven:MCglTF-591547:4056278')
+    implementation fg.deobf('curse.maven:MCglTF-591547:4279325')
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.38')
     implementation fg.deobf("curse.maven:cloth_config_forge-348521:3906388")
     implementation fg.deobf("curse.maven:cyanide_forge-348521:3906388")

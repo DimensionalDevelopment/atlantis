@@ -3,7 +3,7 @@ package com.mystic.atlantis.entities.blockbenchentities.renders;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
-import com.mystic.atlantis.entities.blockbenchentities.JellyfishEntity;
+import com.mystic.atlantis.entities.blockbenchentities.SeahorseEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -28,14 +28,14 @@ import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 
 import java.util.Collections;
 
-public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> {
+public class SeahorseEntityRenderer extends GeoEntityRenderer<SeahorseEntity> {
 
-    public JellyfishEntityRenderer(EntityRendererProvider.Context renderManager, AnimatedGeoModel<JellyfishEntity> modelProvider) {
+    public SeahorseEntityRenderer(EntityRendererProvider.Context renderManager, AnimatedGeoModel<SeahorseEntity> modelProvider) {
         super(renderManager, modelProvider);
     }
 
     @Override
-    public void render(@NotNull JellyfishEntity mobEntity, float f, float g, @NotNull PoseStack matrixStack, @NotNull MultiBufferSource vertexConsumerProvider, int i) {
+    public void render(@NotNull SeahorseEntity mobEntity, float f, float g, @NotNull PoseStack matrixStack, @NotNull MultiBufferSource vertexConsumerProvider, int i) {
         if (mobEntity.isInvisible()) {
             matrixStack.pushPose();
             matrixStack.popPose();
@@ -49,7 +49,7 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
         }
     }
 
-    private void renderStuff(JellyfishEntity entity, float entityYaw, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) {
+    private void renderStuff(SeahorseEntity entity, float entityYaw, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) {
         stack.pushPose();
         boolean shouldSit = entity.isPassenger() && (entity.getVehicle() != null);
         EntityModelData entityModelData = new EntityModelData();
@@ -98,7 +98,7 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
         }
         entityModelData.headPitch = -headPitch;
         entityModelData.netHeadYaw = -netHeadYaw;
-        AnimationEvent<JellyfishEntity> predicate = new AnimationEvent<JellyfishEntity>(entity, limbSwing, lastLimbDistance, partialTicks,
+        AnimationEvent<SeahorseEntity> predicate = new AnimationEvent<>(entity, limbSwing, lastLimbDistance, partialTicks,
                 !(lastLimbDistance > -0.15F && lastLimbDistance < 0.15F), Collections.singletonList(entityModelData));
         GeoModel model = getGeoModelProvider().getModel(getGeoModelProvider().getModelResource(entity));
         if (getGeoModelProvider() instanceof IAnimatableModel model1) {
@@ -115,7 +115,7 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
                 getOverlay(entity, 0), (float) ((renderColor >> 16) & 0xFF) / 255f, (float) ((renderColor >> 8) & 0xFF) / 255f,
                 (float) ((renderColor) & 0xFF) / 255f, invis ? 0.0F : 125f / 255f);
         if (!entity.isSpectator()) {
-            for (GeoLayerRenderer<JellyfishEntity> layerRenderer : this.layerRenderers) {
+            for (GeoLayerRenderer<SeahorseEntity> layerRenderer : this.layerRenderers) {
                 layerRenderer.render(stack, bufferIn, packedLightIn, entity, limbSwing, lastLimbDistance, partialTicks,
                         f7, netHeadYaw, headPitch);
             }
@@ -126,7 +126,7 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
         }
     }
 
-    private <E extends Entity> void method_4073(JellyfishEntity entity, float tickDelta, PoseStack matrices, MultiBufferSource provider, E holdingEntity) {
+    private <E extends Entity> void method_4073(SeahorseEntity entity, float tickDelta, PoseStack matrices, MultiBufferSource provider, E holdingEntity) {
         matrices.pushPose();
         Vec3 vec3d = holdingEntity.getViewVector(tickDelta);
         double d = (double)(Mth.lerp(tickDelta, entity.yBodyRot, entity.yBodyRotO) * 0.017453292F) + 1.5707963267948966D;

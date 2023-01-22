@@ -1,6 +1,6 @@
 modLoader="javafml" #mandatory
 
-loaderVersion="[40,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion="[43,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 
 license="LGPLv3"
 
@@ -10,7 +10,7 @@ issueTrackerURL="https://github.com/Exploding-Creeper/atlantis/issues" #optional
 
 modId="atlantis" #mandatory
 
-version="2022.8.31-1.19.2-1.0.1-forge" #mandatory
+version="2023.8.31-1.19.2-1.0.1-forge" #mandatory
 
 displayName="Atlantis" #mandatory
 
@@ -19,30 +19,30 @@ displayURL="https://github.com/Exploding-Creeper/atlantis" #optional
 logoFile= "logo.png" #optional
 
 credits='''
-To all the people of the MMD server!,
-Gami for his work on the creative tab,
 LordHugo02 for his work on correcting the aquamarine ore,
 DTRaptor for his work on the Drop of Atlantis,
 TelepathicGrunt for his help with the JSON files,
 WaterPicker for his work on the fabric branch,
 BingJ for his work on some of the entity animations and models,
 LudoCrypt for the music and texture on the music disc for atlantis,
-and LimeShulkerBox for the Atlantean Portal and for removing the need for effects in the dimension"
+She's Long for multiple textures, models, and jsons for assets,
+and LimeShulkerBox for the Atlantean Portal and for removing the need for effects in the dimension.
 
 Extra Credits from Sketchfab:
 "Coconut Crab" (https://skfb.ly/oqAyI) by GlacierArts is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-
-"Upgraded enchanting table" (https://skfb.ly/ov9EF) by omegaru010 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-
-"CoconutCrab" (https://skfb.ly/owrXF) by mamickabee is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-
-"Fish" (https://skfb.ly/ovWOo) by Zuzuga is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 '''
-authors="Mysticpasta1, Nyfaria, Gami, LordHugo02, DTRaptor, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity" #optional
+authors="Mysticpasta1, LordHugo02, DTRaptor, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity, She's Long" #optional
 
 description='''
 An Underwater Atlantis like dimension mod.
 '''
+[[dependencies.atlantis]]
+    modId="mcgltf"
+    mandatory=true
+    versionRange="[1.19.2-Forge-2.0.0.0, )"
+    ordering="NONE"
+    side="BOTH"
+
 [[dependencies.atlantis]] #optional
     modId="cloth_config" #mandatory
     mandatory=true #mandatory
@@ -67,7 +67,7 @@ An Underwater Atlantis like dimension mod.
 [[dependencies.atlantis]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[40,)" #mandatory
+    versionRange="[43,)" #mandatory
     ordering="NONE"
     side="BOTH"
 

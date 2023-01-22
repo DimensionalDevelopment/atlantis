@@ -10,9 +10,9 @@ import com.mystic.atlantis.items.armor.ItemArmorWrought;
 import com.mystic.atlantis.items.item.*;
 import com.mystic.atlantis.items.item.bottles.FireMelonJellyBottle;
 import com.mystic.atlantis.items.item.bottles.JellyfishJellyBottle;
-import com.mystic.atlantis.items.item.energybased.AtlanteanAmuletItem;
+import com.mystic.atlantis.items.item.buckets.CrabEntityBucketItem;
+import com.mystic.atlantis.items.item.buckets.AtlanteanEntityBucketItem;
 import com.mystic.atlantis.items.item.energybased.AtlanteanCrystal;
-import com.mystic.atlantis.items.item.energybased.AtlanteanSpearItem;
 import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
 import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
@@ -74,6 +74,7 @@ public class ItemInit {
     public static final RegistryObject<Item> ATLANTEAN_SHRIMP_EGG = register("atlantean_shrimp_egg", () -> new ForgeSpawnEggItem(AtlantisEntities.SHRIMP, 0xff0000, 0xff8000, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     public static final RegistryObject<Item> LEVIATHAN_EGG = register("leviathan_egg", () -> new ForgeSpawnEggItem(AtlantisEntities.LEVIATHAN, 0x01ddddd, 0xaddedb, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
+    public static final RegistryObject<Item> ATLANTEAN_SEAHORSE_EGG = register("atlantean_seahorse_egg", () -> new ForgeSpawnEggItem(AtlantisEntities.SEAHORSE, 0xf6eb3e, 0xcfc85b, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     public static final RegistryObject<Item> COCONUT_CRAB_EGG = register("coconut_crab_egg", () -> new ForgeSpawnEggItem(AtlantisEntities.COCONUT_CRAB, 0x800002, 0xff0f45, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
     //MUSIC DISC
@@ -157,9 +158,11 @@ public class ItemInit {
 
     //Entity Buckets
     public static final RegistryObject<Item> CRAB_BUCKET = register("crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntities.CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
-    public static final RegistryObject<Item> JELLYFISH_BUCKET = register("jellyfish_bucket", ()->new JellyfishEntityBucketItem(AtlantisEntities.JELLYFISH, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
-    public static final RegistryObject<Item> JELLYFISH_2_BUCKET = register("jellyfish_2_bucket", ()->new JellyfishEntityBucketItem(AtlantisEntities.JELLYFISH2, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
-    public static final RegistryObject<Item> SHRIMP_BUCKET = register("shrimp_bucket", ()->new JellyfishEntityBucketItem(AtlantisEntities.SHRIMP, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> JELLYFISH_BUCKET = register("jellyfish_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntities.JELLYFISH, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> JELLYFISH_2_BUCKET = register("jellyfish_2_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntities.JELLYFISH2, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
+    public static final RegistryObject<Item> SHRIMP_BUCKET = register("shrimp_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntities.SHRIMP, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
+
+    public static final RegistryObject<Item> SEAHORSE_BUCKET = register("seahorse_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntities.SEAHORSE, ()->Fluids.WATER, ()-> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
 
     public static final RegistryObject<Item> COCONUT_CRAB_BUCKET = register("coconut_crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntities.COCONUT_CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
 

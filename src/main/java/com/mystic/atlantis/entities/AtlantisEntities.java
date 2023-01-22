@@ -28,7 +28,7 @@ public class AtlantisEntities {
     public static final RegistryObject<EntityType<Jellyfish2Entity>> JELLYFISH2 = register("atlantean_jellyfish_2", EntityType.Builder.of(Jellyfish2Entity::new, MobCategory.WATER_AMBIENT).sized(0.4f, 0.8f));
     public static final RegistryObject<EntityType<ShrimpEntity>> SHRIMP = register("atlantean_shrimp", EntityType.Builder.of(ShrimpEntity::new, MobCategory.WATER_AMBIENT).sized(0.5f, 0.5f));
     public static final RegistryObject<EntityType<LeviathanEntity>> LEVIATHAN = register("leviathan", EntityType.Builder.of(LeviathanEntity::new, MobCategory.WATER_CREATURE).sized(1.5f, 0.7f));
-
+    public static final RegistryObject<EntityType<SeahorseEntity>> SEAHORSE = register("atlantean_seahorse", EntityType.Builder.of(SeahorseEntity::new, MobCategory.CREATURE).sized(.4f, 1.5f));
     //Explosives
     public static final RegistryObject<EntityType<SodiumPrimedBomb>> BOMB = register("sodium_bomb", EntityType.Builder.<SodiumPrimedBomb>of(SodiumPrimedBomb::new, MobCategory.MISC).fireImmune().sized(0.98f, 0.98f).clientTrackingRange(10).updateInterval(10));
 
@@ -49,6 +49,7 @@ public class AtlantisEntities {
         event.put(AtlantisEntities.JELLYFISH2.get(), Jellyfish2Entity.createJellyfishAttributes().build());
         event.put(AtlantisEntities.SHRIMP.get(), ShrimpEntity.createShrimpAttributes().build());
         event.put(AtlantisEntities.LEVIATHAN.get(), LeviathanEntity.createLeviathanAttributes().build());
+        event.put(AtlantisEntities.SEAHORSE.get(), SeahorseEntity.createSeahorseAttributes().build());
 
         event.put(AtlantisEntities.COCONUT_CRAB.get(), CoconutCrabEntity.createCoconutCrabAttributes().build());
     }
