@@ -5,8 +5,6 @@ import com.mystic.atlantis.blocks.*;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.blocks.plants.*;
 import com.mystic.atlantis.blocks.power.atlanteanstone.*;
-import com.mystic.atlantis.blocks.power.energy.CrystalGeneratorBlock;
-import com.mystic.atlantis.blocks.power.energy.CrystalStorageBlock;
 import com.mystic.atlantis.blocks.shells.ColoredShellBlocks;
 import com.mystic.atlantis.blocks.shells.NautilusShellBlock;
 import com.mystic.atlantis.blocks.shells.OysterShellBlock;
@@ -14,7 +12,6 @@ import com.mystic.atlantis.blocks.signs.AtlanteanSignBlock;
 import com.mystic.atlantis.blocks.signs.AtlanteanWallSign;
 import com.mystic.atlantis.blocks.slabs.AncientWoodSlabs;
 import com.mystic.atlantis.blocks.slabs.AtlanteanWoodSlabs;
-import com.mystic.atlantis.configfeature.trees.AtlanteanTreeSaplingGenerator;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.world.item.BlockItem;
@@ -156,9 +153,9 @@ public class BlockInit {
     public static final RegistryObject<Block> OCEAN_LANTERN = registerBlock("ocean_lantern",()-> new OceanLantern(BlockBehaviour.Properties.of(Material.METAL)));
     public static final RegistryObject<Block> ATLANTEAN_SEA_LANTERN = registerBlock("atlantean_sea_lantern",()-> new AtlantianSeaLantern(BlockBehaviour.Properties.of(Material.GLASS)));
     public static final RegistryObject<Block> ATLANTEAN_CORE = registerBlock("atlantean_core",()-> new AtlanteanCore(BlockBehaviour.Properties.of(Material.GLASS)));
-    public static final RegistryObject<Block> BLOCK_OF_AQUAMARINE = registerBlock("block_of_aquamarine",()-> new BlockAquamarine(BlockBehaviour.Properties.of(Material.METAL)));
-    public static final RegistryObject<Block> CHISELED_GOLDEN_BLOCK = registerBlock("chiseled_golden_block",()-> new BlockAquamarine(BlockBehaviour.Properties.of(Material.METAL)));
-    public static final RegistryObject<Block> CHISELED_GOLDEN_AQUAMARINE = registerBlock("chiseled_golden_aquamarine",()-> new BlockAquamarine(BlockBehaviour.Properties.of(Material.METAL)));;
+    public static final RegistryObject<Block> BLOCK_OF_AQUAMARINE = registerBlock("block_of_aquamarine",()-> new AquamarineBlock(BlockBehaviour.Properties.of(Material.METAL)));
+    public static final RegistryObject<Block> CHISELED_GOLDEN_BLOCK = registerBlock("chiseled_golden_block",()-> new AquamarineBlock(BlockBehaviour.Properties.of(Material.METAL)));
+    public static final RegistryObject<Block> CHISELED_GOLDEN_AQUAMARINE = registerBlock("chiseled_golden_aquamarine",()-> new AquamarineBlock(BlockBehaviour.Properties.of(Material.METAL)));;
     public static final RegistryObject<Block> BLACK_PEARL_BLOCK = registerBlock("black_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
     public static final RegistryObject<Block> BLUE_PEARL_BLOCK = registerBlock("blue_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
     public static final RegistryObject<Block> BROWN_PEARL_BLOCK = registerBlock("brown_pearl_block",()-> new PearlBlocks(BlockBehaviour.Properties.of(Material.STONE)));
@@ -210,8 +207,7 @@ public class BlockInit {
 
     public static final RegistryObject<Block> WRITING_BLOCK = registerLinguisticBlock("writing_block", () -> new WritingBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> ATLANTEAN_SAPLING = registerBlock("atlantean_sapling", ()->
-            new AtlanteanSapling(new AtlanteanTreeSaplingGenerator(),
-                    BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+            new AtlanteanSapling(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
     public static final RegistryObject<Block> ATLANTEAN_FIRE_MELON_FRUIT_SPIKED = registerOnlyBlock("atlantean_fire_melon_fruit_spiked", () -> new AtlanteanFireMelonFruitSpiked(BlockBehaviour.Properties.of(Material.PLANT)));
     public static final RegistryObject<Block> ATLANTEAN_FIRE_MELON_FRUIT = registerOnlyBlock("atlantean_fire_melon_fruit", () -> new AtlanteanFireMelonFruit(BlockBehaviour.Properties.of(Material.PLANT)));

@@ -33,6 +33,7 @@ public class UnderwaterFlower extends BushBlock implements SimpleWaterloggedBloc
                 .requiresCorrectToolForDrops()
                 .noCollission()
                 .noOcclusion());
+        ComposterBlock.COMPOSTABLES.put(this, 0.65f);
         this.defaultBlockState().setValue(WATERLOGGED, Boolean.TRUE);
     }
 

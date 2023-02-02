@@ -4,24 +4,25 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "atlantis.refmap.json",
   "mixins": [
-    "ItemMixin",
-    "BucketItemMixin",
+    "BlockEntityTypeMixin",
     "BlockMixin",
-    "LightingProviderMixin",
     "BoatEntityAccessor",
+    "BucketItemMixin",
     "CanBreatheInDimension",
     "ChangeBreakSpeedMixin",
+    "EntityMixin",
+    "ExplosionDamageCalculatorMixin",
+    "ItemCombinerMenuMixin",
+    "ItemEntityMixin",
+    "ItemMixin",
+    "LightingProviderMixin",
     "RedstoneAccessor",
     "RedstoneWireBlockMixin",
     "RenderBubblesMixin",
-    "WorldLightManagerMixin",
-    "BlockEntityTypeMixin",
-    "ItemCombinerMenuMixin",
-    "ItemEntityMixin",
-    "EntityMixin",
-    "ExplosionDamageCalculatorMixin"
+    "WorldLightManagerMixin"
   ],
   "client": [
+    "VisibilityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

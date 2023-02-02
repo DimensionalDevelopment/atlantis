@@ -29,7 +29,6 @@ public class PearlBlocks extends HalfTransparentBlock implements SimpleWaterlogg
     public PearlBlocks(BlockBehaviour.Properties properties) {
         super(properties
                 .strength(2.0F, 5.0F)
-//                .breakByTool(FabricToolTags.PICKAXES, 1) //TODO: Fix this
                 .requiresCorrectToolForDrops()
                 .lightLevel((state) -> 5)
                 .noOcclusion()

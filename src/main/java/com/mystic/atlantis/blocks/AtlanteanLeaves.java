@@ -10,7 +10,7 @@ public class AtlanteanLeaves extends LeavesBlock implements SimpleWaterloggedBlo
     public AtlanteanLeaves(BlockBehaviour.Properties properties) {
         super(properties
                 .sound(SoundType.GRASS)
-//                .breakByTool(FabricToolTags.SHEARS, 1) //TODO: Update
+                .requiresCorrectToolForDrops()
                 .strength(1.0F, 2.0F));
     }
 }

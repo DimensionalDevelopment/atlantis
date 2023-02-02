@@ -55,8 +55,14 @@
       {
         "type": "atlantis:atlantean_shrimp",
         "weight": 25,
-        "minCount": 30,
-        "maxCount": 30
+        "minCount": 25,
+        "maxCount": 25
+      },
+      {
+        "type": "atlantis:atlantean_seahorse",
+        "weight": 25,
+        "minCount": 35,
+        "maxCount": 75
       },
       {
         "type": "minecraft:tropical_fish",

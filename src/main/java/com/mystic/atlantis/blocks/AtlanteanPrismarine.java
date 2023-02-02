@@ -17,7 +17,6 @@ public class AtlanteanPrismarine extends Block {
     public AtlanteanPrismarine(BlockBehaviour.Properties properties) {
         super(properties
                 .strength(2.0F, 6.0F)
-//                .breakByTool(FabricToolTags.PICKAXES, 1) //TODO: Update
                 .requiresCorrectToolForDrops()
                 .sound(SoundType.STONE));
         this.registerDefaultState(this.defaultBlockState().setValue(AXIS, Direction.Axis.Y));

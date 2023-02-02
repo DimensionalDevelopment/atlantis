@@ -33,8 +33,12 @@ public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 					QuartPos.fromBlock(blockPos.getZ())
 			);
 			if(biome.unwrapKey().isPresent()) {
-				if (ACommonFEvents.map.containsKey(biome.unwrapKey().get().location())) {
-					return Math.min(ACommonFEvents.map.get(biome.unwrapKey().get().location()), propagatedLevel);
+				if (ACommonFEvents.map != null) {
+					if (ACommonFEvents.map.containsKey(biome.unwrapKey().get().location())) {
+						return Math.min(ACommonFEvents.map.get(biome.unwrapKey().get().location()), propagatedLevel);
+					}
+				} else {
+					return Math.min(15, propagatedLevel);
 				}
 			}
 		}

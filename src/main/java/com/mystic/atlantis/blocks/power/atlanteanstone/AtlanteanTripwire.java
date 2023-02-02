@@ -21,9 +21,7 @@ import java.util.Map;
 
 public class AtlanteanTripwire extends TripWireBlock implements SimpleWaterloggedBlock {
 
-    private static final Map<Direction, BooleanProperty> FACING_PROPERTIES = PipeBlock.PROPERTY_BY_DIRECTION.entrySet().stream().filter((entry) -> {
-        return entry.getKey().getAxis().isHorizontal();
-    }).collect(Util.toMap());
+    private static final Map<Direction, BooleanProperty> FACING_PROPERTIES = PipeBlock.PROPERTY_BY_DIRECTION.entrySet().stream().filter((entry) -> entry.getKey().getAxis().isHorizontal()).collect(Util.toMap());
     private final AtlanteanTripwireHook hookBlock;
     private static final Property<Boolean> WATERLOGGED = UnderwaterFlower.WATERLOGGED;
 

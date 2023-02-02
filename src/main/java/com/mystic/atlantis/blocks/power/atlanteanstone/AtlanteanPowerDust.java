@@ -50,7 +50,7 @@ public class AtlanteanPowerDust extends RedStoneWireBlock implements SimpleWater
             float r = Mth.clamp(f * f * 0.7F - 0.5F, 0.0F, 1.0F);
             float g = Mth.clamp(f * f * 0.6F - 0.7F, 0.0F, 1.0F);
             float b = f * 0.6F + (f > 0.0F ? 0.4F : 0.3F);
-            vec3ds[i] = new Vec3((double) r, (double) g, (double) b);
+            vec3ds[i] = new Vec3(r, g, b);
         }
     });
 
@@ -135,7 +135,11 @@ public class AtlanteanPowerDust extends RedStoneWireBlock implements SimpleWater
         int receivedPower = world.getBestNeighborSignal(pos);
         ((RedstoneAccessor) this).setShouldSignal(true);
         int calculatedPower = 0;
-        if (receivedPower < 15 && receivedPower > 0) {
+        if(receivedPower == 15) {
+            calculatedPower = 15;
+            return calculatedPower;
+        }
+        else if (receivedPower < 15 && receivedPower > 0) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 BlockPos blockPos = pos.relative(direction);
                 BlockState blockState = world.getBlockState(blockPos);

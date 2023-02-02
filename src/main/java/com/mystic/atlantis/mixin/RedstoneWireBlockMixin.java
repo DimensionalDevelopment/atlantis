@@ -45,7 +45,11 @@ public abstract class RedstoneWireBlockMixin{
         int receivedPower = world.getBestNeighborSignal(pos);
         ((RedstoneAccessor) Blocks.REDSTONE_WIRE).setShouldSignal(true);
         int calculatedPower = 0;
-        if (receivedPower < 15 && receivedPower > 0) {
+        if(receivedPower == 15) {
+            calculatedPower = 15;
+            cir.setReturnValue(calculatedPower);
+        }
+        else if (receivedPower < 15 && receivedPower > 0) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 BlockPos blockPos = pos.relative(direction);
                 BlockState blockState = world.getBlockState(blockPos);

@@ -167,16 +167,16 @@ public class ItemInit {
     public static final RegistryObject<Item> COCONUT_CRAB_BUCKET = register("coconut_crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntities.COCONUT_CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroup.MAIN)));
 
     //TOOLS
-    public static final RegistryObject<Item> AXE_AQUAMARINE = register("axe_aquamarine", () -> new AquamarineAxe(ToolInit.AQUAMARINE, 4));
-    public static final RegistryObject<Item> PICKAXE_AQUAMARINE = register("pickaxe_aquamarine", () -> new AquamarinePickaxe(ToolInit.AQUAMARINE, 3));
+    public static final RegistryObject<Item> AXE_AQUAMARINE = register("axe_aquamarine", () -> new AquamarineAxe(ToolInit.AQUAMARINE, 3));
+    public static final RegistryObject<Item> PICKAXE_AQUAMARINE = register("pickaxe_aquamarine", () -> new AquamarinePickaxe(ToolInit.AQUAMARINE, 2));
     public static final RegistryObject<Item> SHOVEL_AQUAMARINE = register("shovel_aquamarine", () -> new AquamarineShovel(ToolInit.AQUAMARINE, 1));
     public static final RegistryObject<Item> HOE_AQUAMARINE = register("hoe_aquamarine", () -> new AquamarineHoe(ToolInit.AQUAMARINE, 2));
-    public static final RegistryObject<Item> SWORD_AQUAMARINE = register("sword_aquamarine", () -> new AquamarineSword(ToolInit.AQUAMARINE, 6));
-    public static final RegistryObject<Item> ORICHALCUM_AXE = register("orichalcum_axe", () -> new AquamarineAxe(ToolInit.ORICHAClUM, 4));
-    public static final RegistryObject<Item> ORICHALCUM_PICKAXE = register("orichalcum_pickaxe", () -> new AquamarinePickaxe(ToolInit.ORICHAClUM, 3));
+    public static final RegistryObject<Item> SWORD_AQUAMARINE = register("sword_aquamarine", () -> new AquamarineSword(ToolInit.AQUAMARINE, 4));
+    public static final RegistryObject<Item> ORICHALCUM_AXE = register("orichalcum_axe", () -> new AquamarineAxe(ToolInit.ORICHAClUM, 3));
+    public static final RegistryObject<Item> ORICHALCUM_PICKAXE = register("orichalcum_pickaxe", () -> new AquamarinePickaxe(ToolInit.ORICHAClUM, 2));
     public static final RegistryObject<Item> ORICHALCUM_SHOVEL = register("orichalcum_shovel", () -> new AquamarineShovel(ToolInit.ORICHAClUM, 1));
     public static final RegistryObject<Item> ORICHALCUM_HOE = register("orichalcum_hoe", () -> new AquamarineHoe(ToolInit.ORICHAClUM, 2));
-    public static final RegistryObject<Item> ORICHALCUM_SWORD = register("orichalcum_sword", () -> new AquamarineSword(ToolInit.ORICHAClUM, 6));
+    public static final RegistryObject<Item> ORICHALCUM_SWORD = register("orichalcum_sword", () -> new AquamarineSword(ToolInit.ORICHAClUM, 4));
 
     //ARMOR
     public static final RegistryObject<Item> AQUAMARINE_HELMET = register("aquamarine_helmet", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, EquipmentSlot.HEAD, new Item.Properties().tab(AtlantisGroup.MAIN)));

@@ -37,7 +37,6 @@ public class AtlanteanWoodDoors extends DoorBlock implements SimpleWaterloggedBl
         super(settings
                 .sound(SoundType.WOOD)
                 .noOcclusion()
-//                .breakByTool(FabricToolTags.AXES, 2) //TODO: Update
                 .requiresCorrectToolForDrops()
                 .strength(3.0F, 6.0F));
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(OPEN, false).setValue(HINGE, DoorHingeSide.LEFT).setValue(POWERED, false).setValue(HALF, DoubleBlockHalf.LOWER).setValue(WATERLOGGED, false));

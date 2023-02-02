@@ -33,6 +33,7 @@ public class YellowGlowingMushroom extends BushBlock implements SimpleWaterlogge
                 .requiresCorrectToolForDrops()
                 .noCollission()
                 .noOcclusion());
+        ComposterBlock.COMPOSTABLES.put(this, 0.65f);
         this.defaultBlockState().setValue(WATERLOGGED, Boolean.TRUE);
     }
 

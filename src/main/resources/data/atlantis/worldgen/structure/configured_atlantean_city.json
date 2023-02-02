@@ -1,0 +1,32 @@
+{
+  "type": "atlantis:atlantean_city",
+  "start_pool": "atlantis:atlantean_city",
+  "size": 1,
+  "max_distance_from_center": 256,
+  "biomes": [
+    "atlantis:atlantean_garden",
+    "atlantis:atlantis_biome",
+    "atlantis:atlantean_islands_biome",
+    "atlantis:jellyfish_fields",
+    "atlantis:volcanic_darksea",
+    "atlantis:goo_lagoons"
+  ],
+  "step": "surface_structures",
+  "start_height": {
+    "absolute": 1
+  },
+  "project_start_to_heightmap": "OCEAN_FLOOR",
+  "spawn_overrides": {
+    "water_ambient": {
+      "bounding_box": "full",
+      "spawns": [
+        {
+          "type": "minecraft:tropical_fish",
+          "weight": 1,
+          "minCount": 4,
+          "maxCount": 16
+        }
+      ]
+    }
+  }
+}

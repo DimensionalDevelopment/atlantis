@@ -11,7 +11,6 @@ public class AncientWoodStairs extends StairBlock {
     public AncientWoodStairs(BlockState baseBlockState, BlockBehaviour.Properties settings) {
         super(baseBlockState, settings
                 .sound(SoundType.WOOD)
-//                .breakByTool(FabricToolTags.AXES, 2) //TODO: Update
                 .requiresCorrectToolForDrops()
                 .strength(3.0F, 6.0F));
     }

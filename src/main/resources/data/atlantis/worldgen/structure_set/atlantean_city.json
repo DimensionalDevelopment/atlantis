@@ -1,0 +1,17 @@
+{
+  "structures": [
+    {
+      "structure": "atlantis:configured_atlantean_city",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 5432875932,
+    "frequency_reduction_method": "default",
+    "frequency": 0.7,
+    "spread_type": "linear",
+    "spacing": 16,
+    "separation": 9
+  }
+}

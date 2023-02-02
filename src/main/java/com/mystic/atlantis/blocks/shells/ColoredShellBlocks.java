@@ -19,7 +19,6 @@ public class ColoredShellBlocks extends Block {
     public ColoredShellBlocks(BlockBehaviour.Properties properties) {
         super(properties
                 .sound(SoundType.BONE_BLOCK)
-//                .breakByTool(FabricToolTags.PICKAXES, 2) //TODO: Update
                 .requiresCorrectToolForDrops()
                 .strength(3.0F, 7.0F));
 

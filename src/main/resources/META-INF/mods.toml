@@ -10,7 +10,7 @@ issueTrackerURL="https://github.com/Exploding-Creeper/atlantis/issues" #optional
 
 modId="atlantis" #mandatory
 
-version="2023.8.31-1.19.2-1.0.1-forge" #mandatory
+version="2023.1.27-1.19.2-1.4.0-forge" #mandatory
 
 displayName="Atlantis" #mandatory
 
@@ -41,7 +41,7 @@ An Underwater Atlantis like dimension mod.
     mandatory=true
     versionRange="[1.19.2-Forge-2.0.0.0, )"
     ordering="NONE"
-    side="BOTH"
+    side="CLIENT"
 
 [[dependencies.atlantis]] #optional
     modId="cloth_config" #mandatory

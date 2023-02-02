@@ -8,7 +8,6 @@ public class AtlanteanCore extends Block {
     public AtlanteanCore(BlockBehaviour.Properties properties) {
         super(properties
                 .sound(SoundType.METAL)
-//                .breakByTool(FabricToolTags.PICKAXES, 2) //TODO: Update
                 .requiresCorrectToolForDrops()
                 .lightLevel((state) -> 7)
                 .strength(4.0F, 25.0F));

@@ -34,6 +34,12 @@
         "maxCount": 4
       },
       {
+        "type": "atlantis:atlantean_seahorse",
+        "weight": 25,
+        "minCount": 35,
+        "maxCount": 75
+      },
+      {
         "type": "atlantis:atlantean_crab",
         "weight": 25,
         "minCount": 18,

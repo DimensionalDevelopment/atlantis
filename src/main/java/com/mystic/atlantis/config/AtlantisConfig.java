@@ -26,6 +26,8 @@ public class AtlantisConfig implements ConfigData {
     public ForgeConfigSpec.BooleanValue startInAtlantis;
     public ForgeConfigSpec.BooleanValue turnOnDimensionalWaterBreathing;
     public ForgeConfigSpec.BooleanValue turnOnDimensionalHaste;
+    public ForgeConfigSpec.DoubleValue waterVisibility;
+    public ForgeConfigSpec.BooleanValue shouldCitiesGenerate;
 
 
 
@@ -41,5 +43,7 @@ public class AtlantisConfig implements ConfigData {
         this.startInAtlantis = builder.comment("Start In Atlantis?").define("startInAtlantis", false);
         this.turnOnDimensionalWaterBreathing = builder.comment("Should Dimension Wide Water Breathing Be On?").define("turnOnDimensionalWaterBreathing", true);
         this.turnOnDimensionalHaste = builder.comment("Should Dimension Wide Haste Be On?").define("turnOnDimensionalHaste", true);
+        this.waterVisibility = builder.comment("How far is visibility in Water?").defineInRange("waterVisibility", 120.0d, 1.0d, 200.0d);
+        this.shouldCitiesGenerate = builder.comment("Can Atlantean Cities generate? (Warning may cause slight lag when generating!)").define("shouldCitiesGenerate", true);
     }
 }
