@@ -22,8 +22,14 @@
       {
         "type": "minecraft:drowned",
         "weight": 25,
-        "minCount": 4,
-        "maxCount": 6
+        "minCount": 6,
+        "maxCount": 20
+      },
+      {
+        "type": "atlantis:atlantean_starzomfish",
+        "weight": 1,
+        "minCount": 6,
+        "maxCount": 20
       }
     ],
     "water_creature": [
@@ -106,7 +112,6 @@
     ],
     [
       "minecraft:sea_pickle",
-      "minecraft:kelp_warm",
       "minecraft:warm_ocean_vegetation",
       "minecraft:seagrass_deep_warm",
       "minecraft:seagrass_simple",

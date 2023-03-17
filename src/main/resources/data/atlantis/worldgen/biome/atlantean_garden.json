@@ -37,6 +37,12 @@
         "weight": 25,
         "minCount": 1,
         "maxCount": 2
+      },
+      {
+        "type": "atlantis:atlantean_starfish",
+        "weight": 1,
+        "minCount": 5,
+        "maxCount": 18
       }
     ],
     "water_ambient": [
@@ -61,8 +67,8 @@
       {
         "type": "atlantis:atlantean_seahorse",
         "weight": 25,
-        "minCount": 35,
-        "maxCount": 75
+        "minCount": 15,
+        "maxCount": 35
       },
       {
         "type": "minecraft:tropical_fish",
@@ -111,7 +117,6 @@
     ],
     [
       "minecraft:sea_pickle",
-      "minecraft:kelp_warm",
       "minecraft:warm_ocean_vegetation",
       "minecraft:seagrass_deep_warm",
       "minecraft:seagrass_simple",

@@ -1,15 +1,12 @@
 {
-  "type": "atlantis:atlantean_city",
-  "start_pool": "atlantis:atlantean_city",
+  "type": "atlantis:atlantean_spire",
+  "start_pool": "atlantis:atlantean_spire",
   "size": 1,
-  "max_distance_from_center": 256,
+  "max_distance_from_center": 1,
   "biomes": [
-    "atlantis:atlantean_garden",
     "atlantis:atlantis_biome",
     "atlantis:atlantean_islands_biome",
-    "atlantis:jellyfish_fields",
-    "atlantis:volcanic_darksea",
-    "atlantis:goo_lagoons"
+    "atlantis:atlantean_garden"
   ],
   "step": "surface_structures",
   "start_height": {
@@ -28,14 +25,20 @@
         }
       ]
     },
-    "water_creature": {
+    "monster": {
       "bounding_box": "full",
       "spawns": [
         {
-          "type": "atlantis:atlantean_starfish",
+          "type": "atlantis:atlantean_starzomfish",
           "weight": 1,
-          "minCount": 5,
-          "maxCount": 18
+          "minCount": 6,
+          "maxCount": 20
+        },
+        {
+          "type": "minecraft:drowned",
+          "weight": 1,
+          "minCount": 6,
+          "maxCount": 20
         }
       ]
     }

@@ -150,6 +150,8 @@ public class BlockInit {
             .requiresCorrectToolForDrops()
             .strength(3.0F, 15.0F)
             .lightLevel((state) -> 2)));
+
+    public static final RegistryObject<Block> SEABED = registerBlock("seabed", () -> new SeaBedBlock(BlockBehaviour.Properties.of(Material.STONE)));
     public static final RegistryObject<Block> OCEAN_LANTERN = registerBlock("ocean_lantern",()-> new OceanLantern(BlockBehaviour.Properties.of(Material.METAL)));
     public static final RegistryObject<Block> ATLANTEAN_SEA_LANTERN = registerBlock("atlantean_sea_lantern",()-> new AtlantianSeaLantern(BlockBehaviour.Properties.of(Material.GLASS)));
     public static final RegistryObject<Block> ATLANTEAN_CORE = registerBlock("atlantean_core",()-> new AtlanteanCore(BlockBehaviour.Properties.of(Material.GLASS)));

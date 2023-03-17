@@ -24,7 +24,8 @@
         "weight": 25,
         "minCount": 4,
         "maxCount": 6
-      }
+      },
+
     ],
     "water_creature": [
       {
@@ -82,6 +83,12 @@
         "weight": 25,
         "minCount": 8,
         "maxCount": 8
+      },
+      {
+        "type": "atlantis:atlantean_starfish",
+        "weight": 1,
+        "minCount": 5,
+        "maxCount": 18
       }
     ]
   },
@@ -123,7 +130,6 @@
     ],
     [
       "minecraft:sea_pickle",
-      "minecraft:kelp_warm",
       "minecraft:warm_ocean_vegetation",
       "minecraft:seagrass_deep_warm",
       "minecraft:seagrass_simple",

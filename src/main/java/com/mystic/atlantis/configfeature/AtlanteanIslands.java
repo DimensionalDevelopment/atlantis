@@ -2,6 +2,7 @@ package com.mystic.atlantis.configfeature;
 
 import com.mojang.serialization.Codec;
 import com.mystic.atlantis.config.AtlantisConfig;
+import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.util.FastNoiseLite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -46,7 +47,7 @@ public class AtlanteanIslands extends Feature<NoneFeatureConfiguration> {
                         double scaledNoise = (noise) * ((y * 3) / ((x * x) + (z * z)));
                         if (scaledNoise >= 0.5) {
                             if (y == radius) {
-                                context.level().setBlock(mutable, Blocks.SAND.defaultBlockState(), 2);
+                                context.level().setBlock(mutable, BlockInit.SEABED.get().defaultBlockState(), 2);
                             } else {
                                 context.level().setBlock(mutable, Blocks.SANDSTONE.defaultBlockState(), 2);
                             }

@@ -30,8 +30,8 @@
         {
           "type": "minecraft:guardian",
           "weight": 1,
-          "minCount": 10,
-          "maxCount": 20
+          "minCount": 5,
+          "maxCount": 10
         }
       ]
     }

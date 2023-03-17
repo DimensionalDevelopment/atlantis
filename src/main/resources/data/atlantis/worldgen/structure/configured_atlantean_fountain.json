@@ -24,6 +24,17 @@
           "maxCount": 16
         }
       ]
+    },
+    "water_creature": {
+      "bounding_box": "full",
+      "spawns": [
+        {
+          "type": "atlantis:atlantean_starfish",
+          "weight": 1,
+          "minCount": 5,
+          "maxCount": 18
+        }
+      ]
     }
   }
 }

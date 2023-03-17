@@ -9,6 +9,7 @@ import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
 import com.mystic.atlantis.blocks.blockentities.renderers.*;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
+import com.mystic.atlantis.entities.blockbenchentities.StarfishEntity;
 import com.mystic.atlantis.entities.blockbenchentities.models.*;
 import com.mystic.atlantis.entities.blockbenchentities.renders.*;
 import com.mystic.atlantis.entities.gltfentities.CoconutCrabRenderer;
@@ -235,6 +236,8 @@ public class ClientSetup {
         bus.registerEntityRenderer(AtlantisEntities.ATLANTEAN_BOAT.get(), AtlanteanBoatRenderer::new);
         bus.registerEntityRenderer(AtlantisEntities.LEVIATHAN.get(), entityRenderDispatcher -> new LeviathanEntityRenderer(entityRenderDispatcher, new LeviathanEntityModel()));
         bus.registerEntityRenderer(AtlantisEntities.SEAHORSE.get(), entityRenderDispatcher -> new SeahorseEntityRenderer(entityRenderDispatcher, new SeahorseEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntities.STARFISH.get(), entityRenderDispatcher -> new StarfishEntityRenderer(entityRenderDispatcher, new StarfishEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntities.STARFISH_ZOM.get(), entityRenderDispatcher -> new StarfishZomEntityRenderer(entityRenderDispatcher, new StarfishZomEntityModel()));
 
         bus.registerEntityRenderer(AtlantisEntities.BOMB.get(), SodiumBombRenderer::new);
     }

@@ -76,7 +76,8 @@ public class ItemInit {
 
     public static final RegistryObject<Item> ATLANTEAN_SEAHORSE_EGG = register("atlantean_seahorse_egg", () -> new ForgeSpawnEggItem(AtlantisEntities.SEAHORSE, 0xf6eb3e, 0xcfc85b, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     public static final RegistryObject<Item> COCONUT_CRAB_EGG = register("coconut_crab_egg", () -> new ForgeSpawnEggItem(AtlantisEntities.COCONUT_CRAB, 0x800002, 0xff0f45, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-
+    public static final RegistryObject<Item> STARFISH_EGG = register("atlantean_starfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntities.STARFISH, 0xFFA41D, 0xF6E25F, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> STARFISH_ZOM_EGG = register("atlantean_starzomfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntities.STARFISH_ZOM, 0xFE00F6, 0x00A170, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     //MUSIC DISC
     public static final RegistryObject<Item> PANBEE = register("panbee", () -> new AtlantisMusicDisc(15, AtlantisSoundEvents.PANBEE, ATLANTIS_SETTINGS, 10));
     public static final RegistryObject<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new AtlantisMusicDisc(15, AtlantisSoundEvents.COLUMN, ATLANTIS_SETTINGS, 10));

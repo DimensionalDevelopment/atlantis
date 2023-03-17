@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.plants;
 
+import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -104,7 +105,7 @@ public class PurpleGlowingMushroom extends BushBlock implements SimpleWaterlogge
     }
 
     public boolean blockTypes(BlockState blockState){
-        return blockState.getBlock() == Blocks.GRAVEL || blockState.getBlock() == Blocks.SANDSTONE || blockState.getBlock() == Blocks.GRASS || blockState.getBlock() == Blocks.DIRT || blockState.getBlock() == Blocks.SAND;
+        return blockState.getBlock() == BlockInit.SEABED.get() || blockState.getBlock() == Blocks.GRAVEL || blockState.getBlock() == Blocks.SANDSTONE || blockState.getBlock() == Blocks.GRASS || blockState.getBlock() == Blocks.DIRT || blockState.getBlock() == Blocks.SAND;
     }
 
     public boolean canPlaceBlockAt(LevelReader worldReader, BlockPos pos) {

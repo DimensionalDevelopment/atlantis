@@ -356,7 +356,7 @@
             "type": "minecraft:condition",
             "if_true": {
               "type": "minecraft:vertical_gradient",
-              "random_name": "atlantis:sand_layer",
+              "random_name": "atlantis:seabed_layer",
               "true_at_and_below": {
                 "absolute": 74
               },
@@ -367,7 +367,7 @@
             "then_run": {
               "type": "minecraft:block",
               "result_state": {
-                "Name": "minecraft:sand"
+                "Name": "atlantis:seabed"
               }
             }
           }
