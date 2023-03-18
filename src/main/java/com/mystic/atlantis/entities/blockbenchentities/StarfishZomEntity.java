@@ -1,6 +1,7 @@
 package com.mystic.atlantis.entities.blockbenchentities;
 
 import com.mystic.atlantis.config.AtlantisConfig;
+import com.mystic.atlantis.entities.goal.LatchOntoGoal;
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -16,6 +17,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -35,6 +37,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -88,38 +91,41 @@ public class StarfishZomEntity extends Monster implements IAnimatable {
         return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
+    @Override
+    protected boolean canRide(Entity entity) {
+        return !entity.isVehicle() && !entity.hasPassenger(this);
+    }
+
     public void rideTick() {
         final Entity entity = this.getVehicle();
-        if (this.isPassenger() && !entity.isAlive() && !((entity instanceof Drowned) || (entity instanceof Player))) {
+        if(entity instanceof Player player) {
+            if(player.isShiftKeyDown()) {
+                this.stopRiding();
+            }
+        }
+
+        if (!entity.isAlive() && !((entity instanceof Drowned) || (entity instanceof Player)) && !canRide(entity)) {
             this.stopRiding();
         } else {
             this.setDeltaMovement(0, 0, 0);
             this.tick();
-            if (this.isPassenger()) {
-                final Entity mount = this.getVehicle();
-                if (mount instanceof final LivingEntity livingEntity) {
-                    this.yBodyRot = livingEntity.yBodyRot;
-                    this.setYRot( livingEntity.getYRot());
-                    this.yHeadRot = livingEntity.yHeadRot;
-                    this.yRotO = livingEntity.yHeadRot;
-                    final float radius = 1F;
-                    final float angle = (0.0174532925F * livingEntity.yBodyRot);
-                    final double extraX = radius * Mth.sin((float) (Math.PI + angle));
-                    final double extraZ = radius * Mth.cos(angle);
-                    this.setPos(mount.getX() + extraX, Math.max(mount.getY() + mount.getEyeHeight() * 0.25F, mount.getY()), mount.getZ() + extraZ);
-                    if(mount instanceof Drowned) {
-                        livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS));
-                        livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON));
-                    } else {
-                        livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS));
-                        livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON));
-                        if(livingEntity.getHealth() < 0.5f) {
-                            livingEntity.addEffect(new MobEffectInstance(MobEffects.HARM));
-                        }
-                    }
-                    if (!mount.isAlive() || mount instanceof Player && ((Player) mount).isCreative()) {
-                        this.removeVehicle();
-                    }
+            if(entity instanceof Drowned drowned) {
+                this.setPos(drowned.getX(), Math.max(drowned.getY() + drowned.getEyeHeight() * 0.25F, drowned.getY()), drowned.getZ());
+                drowned.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 1, 5));
+                if(drowned.getHealth() > 1.0f) {
+                    drowned.hurt(DamageSource.mobAttack(this), 1.0f);
+                }
+
+                if (!drowned.isAlive()) {
+                    this.removeVehicle();
+                }
+            } else if (entity instanceof Player player) {
+                this.setPos(player.getX(), Math.max(player.getY() + player.getEyeHeight(), player.getY()), player.getZ());
+                player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 1, 5));
+                player.hurt(DamageSource.mobAttack(this), 1.0f);
+
+                if (!player.isAlive() || player.isCreative()) {
+                    this.removeVehicle();
                 }
             }
         }
@@ -132,11 +138,13 @@ public class StarfishZomEntity extends Monster implements IAnimatable {
 
     @Override
     protected void registerGoals() {
-        goalSelector.addGoal(8, new LookAtPlayerGoal(this, LivingEntity.class, 10));
-        goalSelector.addGoal(7, new HurtByTargetGoal(this).setAlertOthers(StarfishZomEntity.class));
-        goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.6));
-        goalSelector.addGoal(1, new TryFindWaterGoal(this));
+        goalSelector.addGoal(6, new LookAtPlayerGoal(this, LivingEntity.class, 10));
+        goalSelector.addGoal(5, new HurtByTargetGoal(this).setAlertOthers(StarfishZomEntity.class));
+        goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.6));
+        goalSelector.addGoal(2, new TryFindWaterGoal(this));
+        goalSelector.addGoal(1, new LatchOntoGoal<>(this, Drowned.class, true));
+        goalSelector.addGoal(0, new LatchOntoGoal<>(this, Player.class, true));
     }
 
     @Override
@@ -145,15 +153,15 @@ public class StarfishZomEntity extends Monster implements IAnimatable {
         setTarget(level.getNearestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
-    public boolean isMovingSlowly(){
+    public boolean isMovingSlowly() {
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
     }
 
     private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (this.isPassenger()) {
             event.getController().setAnimation(EAT_ANIMATION);
-        } else if(isMovingSlowly()) {
-                event.getController().setAnimation(WALK_ANIMATION);
+        } else if (isMovingSlowly()) {
+            event.getController().setAnimation(WALK_ANIMATION);
         } else if (this.isSwimming()) {
             event.getController().setAnimation(JUMP_ANIMATION);
         } else {

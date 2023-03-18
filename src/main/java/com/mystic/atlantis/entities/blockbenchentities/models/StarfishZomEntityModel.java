@@ -15,7 +15,7 @@ public class StarfishZomEntityModel extends AnimatedGeoModel<StarfishZomEntity> 
     @Override
     public ResourceLocation getTextureResource(StarfishZomEntity entity) {
         if(entity.hasCustomName() && entity.getName().getString().equals("Star-O")) {
-            return Atlantis.id("textures/entity/starrofish");
+            return Atlantis.id("textures/entity/starrofish.png");
         } else {
             return Atlantis.id("textures/entity/starzomfish.png");
         }

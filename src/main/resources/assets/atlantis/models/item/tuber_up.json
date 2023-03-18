@@ -1,3 +1,6 @@
 {
-  "parent": "atlantis:block/tuber_up"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "atlantis:items/tuber_up"
+  }
 }

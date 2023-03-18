@@ -1,21 +1,15 @@
 package com.mystic.atlantis.entities.blockbenchentities;
 
-import com.mystic.atlantis.config.AtlantisConfig;
+import com.mystic.atlantis.entities.goal.LatchOntoGoal;
 import com.mystic.atlantis.init.ItemInit;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -24,15 +18,14 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -43,11 +36,9 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.Objects;
-
 public class StarfishEntity extends Animal implements IAnimatable { //TODO make bucketable
 
- //   private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(com.mystic.atlantis.entities.blockbenchentities.StarfishEntity.class, EntityDataSerializers.BOOLEAN);
+    //   private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(com.mystic.atlantis.entities.blockbenchentities.StarfishEntity.class, EntityDataSerializers.BOOLEAN);
 
     private static final AnimationBuilder WALK_ANIMATION = new AnimationBuilder().addAnimation("animation.starfish.walk", true);
     private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.starfish.idle", true);
@@ -66,38 +57,38 @@ public class StarfishEntity extends Animal implements IAnimatable { //TODO make 
         return world.isUnobstructed(this);
     }
 
-  //  public boolean fromBucket() {
-  //      return this.entityData.get(FROM_BUCKET);
-  //  }
+    //  public boolean fromBucket() {
+    //      return this.entityData.get(FROM_BUCKET);
+    //  }
 
-  //  public void setFromBucket(boolean fromBucket) {
-  //      this.entityData.set(FROM_BUCKET, fromBucket);
-  //  }
+    //  public void setFromBucket(boolean fromBucket) {
+    //      this.entityData.set(FROM_BUCKET, fromBucket);
+    //  }
 
- //   @Override
-  //  public void saveToBucketTag(ItemStack stack) {
- //       Bucketable.saveDefaultDataToBucketTag(this, stack);
- //   }
+    //   @Override
+    //  public void saveToBucketTag(ItemStack stack) {
+    //       Bucketable.saveDefaultDataToBucketTag(this, stack);
+    //   }
 
     @Override
     public MobType getMobType() {
         return MobType.WATER;
     }
 
-  // @Override
-  // public void loadFromBucketTag(CompoundTag nbt) {
-  //     Bucketable.loadDefaultDataFromBucketTag(this, nbt);
-  // }
+    // @Override
+    // public void loadFromBucketTag(CompoundTag nbt) {
+    //     Bucketable.loadDefaultDataFromBucketTag(this, nbt);
+    // }
 
-  //  @Override
-  //  public ItemStack getBucketItemStack() {
-  //      return ItemInit.STARFISH_BUCKET.get().getDefaultInstance();
-  //  }
+    //  @Override
+    //  public ItemStack getBucketItemStack() {
+    //      return ItemInit.STARFISH_BUCKET.get().getDefaultInstance();
+    //  }
 
-  //  @Override
-  //  public SoundEvent getPickupSound() {
-   //     return SoundEvents.BUCKET_FILL_FISH;
-   // }
+    //  @Override
+    //  public SoundEvent getPickupSound() {
+    //     return SoundEvents.BUCKET_FILL_FISH;
+    // }
 
     @Override
     public boolean canBreatheUnderwater() {
@@ -123,61 +114,63 @@ public class StarfishEntity extends Animal implements IAnimatable { //TODO make 
 //       return !this.fromBucket() && !this.hasCustomName();
 //   }
 
- //   @Override
- //   protected void defineSynchedData() {
- //       super.defineSynchedData();
- //       this.entityData.define(FROM_BUCKET, false);
- //   }
+    //   @Override
+    //   protected void defineSynchedData() {
+    //       super.defineSynchedData();
+    //       this.entityData.define(FROM_BUCKET, false);
+    //   }
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
         return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
- //   @Override
- //   public void load(CompoundTag nbt) {
- //       this.setFromBucket(nbt.getBoolean("FromBucket"));
- //       super.load(nbt);
- //   }
+    //   @Override
+    //   public void load(CompoundTag nbt) {
+    //       this.setFromBucket(nbt.getBoolean("FromBucket"));
+    //       super.load(nbt);
+    //   }
 
- //   @Override
- //   public CompoundTag saveWithoutId(CompoundTag nbt) {
- //       nbt.putBoolean("FromBucket", this.fromBucket());
- //       return super.saveWithoutId(nbt);
- //   }
+    //   @Override
+    //   public CompoundTag saveWithoutId(CompoundTag nbt) {
+    //       nbt.putBoolean("FromBucket", this.fromBucket());
+    //       return super.saveWithoutId(nbt);
+    //   }
+
+    @Override
+    protected boolean canRide(Entity entity) {
+        return !entity.isVehicle() && !entity.hasPassenger(this);
+    }
 
     public void rideTick() {
         final Entity entity = this.getVehicle();
-        if (this.isPassenger() && !entity.isAlive() && !((entity instanceof ShrimpEntity) || (entity instanceof Player))) {
+        if(entity instanceof Player player) {
+            if(player.isShiftKeyDown()) {
+                this.stopRiding();
+            }
+        }
+
+        if (!entity.isAlive() && !((entity instanceof ShrimpEntity) || (entity instanceof Player)) && !canRide(entity)) {
             this.stopRiding();
         } else {
             this.setDeltaMovement(0, 0, 0);
             this.tick();
-            if (this.isPassenger()) {
-                final Entity mount = this.getVehicle();
-                if (mount instanceof final LivingEntity livingEntity) {
-                    this.yBodyRot = livingEntity.yBodyRot;
-                    this.setYRot( livingEntity.getYRot());
-                    this.yHeadRot = livingEntity.yHeadRot;
-                    this.yRotO = livingEntity.yHeadRot;
-                    final float radius = 1F;
-                    final float angle = (0.0174532925F * livingEntity.yBodyRot);
-                    final double extraX = radius * Mth.sin((float) (Math.PI + angle));
-                    final double extraZ = radius * Mth.cos(angle);
-                    this.setPos(mount.getX() + extraX, Math.max(mount.getY() + mount.getEyeHeight() * 0.25F, mount.getY()), mount.getZ() + extraZ);
-                    if(mount instanceof Player) {
-                        livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS));
-                        livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON));
-                    } else {
-                        livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS));
-                        livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON));
-                        if(livingEntity.getHealth() < 0.5f) {
-                            livingEntity.addEffect(new MobEffectInstance(MobEffects.HARM));
-                        }
-                    }
-                    if (!mount.isAlive() || mount instanceof Player && ((Player) mount).isCreative()) {
-                        this.removeVehicle();
-                    }
+            if(entity instanceof Player player) {
+                this.setPos(player.getX(), Math.max(player.getY() + player.getEyeHeight(), player.getY()), player.getZ());
+                player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 1, 5));
+                if(player.getHealth() > 1.0f) {
+                    player.hurt(DamageSource.mobAttack(this), 1.0f);
+                }
+
+                if (!player.isAlive()) {
+                    this.removeVehicle();
+                }
+            } else if (entity instanceof ShrimpEntity shrimp) {
+                this.setPos(shrimp.getX(), Math.max(shrimp.getY() + shrimp.getEyeHeight(), shrimp.getY()), shrimp.getZ());
+                shrimp.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 1, 5));
+                shrimp.hurt(DamageSource.mobAttack(this), 1.0f);
+                if (!shrimp.isAlive()) {
+                    this.removeVehicle();
                 }
             }
         }
@@ -191,13 +184,15 @@ public class StarfishEntity extends Animal implements IAnimatable { //TODO make 
     @Override
     protected void registerGoals() {
 
-        goalSelector.addGoal(8, new LookAtPlayerGoal(this, LivingEntity.class, 10));
-        goalSelector.addGoal(7, new HurtByTargetGoal(this).setAlertOthers(com.mystic.atlantis.entities.blockbenchentities.StarfishEntity.class));
-        goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
+        goalSelector.addGoal(7, new LookAtPlayerGoal(this, LivingEntity.class, 10));
+        goalSelector.addGoal(6, new HurtByTargetGoal(this).setAlertOthers(com.mystic.atlantis.entities.blockbenchentities.StarfishEntity.class));
+        goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
         goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(ItemInit.SHRIMP.get()), false));
         goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.6));
         goalSelector.addGoal(1, new TryFindWaterGoal(this));
+        goalSelector.addGoal(1, new LatchOntoGoal<>(this, ShrimpEntity.class, true));
+        goalSelector.addGoal(0, new LatchOntoGoal<>(this, Player.class, true));
     }
 
     @Override
@@ -221,9 +216,9 @@ public class StarfishEntity extends Animal implements IAnimatable { //TODO make 
             }
             return InteractionResult.FAIL;
         }
-  //      } else if (player.getItemInHand(hand).getItem() == Items.WATER_BUCKET) {
-  //          return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
-  //      }
+        //      } else if (player.getItemInHand(hand).getItem() == Items.WATER_BUCKET) {
+        //          return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+        //      }
         return InteractionResult.FAIL;
     }
 
@@ -252,15 +247,15 @@ public class StarfishEntity extends Animal implements IAnimatable { //TODO make 
         setTarget(level.getNearestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
-    public boolean isMovingSlowly(){
+    public boolean isMovingSlowly() {
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
     }
 
     private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (this.isPassenger()) {
             event.getController().setAnimation(EAT_ANIMATION);
-        } else if(isMovingSlowly()) {
-                event.getController().setAnimation(WALK_ANIMATION);
+        } else if (isMovingSlowly()) {
+            event.getController().setAnimation(WALK_ANIMATION);
         } else if (this.isSwimming()) {
             event.getController().setAnimation(JUMP_ANIMATION);
         } else {

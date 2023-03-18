@@ -1,8 +1,12 @@
 {
-  "parent": "minecraft:block/cube_bottom_top",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "bottom": "atlantis:block/atlantean_planks",
-    "side": "atlantis:block/writing_table_side",
-    "top": "atlantis:block/writing_table_top"
+    "particle": "atlantis:block/writing_table_top",
+    "up": "atlantis:block/writing_table_top",
+    "down": "atlantis:block/linguistic_table_bottom",
+    "east": "atlantis:block/writing_table_side",
+    "west": "atlantis:block/writing_table_side_1",
+    "north": "atlantis:block/writing_table_side_0",
+    "south": "atlantis:block/writing_table_side_2"
   }
 }

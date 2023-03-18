@@ -54,12 +54,11 @@ public class AtlanteanTemple extends Structure {
     }
 
     @Override
-    public @NotNull Optional<GenerationStub> findGenerationPoint(@NotNull GenerationContext context) {
-
+    public @NotNull Optional<Structure.GenerationStub> findGenerationPoint(Structure.@NotNull GenerationContext context) {
         ChunkPos chunkPos = context.chunkPos();
         BlockPos blockPos = new BlockPos(chunkPos.getMinBlockX(), context.heightAccessor().getHeight() - context.chunkGenerator().getSeaLevel(), chunkPos.getMinBlockZ());
 
-        Optional<GenerationStub> structurePiecesGenerator =
+        Optional<Structure.GenerationStub> structurePiecesGenerator =
                 JigsawPlacement.addPieces(
                         context,
                         this.startPool, this.startJigsawName, this.size, blockPos,
