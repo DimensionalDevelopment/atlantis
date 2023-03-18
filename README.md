@@ -33,7 +33,9 @@
 <p style="text-align: center;"><span style="font-size: 14px;">The code for this mod is under LGPL v3 as shown on this page it is also on GitHub (source page).<br /><br />Need a server to play with friends? Don't know how to setup one? Just rent already configured server!<br /><a href="https://bisecthosting.com/Mystical"><img src="https://www.bisecthosting.com/images/CF/Atlantis/BH_AT_PromoCard.png" alt="" width="1123" height="148" /></a><br /></span></p>
 <p style="text-align: center;">&nbsp;Click on the image above, select plan(at least 8GB), use my code Mystical to get 25% off your first month and enjoy playing with your friends! :)<br /><br /></p>
 <p style="text-align: center;"><span style="font-size: 24px;"><strong>Video Showcases :D</strong></span></p>
-<p style="text-align: center;"><span style="font-size: 24px;"><strong><iframe allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/NFRORK21S-M?wmode=transparent" height="358" width="638"></iframe><iframe allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/6hqrk6XxMAI?wmode=transparent" height="358" width="638"></iframe><iframe allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/-idkZmI6ugc?wmode=transparent" height="358" width="638"></iframe></strong></span></p>
+https://www.youtube.com/embed/NFRORK21S-M
+https://www.youtube.com/embed/6hqrk6XxMAI
+https://www.youtube.com/embed/-idkZmI6ugc
 <p style="text-align: center;">&nbsp;</p>
 <p style="text-align: center;">&nbsp;</p>
 <p style="text-align: center;">&nbsp;</p>
