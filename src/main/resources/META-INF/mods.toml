@@ -1,23 +1,14 @@
-modLoader="javafml" #mandatory
-
-loaderVersion="[43,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
-
+modLoader="javafml" 
+loaderVersion="[43,)" 
 license="LGPLv3"
+issueTrackerURL="https://github.com/Exploding-Creeper/atlantis/issues" 
 
-issueTrackerURL="https://github.com/Exploding-Creeper/atlantis/issues" #optional
-
-[[mods]] #mandatory
-
-modId="atlantis" #mandatory
-
-version="2023.3.18-1.19.2-1.6.0-forge" #mandatory
-
-displayName="Atlantis" #mandatory
-
-displayURL="https://github.com/Exploding-Creeper/atlantis" #optional
-
-logoFile= "logo.png" #optional
-
+[[mods]] 
+modId="atlantis" 
+version="2023.3.18-1.19.2-1.6.0-forge" 
+displayName="Atlantis" 
+displayURL="https://github.com/Exploding-Creeper/atlantis" 
+logoFile= "logo.png"
 credits='''
 TelepathicGrunt for his help with the JSON files,
 WaterPicker for his work on the fabric branch,
@@ -28,43 +19,16 @@ and LimeShulkerBox for the Atlantean Portal and for removing the need for effect
 Extra Credits from Sketchfab:
 "Coconut Crab" (https://skfb.ly/oqAyI) by GlacierArts is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 '''
-authors="Mysticpasta1, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity, She's Long" #optional
-
+authors="Mysticpasta1, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity, She's Long, Meme Man"
 description='''
 An Underwater Atlantis like dimension mod.
 '''
+
+# Base
 [[dependencies.atlantis]]
-    modId="mcgltf"
+    modId="forge"
     mandatory=true
-    versionRange="[1.19.2-Forge-2.0.0.0, )"
-    ordering="NONE"
-    side="CLIENT"
-
-[[dependencies.atlantis]] #optional
-    modId="cloth_config" #mandatory
-    mandatory=true #mandatory
-    versionRange="[8.0.75,)" #mandatory
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.atlantis]] #optional
-    modId="geckolib3" #mandatory
-    mandatory=true #mandatory
-    versionRange="[3.1.18,)" #mandatory
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.atlantis]] #optional
-    modId="customportalapi" #mandatory
-    mandatory=true #mandatory
-    versionRange="[0.0.1-beta50-1.19.2,)" #mandatory
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.atlantis]] #optional
-    modId="forge" #mandatory
-    mandatory=true #mandatory
-    versionRange="[43,)" #mandatory
+    versionRange="[43,)"
     ordering="NONE"
     side="BOTH"
 
@@ -74,3 +38,124 @@ An Underwater Atlantis like dimension mod.
     versionRange="[1.19.2, 1.20)"
     ordering="NONE"
     side="BOTH"
+
+# Libraries
+[[dependencies.atlantis]] 
+    modId="cloth_config"
+    mandatory=true 
+    versionRange="[8.0.75,)" 
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.atlantis]] 
+    modId="geckolib3"
+    mandatory=true
+    versionRange="[3.1.18,)" 
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.atlantis]]
+    modId="customportalapi"
+    mandatory=true
+    versionRange="[0.0.1-beta50-1.19.2,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.atlantis]]
+    modId="mcgltf"
+    mandatory=true
+    versionRange="[1.19.2-Forge-2.0.0.0, )"
+    ordering="NONE"
+    side="CLIENT"
+
+# Extras
+[[dependencies.atlantis]] 
+    modId="jei" 
+    mandatory=false 
+    versionRange="[11.2.0.247,)" 
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.atlantis]] 
+    modId="justenoughresources" 
+    mandatory=false 
+    versionRange="[1.2.1.189,)" 
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.atlantis]] 
+    modId="jeed" 
+    mandatory=false 
+    versionRange="[1.18,)" 
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.atlantis]] 
+    modId="roughlyenoughitems" 
+    mandatory=false 
+    versionRange="[9.1.580,)" 
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.atlantis]] 
+    modId="roughlyenoughresources" 
+    mandatory=false 
+    versionRange="[2.5.2,)" 
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.atlantis]] 
+    modId="architectury" 
+    mandatory=false 
+    versionRange="[6.4.62,)" 
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.atlantis]] 
+    modId="curios" 
+    mandatory=false 
+    versionRange="[1.19.2-5.1.1.0,)" 
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.atlantis]] 
+    modId="clothconfig" 
+    mandatory=false 
+    versionRange="[8.2.88,)" 
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.atlantis]] 
+    modId="expandability" 
+    mandatory=false 
+    versionRange="[7.0.0,)" 
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.atlantis]] 
+    modId="artifacts" 
+    mandatory=false 
+    versionRange="[1.19.2-5.0.1,)" 
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.atlantis]] 
+    modId="configured" 
+    mandatory=false 
+    versionRange="[2.0.1,)" 
+    ordering="NONE"
+    side="CLIENT"
+
+[[dependencies.atlantis]] 
+    modId="catalogue" 
+    mandatory=false 
+    versionRange="[1.7.0,)" 
+    ordering="NONE"
+    side="CLIENT"
+
+[[dependencies.atlantis]] 
+    modId="appleskin"
+    mandatory=false 
+    versionRange="[2.4.2,)" 
+    ordering="NONE"
+    side="CLIENT"

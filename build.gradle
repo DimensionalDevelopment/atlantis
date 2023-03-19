@@ -1,9 +1,9 @@
 plugins {
-
+    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'org.spongepowered.mixin' version '0.7.+'
     id 'eclipse'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '5.1.+'
-    id 'org.spongepowered.mixin' version '0.7.+'
 }
 
 archivesBaseName = project.archives_base_name
@@ -19,18 +19,21 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
-    mappings channel: 'official', version: '1.19.2'
+    mappings channel: project.mappings, version: project.mappings_version
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         client {
             workingDirectory project.file('run')
+            
             property 'forge.logging.markers', 'REGISTRIES'
-
             property 'forge.logging.console.level', 'debug'
-
             property 'forge.enabledGameTestNamespaces', 'examplemod'
+            
+            arg "-mixin.config=atlantis.mixins.json"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 atlantis {
@@ -43,10 +46,12 @@ minecraft {
             workingDirectory project.file('run')
 
             property 'forge.logging.markers', 'REGISTRIES'
-
             property 'forge.logging.console.level', 'debug'
-
             property 'forge.enabledGameTestNamespaces', 'examplemod'
+            
+            arg "-mixin.config=atlantis.mixins.json"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 atlantis {
@@ -59,11 +64,13 @@ minecraft {
             workingDirectory project.file('run')
 
             property 'forge.logging.markers', 'REGISTRIES'
-
             property 'forge.logging.console.level', 'debug'
-
             property 'forge.enabledGameTestNamespaces', 'examplemod'
-
+            
+            arg "-mixin.config=atlantis.mixins.json"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            
             mods {
                 atlantis {
                     source sourceSets.main
@@ -75,8 +82,10 @@ minecraft {
             workingDirectory project.file('run')
 
             property 'forge.logging.markers', 'REGISTRIES'
-
             property 'forge.logging.console.level', 'debug'
+            
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             args '--mod', 'atlantis', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
@@ -92,61 +101,86 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
     maven {
-        name = 'TerraformersMC'
+        name = "CurseForge Maven" //Base
+		url = "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+	}
+    maven { 
+	    name = "Shedaniel Maven" //REI + Cloth Config
+	    url "https://maven.shedaniel.me/" 
+	}
+	maven {
+	    name = "Architectury Maven" //Architectury
+	    url "https://maven.architectury.dev/" 
+	}
+   	maven {
+		name = "GeckoLib Maven" //Geckolib
+		url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+	}
+    maven { 
+        name = "IllusiveC4 Maven" //Curios
+        url = "https://maven.theillusivec4.top/" 
+    }
+    maven {
+		name = "Progwml6 maven" //JEI
+		url = "https://dvs1.progwml6.com/files/maven/"
+	}
+	maven { 
+	 	name = "Jitpack IO" //Jitpack
+		url 'https://jitpack.io' 
+	}
+    maven {
+        name = "TerraformersMC" //Terraformers
         url = 'https://maven.terraformersmc.com/'
     }
-    maven { url "https://maven.shedaniel.me/" }
-    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
     maven {
-        name = "cursemaven"
-        url = "https://www.cursemaven.com"
+        name = "ModMaven" //ModMaven
+        url = "https://modmaven.dev"
     }
     flatDir {
         dir 'libs'
     }
-    maven {
-        url = "https://maven.theillusivec4.top/"
-    }
-    maven {
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        name = "ModMaven"
-        url = "https://modmaven.dev"
-    }
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:1.19.2-${forge_version}"
-
+    // Base
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation fg.deobf('curse.maven:customportalapi-621463:3961466')
-    implementation fg.deobf('curse.maven:MCglTF-591547:4279325')
-    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.38')
-    implementation fg.deobf("curse.maven:cloth_config_forge-348521:3906388")
-    implementation fg.deobf("curse.maven:cyanide_forge-348521:3906388")
-    implementation fg.deobf("curse.maven:artifacts-forge-312353:4013928")
-    implementation fg.deobf("curse.maven:expandability-forge-465066:3984029")
+    // Libraries
+    implementation fg.deobf("com.github.Mysticpasta1:customportalapi:${customportalapi_version}")
+    implementation fg.deobf("curse.maven:MCglTF-591547:${mcgltf_version}")
+    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.19:${geckolib_version}")
+    implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}")
+    
+    // Extras
+    implementation fg.deobf("curse.maven:cyanide_forge-348521:${cyanide_version}")
+    implementation fg.deobf("curse.maven:artifacts-forge-312353:${artifacts_version}")
+    implementation fg.deobf("curse.maven:expandability-forge-465066:${expandability_version}")
 
-    compileOnly fg.deobf("mezz.jei:jei-1.19.2-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-1.19.2-forge-api:${jei_version}")
-    // at runtime, use the full JEI
-    runtimeOnly fg.deobf("mezz.jei:jei-1.19.2-common:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.19.2-forge:${jei_version}")
+    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    implementation fg.deobf("curse.maven:just-enough-resources-jer-240630:${jer_version}")
+	implementation fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:${jeed_version}")
 
-    implementation fg.deobf('org.reflections:reflections:0.10.2')
+    implementation fg.deobf("curse.maven:appleskin-248787:${appleskin_version}")
 
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0")
+    implementation fg.deobf("curse.maven:configured-457570:${configured_version}")
+    implementation fg.deobf("curse.maven:catalogue-459701:${catalogue_version}")
+
+    implementation fg.deobf("org.reflections:reflections:${reflections_version}")
+
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
 }
 
 mixin {
     add sourceSets.main, "atlantis.refmap.json"
     config "atlantis.mixins.json"
+    
     debug.verbose = true
 }
 
