@@ -1,5 +1,9 @@
 package com.mystic.atlantis.items.item.buckets;
 
+import java.util.function.Supplier;
+
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -13,9 +17,6 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Supplier;
 
 public class CrabEntityBucketItem extends MobBucketItem {
     private final Supplier<? extends EntityType<?>> entityType;

@@ -2,6 +2,7 @@ package com.mystic.atlantis.blocks.blockentities.models;
 
 import com.mystic.atlantis.blocks.blockentities.plants.UnderwaterShroomTileEntity;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.GeckoLib;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

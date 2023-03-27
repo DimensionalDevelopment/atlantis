@@ -1,6 +1,5 @@
 package com.mystic.atlantis.blocks.plants;
 
-import com.mystic.atlantis.dimension.DimensionAtlantis;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;

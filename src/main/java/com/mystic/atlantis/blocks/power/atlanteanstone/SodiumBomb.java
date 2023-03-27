@@ -1,5 +1,9 @@
 package com.mystic.atlantis.blocks.power.atlanteanstone;
 
+import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.NotNull;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -25,9 +29,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
 
 public class SodiumBomb extends Block {
     public static final BooleanProperty UNSTABLE = BlockStateProperties.UNSTABLE;

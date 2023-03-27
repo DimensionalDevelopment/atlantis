@@ -2,6 +2,7 @@ package com.mystic.atlantis.entities.blockbenchentities;
 
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.mixin.BoatEntityAccessor;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;

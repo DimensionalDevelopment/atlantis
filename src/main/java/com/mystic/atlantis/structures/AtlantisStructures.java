@@ -1,6 +1,7 @@
 package com.mystic.atlantis.structures;
 
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraftforge.registries.DeferredRegister;

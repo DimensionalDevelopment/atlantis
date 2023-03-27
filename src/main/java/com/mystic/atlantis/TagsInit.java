@@ -1,14 +1,14 @@
 package com.mystic.atlantis;
 
+import java.util.Set;
+import java.util.function.Supplier;
+
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
-import net.minecraft.data.tags.TagsProvider;
+
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
-
-import java.util.Set;
-import java.util.function.Supplier;
 
 public class TagsInit {
     public static void init() {

@@ -1,11 +1,13 @@
 package com.mystic.atlantis.capiablities;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.google.common.base.Preconditions;
+
 import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * A simple implementation of {@link ICapabilityProvider} that supports a single {@link Capability} handler instance.

@@ -1,9 +1,9 @@
 package com.mystic.atlantis.config;
 
-import com.mystic.atlantis.blocks.PushBubbleColumn;
+import org.apache.commons.lang3.tuple.Pair;
+
 import me.shedaniel.autoconfig.ConfigData;
 import net.minecraftforge.common.ForgeConfigSpec;
-import org.apache.commons.lang3.tuple.Pair;
 
 public class AtlantisConfig implements ConfigData {
 

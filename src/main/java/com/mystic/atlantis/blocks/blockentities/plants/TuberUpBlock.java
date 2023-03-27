@@ -1,6 +1,13 @@
 package com.mystic.atlantis.blocks.blockentities.plants;
 
+import static com.mystic.atlantis.blocks.plants.UnderwaterFlower.WATERLOGGED;
+
+import java.util.List;
+
+import org.jetbrains.annotations.Nullable;
+
 import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -11,18 +18,19 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-
-import static com.mystic.atlantis.blocks.plants.UnderwaterFlower.WATERLOGGED;
 
 public class TuberUpBlock extends BushBlock implements EntityBlock, SimpleWaterloggedBlock {
     public TuberUpBlock() {

@@ -1,6 +1,9 @@
 package com.mystic.atlantis.blocks;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -27,7 +30,6 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.Nullable;
 
 public class AtlanteanWoodDoors extends DoorBlock implements SimpleWaterloggedBlock {
 

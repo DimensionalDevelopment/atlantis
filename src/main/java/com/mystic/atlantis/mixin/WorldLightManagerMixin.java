@@ -1,11 +1,12 @@
 package com.mystic.atlantis.mixin;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.lighting.LevelLightEngine;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.lighting.LevelLightEngine;
 
 /**
  * This fixes a bug in the Minecraft light-update code that runs after world-generation for

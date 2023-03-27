@@ -1,6 +1,7 @@
 package com.mystic.atlantis.biomes;
 
 import com.mojang.serialization.Codec;
+
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.world.level.biome.Biome;

@@ -1,6 +1,9 @@
 package com.mystic.atlantis.blocks.power.atlanteanstone;
 
+import java.util.Map;
+
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,8 +19,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-
-import java.util.Map;
 
 public class AtlanteanTripwire extends TripWireBlock implements SimpleWaterloggedBlock {
 

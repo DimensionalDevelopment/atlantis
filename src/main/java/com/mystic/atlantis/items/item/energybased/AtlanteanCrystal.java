@@ -1,6 +1,7 @@
 package com.mystic.atlantis.items.item.energybased;
 
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
+
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;

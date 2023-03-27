@@ -1,12 +1,15 @@
 package com.mystic.atlantis.blocks.power.atlanteanstone;
 
+import java.util.Iterator;
+import java.util.List;
+
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -18,9 +21,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.Material;
-
-import java.util.Iterator;
-import java.util.List;
 
 public class AtlanteanPressurePlate extends PressurePlateBlock implements SimpleWaterloggedBlock {
     private static final Property<Boolean> WATERLOGGED = UnderwaterFlower.WATERLOGGED;

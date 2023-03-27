@@ -1,14 +1,10 @@
 package com.mystic.atlantis.itemgroup;
 
 import com.mystic.atlantis.init.BlockInit;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.RegistryObject;
-
-import java.util.function.Supplier;
 
 public class AtlantisGroup {
     public static CreativeModeTab MAIN = new CreativeModeTab(CreativeModeTab.getGroupCountSafe(), "atlantis.general") {

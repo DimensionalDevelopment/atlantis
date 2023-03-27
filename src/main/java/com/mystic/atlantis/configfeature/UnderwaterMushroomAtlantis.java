@@ -2,7 +2,7 @@ package com.mystic.atlantis.configfeature;
 
 import com.mojang.serialization.Codec;
 import com.mystic.atlantis.init.BlockInit;
-import java.util.Random;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;

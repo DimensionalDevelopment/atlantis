@@ -1,26 +1,21 @@
 package com.mystic.atlantis.blocks.blockentities.energy;
 
-import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
-import com.mystic.atlantis.init.BlockInit;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.mystic.atlantis.networking.AtlantisPacketHandler;
 import com.mystic.atlantis.networking.packets.clientbound.EnergySyncS2CPacket;
 import com.mystic.atlantis.util.ModEnergyStorage;
+
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.network.PacketDistributor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import software.bernie.example.registry.BlockRegistry;
-
-import static com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator.ENERGY_REQ;
 
 public class CrystalStorage extends BlockEntity {
     public CrystalStorage(BlockPos arg2, BlockState arg3) {

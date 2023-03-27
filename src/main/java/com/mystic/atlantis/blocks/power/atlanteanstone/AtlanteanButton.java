@@ -1,5 +1,7 @@
 package com.mystic.atlantis.blocks.power.atlanteanstone;
 
+import static com.mystic.atlantis.blocks.power.atlanteanstone.AtlanteanPowerTorch.WATERLOGGED;
+
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.Block;
@@ -7,8 +9,6 @@ import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.WoodButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-
-import static com.mystic.atlantis.blocks.power.atlanteanstone.AtlanteanPowerTorch.WATERLOGGED;
 
 public class AtlanteanButton extends WoodButtonBlock implements SimpleWaterloggedBlock {
     public AtlanteanButton(Properties arg) {

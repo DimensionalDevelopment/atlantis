@@ -1,5 +1,7 @@
 package com.mystic.atlantis.entities.blockbenchentities.renders;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Quaternion;
@@ -7,6 +9,7 @@ import com.mojang.math.Vector3f;
 import com.mystic.atlantis.entities.blockbenchentities.AtlanteanBoatEntity;
 import com.mystic.atlantis.entities.blockbenchentities.models.AtlanteanBoatModel;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -16,7 +19,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.vehicle.Boat;
-import org.jetbrains.annotations.NotNull;
 
 public class AtlanteanBoatRenderer extends EntityRenderer<AtlanteanBoatEntity> {
 

@@ -1,5 +1,7 @@
 package com.mystic.atlantis.blocks;
 
+import static com.mystic.atlantis.blocks.plants.UnderwaterFlower.WATERLOGGED;
+
 import net.kyrptonaught.customportalapi.CustomPortalBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,8 +14,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import static com.mystic.atlantis.blocks.plants.UnderwaterFlower.WATERLOGGED;
 
 public class AtlantisClearPortalBlock extends CustomPortalBlock implements SimpleWaterloggedBlock {
     public static final EnumProperty<Direction.Axis> AXIS = CustomPortalBlock.AXIS;

@@ -1,18 +1,19 @@
 package com.mystic.atlantis.screen;
 
+import java.util.Optional;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mystic.atlantis.inventory.CrystalGeneratorMenu;
 import com.mystic.atlantis.util.EnergyInfoArea;
 import com.mystic.atlantis.util.MouseUtil;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-
-import java.util.Optional;
 
 public class CrystalGeneratorScreen extends AbstractContainerScreen<CrystalGeneratorMenu> {
     private static final ResourceLocation TEXTURE =

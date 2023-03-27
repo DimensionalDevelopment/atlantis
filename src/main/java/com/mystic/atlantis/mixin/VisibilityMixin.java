@@ -1,16 +1,18 @@
 package com.mystic.atlantis.mixin;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mystic.atlantis.config.AtlantisConfig;
-import com.mystic.atlantis.dimension.DimensionAtlantis;
-import net.minecraft.client.Camera;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.FogRenderer;
-import net.minecraft.world.level.material.FogType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mystic.atlantis.config.AtlantisConfig;
+import com.mystic.atlantis.dimension.DimensionAtlantis;
+
+import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.FogRenderer;
+import net.minecraft.world.level.material.FogType;
 
 @Mixin(value = FogRenderer.class)
 public class VisibilityMixin {

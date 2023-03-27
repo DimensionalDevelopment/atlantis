@@ -1,5 +1,10 @@
 package com.mystic.atlantis.entities.blockbenchentities;
 
+import org.jetbrains.annotations.Nullable;
+
+import com.mystic.atlantis.config.AtlantisConfig;
+import com.mystic.atlantis.init.ItemInit;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -40,9 +45,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
-import com.mystic.atlantis.config.AtlantisConfig;
-import com.mystic.atlantis.init.ItemInit;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;

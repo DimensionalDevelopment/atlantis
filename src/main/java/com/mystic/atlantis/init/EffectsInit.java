@@ -1,15 +1,16 @@
 package com.mystic.atlantis.init;
 
+import java.util.function.Supplier;
+
 import com.mystic.atlantis.effects.SpikesEffect;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.function.Supplier;
 
 public class EffectsInit {
 

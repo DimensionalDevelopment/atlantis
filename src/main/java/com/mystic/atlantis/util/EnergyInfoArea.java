@@ -1,11 +1,12 @@
 package com.mystic.atlantis.util;
 
+import java.util.List;
+
 import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.energy.IEnergyStorage;
-
-import java.util.List;
 
 /*
  *  BluSunrize

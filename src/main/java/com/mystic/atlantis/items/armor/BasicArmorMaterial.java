@@ -1,15 +1,16 @@
 package com.mystic.atlantis.items.armor;
 
+import java.util.function.Supplier;
+
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Lazy;
+
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import java.util.function.Supplier;
 
 public class BasicArmorMaterial {
     public static final net.minecraft.world.item.ArmorMaterial ARMOR_AQUAMARINE = new ArmorMaterial( "aquamarine", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get()));

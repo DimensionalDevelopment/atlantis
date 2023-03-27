@@ -1,7 +1,13 @@
 package com.mystic.atlantis.blocks;
 
 import java.util.Optional;
-import java.util.Random;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.mystic.atlantis.config.AtlantisConfig;
+import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.particles.ModParticleTypes;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -33,10 +39,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import com.mystic.atlantis.config.AtlantisConfig;
-import com.mystic.atlantis.init.BlockInit;
-import com.mystic.atlantis.particles.ModParticleTypes;
-import org.jetbrains.annotations.NotNull;
 
 public class PushBubbleColumn extends Block implements BucketPickup {
     public static final DirectionProperty PUSH = BlockStateProperties.FACING;

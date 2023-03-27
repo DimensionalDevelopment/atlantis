@@ -1,6 +1,7 @@
 package com.mystic.atlantis.particles;
 
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.registries.DeferredRegister;

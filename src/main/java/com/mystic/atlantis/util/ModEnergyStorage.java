@@ -1,7 +1,5 @@
 package com.mystic.atlantis.util;
 
-import net.minecraftforge.energy.IEnergyStorage;
-
 public abstract class ModEnergyStorage extends net.minecraftforge.energy.EnergyStorage {
     public boolean comesFromCrystal = false;
     private int receiveEnergyFromCrystal;

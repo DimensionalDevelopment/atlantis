@@ -1,5 +1,8 @@
 package com.mystic.atlantis;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.mystic.atlantis.blocks.ExtendedBlockEntity;
 import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
 import com.mystic.atlantis.capiablities.player.IPlayerCap;
@@ -11,7 +14,14 @@ import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.entities.blockbenchentities.CrabEntity;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
-import com.mystic.atlantis.init.*;
+import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.init.EffectsInit;
+import com.mystic.atlantis.init.FluidInit;
+import com.mystic.atlantis.init.FluidTypesInit;
+import com.mystic.atlantis.init.ItemInit;
+import com.mystic.atlantis.init.PaintingVariantsInit;
+import com.mystic.atlantis.init.RecipesInit;
+import com.mystic.atlantis.init.ToolInit;
 import com.mystic.atlantis.inventory.MenuTypeInit;
 import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.particles.ModParticleTypes;
@@ -19,6 +29,7 @@ import com.mystic.atlantis.screen.LinguisticScreen;
 import com.mystic.atlantis.screen.WritingScreen;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
+
 import me.shedaniel.autoconfig.AutoConfig;
 import net.kyrptonaught.customportalapi.CustomPortalBlock;
 import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
@@ -44,8 +55,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import software.bernie.example.GeckoLibMod;
 import software.bernie.geckolib3.GeckoLib;
 

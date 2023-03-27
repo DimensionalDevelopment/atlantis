@@ -1,6 +1,7 @@
 package com.mystic.atlantis.blocks;
 
 import com.mystic.atlantis.Atlantis;
+
 import net.minecraft.resources.ResourceLocation;
 
 public enum LinguisticGlyph {

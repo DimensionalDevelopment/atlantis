@@ -1,5 +1,7 @@
 package com.mystic.atlantis.blocks.shells;
 
+import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
+
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -9,8 +11,6 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-
-import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
 public class ColoredShellBlocks extends Block {
 

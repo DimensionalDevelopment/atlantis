@@ -1,5 +1,9 @@
 package com.mystic.atlantis.init;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
 import com.mystic.atlantis.blocks.LinguisticGlyph;
 import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.event.AtlantisSoundEvents;
@@ -7,31 +11,44 @@ import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
 import com.mystic.atlantis.items.armor.ItemArmorWrought;
-import com.mystic.atlantis.items.item.*;
+import com.mystic.atlantis.items.item.AtlanteanBoatItem;
+import com.mystic.atlantis.items.item.DefaultItem;
+import com.mystic.atlantis.items.item.LinguisticGlyphScrollItem;
+import com.mystic.atlantis.items.item.SodiumItem;
+import com.mystic.atlantis.items.item.SubmarineItem;
+import com.mystic.atlantis.items.item.WaterPill;
 import com.mystic.atlantis.items.item.bottles.FireMelonJellyBottle;
 import com.mystic.atlantis.items.item.bottles.JellyfishJellyBottle;
-import com.mystic.atlantis.items.item.buckets.CrabEntityBucketItem;
 import com.mystic.atlantis.items.item.buckets.AtlanteanEntityBucketItem;
+import com.mystic.atlantis.items.item.buckets.CrabEntityBucketItem;
 import com.mystic.atlantis.items.item.energybased.AtlanteanCrystal;
 import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
-import com.mystic.atlantis.items.tools.*;
+import com.mystic.atlantis.items.tools.AquamarineAxe;
+import com.mystic.atlantis.items.tools.AquamarineHoe;
+import com.mystic.atlantis.items.tools.AquamarinePickaxe;
+import com.mystic.atlantis.items.tools.AquamarineShovel;
+import com.mystic.atlantis.items.tools.AquamarineSword;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.SignItem;
+import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
 
 public class ItemInit {
 

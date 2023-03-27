@@ -1,7 +1,11 @@
 package com.mystic.atlantis.items.item;
 
-import com.mystic.atlantis.entities.blockbenchentities.AtlanteanBoatEntity;
+import java.util.List;
+import java.util.function.Predicate;
+
 import com.mystic.atlantis.entities.AtlantisEntities;
+import com.mystic.atlantis.entities.blockbenchentities.AtlanteanBoatEntity;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
@@ -20,9 +24,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.List;
-import java.util.function.Predicate;
 
 public class AtlanteanBoatItem extends Item {
     private static final Predicate<Entity> RIDERS;

@@ -2,7 +2,7 @@ package com.mystic.atlantis.blocks.power.atlanteanstone;
 
 import com.mojang.math.Vector3f;
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
-import java.util.Random;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;

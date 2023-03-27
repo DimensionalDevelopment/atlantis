@@ -1,7 +1,5 @@
 package com.mystic.atlantis.capiablities.player;
 
-import net.minecraft.core.BlockPos;
-
 public interface IPlayerCap {
 
     int getLightValue();

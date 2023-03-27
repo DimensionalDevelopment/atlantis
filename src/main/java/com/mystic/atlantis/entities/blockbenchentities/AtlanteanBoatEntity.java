@@ -1,13 +1,13 @@
 package com.mystic.atlantis.entities.blockbenchentities;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.mystic.atlantis.init.ItemInit;
+
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.IExtensibleEnum;
-import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;

@@ -1,6 +1,7 @@
 package com.mystic.atlantis.blocks.blockentities;
 
 import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;

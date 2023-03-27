@@ -1,14 +1,15 @@
 package com.mystic.atlantis.init;
 
+import java.util.function.Supplier;
+
 import com.google.common.collect.Lists;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.util.Lazy;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.TierSortingRegistry;
-
-import java.util.function.Supplier;
 
 public enum ToolInit implements Tier {
     AQUAMARINE(286,5,4,2, 10, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get())),

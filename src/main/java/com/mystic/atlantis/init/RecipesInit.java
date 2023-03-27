@@ -2,6 +2,7 @@ package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.recipes.WritingRecipe;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;

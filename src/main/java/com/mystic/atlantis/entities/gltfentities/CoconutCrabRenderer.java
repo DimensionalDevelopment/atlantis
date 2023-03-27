@@ -1,28 +1,30 @@
 package com.mystic.atlantis.entities.gltfentities;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
-import com.mystic.atlantis.util.Reference;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL13;
+import org.lwjgl.opengl.GL15;
+import org.lwjgl.opengl.GL30;
+
 import com.modularmods.mcgltf.IGltfModelReceiver;
 import com.modularmods.mcgltf.MCglTF;
 import com.modularmods.mcgltf.RenderedGltfModel;
 import com.modularmods.mcgltf.RenderedGltfScene;
 import com.modularmods.mcgltf.animation.GltfAnimationCreator;
 import com.modularmods.mcgltf.animation.InterpolatedChannel;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Quaternion;
+import com.mystic.atlantis.util.Reference;
+
 import de.javagl.jgltf.model.AnimationModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL15;
-import org.lwjgl.opengl.GL30;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CoconutCrabRenderer extends EntityRenderer<CoconutCrabEntity> implements IGltfModelReceiver {
 

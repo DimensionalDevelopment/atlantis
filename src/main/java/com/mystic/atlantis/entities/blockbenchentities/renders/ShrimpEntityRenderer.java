@@ -1,10 +1,15 @@
 package com.mystic.atlantis.entities.blockbenchentities.renders;
 
+import static com.mystic.atlantis.entities.blockbenchentities.renders.JellyfishEntityRenderer.method_23187;
+
+import java.util.Collections;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 import com.mystic.atlantis.entities.blockbenchentities.ShrimpEntity;
 import com.mystic.atlantis.entities.blockbenchentities.models.ShrimpEntityModel;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -25,10 +30,6 @@ import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.model.provider.data.EntityModelData;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
-
-import java.util.Collections;
-
-import static com.mystic.atlantis.entities.blockbenchentities.renders.JellyfishEntityRenderer.method_23187;
 
 public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
     public ShrimpEntityRenderer(EntityRendererProvider.Context ctx, ShrimpEntityModel modelProvider) {

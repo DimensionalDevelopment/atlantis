@@ -2,6 +2,10 @@ package com.mystic.atlantis.items.item;
 
 import java.util.List;
 import java.util.function.Predicate;
+
+import com.mystic.atlantis.entities.AtlantisEntities;
+import com.mystic.atlantis.entities.blockbenchentities.SubmarineEntity;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
@@ -20,8 +24,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import com.mystic.atlantis.entities.AtlantisEntities;
-import com.mystic.atlantis.entities.blockbenchentities.SubmarineEntity;
 
 public class SubmarineItem extends Item {
     private static final Predicate<Entity> RIDERS;

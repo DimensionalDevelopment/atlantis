@@ -1,8 +1,10 @@
 package com.mystic.atlantis.items.armor;
 
-import com.google.common.collect.ImmutableMap;
 import java.util.Map;
 import java.util.Random;
+
+import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;

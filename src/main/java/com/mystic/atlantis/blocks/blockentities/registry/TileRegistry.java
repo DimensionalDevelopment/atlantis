@@ -1,11 +1,14 @@
 package com.mystic.atlantis.blocks.blockentities.registry;
 
 import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
-import com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator;
-import com.mystic.atlantis.blocks.blockentities.energy.CrystalStorage;
-import com.mystic.atlantis.blocks.blockentities.plants.*;
+import com.mystic.atlantis.blocks.blockentities.plants.BlueLilyTileEntity;
+import com.mystic.atlantis.blocks.blockentities.plants.BurntDeepTileEntity;
+import com.mystic.atlantis.blocks.blockentities.plants.EnenmomyTileEntity;
+import com.mystic.atlantis.blocks.blockentities.plants.TuberUpTileEntity;
+import com.mystic.atlantis.blocks.blockentities.plants.UnderwaterShroomTileEntity;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;

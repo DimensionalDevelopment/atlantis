@@ -1,9 +1,12 @@
 package com.mystic.atlantis.blocks.blockentities.renderers;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.mystic.atlantis.blocks.power.atlanteanstone.SodiumPrimedBomb;
 import com.mystic.atlantis.init.BlockInit;
+
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -12,7 +15,6 @@ import net.minecraft.client.renderer.entity.TntMinecartRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 
 public class SodiumBombRenderer
 extends EntityRenderer<SodiumPrimedBomb> {

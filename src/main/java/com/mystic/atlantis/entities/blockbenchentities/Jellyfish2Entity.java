@@ -1,6 +1,7 @@
 package com.mystic.atlantis.entities.blockbenchentities;
 
 import com.mystic.atlantis.init.ItemInit;
+
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;

@@ -1,6 +1,7 @@
 package com.mystic.atlantis.inventory;
 
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;

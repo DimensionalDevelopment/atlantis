@@ -1,11 +1,14 @@
 package com.mystic.atlantis.screen;
 
+import java.util.List;
+
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.inventory.WritingMenu;
 import com.mystic.atlantis.recipes.WritingRecipe;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -15,9 +18,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.crafting.StonecutterRecipe;
-
-import java.util.List;
 
 public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
     private static final ResourceLocation BG_LOCATION = new ResourceLocation("textures/gui/container/stonecutter.png");

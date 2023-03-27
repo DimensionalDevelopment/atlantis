@@ -1,17 +1,16 @@
 package com.mystic.atlantis.blocks.blockentities.energy;
 
-import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
-import com.mystic.atlantis.init.BlockInit;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.inventory.CrystalGeneratorMenu;
-import com.mystic.atlantis.items.item.energybased.AtlanteanAmuletItem;
-import com.mystic.atlantis.items.item.energybased.AtlanteanSpearItem;
 import com.mystic.atlantis.networking.AtlantisPacketHandler;
 import com.mystic.atlantis.networking.packets.clientbound.EnergySyncS2CPacket;
 import com.mystic.atlantis.util.ModEnergyStorage;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
@@ -30,8 +29,6 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.PacketDistributor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class CrystalGenerator extends BlockEntity implements MenuProvider {
     private static BlockPos pos;

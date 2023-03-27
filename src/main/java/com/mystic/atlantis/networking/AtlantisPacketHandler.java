@@ -4,6 +4,7 @@ import com.mystic.atlantis.networking.packets.clientbound.AtlantisLightClientBou
 import com.mystic.atlantis.networking.packets.clientbound.EnergySyncS2CPacket;
 import com.mystic.atlantis.networking.packets.serverbound.AtlantisLightServerBoundPacket;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

@@ -1,11 +1,12 @@
 package com.mystic.atlantis.networking.packets.serverbound;
 
+import java.util.function.Supplier;
+
 import com.mystic.atlantis.capiablities.player.PlayerCapProvider;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
 
 public class AtlantisLightServerBoundPacket {
     private final long pos;

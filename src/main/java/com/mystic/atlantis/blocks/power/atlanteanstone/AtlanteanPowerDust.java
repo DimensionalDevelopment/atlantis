@@ -1,13 +1,16 @@
 package com.mystic.atlantis.blocks.power.atlanteanstone;
 
+import java.util.Map;
+import java.util.Set;
+
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.mojang.math.Vector3f;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
+import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.mixin.RedstoneAccessor;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,9 +34,6 @@ import net.minecraft.world.level.block.state.properties.RedstoneSide;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
-import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
-import com.mystic.atlantis.init.BlockInit;
-import com.mystic.atlantis.mixin.RedstoneAccessor;
 
 public class AtlanteanPowerDust extends RedStoneWireBlock implements SimpleWaterloggedBlock {
 

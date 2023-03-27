@@ -1,7 +1,10 @@
 package com.mystic.atlantis.configfeature;
 
+import java.util.function.Supplier;
+
 import com.mystic.atlantis.configfeature.trees.AtlanteanTree;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -11,8 +14,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.function.Supplier;
 
 public class AtlantisFeature {
 

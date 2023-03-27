@@ -1,6 +1,5 @@
 package com.mystic.atlantis.blocks;
 
-import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 

@@ -1,6 +1,7 @@
 package com.mystic.atlantis.blocks;
 
 import com.mystic.atlantis.inventory.LinguisticMenu;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;

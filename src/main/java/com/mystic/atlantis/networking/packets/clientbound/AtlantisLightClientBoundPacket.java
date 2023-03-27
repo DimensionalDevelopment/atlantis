@@ -1,12 +1,13 @@
 package com.mystic.atlantis.networking.packets.clientbound;
 
+import java.util.function.Supplier;
+
 import com.mystic.atlantis.networking.proxy.ClientProxy;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
 
 public record AtlantisLightClientBoundPacket(int lightValue) {
 

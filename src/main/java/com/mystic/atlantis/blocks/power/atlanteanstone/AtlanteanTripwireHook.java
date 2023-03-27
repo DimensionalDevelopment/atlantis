@@ -1,6 +1,9 @@
 package com.mystic.atlantis.blocks.power.atlanteanstone;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.google.common.base.MoreObjects;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -20,7 +23,6 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.Nullable;
 
 public class AtlanteanTripwireHook extends TripWireHookBlock implements SimpleWaterloggedBlock {
     private static final Property<Boolean> WATERLOGGED = AtlanteanPowerTorch.WATERLOGGED;

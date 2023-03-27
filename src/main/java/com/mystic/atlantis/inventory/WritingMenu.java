@@ -1,23 +1,29 @@
 package com.mystic.atlantis.inventory;
 
+import java.util.List;
+
+import org.apache.commons.compress.utils.Lists;
+
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.RecipesInit;
 import com.mystic.atlantis.recipes.WritingRecipe;
+
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.ResultContainer;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import org.apache.commons.compress.utils.Lists;
-
-import java.util.List;
 
 public class WritingMenu extends AbstractContainerMenu {
     public static final int INPUT_SLOT = 0;

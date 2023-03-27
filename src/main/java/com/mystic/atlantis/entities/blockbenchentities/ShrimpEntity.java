@@ -1,6 +1,7 @@
 package com.mystic.atlantis.entities.blockbenchentities;
 
 import com.mystic.atlantis.init.ItemInit;
+
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;

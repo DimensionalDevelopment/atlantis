@@ -1,26 +1,58 @@
 package com.mystic.atlantis.setup;
 
+import static com.mystic.atlantis.init.BlockInit.dyedLinguistic;
+import static com.mystic.atlantis.init.BlockInit.nonLinguistic;
+
+import java.util.Map;
+import java.util.stream.Stream;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.google.common.collect.ArrayListMultimap;
+import com.modularmods.mcgltf.MCglTF;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
-import com.mystic.atlantis.blocks.blockentities.renderers.*;
+import com.mystic.atlantis.blocks.blockentities.renderers.BlueLilyTileRenderer;
+import com.mystic.atlantis.blocks.blockentities.renderers.BurntDeepTileRenderer;
+import com.mystic.atlantis.blocks.blockentities.renderers.EnenmomyTileRenderer;
+import com.mystic.atlantis.blocks.blockentities.renderers.SodiumBombRenderer;
+import com.mystic.atlantis.blocks.blockentities.renderers.TuberUpTileRenderer;
+import com.mystic.atlantis.blocks.blockentities.renderers.UnderwaterShroomTileRenderer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.AtlantisEntities;
-import com.mystic.atlantis.entities.blockbenchentities.StarfishEntity;
-import com.mystic.atlantis.entities.blockbenchentities.models.*;
-import com.mystic.atlantis.entities.blockbenchentities.renders.*;
+import com.mystic.atlantis.entities.blockbenchentities.models.CrabEntityModel;
+import com.mystic.atlantis.entities.blockbenchentities.models.Jellyfish2EntityModel;
+import com.mystic.atlantis.entities.blockbenchentities.models.JellyfishEntityModel;
+import com.mystic.atlantis.entities.blockbenchentities.models.LeviathanEntityModel;
+import com.mystic.atlantis.entities.blockbenchentities.models.SeahorseEntityModel;
+import com.mystic.atlantis.entities.blockbenchentities.models.ShrimpEntityModel;
+import com.mystic.atlantis.entities.blockbenchentities.models.StarfishEntityModel;
+import com.mystic.atlantis.entities.blockbenchentities.models.StarfishZomEntityModel;
+import com.mystic.atlantis.entities.blockbenchentities.renders.AtlanteanBoatRenderer;
+import com.mystic.atlantis.entities.blockbenchentities.renders.CrabEntityRenderer;
+import com.mystic.atlantis.entities.blockbenchentities.renders.Jellyfish2EntityRenderer;
+import com.mystic.atlantis.entities.blockbenchentities.renders.JellyfishEntityRenderer;
+import com.mystic.atlantis.entities.blockbenchentities.renders.LeviathanEntityRenderer;
+import com.mystic.atlantis.entities.blockbenchentities.renders.SeahorseEntityRenderer;
+import com.mystic.atlantis.entities.blockbenchentities.renders.ShrimpEntityRenderer;
+import com.mystic.atlantis.entities.blockbenchentities.renders.StarfishEntityRenderer;
+import com.mystic.atlantis.entities.blockbenchentities.renders.StarfishZomEntityRenderer;
+import com.mystic.atlantis.entities.blockbenchentities.renders.SubmarineEntityRenderer;
 import com.mystic.atlantis.entities.gltfentities.CoconutCrabRenderer;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.inventory.MenuTypeInit;
 import com.mystic.atlantis.particles.PushBubbleStreamParticle;
-import com.mystic.atlantis.inventory.CrystalGeneratorMenu;
 import com.mystic.atlantis.screen.CrystalGeneratorScreen;
 import com.mystic.atlantis.util.Reference;
-import com.modularmods.mcgltf.MCglTF;
+
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
@@ -51,13 +83,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Map;
-import java.util.stream.Stream;
-
-import static com.mystic.atlantis.init.BlockInit.dyedLinguistic;
-import static com.mystic.atlantis.init.BlockInit.nonLinguistic;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetup {

@@ -1,10 +1,9 @@
 package com.mystic.atlantis.event;
 
 import com.mystic.atlantis.util.Reference;
-import net.minecraft.core.Registry;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
