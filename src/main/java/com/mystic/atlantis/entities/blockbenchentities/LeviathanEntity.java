@@ -48,25 +48,25 @@ import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import static software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes.*;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class LeviathanEntity extends WaterAnimal implements IAnimatable {
-
     public static final int TICKS_PER_FLAP = Mth.ceil(24.166098F);
     private static final EntityDataAccessor<Integer> ID_SIZE = SynchedEntityData.defineId(LeviathanEntity.class, EntityDataSerializers.INT);
     private Vec3 moveTargetPoint;
     private BlockPos anchorPoint;
     private LeviathanEntity.AttackPhase attackPhase;
-    private static final AnimationBuilder SWIM_IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.leviathan.swim", true);
-
-    private final AnimationFactory factory = new AnimationFactory(this);
+    private static final AnimationBuilder SWIM_IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.leviathan.swim", LOOP);
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public static AttributeSupplier.Builder createLeviathanAttributes() {
-        var builder = Mob.createMobAttributes();
-        return builder.add(Attributes.ATTACK_DAMAGE, 2d);
+        return Mob.createMobAttributes()
+        		.add(Attributes.ATTACK_DAMAGE, 2D);
     }
 
     public LeviathanEntity(EntityType<? extends WaterAnimal> arg, Level arg2) {

@@ -1,5 +1,7 @@
 package com.mystic.atlantis.entities.blockbenchentities;
 
+import static software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes.LOOP;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.mystic.atlantis.config.AtlantisConfig;
@@ -52,15 +54,16 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class CrabEntity extends Animal implements IAnimatable, Bucketable {
-
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CrabEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(CrabEntity.class, EntityDataSerializers.INT);
-    private static final AnimationBuilder WALK_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.walk", true);
-    private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.idle", true);
-
-    private final AnimationFactory factory = new AnimationFactory(this);
+    protected static final Ingredient TEMPT_ITEMS = Ingredient.of(Items.SEAGRASS);
+    private static final AnimationBuilder WALK_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.walk", LOOP);
+    private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.idle", LOOP);
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimationController<CrabEntity> mainController = new AnimationController<CrabEntity>(this, "crabController", 2, this::mainPredicate);
 
     public CrabEntity(EntityType<? extends Animal> entityType, Level world) {
         super(entityType, world);
@@ -69,6 +72,12 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
     @Override
     public boolean checkSpawnObstruction(LevelReader world) {
         return world.isUnobstructed(this);
+    }
+    
+    public static AttributeSupplier.Builder createCrabAttributes() {
+        return createMobAttributes()
+        		.add(Attributes.ATTACK_DAMAGE, 1D)
+        		.add(Attributes.MOVEMENT_SPEED, 0.15D);
     }
 
     public boolean fromBucket() {
@@ -109,13 +118,9 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
         return true;
     }
 
-    public static AttributeSupplier.Builder createCrabAttributes() {
-        return createMobAttributes().add(Attributes.ATTACK_DAMAGE, 1d).add(Attributes.MOVEMENT_SPEED, 0.6d);
-    }
-
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
+        data.addAnimationController(mainController);
     }
 
     @Override
@@ -166,15 +171,14 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
 
     @Override
     protected void registerGoals() {
-
-        goalSelector.addGoal(8, new LookAtPlayerGoal(this, LivingEntity.class, 10));
-        goalSelector.addGoal(7, new HurtByTargetGoal(this).setAlertOthers(CrabEntity.class));
-        goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
-        goalSelector.addGoal(4, new PanicGoal(this, 0.8));
-        goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(Items.SEAGRASS), false));
-        goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.6));
-        goalSelector.addGoal(1, new TryFindWaterGoal(this));
+    	goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        goalSelector.addGoal(0, new HurtByTargetGoal(this).setAlertOthers(CrabEntity.class));
+        goalSelector.addGoal(1, new PanicGoal(this, 1.35));
+        goalSelector.addGoal(1, new TemptGoal(this, 1.05D, TEMPT_ITEMS, false));
+        goalSelector.addGoal(1, new BreedGoal(this, 1.0D));
+        goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 0.6));
+        goalSelector.addGoal(1, new LookAtPlayerGoal(this, LivingEntity.class, 10));
+        goalSelector.addGoal(2, new RandomLookAroundGoal(this));
     }
 
     @Override
@@ -215,13 +219,9 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
-        CrabEntity crabEntity = ((CrabEntity) entity);
-        if (crabEntity.isInLove() && canMate(crabEntity) && crabEntity.getVariant() == 1) {
-            return (CrabEntity) crabEntity.getType().create(world);
-        } else if ((crabEntity.isInLove() && canMate(crabEntity) && crabEntity.getVariant() == 2)){
-            return (CrabEntity) crabEntity.getType().create(world);
-        }
-        return entity;
+        CrabEntity crab = ((CrabEntity) entity);
+        if (crab.isInLove() && canMate(crab)) return (CrabEntity) crab.getType().create(world);
+        return crab;
     }
 
     @Override
@@ -234,11 +234,13 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
     }
 
-    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+    private <P extends IAnimatable> PlayState mainPredicate(AnimationEvent<P> event) {
         if(isMovingSlowly()) {
             event.getController().setAnimation(WALK_ANIMATION);
-        } else {
+            return PlayState.CONTINUE;
+        } else if (!isMovingSlowly()) {
             event.getController().setAnimation(IDLE_ANIMATION);
+            return PlayState.CONTINUE;
         }
         return PlayState.CONTINUE;
     }
