@@ -24,7 +24,6 @@ public class FluidTypesInit {
     public static final RegistryObject<FluidType> JETSTREAM_WATER_FLUID_TYPE = registerJetstreamWaterType("jetstream_water",
             FluidType.Properties.create().lightLevel(0).density(15).viscosity(1000).sound(SoundAction.get("drink"),
                     SoundEvents.GENERIC_DRINK));
-
     public static final RegistryObject<FluidType> SALTY_SEA_WATER_FLUID_TYPE = registerSaltySeaWaterFluidType("salty_sea_water",
             FluidType.Properties.create().lightLevel(0).density(0).viscosity(1000).sound(SoundAction.get("drink"),
                     SoundEvents.GENERIC_DRINK));

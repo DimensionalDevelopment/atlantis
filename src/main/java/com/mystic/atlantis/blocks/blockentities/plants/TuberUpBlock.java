@@ -2,19 +2,14 @@ package com.mystic.atlantis.blocks.blockentities.plants;
 
 import static com.mystic.atlantis.blocks.plants.UnderwaterFlower.WATERLOGGED;
 
-import java.util.List;
-
 import org.jetbrains.annotations.Nullable;
 
-import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
+import com.mystic.atlantis.init.TileEntityInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
@@ -33,6 +28,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 
 public class TuberUpBlock extends BushBlock implements EntityBlock, SimpleWaterloggedBlock {
+	
     public TuberUpBlock() {
         super(Properties.of(Material.PLANT)
                         .noOcclusion()
@@ -43,89 +39,79 @@ public class TuberUpBlock extends BushBlock implements EntityBlock, SimpleWaterl
         this.defaultBlockState().setValue(WATERLOGGED, Boolean.TRUE);
     }
 
+	public boolean canPlaceOn(BlockState targetState){
+		return targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
+	}
 
-    public boolean canBlockStay(LevelReader worldReader, BlockPos pos, BlockState state) {
-        return canPlaceBlockAt(worldReader, pos);
-    }
+	public boolean canPlaceBlockAt(LevelReader reader, BlockPos targetPos) {
+		BlockState belowState = reader.getBlockState(targetPos.below());
 
-    public boolean blockTypes(BlockState blockState){
-        return blockState.getBlock() == Blocks.GRAVEL || blockState.getBlock() == Blocks.SANDSTONE || blockState.getBlock() == Blocks.GRASS || blockState.getBlock() == Blocks.DIRT || blockState.getBlock() == Blocks.SAND;
-    }
+		if (reader.getBlockState(targetPos.above()).getMaterial() != Material.WATER) {
+			return true;
+		}
 
-    public boolean canPlaceBlockAt(LevelReader worldReader, BlockPos pos) {
-        BlockState state = worldReader.getBlockState(pos.below());
+		if (canPlaceOn(belowState)) {
+			return false;
+		}
 
-        if (worldReader.getBlockState(pos.above()).getMaterial() != Material.WATER)
-        {
-            return true;
-        }
-        if(blockTypes(state)) {
-            return false;
-        }
+		return true;
+	}
 
-        return true;
-    }
+	@Override
+	public FluidState getFluidState(BlockState targetState) {
+		return targetState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(targetState);
+	}
 
-    @Override
-    public FluidState getFluidState(BlockState state) {
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
-    }
+	@Override
+	public RenderShape getRenderShape(BlockState targetState) {
+		return RenderShape.ENTITYBLOCK_ANIMATED;
+	}
 
-    @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.ENTITYBLOCK_ANIMATED;
-    }
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(WATERLOGGED);
+	}
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(WATERLOGGED);
-    }
+	@Override
+	protected boolean mayPlaceOn(BlockState targetState, BlockGetter getter, BlockPos targetPos) {
+		return !targetState.getCollisionShape(getter, targetPos).getFaceShape(Direction.UP).isEmpty() || targetState.isFaceSturdy(getter, targetPos, Direction.UP);
+	}
 
-    @Override
-    protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        return !state.getCollisionShape(worldIn, pos).getFaceShape(Direction.UP).isEmpty() || state.isFaceSturdy(worldIn, pos, Direction.UP);
-    }
+	@Override
+	public boolean canSurvive(BlockState targetState, LevelReader reader, BlockPos targetPos) {
+		BlockPos below = targetPos.below();
 
-    @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
-        BlockPos blockpos = pos.below();
-        if(OnlyWater(worldIn, pos, state)){
-            return this.mayPlaceOn(worldIn.getBlockState(blockpos), worldIn, blockpos);
-        }else{
-            return false;
-        }
-    }
+		if(isWaterAt(reader, targetPos)){
+			return this.mayPlaceOn(reader.getBlockState(below), reader, below);
+		}else{
+			return false;
+		}
+	}
 
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        {
-            BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
-            if (blockstate.is(this)) {
-                return blockstate;
-            } else {
-                FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
-                boolean flag = fluidstate.getType() == Fluids.WATER;
-                return super.getStateForPlacement(context).setValue(WATERLOGGED, Boolean.valueOf(flag));
-            }
-        }
-    }
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		BlockState targetPos = context.getLevel().getBlockState(context.getClickedPos());
+		
+		if (targetPos.is(this)) {
+			return targetPos;
+		} else {
+			FluidState targetFluidState = context.getLevel().getFluidState(context.getClickedPos());
+			boolean isWater = targetFluidState.getType() == Fluids.WATER;
+			return super.getStateForPlacement(context).setValue(WATERLOGGED, Boolean.valueOf(isWater));
+		}
+	}
 
-    public boolean OnlyWater(LevelReader worldReader, BlockPos pos, BlockState state) {
-        return !worldReader.getBlockState(pos).is(getAir()) || !this.canBlockStay(worldReader, pos, state);
-    }
+	public boolean isWaterAt(LevelReader reader, BlockPos targetPos) {
+		return !reader.getBlockState(targetPos).is(getAir()) || !this.canPlaceBlockAt(reader, targetPos);
+	}
 
-    public HolderSet<Block> getAir(){
-        Holder<Block> airHolderSet = Holder.direct(Blocks.AIR);
-        return HolderSet.direct(airHolderSet);
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable BlockGetter world, List<Component> tooltip, TooltipFlag options) {
-        super.appendHoverText(stack, world, tooltip, options);
-    }
+	public HolderSet<Block> getAir(){
+		Holder<Block> airHolderSet = Holder.direct(Blocks.AIR);
+		return HolderSet.direct(airHolderSet);
+	}
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return TileRegistry.TUBER_UP_TILE.get().create(pos, state);
+        return TileEntityInit.TUBER_UP_TILE.get().create(pos, state);
     }
 }

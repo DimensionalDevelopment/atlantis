@@ -8,12 +8,12 @@ import org.apache.commons.lang3.text.WordUtils;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.TagsInit;
 import com.mystic.atlantis.blocks.LinguisticGlyph;
-import com.mystic.atlantis.entities.AtlantisEntities;
+import com.mystic.atlantis.init.AtlantisEntityInit;
+import com.mystic.atlantis.init.AtlantisGroupInit;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.EffectsInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.init.RecipesInit;
-import com.mystic.atlantis.itemgroup.AtlantisGroup;
 
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -207,7 +207,7 @@ public class Providers {
                         withParent(BlockInit.getLinguisticBlock(glyph, null), glyph);
                     }
 
-                    block(BlockInit.WRITING_BLOCK);
+            //        block(BlockInit.WRITING_BLOCK);
                     block(BlockInit.ORICHALCUM_BLOCK);
 
                     item(ItemInit.ORICHALCUM_IGNOT);
@@ -263,8 +263,8 @@ public class Providers {
             event.getGenerator().addProvider(true, new LanguageProvider(event.getGenerator(), "atlantis", "en_us") {
                 @Override
                 protected void addTranslations() {
-                    this.add(AtlantisGroup.MAIN, "Atlantis");
-                    this.add(AtlantisGroup.GLYPH, "Altantean Glyphs");
+                    this.add(AtlantisGroupInit.MAIN, "Atlantis");
+                    this.add(AtlantisGroupInit.GLYPH, "Altantean Glyphs");
 
                     add("container.linguistic", "Linguistic");
                     add("container.writing", "Writing");
@@ -485,11 +485,11 @@ public class Providers {
 
                     add(EffectsInit.SPIKES.get(), "Spikes");
 
-                    add(AtlantisEntities.CRAB.get(), "Atlantean Crab");
-                    add(AtlantisEntities.JELLYFISH2.get(), "Atlantean Jellyfish Var. 2");
-                    add(AtlantisEntities.SHRIMP.get(), "Atlantean Shrimp");
-                    add(AtlantisEntities.SUBMARINE.get(), "Atlantean Submarine");
-                    add(AtlantisEntities.JELLYFISH.get(), "Atlantean Jellyfish Var. 1");
+                    add(AtlantisEntityInit.CRAB.get(), "Atlantean Crab");
+                    add(AtlantisEntityInit.JELLYFISH2.get(), "Atlantean Jellyfish Var. 2");
+                    add(AtlantisEntityInit.SHRIMP.get(), "Atlantean Shrimp");
+                    add(AtlantisEntityInit.SUBMARINE.get(), "Atlantean Submarine");
+                    add(AtlantisEntityInit.JELLYFISH.get(), "Atlantean Jellyfish Var. 1");
 
                     add("text.autoconfig.atlantis.title", "Atlantean Config");
                     add("text.autoconfig.atlantis.option.minCrabSpawnHeight", "Minimum Crab Spawn Height");
@@ -509,8 +509,8 @@ public class Providers {
                     addItem(ItemInit.ORICHALCUM_BLEND);
                     addItem(ItemInit.ORICHALCUM_IGNOT);
 
-                    addBlock(BlockInit.LINGUISTIC_BLOCK);
-                    addBlock(BlockInit.WRITING_BLOCK);
+            //        addBlock(BlockInit.LINGUISTIC_BLOCK);
+            //        addBlock(BlockInit.WRITING_BLOCK);
                 }
 
                 private void addRecord(RegistryObject<Item> record, String s) {

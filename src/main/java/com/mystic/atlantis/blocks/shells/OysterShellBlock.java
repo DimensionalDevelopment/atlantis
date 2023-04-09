@@ -12,8 +12,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
-public class OysterShellBlock extends RotatedPillarBlock
-{
+public class OysterShellBlock extends RotatedPillarBlock {
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
 
     public OysterShellBlock(BlockBehaviour.Properties properties) {
@@ -24,17 +23,17 @@ public class OysterShellBlock extends RotatedPillarBlock
         this.registerDefaultState(this.defaultBlockState().setValue(AXIS, Direction.Axis.Y));
     }
 
-    public BlockState rotate(BlockState state, Rotation rot) {
-        switch(rot) {
+    public BlockState rotate(BlockState targetState, Rotation currentRot) {
+        switch(currentRot) {
             case COUNTERCLOCKWISE_90:
             case CLOCKWISE_90:
-                return switch (state.getValue(AXIS)) {
-                    case X -> state.setValue(AXIS, Direction.Axis.Z);
-                    case Z -> state.setValue(AXIS, Direction.Axis.X);
-                    default -> state;
+                return switch (targetState.getValue(AXIS)) {
+                    case X -> targetState.setValue(AXIS, Direction.Axis.Z);
+                    case Z -> targetState.setValue(AXIS, Direction.Axis.X);
+                    default -> targetState;
                 };
             default:
-                return state;
+                return targetState;
         }
     }
 

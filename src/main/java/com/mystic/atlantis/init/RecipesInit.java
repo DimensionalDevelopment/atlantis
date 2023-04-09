@@ -12,20 +12,21 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class RecipesInit {
-    public static void init(IEventBus bus) {
-        Serializers.RECIPE_SERIALIZERS.register(bus);
-        Types.RECIPE_WRITING.register(bus);
-    }
 
     public static class Types {
-        public static DeferredRegister<RecipeType<?>> RECIPE_WRITING = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, "atlantis");
+        public static final DeferredRegister<RecipeType<?>> RECIPE_WRITING = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, "atlantis");
 
-        public static RecipeType<WritingRecipe> WRITING = RecipeType.simple(new ResourceLocation(Reference.MODID, "writing"));
+        public static final RecipeType<WritingRecipe> WRITING = RecipeType.simple(new ResourceLocation(Reference.MODID, "writing"));
     }
 
     public static class Serializers {
-        public static DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, "atlantis");
+        public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, "atlantis");
 
-        public static RegistryObject<RecipeSerializer<?>> WRITING_SERIALIZER = RECIPE_SERIALIZERS.register("writing", WritingRecipe.Serializer::new);
+        public static final RegistryObject<RecipeSerializer<?>> WRITING_SERIALIZER = RECIPE_SERIALIZERS.register("writing", WritingRecipe.Serializer::new);
+    }
+    
+    public static void init(IEventBus bus) {
+        Serializers.RECIPE_SERIALIZERS.register(bus);
+        Types.RECIPE_WRITING.register(bus);
     }
 }

@@ -30,8 +30,8 @@ public class YellowGlowingMushroom extends BushBlock implements SimpleWaterlogge
     public static final Property<Boolean> WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D);
 
-    public YellowGlowingMushroom(Properties properties) {
-        super(properties
+    public YellowGlowingMushroom(Properties settings) {
+        super(settings
                 .randomTicks()
                 .lightLevel(light -> 8)
                 .strength(0.2F, 0.4F)

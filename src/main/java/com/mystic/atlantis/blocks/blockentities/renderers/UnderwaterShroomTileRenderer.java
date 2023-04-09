@@ -13,17 +13,17 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import software.bernie.geckolib3.renderers.geo.GeoBlockRenderer;
 
 public class UnderwaterShroomTileRenderer extends GeoBlockRenderer<UnderwaterShroomTileEntity> {
+	
     public UnderwaterShroomTileRenderer(BlockEntityRendererProvider.Context rendererDispatcherIn) {
         super(rendererDispatcherIn, new UnderwaterShroomModel());
     }
 
     @Override
-    public RenderType getRenderType(UnderwaterShroomTileEntity animatable, float partialTicks, PoseStack stack,
-                                     MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn,
-                                     ResourceLocation textureLocation) {
+    public RenderType getRenderType(UnderwaterShroomTileEntity animatable, float partialTicks, PoseStack stack, MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, ResourceLocation textureLocation) {
         return RenderType.entityTranslucent(getTextureLocation(animatable));
     }
 
     @Override
-    public void render(BlockEntity blockEntity, float v, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int i1) {}
+    public void render(BlockEntity blockEntity, float partialTicks, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, int packedOverlay) {
+    }
 }

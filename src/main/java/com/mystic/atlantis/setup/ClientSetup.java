@@ -1,7 +1,7 @@
 package com.mystic.atlantis.setup;
 
-import static com.mystic.atlantis.init.BlockInit.dyedLinguistic;
-import static com.mystic.atlantis.init.BlockInit.nonLinguistic;
+import static com.mystic.atlantis.init.BlockInit.DYED_LINGUISTICS;
+import static com.mystic.atlantis.init.BlockInit.NON_LINGUISTICS;
 
 import java.util.Map;
 import java.util.stream.Stream;
@@ -18,7 +18,6 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
-import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
 import com.mystic.atlantis.blocks.blockentities.renderers.BlueLilyTileRenderer;
 import com.mystic.atlantis.blocks.blockentities.renderers.BurntDeepTileRenderer;
 import com.mystic.atlantis.blocks.blockentities.renderers.EnenmomyTileRenderer;
@@ -26,7 +25,6 @@ import com.mystic.atlantis.blocks.blockentities.renderers.SodiumBombRenderer;
 import com.mystic.atlantis.blocks.blockentities.renderers.TuberUpTileRenderer;
 import com.mystic.atlantis.blocks.blockentities.renderers.UnderwaterShroomTileRenderer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
-import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.entities.blockbenchentities.models.CrabEntityModel;
 import com.mystic.atlantis.entities.blockbenchentities.models.Jellyfish2EntityModel;
 import com.mystic.atlantis.entities.blockbenchentities.models.JellyfishEntityModel;
@@ -46,9 +44,11 @@ import com.mystic.atlantis.entities.blockbenchentities.renders.StarfishEntityRen
 import com.mystic.atlantis.entities.blockbenchentities.renders.StarfishZomEntityRenderer;
 import com.mystic.atlantis.entities.blockbenchentities.renders.SubmarineEntityRenderer;
 import com.mystic.atlantis.entities.gltfentities.CoconutCrabRenderer;
+import com.mystic.atlantis.init.AtlantisEntityInit;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
-import com.mystic.atlantis.inventory.MenuTypeInit;
+import com.mystic.atlantis.init.MenuTypeInit;
+import com.mystic.atlantis.init.TileEntityInit;
 import com.mystic.atlantis.particles.PushBubbleStreamParticle;
 import com.mystic.atlantis.screen.CrystalGeneratorScreen;
 import com.mystic.atlantis.util.Reference;
@@ -99,19 +99,19 @@ public class ClientSetup {
         ItemBlockRenderTypes.setRenderLayer(FluidInit.SALTY_SEA_WATER.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_SALTY_SEA_WATER.get(), RenderType.translucent());
 
-        BlockEntityRenderers.register(TileRegistry.UNDERWATER_SHROOM_TILE.get(),
+        BlockEntityRenderers.register(TileEntityInit.UNDERWATER_SHROOM_TILE.get(),
                 UnderwaterShroomTileRenderer::new);
 
-        BlockEntityRenderers.register(TileRegistry.TUBER_UP_TILE.get(),
+        BlockEntityRenderers.register(TileEntityInit.TUBER_UP_TILE.get(),
                 TuberUpTileRenderer::new);
 
-        BlockEntityRenderers.register(TileRegistry.BLUE_LILY_TILE.get(),
+        BlockEntityRenderers.register(TileEntityInit.BLUE_LILY_TILE.get(),
                 BlueLilyTileRenderer::new);
 
-        BlockEntityRenderers.register(TileRegistry.BURNT_DEEP_TILE.get(),
+        BlockEntityRenderers.register(TileEntityInit.BURNT_DEEP_TILE.get(),
                 BurntDeepTileRenderer::new);
 
-        BlockEntityRenderers.register(TileRegistry.ENENMOMY_TILE.get(),
+        BlockEntityRenderers.register(TileEntityInit.ENENMOMY_TILE.get(),
                 EnenmomyTileRenderer::new);
 
         registerBlockRenderLayers(RenderType.cutout(),
@@ -253,24 +253,24 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void entityRegisterEvent(EntityRenderersEvent.RegisterRenderers bus) {
-        bus.registerEntityRenderer(AtlantisEntities.CRAB.get(), entityRenderDispatcher -> new CrabEntityRenderer(entityRenderDispatcher, new CrabEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntities.JELLYFISH.get(), entityRenderDispatcher -> new JellyfishEntityRenderer(entityRenderDispatcher, new JellyfishEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntities.JELLYFISH2.get(), entityRenderDispatcher -> new Jellyfish2EntityRenderer(entityRenderDispatcher, new Jellyfish2EntityModel()));
-        bus.registerEntityRenderer(AtlantisEntities.SHRIMP.get(), entityRenderDispatcher -> new ShrimpEntityRenderer(entityRenderDispatcher, new ShrimpEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntities.SUBMARINE.get(), SubmarineEntityRenderer::new);
-        bus.registerEntityRenderer(AtlantisEntities.ATLANTEAN_BOAT.get(), AtlanteanBoatRenderer::new);
-        bus.registerEntityRenderer(AtlantisEntities.LEVIATHAN.get(), entityRenderDispatcher -> new LeviathanEntityRenderer(entityRenderDispatcher, new LeviathanEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntities.SEAHORSE.get(), entityRenderDispatcher -> new SeahorseEntityRenderer(entityRenderDispatcher, new SeahorseEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntities.STARFISH.get(), entityRenderDispatcher -> new StarfishEntityRenderer(entityRenderDispatcher, new StarfishEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntities.STARFISH_ZOM.get(), entityRenderDispatcher -> new StarfishZomEntityRenderer(entityRenderDispatcher, new StarfishZomEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.CRAB.get(), entityRenderDispatcher -> new CrabEntityRenderer(entityRenderDispatcher, new CrabEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.JELLYFISH.get(), entityRenderDispatcher -> new JellyfishEntityRenderer(entityRenderDispatcher, new JellyfishEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.JELLYFISH2.get(), entityRenderDispatcher -> new Jellyfish2EntityRenderer(entityRenderDispatcher, new Jellyfish2EntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.SHRIMP.get(), entityRenderDispatcher -> new ShrimpEntityRenderer(entityRenderDispatcher, new ShrimpEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.SUBMARINE.get(), SubmarineEntityRenderer::new);
+        bus.registerEntityRenderer(AtlantisEntityInit.ATLANTEAN_BOAT.get(), AtlanteanBoatRenderer::new);
+        bus.registerEntityRenderer(AtlantisEntityInit.LEVIATHAN.get(), entityRenderDispatcher -> new LeviathanEntityRenderer(entityRenderDispatcher, new LeviathanEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.SEAHORSE.get(), entityRenderDispatcher -> new SeahorseEntityRenderer(entityRenderDispatcher, new SeahorseEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.STARFISH.get(), entityRenderDispatcher -> new StarfishEntityRenderer(entityRenderDispatcher, new StarfishEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.STARFISH_ZOM.get(), entityRenderDispatcher -> new StarfishZomEntityRenderer(entityRenderDispatcher, new StarfishZomEntityModel()));
 
-        bus.registerEntityRenderer(AtlantisEntities.BOMB.get(), SodiumBombRenderer::new);
+        bus.registerEntityRenderer(AtlantisEntityInit.BOMB.get(), SodiumBombRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerGLTFEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         //Coconut Crab
-        event.registerEntityRenderer(AtlantisEntities.COCONUT_CRAB.get(), (context) -> {
+        event.registerEntityRenderer(AtlantisEntityInit.COCONUT_CRAB.get(), (context) -> {
             CoconutCrabRenderer entityRenderer = new CoconutCrabRenderer(context);
             MCglTF.getInstance().addGltfModelReceiver(entityRenderer);
             return entityRenderer;
@@ -291,7 +291,7 @@ public class ClientSetup {
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
         ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.create();
 
-        for(Map<DyeColor, RegistryObject<Block>> colorMap : dyedLinguistic.values()) {
+        for(Map<DyeColor, RegistryObject<Block>> colorMap : DYED_LINGUISTICS.values()) {
             colorMap.forEach((k,v) -> map.put(k, v.get()));
         }
 
@@ -330,7 +330,7 @@ public class ClientSetup {
         BlockColor BLACK = (arg, arg2, arg3, i) -> 0x1d1d21;
         map.get(DyeColor.BLACK).forEach(block -> blockColors.register(BLACK, block));
 
-        BlockColor REGULAR = (arg, arg2, arg3, i) -> 0x8caed2; nonLinguistic.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
+        BlockColor REGULAR = (arg, arg2, arg3, i) -> 0x8caed2; NON_LINGUISTICS.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
 
         BlockColor SaltySeaWaterColor = (arg, arg2, arg3, i) -> 0x100a60D0;
         blockColors.register(SaltySeaWaterColor, BlockInit.SALTY_SEA_WATER_BLOCK.get());
@@ -344,7 +344,7 @@ public class ClientSetup {
     public static void registerItemColor(RegisterColorHandlersEvent.Item event) {
         ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.<DyeColor, Block>create();
 
-        for(Map<DyeColor, RegistryObject<Block>> colorMap : dyedLinguistic.values()) {
+        for(Map<DyeColor, RegistryObject<Block>> colorMap : DYED_LINGUISTICS.values()) {
             colorMap.forEach((k,v) -> map.put(k, v.get()));
         }
 
@@ -383,6 +383,6 @@ public class ClientSetup {
         ItemColor BLACK = (arg, i) -> 0x1d1d21;
         map.get(DyeColor.BLACK).forEach(block -> blockColors.register(BLACK, block));
 
-        ItemColor REGULAR = (arg, i) -> 0x8caed2; nonLinguistic.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
+        ItemColor REGULAR = (arg, i) -> 0x8caed2; NON_LINGUISTICS.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
     }
 }

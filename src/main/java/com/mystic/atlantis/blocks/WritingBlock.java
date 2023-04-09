@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
@@ -37,8 +36,8 @@ public class WritingBlock extends Block {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     protected static final VoxelShape SHAPE = Shapes.block();
 
-    public WritingBlock(BlockBehaviour.Properties arg) {
-        super(arg);
+    public WritingBlock(Properties settings) {
+        super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
@@ -48,44 +47,44 @@ public class WritingBlock extends Block {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult use(BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand hand, BlockHitResult result) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
-        player.openMenu(state.getMenuProvider(level, pos));
+        player.openMenu(targetState.getMenuProvider(level, targetPos));
         player.awardStat(Stats.INTERACT_WITH_STONECUTTER);
         return InteractionResult.CONSUME;
     }
 
     @Override
     @Nullable
-    public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
-        return new SimpleMenuProvider((i, arg3, arg4) -> new WritingMenu(i, arg3, ContainerLevelAccess.create(level, pos)), CONTAINER_TITLE);
+    public MenuProvider getMenuProvider(BlockState targetState, Level level, BlockPos targetPos) {
+        return new SimpleMenuProvider((id, inventory, accessLevel) -> new WritingMenu(id, inventory, ContainerLevelAccess.create(level, targetPos)), CONTAINER_TITLE);
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState targetState, BlockGetter getter, BlockPos targetPos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    public boolean useShapeForLightOcclusion(BlockState state) {
+    public boolean useShapeForLightOcclusion(BlockState targetState) {
         return true;
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(BlockState targetState) {
         return RenderShape.MODEL;
     }
 
     @Override
-    public BlockState rotate(BlockState state, Rotation rotation) {
-        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+    public BlockState rotate(BlockState targetState, Rotation currentRot) {
+        return targetState.setValue(FACING, currentRot.rotate(targetState.getValue(FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+    public BlockState mirror(BlockState targetState, Mirror mirror) {
+        return targetState.rotate(mirror.getRotation(targetState.getValue(FACING)));
     }
 
     @Override
@@ -94,7 +93,7 @@ public class WritingBlock extends Block {
     }
 
     @Override
-    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState targetState, BlockGetter level, BlockPos targetPos, PathComputationType type) {
         return false;
     }
 }

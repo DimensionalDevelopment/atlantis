@@ -30,12 +30,10 @@ public class FluidInit {
     public static final RegistryObject<FlowingFluid> FLOWING_SALTY_SEA_WATER = FLUIDS.register("flowing_salty_sea_water",
             () -> new ForgeFlowingFluid.Flowing(FluidInit.SALTY_SEA_WATER_FLUID_PROPERTIES));
 
-
     public static final ForgeFlowingFluid.Properties SALTY_SEA_WATER_FLUID_PROPERTIES = new ForgeFlowingFluid.Properties(
             FluidTypesInit.SALTY_SEA_WATER_FLUID_TYPE, SALTY_SEA_WATER, FLOWING_SALTY_SEA_WATER)
             .slopeFindDistance(2).levelDecreasePerBlock(3).block(BlockInit.SALTY_SEA_WATER_BLOCK)
             .bucket(ItemInit.SALTY_SEA_WATER_BUCKET);
-
 
     public static void init(IEventBus eventBus) {
         FLUIDS.register(eventBus);

@@ -1,6 +1,6 @@
 package com.mystic.atlantis.items.item.bottles;
 
-import com.mystic.atlantis.itemgroup.AtlantisGroup;
+import com.mystic.atlantis.init.AtlantisGroupInit;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,7 +22,7 @@ public class JellyfishJellyBottle extends Item {
     private static final int DRINK_DURATION = 30;
 
     public JellyfishJellyBottle(Properties arg) {
-        super(arg.tab(AtlantisGroup.MAIN));
+        super(arg.tab(AtlantisGroupInit.MAIN));
     }
 
     @Override

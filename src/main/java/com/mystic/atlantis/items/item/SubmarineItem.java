@@ -3,8 +3,8 @@ package com.mystic.atlantis.items.item;
 import java.util.List;
 import java.util.function.Predicate;
 
-import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.entities.blockbenchentities.SubmarineEntity;
+import com.mystic.atlantis.init.AtlantisEntityInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -43,7 +43,7 @@ public class SubmarineItem extends Item {
             if (!(world.getBlockState(blockPos).getBlock() instanceof LiquidBlock)) {
                 return InteractionResultHolder.pass(itemStack);
             } else if (world.mayInteract(user, blockPos) && user.mayUseItemAt(blockPos, blockHitResult.getDirection(), itemStack)) {
-                SubmarineEntity boatEntity = new SubmarineEntity(AtlantisEntities.SUBMARINE.get(), world);
+                SubmarineEntity boatEntity = new SubmarineEntity(AtlantisEntityInit.SUBMARINE.get(), world);
                 boatEntity.setPos(hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z);
                 boatEntity.setYRot(user.getYRot());
                 world.addFreshEntity(boatEntity);
@@ -81,7 +81,7 @@ public class SubmarineItem extends Item {
             }
 
             //if (hitResult.getType() == HitResult.Type.BLOCK) {
-                SubmarineEntity boatEntity = new SubmarineEntity(AtlantisEntities.SUBMARINE.get(), world);
+                SubmarineEntity boatEntity = new SubmarineEntity(AtlantisEntityInit.SUBMARINE.get(), world);
                 boatEntity.setPos(hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z);
                 boatEntity.setYRot(user.getYRot());
 //                if (!world.isSpaceEmpty(boatEntity, boatEntity.getBoundingBox())) {

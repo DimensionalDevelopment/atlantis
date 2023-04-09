@@ -1,6 +1,6 @@
 package com.mystic.atlantis.init;
 
-import static com.mystic.atlantis.blocks.power.atlanteanstone.AtlanteanPowerTorch.WATERLOGGED;
+import static com.mystic.atlantis.blocks.power.atlanteanstone.AtlanteanPowerTorchBlock.WATERLOGGED;
 
 import org.jetbrains.annotations.NotNull;
 

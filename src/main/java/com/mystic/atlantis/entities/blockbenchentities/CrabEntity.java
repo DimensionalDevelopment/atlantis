@@ -213,7 +213,7 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
     }
 
     private static boolean isTempting(ItemStack stack) {
-        return stack.is(Blocks.SEAGRASS.asItem());
+    	return TEMPT_ITEMS.test(stack);
     }
 
     @Nullable

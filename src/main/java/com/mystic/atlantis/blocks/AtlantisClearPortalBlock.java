@@ -32,8 +32,8 @@ public class AtlantisClearPortalBlock extends CustomPortalBlock implements Simpl
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        switch (state.getValue(AXIS)) {
+    public VoxelShape getShape(BlockState targetState, BlockGetter getter, BlockPos targetPos, CollisionContext context) {
+        switch (targetState.getValue(AXIS)) {
             case Z:
                 return Z_SHAPE;
             case Y:

@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.mystic.atlantis.blocks.power.atlanteanstone.SodiumPrimedBomb;
+import com.mystic.atlantis.blocks.power.atlanteanstone.SodiumPrimedBombBlock;
 import com.mystic.atlantis.init.BlockInit;
 
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -16,39 +16,38 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class SodiumBombRenderer
-extends EntityRenderer<SodiumPrimedBomb> {
+public class SodiumBombRenderer extends EntityRenderer<SodiumPrimedBombBlock> {
     private final BlockRenderDispatcher blockRenderer;
 
-    public SodiumBombRenderer(EntityRendererProvider.Context arg) {
-        super(arg);
+    public SodiumBombRenderer(EntityRendererProvider.Context rendererDispatcherIn) {
+        super(rendererDispatcherIn);
         this.shadowRadius = 0.5f;
-        this.blockRenderer = arg.getBlockRenderDispatcher();
+        this.blockRenderer = rendererDispatcherIn.getBlockRenderDispatcher();
     }
 
     @Override
-    public void render(SodiumPrimedBomb arg, float f, float g, PoseStack arg2, @NotNull MultiBufferSource arg3, int i) {
-        arg2.pushPose();
-        arg2.translate(0.0, 0.5, 0.0);
-        int j = arg.getFuse();
-        if ((float)j - g + 1.0f < 10.0f) {
-            float h = 1.0f - ((float)j - g + 1.0f) / 10.0f;
-            h = Mth.clamp(h, 0.0f, 1.0f);
-            h *= h;
-            h *= h;
-            float k = 1.0f + h * 0.3f;
-            arg2.scale(k, k, k);
+    public void render(SodiumPrimedBombBlock block, float yaw, float partialTick, PoseStack stack, @NotNull MultiBufferSource arg3, int packedLight) {
+        stack.pushPose();
+        stack.translate(0.0, 0.5, 0.0);
+        int fuse = block.getFuse();
+        if ((float)fuse - partialTick + 1.0f < 10.0f) {
+            float partialTickFuseOffset = 1.0f - ((float)fuse - partialTick + 1.0f) / 10.0f;
+            partialTickFuseOffset = Mth.clamp(partialTickFuseOffset, 0.0f, 1.0f);
+            partialTickFuseOffset *= partialTickFuseOffset;
+            partialTickFuseOffset *= partialTickFuseOffset;
+            float partialTickOffset = 1.0f + partialTickFuseOffset * 0.3f;
+            stack.scale(partialTickOffset, partialTickOffset, partialTickOffset);
         }
-        arg2.mulPose(Vector3f.YP.rotationDegrees(-90.0f));
-        arg2.translate(-0.5, -0.5, 0.5);
-        arg2.mulPose(Vector3f.YP.rotationDegrees(90.0f));
-        TntMinecartRenderer.renderWhiteSolidBlock(this.blockRenderer, BlockInit.SODIUM_BOMB.get().defaultBlockState(), arg2, arg3, i, j / 5 % 2 == 0);
-        arg2.popPose();
-        super.render(arg, f, g, arg2, arg3, i);
+        stack.mulPose(Vector3f.YP.rotationDegrees(-90.0f));
+        stack.translate(-0.5, -0.5, 0.5);
+        stack.mulPose(Vector3f.YP.rotationDegrees(90.0f));
+        TntMinecartRenderer.renderWhiteSolidBlock(this.blockRenderer, BlockInit.SODIUM_BOMB.get().defaultBlockState(), stack, arg3, packedLight, fuse / 5 % 2 == 0);
+        stack.popPose();
+        super.render(block, yaw, partialTick, stack, arg3, packedLight);
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull SodiumPrimedBomb arg) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull SodiumPrimedBombBlock arg) {
         return TextureAtlas.LOCATION_BLOCKS;
     }
 }

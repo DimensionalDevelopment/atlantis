@@ -15,7 +15,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
@@ -23,33 +22,33 @@ import net.minecraft.world.phys.BlockHitResult;
 public class LinguisticBlock extends HorizontalDirectionalBlock {
     private static final Component CONTAINER_TITLE = Component.translatable("container.linguistic");
 
-    public LinguisticBlock(BlockBehaviour.Properties arg) {
-        super(arg);
+    public LinguisticBlock(Properties settings) {
+        super(settings);
     }
 
     @Override
-    public InteractionResult use(BlockState arg, Level arg2, BlockPos arg3, Player arg4, InteractionHand arg5, BlockHitResult arg6) {
-        if (arg2.isClientSide) {
+    public InteractionResult use(BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand curHand, BlockHitResult result) {
+        if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         } else {
-            arg4.openMenu(arg.getMenuProvider(arg2, arg3));
-            arg4.awardStat(Stats.INTERACT_WITH_LOOM);
+            player.openMenu(targetState.getMenuProvider(level, targetPos));
+            player.awardStat(Stats.INTERACT_WITH_LOOM);
             return InteractionResult.CONSUME;
         }
     }
 
     @Override
-    public MenuProvider getMenuProvider(BlockState arg, Level arg2, BlockPos arg3) {
-        return new SimpleMenuProvider((i, arg3x, arg4) -> new LinguisticMenu(i, arg3x, ContainerLevelAccess.create(arg2, arg3)), CONTAINER_TITLE);
+    public MenuProvider getMenuProvider(BlockState targetState, Level arg2, BlockPos arg3) {
+        return new SimpleMenuProvider((id, inventory, accessLevel) -> new LinguisticMenu(id, inventory, ContainerLevelAccess.create(arg2, arg3)), CONTAINER_TITLE);
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext arg) {
-        return this.defaultBlockState().setValue(FACING, arg.getHorizontalDirection().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> arg) {
-        arg.add(FACING);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(FACING);
     }
 }

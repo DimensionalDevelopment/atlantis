@@ -1,7 +1,7 @@
 package com.mystic.atlantis.items.item.bottles;
 
+import com.mystic.atlantis.init.AtlantisGroupInit;
 import com.mystic.atlantis.init.EffectsInit;
-import com.mystic.atlantis.itemgroup.AtlantisGroup;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,7 +24,7 @@ public class FireMelonJellyBottle extends Item {
     private static final int DRINK_DURATION = 30;
 
     public FireMelonJellyBottle(Properties arg) {
-        super(arg.tab(AtlantisGroup.MAIN));
+        super(arg.tab(AtlantisGroupInit.MAIN));
     }
 
     @Override

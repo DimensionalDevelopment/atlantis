@@ -28,12 +28,11 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class UnderwaterFlower extends BushBlock implements SimpleWaterloggedBlock {
-
     public static final Property<Boolean> WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D);
 
-    public UnderwaterFlower(Properties properties) {
-        super(properties
+    public UnderwaterFlower(Properties settings) {
+        super(settings
                 .randomTicks()
                 .strength(0.2F, 0.4F)
                 .sound(SoundType.GRASS)
@@ -57,7 +56,7 @@ public class UnderwaterFlower extends BushBlock implements SimpleWaterloggedBloc
     @Override
     public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
         BlockPos blockpos = pos.below();
-        if(OnlyWater(worldIn, pos, state)){
+        if(isWaterAt(worldIn, pos)){
             return this.mayPlaceOn(worldIn.getBlockState(blockpos), worldIn, blockpos);
         }else{
             return false;
@@ -100,27 +99,23 @@ public class UnderwaterFlower extends BushBlock implements SimpleWaterloggedBloc
         Holder<Block> airHolderSet = Holder.direct(Blocks.AIR);
         return HolderSet.direct(airHolderSet);
     }
-
-    public boolean OnlyWater(LevelReader worldReader, BlockPos pos, BlockState state) {
-        return !worldReader.getBlockState(pos).is(getAir()) || !this.canBlockStay(worldReader, pos, state);
+    
+    public boolean isWaterAt(LevelReader reader, BlockPos targetPos) {
+        return !reader.getBlockState(targetPos).is(getAir()) || !this.canPlaceBlockAt(reader, targetPos);
     }
 
-    public boolean canBlockStay(LevelReader worldReader, BlockPos pos, BlockState state) {
-        return canPlaceBlockAt(worldReader, pos);
+    public boolean canPlaceOn(BlockState targetState){
+        return targetState.getBlock() == BlockInit.SEABED.get() || targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
     }
 
-    public boolean blockTypes(BlockState blockState){
-        return blockState.getBlock() == BlockInit.SEABED.get() || blockState.getBlock() == Blocks.GRAVEL || blockState.getBlock() == Blocks.SANDSTONE || blockState.getBlock() == Blocks.GRASS || blockState.getBlock() == Blocks.DIRT || blockState.getBlock() == Blocks.SAND;
-    }
+    public boolean canPlaceBlockAt(LevelReader reader, BlockPos targetPos) {
+        BlockState targetState = reader.getBlockState(targetPos.below());
 
-    public boolean canPlaceBlockAt(LevelReader worldReader, BlockPos pos) {
-        BlockState state = worldReader.getBlockState(pos.below());
-
-        if (worldReader.getBlockState(pos.above()).getMaterial() != Material.WATER)
-        {
+        if (reader.getBlockState(targetPos.above()).getMaterial() != Material.WATER) {
             return true;
         }
-        if(blockTypes(state)) {
+        
+        if(canPlaceOn(targetState)) {
             return false;
         }
 

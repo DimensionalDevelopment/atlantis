@@ -28,12 +28,11 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class PurpleGlowingMushroom extends BushBlock implements SimpleWaterloggedBlock {
-
     public static final Property<Boolean> WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D);
 
-    public PurpleGlowingMushroom(Properties properties) {
-        super(properties
+    public PurpleGlowingMushroom(Properties settings) {
+        super(settings
                 .randomTicks()
                 .lightLevel(light -> 8)
                 .strength(0.2F, 0.4F)
@@ -46,49 +45,49 @@ public class PurpleGlowingMushroom extends BushBlock implements SimpleWaterlogge
     }
 
     @Override
-    public boolean useShapeForLightOcclusion(BlockState state) {
+    public boolean useShapeForLightOcclusion(BlockState targetState) {
         return true;
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        return !state.getCollisionShape(worldIn, pos).getFaceShape(Direction.UP).isEmpty() || state.isFaceSturdy(worldIn, pos, Direction.UP);
+    protected boolean mayPlaceOn(BlockState targetState, BlockGetter getter, BlockPos targetPos) {
+        return !targetState.getCollisionShape(getter, targetPos).getFaceShape(Direction.UP).isEmpty() || targetState.isFaceSturdy(getter, targetPos, Direction.UP);
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
-        BlockPos blockpos = pos.below();
-        if(OnlyWater(worldIn, pos, state)){
-            return this.mayPlaceOn(worldIn.getBlockState(blockpos), worldIn, blockpos);
+    public boolean canSurvive(BlockState targetState, LevelReader reader, BlockPos targetPos) {
+        BlockPos below = targetPos.below();
+        if(isWaterAt(reader, targetPos)){
+            return this.mayPlaceOn(reader.getBlockState(below), reader, below);
         }else{
             return false;
         }
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState targetState, BlockGetter getter, BlockPos targetPos, CollisionContext context) {
         return SHAPE;
     }
 
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
-        if (blockstate.is(this)) {
-            return blockstate;
+        BlockState targetState = context.getLevel().getBlockState(context.getClickedPos());
+        if (targetState.is(this)) {
+            return targetState;
         } else {
-            FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
-            boolean flag = fluidstate.getType() == Fluids.WATER;
-            return super.getStateForPlacement(context).setValue(WATERLOGGED, Boolean.valueOf(flag));
+            FluidState targetFluidState = context.getLevel().getFluidState(context.getClickedPos());
+            boolean isWater = targetFluidState.getType() == Fluids.WATER;
+            return super.getStateForPlacement(context).setValue(WATERLOGGED, Boolean.valueOf(isWater));
         }
     }
 
     @Override
-    public FluidState getFluidState(BlockState state) {
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    public FluidState getFluidState(BlockState targetState) {
+        return targetState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(targetState);
     }
 
     @Override
-    public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
+    public boolean canBeReplaced(BlockState targetState, BlockPlaceContext context) {
         return false;
     }
 
@@ -102,26 +101,22 @@ public class PurpleGlowingMushroom extends BushBlock implements SimpleWaterlogge
         return HolderSet.direct(airHolderSet);
     }
 
-    public boolean OnlyWater(LevelReader worldReader, BlockPos pos, BlockState state) {
-        return !worldReader.getBlockState(pos).is(getAir()) || !this.canBlockStay(worldReader, pos, state);
+    public boolean isWaterAt(LevelReader reader, BlockPos targetPos) {
+        return !reader.getBlockState(targetPos).is(getAir()) || !this.canPlaceBlockAt(reader, targetPos);
     }
 
-    public boolean canBlockStay(LevelReader worldReader, BlockPos pos, BlockState state) {
-        return canPlaceBlockAt(worldReader, pos);
+    public boolean canPlaceOn(BlockState targetState){
+        return targetState.getBlock() == BlockInit.SEABED.get() || targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
     }
 
-    public boolean blockTypes(BlockState blockState){
-        return blockState.getBlock() == BlockInit.SEABED.get() || blockState.getBlock() == Blocks.GRAVEL || blockState.getBlock() == Blocks.SANDSTONE || blockState.getBlock() == Blocks.GRASS || blockState.getBlock() == Blocks.DIRT || blockState.getBlock() == Blocks.SAND;
-    }
+    public boolean canPlaceBlockAt(LevelReader reader, BlockPos targetPos) {
+        BlockState targetState = reader.getBlockState(targetPos.below());
 
-    public boolean canPlaceBlockAt(LevelReader worldReader, BlockPos pos) {
-        BlockState state = worldReader.getBlockState(pos.below());
-
-        if (worldReader.getBlockState(pos.above()).getMaterial() != Material.WATER)
-        {
+        if (reader.getBlockState(targetPos.above()).getMaterial() != Material.WATER) {
             return true;
         }
-        if(blockTypes(state)) {
+        
+        if(canPlaceOn(targetState)) {
             return false;
         }
 

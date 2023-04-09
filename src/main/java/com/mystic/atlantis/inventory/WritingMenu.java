@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.compress.utils.Lists;
 
 import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.init.MenuTypeInit;
 import com.mystic.atlantis.init.RecipesInit;
 import com.mystic.atlantis.recipes.WritingRecipe;
 
@@ -28,10 +29,6 @@ import net.minecraft.world.level.Level;
 public class WritingMenu extends AbstractContainerMenu {
     public static final int INPUT_SLOT = 0;
     public static final int RESULT_SLOT = 1;
-    private static final int INV_SLOT_START = 2;
-    private static final int INV_SLOT_END = 29;
-    private static final int USE_ROW_SLOT_START = 29;
-    private static final int USE_ROW_SLOT_END = 38;
     private final ContainerLevelAccess access;
     /**
      * The index of the selected recipe in the GUI.
@@ -67,15 +64,15 @@ public class WritingMenu extends AbstractContainerMenu {
      */
     final ResultContainer resultContainer = new ResultContainer();
 
-    public WritingMenu(int i, Inventory arg) {
-        this(i, arg, ContainerLevelAccess.NULL);
+    public WritingMenu(int id, Inventory inventory) {
+        this(id, inventory, ContainerLevelAccess.NULL);
     }
 
-    public WritingMenu(int i, Inventory arg, final ContainerLevelAccess arg2) {
-        super(MenuTypeInit.WRITING.get(), i);
+    public WritingMenu(int id, Inventory inventory, final ContainerLevelAccess accessLevel) {
+        super(MenuTypeInit.WRITING.get(), id);
         int j;
-        this.access = arg2;
-        this.level = arg.player.level;
+        this.access = accessLevel;
+        this.level = inventory.player.level;
         this.inputSlot = this.addSlot(new Slot(this.container, 0, 20, 33));
         this.resultSlot = this.addSlot(new Slot(this.resultContainer, 1, 143, 33){
 
@@ -92,7 +89,7 @@ public class WritingMenu extends AbstractContainerMenu {
                 if (!itemStack.isEmpty()) {
                     WritingMenu.this.setupResultSlot();
                 }
-                arg2.execute((arg, arg2) -> {
+                accessLevel.execute((arg, arg2) -> {
                     long l = arg.getGameTime();
                     if (WritingMenu.this.lastSoundTime != l) {
                         arg.playSound(null, arg2, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0f, 1.0f);
@@ -104,11 +101,11 @@ public class WritingMenu extends AbstractContainerMenu {
         });
         for (j = 0; j < 3; ++j) {
             for (int k = 0; k < 9; ++k) {
-                this.addSlot(new Slot(arg, k + j * 9 + 9, 8 + k * 18, 84 + j * 18));
+                this.addSlot(new Slot(inventory, k + j * 9 + 9, 8 + k * 18, 84 + j * 18));
             }
         }
         for (j = 0; j < 9; ++j) {
-            this.addSlot(new Slot(arg, j, 8 + j * 18, 142));
+            this.addSlot(new Slot(inventory, j, 8 + j * 18, 142));
         }
         this.addDataSlot(this.selectedRecipeIndex);
     }
@@ -168,7 +165,7 @@ public class WritingMenu extends AbstractContainerMenu {
         }
     }
 
-    void setupResultSlot() {
+    private void setupResultSlot() {
         if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
             WritingRecipe stonecutterRecipe = this.recipes.get(this.selectedRecipeIndex.get());
             this.resultContainer.setRecipeUsed(stonecutterRecipe);

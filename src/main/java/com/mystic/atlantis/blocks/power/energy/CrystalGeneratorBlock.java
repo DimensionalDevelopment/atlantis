@@ -29,15 +29,15 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 
 public class CrystalGeneratorBlock extends BaseEntityBlock {
-    public CrystalGeneratorBlock(Properties arg) {
-        super(arg
+	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+	
+    public CrystalGeneratorBlock(Properties settings) {
+        super(settings
                 .strength(3.5F)
                 .color(MaterialColor.COLOR_LIGHT_BLUE)
                 .lightLevel((state) -> 5)
                 .sound(SoundType.AMETHYST));
     }
-
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
@@ -78,8 +78,7 @@ public class CrystalGeneratorBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos,
-                                 Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
             if(entity instanceof CrystalGenerator) {
@@ -100,9 +99,7 @@ public class CrystalGeneratorBlock extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
-                                                                  BlockEntityType<T> type) {
-        return createTickerHelper(type, /*TileRegistry.CRYSTAL_GENERATOR.get()*/ null,
-                CrystalGenerator::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, /*TileRegistry.CRYSTAL_GENERATOR.get()*/ null, CrystalGenerator::tick);
     }
 }

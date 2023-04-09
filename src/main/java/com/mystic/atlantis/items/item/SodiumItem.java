@@ -2,7 +2,7 @@ package com.mystic.atlantis.items.item;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.mystic.atlantis.itemgroup.AtlantisGroup;
+import com.mystic.atlantis.init.AtlantisGroupInit;
 
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.Item;
@@ -12,7 +12,7 @@ public class SodiumItem extends Item {
         super(properties
                 .stacksTo(64)
                 .fireResistant()
-                .tab(AtlantisGroup.MAIN));
+                .tab(AtlantisGroupInit.MAIN));
     }
 
     @Override

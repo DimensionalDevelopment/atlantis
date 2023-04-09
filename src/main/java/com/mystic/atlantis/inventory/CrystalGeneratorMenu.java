@@ -3,6 +3,7 @@ package com.mystic.atlantis.inventory;
 import org.jetbrains.annotations.NotNull;
 
 import com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator;
+import com.mystic.atlantis.init.MenuTypeInit;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;

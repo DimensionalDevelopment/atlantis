@@ -4,26 +4,26 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.mystic.atlantis.blocks.ExtendedBlockEntity;
-import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
 import com.mystic.atlantis.capiablities.player.IPlayerCap;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
-import com.mystic.atlantis.data.AtlantisModifier;
 import com.mystic.atlantis.datagen.Providers;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
-import com.mystic.atlantis.entities.AtlantisEntities;
 import com.mystic.atlantis.entities.blockbenchentities.CrabEntity;
-import com.mystic.atlantis.event.AtlantisSoundEvents;
+import com.mystic.atlantis.init.AtlantisEntityInit;
+import com.mystic.atlantis.init.AtlantisGroupInit;
+import com.mystic.atlantis.init.AtlantisModifierInit;
+import com.mystic.atlantis.init.AtlantisSoundEventInit;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.EffectsInit;
 import com.mystic.atlantis.init.FluidInit;
 import com.mystic.atlantis.init.FluidTypesInit;
 import com.mystic.atlantis.init.ItemInit;
+import com.mystic.atlantis.init.MenuTypeInit;
 import com.mystic.atlantis.init.PaintingVariantsInit;
 import com.mystic.atlantis.init.RecipesInit;
+import com.mystic.atlantis.init.TileEntityInit;
 import com.mystic.atlantis.init.ToolInit;
-import com.mystic.atlantis.inventory.MenuTypeInit;
-import com.mystic.atlantis.itemgroup.AtlantisGroup;
 import com.mystic.atlantis.particles.ModParticleTypes;
 import com.mystic.atlantis.screen.LinguisticScreen;
 import com.mystic.atlantis.screen.WritingScreen;
@@ -97,18 +97,18 @@ public class Atlantis {
     }
 
     public void onInitialize(IEventBus bus) {
+        GeckoLib.initialize();
+        GeckoLibMod.DISABLE_IN_DEV = true;
         BlockInit.init(bus);
         ItemInit.init(bus);
         PaintingVariantsInit.init(bus);
-        AtlantisModifier.init(bus);
-        GeckoLib.initialize();
-        GeckoLibMod.DISABLE_IN_DEV = true;
-        TileRegistry.init(bus);
+        AtlantisModifierInit.init(bus);
+        TileEntityInit.init(bus);
         FluidTypesInit.init(bus);
         FluidInit.init(bus);
-        AtlantisGroup.init();
-        AtlantisEntities.initialize(bus);
-        AtlantisSoundEvents.SOUNDS.register(bus);
+        AtlantisGroupInit.init();
+        AtlantisEntityInit.init(bus);
+        AtlantisSoundEventInit.init(bus);
         EffectsInit.init(bus);
         MenuTypeInit.init(bus);
         RecipesInit.init(bus);
@@ -143,7 +143,7 @@ public class Atlantis {
 
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get());
 
-        SpawnPlacements.register(AtlantisEntities.CRAB.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrabEntity::canSpawn);
+        SpawnPlacements.register(AtlantisEntityInit.CRAB.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrabEntity::canSpawn);
     }
 
 }

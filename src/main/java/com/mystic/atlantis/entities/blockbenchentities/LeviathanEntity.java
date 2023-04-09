@@ -1,5 +1,7 @@
 package com.mystic.atlantis.entities.blockbenchentities;
 
+import static software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes.LOOP;
+
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
@@ -48,7 +50,6 @@ import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import static software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes.*;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;

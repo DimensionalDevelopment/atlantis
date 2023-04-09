@@ -3,6 +3,7 @@ package com.mystic.atlantis.inventory;
 import com.mystic.atlantis.blocks.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.GlyphBlock;
+import com.mystic.atlantis.init.MenuTypeInit;
 import com.mystic.atlantis.items.item.LinguisticGlyphScrollItem;
 
 import net.minecraft.sounds.SoundEvents;
@@ -21,17 +22,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 public class LinguisticMenu extends AbstractContainerMenu {
-	private static final int INV_SLOT_START = 4;
-	private static final int INV_SLOT_END = 31;
-	private static final int USE_ROW_SLOT_START = 31;
-	private static final int USE_ROW_SLOT_END = 40;
 	private final ContainerLevelAccess access;
-	Runnable slotUpdateListener = () -> {};
-	final Slot blankSlot;
-	final Slot dyeSlot;
+	private Runnable slotUpdateListener = () -> {};
+	private final Slot blankSlot;
+	private final Slot dyeSlot;
 	private final Slot symbolSlot;
 	private final Slot resultSlot;
-	long lastSoundTime;
+	private long lastSoundTime;
 	private final Container inputContainer = new SimpleContainer(3) {
 		@Override
 		public void setChanged() {
@@ -48,13 +45,13 @@ public class LinguisticMenu extends AbstractContainerMenu {
 		}
 	};
 
-	public LinguisticMenu(int i, Inventory arg) {
-		this(i, arg, ContainerLevelAccess.NULL);
+	public LinguisticMenu(int id, Inventory inventory) {
+		this(id, inventory, ContainerLevelAccess.NULL);
 	}
 
-	public LinguisticMenu(int i, Inventory arg, ContainerLevelAccess arg2) {
-		super(MenuTypeInit.LINGUISTIC.get(), i);
-		this.access = arg2;
+	public LinguisticMenu(int id, Inventory inventory, ContainerLevelAccess accessLevel) {
+		super(MenuTypeInit.LINGUISTIC.get(), id);
+		this.access = accessLevel;
 		this.blankSlot = this.addSlot(new Slot(this.inputContainer, 0, 28, 28) {
 			@Override
 			public boolean mayPlace(ItemStack arg) {
@@ -85,10 +82,6 @@ public class LinguisticMenu extends AbstractContainerMenu {
 				LinguisticMenu.this.dyeSlot.remove(1);
 				LinguisticMenu.this.symbolSlot.remove(1);
 
-//				if (!LinguisticMenu.this.blankSlot.hasItem() || !LinguisticMenu.this.dyeSlot.hasItem()) {
-//					LinguisticMenu.this.selectedBannerPatternIndex.set(0);
-//				}
-
 				access.execute((argx, arg2xxx) -> {
 					long l = argx.getGameTime();
 					if (LinguisticMenu.this.lastSoundTime != l) {
@@ -103,26 +96,27 @@ public class LinguisticMenu extends AbstractContainerMenu {
 
 		for(int j = 0; j < 3; ++j) {
 			for(int k = 0; k < 9; ++k) {
-				this.addSlot(new Slot(arg, k + j * 9 + 9, 12 + k * 18, 88 + j * 18));
+				this.addSlot(new Slot(inventory, k + j * 9 + 9, 12 + k * 18, 88 + j * 18));
 			}
 		}
 
 		for(int j = 0; j < 9; ++j) {
-			this.addSlot(new Slot(arg, j, 12 + j * 18, 146));
+			this.addSlot(new Slot(inventory, j, 12 + j * 18, 146));
 		}
 	}
 
 	@Override
-	public boolean stillValid(Player arg) {
-		return stillValid(this.access, arg, BlockInit.LINGUISTIC_BLOCK.get());
+	public boolean stillValid(Player usingPlayer) {
+		return stillValid(this.access, usingPlayer, BlockInit.LINGUISTIC_BLOCK.get());
 	}
 
 	@Override
-	public void slotsChanged(Container arg) {
+	public void slotsChanged(Container curContainer) {
 		ItemStack blankStack = this.blankSlot.getItem();
 		ItemStack dyetack = this.dyeSlot.getItem();
 		ItemStack systemStack = this.symbolSlot.getItem();
 		ItemStack resultStack = this.resultSlot.getItem();
+
 		if (!resultStack.isEmpty() && (blankStack.isEmpty() || dyetack.isEmpty()) && systemStack.isEmpty()) {
 			this.resultSlot.set(ItemStack.EMPTY);
 		}
@@ -131,110 +125,82 @@ public class LinguisticMenu extends AbstractContainerMenu {
 		this.broadcastChanges();
 	}
 
-	public void registerUpdateListener(Runnable runnable) {
-		this.slotUpdateListener = runnable;
+	public void registerUpdateListener(Runnable updateListener) {
+		this.slotUpdateListener = updateListener;
 	}
 
 	@Override
-	public ItemStack quickMoveStack(Player arg, int i) {
-		ItemStack itemStack = ItemStack.EMPTY;
-		Slot slot = this.slots.get(i);
-		if (slot != null && slot.hasItem()) {
-			ItemStack itemStack2 = slot.getItem();
-			itemStack = itemStack2.copy();
-			if (i == this.resultSlot.index) {
-				if (!this.moveItemStackTo(itemStack2, 4, 40, true)) {
+	public ItemStack quickMoveStack(Player usingPlayer, int index) {
+		ItemStack emptyStack = ItemStack.EMPTY;
+		Slot targetSlot = this.slots.get(index);
+
+		if (targetSlot != null && targetSlot.hasItem()) {
+			ItemStack targetStack = targetSlot.getItem();
+			emptyStack = targetStack.copy();
+
+			if (index == this.resultSlot.index) {
+				if (!this.moveItemStackTo(targetStack, 4, 40, true)) {
 					return ItemStack.EMPTY;
 				}
 
-				slot.onQuickCraft(itemStack2, itemStack);
-			} else if (i != this.dyeSlot.index && i != this.blankSlot.index && i != this.symbolSlot.index) {
-				if (BlockInit.getLinguisticBlock(LinguisticGlyph.BLANK, null).map(Block::asItem).filter(a -> a == itemStack2.getItem()).isPresent()) {
-					if (!this.moveItemStackTo(itemStack2, this.blankSlot.index, this.blankSlot.index + 1, false)) {
+				targetSlot.onQuickCraft(targetStack, emptyStack);
+			} else if (index != this.dyeSlot.index && index != this.blankSlot.index && index != this.symbolSlot.index) {
+				if (BlockInit.getLinguisticBlock(LinguisticGlyph.BLANK, null).map(Block::asItem).filter(a -> a == targetStack.getItem()).isPresent()) {
+					if (!this.moveItemStackTo(targetStack, this.blankSlot.index, this.blankSlot.index + 1, false)) {
 						return ItemStack.EMPTY;
 					}
-				} else if (itemStack2.getItem() instanceof DyeItem) {
-					if (!this.moveItemStackTo(itemStack2, this.dyeSlot.index, this.dyeSlot.index + 1, false)) {
+				} else if (targetStack.getItem() instanceof DyeItem) {
+					if (!this.moveItemStackTo(targetStack, this.dyeSlot.index, this.dyeSlot.index + 1, false)) {
 						return ItemStack.EMPTY;
 					}
-				} else if (itemStack2.getItem() instanceof LinguisticGlyphScrollItem) {
-					if (!this.moveItemStackTo(itemStack2, this.symbolSlot.index, this.symbolSlot.index + 1, false)) {
+				} else if (targetStack.getItem() instanceof LinguisticGlyphScrollItem) {
+					if (!this.moveItemStackTo(targetStack, this.symbolSlot.index, this.symbolSlot.index + 1, false)) {
 						return ItemStack.EMPTY;
 					}
-				} else if (i >= 4 && i < 31) {
-					if (!this.moveItemStackTo(itemStack2, 31, 40, false)) {
+				} else if (index >= 4 && index < 31) {
+					if (!this.moveItemStackTo(targetStack, 31, 40, false)) {
 						return ItemStack.EMPTY;
 					}
-				} else if (i >= 31 && i < 40 && !this.moveItemStackTo(itemStack2, 4, 31, false)) {
+				} else if (index >= 31 && index < 40 && !this.moveItemStackTo(targetStack, 4, 31, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (!this.moveItemStackTo(itemStack2, 4, 40, false)) {
+			} else if (!this.moveItemStackTo(targetStack, 4, 40, false)) {
 				return ItemStack.EMPTY;
 			}
 
-			if (itemStack2.isEmpty()) {
-				slot.set(ItemStack.EMPTY);
+			if (targetStack.isEmpty()) {
+				targetSlot.set(ItemStack.EMPTY);
 			} else {
-				slot.setChanged();
+				targetSlot.setChanged();
 			}
 
-			if (itemStack2.getCount() == itemStack.getCount()) {
+			if (targetStack.getCount() == emptyStack.getCount()) {
 				return ItemStack.EMPTY;
 			}
 
-			slot.onTake(arg, itemStack2);
+			targetSlot.onTake(usingPlayer, targetStack);
 		}
 
-		return itemStack;
+		return emptyStack;
 	}
 
 	@Override
-	public void removed(Player arg) {
-		super.removed(arg);
-		this.access.execute((arg2, arg3) -> this.clearContainer(arg, this.inputContainer));
+	public void removed(Player player) {
+		super.removed(player);
+		this.access.execute((arg2, arg3) -> this.clearContainer(player, this.inputContainer));
 	}
 
 	private void setupResultSlot() {
-		DyeColor dye = this.dyeSlot.hasItem() ? ((DyeItem) this.dyeSlot.getItem().getItem()).getDyeColor() : null;
-		LinguisticGlyph symbol = this.symbolSlot.hasItem() ? ((LinguisticGlyphScrollItem) this.symbolSlot.getItem().getItem()).getSymbol() : LinguisticGlyph.BLANK;
+		DyeColor curDyeColor = this.dyeSlot.hasItem() ? ((DyeItem) this.dyeSlot.getItem().getItem()).getDyeColor() : null;
+		LinguisticGlyph curSymbol = this.symbolSlot.hasItem() ? ((LinguisticGlyphScrollItem) this.symbolSlot.getItem().getItem()).getSymbol() : LinguisticGlyph.BLANK;
 		ItemStack result = ItemStack.EMPTY;
 
 		if(this.blankSlot.hasItem()) {
-			result = new ItemStack(BlockInit.getLinguisticBlock(symbol, dye).get());
+			result = new ItemStack(BlockInit.getLinguisticBlock(curSymbol, curDyeColor).get());
 		}
 
-//		if (this.selectedBannerPatternIndex.get() > 0) {
-//			ItemStack itemStack = this.blankSlot.getItem();
-//			ItemStack itemStack2 = this.dyeSlot.getItem();
-//			ItemStack itemStack3 = ItemStack.EMPTY;
-//			if (!itemStack.isEmpty() && !itemStack2.isEmpty()) {
-//				itemStack3 = itemStack.copy();
-//				itemStack3.setCount(1);
-//				BannerPattern bannerPattern = BannerPattern.values()[this.selectedBannerPatternIndex.get()];
-//				DyeColor dyeColor = ((DyeItem)itemStack2.getItem()).getDyeColor();
-//				CompoundTag compoundTag = BlockItem.getBlockEntityData(itemStack3);
-//				ListTag listTag;
-//				if (compoundTag != null && compoundTag.contains("Patterns", 9)) {
-//					listTag = compoundTag.getList("Patterns", 10);
-//				} else {
-//					listTag = new ListTag();
-//					if (compoundTag == null) {
-//						compoundTag = new CompoundTag();
-//					}
-//
-//					compoundTag.put("Patterns", listTag);
-//				}
-//
-//				CompoundTag compoundTag2 = new CompoundTag();
-//				compoundTag2.putString("Pattern", bannerPattern.getHashname());
-//				compoundTag2.putInt("Color", dyeColor.getId());
-//				listTag.add(compoundTag2);
-//				BlockItem.setBlockEntityData(itemStack3, BlockEntityType.BANNER, compoundTag);
-//			}
-
-			if (!ItemStack.matches(result, this.resultSlot.getItem())) {
-				this.resultSlot.set(result);
-//			}
+		if (!ItemStack.matches(result, this.resultSlot.getItem())) {
+			this.resultSlot.set(result);
 		}
 
 	}

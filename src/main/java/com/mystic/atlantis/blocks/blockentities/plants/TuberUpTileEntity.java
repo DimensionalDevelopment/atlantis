@@ -1,6 +1,6 @@
 package com.mystic.atlantis.blocks.blockentities.plants;
 
-import com.mystic.atlantis.blocks.blockentities.registry.TileRegistry;
+import com.mystic.atlantis.init.TileEntityInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -11,12 +11,14 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class TuberUpTileEntity extends BlockEntity implements IAnimatable {
-    private final AnimationFactory manager = new AnimationFactory(this);
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimationController<TuberUpTileEntity> mainController = new AnimationController<TuberUpTileEntity>(this, "tuberupcontroller", 0, this::predicate);
 
-    public TuberUpTileEntity(BlockPos pos, BlockState state) {
-        super(TileRegistry.TUBER_UP_TILE.get(), pos, state);
+    public TuberUpTileEntity(BlockPos targetPos, BlockState targetState) {
+        super(TileEntityInit.BURNT_DEEP_TILE.get(), targetPos, targetState);
     }
 
     private <E extends BlockEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {
@@ -27,12 +29,11 @@ public class TuberUpTileEntity extends BlockEntity implements IAnimatable {
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(
-                new AnimationController<>(this, "controller", 0, this::predicate));
+        data.addAnimationController(mainController);
     }
 
     @Override
     public AnimationFactory getFactory() {
-        return this.manager;
+        return this.factory;
     }
 }
