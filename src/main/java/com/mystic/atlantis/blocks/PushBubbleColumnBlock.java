@@ -73,8 +73,8 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
     }
 
     public static void update(ServerLevel level, BlockPos pos, Direction dir) {
-        BlockState[] targetStates = new BlockState[30];
-        BlockPos[] targetPoses = new BlockPos[30];
+        BlockState[] targetStates = new BlockState[20];
+        BlockPos[] targetPoses = new BlockPos[20];
 
         targetPoses[0] = pos.relative(dir.getOpposite());
         targetStates[0] = level.getBlockState(targetPoses[0]);

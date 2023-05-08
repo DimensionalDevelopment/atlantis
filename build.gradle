@@ -152,7 +152,6 @@ dependencies {
 
     // Libraries
     implementation fg.deobf("com.github.Mysticpasta1:customportalapi:${customportalapi_version}")
-    implementation fg.deobf("curse.maven:MCglTF-591547:${mcgltf_version}")
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.19:${geckolib_version}")
     implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}")
     

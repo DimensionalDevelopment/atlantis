@@ -43,7 +43,6 @@ import com.mystic.atlantis.entities.blockbenchentities.renders.ShrimpEntityRende
 import com.mystic.atlantis.entities.blockbenchentities.renders.StarfishEntityRenderer;
 import com.mystic.atlantis.entities.blockbenchentities.renders.StarfishZomEntityRenderer;
 import com.mystic.atlantis.entities.blockbenchentities.renders.SubmarineEntityRenderer;
-import com.mystic.atlantis.entities.gltfentities.CoconutCrabRenderer;
 import com.mystic.atlantis.init.AtlantisEntityInit;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.FluidInit;
@@ -266,17 +265,6 @@ public class ClientSetup {
 
         bus.registerEntityRenderer(AtlantisEntityInit.BOMB.get(), SodiumBombRenderer::new);
     }
-
-    @SubscribeEvent
-    public static void registerGLTFEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        //Coconut Crab
-        event.registerEntityRenderer(AtlantisEntityInit.COCONUT_CRAB.get(), (context) -> {
-            CoconutCrabRenderer entityRenderer = new CoconutCrabRenderer(context);
-            MCglTF.getInstance().addGltfModelReceiver(entityRenderer);
-            return entityRenderer;
-        });
-    }
-
     @SubscribeEvent
     public static void init(RegisterParticleProvidersEvent bus) {
         Minecraft.getInstance().particleEngine.register(PUSH_BUBBLESTREAM.get(), PushBubbleStreamParticle.Factory::new);

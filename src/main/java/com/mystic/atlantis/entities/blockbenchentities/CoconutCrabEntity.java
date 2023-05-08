@@ -1,4 +1,4 @@
-package com.mystic.atlantis.entities.gltfentities;
+package com.mystic.atlantis.entities.blockbenchentities;
 
 import java.util.UUID;
 
