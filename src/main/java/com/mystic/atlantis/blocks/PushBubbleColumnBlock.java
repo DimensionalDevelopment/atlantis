@@ -1,13 +1,8 @@
 package com.mystic.atlantis.blocks;
 
-import java.util.Optional;
-
-import org.jetbrains.annotations.NotNull;
-
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.particles.ModParticleTypes;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -38,6 +33,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
 
 public class PushBubbleColumnBlock extends Block implements BucketPickup {
     public static final DirectionProperty PUSH = BlockStateProperties.FACING;
@@ -67,87 +65,53 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
         }
     }
 
-    @Override
-    public void tick(BlockState targetState, @NotNull ServerLevel level, @NotNull BlockPos targetPos, @NotNull RandomSource random) {
-        update(level, targetPos, targetState.getValue(PUSH));
-    }
+    public static void update(ServerLevel level, BlockPos pos) {
+        for (Direction direction : Direction.values()) {
+            for (int i = 1; i < AtlantisConfig.INSTANCE.maxDistanceOfPushBubbleColumn.get();  i++) {
+                BlockPos.MutableBlockPos bubblePos = pos.mutable();
+                BlockState bubbleState = level.getBlockState(pos.relative(direction, i));
+                BlockState previousBubbleState = level.getBlockState(pos.relative(direction,i - 1));
+                bubbleState = getBubbleState(previousBubbleState, bubbleState, direction);
 
-    public static void update(ServerLevel level, BlockPos pos, Direction dir) {
-        BlockState[] targetStates = new BlockState[20];
-        BlockPos[] targetPoses = new BlockPos[20];
+                if (bubbleState == null)
+                    break;
 
-        targetPoses[0] = pos.relative(dir.getOpposite());
-        targetStates[0] = level.getBlockState(targetPoses[0]);
-        targetPoses[1] = pos;
-        targetStates[1] = level.getBlockState(pos);
-
-        for (int i = 2; i < targetStates.length; i++) {
-            targetPoses[i] = pos.relative(dir, i-1);
-            targetStates[i] = level.getBlockState(targetPoses[i]);
-        }
-
-        for (int i = 0; i < targetStates.length-1; i++) {
-            Optional<BlockState> bubbleState = getBubbleState(targetStates[i], targetStates[i+1], dir);
-
-            if(bubbleState.isPresent()) {
-                targetStates[i+1] = bubbleState.get();
+                level.setBlock(bubblePos.move(direction.getNormal()), bubbleState, Block.UPDATE_ALL);
             }
         }
-
-        for (int i = 1; i < targetStates.length; i++) {
-            level.setBlock(targetPoses[i], targetStates[i], Block.UPDATE_CLIENTS);
-        }
      }
-    
+
     @NotNull
     @Override
     public FluidState getFluidState(@NotNull BlockState targetState) {
         return Fluids.WATER.getSource(false);
     }
 
-    public static void update(LevelAccessor accessor, BlockPos targetPos, BlockState targetState, Direction curDir, int decay) {
-    }
-
     private static boolean isStillWater(BlockState state) {
         return state.is(Blocks.WATER) && state.getFluidState().getAmount() >= 8 && state.getFluidState().isSource();
     }
 
-    private static Optional<BlockState> getBubbleState(BlockState previousState, BlockState targetState, Direction curDir) {
-        if(!targetState.is(BlockInit.BUBBLE_MAGMA.get())) {
-            if(isStillWater(previousState)) {
-                if(!isStillWater(targetState) && !targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
-                    return Optional.empty();
-                } else {
-                    return Optional.of(Blocks.WATER.defaultBlockState());
-                }
-            } else if (previousState.is(BlockInit.BUBBLE_MAGMA.get())) {
-                if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
-                    return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, curDir).setValue(DECAY, 29));
-                } else {
-                    return Optional.empty();
-                }
-            } else if (previousState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
-                if (previousState.getValue(DECAY) == 0) {
-                    return Optional.of(Blocks.WATER.defaultBlockState());
-                } else if (previousState.getValue(PUSH).equals(curDir)) {
-                    if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
-                        return Optional.ofNullable(BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, curDir).setValue(DECAY, previousState.getValue(DECAY) - 1));
-                    } else {
-                        return Optional.empty();
-                    }
-                } else {
-                    return Optional.of(Blocks.WATER.defaultBlockState());
-                }
-            } else {
-                if (targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
-                    return Optional.of(Blocks.WATER.defaultBlockState());
-                } else {
-                    return Optional.empty();
-                }
-            }
-        } else {
-            return Optional.empty();
+    private static BlockState getBubbleState(BlockState previousState, BlockState targetState, Direction curDir) {
+        if (targetState.is(BlockInit.BUBBLE_MAGMA.get()))
+            return null;
+
+        if (previousState.is(BlockInit.BUBBLE_MAGMA.get())) {
+            if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()))
+                return BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, curDir).setValue(DECAY, AtlantisConfig.INSTANCE.maxDistanceOfPushBubbleColumn.get());
+        } else if (previousState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
+            if (previousState.getValue(DECAY) == 0 || !previousState.getValue(PUSH).equals(curDir))
+                return Blocks.WATER.defaultBlockState();
+
+            if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()))
+                return BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, curDir).setValue(DECAY, previousState.getValue(DECAY) - 1);
+        } else if (isStillWater(previousState)) {
+            if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()))
+                return Blocks.WATER.defaultBlockState();
+        } else if (targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
+            return Blocks.WATER.defaultBlockState();
         }
+
+        return null;
     }
 
     @Override

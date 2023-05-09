@@ -157,6 +157,7 @@ dependencies {
     
     // Extras
     implementation fg.deobf("curse.maven:cyanide_forge-348521:${cyanide_version}")
+    implementation fg.deobf("curse.maven:spark-361579:4057111")
     implementation fg.deobf("curse.maven:artifacts-forge-312353:${artifacts_version}")
     implementation fg.deobf("curse.maven:expandability-forge-465066:${expandability_version}")
 

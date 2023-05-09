@@ -63,7 +63,7 @@ public class AtlanteanVolcano extends Feature<NoneFeatureConfiguration> {
                         }
                         if (scaledNoise - calciteBase >= threshold) {
                             if (mutable.getY() <= 70 && mutable.getY() >= 40) {
-                                context.level().setBlock(mutable, BlockInit.BUBBLE_MAGMA.get().defaultBlockState(), 2);
+                                context.level().setBlock(mutable, Blocks.MAGMA_BLOCK.defaultBlockState(), 2);
                             }
                         }
                     }

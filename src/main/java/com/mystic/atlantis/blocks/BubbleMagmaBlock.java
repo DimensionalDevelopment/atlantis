@@ -13,14 +13,12 @@ import net.minecraft.world.level.block.state.BlockState;
 public class BubbleMagmaBlock extends Block {
 	
     public BubbleMagmaBlock(Properties settings) {
-        super(settings.randomTicks());
+        super(settings);
     }
 
     @Override
     public void tick(BlockState targetState, ServerLevel level, BlockPos targetPos, RandomSource random) {
-        for (Direction dir : Direction.values()) {
-            PushBubbleColumnBlock.update(level, targetPos, dir);
-        }
+        PushBubbleColumnBlock.update(level, targetPos);
     }
 
     @Override

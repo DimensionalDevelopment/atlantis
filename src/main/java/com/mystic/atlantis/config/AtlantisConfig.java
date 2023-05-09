@@ -21,6 +21,7 @@ public class AtlantisConfig implements ConfigData {
     public ForgeConfigSpec.BooleanValue glowstoneCrystsOn;
     public ForgeConfigSpec.IntValue minCrabSpawnHeight;
     public ForgeConfigSpec.IntValue maxCrabSpawnHeight;
+    public ForgeConfigSpec.IntValue maxDistanceOfPushBubbleColumn;
     public ForgeConfigSpec.DoubleValue magmaAcceleration;
     public ForgeConfigSpec.DoubleValue magmaThreshold;
     public ForgeConfigSpec.BooleanValue startInAtlantis;
@@ -39,11 +40,12 @@ public class AtlantisConfig implements ConfigData {
         this.minCrabSpawnHeight = builder.comment("Minimum Crab Spawn Height").defineInRange("minCrabSpawnHeight", 100,-64,320);
         this.maxCrabSpawnHeight = builder.comment("Maximum Crab Spawn Height").defineInRange("maxCrabSpawnHeight", 125,-64,320);
         this.magmaAcceleration = builder.comment("Rate at which Magma Accelerates you").defineInRange("magmaAcceleration", 0.1d,0.0d,100.0d);
+        this.maxDistanceOfPushBubbleColumn = builder.comment("Max Distance that the Push Bubble Columns from Bubble Magma Blocks can go").defineInRange("maxDistanceOfPushBubbleColumn", 15, 0, 30);
         this.magmaThreshold = builder.comment("Max Magma Velocity ").defineInRange("magmaThreshold", 1.8d,0.0d,100.0d);
         this.startInAtlantis = builder.comment("Start In Atlantis?").define("startInAtlantis", false);
         this.turnOnDimensionalWaterBreathing = builder.comment("Should Dimension Wide Water Breathing Be On?").define("turnOnDimensionalWaterBreathing", true);
         this.turnOnDimensionalHaste = builder.comment("Should Dimension Wide Haste Be On?").define("turnOnDimensionalHaste", true);
         this.waterVisibility = builder.comment("How far is visibility in Water?").defineInRange("waterVisibility", 120.0d, 1.0d, 200.0d);
-        this.shouldCitiesGenerate = builder.comment("Can Atlantean Cities generate? (Warning may cause slight lag when generating!)").define("shouldCitiesGenerate", true);
+        this.shouldCitiesGenerate = builder.comment("Can Atlantean Cities generate? (Warning may cause slight lag when generating!)").define("shouldCitiesGenerate", false);
     }
 }

@@ -1,23 +1,22 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern":
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients":
 	[
-		"SS ",
-		"SS ",
-		"   "
-	],
-	"key":
+	
 	{
-
-		"S":
-		{
-			"item": "minecraft:magma_block"
-		}
+		"item": "atlantis:ocean_stone"
 	},
+
+	{
+		"item": "minecraft_magma_block"
+	}
+	
+	],
+	
 	"result":
 	{
 		"item": "atlantis:bubble_magma",
 		"count": 1
 	}
-	
-}					
+}	
