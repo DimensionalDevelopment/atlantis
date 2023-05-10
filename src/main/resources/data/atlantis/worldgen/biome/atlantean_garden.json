@@ -33,16 +33,10 @@
         "maxCount": 18
       },
       {
-        "type": "minecraft:dolphin",
-        "weight": 25,
-        "minCount": 1,
-        "maxCount": 2
-      },
-      {
         "type": "atlantis:atlantean_starfish",
-        "weight": 1,
+        "weight": 25,
         "minCount": 5,
-        "maxCount": 18
+        "maxCount": 11
       }
     ],
     "water_ambient": [
