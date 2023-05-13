@@ -9,11 +9,11 @@
   "has_ceiling": false,
   "coordinate_scale": 1,
   "ambient_light": 0,
-  "logical_height": 383,
+  "logical_height": 384,
   "effects": "atlantis:skyeffect",
   "infiniburn": "#minecraft:infiniburn_overworld",
   "min_y": -64,
-  "monster_spawn_block_light_limit": 0,
+  "height": 384,
   "monster_spawn_light_level": {
     "type": "minecraft:uniform",
     "value": {
@@ -21,6 +21,5 @@
       "max_inclusive": 7
     }
   },
-  "height": 384
+  "monster_spawn_block_light_limit": 0
 }
-
