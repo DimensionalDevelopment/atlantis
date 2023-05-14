@@ -11,7 +11,6 @@ import com.mystic.atlantis.entities.blockbenchentities.ShrimpEntity;
 import com.mystic.atlantis.entities.blockbenchentities.StarfishEntity;
 import com.mystic.atlantis.entities.blockbenchentities.StarfishZomEntity;
 import com.mystic.atlantis.entities.blockbenchentities.SubmarineEntity;
-import com.mystic.atlantis.entities.gltfentities.CoconutCrabEntity;
 import com.mystic.atlantis.util.Reference;
 
 import net.minecraft.world.entity.Entity;
@@ -45,8 +44,7 @@ public class AtlantisEntityInit {
     //Explosives
     public static final RegistryObject<EntityType<SodiumPrimedBombBlock>> BOMB = register("sodium_bomb", EntityType.Builder.<SodiumPrimedBombBlock>of(SodiumPrimedBombBlock::new, MobCategory.MISC).fireImmune().sized(0.98f, 0.98f).clientTrackingRange(10).updateInterval(10));
 
-    //GLTF Creatures
-    public static final RegistryObject<EntityType<CoconutCrabEntity>> COCONUT_CRAB = register("coconut_crab", EntityType.Builder.of(CoconutCrabEntity::new, MobCategory.WATER_CREATURE).sized(2f, 1.5f));
+    //TODO readd coconut crab as Geckolib entity
 
     //Submarines
     public static final RegistryObject<EntityType<SubmarineEntity>> SUBMARINE = register("atlantean_submarine", EntityType.Builder.of(SubmarineEntity::new, MobCategory.MISC).sized(1.6F, 1.6F).clientTrackingRange(1));
@@ -65,8 +63,6 @@ public class AtlantisEntityInit {
         event.put(AtlantisEntityInit.SEAHORSE.get(), SeahorseEntity.createSeahorseAttributes().build());
         event.put(AtlantisEntityInit.STARFISH.get(), StarfishEntity.createStarfishAttributes().build());
         event.put(AtlantisEntityInit.STARFISH_ZOM.get(), StarfishZomEntity.createStarfishAttributes().build());
-
-        event.put(AtlantisEntityInit.COCONUT_CRAB.get(), CoconutCrabEntity.createCoconutCrabAttributes().build());
     }
 
     public static void init(IEventBus bus) {

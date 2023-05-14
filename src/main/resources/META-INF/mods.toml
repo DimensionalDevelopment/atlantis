@@ -15,9 +15,6 @@ WaterPicker for his work on the fabric branch,
 LudoCrypt and Firel for the music on the music discs for atlantis,
 She's Long for multiple textures, models, and jsons for assets,
 and LimeShulkerBox for the Atlantean Portal and for removing the need for effects in the dimension.
-
-Extra Credits from Sketchfab:
-"Coconut Crab" (https://skfb.ly/oqAyI) by GlacierArts is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 '''
 authors="Mysticpasta1, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity, She's Long, Meme Man"
 description='''
@@ -60,13 +57,6 @@ An Underwater Atlantis like dimension mod.
     versionRange="[0.0.1-beta50-1.19.2,)"
     ordering="NONE"
     side="BOTH"
-
-[[dependencies.atlantis]]
-    modId="mcgltf"
-    mandatory=true
-    versionRange="[1.19.2-Forge-2.0.0.0, )"
-    ordering="NONE"
-    side="CLIENT"
 
 # Extras
 [[dependencies.atlantis]] 

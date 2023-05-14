@@ -27,15 +27,15 @@
       },
       {
         "type": "atlantis:atlantean_starzomfish",
-        "weight": 1,
+        "weight": 25,
         "minCount": 6,
-        "maxCount": 20
+        "maxCount": 10
       }
     ],
     "water_ambient": [
       {
         "type": "atlantis:atlantean_jellyfish",
-        "weight": 5,
+        "weight": 25,
         "minCount": 22,
         "maxCount": 22
       },
@@ -43,14 +43,6 @@
         "type": "atlantis:atlantean_jellyfish_2",
         "weight": 25,
         "minCount": 22,
-        "maxCount": 22
-      }
-    ],
-    "water_creature": [
-      {
-        "type": "atlantis:coconut_crab",
-        "weight": 25,
-        "minCount": 18,
         "maxCount": 22
       }
     ]
