@@ -1,4 +1,4 @@
-package com.mystic.atlantis.items.item;
+package com.mystic.atlantis.items;
 
 import com.mystic.atlantis.init.AtlantisGroupInit;
 

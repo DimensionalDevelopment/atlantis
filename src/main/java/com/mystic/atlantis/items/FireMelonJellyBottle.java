@@ -1,4 +1,4 @@
-package com.mystic.atlantis.items.item.bottles;
+package com.mystic.atlantis.items;
 
 import com.mystic.atlantis.init.AtlantisGroupInit;
 import com.mystic.atlantis.init.EffectsInit;

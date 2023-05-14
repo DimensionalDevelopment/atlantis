@@ -4,7 +4,7 @@ import com.mystic.atlantis.blocks.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.GlyphBlock;
 import com.mystic.atlantis.init.MenuTypeInit;
-import com.mystic.atlantis.items.item.LinguisticGlyphScrollItem;
+import com.mystic.atlantis.items.LinguisticGlyphScrollItem;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

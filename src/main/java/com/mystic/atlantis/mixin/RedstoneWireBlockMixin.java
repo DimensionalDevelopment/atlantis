@@ -39,7 +39,6 @@ public abstract class RedstoneWireBlockMixin{
         return 0;
     }
 
-
     @Inject(method = "calculateTargetStrength", at = @At(value = "HEAD"), cancellable = true)
     public void setPowerToWires1(Level world, BlockPos pos, CallbackInfoReturnable<Integer> cir) {
        cir.cancel();

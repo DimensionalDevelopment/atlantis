@@ -91,8 +91,9 @@ public class SodiumBombBlock extends Block {
 		}
 	}
 
+	@NotNull
 	@Override
-	public @NotNull InteractionResult use(@NotNull BlockState targetState, @NotNull Level level, @NotNull BlockPos targetPos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult result) {
+	public InteractionResult use(@NotNull BlockState targetState, @NotNull Level level, @NotNull BlockPos targetPos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult result) {
 		ItemStack heldStack = player.getItemInHand(hand);
 		if (!heldStack.is(Items.FLINT_AND_STEEL) && !heldStack.is(Items.FIRE_CHARGE)) {
 			return super.use(targetState, level, targetPos, player, hand, result);

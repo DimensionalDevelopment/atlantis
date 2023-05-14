@@ -1,4 +1,4 @@
-package com.mystic.atlantis.items.item.buckets;
+package com.mystic.atlantis.items;
 
 import java.util.function.Supplier;
 

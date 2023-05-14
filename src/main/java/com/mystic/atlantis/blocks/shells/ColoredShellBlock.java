@@ -12,10 +12,10 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 
-public class ColoredShellBlocks extends Block {
+public class ColoredShellBlock extends Block {
     private static final Direction[] GENERATE_DIRECTIONS = new Direction[]{Direction.WEST, Direction.EAST, Direction.SOUTH, Direction.NORTH, Direction.UP, Direction.DOWN};
 
-    public ColoredShellBlocks(BlockBehaviour.Properties properties) {
+    public ColoredShellBlock(BlockBehaviour.Properties properties) {
         super(properties
                 .sound(SoundType.BONE_BLOCK)
                 .requiresCorrectToolForDrops()

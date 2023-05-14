@@ -51,7 +51,7 @@ public class Providers {
 
     public static void dataGather(GatherDataEvent event) {
         if(event.includeServer()) {
-            event.getGenerator().addProvider(true, new AtlantisLootTables(event.getGenerator()));
+            event.getGenerator().addProvider(true, new AtlantisLootTableProvider(event.getGenerator()));
             event.getGenerator().addProvider(true, new RecipeProvider(event.getGenerator()) {
                 @Override
                 protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
