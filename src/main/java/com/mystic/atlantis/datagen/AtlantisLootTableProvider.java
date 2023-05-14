@@ -14,6 +14,7 @@ import com.mystic.atlantis.blocks.SunkenGravelBlock;
 import com.mystic.atlantis.blocks.plants.AtlanteanSaplingBlock;
 import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
 import com.mystic.atlantis.blocks.shells.OysterShellBlock;
+import com.mystic.atlantis.init.AtlantisEntityInit;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Reference;
@@ -21,11 +22,13 @@ import com.mystic.atlantis.util.Reference;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.data.loot.EntityLoot;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
@@ -35,8 +38,11 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
+import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -109,5 +115,31 @@ public class AtlantisLootTableProvider extends LootTableProvider {
 			return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(toolTag))).otherwise(LootItem.lootTableItem(altDrop).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(altToolTag))))));
 		}
 
+	}
+
+	public static class AtlantisEntityLootTableProvider extends EntityLoot {
+		@Override
+		protected void addTables() {
+			for (RegistryObject<EntityType<? extends Entity>> entityGetEntry : AtlantisEntityInit.ENTITIES.getEntries()) {
+
+				EntityType<?> entityTypeEntry = entityGetEntry.get();
+
+				// Checks (UNTESTED)
+				if (entityTypeEntry.equals(AtlantisEntityInit.CRAB.get())) createSingleLootDrop(ItemInit.CRAB_LEGS.get());
+				else if (entityTypeEntry.equals(AtlantisEntityInit.JELLYFISH.get()) || entityTypeEntry.equals(AtlantisEntityInit.JELLYFISH2.get())) createSingleLootDrop(ItemInit.ATLANTEAN_STRING.get());
+				else if (entityTypeEntry.equals(AtlantisEntityInit.SEAHORSE.get())) createSingleLootDrop(Items.SEAGRASS);
+				else if (entityTypeEntry.equals(AtlantisEntityInit.SHRIMP.get()) || entityTypeEntry.equals(AtlantisEntityInit.STARFISH.get())) createSingleLootDrop(ItemInit.SHRIMP.get());
+				else if (entityTypeEntry.equals(AtlantisEntityInit.SEAHORSE.get())) createUnderwaterUndeadLootDrop(ItemInit.SHRIMP.get());
+				else if (entityTypeEntry.equals(AtlantisEntityInit.SUBMARINE.get())) createSingleLootDrop(ItemInit.SUBMARINE.get());
+			}
+		}
+
+		private static void createSingleLootDrop(Item item) {
+			LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))));
+		}
+
+		private static void createUnderwaterUndeadLootDrop(Item item) {
+			LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.ROTTEN_FLESH).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(item)).when(LootItemKilledByPlayerCondition.killedByPlayer()).when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.11F, 0.02F)));
+		}
 	}
 }
