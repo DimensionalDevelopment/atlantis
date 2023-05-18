@@ -1,0 +1,11 @@
+{
+	"values": [
+		"atlantis:atlantean_garden",
+		"atlantis:atlantis_biome",
+		"atlantis:atlantean_islands_biome",
+		"atlantis:jellyfish_fields",
+		"atlantis:volcanic_darksea",
+		"atlantis:goo_lagoons",
+		"#minecraft:is_ocean"
+	]
+}

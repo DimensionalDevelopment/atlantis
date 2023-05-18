@@ -1,0 +1,71 @@
+{
+		"name": "atlantis:atlantean_village/roads",
+		"fallback": "atlantis:atlantean_village/terminator",
+		"elements": [
+			{
+				"weight": 4,
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"projection": "terrain_matching",
+					"location": "atlantis:atlantean_village/roads/straight",
+					"processors": "atlantis:atlantean_village/roads"
+				}
+			},
+			{
+				"weight": 1,
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"projection": "terrain_matching",
+					"location": "atlantis:atlantean_village/roads/t_1",
+					"processors": "atlantis:atlantean_village/roads"
+				}
+			},
+			{
+				"weight": 1,
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"projection": "terrain_matching",
+					"location": "atlantis:atlantean_village/roads/t_2",
+					"processors": "atlantis:atlantean_village/roads"
+				}
+			}
+			,
+			{
+				"weight": 1,
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"projection": "terrain_matching",
+					"location": "atlantis:atlantean_village/roads/t_3",
+					"processors": "atlantis:atlantean_village/roads"
+				}
+			},
+			{
+				"weight": 1,
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"projection": "terrain_matching",
+					"location": "atlantis:atlantean_village/roads/bent_1",
+					"processors": "atlantis:atlantean_village/roads"
+				}
+			},
+			{
+				"weight": 1,
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"projection": "terrain_matching",
+					"location": "atlantis:atlantean_village/roads/bent_2",
+					"processors": "atlantis:atlantean_village/roads"
+				}
+			},
+			{
+				"weight": 1,
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"projection": "terrain_matching",
+					"location": "atlantis:atlantean_village/roads/inter",
+					"processors": "atlantis:atlantean_village/roads"
+				}
+			}
+		]
+	}
+	
