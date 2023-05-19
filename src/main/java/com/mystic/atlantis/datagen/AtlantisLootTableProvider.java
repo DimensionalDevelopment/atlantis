@@ -1,8 +1,15 @@
 package com.mystic.atlantis.datagen;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import com.mojang.datafixers.util.Pair;
 import com.mystic.atlantis.blocks.AtlanteanFireMelonFruitBlock;
 import com.mystic.atlantis.blocks.AtlanteanFireMelonSpikedFruitBlock;
 import com.mystic.atlantis.blocks.AtlanteanPrismarineBlock;
@@ -22,6 +29,7 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.BlockLoot;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -32,10 +40,13 @@ import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -55,6 +66,16 @@ public class AtlantisLootTableProvider extends LootTableProvider {
 		return Reference.NAME + ": ";
 	}
 
+	@Override
+	protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationtracker) {
+//		super.validate(map, validationtracker);
+	}
+
+	@Override
+	protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
+		return List.of(Pair.of(AtlantisBlockLootTableProvider::new, LootContextParamSets.BLOCK));
+	}
+
 	public static class AtlantisBlockLootTableProvider extends BlockLoot {
 		private static final float[] NORMAL_LEAVES_SAPLING_CHANCES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
 
@@ -66,14 +87,14 @@ public class AtlantisLootTableProvider extends LootTableProvider {
 				// Checks (UNTESTED)
 				//TODO Dimension GlobalLootModifier <- gtg atm, should I just commit this in the meantime?
 				if (blockEntry instanceof PearlBlock || blockEntry instanceof ColoredShellBlock || blockEntry instanceof OysterShellBlock) dropWhenSilkTouch(blockEntry);
-				else if (blockEntry instanceof SeaSaltChunkBlock) createOreDrop(blockEntry, ItemInit.SEA_SALT.get()); 
-				else if (blockEntry instanceof AtlanteanPrismarineBlock) createOreDrop(blockEntry, Items.PRISMARINE);
-				else if (blockEntry instanceof DropExperienceBlock) createOreDrop(blockEntry, ItemInit.AQUAMARINE_GEM.get()); //TODO Unhard-code
-				else if (blockEntry instanceof SunkenGravelBlock) createGravelDrop(blockEntry, Items.GLOWSTONE);
-				else if (blockEntry instanceof AtlanteanSaplingBlock) createLeavesDrops(blockEntry, BlockInit.ATLANTEAN_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
-				else if (blockEntry instanceof AtlanteanFireMelonFruitBlock) createToolOnlyDrop(blockEntry, Tags.Items.TOOLS_HOES);
-				else if (blockEntry instanceof AtlanteanFireMelonSpikedFruitBlock) createToolOnlyDrop(blockEntry, Tags.Items.TOOLS_HOES, Tags.Items.SHEARS, ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get());
-				else if (blockEntry instanceof AtlantianSeaLanternBlock || blockEntry instanceof OceanLanternBlock) createSeaLanternDrop(blockEntry);
+				else if (blockEntry instanceof SeaSaltChunkBlock) add(blockEntry, createOreDrop(blockEntry, ItemInit.SEA_SALT.get()));
+				else if (blockEntry instanceof AtlanteanPrismarineBlock) add(blockEntry, createOreDrop(blockEntry, Items.PRISMARINE));
+				else if (blockEntry instanceof DropExperienceBlock) add(blockEntry, createOreDrop(blockEntry, ItemInit.AQUAMARINE_GEM.get())); //TODO Unhard-code
+				else if (blockEntry instanceof SunkenGravelBlock) add(blockEntry, createGravelDrop(blockEntry, Items.GLOWSTONE));
+				else if (blockEntry instanceof AtlanteanSaplingBlock) add(blockEntry, createLeavesDrops(blockEntry, BlockInit.ATLANTEAN_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+				else if (blockEntry instanceof AtlanteanFireMelonFruitBlock) add(blockEntry, createToolOnlyDrop(blockEntry, Tags.Items.TOOLS_HOES));
+				else if (blockEntry instanceof AtlanteanFireMelonSpikedFruitBlock) add(blockEntry, createToolOnlyDrop(blockEntry, Tags.Items.TOOLS_HOES, Tags.Items.SHEARS, ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get()));
+				else if (blockEntry instanceof AtlantianSeaLanternBlock || blockEntry instanceof OceanLanternBlock) add(blockEntry, createSeaLanternDrop(blockEntry));
 				else dropSelf(blockEntry);
 			}
 		}
