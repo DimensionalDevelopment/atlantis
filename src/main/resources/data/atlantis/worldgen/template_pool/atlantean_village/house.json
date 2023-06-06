@@ -116,7 +116,7 @@
 				"element_type": "minecraft:single_pool_element",
 				"projection": "rigid",
 				"location": "atlantis:atlantean_village/jobsite/farm",
-				"processors": "atlantean:atlantean_village/farm"
+				"processors": "atlantis:atlantean_village/farm"
 			}
 		},
 		{
