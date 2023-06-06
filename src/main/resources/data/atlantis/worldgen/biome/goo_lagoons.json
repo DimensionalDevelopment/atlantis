@@ -24,8 +24,7 @@
         "weight": 25,
         "minCount": 4,
         "maxCount": 6
-      },
-
+      }
     ],
     "water_creature": [
       {
@@ -37,8 +36,8 @@
       {
         "type": "atlantis:atlantean_seahorse",
         "weight": 25,
-        "minCount": 35,
-        "maxCount": 75
+        "minCount": 15,
+        "maxCount": 20
       },
       {
         "type": "atlantis:atlantean_crab",
@@ -51,12 +50,6 @@
         "weight": 25,
         "minCount": 18,
         "maxCount": 22
-      },
-      {
-        "type": "minecraft:dolphin",
-        "weight": 25,
-        "minCount": 1,
-        "maxCount": 2
       }
     ],
     "water_ambient": [
@@ -86,9 +79,9 @@
       },
       {
         "type": "atlantis:atlantean_starfish",
-        "weight": 1,
+        "weight": 25,
         "minCount": 5,
-        "maxCount": 18
+        "maxCount": 11
       }
     ]
   },

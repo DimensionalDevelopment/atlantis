@@ -23,7 +23,7 @@ public class DimensionAtlantis
     public static ResourceKey<Level> ATLANTIS_WORLD = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("atlantis:atlantis"));
     public static final ResourceKey<DimensionType> ATLANTIS_DIMENSION_TYPE_KEY = ResourceKey.create(Registry.DIMENSION_TYPE_REGISTRY, new ResourceLocation("atlantis:atlantis"));
 
-    public static final ResourceLocation ATLANTIS_DIMENSION_EFFECT = new ResourceLocation("atlantis:skyeffect");
+    public static final ResourceLocation ATLANTIS_DIMENSION_EFFECT = new ResourceLocation("atlantis","skyeffect");
 
     public static DimensionType ATLANTIS_TYPE;
 

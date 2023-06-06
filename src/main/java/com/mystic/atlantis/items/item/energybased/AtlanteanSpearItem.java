@@ -9,7 +9,7 @@ import com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator;
 import com.mystic.atlantis.capiablities.energy.AtlanteanCrystalEnergy;
 import com.mystic.atlantis.capiablities.energy.AtlanteanCrystalEnergyCapability;
 import com.mystic.atlantis.capiablities.energy.IAtlanteanCrystalEnergy;
-import com.mystic.atlantis.items.item.DefaultItem;
+import com.mystic.atlantis.items.DefaultItem;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;

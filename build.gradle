@@ -157,8 +157,10 @@ dependencies {
     
     // Extras
     implementation fg.deobf("curse.maven:cyanide_forge-348521:${cyanide_version}")
+    implementation fg.deobf("curse.maven:spark-361579:4057111")
     implementation fg.deobf("curse.maven:artifacts-forge-312353:${artifacts_version}")
     implementation fg.deobf("curse.maven:expandability-forge-465066:${expandability_version}")
+    implementation fg.deobf("curse.maven:alt_current-548115:4406066")
 
     implementation fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")

@@ -8,13 +8,11 @@
 <p style="text-align: center;">&nbsp;</p>
 <p style="text-align: center;"><span style="font-size: 18px;">Yes, you can use this mod in any modpack.</span>&nbsp;</p>
 <p style="text-align: center;">&nbsp;</p>
-<p style="text-align: center;"><span style="font-size: 18px;"><strong>Anything below latest version of Atlantis is maintained by <span style="text-decoration: underline;"><span class="username-3JLfHz userTagUsernameNoNickname-2e_xaO userTagUsernameBase-3Nfr5j">RedRoseWarrior</span></span><span class="userTagDiscriminatorNoNickname-2HLaIE discrimBase-KriZSj"><span style="text-decoration: underline;">#5111</span>, </span></strong></span></p>
-<p style="text-align: center;"><span style="font-size: 18px;"><strong><span class="userTagDiscriminatorNoNickname-2HLaIE discrimBase-KriZSj">everything is listed below!!</span><span class="userTagDiscriminatorNoNickname-2HLaIE discrimBase-KriZSj"><br /></span>NOT MAINTAINING EVER ACCORDING TO RedRoseWarrior, don't ask!!!</strong></span></p>
+<p style="text-align: center;"><span style="font-size: 18px;"><strong><span class="userTagDiscriminatorNoNickname-2HLaIE discrimBase-KriZSj">everything is listed below!!
 <p style="text-align: center;"><br /><span style="font-size: 18px;"><strong>Any versions of Fabric/Quilt that come out are not supported ever. We will keep old version of those up but we only code in Forge!</strong></span></p>
 <p style="text-align: center;">&nbsp;</p>
 <p style="text-align: center;"><span style="font-size: 14px;"><strong>Being maintained In Name Only or Actively Maintaining</strong></span></p>
 <p style="text-align: center;">&nbsp;</p>
-<p style="text-align: center;"><span style="font-size: 14px;"><strong>In name only: below latest to 1.16.5 exclusive<br />Being currently maintained by RedRoseWarrior: 1.16.5 and below.</strong></span></p>
 <p style="text-align: center;"><br /><span style="font-size: 14px;"><strong>All issue report that are for these version must be marked by a version number.</strong></span><br /><br /></p>
 <p style="text-align: center;">&nbsp;</p>
 <p style="text-align: center;"><span style="font-size: 18px;"><br />there is a that has been added called the Atlantean Font to use do <span style="color: #333399;"><strong>/tellraw @a&nbsp;{"text":"message here!","font":"atlantis:atlantean_font"}</strong></span><br />hope you enjoy it :D<br /></span><span style="font-size: 18px;"><br /><br /><img src="https://www.bisecthosting.com/images/CF/Atlantis/BH_AT_Features.png" alt="" width="1123" height="137" /><img src="https://www.bisecthosting.com/images/CF/Atlantis/BH_AT_FeaturesList.png" alt="" width="1123" height="471" /><br /></span></p>
