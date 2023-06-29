@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/orientable_with_bottom",
-  "textures": {
-    "bottom": "atlantis:block/crystal_generator_bottom",
-    "front": "atlantis:block/crystal_generator_front",
-    "side": "atlantis:block/crystal_generator_side",
-    "top": "atlantis:block/crystal_generator_top"
-  }
-}

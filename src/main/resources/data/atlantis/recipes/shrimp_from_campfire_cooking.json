@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:campfire_cooking",
-  "ingredient": {
-    "item": "atlantis:shrimp"
-  },
-  "result": "atlantis:cooked_shrimp",
-  "experience": 0.5,
-  "cookingtime": 300
-}

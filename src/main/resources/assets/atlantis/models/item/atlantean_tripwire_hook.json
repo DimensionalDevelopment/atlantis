@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "atlantis:block/atlantean_tripwire_hook"
-  }
-}
