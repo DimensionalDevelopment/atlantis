@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "EWE",
+    "SSS",
+    "   "
+  ],
+  "key":
+  {
+    "W":
+    {
+      "item": "atlantis:atlantean_power_dust"
+    },
+
+    "S":
+    {
+      "item": "minecraft:stone"
+    },
+
+    "E":
+    {
+      "item": "atlantis:atlantean_power_torch"
+    }
+  },
+  "result":
+  {
+    "item": "atlantis:atlantean_power_repeater",
+    "count": 1
+  }
+}

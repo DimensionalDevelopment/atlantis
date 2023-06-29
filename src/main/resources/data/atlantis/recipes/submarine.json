@@ -1,0 +1,34 @@
+{
+	"type": "minecraft:crafting_shaped",
+
+	"pattern":
+	[
+		" IC",
+		"IIC",
+		"CCV"
+	],
+
+	"key":
+	{
+		"C":
+		{
+			"item": "minecraft:raw_iron_block"
+		},
+
+		"I":
+		{
+			"item": "minecraft:glass"
+		},
+
+		"V":
+		{
+			"item": "atlantis:orb_of_atlantis"
+		}
+	},
+
+	"result":
+	{
+		"item": "atlantis:submarine",
+		"count": 1
+	}
+}	

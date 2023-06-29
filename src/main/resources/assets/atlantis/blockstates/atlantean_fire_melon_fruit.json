@@ -1,0 +1,66 @@
+{
+  "forge_marker": 1,
+  "uvlock": false,
+  "variants": {
+    "age=0,facing=north,waterlogged=true": {
+          "model": "atlantis:block/fire_melon_fruit_0",
+              "y": 180
+    },
+    "age=0,facing=east,waterlogged=true": {
+              "model": "atlantis:block/fire_melon_fruit_0",
+              "y": 270
+    },
+    "age=0,facing=west,waterlogged=true": {
+              "model": "atlantis:block/fire_melon_fruit_0",
+              "y": 90
+    },
+    "age=0,facing=south,waterlogged=true": {
+              "model": "atlantis:block/fire_melon_fruit_0"
+    },
+    "age=0,facing=north,waterlogged=false": {
+          "model": "atlantis:block/fire_melon_fruit_0",
+          "y": 180
+    },
+    "age=0,facing=east,waterlogged=false": {
+              "model": "atlantis:block/fire_melon_fruit_0",
+              "y": 270
+    },
+    "age=0,facing=west,waterlogged=false": {
+              "model": "atlantis:block/fire_melon_fruit_0",
+              "y": 90
+    },
+    "age=0,facing=south,waterlogged=false": {
+              "model": "atlantis:block/fire_melon_fruit_0"
+    },
+    "age=1,facing=north,waterlogged=true": {
+          "model": "atlantis:block/fire_melon_fruit_1",
+          "y": 180
+    },
+    "age=1,facing=east,waterlogged=true": {
+              "model": "atlantis:block/fire_melon_fruit_1",
+              "y": 270
+    },
+    "age=1,facing=west,waterlogged=true": {
+              "model": "atlantis:block/fire_melon_fruit_1",
+              "y": 90
+    },
+    "age=1,facing=south,waterlogged=true": {
+              "model": "atlantis:block/fire_melon_fruit_1"
+    },
+    "age=1,facing=north,waterlogged=false": {
+          "model": "atlantis:block/fire_melon_fruit_1",
+          "y": 180
+    },
+    "age=1,facing=east,waterlogged=false": {
+              "model": "atlantis:block/fire_melon_fruit_1",
+              "y": 270
+    },
+    "age=1,facing=west,waterlogged=false": {
+              "model": "atlantis:block/fire_melon_fruit_1",
+              "y": 90
+    },
+    "age=1,facing=south,waterlogged=false": {
+              "model": "atlantis:block/fire_melon_fruit_1"
+    }
+  }
+}

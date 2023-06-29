@@ -1,0 +1,14 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "atlantis:cyan_colored_shell_block"
+  },
+  "variants": {
+    "facing=east": { "model": "atlantis:block/cyan_colored_shell_block" },
+    "facing=south": { "model": "atlantis:block/cyan_colored_shell_block", "y": 90 },
+    "facing=west": { "model": "atlantis:block/cyan_colored_shell_block", "y": 180 },
+    "facing=north": { "model": "atlantis:block/cyan_colored_shell_block", "y": 270 },
+    "facing=up": {"model": "atlantis:block/cyan_colored_shell_block", "x": -90},
+    "facing=down": {"model": "atlantis:block/cyan_colored_shell_block", "x": 90}
+  }
+}

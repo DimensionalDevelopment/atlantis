@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "": {
+            "model": "atlantis:block/atlantean_leaf_block"
+        }
+    }
+}

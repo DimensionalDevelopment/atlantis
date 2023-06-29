@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=true": {
+      "model": "atlantis:block/burnt_deep"
+    },
+    "waterlogged=false": {
+      "model": "atlantis:block/burnt_deep"
+    }
+  }
+}

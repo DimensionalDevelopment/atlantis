@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"AAA",
+		"AAA",
+		"AAA"
+	],
+	
+	"key":
+	{
+		"A":
+		{
+			"item": "atlantis:aquamarine_gem"
+		}
+	},
+	
+	"result":
+	{
+		"item": "atlantis:block_of_aquamarine",
+		"count": 1
+	}
+	
+}					

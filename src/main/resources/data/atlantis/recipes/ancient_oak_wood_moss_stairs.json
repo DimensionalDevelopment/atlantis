@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients":
+	[
+	
+	{
+		"item": "minecraft:oak_stairs"
+	},					
+	
+	{
+		"item": "atlantis:algae"
+	}
+	
+	],
+	
+	"result":
+	{
+		"item": "atlantis:ancient_oak_wood_moss_stairs",
+		"count": 1
+	}
+}	

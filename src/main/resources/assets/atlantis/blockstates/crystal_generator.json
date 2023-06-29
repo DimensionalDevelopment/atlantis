@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "atlantis:block/crystal_generator",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "atlantis:block/crystal_generator"
+    },
+    "facing=south": {
+      "model": "atlantis:block/crystal_generator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "atlantis:block/crystal_generator",
+      "y": 270
+    }
+  }
+}

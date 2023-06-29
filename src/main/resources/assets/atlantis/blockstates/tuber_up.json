@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=true": {
+      "model": "atlantis:block/tuber_up"
+    },
+    "waterlogged=false": {
+      "model": "atlantis:block/tuber_up"
+    }
+  }
+}

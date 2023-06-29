@@ -1,0 +1,30 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		" S ",
+		"SWS",
+		" S "
+	],
+	
+	"key":
+	{
+		"W":
+		{
+			"item": "minecraft:jungle_planks"
+		},
+		
+		"S":
+		{
+			"item": "atlantis:algae"
+		}
+	},
+	
+	"result":
+	{
+		"item": "atlantis:ancient_jungle_wood_moss",
+		"count": 2
+	}
+	
+}					

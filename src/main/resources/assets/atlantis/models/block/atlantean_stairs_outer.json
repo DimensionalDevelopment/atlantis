@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "atlantis:block/atlantean_planks",
+    "top": "atlantis:block/atlantean_planks",
+    "side": "atlantis:block/atlantean_planks"
+  }
+}

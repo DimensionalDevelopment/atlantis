@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"   ",
+		"WWW",
+		"   "
+	],
+	"key":
+	{
+		"W":
+		{
+			"item": "atlantis:ancient_jungle_wood_moss"
+		}
+	},
+	"result":
+	{
+		"item": "atlantis:ancient_jungle_wood_moss_slab",
+		"count": 6
+	}
+	
+}					

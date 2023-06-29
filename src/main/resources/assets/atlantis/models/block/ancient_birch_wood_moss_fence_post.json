@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "textures": {
+    "texture": "atlantis:block/ancient_birch_wood_moss"
+  }
+}

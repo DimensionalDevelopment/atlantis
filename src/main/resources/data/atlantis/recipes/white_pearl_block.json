@@ -1,0 +1,29 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		" S ",
+		"SWS",
+		" S "
+	],
+	
+	"key":
+	{
+		"S":
+		{
+			"item": "minecraft:white_dye"
+		},
+		
+		"W":
+		{
+			"item": "atlantis:calcite_block"
+		}
+	},
+	
+	"result":
+	{
+		"item": "atlantis:white_pearl_block",
+		"count": 2
+	}
+}					

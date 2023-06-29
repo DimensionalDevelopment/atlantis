@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=false,waterlogged=true": {
+      "model": "atlantis:block/atlantean_power_torch_off"
+    },
+    "lit=true,waterlogged=false": {
+      "model": "atlantis:block/atlantean_power_torch"
+    },
+    "lit=false,waterlogged=false": {
+      "model": "atlantis:block/atlantean_power_torch_off"
+    },
+    "lit=true,waterlogged=true": {
+      "model": "atlantis:block/atlantean_power_torch"
+    }
+  }
+}

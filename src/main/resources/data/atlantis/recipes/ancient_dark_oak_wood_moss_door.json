@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients":
+	[
+	
+	{
+		"item": "minecraft:dark_oak_door"
+	},					
+	
+	{
+		"item": "atlantis:algae"
+	}
+	
+	],
+	
+	"result":
+	{
+		"item": "atlantis:ancient_dark_oak_wood_moss_door",
+		"count": 1
+	}
+}	

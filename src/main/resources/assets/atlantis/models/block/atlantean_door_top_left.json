@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_left",
+  "textures": {
+    "bottom": "atlantis:block/atlantean_door_bottom",
+    "top": "atlantis:block/atlantean_door_top"
+  }
+}
