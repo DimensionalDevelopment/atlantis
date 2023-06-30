@@ -1,5 +1,7 @@
 {
-    "variants": {
-        "": { "model": "atlantis:block/white_pearl_block" }
+  "variants": {
+    "": {
+      "model": "atlantis:block/white_pearl_block"
     }
+  }
 }

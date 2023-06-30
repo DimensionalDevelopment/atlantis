@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "bottom": "atlantis:block/atlantean_planks",
-    "side": "atlantis:block/writing_table_side",
-    "top": "atlantis:block/writing_table_top"
-  }
-}
