@@ -36,7 +36,7 @@
         "type": "atlantis:atlantean_starfish",
         "weight": 25,
         "minCount": 5,
-        "maxCount": 11
+        "maxCount": 6
       }
     ],
     "water_ambient": [

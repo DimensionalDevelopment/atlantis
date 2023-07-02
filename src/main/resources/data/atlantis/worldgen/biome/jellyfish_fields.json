@@ -29,7 +29,7 @@
         "type": "atlantis:atlantean_starzomfish",
         "weight": 25,
         "minCount": 6,
-        "maxCount": 10
+        "maxCount": 7
       }
     ],
     "water_ambient": [
