@@ -3,14 +3,7 @@
   "start_pool": "atlantis:atlantean_city",
   "size": 1,
   "max_distance_from_center": 256,
-  "biomes": [
-    "atlantis:atlantean_garden",
-    "atlantis:atlantis_biome",
-    "atlantis:atlantean_islands_biome",
-    "atlantis:jellyfish_fields",
-    "atlantis:volcanic_darksea",
-    "atlantis:goo_lagoons"
-  ],
+  "biomes": "#atlantis:has_structures/configured_atlantean_city",
   "step": "surface_structures",
   "start_height": {
     "absolute": 1
