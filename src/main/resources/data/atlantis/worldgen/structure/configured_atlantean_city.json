@@ -15,7 +15,7 @@
       "spawns": [
         {
           "type": "minecraft:tropical_fish",
-          "weight": 1,
+          "weight": 25,
           "minCount": 4,
           "maxCount": 16
         }
@@ -26,9 +26,9 @@
       "spawns": [
         {
           "type": "atlantis:atlantean_starfish",
-          "weight": 1,
-          "minCount": 5,
-          "maxCount": 18
+          "weight": 25,
+          "minCount": 2,
+          "maxCount": 2
         }
       ]
     }

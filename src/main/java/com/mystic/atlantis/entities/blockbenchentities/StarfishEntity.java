@@ -1,5 +1,9 @@
 package com.mystic.atlantis.entities.blockbenchentities;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 import com.mystic.atlantis.entities.goal.LatchOntoGoal;
@@ -135,18 +139,6 @@ public class StarfishEntity extends Animal implements IAnimatable { //TODO make 
         return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
-    //   @Override
-    //   public void load(CompoundTag nbt) {
-    //       this.setFromBucket(nbt.getBoolean("FromBucket"));
-    //       super.load(nbt);
-    //   }
-
-    //   @Override
-    //   public CompoundTag saveWithoutId(CompoundTag nbt) {
-    //       nbt.putBoolean("FromBucket", this.fromBucket());
-    //       return super.saveWithoutId(nbt);
-    //   }
-
     @Override
     protected boolean canRide(Entity entity) {
         return !entity.isVehicle() && !entity.hasPassenger(this);
@@ -201,8 +193,14 @@ public class StarfishEntity extends Animal implements IAnimatable { //TODO make 
         goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(ItemInit.SHRIMP.get()), false));
         goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.6));
         goalSelector.addGoal(1, new TryFindWaterGoal(this));
-        goalSelector.addGoal(1, new LatchOntoGoal<>(this, ShrimpEntity.class, true));
-        goalSelector.addGoal(0, new LatchOntoGoal<>(this, Player.class, true));
+        goalSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, ShrimpEntity.class, true));
+        //TODO fix
+        //goalSelector.addGoal(1, new LatchOntoGoal<>(this, ShrimpEntity.class, true));
+        //goalSelector.addGoal(0, new LatchOntoGoal<>(this, Player.class, true));
+    }
+
+    public static boolean canSpawn(EntityType<StarfishEntity> starfishEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= 75 && 95 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
     }
 
     @Override

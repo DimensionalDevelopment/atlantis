@@ -1,5 +1,10 @@
 package com.mystic.atlantis.entities.blockbenchentities;
 
+import com.mystic.atlantis.config.AtlantisConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 import com.mystic.atlantis.entities.goal.LatchOntoGoal;
@@ -17,10 +22,6 @@ import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.monster.Monster;
@@ -119,6 +120,10 @@ public class StarfishZomEntity extends Monster implements IAnimatable {
         }
     }
 
+    public static boolean canSpawn(EntityType<StarfishZomEntity> starfishZomEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= 75 && 95 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
+    }
+
     @Override
     public boolean canBeLeashed(Player player) {
         return true;
@@ -131,8 +136,10 @@ public class StarfishZomEntity extends Monster implements IAnimatable {
         goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.6));
         goalSelector.addGoal(2, new TryFindWaterGoal(this));
-        goalSelector.addGoal(1, new LatchOntoGoal<>(this, Drowned.class, true));
-        goalSelector.addGoal(0, new LatchOntoGoal<>(this, Player.class, true));
+        goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.3, true));
+        //TODO fix
+        //goalSelector.addGoal(1, new LatchOntoGoal<>(this, Drowned.class, true));
+        //goalSelector.addGoal(0, new LatchOntoGoal<>(this, Player.class, true));
     }
 
     @Override

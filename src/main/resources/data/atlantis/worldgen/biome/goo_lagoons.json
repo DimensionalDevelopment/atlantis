@@ -36,34 +36,28 @@
       {
         "type": "atlantis:atlantean_seahorse",
         "weight": 25,
-        "minCount": 5,
-        "maxCount": 5
+        "minCount": 2,
+        "maxCount": 2
       },
       {
         "type": "atlantis:atlantean_crab",
         "weight": 25,
-        "minCount": 18,
-        "maxCount": 18
+        "minCount": 5,
+        "maxCount": 5
       }
     ],
     "water_ambient": [
       {
         "type": "atlantis:atlantean_jellyfish",
         "weight": 25,
-        "minCount": 18,
-        "maxCount": 18
-      },
-      {
-        "type": "atlantis:atlantean_jellyfish_2",
-        "weight": 25,
-        "minCount": 18,
-        "maxCount": 18
+        "minCount": 5,
+        "maxCount": 5
       },
       {
         "type": "atlantis:atlantean_shrimp",
         "weight": 25,
-        "minCount": 30,
-        "maxCount": 30
+        "minCount": 2,
+        "maxCount": 2
       },
       {
         "type": "minecraft:tropical_fish",
@@ -74,8 +68,8 @@
       {
         "type": "atlantis:atlantean_starfish",
         "weight": 25,
-        "minCount": 5,
-        "maxCount": 6
+        "minCount": 1,
+        "maxCount": 1
       }
     ]
   },

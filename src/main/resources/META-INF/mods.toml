@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/Exploding-Creeper/atlantis/issues"
 
 [[mods]] 
 modId="atlantis" 
-version="2023.3.18-1.19.2-1.6.0-forge" 
+version="2023.7.25-1.19.2-3.0-forge"
 displayName="Atlantis" 
 displayURL="https://github.com/Exploding-Creeper/atlantis" 
 logoFile= "logo.png"

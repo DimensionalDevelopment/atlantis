@@ -16,6 +16,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -65,6 +66,10 @@ public class SeahorseEntity extends WaterAnimal implements IAnimatable, Bucketab
 
     public static AttributeSupplier.Builder createSeahorseAttributes() {
         return createMobAttributes().add(Attributes.MOVEMENT_SPEED, 2.5d);
+    }
+
+    public static boolean canSpawn(EntityType<SeahorseEntity> seahorseEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= 75 && 95 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
     }
 
     @Override
@@ -193,7 +198,7 @@ public class SeahorseEntity extends WaterAnimal implements IAnimatable, Bucketab
 
     @Override
     public ItemStack getBucketItemStack() {
-        return ItemInit.SHRIMP_BUCKET.get().getDefaultInstance();
+        return ItemInit.SEAHORSE_BUCKET.get().getDefaultInstance();
     }
 
     @Override

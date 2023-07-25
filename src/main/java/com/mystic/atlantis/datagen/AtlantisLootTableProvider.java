@@ -147,7 +147,7 @@ public class AtlantisLootTableProvider extends LootTableProvider {
 
 				// Checks (UNTESTED)
 				if (entityTypeEntry.equals(AtlantisEntityInit.CRAB.get())) createSingleLootDrop(ItemInit.CRAB_LEGS.get());
-				else if (entityTypeEntry.equals(AtlantisEntityInit.JELLYFISH.get()) || entityTypeEntry.equals(AtlantisEntityInit.JELLYFISH2.get())) createSingleLootDrop(ItemInit.ATLANTEAN_STRING.get());
+				else if (entityTypeEntry.equals(AtlantisEntityInit.JELLYFISH.get())) createSingleLootDrop(ItemInit.ATLANTEAN_STRING.get());
 				else if (entityTypeEntry.equals(AtlantisEntityInit.SEAHORSE.get())) createSingleLootDrop(Items.SEAGRASS);
 				else if (entityTypeEntry.equals(AtlantisEntityInit.SHRIMP.get()) || entityTypeEntry.equals(AtlantisEntityInit.STARFISH.get())) createSingleLootDrop(ItemInit.SHRIMP.get());
 				else if (entityTypeEntry.equals(AtlantisEntityInit.SEAHORSE.get())) createUnderwaterUndeadLootDrop(ItemInit.SHRIMP.get());

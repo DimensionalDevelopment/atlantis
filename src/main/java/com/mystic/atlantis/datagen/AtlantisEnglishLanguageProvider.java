@@ -50,16 +50,15 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         addItem(ItemInit.ATLANTEAN_CRAB_EGG, "Atlantean Crab Spawn Egg");
         addItem(ItemInit.CRAB_LEGS, "Crab Legs");
         addItem(ItemInit.CRAB_BUCKET, "Crab in a Bucket");
-        addItem(ItemInit.JELLYFISH_BUCKET, "Jellyfish Var. 1 in a Bucket");
-        addItem(ItemInit.ATLANTEAN_JELLYFISH_EGG, "Atlantean Jellyfish Var. 1 Spawn Egg");
+        addItem(ItemInit.JELLYFISH_BUCKET, "Jellyfish in a Bucket");
+        addItem(ItemInit.ATLANTEAN_JELLYFISH_EGG, "Atlantean Jellyfish Spawn Egg");
         addItem(ItemInit.ATLANTEAN_POWER_DUST, "Atlantean Power Dust");
         addItem(ItemInit.ATLANTEAN_STRING, "Atlantean String");
-        addItem(ItemInit.JELLYFISH_2_BUCKET, "Jellyfish Var. 2 in a Bucket");
-        addItem(ItemInit.ATLANTEAN_JELLYFISH_2_EGG, "Atlantean Jellyfish Var. 2 Spawn Egg");
         addItem(ItemInit.JETSTREAM_WATER_BUCKET, "Jetstream Water Bucket");
         addItem(ItemInit.SALTY_SEA_WATER_BUCKET, "Salty Sea Water Bucket");
         addItem(ItemInit.SUBMARINE, "Atlantean Submarine");
         addItem(ItemInit.SHRIMP_BUCKET, "Shrimp in a Bucket");
+        addItem(ItemInit.SEAHORSE_BUCKET, "Seahorse in a Bucket");
         addItem(ItemInit.SHRIMP, "Shrimp");
         addItem(ItemInit.COOKED_SHRIMP, "Cooked Shrimp");
         addItem(ItemInit.ATLANTEAN_SHRIMP_EGG, "Atlantean Shrimp Spawn Egg");
@@ -243,10 +242,9 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         add(EffectsInit.SPIKES.get(), "Spikes");
 
         add(AtlantisEntityInit.CRAB.get(), "Atlantean Crab");
-        add(AtlantisEntityInit.JELLYFISH2.get(), "Atlantean Jellyfish Var. 2");
         add(AtlantisEntityInit.SHRIMP.get(), "Atlantean Shrimp");
         add(AtlantisEntityInit.SUBMARINE.get(), "Atlantean Submarine");
-        add(AtlantisEntityInit.JELLYFISH.get(), "Atlantean Jellyfish Var. 1");
+        add(AtlantisEntityInit.JELLYFISH.get(), "Atlantean Jellyfish");
 
         add("text.autoconfig.atlantis.title", "Atlantean Config");
         add("text.autoconfig.atlantis.option.minCrabSpawnHeight", "Minimum Crab Spawn Height");

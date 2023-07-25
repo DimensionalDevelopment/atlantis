@@ -5,16 +5,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import com.mystic.atlantis.blocks.LinguisticGlyph;
-import com.mystic.atlantis.items.AtlanteanBoatItem;
-import com.mystic.atlantis.items.AtlanteanEntityBucketItem;
-import com.mystic.atlantis.items.CrabEntityBucketItem;
-import com.mystic.atlantis.items.DefaultItem;
-import com.mystic.atlantis.items.FireMelonJellyBottle;
-import com.mystic.atlantis.items.JellyfishJellyBottle;
-import com.mystic.atlantis.items.LinguisticGlyphScrollItem;
-import com.mystic.atlantis.items.SodiumItem;
-import com.mystic.atlantis.items.SubmarineItem;
-import com.mystic.atlantis.items.WaterPill;
+import com.mystic.atlantis.items.*;
 import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
 import com.mystic.atlantis.items.armor.ItemArmorWrought;
@@ -64,7 +55,6 @@ public class ItemInit {
     //SPAWN EGGS
     public static final RegistryObject<Item> ATLANTEAN_CRAB_EGG = register("atlantean_crab_egg",() -> new ForgeSpawnEggItem(AtlantisEntityInit.CRAB, 0x800002, 0xff0f45, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     public static final RegistryObject<Item> ATLANTEAN_JELLYFISH_EGG = register("atlantean_jellyfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.JELLYFISH, 0x00458a, 0x0582ff, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-    public static final RegistryObject<Item> ATLANTEAN_JELLYFISH_2_EGG = register("atlantean_jellyfish_2_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.JELLYFISH2, 0x347BC2, 0x004080, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     public static final RegistryObject<Item> ATLANTEAN_SHRIMP_EGG = register("atlantean_shrimp_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.SHRIMP, 0xff0000, 0xff8000, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     public static final RegistryObject<Item> LEVIATHAN_EGG = register("leviathan_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.LEVIATHAN, 0x01ddddd, 0xaddedb, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
@@ -90,9 +80,9 @@ public class ItemInit {
     public static final RegistryObject<Item> OCEAN_STONE = register("ocean_stone", DefaultItem::new);
     public static final RegistryObject<Item> DROP_OF_ATLANTIS = register("drop_of_atlantis", DefaultItem::new);
     public static final RegistryObject<Item> BROWN_WROUGHT_PATCHES = register("brown_wrought_patches", DefaultItem::new);
-    public static final RegistryObject<Item> CRAB_LEGS = register("crab_legs", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(6).saturationMod(10.0f).build()).tab(AtlantisGroupInit.MAIN)));
-    public static final RegistryObject<Item> SHRIMP = register("shrimp", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(5).saturationMod(2.0f).effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 100), 0.05f).build()).tab(AtlantisGroupInit.MAIN)));
-    public static final RegistryObject<Item> COOKED_SHRIMP = register("cooked_shrimp", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(2).saturationMod(5.0f).build()).tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> CRAB_LEGS = register("crab_legs", () -> new CrabLegsItem(new Item.Properties().tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> SHRIMP = register("shrimp", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(5).saturationMod(0.2f).effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 100), 0.05f).build()).tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> COOKED_SHRIMP = register("cooked_shrimp", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(2).saturationMod(0.4f).build()).tab(AtlantisGroupInit.MAIN)));
     public static final RegistryObject<Item> ATLANTEAN_POWER_TORCH = register("atlantean_power_torch", () -> new StandingAndWallBlockItem(BlockInit.ATLANTEAN_POWER_TORCH.get(), BlockInit.WALL_ATLANTEAN_POWER_TORCH.get(), (new Item.Properties().tab(AtlantisGroupInit.MAIN))));
     public static final RegistryObject<Item> ATLANTEAN_POWER_DUST = register("atlantean_power_dust",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get(), (new Item.Properties().tab(AtlantisGroupInit.MAIN))));
     public static final RegistryObject<Item> ATLANTEAN_STRING = register("atlantean_string",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_TRIPWIRE.get(), (new Item.Properties().tab(AtlantisGroupInit.MAIN))));
@@ -155,9 +145,7 @@ public class ItemInit {
     //Entity Buckets
     public static final RegistryObject<Item> CRAB_BUCKET = register("crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntityInit.CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroupInit.MAIN)));
     public static final RegistryObject<Item> JELLYFISH_BUCKET = register("jellyfish_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.JELLYFISH, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroupInit.MAIN)));
-    public static final RegistryObject<Item> JELLYFISH_2_BUCKET = register("jellyfish_2_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.JELLYFISH2, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroupInit.MAIN)));
     public static final RegistryObject<Item> SHRIMP_BUCKET = register("shrimp_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.SHRIMP, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroupInit.MAIN)));
-
     public static final RegistryObject<Item> SEAHORSE_BUCKET = register("seahorse_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.SEAHORSE, ()->Fluids.WATER, ()-> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroupInit.MAIN)));
 
     //public static final RegistryObject<Item> COCONUT_CRAB_BUCKET = register("coconut_crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntityInit.COCONUT_CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroupInit.MAIN)));

@@ -16,7 +16,6 @@ public class CrabEntityModel extends AnimatedGeoModel<CrabEntity> {
     public ResourceLocation getTextureResource(CrabEntity entity) {
         return switch (entity.getVariant()) {
             default -> Atlantis.id("textures/entity/crab_red.png");
-            case 1 -> Atlantis.id("textures/entity/crab_red.png");
             case 2 -> Atlantis.id("textures/entity/crab_blue.png");
         };
     }

@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.jellyfish2.hover": {
+		"animation.jellyfish.hover": {
 			"animation_length": 1.5,
 			"bones": {
 				"Head": {
@@ -25,7 +25,7 @@
 				}
 			}
 		},
-		"animation.jellyfish2.idle": {
+		"animation.jellyfish.idle": {
 			"loop": true
 		}
 	},

@@ -2,6 +2,9 @@ package com.mystic.atlantis.entities.blockbenchentities;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,6 +51,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketable {
 
+    protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.INT);
     private static final AnimationBuilder HOVER_ANIMATION = new AnimationBuilder().addAnimation("animation.jellyfish.hover", true);
@@ -69,6 +73,10 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
         return createMobAttributes().add(Attributes.ATTACK_DAMAGE, 2d).add(Attributes.MOVEMENT_SPEED, 0.5d);
     }
 
+    public static boolean canSpawn(EntityType<JellyfishEntity> jellyfishEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= 75 && 105 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
+    }
+
     @Override
     public boolean isVisuallySwimming() {
         return true;
@@ -77,6 +85,10 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
     @Override
     protected boolean isAffectedByFluids() {
         return true;
+    }
+
+    public int getVariant(){
+        return this.entityData.get(VARIANT);
     }
 
     @Override
@@ -131,21 +143,24 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
+        this.entityData.set(VARIANT, this.random.nextInt(100) > 50 ? 1 : 2);
         this.entityData.set(COLOR, betterNiceColor());
         return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
     @Override
     public void load(CompoundTag nbt) {
-        this.setColor(nbt.getInt("Color"));
         this.setFromBucket(nbt.getBoolean("FromBucket"));
+        this.entityData.set(VARIANT, nbt.getInt("Variant"));
+        this.setColor(nbt.getInt("Color"));
         super.load(nbt);
     }
 
     @Override
     public CompoundTag saveWithoutId(CompoundTag nbt) {
-        nbt.putInt("Color", this.getColor());
         nbt.putBoolean("FromBucket", this.fromBucket());
+        nbt.putInt("Variant", entityData.get(VARIANT));
+        nbt.putInt("Color", this.getColor());
         return super.saveWithoutId(nbt);
     }
 
@@ -176,6 +191,7 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(VARIANT, 0);
         this.entityData.define(FROM_BUCKET, false);
         this.entityData.define(COLOR, betterNiceColor());
     }

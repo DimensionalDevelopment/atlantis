@@ -9,6 +9,8 @@ import java.util.Objects;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
@@ -268,21 +270,11 @@ public class LeviathanEntity extends WaterAnimal implements IAnimatable {
             else {
                 this.nextScanTick = reducedTickDelay(60);
                 List<JellyfishEntity> list = LeviathanEntity.this.level.getEntitiesOfClass(JellyfishEntity.class, LeviathanEntity.this.getBoundingBox().inflate(16.0D, 64.0D, 16.0D));
-                List<Jellyfish2Entity> list2 = LeviathanEntity.this.level.getEntitiesOfClass(Jellyfish2Entity.class, LeviathanEntity.this.getBoundingBox().inflate(16.0D, 64.0D, 16.0D));
                 if (!list.isEmpty()) {
                     list.sort(Comparator.<Entity, Double>comparing(Entity::getY).reversed());
                     for(JellyfishEntity jellyFish : list) {
                         if (LeviathanEntity.this.canAttack(jellyFish, TargetingConditions.DEFAULT)) {
                             LeviathanEntity.this.setTarget(jellyFish);
-                            return true;
-                        }
-                    }
-                }
-                else if (!list2.isEmpty()) {
-                    list2.sort(Comparator.<Entity, Double>comparing(Entity::getY).reversed());
-                    for(Jellyfish2Entity jellyfish2 : list2) {
-                        if (LeviathanEntity.this.canAttack(jellyfish2, TargetingConditions.DEFAULT)) {
-                            LeviathanEntity.this.setTarget(jellyfish2);
                             return true;
                         }
                     }

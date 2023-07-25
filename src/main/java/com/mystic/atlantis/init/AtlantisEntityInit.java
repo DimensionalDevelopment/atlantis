@@ -3,7 +3,6 @@ package com.mystic.atlantis.init;
 import com.mystic.atlantis.blocks.power.atlanteanstone.SodiumPrimedBombBlock;
 import com.mystic.atlantis.entities.blockbenchentities.AtlanteanBoatEntity;
 import com.mystic.atlantis.entities.blockbenchentities.CrabEntity;
-import com.mystic.atlantis.entities.blockbenchentities.Jellyfish2Entity;
 import com.mystic.atlantis.entities.blockbenchentities.JellyfishEntity;
 import com.mystic.atlantis.entities.blockbenchentities.LeviathanEntity;
 import com.mystic.atlantis.entities.blockbenchentities.SeahorseEntity;
@@ -34,7 +33,6 @@ public class AtlantisEntityInit {
     //Geckolib Creatures
     public static final RegistryObject<EntityType<CrabEntity>> CRAB = register("atlantean_crab", EntityType.Builder.of(CrabEntity::new, MobCategory.WATER_CREATURE).sized(1.2f, 0.3f));
     public static final RegistryObject<EntityType<JellyfishEntity>> JELLYFISH = register("atlantean_jellyfish", EntityType.Builder.of(JellyfishEntity::new, MobCategory.WATER_AMBIENT).sized(0.4f, 0.8f));
-    public static final RegistryObject<EntityType<Jellyfish2Entity>> JELLYFISH2 = register("atlantean_jellyfish_2", EntityType.Builder.of(Jellyfish2Entity::new, MobCategory.WATER_AMBIENT).sized(0.4f, 0.8f));
     public static final RegistryObject<EntityType<ShrimpEntity>> SHRIMP = register("atlantean_shrimp", EntityType.Builder.of(ShrimpEntity::new, MobCategory.WATER_AMBIENT).sized(0.5f, 0.5f));
     public static final RegistryObject<EntityType<LeviathanEntity>> LEVIATHAN = register("leviathan", EntityType.Builder.of(LeviathanEntity::new, MobCategory.WATER_CREATURE).sized(1.5f, 0.7f));
     public static final RegistryObject<EntityType<SeahorseEntity>> SEAHORSE = register("atlantean_seahorse", EntityType.Builder.of(SeahorseEntity::new, MobCategory.CREATURE).sized(.4f, 1.5f));
@@ -57,7 +55,6 @@ public class AtlantisEntityInit {
     public static void onAttributeModify(EntityAttributeCreationEvent event) {
         event.put(AtlantisEntityInit.CRAB.get(), CrabEntity.createCrabAttributes().build());
         event.put(AtlantisEntityInit.JELLYFISH.get(), JellyfishEntity.createJellyfishAttributes().build());
-        event.put(AtlantisEntityInit.JELLYFISH2.get(), Jellyfish2Entity.createJellyfishAttributes().build());
         event.put(AtlantisEntityInit.SHRIMP.get(), ShrimpEntity.createShrimpAttributes().build());
         event.put(AtlantisEntityInit.LEVIATHAN.get(), LeviathanEntity.createLeviathanAttributes().build());
         event.put(AtlantisEntityInit.SEAHORSE.get(), SeahorseEntity.createSeahorseAttributes().build());

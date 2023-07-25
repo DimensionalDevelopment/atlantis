@@ -17,7 +17,7 @@
       "spawns": [
         {
           "type": "minecraft:tropical_fish",
-          "weight": 1,
+          "weight": 25,
           "minCount": 4,
           "maxCount": 16
         }
@@ -28,13 +28,13 @@
       "spawns": [
         {
           "type": "atlantis:atlantean_starzomfish",
-          "weight": 1,
-          "minCount": 6,
-          "maxCount": 20
+          "weight": 25,
+          "minCount": 3,
+          "maxCount": 3
         },
         {
           "type": "minecraft:drowned",
-          "weight": 1,
+          "weight": 25,
           "minCount": 6,
           "maxCount": 20
         }
