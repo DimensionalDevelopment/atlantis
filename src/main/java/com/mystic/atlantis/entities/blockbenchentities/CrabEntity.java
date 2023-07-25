@@ -76,8 +76,8 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
     
     public static AttributeSupplier.Builder createCrabAttributes() {
         return createMobAttributes()
-        		.add(Attributes.ATTACK_DAMAGE, 1D)
-        		.add(Attributes.MOVEMENT_SPEED, 0.15D);
+                .add(Attributes.ATTACK_DAMAGE, 1D)
+                .add(Attributes.MOVEMENT_SPEED, 0.15D);
     }
 
     public boolean fromBucket() {

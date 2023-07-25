@@ -39,6 +39,14 @@
         "minCount": 2,
         "maxCount": 2
       }
+    ],
+    "water_creature": [
+      {
+        "type": "atlantis:leviathan",
+        "weight": 25,
+        "minCount": 3,
+        "maxCount": 3
+      }
     ]
   },
   "spawn_costs": {},

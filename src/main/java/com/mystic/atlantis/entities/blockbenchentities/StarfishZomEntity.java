@@ -4,6 +4,7 @@ import com.mystic.atlantis.config.AtlantisConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
@@ -136,7 +137,7 @@ public class StarfishZomEntity extends Monster implements IAnimatable {
         goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.6));
         goalSelector.addGoal(2, new TryFindWaterGoal(this));
-        goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.3, true));
+        goalSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
         //TODO fix
         //goalSelector.addGoal(1, new LatchOntoGoal<>(this, Drowned.class, true));
         //goalSelector.addGoal(0, new LatchOntoGoal<>(this, Player.class, true));
