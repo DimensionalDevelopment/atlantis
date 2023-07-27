@@ -18,6 +18,14 @@
     }
   },
   "spawners": {
+    "water_ambient": [
+      {
+        "type": "minecraft:tropical_fish",
+        "weight": 25,
+        "minCount": 8,
+        "maxCount": 8
+      }
+    ],
     "monster": [
       {
         "type": "minecraft:drowned",
@@ -58,12 +66,6 @@
         "weight": 25,
         "minCount": 2,
         "maxCount": 2
-      },
-      {
-        "type": "minecraft:tropical_fish",
-        "weight": 25,
-        "minCount": 8,
-        "maxCount": 8
       },
       {
         "type": "atlantis:atlantean_starfish",

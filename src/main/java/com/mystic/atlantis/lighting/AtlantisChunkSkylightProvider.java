@@ -37,8 +37,6 @@ public class AtlantisChunkSkylightProvider extends SkyLightEngine {
 					if (ACommonFEvents.map.containsKey(biome.unwrapKey().get().location())) {
 						return Math.min(ACommonFEvents.map.get(biome.unwrapKey().get().location()), propagatedLevel);
 					}
-				} else {
-					return Math.min(15, propagatedLevel);
 				}
 			}
 		}

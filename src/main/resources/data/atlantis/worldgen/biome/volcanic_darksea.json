@@ -44,6 +44,12 @@
         "weight": 25,
         "minCount": 2,
         "maxCount": 2
+      },
+      {
+        "type": "atlantis:leviathan",
+        "weight": 25,
+        "minCount": 5,
+        "maxCount": 5
       }
     ],
     "water_ambient": [

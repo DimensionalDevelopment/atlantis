@@ -38,14 +38,20 @@
         "weight": 25,
         "minCount": 2,
         "maxCount": 2
+      },
+      {
+        "type": "minecraft:tropical_fish",
+        "weight": 25,
+        "minCount": 8,
+        "maxCount": 8
       }
     ],
     "water_creature": [
       {
         "type": "atlantis:leviathan",
         "weight": 25,
-        "minCount": 3,
-        "maxCount": 3
+        "minCount": 5,
+        "maxCount": 5
       }
     ]
   },
