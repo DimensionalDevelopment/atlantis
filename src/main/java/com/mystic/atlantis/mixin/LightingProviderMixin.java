@@ -1,5 +1,6 @@
 package com.mystic.atlantis.mixin;
 
+import com.mystic.atlantis.config.AtlantisConfig;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -25,7 +26,7 @@ abstract public class LightingProviderMixin implements LightEventListener {
 	@Inject(at = @At("TAIL"), method = "<init>")
 	public void init(LightChunkGetter chunkProvider, boolean hasBlockLight, boolean hasSkyLight, CallbackInfo ci) {
 		if(chunkProvider.getLevel() instanceof Level level){
-			if (DimensionAtlantis.isAtlantisDimension(level)) {
+			if (DimensionAtlantis.isAtlantisDimension(level) && AtlantisConfig.INSTANCE.shouldHavePerBiomeLighting.get()) {
 				skyEngine = hasSkyLight ? new AtlantisChunkSkylightProvider(chunkProvider) : null;
 			}
 		}
