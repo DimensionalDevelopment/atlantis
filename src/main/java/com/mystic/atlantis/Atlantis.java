@@ -1,6 +1,7 @@
 package com.mystic.atlantis;
 
 import com.mystic.atlantis.entities.blockbenchentities.*;
+import net.minecraftforge.fml.ModLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -94,6 +95,10 @@ public class Atlantis {
     public static ResourceKey<Level> getOverworldKey() {
         ResourceLocation OVERWORLD_ID = LevelStem.OVERWORLD.location();
         return ResourceKey.create(Registry.DIMENSION_REGISTRY, OVERWORLD_ID);
+    }
+
+    public static boolean ifRadon() {
+        return ModList.get().isLoaded("phospher");
     }
 
     public void onInitialize(IEventBus bus) {

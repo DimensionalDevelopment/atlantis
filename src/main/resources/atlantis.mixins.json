@@ -19,6 +19,7 @@
     "RedstoneAccessor",
     "RedstoneWireBlockMixin",
     "RenderBubblesMixin",
+    "SkyLightEngineRadonFix",
     "WorldLightManagerMixin"
   ],
   "client": [

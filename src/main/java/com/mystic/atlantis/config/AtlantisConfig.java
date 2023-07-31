@@ -29,6 +29,7 @@ public class AtlantisConfig implements ConfigData {
     public ForgeConfigSpec.BooleanValue turnOnDimensionalHaste;
     public ForgeConfigSpec.DoubleValue waterVisibility;
     public ForgeConfigSpec.BooleanValue shouldCitiesGenerate;
+    public ForgeConfigSpec.BooleanValue shouldHavePerBiomeLighting;
 
 
 
@@ -47,5 +48,6 @@ public class AtlantisConfig implements ConfigData {
         this.turnOnDimensionalHaste = builder.comment("Should Dimension Wide Haste Be On?").define("turnOnDimensionalHaste", true);
         this.waterVisibility = builder.comment("How far is visibility in Water?").defineInRange("waterVisibility", 120.0d, 1.0d, 200.0d);
         this.shouldCitiesGenerate = builder.comment("Can Atlantean Cities generate? (Warning may cause slight lag when generating!)").define("shouldCitiesGenerate", false);
+        this.shouldHavePerBiomeLighting = builder.comment("Should Per Biome Lighting for Atlantis be on? (Warning Radon will cause it to be always 0 in every biome)").define("shouldHavePerBiomeLighting", false);
     }
 }
