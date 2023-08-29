@@ -1,0 +1,29 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		" S ",
+		"SBS",
+		" S "
+	],
+	
+	"key":
+	{
+		"S":
+		{
+			"item": "minecraft:stone"
+		},
+		
+		"B":
+		{
+			"item": "minecraft:water_bucket"
+		}
+	},
+	
+	"result":
+	{
+		"item": "atlantis:ocean_stone",
+		"count": 4
+	}
+}					

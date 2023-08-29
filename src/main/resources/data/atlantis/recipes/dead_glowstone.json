@@ -1,0 +1,27 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"   ",
+		"WSW",
+		"   "
+	],
+	"key":
+	{
+		"W":
+		{
+			"item": "atlantis:sunken_gravel"
+		},
+
+		"S":
+		{
+			"item": "atlantis:cracked_glowstone"
+		}
+	},
+	"result":
+	{
+		"item": "atlantis:dead_glowstone",
+		"count": 3
+	}
+	
+}					

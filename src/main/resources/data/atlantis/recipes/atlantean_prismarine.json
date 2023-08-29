@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+
+	"ingredients":
+	[
+
+		{
+			"item": "minecraft:prismarine"
+		},
+
+		{
+			"item": "atlantis:ocean_stone"
+		}
+
+	],
+
+	"result":
+	{
+		"item": "atlantis:atlantean_prismarine",
+		"count": 1
+	}
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "addition": {
+    "item": "atlantis:orichalcum_ignot"
+  },
+  "base": {
+    "item": "atlantis:hoe_aquamarine"
+  },
+  "result": {
+    "item": "atlantis:orichalcum_hoe"
+  }
+}

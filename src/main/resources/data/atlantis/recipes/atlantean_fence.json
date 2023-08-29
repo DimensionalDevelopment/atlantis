@@ -1,0 +1,27 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"   ",
+		"WSW",
+		"WSW"
+	],
+	"key":
+	{
+		"W":
+		{
+			"item": "atlantis:atlantean_planks"
+		},
+
+		"S":
+		{
+			"item": "minecraft:stick"
+		}
+	},
+	"result":
+	{
+		"item": "atlantis:atlantean_fence",
+		"count": 3
+	}
+
+}	

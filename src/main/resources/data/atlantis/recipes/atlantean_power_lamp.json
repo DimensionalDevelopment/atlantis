@@ -1,0 +1,26 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		" S ",
+		"SWS",
+		" S "
+	],
+	"key":
+	{
+		"W":
+		{
+			"item": "minecraft:glowstone"
+		},
+		
+		"S":
+		{
+			"item": "atlantis:atlantean_power_dust"
+		}
+	},
+	"result":
+	{
+		"item": "atlantis:atlantean_power_lamp",
+		"count": 1
+	}
+}					

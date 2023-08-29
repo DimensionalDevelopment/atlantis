@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "atlantis:atlantean_fire_melon_spike"
+    },
+    "Y": {
+      "item": "minecraft:book"
+    },
+    "Z": {
+      "item": "minecraft:crafting_table"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "YZY",
+    "XXX"
+  ],
+  "result": {
+    "item": "atlantis:writing_block"
+  }
+}
