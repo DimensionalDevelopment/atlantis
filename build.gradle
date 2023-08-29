@@ -124,10 +124,6 @@ repositories {
         name = "IllusiveC4 Maven" //Curios
         url = "https://maven.theillusivec4.top/" 
     }
-    maven {
-		name = "Progwml6 maven" //JEI
-		url = "https://dvs1.progwml6.com/files/maven/"
-	}
 	maven { 
 	 	name = "Jitpack IO" //Jitpack
 		url 'https://jitpack.io' 
@@ -162,10 +158,10 @@ dependencies {
     implementation fg.deobf("curse.maven:expandability-forge-465066:${expandability_version}")
     implementation fg.deobf("curse.maven:radon-forge-596879:3822783")
 
-    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-    implementation fg.deobf("curse.maven:just-enough-resources-jer-240630:${jer_version}")
-	implementation fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:${jeed_version}")
+   //implementation fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+   //implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+   //implementation fg.deobf("curse.maven:just-enough-resources-jer-240630:${jer_version}")
+//implementation fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:${jeed_version}")
 
     implementation fg.deobf("curse.maven:appleskin-248787:${appleskin_version}")
 
