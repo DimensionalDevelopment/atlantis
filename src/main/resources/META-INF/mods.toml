@@ -1,11 +1,11 @@
 modLoader="javafml" 
-loaderVersion="[43,)" 
+loaderVersion="[47,)"
 license="LGPLv3"
 issueTrackerURL="https://github.com/Exploding-Creeper/atlantis/issues" 
 
 [[mods]] 
 modId="atlantis" 
-version="2023.7.25-1.19.2-3.0-forge"
+version="2023.8.8-1.20.1-1.0.0-forge"
 displayName="Atlantis" 
 displayURL="https://github.com/Exploding-Creeper/atlantis" 
 logoFile= "logo.png"
@@ -25,14 +25,14 @@ An Underwater Atlantis like dimension mod.
 [[dependencies.atlantis]]
     modId="forge"
     mandatory=true
-    versionRange="[43,)"
+    versionRange="[47,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.atlantis]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.2, 1.20)"
+    versionRange="[1.20.1, 1.20.2)"
     ordering="NONE"
     side="BOTH"
 
@@ -47,105 +47,62 @@ An Underwater Atlantis like dimension mod.
 [[dependencies.atlantis]] 
     modId="geckolib3"
     mandatory=true
-    versionRange="[3.1.18,)" 
+    versionRange="[4.2.2,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.atlantis]]
     modId="customportalapi"
     mandatory=true
-    versionRange="[0.0.1-beta50-1.19.2,)"
-    ordering="NONE"
-    side="BOTH"
-
-# Extras
-[[dependencies.atlantis]] 
-    modId="jei" 
-    mandatory=false 
-    versionRange="[11.2.0.247,)" 
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.atlantis]] 
-    modId="justenoughresources" 
-    mandatory=false 
-    versionRange="[1.2.1.189,)" 
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.atlantis]] 
-    modId="jeed" 
-    mandatory=false 
-    versionRange="[1.18,)" 
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.atlantis]] 
-    modId="roughlyenoughitems" 
-    mandatory=false 
-    versionRange="[9.1.580,)" 
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.atlantis]] 
-    modId="roughlyenoughresources" 
-    mandatory=false 
-    versionRange="[2.5.2,)" 
+    versionRange="[0.0.1-forge-1.20,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.atlantis]] 
     modId="architectury" 
     mandatory=false 
-    versionRange="[6.4.62,)" 
+    versionRange="[9.1.12,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.atlantis]] 
     modId="curios" 
     mandatory=false 
-    versionRange="[1.19.2-5.1.1.0,)" 
+    versionRange="[1.20.1-5.3.1,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.atlantis]] 
     modId="clothconfig" 
     mandatory=false 
-    versionRange="[8.2.88,)" 
+    versionRange="[11.1.106,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.atlantis]] 
     modId="expandability" 
     mandatory=false 
-    versionRange="[7.0.0,)" 
+    versionRange="[9.0.0,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.atlantis]] 
     modId="artifacts" 
     mandatory=false 
-    versionRange="[1.19.2-5.0.1,)" 
+    versionRange="[1.20.1-9.0.5,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.atlantis]] 
-    modId="configured" 
-    mandatory=false 
-    versionRange="[2.0.1,)" 
-    ordering="NONE"
-    side="CLIENT"
-
-[[dependencies.atlantis]] 
     modId="catalogue" 
     mandatory=false 
-    versionRange="[1.7.0,)" 
+    versionRange="[1.7.1,)"
     ordering="NONE"
     side="CLIENT"
 
 [[dependencies.atlantis]] 
     modId="appleskin"
     mandatory=false 
-    versionRange="[2.4.2,)" 
+    versionRange="[2.5.0,)"
     ordering="NONE"
     side="CLIENT"

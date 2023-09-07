@@ -1,13 +1,13 @@
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        maven { url = 'https://maven.minecraftforge.net/' }
+        maven { url = 'https://maven.neoforged.net/releases' }
         maven { url = 'https://maven.parchmentmc.org' }
     }
     resolutionStrategy {
         eachPlugin {
             switch (requested.id.toString()) {
-                case "net.minecraftforge.gradle": {
+                case "net.neoforged:forge": {
                     useModule("${requested.id}:ForgeGradle:${requested.version}")
                     break
                 }
