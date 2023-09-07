@@ -1,40 +1,22 @@
 package com.mystic.atlantis;
 
-import com.mystic.atlantis.entities.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.mystic.atlantis.blocks.base.ExtendedBlockEntity;
 import com.mystic.atlantis.capiablities.player.IPlayerCap;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
 import com.mystic.atlantis.datagen.Providers;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
-import com.mystic.atlantis.init.AtlantisEntityInit;
-import com.mystic.atlantis.init.AtlantisGroupInit;
-import com.mystic.atlantis.init.AtlantisModifierInit;
-import com.mystic.atlantis.init.AtlantisSoundEventInit;
-import com.mystic.atlantis.init.BlockInit;
-import com.mystic.atlantis.init.EffectsInit;
-import com.mystic.atlantis.init.FluidInit;
-import com.mystic.atlantis.init.FluidTypesInit;
-import com.mystic.atlantis.init.ItemInit;
-import com.mystic.atlantis.init.MenuTypeInit;
-import com.mystic.atlantis.init.PaintingVariantsInit;
-import com.mystic.atlantis.init.RecipesInit;
-import com.mystic.atlantis.init.TileEntityInit;
-import com.mystic.atlantis.init.ToolInit;
+import com.mystic.atlantis.entities.*;
+import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.particles.ModParticleTypes;
 import com.mystic.atlantis.screen.LinguisticScreen;
 import com.mystic.atlantis.screen.WritingScreen;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
-
 import me.shedaniel.autoconfig.AutoConfig;
-import net.kyrptonaught.customportalapi.CustomPortalBlock;
 import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -55,8 +37,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import software.bernie.example.GeckoLibMod;
-import software.bernie.geckolib3.GeckoLib;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import software.bernie.geckolib.GeckoLib;
 
 @Mod(Reference.MODID)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -93,12 +76,12 @@ public class Atlantis {
     //Don't remove needed for legacy portal block!
     public static ResourceKey<Level> getOverworldKey() {
         ResourceLocation OVERWORLD_ID = LevelStem.OVERWORLD.location();
-        return ResourceKey.create(Registry.DIMENSION_REGISTRY, OVERWORLD_ID);
+        return ResourceKey.create(Registries.DIMENSION, OVERWORLD_ID);
     }
 
     public void onInitialize(IEventBus bus) {
         GeckoLib.initialize();
-        GeckoLibMod.DISABLE_IN_DEV = true;
+//        GeckoLibMod.DISABLE_IN_DEV = true; TODO: Fix
         BlockInit.init(bus);
         ItemInit.init(bus);
         PaintingVariantsInit.init(bus);
@@ -136,10 +119,8 @@ public class Atlantis {
                 .customPortalBlock(BlockInit.ATLANTIS_CLEAR_PORTAL.get())
                 .registerPortal();
 
-        GeckoLibMod.DISABLE_IN_DEV = true;
-        event.enqueueWork(() -> {
-            DimensionAtlantis.registerBiomeSources();
-        });
+//        GeckoLibMod.DISABLE_IN_DEV = true; TODO: FIX
+        event.enqueueWork(DimensionAtlantis::registerBiomeSources);
 
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get());
 

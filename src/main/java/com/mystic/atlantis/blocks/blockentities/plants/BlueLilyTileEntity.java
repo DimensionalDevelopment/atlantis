@@ -1,39 +1,11 @@
 package com.mystic.atlantis.blocks.blockentities.plants;
 
 import com.mystic.atlantis.init.TileEntityInit;
-
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class BlueLilyTileEntity extends BlockEntity implements IAnimatable {
-    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    private final AnimationController<BlueLilyTileEntity> mainController = new AnimationController<BlueLilyTileEntity>(this, "bluelilycontroller", 0, this::predicate);
-
+public class BlueLilyTileEntity extends GeneralPlantBlockEntity<BlueLilyTileEntity> {
     public BlueLilyTileEntity(BlockPos targetPos, BlockState targetState) {
-        super(TileEntityInit.BLUE_LILY_TILE.get(), targetPos, targetState);
-    }
-
-    private <E extends BlockEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        AnimationController<?> controller = event.getController();
-        controller.transitionLengthTicks = 0;
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(mainController);
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+        super(TileEntityInit.BLUE_LILY_TILE, "bluelily_controller", targetPos, targetState);
     }
 }

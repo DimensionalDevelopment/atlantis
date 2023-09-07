@@ -3,11 +3,11 @@ package com.mystic.atlantis.blocks.plants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.GlowLichenBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 
 public class AlgaePlantBlock extends GlowLichenBlock {
 
@@ -36,6 +36,6 @@ public class AlgaePlantBlock extends GlowLichenBlock {
     }
 
     public static boolean isWaterAt(BlockState targetState) {
-        return targetState.getMaterial() == Material.WATER;
+        return targetState.is(Blocks.WATER);
     }
 }

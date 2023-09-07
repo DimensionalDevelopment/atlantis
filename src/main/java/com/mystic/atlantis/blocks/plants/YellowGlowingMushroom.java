@@ -115,7 +115,7 @@ public class YellowGlowingMushroom extends BushBlock implements SimpleWaterlogge
     public boolean canPlaceBlockAt(LevelReader worldReader, BlockPos pos) {
         BlockState state = worldReader.getBlockState(pos.below());
 
-        if (worldReader.getBlockState(pos.above()).getMaterial() != Material.WATER)
+        if (worldReader.getBlockState(pos.above()).is(Blocks.WATER))
         {
             return true;
         }

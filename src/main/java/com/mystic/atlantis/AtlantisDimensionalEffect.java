@@ -2,8 +2,7 @@ package com.mystic.atlantis;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
@@ -12,6 +11,7 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix4f;
 
 public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
     public static AtlantisDimensionalEffect INSTANCE = new AtlantisDimensionalEffect();
@@ -33,7 +33,7 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
         drawMoonPhases(tickDelta, matrixStack, world);
         matrixStack.popPose();
         RenderSystem.depthMask(true);
-        RenderSystem.enableTexture();
+//        RenderSystem.enableTexture();
         RenderSystem.disableBlend();
         RenderSystem.enableDepthTest();
         return true;
@@ -47,8 +47,8 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
         VertexFormat.Mode drawMode = VertexFormat.Mode.QUADS;
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, SUN_TEXTURES);
-        matrix.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
-        matrix.mulPose(Vector3f.XP.rotationDegrees(world.getTimeOfDay(partialTicks) * 360));
+        matrix.mulPose(Axis.YP.rotationDegrees(-90.0F));
+        matrix.mulPose(Axis.XP.rotationDegrees(world.getTimeOfDay(partialTicks) * 360));
         Matrix4f matrix4f = matrix.last().pose();
         bufferbuilder.begin(drawMode, DefaultVertexFormat.POSITION_TEX);
         bufferbuilder.vertex(matrix4f, (-size), 100.0F, (-size)).uv(0.0F, 0.0F).endVertex();
@@ -66,7 +66,7 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
         VertexFormat.Mode drawMode = VertexFormat.Mode.QUADS;
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, MOON_PHASES_TEXTURES);
-        matrix.mulPose(Vector3f.XP.rotationDegrees((world.getTimeOfDay(partialTicks) * 360) * 0.0015F));
+        matrix.mulPose(Axis.XP.rotationDegrees((world.getTimeOfDay(partialTicks) * 360) * 0.0015F));
         int k1 = world.getMoonPhase();
         int i2 = k1 % 4;
         int k2 = k1 / 4 % 2;

@@ -2,7 +2,7 @@ package com.mystic.atlantis.blocks.base;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 
 public class SeaBedBlock extends Block {
 	
@@ -10,7 +10,7 @@ public class SeaBedBlock extends Block {
         super(settings
         		.strength(1.0f, 6.0f)
         		.sound(SoundType.STONE)
-        		.color(MaterialColor.STONE)
+				.mapColor(MapColor.STONE)
         		.requiresCorrectToolForDrops());
     }
 }

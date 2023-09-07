@@ -2,6 +2,8 @@ package com.mystic.atlantis.setup;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.mystic.atlantis.AtlantisDimensionalEffect;
+import com.mystic.atlantis.blocks.blockentities.plants.BlueLilyTileEntity;
+import com.mystic.atlantis.blocks.blockentities.plants.GeneralPlantBlockEntity;
 import com.mystic.atlantis.blocks.blockentities.renderers.*;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.models.*;
@@ -19,11 +21,14 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -57,20 +62,15 @@ public class ClientSetup {
         ItemBlockRenderTypes.setRenderLayer(FluidInit.SALTY_SEA_WATER.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_SALTY_SEA_WATER.get(), RenderType.translucent());
 
-        BlockEntityRenderers.register(TileEntityInit.UNDERWATER_SHROOM_TILE.get(),
-                UnderwaterShroomTileRenderer::new);
+        registerPlantRenderer(TileEntityInit.UNDERWATER_SHROOM_TILE, "underwater_shroom");
 
-        BlockEntityRenderers.register(TileEntityInit.TUBER_UP_TILE.get(),
-                TuberUpTileRenderer::new);
+        registerPlantRenderer(TileEntityInit.TUBER_UP_TILE, "tuber_up");
 
-        BlockEntityRenderers.register(TileEntityInit.BLUE_LILY_TILE.get(),
-                BlueLilyTileRenderer::new);
+        registerPlantRenderer(TileEntityInit.BLUE_LILY_TILE, "blue_lily");
 
-        BlockEntityRenderers.register(TileEntityInit.BURNT_DEEP_TILE.get(),
-                BurntDeepTileRenderer::new);
+        registerPlantRenderer(TileEntityInit.BURNT_DEEP_TILE, "burnt_deep");
 
-        BlockEntityRenderers.register(TileEntityInit.ENENMOMY_TILE.get(),
-                EnenmomyTileRenderer::new);
+        registerPlantRenderer(TileEntityInit.ENENMOMY_TILE, "enenmomy");
 
         registerBlockRenderLayers(RenderType.cutout(),
                 BlockInit.BLUE_LILY_BLOCK.get(),
@@ -131,6 +131,10 @@ public class ClientSetup {
                 BlockInit.ATLANTIS_CLEAR_PORTAL.get());
 
         DimensionSpecialEffects.EFFECTS.put(DimensionAtlantis.ATLANTIS_DIMENSION_EFFECT, AtlantisDimensionalEffect.INSTANCE);
+    }
+
+    private static <T extends GeneralPlantBlockEntity<T>> void registerPlantRenderer(RegistryObject<BlockEntityType<T>> registryObject, String name) {
+        BlockEntityRenderers.register(registryObject.get(), pContext -> new GeneralPlantRenderer<T>(name));
     }
 
     @SubscribeEvent
