@@ -1,6 +1,6 @@
 package com.mystic.atlantis.inventory;
 
-import com.mystic.atlantis.blocks.LinguisticGlyph;
+import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.GlyphBlock;
 import com.mystic.atlantis.init.MenuTypeInit;

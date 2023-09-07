@@ -64,7 +64,7 @@ public class TuberUpBlock extends BushBlock implements EntityBlock, SimpleWaterl
 
 	@Override
 	public RenderShape getRenderShape(BlockState targetState) {
-		return RenderShape.ENTITYBLOCK_ANIMATED;
+		return RenderShape.MODEL;
 	}
 
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {

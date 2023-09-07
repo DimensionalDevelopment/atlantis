@@ -1,15 +1,15 @@
 package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.blocks.power.atlanteanstone.SodiumPrimedBombBlock;
-import com.mystic.atlantis.entities.blockbenchentities.AtlanteanBoatEntity;
-import com.mystic.atlantis.entities.blockbenchentities.CrabEntity;
-import com.mystic.atlantis.entities.blockbenchentities.JellyfishEntity;
-import com.mystic.atlantis.entities.blockbenchentities.LeviathanEntity;
-import com.mystic.atlantis.entities.blockbenchentities.SeahorseEntity;
-import com.mystic.atlantis.entities.blockbenchentities.ShrimpEntity;
-import com.mystic.atlantis.entities.blockbenchentities.StarfishEntity;
-import com.mystic.atlantis.entities.blockbenchentities.StarfishZomEntity;
-import com.mystic.atlantis.entities.blockbenchentities.SubmarineEntity;
+import com.mystic.atlantis.entities.AtlanteanBoatEntity;
+import com.mystic.atlantis.entities.CrabEntity;
+import com.mystic.atlantis.entities.JellyfishEntity;
+import com.mystic.atlantis.entities.LeviathanEntity;
+import com.mystic.atlantis.entities.SeahorseEntity;
+import com.mystic.atlantis.entities.ShrimpEntity;
+import com.mystic.atlantis.entities.StarfishEntity;
+import com.mystic.atlantis.entities.StarfishZomEntity;
+import com.mystic.atlantis.entities.SubmarineEntity;
 import com.mystic.atlantis.util.Reference;
 
 import net.minecraft.world.entity.Entity;

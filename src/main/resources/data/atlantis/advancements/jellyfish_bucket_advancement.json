@@ -4,7 +4,7 @@
             "item": "atlantis:jellyfish_bucket"
         },
         "title": {
-            "text": "Squishy Jellies (Part 1)",
+            "text": "Squishy Jellies",
             "color": "aqua",
             "bold": false,
             "italic": false,
@@ -13,7 +13,7 @@
             "obfuscated": false
         },
         "description": {
-            "text": "Pick up a jellyfish var. 1 in a bucket",
+            "text": "Pick up a jellyfish in a bucket",
             "color": "blue",
             "bold": false,
             "italic": false,

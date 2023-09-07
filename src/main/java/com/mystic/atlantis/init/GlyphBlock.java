@@ -1,6 +1,6 @@
 package com.mystic.atlantis.init;
 
-import com.mystic.atlantis.blocks.LinguisticGlyph;
+import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;

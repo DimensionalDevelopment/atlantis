@@ -1,6 +1,5 @@
 package com.mystic.atlantis.datagen;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -10,14 +9,14 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import com.mojang.datafixers.util.Pair;
-import com.mystic.atlantis.blocks.AtlanteanFireMelonFruitBlock;
-import com.mystic.atlantis.blocks.AtlanteanFireMelonSpikedFruitBlock;
-import com.mystic.atlantis.blocks.AtlanteanPrismarineBlock;
-import com.mystic.atlantis.blocks.AtlantianSeaLanternBlock;
-import com.mystic.atlantis.blocks.OceanLanternBlock;
-import com.mystic.atlantis.blocks.PearlBlock;
-import com.mystic.atlantis.blocks.SeaSaltChunkBlock;
-import com.mystic.atlantis.blocks.SunkenGravelBlock;
+import com.mystic.atlantis.blocks.base.AtlanteanFireMelonFruitBlock;
+import com.mystic.atlantis.blocks.base.AtlanteanFireMelonSpikedFruitBlock;
+import com.mystic.atlantis.blocks.base.AtlanteanPrismarineBlock;
+import com.mystic.atlantis.blocks.base.AtlantianSeaLanternBlock;
+import com.mystic.atlantis.blocks.base.OceanLanternBlock;
+import com.mystic.atlantis.blocks.base.PearlBlock;
+import com.mystic.atlantis.blocks.base.SeaSaltChunkBlock;
+import com.mystic.atlantis.blocks.base.SunkenGravelBlock;
 import com.mystic.atlantis.blocks.plants.AtlanteanSaplingBlock;
 import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
 import com.mystic.atlantis.blocks.shells.OysterShellBlock;

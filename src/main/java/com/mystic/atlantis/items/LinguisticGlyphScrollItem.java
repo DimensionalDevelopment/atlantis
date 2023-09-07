@@ -1,6 +1,6 @@
 package com.mystic.atlantis.items;
 
-import com.mystic.atlantis.blocks.LinguisticGlyph;
+import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.init.AtlantisGroupInit;
 
 import net.minecraft.world.item.Item;

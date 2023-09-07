@@ -1,11 +1,10 @@
 package com.mystic.atlantis;
 
-import com.mystic.atlantis.entities.blockbenchentities.*;
-import net.minecraftforge.fml.ModLoader;
+import com.mystic.atlantis.entities.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.mystic.atlantis.blocks.ExtendedBlockEntity;
+import com.mystic.atlantis.blocks.base.ExtendedBlockEntity;
 import com.mystic.atlantis.capiablities.player.IPlayerCap;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.configfeature.AtlantisFeature;
@@ -97,10 +96,6 @@ public class Atlantis {
         return ResourceKey.create(Registry.DIMENSION_REGISTRY, OVERWORLD_ID);
     }
 
-    public static boolean ifRadon() {
-        return ModList.get().isLoaded("phospher");
-    }
-
     public void onInitialize(IEventBus bus) {
         GeckoLib.initialize();
         GeckoLibMod.DISABLE_IN_DEV = true;
@@ -138,7 +133,7 @@ public class Atlantis {
                 .flatPortal()
                 .destDimID(new ResourceLocation("atlantis", "atlantis"))
                 .tintColor(0, 125, 255)
-                .customPortalBlock((CustomPortalBlock) BlockInit.ATLANTIS_CLEAR_PORTAL.get())
+                .customPortalBlock(BlockInit.ATLANTIS_CLEAR_PORTAL.get())
                 .registerPortal();
 
         GeckoLibMod.DISABLE_IN_DEV = true;

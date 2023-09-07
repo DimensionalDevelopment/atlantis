@@ -3,7 +3,7 @@ package com.mystic.atlantis.items;
 import java.util.List;
 import java.util.function.Predicate;
 
-import com.mystic.atlantis.entities.blockbenchentities.AtlanteanBoatEntity;
+import com.mystic.atlantis.entities.AtlanteanBoatEntity;
 import com.mystic.atlantis.init.AtlantisEntityInit;
 
 import net.minecraft.core.BlockPos;

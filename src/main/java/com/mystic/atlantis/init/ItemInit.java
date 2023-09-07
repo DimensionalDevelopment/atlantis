@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import com.mystic.atlantis.blocks.LinguisticGlyph;
+import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.items.*;
 import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.armor.ItemArmorAtlantis;

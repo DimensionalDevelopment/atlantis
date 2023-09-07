@@ -1,11 +1,10 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
-import com.mystic.atlantis.blocks.LinguisticGlyph;
+import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
