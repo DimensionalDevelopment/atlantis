@@ -77,7 +77,7 @@ public class AtlantisChunkSkylightProvider extends SkyLightEngine {
             }
         }
     }
-    
+
     @Override
     protected void propagateDecrease(long pPackedPos, long pLightLevel) {
         int i = this.countEmptySectionsBelowIfAtBorder(pPackedPos);
