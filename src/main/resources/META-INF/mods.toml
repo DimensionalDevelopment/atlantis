@@ -54,7 +54,7 @@ An Underwater Atlantis like dimension mod.
 [[dependencies.atlantis]]
     modId="customportalapi"
     mandatory=true
-    versionRange="[0.0.1-forge-1.20,)"
+    versionRange="[0.0.1-beta1-1.20,)"
     ordering="NONE"
     side="BOTH"
 
