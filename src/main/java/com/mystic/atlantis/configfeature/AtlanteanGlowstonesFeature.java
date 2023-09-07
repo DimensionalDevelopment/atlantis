@@ -7,11 +7,11 @@ import com.mystic.atlantis.util.FastNoiseLite;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.material.Material;
 
 public class AtlanteanGlowstonesFeature extends Feature<NoneFeatureConfiguration> {
 
@@ -32,7 +32,7 @@ public class AtlanteanGlowstonesFeature extends Feature<NoneFeatureConfiguration
             return false;
         }
 
-        if (context.level().getBlockState(context.origin().below()).getMaterial() == Material.AIR || context.level().getBlockState(context.origin().below()).getMaterial() == Material.WATER || context.level().getBlockState(context.origin().below()).getMaterial() == Material.LAVA || context.level().getHeight(Heightmap.Types.OCEAN_FLOOR_WG, context.origin().getX(), context.origin().getZ()) < 4)
+        if (context.level().getBlockState(context.origin().below()).isAir() || context.level().getBlockState(context.origin().below()).is(Blocks.WATER) || context.level().getBlockState(context.origin().below()).is(Blocks.LAVA) || context.level().getHeight(Heightmap.Types.OCEAN_FLOOR_WG, context.origin().getX(), context.origin().getZ()) < 4)
             return false;
 
         if(AtlantisConfig.INSTANCE.glowstoneCrystsOn.get()) {

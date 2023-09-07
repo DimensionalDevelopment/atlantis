@@ -1,13 +1,9 @@
 package com.mystic.atlantis.blocks.power.atlanteanstone;
 
-import java.util.Set;
-
 import com.google.common.collect.Sets;
-import com.mojang.math.Vector3f;
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.mixin.RedstoneAccessor;
-
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,6 +25,8 @@ import net.minecraft.world.level.block.state.properties.RedstoneSide;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.Set;
 
 public class AtlanteanPowerDustBlock extends RedStoneWireBlock implements SimpleWaterloggedBlock {
 	public static final Property<Boolean> WATERLOGGED = UnderwaterFlower.WATERLOGGED;
@@ -78,7 +76,7 @@ public class AtlanteanPowerDustBlock extends RedStoneWireBlock implements Simple
 			double targetX = 0.5D + (double)(0.4375F * (float)curDir.getStepX()) + (double)(offset * (float)targetDir.getStepX());
 			double targetY = 0.5D + (double)(0.4375F * (float)curDir.getStepY()) + (double)(offset * (float)targetDir.getStepY());
 			double targetZ = 0.5D + (double)(0.4375F * (float)curDir.getStepZ()) + (double)(offset * (float)targetDir.getStepZ());
-			level.addParticle(new DustParticleOptions(new Vector3f(spawnVec), 1.0F), (double)targetPos.getX() + targetX, (double)targetPos.getY() + targetY, (double)targetPos.getZ() + targetZ, 0.0D, 0.0D, 0.0D);
+			level.addParticle(new DustParticleOptions(spawnVec.toVector3f(), 1.0F), (double)targetPos.getX() + targetX, (double)targetPos.getY() + targetY, (double)targetPos.getZ() + targetZ, 0.0D, 0.0D, 0.0D);
 		}
 	}
 

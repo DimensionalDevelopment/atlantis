@@ -1,20 +1,19 @@
 package com.mystic.atlantis.entities;
 
-import org.jetbrains.annotations.NotNull;
-
 import com.mystic.atlantis.init.ItemInit;
-
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class AtlanteanBoatEntity extends Boat implements IAnimatable {
+public class AtlanteanBoatEntity extends Boat implements GeoEntity {
 
-    private AnimationFactory factory = new AnimationFactory(this);
+    private AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
     public AtlanteanBoatEntity(EntityType<? extends Boat> arg, Level arg2) {
         super(arg, arg2);
@@ -26,10 +25,10 @@ public class AtlanteanBoatEntity extends Boat implements IAnimatable {
     }
 
     @Override
-    public void registerControllers(AnimationData data) {}
+    public void registerControllers(AnimatableManager.ControllerRegistrar data) {}
 
     @Override
-    public AnimationFactory getFactory() {
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
     }
 }

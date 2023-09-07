@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.power.energy;
 
+import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.Nullable;
 
 import com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator;
@@ -24,7 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 
@@ -34,7 +34,7 @@ public class CrystalGeneratorBlock extends BaseEntityBlock {
     public CrystalGeneratorBlock(Properties settings) {
         super(settings
                 .strength(3.5F)
-                .color(MaterialColor.COLOR_LIGHT_BLUE)
+                .mapColor(MapColor.COLOR_LIGHT_BLUE)
                 .lightLevel((state) -> 5)
                 .sound(SoundType.AMETHYST));
     }

@@ -2,7 +2,6 @@ package com.mystic.atlantis.entities;
 
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.mixin.BoatEntityAccessor;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -19,22 +18,23 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class SubmarineEntity extends Boat implements IAnimatable {
+public class SubmarineEntity extends Boat implements GeoEntity {
     public boolean pressingForward;
     public float prevRoll = 0;
     public float rotorAngle;
-    private AnimationFactory factory = new AnimationFactory(this);
+    private AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
     public SubmarineEntity(EntityType<? extends Boat> entityType, Level world) {
         super(entityType, world);
-        this.maxUpStep = 1.0F;
+        this.setMaxUpStep(1.0F);
     }
     @Override
     public Item getDropItem() {
@@ -69,15 +69,18 @@ public class SubmarineEntity extends Boat implements IAnimatable {
     protected boolean canAddPassenger(Entity passenger) {
         return this.getPassengers().size() < 2;
     }
-    @Override
-    public void positionRider(Entity passenger) {
-        super.positionRider(passenger);
-        if (this.hasPassenger(passenger)) {
-            if (passenger instanceof LivingEntity livingEntity) {
+
+    protected void positionRider(Entity pPassenger, Entity.MoveFunction pCallback) {
+        super.positionRider(pPassenger, pCallback);
+
+        if (this.hasPassenger(pPassenger)) {
+            if (pPassenger instanceof LivingEntity livingEntity) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION,2,1,true,false,false));
             }
         }
     }
+
+
     public void setInput(boolean pressingLeft, boolean pressingRight, boolean pressingForward, boolean pressingBack) {
         super.setInput(pressingLeft,pressingRight,pressingForward,pressingBack);
         this.pressingForward = pressingForward;
@@ -99,10 +102,10 @@ public class SubmarineEntity extends Boat implements IAnimatable {
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this,"main", 0f, event -> {
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<>(this,"main", 0, event -> {
             if(event.isMoving()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));
+                event.getController().setAnimation(RawAnimation.begin().thenLoop("idle"));
                 return PlayState.CONTINUE;
             } else {
                 return PlayState.STOP;
@@ -111,7 +114,7 @@ public class SubmarineEntity extends Boat implements IAnimatable {
     }
 
     @Override
-    public AnimationFactory getFactory() {
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
     }
 }

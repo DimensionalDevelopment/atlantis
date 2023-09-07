@@ -1,7 +1,6 @@
 package com.mystic.atlantis.entities;
 
 import com.mystic.atlantis.init.ItemInit;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,18 +27,20 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class ShrimpEntity extends AbstractSchoolingFish implements IAnimatable, Bucketable {
-    private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.shrimp.idle", true);
+public class ShrimpEntity extends AbstractSchoolingFish implements GeoEntity, Bucketable {
+    private static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.shrimp.idle");
 
-    private final AnimationFactory factory = new AnimationFactory(this);
+    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
     public ShrimpEntity(EntityType<? extends AbstractSchoolingFish> entityType, Level world) {
         super(entityType, world);
@@ -133,8 +134,8 @@ public class ShrimpEntity extends AbstractSchoolingFish implements IAnimatable, 
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
     }
 
     @Override
@@ -143,12 +144,12 @@ public class ShrimpEntity extends AbstractSchoolingFish implements IAnimatable, 
     }
 
     @Override
-    public AnimationFactory getFactory() {
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
     }
 
 
-    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+    private <P extends GeoAnimatable> PlayState predicate(AnimationState<P> event) {
         event.getController().setAnimation(IDLE_ANIMATION);
 
         return PlayState.CONTINUE;

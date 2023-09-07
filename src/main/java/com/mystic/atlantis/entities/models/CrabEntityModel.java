@@ -2,11 +2,10 @@ package com.mystic.atlantis.entities.models;
 
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.entities.CrabEntity;
-
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class CrabEntityModel extends AnimatedGeoModel<CrabEntity> {
+public class CrabEntityModel extends GeoModel<CrabEntity> {
     @Override
     public ResourceLocation getModelResource(CrabEntity object) {
         return Atlantis.id("geo/crab.geo.json");

@@ -5,18 +5,18 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PoweredBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 
 public class AtlanteanPowerStoneBlock extends PoweredBlock {
 
     public AtlanteanPowerStoneBlock(Properties settings) {
         super(settings
                 .sound(SoundType.STONE)
-                .color(MaterialColor.COLOR_BLUE));
+                .mapColor(MapColor.COLOR_BLUE));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class AtlanteanPowerStoneBlock extends PoweredBlock {
     }
 
     public boolean isSubmergedInWater(BlockGetter getter, BlockPos targetPos){
-        return getter.getBlockState(targetPos.above()).getMaterial() == Material.WATER;
+        return getter.getBlockState(targetPos.above()).is(Blocks.WATER);
     }
 
 }

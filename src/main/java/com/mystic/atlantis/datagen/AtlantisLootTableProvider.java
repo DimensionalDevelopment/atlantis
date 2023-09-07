@@ -1,22 +1,6 @@
 package com.mystic.atlantis.datagen;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-
-import com.mojang.datafixers.util.Pair;
-import com.mystic.atlantis.blocks.base.AtlanteanFireMelonFruitBlock;
-import com.mystic.atlantis.blocks.base.AtlanteanFireMelonSpikedFruitBlock;
-import com.mystic.atlantis.blocks.base.AtlanteanPrismarineBlock;
-import com.mystic.atlantis.blocks.base.AtlantianSeaLanternBlock;
-import com.mystic.atlantis.blocks.base.OceanLanternBlock;
-import com.mystic.atlantis.blocks.base.PearlBlock;
-import com.mystic.atlantis.blocks.base.SeaSaltChunkBlock;
-import com.mystic.atlantis.blocks.base.SunkenGravelBlock;
+import com.mystic.atlantis.blocks.base.*;
 import com.mystic.atlantis.blocks.plants.AtlanteanSaplingBlock;
 import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
 import com.mystic.atlantis.blocks.shells.OysterShellBlock;
@@ -24,12 +8,12 @@ import com.mystic.atlantis.init.AtlantisEntityInit;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Reference;
-
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.loot.BlockLoot;
-import net.minecraft.data.loot.EntityLoot;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.loot.packs.VanillaBlockLoot;
+import net.minecraft.data.loot.packs.VanillaEntityLoot;
+import net.minecraft.data.loot.packs.VanillaLootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
@@ -48,7 +32,6 @@ import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
@@ -56,20 +39,25 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWit
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AtlantisLootTableProvider extends LootTableProvider {
 
 	public AtlantisLootTableProvider(DataGenerator pGenerator) {
-		super(pGenerator);
+		super(pGenerator.getPackOutput(), Set.of(), VanillaLootTableProvider.create(pGenerator.getPackOutput()).getTables());
 	}
 
-	@Override
-	public String getName() {
-		return Reference.NAME + ": ";
-	}
+//	@Override
+//	public String getName() {
+//		return Reference.NAME + ": ";
+//	}
 
 	@Override
 	protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationtracker) {
@@ -77,15 +65,15 @@ public class AtlantisLootTableProvider extends LootTableProvider {
 	}
 
 	@Override
-	protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
-		return List.of(Pair.of(AtlantisBlockLootTableProvider::new, LootContextParamSets.BLOCK));
+	public List<SubProviderEntry> getTables() {
+		return List.of(new SubProviderEntry(AtlantisBlockLootTableProvider::new, LootContextParamSets.BLOCK));
 	}
 
-	public static class AtlantisBlockLootTableProvider extends BlockLoot {
+	public static class AtlantisBlockLootTableProvider extends VanillaBlockLoot {
 		private static final float[] NORMAL_LEAVES_SAPLING_CHANCES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
 
 		@Override
-		protected void addTables() {
+		protected void generate() {
 			for (RegistryObject<Block> blockGenEntry : BlockInit.BLOCKS.getEntries()) {
 				Block blockEntry = blockGenEntry.get();
 
@@ -97,8 +85,8 @@ public class AtlantisLootTableProvider extends LootTableProvider {
 				else if (blockEntry instanceof DropExperienceBlock) add(blockEntry, createOreDrop(blockEntry, ItemInit.AQUAMARINE_GEM.get())); //TODO Unhard-code
 				else if (blockEntry instanceof SunkenGravelBlock) add(blockEntry, createGravelDrop(blockEntry, Items.GLOWSTONE));
 				else if (blockEntry instanceof AtlanteanSaplingBlock) add(blockEntry, createLeavesDrops(blockEntry, BlockInit.ATLANTEAN_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
-				else if (blockEntry instanceof AtlanteanFireMelonFruitBlock) add(blockEntry, createToolOnlyDrop(blockEntry, Tags.Items.TOOLS_HOES));
-				else if (blockEntry instanceof AtlanteanFireMelonSpikedFruitBlock) add(blockEntry, createToolOnlyDrop(blockEntry, Tags.Items.TOOLS_HOES, Tags.Items.SHEARS, ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get()));
+//				else if (blockEntry instanceof AtlanteanFireMelonFruitBlock) add(blockEntry, createToolOnlyDrop(blockEntry, BlockTags.TOOLS_HOES)); //TODO FIX
+//				else if (blockEntry instanceof AtlanteanFireMelonSpikedFruitBlock) add(blockEntry, createToolOnlyDrop(blockEntry, Tags.Items.TOOLS_HOES, Tags.Items.SHEARS, ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get()));
 				else if (blockEntry instanceof AtlantianSeaLanternBlock || blockEntry instanceof OceanLanternBlock) add(blockEntry, createSeaLanternDrop(blockEntry));
 				else dropSelf(blockEntry);
 			}
@@ -111,15 +99,15 @@ public class AtlantisLootTableProvider extends LootTableProvider {
 					.collect(Collectors.toList());
 		}
 
-		private static LootTable.Builder createGravelDrop(Block gravelBlock) {
+		private LootTable.Builder createGravelDrop(Block gravelBlock) {
 			return createSilkTouchDispatchTable(gravelBlock, applyExplosionCondition(gravelBlock, LootItem.lootTableItem(Items.FLINT).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).otherwise(LootItem.lootTableItem(gravelBlock))));
 		}
 
-		private static LootTable.Builder createGravelDrop(Block gravelBlock, Item altItem) {
+		private LootTable.Builder createGravelDrop(Block gravelBlock, Item altItem) {
 			return createSilkTouchDispatchTable(gravelBlock, applyExplosionCondition(gravelBlock, LootItem.lootTableItem(altItem).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).otherwise(LootItem.lootTableItem(gravelBlock))));
 		}
 		
-		private static LootTable.Builder createSeaLanternDrop(Block seaLanternBlock) {
+		private LootTable.Builder createSeaLanternDrop(Block seaLanternBlock) {
 			return createSilkTouchDispatchTable(seaLanternBlock, applyExplosionDecay(seaLanternBlock, LootItem.lootTableItem(Items.PRISMARINE_CRYSTALS).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE)).apply(LimitCount.limitCount(IntRange.range(1, 5)))));
 		}
 		
@@ -137,9 +125,9 @@ public class AtlantisLootTableProvider extends LootTableProvider {
 
 	}
 
-	public static class AtlantisEntityLootTableProvider extends EntityLoot {
+	public static class AtlantisEntityLootTableProvider extends VanillaEntityLoot {
 		@Override
-		protected void addTables() {
+		public void generate() {
 			for (RegistryObject<EntityType<? extends Entity>> entityGetEntry : AtlantisEntityInit.ENTITIES.getEntries()) {
 
 				EntityType<?> entityTypeEntry = entityGetEntry.get();

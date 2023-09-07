@@ -1,15 +1,7 @@
 package com.mystic.atlantis.entities;
 
-import java.util.concurrent.ThreadLocalRandom;
-
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import com.mystic.atlantis.init.ItemInit;
-
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,6 +11,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -40,28 +33,35 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketable {
+import java.util.concurrent.ThreadLocalRandom;
+
+public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketable {
 
     protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.INT);
-    private static final AnimationBuilder HOVER_ANIMATION = new AnimationBuilder().addAnimation("animation.jellyfish.hover", true);
-    private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.jellyfish.idle", true);
+    private static final RawAnimation HOVER_ANIMATION = RawAnimation.begin().thenLoop("animation.jellyfish.hover");
+    private static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.jellyfish.idle");
     private int randomTimer;
     private float tx;
     private float ty;
     private float tz;
 
-    private final AnimationFactory factory = new AnimationFactory(this);
+    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
     public JellyfishEntity(EntityType<? extends WaterAnimal> entityType, Level world) {
         super(entityType, world);
@@ -199,13 +199,13 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             if (--this.randomTimer <= 0) {
                 this.randomTimer = this.getRandom().nextInt(21);
                 this.setDeltaMovement(this.tx * 1.2, this.ty * 1.6, this.tz * 1.2);
             }
         }
-        setTarget(level.getNearestPlayer(getX(), getY(), getZ(), 10, true));
+        setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
     public void createChild(ServerLevel world, JellyfishEntity entity) {
@@ -231,8 +231,8 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
     }
 
     @Override
@@ -246,7 +246,7 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
     }
 
     @Override
-    public AnimationFactory getFactory() {
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
     }
 
@@ -254,7 +254,7 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
     }
 
-    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+    private <P extends GeoAnimatable> PlayState predicate(AnimationState<P> event) {
         if(isMovingSlowly()) {
             event.getController().setAnimation(HOVER_ANIMATION);
         }

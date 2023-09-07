@@ -2,11 +2,10 @@ package com.mystic.atlantis.entities.models;
 
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.entities.LeviathanEntity;
-
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class LeviathanEntityModel extends AnimatedGeoModel<LeviathanEntity> {
+public class LeviathanEntityModel extends GeoModel<LeviathanEntity> {
     @Override
     public ResourceLocation getModelResource(LeviathanEntity object) {
         return Atlantis.id("geo/leviathan.geo.json");

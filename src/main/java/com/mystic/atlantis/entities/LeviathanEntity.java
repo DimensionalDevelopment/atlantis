@@ -1,18 +1,5 @@
 package com.mystic.atlantis.entities;
 
-import static software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes.LOOP;
-
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Objects;
-
-import javax.annotation.Nullable;
-
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -23,19 +10,12 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
@@ -47,25 +27,34 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class LeviathanEntity extends WaterAnimal implements IAnimatable {
+import javax.annotation.Nullable;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Objects;
+
+public class LeviathanEntity extends WaterAnimal implements GeoEntity {
     public static final int TICKS_PER_FLAP = Mth.ceil(24.166098F);
     private static final EntityDataAccessor<Integer> ID_SIZE = SynchedEntityData.defineId(LeviathanEntity.class, EntityDataSerializers.INT);
     private Vec3 moveTargetPoint;
     private BlockPos anchorPoint;
     private LeviathanEntity.AttackPhase attackPhase;
-    private static final AnimationBuilder SWIM_IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.leviathan.swim", LOOP);
-    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private static final RawAnimation SWIM_IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.leviathan.swim");
+    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
     public static AttributeSupplier.Builder createLeviathanAttributes() {
         return Mob.createMobAttributes()
@@ -94,18 +83,18 @@ public class LeviathanEntity extends WaterAnimal implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             float f = Mth.cos((float)(this.getUniqueFlapTickOffset() + this.tickCount) * 7.448451F * ((float)Math.PI / 180F) + (float)Math.PI);
             float f1 = Mth.cos((float)(this.getUniqueFlapTickOffset() + this.tickCount + 1) * 7.448451F * ((float)Math.PI / 180F) + (float)Math.PI);
             if (f > 0.0F && f1 <= 0.0F) {
-                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.PHANTOM_FLAP, this.getSoundSource(), 0.95F + this.random.nextFloat() * 0.05F, 0.95F + this.random.nextFloat() * 0.05F, false);
+                this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.PHANTOM_FLAP, this.getSoundSource(), 0.95F + this.random.nextFloat() * 0.05F, 0.95F + this.random.nextFloat() * 0.05F, false);
             }
             int i = this.getLeviathanEntitySize();
             float f2 = Mth.cos(this.getYRot() * ((float)Math.PI / 180F)) * (1.3F + 0.21F * (float)i);
             float f3 = Mth.sin(this.getYRot() * ((float)Math.PI / 180F)) * (1.3F + 0.21F * (float)i);
             float f4 = (0.3F + f * 0.45F) * ((float)i * 0.2F + 1.0F);
-            this.level.addParticle(ParticleTypes.MYCELIUM, this.getX() + (double)f2, this.getY() + (double)f4, this.getZ() + (double)f3, 0.0D, 0.0D, 0.0D);
-            this.level.addParticle(ParticleTypes.MYCELIUM, this.getX() - (double)f2, this.getY() + (double)f4, this.getZ() - (double)f3, 0.0D, 0.0D, 0.0D);
+            this.level().addParticle(ParticleTypes.MYCELIUM, this.getX() + (double)f2, this.getY() + (double)f4, this.getZ() + (double)f3, 0.0D, 0.0D, 0.0D);
+            this.level().addParticle(ParticleTypes.MYCELIUM, this.getX() - (double)f2, this.getY() + (double)f4, this.getZ() - (double)f3, 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -234,17 +223,17 @@ public class LeviathanEntity extends WaterAnimal implements IAnimatable {
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+       controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
     }
 
-    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+    private <P extends GeoAnimatable> PlayState predicate(AnimationState<P> event) {
         event.getController().setAnimation(SWIM_IDLE_ANIMATION);
         return PlayState.CONTINUE;
     }
 
     @Override
-    public AnimationFactory getFactory() {
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
     }
     
@@ -269,7 +258,7 @@ public class LeviathanEntity extends WaterAnimal implements IAnimatable {
             }
             else {
                 this.nextScanTick = reducedTickDelay(60);
-                List<JellyfishEntity> list = LeviathanEntity.this.level.getEntitiesOfClass(JellyfishEntity.class, LeviathanEntity.this.getBoundingBox().inflate(16.0D, 64.0D, 16.0D));
+                List<JellyfishEntity> list = LeviathanEntity.this.level().getEntitiesOfClass(JellyfishEntity.class, LeviathanEntity.this.getBoundingBox().inflate(16.0D, 64.0D, 16.0D));
                 if (!list.isEmpty()) {
                     list.sort(Comparator.<Entity, Double>comparing(Entity::getY).reversed());
                     for(JellyfishEntity jellyFish : list) {
@@ -326,7 +315,7 @@ public class LeviathanEntity extends WaterAnimal implements IAnimatable {
             }
             else {
                 this.nextScanTick = reducedTickDelay(60);
-                List<Player> list = LeviathanEntity.this.level.getNearbyPlayers(this.attackTargeting, LeviathanEntity.this, LeviathanEntity.this.getBoundingBox().inflate(16.0D, 64.0D, 16.0D));
+                List<Player> list = LeviathanEntity.this.level().getNearbyPlayers(this.attackTargeting, LeviathanEntity.this, LeviathanEntity.this.getBoundingBox().inflate(16.0D, 64.0D, 16.0D));
                 if (!list.isEmpty()) {
                     list.sort(Comparator.<Entity, Double>comparing(Entity::getY).reversed());
                     for(Player player : list) {
@@ -389,7 +378,7 @@ public class LeviathanEntity extends WaterAnimal implements IAnimatable {
          * Reset the task's internal state. Called when this task is interrupted by another one
          */
         public void stop() {
-            LeviathanEntity.this.anchorPoint = LeviathanEntity.this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, LeviathanEntity.this.anchorPoint).above(10 + LeviathanEntity.this.random.nextInt(20));
+            LeviathanEntity.this.anchorPoint = LeviathanEntity.this.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, LeviathanEntity.this.anchorPoint).above(10 + LeviathanEntity.this.random.nextInt(20));
         }
 
         /**
@@ -411,8 +400,8 @@ public class LeviathanEntity extends WaterAnimal implements IAnimatable {
         private void setAnchorAboveTarget() {
             if (LeviathanEntity.this.getTarget() != null) {
                 LeviathanEntity.this.anchorPoint = LeviathanEntity.this.getTarget().blockPosition().above(20 + LeviathanEntity.this.random.nextInt(20));
-                if (LeviathanEntity.this.anchorPoint.getY() < LeviathanEntity.this.level.getSeaLevel()) {
-                    LeviathanEntity.this.anchorPoint = new BlockPos(LeviathanEntity.this.anchorPoint.getX(), LeviathanEntity.this.level.getSeaLevel() + 1, LeviathanEntity.this.anchorPoint.getZ());
+                if (LeviathanEntity.this.anchorPoint.getY() < LeviathanEntity.this.level().getSeaLevel()) {
+                    LeviathanEntity.this.anchorPoint = new BlockPos(LeviathanEntity.this.anchorPoint.getX(), LeviathanEntity.this.level().getSeaLevel() + 1, LeviathanEntity.this.anchorPoint.getZ());
                 }
             }
         }
@@ -481,12 +470,12 @@ public class LeviathanEntity extends WaterAnimal implements IAnimatable {
                 this.selectNext();
             }
 
-            if (LeviathanEntity.this.moveTargetPoint.y < LeviathanEntity.this.getY() && !LeviathanEntity.this.level.isEmptyBlock(LeviathanEntity.this.blockPosition().below(1))) {
+            if (LeviathanEntity.this.moveTargetPoint.y < LeviathanEntity.this.getY() && !LeviathanEntity.this.level().isEmptyBlock(LeviathanEntity.this.blockPosition().below(1))) {
                 this.height = Math.max(1.0F, this.height);
                 this.selectNext();
             }
 
-            if (LeviathanEntity.this.moveTargetPoint.y > LeviathanEntity.this.getY() && !LeviathanEntity.this.level.isEmptyBlock(LeviathanEntity.this.blockPosition().above(1))) {
+            if (LeviathanEntity.this.moveTargetPoint.y > LeviathanEntity.this.getY() && !LeviathanEntity.this.level().isEmptyBlock(LeviathanEntity.this.blockPosition().above(1))) {
                 this.height = Math.min(-1.0F, this.height);
                 this.selectNext();
             }
@@ -618,7 +607,7 @@ public class LeviathanEntity extends WaterAnimal implements IAnimatable {
                     LeviathanEntity.this.doHurtTarget(livingentity);
                     LeviathanEntity.this.attackPhase = LeviathanEntity.AttackPhase.CIRCLE;
                     if (!LeviathanEntity.this.isSilent()) {
-                        LeviathanEntity.this.level.levelEvent(1039, LeviathanEntity.this.blockPosition(), 0);
+                        LeviathanEntity.this.level().levelEvent(1039, LeviathanEntity.this.blockPosition(), 0);
                     }
                 }
                 else if (LeviathanEntity.this.horizontalCollision || LeviathanEntity.this.hurtTime > 0) {

@@ -1,12 +1,7 @@
 package com.mystic.atlantis.entities;
 
-import static software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes.LOOP;
-
-import org.jetbrains.annotations.Nullable;
-
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.init.ItemInit;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -20,21 +15,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.BreedGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
@@ -47,22 +31,24 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class CrabEntity extends Animal implements IAnimatable, Bucketable {
+public class CrabEntity extends Animal implements GeoEntity, Bucketable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CrabEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(CrabEntity.class, EntityDataSerializers.INT);
     protected static final Ingredient TEMPT_ITEMS = Ingredient.of(Items.SEAGRASS);
-    private static final AnimationBuilder WALK_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.walk", LOOP);
-    private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.idle", LOOP);
-    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private static final RawAnimation WALK_ANIMATION = RawAnimation.begin().thenLoop("animation.crab.walk");
+    private static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.crab.idle");
+    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
     private final AnimationController<CrabEntity> mainController = new AnimationController<CrabEntity>(this, "crabController", 2, this::mainPredicate);
 
     public CrabEntity(EntityType<? extends Animal> entityType, Level world) {
@@ -119,8 +105,8 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(mainController);
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(mainController);
     }
 
     @Override
@@ -186,7 +172,7 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
         if (player.getItemInHand(hand).getItem() == Blocks.SEAGRASS.asItem()) {
             if (player instanceof ServerPlayer) {
                 if (this.isFood(Blocks.SEAGRASS.asItem().getDefaultInstance())) {
-                    if (!this.level.isClientSide && this.canFallInLove()) {
+                    if (!this.level().isClientSide && this.canFallInLove()) {
                         this.usePlayerItem(player, hand, Blocks.SEAGRASS.asItem().getDefaultInstance());
                         this.setInLove(player);
                         this.gameEvent(GameEvent.ENTITY_INTERACT, this);
@@ -227,14 +213,14 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
     @Override
     public void aiStep() {
         super.aiStep();
-        setTarget(level.getNearestPlayer(getX(), getY(), getZ(), 10, true));
+        setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
     public boolean isMovingSlowly(){
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
     }
 
-    private <P extends IAnimatable> PlayState mainPredicate(AnimationEvent<P> event) {
+    private <P extends GeoAnimatable> PlayState mainPredicate(AnimationState<P> event) {
         if(isMovingSlowly()) {
             event.getController().setAnimation(WALK_ANIMATION);
             return PlayState.CONTINUE;
@@ -246,7 +232,7 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
     }
 
     @Override
-    public AnimationFactory getFactory() {
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
     }
 
