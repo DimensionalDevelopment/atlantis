@@ -1,16 +1,9 @@
 package com.mystic.atlantis.items.item.energybased;
 
-import java.util.List;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator;
 import com.mystic.atlantis.capiablities.energy.AtlanteanCrystalEnergy;
 import com.mystic.atlantis.capiablities.energy.AtlanteanCrystalEnergyCapability;
 import com.mystic.atlantis.capiablities.energy.IAtlanteanCrystalEnergy;
-
-import artifacts.common.item.curio.CurioItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -19,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -27,11 +21,18 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public class AtlanteanAmuletItem extends CurioItem {
-    public AtlanteanAmuletItem() {}
+import java.util.List;
+
+public class AtlanteanAmuletItem extends Item implements ICurioItem {
+    public AtlanteanAmuletItem() {
+        super(new Properties());
+    }
 
     public static IAtlanteanCrystalEnergy getEnergyStorage(ItemStack stack) {
         return stack.getCapability(AtlanteanCrystalEnergyCapability.ATLANTEAN_CRYSTAL_ENERGY_CAPABILITY, null).resolve().get();

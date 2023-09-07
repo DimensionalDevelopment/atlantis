@@ -1,28 +1,25 @@
 package com.mystic.atlantis.items.armor;
 
-import java.util.Map;
-import java.util.Random;
-
 import com.google.common.collect.ImmutableMap;
-
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.util.Map;
+import java.util.Random;
+
 public class ItemArmorWrought extends ArmorItem {
     private static final Map<ArmorMaterial, MobEffect> MATERIAL_TO_EFFECT_MAP =
             (new ImmutableMap.Builder<ArmorMaterial, MobEffect>())
                     .put(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, MobEffects.INVISIBILITY).build();
 
-    public ItemArmorWrought(ArmorMaterial material, EquipmentSlot slot, Properties settings) {
+    public ItemArmorWrought(ArmorMaterial material, Type slot, Properties settings) {
         super(material, slot, settings);
     }
 
@@ -59,7 +56,7 @@ public class ItemArmorWrought extends ArmorItem {
             player.addEffect(new MobEffectInstance(mapStatusEffect, 200));
 
             if(new Random().nextFloat() > 0.6f) { // 40% of damaging the armor! Possibly!
-                player.getInventory().hurtArmor(DamageSource.MAGIC, 1f, new int[]{0, 1, 2, 3});
+                player.getInventory().hurtArmor(player.damageSources().magic(), 1f, new int[]{0, 1, 2, 3});
             }
         }
     }

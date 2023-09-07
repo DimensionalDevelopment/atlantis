@@ -143,7 +143,7 @@ public class AtlantisPortalBlock extends Block implements EntityBlock {
 
 	public static void sendPlayerToDimension(ServerPlayer player, ServerLevel targetWorld, Vec3 targetVec) {
 		// ensure destination chunk is loaded before we put the player in it
-		targetWorld.getChunk(new BlockPos(targetVec));
+		targetWorld.getChunk(new BlockPos((int) targetVec.x, (int) targetVec.y, (int) targetVec.z));
 		player.teleportTo(targetWorld, targetVec.x(), targetVec.y(), targetVec.z(), player.getYRot(), player.getXRot());
 	}
 

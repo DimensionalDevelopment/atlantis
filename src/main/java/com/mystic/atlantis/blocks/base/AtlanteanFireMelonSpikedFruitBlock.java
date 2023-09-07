@@ -1,12 +1,7 @@
 package com.mystic.atlantis.blocks.base;
 
-import static com.mystic.atlantis.blocks.base.AtlanteanWoodDoorBlock.WATERLOGGED;
-
-import javax.annotation.Nullable;
-
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -27,11 +22,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -45,6 +36,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ToolActions;
+
+import javax.annotation.Nullable;
+
+import static com.mystic.atlantis.blocks.base.AtlanteanWoodDoorBlock.WATERLOGGED;
 
 public class AtlanteanFireMelonSpikedFruitBlock extends HorizontalDirectionalBlock implements BonemealableBlock, SimpleWaterloggedBlock {
     public static final IntegerProperty AGE_4 = IntegerProperty.create("age", 0, 4);
@@ -143,8 +138,8 @@ public class AtlanteanFireMelonSpikedFruitBlock extends HorizontalDirectionalBlo
     }
 
     @Override
-    public boolean isValidBonemealTarget(BlockGetter getter, BlockPos targetPos, BlockState targetState, boolean clientSide) {
-        return targetState.getValue(AGE) < 4;
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+        return pState.getValue(AGE) < 4;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.mystic.atlantis.blocks.power.atlanteanstone;
 
-import static com.mystic.atlantis.blocks.power.atlanteanstone.AtlanteanPowerDustBlock.WATERLOGGED;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -19,12 +17,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import static com.mystic.atlantis.blocks.power.atlanteanstone.AtlanteanPowerDustBlock.WATERLOGGED;
 
 public class AtlanteanFenceGateBlock extends FenceGateBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty OPEN;
@@ -42,7 +43,7 @@ public class AtlanteanFenceGateBlock extends FenceGateBlock implements SimpleWat
     protected static final VoxelShape X_OCCLUSION_SHAPE_LOW;
 
     public AtlanteanFenceGateBlock(Properties settings) {
-        super(settings);
+        super(settings, WoodType.OAK);
         this.registerDefaultState(this.stateDefinition.any().setValue(OPEN, false).setValue(POWERED, false).setValue(IN_WALL, false).setValue(WATERLOGGED, false));
     }
 

@@ -1,9 +1,5 @@
 package com.mystic.atlantis.blocks.power.atlanteanstone;
 
-import javax.annotation.Nullable;
-
-import org.jetbrains.annotations.NotNull;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -28,6 +24,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nullable;
 
 public class SodiumBombBlock extends Block {
 	public static final BooleanProperty UNSTABLE = BlockStateProperties.UNSTABLE;
@@ -69,7 +68,7 @@ public class SodiumBombBlock extends Block {
 	@Override
 	public void wasExploded(Level level, BlockPos targetPos, Explosion explosion) {
 		if (!level.isClientSide) {
-			SodiumPrimedBombBlock primedtnt = new SodiumPrimedBombBlock(level, (double)targetPos.getX() + 0.5, targetPos.getY(), (double)targetPos.getZ() + 0.5, explosion.getSourceMob());
+			SodiumPrimedBombBlock primedtnt = new SodiumPrimedBombBlock(level, (double)targetPos.getX() + 0.5, targetPos.getY(), (double)targetPos.getZ() + 0.5, explosion.getIndirectSourceEntity());
 			int fuse = primedtnt.getFuse();
 			primedtnt.setFuse((short)(level.random.nextInt(fuse / 4) + fuse / 8));
 			level.addFreshEntity(primedtnt);

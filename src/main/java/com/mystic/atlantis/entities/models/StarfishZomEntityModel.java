@@ -5,7 +5,6 @@ import com.mystic.atlantis.entities.StarfishZomEntity;
 
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class StarfishZomEntityModel extends GeoModel<StarfishZomEntity> {
     @Override

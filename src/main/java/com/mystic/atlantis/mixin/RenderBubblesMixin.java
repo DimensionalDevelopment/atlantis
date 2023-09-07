@@ -1,5 +1,15 @@
 package com.mystic.atlantis.mixin;
 
+import com.mystic.atlantis.dimension.DimensionAtlantis;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -7,21 +17,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mystic.atlantis.dimension.DimensionAtlantis;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-
 @Mixin(Gui.class)
-public abstract class RenderBubblesMixin extends GuiComponent {
-
+public abstract class RenderBubblesMixin {
+    private static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation("textures/gui/icons.png");
 
     @Shadow
     @Final
@@ -42,7 +40,7 @@ public abstract class RenderBubblesMixin extends GuiComponent {
     protected abstract int getVisibleVehicleHeartRows(int heartCount);
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;popPush(Ljava/lang/String;)V", ordinal = 2), method = "renderPlayerHealth", cancellable = true)
-    public void RenderBubbles(PoseStack matrices, CallbackInfo ci) {
+    public void RenderBubbles(GuiGraphics pGuiGraphics, CallbackInfo ci) {
         ci.cancel();
         int ah;
         int ai;
@@ -59,7 +57,7 @@ public abstract class RenderBubblesMixin extends GuiComponent {
         this.minecraft.getProfiler().popPush("air");
         ah = playerEntity.getMaxAirSupply();
         ai = Math.min(playerEntity.getAirSupply(), ah);
-        if (playerEntity.level.dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
+        if (playerEntity.level().dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
             if (!playerEntity.isEyeInFluid(FluidTags.WATER) || ai < ah) {/*change*/
                 ad = this.getVisibleVehicleHeartRows(aa) - 1;
                 t -= ad * 10;
@@ -68,9 +66,9 @@ public abstract class RenderBubblesMixin extends GuiComponent {
 
                 for (int ar = 0; ar < ae + al; ++ar) {
                     if (ar < ae) {
-                        this.blit(matrices, n - ar * 8 - 9, t, 16, 18, 9, 9);
+                        pGuiGraphics.blit(GUI_ICONS_LOCATION, n - ar * 8 - 9, t, 16, 18, 9, 9);
                     } else {
-                        this.blit(matrices, n - ar * 8 - 9, t, 25, 18, 9, 9);
+                        pGuiGraphics.blit(GUI_ICONS_LOCATION, n - ar * 8 - 9, t, 25, 18, 9, 9);
                     }
                 }
             }
@@ -83,9 +81,9 @@ public abstract class RenderBubblesMixin extends GuiComponent {
 
                 for (int ar = 0; ar < ae + al; ++ar) {
                     if (ar < ae) {
-                        this.blit(matrices, n - ar * 8 - 9, t, 16, 18, 9, 9);
+                        pGuiGraphics.blit(GUI_ICONS_LOCATION, n - ar * 8 - 9, t, 16, 18, 9, 9);
                     } else {
-                        this.blit(matrices, n - ar * 8 - 9, t, 25, 18, 9, 9);
+                        pGuiGraphics.blit(GUI_ICONS_LOCATION, n - ar * 8 - 9, t, 25, 18, 9, 9);
                     }
                 }
             }

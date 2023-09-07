@@ -1,7 +1,5 @@
 package com.mystic.atlantis.items;
 
-import com.mystic.atlantis.init.AtlantisGroupInit;
-
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -11,7 +9,7 @@ import net.minecraft.world.level.Level;
 
 public class WaterPill extends DefaultItem {
     public WaterPill() {
-        super(new Properties().stacksTo(16).tab(AtlantisGroupInit.MAIN));
+        super(new Properties().stacksTo(16));
     }
 
     @Override

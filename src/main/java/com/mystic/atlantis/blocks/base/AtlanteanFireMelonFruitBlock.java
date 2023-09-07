@@ -1,12 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
-import static com.mystic.atlantis.blocks.base.AtlanteanWoodDoorBlock.WATERLOGGED;
-import static net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_1;
-
-import javax.annotation.Nullable;
-
 import com.mystic.atlantis.init.BlockInit;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -18,11 +12,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -32,6 +22,11 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import javax.annotation.Nullable;
+
+import static com.mystic.atlantis.blocks.base.AtlanteanWoodDoorBlock.WATERLOGGED;
+import static net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_1;
 
 public class AtlanteanFireMelonFruitBlock extends HorizontalDirectionalBlock implements BonemealableBlock, SimpleWaterloggedBlock {
     public static final IntegerProperty AGE = AGE_1;
@@ -112,7 +107,7 @@ public class AtlanteanFireMelonFruitBlock extends HorizontalDirectionalBlock imp
     }
 
     @Override
-    public boolean isValidBonemealTarget(BlockGetter getter, BlockPos targetPos, BlockState targetState, boolean clientSide) {
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
         return true;
     }
 

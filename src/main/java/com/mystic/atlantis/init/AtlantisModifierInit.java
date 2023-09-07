@@ -1,12 +1,9 @@
 package com.mystic.atlantis.init;
 
-import java.util.function.Supplier;
-
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mystic.atlantis.util.Reference;
-
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.RandomSource;
@@ -30,6 +27,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.function.Supplier;
+
 public class AtlantisModifierInit {
 	public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> GLM = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Reference.MODID);
 
@@ -48,7 +47,7 @@ public class AtlantisModifierInit {
 
 	private static class DataProvider extends GlobalLootModifierProvider {
 		public DataProvider(DataGenerator gen, String modid) {
-			super(gen, modid);
+			super(gen.getPackOutput(), modid);
 		}
 
 		@Override

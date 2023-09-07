@@ -5,6 +5,6 @@ import net.minecraft.client.model.geom.ModelPart;
 
 public class AtlanteanBoatModel extends BoatModel {
     public AtlanteanBoatModel(ModelPart bakeLayer) {
-        super(bakeLayer, false);
+        super(bakeLayer);
     }
 }

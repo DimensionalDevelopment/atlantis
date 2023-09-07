@@ -1,7 +1,5 @@
 package com.mystic.atlantis.items;
 
-import com.mystic.atlantis.init.AtlantisGroupInit;
-
 import net.minecraft.world.item.Item;
 
 /**
@@ -13,6 +11,6 @@ public class DefaultItem extends Item {
     }
 
     public DefaultItem() {
-        this(new Properties().tab(AtlantisGroupInit.MAIN));
+        this(new Properties());
     }
 }

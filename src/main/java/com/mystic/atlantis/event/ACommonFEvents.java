@@ -1,18 +1,11 @@
 package com.mystic.atlantis.event;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Random;
-
 import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.EffectsInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Reference;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
@@ -20,7 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -40,6 +32,8 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.*;
+
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ACommonFEvents {
 
@@ -47,7 +41,7 @@ public class ACommonFEvents {
     public static void onLightningStrikeItem(EntityStruckByLightningEvent event) {
         if(event.getEntity() instanceof ItemEntity item) {
             if(item.getItem().getItem() == ItemInit.SEA_SALT.get()) {
-                Level world = item.level;
+                Level world = item.level();
                 ItemEntity item2 = new ItemEntity(world, item.getX(), item.getY(), item.getZ(), new ItemStack(ItemInit.SODIUM_NUGGET.get(), item.getItem().getCount()));
                 if(!world.isClientSide) {
                     world.addFreshEntity(item2);
@@ -70,7 +64,7 @@ public class ACommonFEvents {
             Entity entity = event.getSource().getEntity();
             if (player.hasEffect(EffectsInit.SPIKES.get())) {
                 if (player.isHurt()) {
-                    entity.hurt(DamageSource.thorns(player), (float) getDamage(3, (Random) random));
+                    entity.hurt(player.damageSources().thorns(player), (float) getDamage(3, (Random) random));
                 }
             }
         }
@@ -137,11 +131,11 @@ public class ACommonFEvents {
     public static void onPlayerRespawnEvent(PlayerEvent.PlayerRespawnEvent event) {
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity instanceof ServerPlayer serverPlayer) {
-            ServerLevel serverLevel = serverPlayer.getLevel();
+            ServerLevel serverLevel = serverPlayer.serverLevel();
             if (DimensionAtlantis.ATLANTIS_DIMENSION != null) {
                 if (previousDimension == DimensionAtlantis.ATLANTIS_WORLD) {
                     serverPlayer.setRespawnPosition(DimensionAtlantis.ATLANTIS_WORLD, serverPlayer.blockPosition(), serverPlayer.getYHeadRot(), true, false);
-                    serverPlayer.getLevel().setDefaultSpawnPos(serverPlayer.blockPosition(), 16);
+                    serverPlayer.serverLevel().setDefaultSpawnPos(serverPlayer.blockPosition(), 16);
                     if (serverPlayer.getRespawnPosition() != null) {
                         Optional<Vec3> bedPos = Player.findRespawnPositionAndUseSpawnBlock(DimensionAtlantis.ATLANTIS_DIMENSION, serverPlayer.getRespawnPosition(), serverPlayer.getRespawnAngle(), serverPlayer.isRespawnForced(), false);
                         if (bedPos.isEmpty()) {
@@ -156,7 +150,7 @@ public class ACommonFEvents {
 
     @SubscribeEvent
     public static void onDeathEvent(LivingDeathEvent event) {
-        previousDimension = event.getEntity().getLevel().dimension();
+        previousDimension = event.getEntity().level().dimension();
     }
 
     public static ServerLevel getDimension(ResourceKey<Level> arg, ServerPlayer player) {
@@ -165,7 +159,7 @@ public class ACommonFEvents {
 
     private static void sendPlayerToDimension(ServerPlayer serverPlayer, ServerLevel targetWorld, Vec3 targetVec) {
         // ensure destination chunk is loaded before we put the player in it
-        targetWorld.getChunk(new BlockPos(targetVec));
+        targetWorld.getChunk(new BlockPos((int) targetVec.x, (int) targetVec.y, (int) targetVec.z));
         serverPlayer.teleportTo(targetWorld, targetVec.x(), targetVec.y(), targetVec.z(), serverPlayer.getYRot(), serverPlayer.getXRot());
     }
 

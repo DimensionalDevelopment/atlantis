@@ -1,6 +1,5 @@
 package com.mystic.atlantis.blocks.blockentities.plants;
 
-import com.mystic.atlantis.init.TileEntityInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -26,7 +25,6 @@ public class GeneralPlantBlockEntity<T extends GeneralPlantBlockEntity<?>> exten
 
     private <E extends BlockEntity & GeoAnimatable> PlayState predicate(AnimationState<E> event) {
         AnimationController<?> controller = event.getController();
-        controller.setTransitionLength(0);
         return PlayState.CONTINUE;
     }
 

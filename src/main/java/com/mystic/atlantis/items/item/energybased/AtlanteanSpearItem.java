@@ -1,16 +1,10 @@
 package com.mystic.atlantis.items.item.energybased;
 
-import java.util.List;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator;
 import com.mystic.atlantis.capiablities.energy.AtlanteanCrystalEnergy;
 import com.mystic.atlantis.capiablities.energy.AtlanteanCrystalEnergyCapability;
 import com.mystic.atlantis.capiablities.energy.IAtlanteanCrystalEnergy;
 import com.mystic.atlantis.items.DefaultItem;
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -32,6 +26,10 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class AtlanteanSpearItem extends DefaultItem {
     public AtlanteanSpearItem(Properties settings) {
@@ -96,7 +94,7 @@ public class AtlanteanSpearItem extends DefaultItem {
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
         if (getEnergyStorage(player.getItemInHand(hand)).getEnergyStored() >= 50) {
             if(!level.isClientSide && level instanceof ServerLevel serverLevel) {
-                LightningBolt lightningBoltEntity = EntityType.LIGHTNING_BOLT.create(serverLevel, new CompoundTag(), Component.empty(), player, getDistanceForLightningSummon(15, player), MobSpawnType.MOB_SUMMONED, false, false);
+                LightningBolt lightningBoltEntity = EntityType.LIGHTNING_BOLT.create(serverLevel, null, null, getDistanceForLightningSummon(15, player), MobSpawnType.MOB_SUMMONED, false, false);
                 if(lightningBoltEntity != null) {
                     getEnergyStorage(this.getDefaultInstance()).extractEnergy(50, false);
                     serverLevel.addFreshEntity(lightningBoltEntity);
@@ -109,7 +107,7 @@ public class AtlanteanSpearItem extends DefaultItem {
     public static BlockPos getDistanceForLightningSummon(int range, @NotNull Player player) {
         int yaw = (int) player.getYRot() + 180;
         double facing = (yaw - 90) * (Math.PI / 180);
-        return new BlockPos(player.getX() + (range * Math.cos(facing)), player.getY(), player.getZ() + (range * Math.sin(facing)));
+        return new BlockPos((int) (player.getX() + (range * Math.cos(facing))), (int) player.getY(), (int) (player.getZ() + (range * Math.sin(facing))));
     }
 
     @Override

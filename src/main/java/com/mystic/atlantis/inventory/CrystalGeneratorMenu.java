@@ -25,14 +25,14 @@ public class CrystalGeneratorMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public CrystalGeneratorMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
-        this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
+        this(id, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
     }
 
     public CrystalGeneratorMenu(int id, Inventory inv, BlockEntity entity, ContainerData data) {
         super(MenuTypeInit.CRYSTAL_GENERATOR_MENU.get(), id);
         checkContainerSize(inv, 3);
         blockEntity = (CrystalGenerator) entity;
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.data = data;
 
         addPlayerInventory(inv);

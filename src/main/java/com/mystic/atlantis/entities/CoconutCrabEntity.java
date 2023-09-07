@@ -1,11 +1,6 @@
 package com.mystic.atlantis.entities;
 
-import java.util.UUID;
-
-import org.jetbrains.annotations.Nullable;
-
 import com.mystic.atlantis.init.ItemInit;
-
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,21 +14,10 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.NeutralMob;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.BreedGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
@@ -47,6 +31,9 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.UUID;
 
 public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CoconutCrabEntity.class, EntityDataSerializers.BOOLEAN);
@@ -162,7 +149,7 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
         if (player.getItemInHand(hand).getItem() == Blocks.SEAGRASS.asItem()) {
             if (player instanceof ServerPlayer) {
                 if (this.isFood(Blocks.SEAGRASS.asItem().getDefaultInstance())) {
-                    if (!this.level.isClientSide && this.canFallInLove()) {
+                    if (!this.level().isClientSide && this.canFallInLove()) {
                         this.usePlayerItem(player, hand, Blocks.SEAGRASS.asItem().getDefaultInstance());
                         this.setInLove(player);
                         this.gameEvent(GameEvent.ENTITY_INTERACT, this);
@@ -205,7 +192,7 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
     @Override
     public void aiStep() {
         super.aiStep();
-        setTarget(level.getNearestPlayer(getX(), getY(), getZ(), 10, true));
+        setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
     public boolean isMovingSlowly(){

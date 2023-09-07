@@ -1,11 +1,7 @@
 package com.mystic.atlantis.items;
 
-import java.util.List;
-import java.util.function.Predicate;
-
 import com.mystic.atlantis.entities.AtlanteanBoatEntity;
 import com.mystic.atlantis.init.AtlantisEntityInit;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
@@ -24,6 +20,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.List;
+import java.util.function.Predicate;
 
 public class AtlanteanBoatItem extends Item {
     private static final Predicate<Entity> RIDERS;
@@ -47,7 +46,7 @@ public class AtlanteanBoatItem extends Item {
                 boatEntity.setPos(hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z);
                 boatEntity.setYRot(user.getYRot());
                 world.addFreshEntity(boatEntity);
-                world.gameEvent(user, GameEvent.ENTITY_PLACE, new BlockPos(hitResult.getLocation()));
+                world.gameEvent(user, GameEvent.ENTITY_PLACE, new BlockPos((int) hitResult.getLocation().x, (int) hitResult.getLocation().y, (int) hitResult.getLocation().z));
                 if (!user.getAbilities().instabuild) {
                     itemStack.shrink(1);
                 }
@@ -90,7 +89,7 @@ public class AtlanteanBoatItem extends Item {
             {
                 if (!world.isClientSide) {
                     world.addFreshEntity(boatEntity);
-                    world.gameEvent(user, GameEvent.ENTITY_PLACE, new BlockPos(hitResult.getLocation()));
+                    world.gameEvent(user, GameEvent.ENTITY_PLACE, new BlockPos((int) hitResult.getLocation().x, (int) hitResult.getLocation().y, (int) hitResult.getLocation().z));
                     if (!user.getAbilities().instabuild) {
                         itemStack.shrink(1);
                     }

@@ -1,10 +1,5 @@
 package com.mystic.atlantis.mixin;
 
-import java.util.Objects;
-
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -13,6 +8,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+
+import java.util.Objects;
 
 @Mixin(Item.class)
 public class ItemMixin {
@@ -27,7 +26,7 @@ public class ItemMixin {
         float f5 = Mth.sin(-f * ((float)Math.PI / 180));
         float f6 = f3 * f4;
         float f7 = f2 * f4;
-        double d0 = Objects.requireNonNull(player.getAttribute(ForgeMod.REACH_DISTANCE.get())).getValue();
+        double d0 = Objects.requireNonNull(player.getAttribute(ForgeMod.BLOCK_REACH.get())).getValue();
         Vec3 vec31 = vec3.add((double)f6 * d0, (double)f5 * d0, (double)f7 * d0);
         return level.clip(new ClipContext(vec3, vec31, ClipContext.Block.OUTLINE, fluidMode, player));
     }

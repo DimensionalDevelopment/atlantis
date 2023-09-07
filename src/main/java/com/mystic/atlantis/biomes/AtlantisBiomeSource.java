@@ -1,29 +1,27 @@
 package com.mystic.atlantis.biomes;
 
-import java.util.Objects;
-
-import org.jetbrains.annotations.NotNull;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mystic.atlantis.util.Reference;
-
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.RegistryOps;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.stream.Stream;
 
 
 public class AtlantisBiomeSource extends BiomeSource {
-    public static final Codec<AtlantisBiomeSource> CODEC = RecordCodecBuilder.create((instance) -> instance.group
-            (RegistryOps.retrieveRegistry(Registry.BIOME_REGISTRY).forGetter(
-            (biomeSource) -> biomeSource.BIOME_REGISTRY), Codec.intRange(1, 20).fieldOf("biome_size").orElse(2).forGetter(
-            (biomeSource) -> biomeSource.biomeSize), Codec.LONG.fieldOf("seed").stable().forGetter(
-            (biomeSource) -> biomeSource.seed)).apply(instance, instance.stable(AtlantisBiomeSource::new)));
+    public static final Codec<AtlantisBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            RegistryOps.retrieveRegistryLookup(Registries.BIOME).forGetter(AtlantisBiomeSource::biomeHolderLookup),
+            Codec.intRange(1, 20).fieldOf("biome_size").orElse(2).forGetter(AtlantisBiomeSource::biomeSize),
+            Codec.LONG.fieldOf("seed").stable().forGetter(AtlantisBiomeSource::seed)).apply(instance, AtlantisBiomeSource::new));
 
     public static final ResourceLocation ATLANTEAN_GARDEN = new ResourceLocation(Reference.MODID, "atlantean_garden");
     public static final ResourceLocation ATLANTIS_BIOME = new ResourceLocation(Reference.MODID, "atlantis_biome");
@@ -31,28 +29,30 @@ public class AtlantisBiomeSource extends BiomeSource {
     public static final ResourceLocation ATLANTEAN_ISLANDS = new ResourceLocation(Reference.MODID, "atlantean_islands_biome");
     public static final ResourceLocation VOLCANIC_DARKSEA = new ResourceLocation(Reference.MODID, "volcanic_darksea");
     public static final ResourceLocation GOO_LAGOONS = new ResourceLocation(Reference.MODID, "goo_lagoons");
-    public static Registry<Biome> BIOME_REGISTRY;
-    public Registry<Biome> LAYERS_BIOME_REGISTRY;
-    private long seed;
-    private int biomeSize;
 
-    public AtlantisBiomeSource(Registry<Biome> biomeRegistry, int biomeSize, long seed) {
-        super(biomeRegistry.getResourceKey(Objects.requireNonNull(biomeRegistry.get(biomeRegistry.keySet().stream().reduce(
-                (resourceLocation, resourceLocation2) -> resourceLocation).orElse(Biomes.WARM_OCEAN.registry()))
-        )).stream().map(biomeRegistry::getHolderOrThrow));
-        BIOME_REGISTRY = biomeRegistry;
-        this.LAYERS_BIOME_REGISTRY = biomeRegistry;
+    private final HolderLookup.RegistryLookup<Biome> biomeHolderLookup;
+    private final long seed;
+    private final int biomeSize;
+
+    public AtlantisBiomeSource(HolderLookup.RegistryLookup<Biome> biomeRegistry, int biomeSize, long seed) {
+        super();
+        biomeHolderLookup = biomeRegistry;
         this.biomeSize = biomeSize;
         this.seed = seed;
     }
 
-    private static Holder<Biome> getHolderBiome(ResourceLocation resourceLocationBiome) {
-        return Holder.direct(Objects.requireNonNull(BIOME_REGISTRY.get(resourceLocationBiome))); //return ocean if check fail
+    private Holder<Biome> getHolderBiome(ResourceLocation resourceLocationBiome) {
+        return biomeHolderLookup.getOrThrow(ResourceKey.create(Registries.BIOME, resourceLocationBiome)); //return ocean if check fail
     }
 
     @Override
     protected @NotNull Codec<? extends BiomeSource> codec() {
         return CODEC;
+    }
+
+    @Override
+    protected Stream<Holder<Biome>> collectPossibleBiomes() {
+        return Stream.of(AtlantisBiomeSource.GOO_LAGOONS, AtlantisBiomeSource.VOLCANIC_DARKSEA, AtlantisBiomeSource.JELLYFISH_FIELDS, AtlantisBiomeSource.ATLANTIS_BIOME).map(this::getHolderBiome);
     }
 
     @Override
@@ -70,6 +70,18 @@ public class AtlantisBiomeSource extends BiomeSource {
         } else {
             return getHolderBiome(AtlantisBiomeSource.ATLANTEAN_GARDEN);
         }
+    }
+
+    public long seed() {
+        return seed;
+    }
+
+    public int biomeSize() {
+        return biomeSize;
+    }
+
+    public HolderLookup.RegistryLookup<Biome> biomeHolderLookup() {
+        return biomeHolderLookup;
     }
 }
 

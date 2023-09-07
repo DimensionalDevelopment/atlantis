@@ -3,8 +3,7 @@ package com.mystic.atlantis.recipes;
 import com.google.gson.JsonObject;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.RecipesInit;
-
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -43,7 +42,7 @@ public class WritingRecipe extends SingleItemRecipe {
 
             String s1 = GsonHelper.getAsString(json, "result");
             int i = GsonHelper.getAsInt(json, "count");
-            ItemStack itemstack = new ItemStack(Registry.ITEM.get(new ResourceLocation(s1)), i);
+            ItemStack itemstack = new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(s1)), i);
             return new WritingRecipe(recipeId, s, ingredient, itemstack);
         }
 

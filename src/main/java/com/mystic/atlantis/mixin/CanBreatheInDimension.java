@@ -22,7 +22,7 @@ public abstract class CanBreatheInDimension extends LivingEntity {
     @Override
     public boolean canBreatheUnderwater() {
         if (AtlantisConfig.INSTANCE.turnOnDimensionalWaterBreathing.get()) {
-            if (level.dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
+            if (level().dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
                 return true;
             } else {
                 return super.canBreatheUnderwater();
@@ -35,7 +35,7 @@ public abstract class CanBreatheInDimension extends LivingEntity {
     @Unique
     protected void tickWaterBreathingAir(int air) {
         if (AtlantisConfig.INSTANCE.turnOnDimensionalWaterBreathing.get()) {
-            if (level.dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
+            if (level().dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
                 this.setAirSupply(increaseAirSupply(air));
             }
         }

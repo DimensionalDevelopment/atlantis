@@ -89,7 +89,7 @@ public class Atlantis {
         TileEntityInit.init(bus);
         FluidTypesInit.init(bus);
         FluidInit.init(bus);
-        AtlantisGroupInit.init();
+        AtlantisGroupInit.init(bus);
         AtlantisEntityInit.init(bus);
         AtlantisSoundEventInit.init(bus);
         EffectsInit.init(bus);
