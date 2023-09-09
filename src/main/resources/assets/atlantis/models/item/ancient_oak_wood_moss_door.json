@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "atlantis:items/ancient_oak_wood_moss_door"
+    "layer0": "atlantis:item/ancient_oak_wood_moss_door"
   }
 }

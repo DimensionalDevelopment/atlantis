@@ -2,6 +2,6 @@
     "parent": "item/generated",
     "textures":
     {
-        "layer0": "atlantis:items/atlantean_boat"
+        "layer0": "atlantis:item/atlantean_boat"
     }
 }

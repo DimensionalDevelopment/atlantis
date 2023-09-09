@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "atlantis:items/aquamarine_gem"
+    "layer0": "atlantis:item/aquamarine_gem"
   }
 }

@@ -1,5 +1,8 @@
 {
   "type": "minecraft:smithing",
+  "template": {
+    "item": "minecraft:coast_armor_trim_smithing_template"
+  },
   "addition": {
     "item": "atlantis:orichalcum_ignot"
   },

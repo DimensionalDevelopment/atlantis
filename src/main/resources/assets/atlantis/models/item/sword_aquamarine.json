@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "atlantis:items/sword_aquamarine"
+    "layer0": "atlantis:item/sword_aquamarine"
   }
 }

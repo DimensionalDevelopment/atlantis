@@ -1,6 +1,3 @@
 {
-   "parent": "item/generated",
-   "textures": {
-       "layer0": "atlantis:items/atlantean_jellyfish_egg"
-   }
+  "parent": "item/template_spawn_egg"
 }

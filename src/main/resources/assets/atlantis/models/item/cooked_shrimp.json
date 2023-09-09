@@ -1,6 +1,6 @@
 {
    "parent": "item/generated",
    "textures": {
-       "layer0": "atlantis:items/cooked_shrimp"
+       "layer0": "atlantis:item/cooked_shrimp"
    }
 }

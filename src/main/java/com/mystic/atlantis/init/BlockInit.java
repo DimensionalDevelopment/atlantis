@@ -215,13 +215,12 @@ public class BlockInit {
 
     public static final RegistryObject<AtlanteanFireMelonBody> ATLANTEAN_FIRE_MELON_STEM = registerOnlyBlock("atlantean_fire_melon_stem", () -> new AtlanteanFireMelonBody(BlockBehaviour.Properties.of()));
     public static final RegistryObject<AtlanteanFireMelonHead> ATLANTEAN_FIRE_MELON_TOP = registerOnlyBlock("atlantean_fire_melon_top", () -> new AtlanteanFireMelonHead(BlockBehaviour.Properties.of()));
-    public static ListMultimap<ResourceLocation, RegistryObject<Item>> tabMap = MultimapBuilder.ListMultimapBuilder.hashKeys().arrayListValues().build();
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<B> block) {
-        return registerBlock(name, block, b -> () -> new BlockItem(b.get(),new Item.Properties()), AtlantisGroupInit.MAIN);
+        return registerMainTabBlock(name, block, b -> () -> new BlockItem(b.get(),new Item.Properties()));
     }
     public static <B extends Block> RegistryObject<B> registerLinguisticBlock(String name, Supplier<B> block) {
-        return registerBlock(name, block, b -> () -> new BlockItem(b.get(),new Item.Properties()), AtlantisGroupInit.GLYPH);
+        return registerGylphTabBlock(name, block, b -> () -> new BlockItem(b.get(),new Item.Properties()));
     }
 
     public static <B extends Block> RegistryObject<B> registerOnlyBlock(String name, Supplier<B> block) {
@@ -231,9 +230,16 @@ public class BlockInit {
         var reg = BLOCKS.register(name, block);
         return reg;
     }
-    private static <B extends Block, I extends BlockItem> RegistryObject<B> registerBlock(String name, Supplier<B> block, Function<RegistryObject<B>, Supplier<I>> item, RegistryObject<CreativeModeTab> tabLocation) {
+
+    private static <B extends Block, I extends BlockItem> RegistryObject<B> registerMainTabBlock(String name, Supplier<B> block, Function<RegistryObject<B>, Supplier<I>> item) {
         var reg = BLOCKS.register(name, block);
-        tabMap.put(tabLocation.getId(), ItemInit.ITEMS.register(name, () -> item.apply(reg).get()));
+        AtlantisGroupInit.addToMainTab(ItemInit.ITEMS.register(name, () -> item.apply(reg).get()));
+        return reg;
+    }
+
+    private static <B extends Block, I extends BlockItem> RegistryObject<B> registerGylphTabBlock(String name, Supplier<B> block, Function<RegistryObject<B>, Supplier<I>> item) {
+        var reg = BLOCKS.register(name, block);
+        AtlantisGroupInit.addToGylphTab(ItemInit.ITEMS.register(name, () -> item.apply(reg).get()));
         return reg;
     }
 

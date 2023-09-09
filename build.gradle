@@ -124,6 +124,10 @@ repositories {
         name = "ModMaven" //ModMaven
         url = "https://modmaven.dev"
     }
+    maven {
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+    }
     flatDir {
         dir 'libs'
     }
@@ -136,12 +140,12 @@ dependencies {
 
     // Libraries
     implementation fg.deobf("com.github.Mysticpasta1:customportalapi:${customportalapi_version}")
-    implementation fg.deobf("curse.maven:geckolib-388172:${geckolib_version}")
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.2.2')
     implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}")
     implementation fg.deobf("curse.maven:architectury-api-419699:${architectury_version}")
 
     // Extras
-    implementation fg.deobf("curse.maven:cyanide_forge-541676:${cyanide_version}")
+    //implementation fg.deobf("curse.maven:cyanide_forge-541676:${cyanide_version}")
     implementation fg.deobf("curse.maven:spark-361579:4057111")
     implementation fg.deobf("curse.maven:artifacts-forge-312353:${artifacts_version}")
     implementation fg.deobf("curse.maven:expandability-forge-465066:${expandability_version}")

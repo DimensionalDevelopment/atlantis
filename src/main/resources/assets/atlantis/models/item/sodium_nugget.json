@@ -1,6 +1,6 @@
 {
    "parent": "item/generated",
    "textures": {
-       "layer0": "atlantis:items/sodium_nugget"
+       "layer0": "atlantis:item/sodium_nugget"
    }
 }

@@ -46,7 +46,7 @@ An Underwater Atlantis like dimension mod.
 
 [[dependencies.atlantis]] 
     modId="geckolib3"
-    mandatory=true
+    mandatory=false
     versionRange="[4.2.2,)"
     ordering="NONE"
     side="BOTH"

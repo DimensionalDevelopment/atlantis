@@ -42,16 +42,16 @@ public class ItemInit {
     public static final RegistryObject<Item> ATLANTEAN_BOAT = register("atlantean_boat", () -> new AtlanteanBoatItem(new Item.Properties().stacksTo(1)));
 
     //SPAWN EGGS
-    public static final RegistryObject<Item> ATLANTEAN_CRAB_EGG = register("atlantean_crab_egg",() -> new ForgeSpawnEggItem(AtlantisEntityInit.CRAB, 0x800002, 0xff0f45, new Item.Properties()), CreativeModeTabs.SPAWN_EGGS);
-    public static final RegistryObject<Item> ATLANTEAN_JELLYFISH_EGG = register("atlantean_jellyfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.JELLYFISH, 0x00458a, 0x0582ff, new Item.Properties()), CreativeModeTabs.SPAWN_EGGS);
-    public static final RegistryObject<Item> ATLANTEAN_SHRIMP_EGG = register("atlantean_shrimp_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.SHRIMP, 0xff0000, 0xff8000, new Item.Properties()), CreativeModeTabs.SPAWN_EGGS);
-    public static final RegistryObject<Item> LEVIATHAN_EGG = register("leviathan_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.LEVIATHAN, 0x01ddddd, 0xaddedb, new Item.Properties()), CreativeModeTabs.SPAWN_EGGS);
+    public static final RegistryObject<Item> ATLANTEAN_CRAB_EGG = register("atlantean_crab_egg",() -> new ForgeSpawnEggItem(AtlantisEntityInit.CRAB, 0x800002, 0xff0f45, new Item.Properties()));
+    public static final RegistryObject<Item> ATLANTEAN_JELLYFISH_EGG = register("atlantean_jellyfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.JELLYFISH, 0x00458a, 0x0582ff, new Item.Properties()));
+    public static final RegistryObject<Item> ATLANTEAN_SHRIMP_EGG = register("atlantean_shrimp_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.SHRIMP, 0xff0000, 0xff8000, new Item.Properties()));
+    public static final RegistryObject<Item> LEVIATHAN_EGG = register("leviathan_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.LEVIATHAN, 0x01ddddd, 0xaddedb, new Item.Properties()));
 
-    public static final RegistryObject<Item> ATLANTEAN_SEAHORSE_EGG = register("atlantean_seahorse_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.SEAHORSE, 0xf6eb3e, 0xcfc85b, new Item.Properties()), CreativeModeTabs.SPAWN_EGGS);
+    public static final RegistryObject<Item> ATLANTEAN_SEAHORSE_EGG = register("atlantean_seahorse_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.SEAHORSE, 0xf6eb3e, 0xcfc85b, new Item.Properties()));
 
-    //public static final RegistryObject<Item> COCONUT_CRAB_EGG = register("coconut_crab_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.COCONUT_CRAB, 0x800002, 0xff0f45, new Item.Properties()), CreativeModeTabs.SPAWN_EGGS));
-    public static final RegistryObject<Item> STARFISH_EGG = register("atlantean_starfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.STARFISH, 0xFFA41D, 0xF6E25F, new Item.Properties()), CreativeModeTabs.SPAWN_EGGS);
-    public static final RegistryObject<Item> STARFISH_ZOM_EGG = register("atlantean_starzomfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.STARFISH_ZOM, 0xFE00F6, 0x00A170, new Item.Properties()), CreativeModeTabs.SPAWN_EGGS);
+    //public static final RegistryObject<Item> COCONUT_CRAB_EGG = register("coconut_crab_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.COCONUT_CRAB, 0x800002, 0xff0f45, new Item.Properties()), ));
+    public static final RegistryObject<Item> STARFISH_EGG = register("atlantean_starfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.STARFISH, 0xFFA41D, 0xF6E25F, new Item.Properties()));
+    public static final RegistryObject<Item> STARFISH_ZOM_EGG = register("atlantean_starzomfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.STARFISH_ZOM, 0xFE00F6, 0x00A170, new Item.Properties()));
     //MUSIC DISC
     public static final RegistryObject<Item> PANBEE = register("panbee", () -> new AtlantisMusicDisc(15, AtlantisSoundEventInit.PANBEE, ATLANTIS_SETTINGS, 10));
     public static final RegistryObject<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new AtlantisMusicDisc(15, AtlantisSoundEventInit.COLUMN, ATLANTIS_SETTINGS, 10));
@@ -164,23 +164,20 @@ public class ItemInit {
     public static final RegistryObject<Item> ORICHALCUM_LEGGINGS= register("orichalcum_leggings", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_ORICHALCUM, ArmorItem.Type.LEGGINGS, new Item.Properties()));
     public static final RegistryObject<Item> ORICHALCUM_BOOTS = register("orichalcum_boots", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_ORICHALCUM, ArmorItem.Type.BOOTS, new Item.Properties()));
 
-    public static <T extends Item> RegistryObject<T> register(String name, Supplier<T> item, RegistryObject<CreativeModeTab> tab) {
-        return register(name, item, tab.getKey());
-    }
-
-    public static <T extends Item> RegistryObject<T> register(String name, Supplier<T> item, ResourceKey<CreativeModeTab> tabResourceKey) {
+    public static <T extends Item> RegistryObject<T> register(String name, Supplier<T> item) {
         var register = ITEMS.register(name, item);
-        BlockInit.tabMap.put(tabResourceKey.location(), (RegistryObject<Item>) register);
+        AtlantisGroupInit.addToMainTabItems(register);
         return register;
     }
 
-    static <T extends Item> RegistryObject<T> register(String id, Supplier<T> c) {
-        return register(id, c, AtlantisGroupInit.MAIN);
+    public static <T extends Item> RegistryObject<T> registerToGlyph(String name, Supplier<T> item) {
+        var register = ITEMS.register(name, item);
+        AtlantisGroupInit.addToGylphTabItems(register);
+        return register;
     }
 
     static RegistryObject<Item> registerGlyph(LinguisticGlyph symbol) {
-        RegistryObject<Item> registryObject = register("linguistic_glyph_scroll" + symbol.toString(), () -> new LinguisticGlyphScrollItem(symbol));
-        BlockInit.tabMap.put(AtlantisGroupInit.GLYPH.getId(), registryObject);
+        RegistryObject<Item> registryObject = registerToGlyph("linguistic_glyph_scroll" + symbol.toString(), () -> new LinguisticGlyphScrollItem(symbol));
         scrolls.put(symbol, registryObject);
         return registryObject;
     }

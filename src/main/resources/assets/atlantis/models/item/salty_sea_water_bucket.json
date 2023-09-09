@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "atlantis:items/salty_sea_water_bucket"
+    "layer0": "atlantis:item/salty_sea_water_bucket"
   }
 }

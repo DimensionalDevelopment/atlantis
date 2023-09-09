@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "atlantis:items/jellyfish_jelly_bottle"
+    "layer0": "atlantis:item/jellyfish_jelly_bottle"
   }
 }

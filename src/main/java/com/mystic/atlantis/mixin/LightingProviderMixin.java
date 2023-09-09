@@ -19,6 +19,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LevelLightEngine.class)
 abstract public class LightingProviderMixin implements LightEventListener {
 
+	/*TODO why is per biome lighting not working in 1.20.1? : mixin disabled for now! : change back ambient light in the
+	    dimension_type.json back to 0 to test!
+	*/
+
 	@Shadow @Final @Mutable private LightEngine<?, ?> skyEngine;
 
 	@Inject(at = @At("TAIL"), method = "<init>")

@@ -15,7 +15,6 @@
     "ItemCombinerMenuMixin",
     "ItemEntityMixin",
     "ItemMixin",
-    "LightingProviderMixin",
     "RedstoneAccessor",
     "RedstoneWireBlockMixin",
     "RenderBubblesMixin",

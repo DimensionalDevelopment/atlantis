@@ -1,6 +1,6 @@
 {
    "parent": "item/generated",
    "textures": {
-       "layer0": "atlantis:items/atlantean_crystal"
+       "layer0": "atlantis:item/atlantean_crystal"
    }
 }

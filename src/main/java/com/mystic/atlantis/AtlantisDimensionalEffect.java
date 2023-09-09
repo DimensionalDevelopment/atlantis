@@ -15,8 +15,8 @@ import org.joml.Matrix4f;
 
 public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
     public static AtlantisDimensionalEffect INSTANCE = new AtlantisDimensionalEffect();
-    private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("atlantis:textures/environment/atlantis/sun.png");
-    private static final ResourceLocation MOON_PHASES_TEXTURES = new ResourceLocation("atlantis:textures/environment/atlantis/moon_phases.png");
+    private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("atlantis:textures/environment/sun.png");
+    private static final ResourceLocation MOON_PHASES_TEXTURES = new ResourceLocation("atlantis:textures/environment/moon_phases.png");
 
     private AtlantisDimensionalEffect() {
         super(255.0F, true, DimensionSpecialEffects.SkyType.NORMAL, false, false);
