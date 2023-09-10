@@ -1,0 +1,30 @@
+{
+	"type": "minecraft:crafting_shaped",
+
+	"pattern":
+	[
+		"  S",
+		" W ",
+		"W  "
+	],
+
+	"key":
+	{
+		"W":
+		{
+			"item": "minecraft:iron_ingot"
+		},
+
+		"S":
+		{
+			"item": "atlantis:atlantean_crystal"
+		}
+	},
+
+	"result":
+	{
+		"item": "atlantis:atlantean_spear",
+		"count": 1
+	}
+
+}	

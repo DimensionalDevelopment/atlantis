@@ -1,4 +1,6 @@
 {
+  "block.atlantis.crystal_storage_tank": "Crystal Storage Tank",
+  "block.atlantis.crystal_generator": "Crystal Generator",
   "block.atlantis.algae": "Algae",
   "block.atlantis.algae_block": "Algae Block",
   "block.atlantis.ancient_acacia_wood_moss": "Ancient Acacia Wood Moss ",
@@ -761,6 +763,8 @@
   "entity.atlantis.atlantean_jellyfish": "Atlantean Jellyfish",
   "entity.atlantis.atlantean_shrimp": "Atlantean Shrimp",
   "entity.atlantis.atlantean_submarine": "Atlantean Submarine",
+  "item.atlantis.atlantean_amulet": "Atlantean Amulet",
+  "item.atlantis.atlantean_spear": "Atlantean Spear",
   "item.atlantis.sodium_nugget": "Sodium Nugget",
   "item.atlantis.sea_salt": "Sea Salt",
   "item.atlantis.atlantean_fire_melon_fruit": "Atlantean Fire Melon Fruit",

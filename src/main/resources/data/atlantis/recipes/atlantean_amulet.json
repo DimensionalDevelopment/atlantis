@@ -1,0 +1,30 @@
+{
+	"type": "minecraft:crafting_shaped",
+
+	"pattern":
+	[
+		"SSS",
+		"SWS",
+		"SSS"
+	],
+
+	"key":
+	{
+		"W":
+		{
+			"item": "minecraft:fire_charge"
+		},
+
+		"S":
+		{
+			"item": "atlantis:atlantean_crystal"
+		}
+	},
+
+	"result":
+	{
+		"item": "atlantis:atlantean_amulet",
+		"count": 1
+	}
+
+}	

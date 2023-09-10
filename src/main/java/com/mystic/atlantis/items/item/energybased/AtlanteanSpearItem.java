@@ -38,9 +38,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class AtlanteanSpearItem extends DefaultItem {
-    public AtlanteanSpearItem(Properties settings) {
-        super(settings
-                .stacksTo(1));
+    public AtlanteanSpearItem() {
+        super(new Properties().stacksTo(1));
     }
 
     public static ModEnergyStorage getEnergyStorage(ItemStack stack) {

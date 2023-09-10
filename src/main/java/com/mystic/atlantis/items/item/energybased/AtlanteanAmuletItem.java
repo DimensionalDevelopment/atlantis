@@ -6,6 +6,7 @@ import com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator;
 import com.mystic.atlantis.capiablities.energy.AtlanteanCrystalEnergy;
 import com.mystic.atlantis.capiablities.energy.AtlanteanCrystalEnergyCapability;
 import com.mystic.atlantis.capiablities.energy.IAtlanteanCrystalEnergy;
+import com.mystic.atlantis.items.DefaultItem;
 import com.mystic.atlantis.util.ModEnergyStorage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
@@ -41,9 +42,9 @@ import top.theillusivec4.curios.common.slottype.SlotType;
 
 import java.util.List;
 
-public class AtlanteanAmuletItem extends Item {
+public class AtlanteanAmuletItem extends DefaultItem {
     public AtlanteanAmuletItem() {
-        super(new Properties());
+        super(new Properties().stacksTo(1));
     }
 
     public static ModEnergyStorage getEnergyStorage(ItemStack stack) {
