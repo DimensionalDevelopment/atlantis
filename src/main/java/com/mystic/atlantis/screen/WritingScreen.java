@@ -3,6 +3,8 @@ package com.mystic.atlantis.screen;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.blocks.base.LinguisticGlyph;
+import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.inventory.WritingMenu;
 import com.mystic.atlantis.recipes.WritingRecipe;
 import net.minecraft.client.Minecraft;
@@ -67,19 +69,14 @@ public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
         int n = this.startIndex + 12;
         this.renderButtons(poseStack, mouseX, mouseY, l, m, n);
         this.renderRecipes(poseStack, l, m, n);
-
-        RenderSystem.setShaderTexture(0, GRADIENT_TOP);
-        poseStack.blit(BG_LOCATION, i - 4, j - 4, 0, 0, imageWidth + 7, this.imageHeight + 7);
+        poseStack.blit(GRADIENT_TOP, i - 4, j - 4, 0, 0, imageWidth + 7, this.imageHeight + 7);
 
         RenderSystem.enableBlend();
-
-
-        RenderSystem.setShaderTexture(0, GRADIENT);
 
         //This by the way is what's needed to pull off opengl equivlent of the Multiply Blend Mode of gimp.
         RenderSystem.blendFunc(GlStateManager.SourceFactor.DST_COLOR, GlStateManager.DestFactor.ZERO);
 
-        poseStack.blit(BG_LOCATION, i - 4, j - 4, 0, 0, this.imageWidth + 7, this.imageHeight + 7);
+        poseStack.blit(GRADIENT, i - 4, j - 4, 0, 0, this.imageWidth + 7, this.imageHeight + 7);
         RenderSystem.disableBlend();
 
     }
@@ -97,7 +94,8 @@ public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
                 int n = i + m % 4 * 16;
                 int o = j + m / 4 * 18 + 2;
                 if (x < n || x >= n + 16 || y < o || y >= o + 18) continue;
-                poseStack.renderTooltip(font, list.get(l).getResultItem(null), x, y);
+                assert Minecraft.getInstance().level != null;
+                poseStack.renderTooltip(font, list.get(l).getResultItem(this.minecraft.level.registryAccess()), x, y);
             }
         }
     }
@@ -120,12 +118,13 @@ public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
 
     private void renderRecipes(GuiGraphics guiGraphics, int left, int top, int recipeIndexOffsetMax) {
         List<WritingRecipe> list = this.menu.getRecipes();
-        for (int i = this.startIndex; i < recipeIndexOffsetMax && i < this.menu.getNumRecipes(); ++i) {
-            int j = i - this.startIndex;
+        for (LinguisticGlyph i : LinguisticGlyph.values()) {
+            int j =  - this.startIndex;
             int k = left + j % 4 * 16;
             int l = j / 4;
             int m = top + l * 18 + 2;
-            guiGraphics.renderItemDecorations(font, list.get(i).getResultItem(null), k, m);
+            guiGraphics.blit(new ResourceLocation("atlantis", "textures/item/" + ItemInit.getScroll(i)
+            ), k, m, 15, 15, 10, 10);
         }
     }
 

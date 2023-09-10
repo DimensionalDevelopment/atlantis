@@ -4,6 +4,8 @@ import com.mystic.atlantis.Atlantis;
 
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.Arrays;
+
 public enum LinguisticGlyph {
     BLANK(""),
     A("a"),
@@ -59,6 +61,12 @@ public enum LinguisticGlyph {
         }
 
         return null;
+    }
+
+    public static int getFromInt(LinguisticGlyph l) {
+        for (int i = 0; i <= Arrays.stream(LinguisticGlyph.values()).count(), i++;) {
+
+        }
     }
 
     @Override

@@ -79,12 +79,11 @@ public class LinguisticScreen extends AbstractContainerScreen<LinguisticMenu> {
 				RenderSystem.setShaderColor(1, 1, 1, 1);
 
 				RenderSystem.setShader(GameRenderer::getPositionTexShader);
-				RenderSystem.setShaderTexture(0, glyphBlock.getGlyph().getTexture());
 				Color color = colorMap.get(glyphBlock.getDyeColor());
 
 				Objects.requireNonNullElse(color, defaultColor).setup();
 
-				arg.blit(BG_LOCATION, 0, 0, 34, 34, 0,0, 16,16,16,16);
+				arg.blit(glyphBlock.getGlyph().getTexture(), 0, 0, 34, 34, 0,0, 16,16,16,16);
 
 				RenderSystem.setShaderColor(1, 1, 1, 1);
 
