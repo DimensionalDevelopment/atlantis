@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "atlantis:block/crystal_storage_tank_top",
+    "side": "atlantis:block/crystal_storage_tank_side"
+  }
+}
