@@ -62,7 +62,7 @@ public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
         int i = this.leftPos;
         int j = this.topPos;
         poseStack.blit(BG_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
-        int k = (int)(41.0f * this.scrollOffs);
+        int k = (int) (41.0f * this.scrollOffs);
         poseStack.blit(BG_LOCATION, i + 119, j + 15 + k, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15);
         int l = this.leftPos + 52;
         int m = this.topPos + 14;
@@ -118,14 +118,55 @@ public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
 
     private void renderRecipes(GuiGraphics guiGraphics, int left, int top, int recipeIndexOffsetMax) {
         List<WritingRecipe> list = this.menu.getRecipes();
-        for (LinguisticGlyph i : LinguisticGlyph.values()) {
-            int j =  - this.startIndex;
+        for (int i = this.startIndex; i < recipeIndexOffsetMax && i < this.menu.getNumRecipes(); ++i) {
+            int j = i - this.startIndex;
             int k = left + j % 4 * 16;
             int l = j / 4;
             int m = top + l * 18 + 2;
-            guiGraphics.blit(new ResourceLocation("atlantis", "textures/item/" + ItemInit.getScroll(i)
-            ), k, m, 15, 15, 10, 10);
+            guiGraphics.renderFakeItem(ItemInit.getScroll(intToGlyph(i)).get().getDefaultInstance(), k, m);
         }
+    }
+
+    public static LinguisticGlyph intToGlyph(int scroll) {
+        return switch (scroll) {
+            case 1 -> LinguisticGlyph.ZERO;
+            case 2 -> LinguisticGlyph.ONE;
+            case 3 -> LinguisticGlyph.TWO;
+            case 4 -> LinguisticGlyph.THREE;
+            case 5 -> LinguisticGlyph.FOUR;
+            case 6 -> LinguisticGlyph.FIVE;
+            case 7 -> LinguisticGlyph.SIX;
+            case 8 -> LinguisticGlyph.SEVEN;
+            case 9 -> LinguisticGlyph.EIGHT;
+            case 10 -> LinguisticGlyph.NINE;
+            case 11 -> LinguisticGlyph.A;
+            case 12 -> LinguisticGlyph.B;
+            case 13 -> LinguisticGlyph.C;
+            case 14 -> LinguisticGlyph.D;
+            case 15 -> LinguisticGlyph.E;
+            case 16 -> LinguisticGlyph.F;
+            case 17 -> LinguisticGlyph.G;
+            case 18 -> LinguisticGlyph.H;
+            case 19 -> LinguisticGlyph.I;
+            case 20 -> LinguisticGlyph.J;
+            case 21 -> LinguisticGlyph.K;
+            case 22 -> LinguisticGlyph.L;
+            case 23 -> LinguisticGlyph.M;
+            case 24 -> LinguisticGlyph.N;
+            case 25 -> LinguisticGlyph.O;
+            case 26 -> LinguisticGlyph.P;
+            case 27 -> LinguisticGlyph.Q;
+            case 28 -> LinguisticGlyph.R;
+            case 29 -> LinguisticGlyph.S;
+            case 30 -> LinguisticGlyph.T;
+            case 31 -> LinguisticGlyph.U;
+            case 32 -> LinguisticGlyph.V;
+            case 33 -> LinguisticGlyph.W;
+            case 34 -> LinguisticGlyph.X;
+            case 35 -> LinguisticGlyph.Y;
+            case 36 -> LinguisticGlyph.Z;
+            default -> LinguisticGlyph.BLANK;
+        };
     }
 
     @Override
@@ -137,16 +178,17 @@ public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
             int k = this.startIndex + 12;
             for (int l = this.startIndex; l < k; ++l) {
                 int m = l - this.startIndex;
-                double d = mouseX - (double)(i + m % 4 * 16);
-                double e = mouseY - (double)(j + m / 4 * 18);
-                if (!(d >= 0.0) || !(e >= 0.0) || !(d < 16.0) || !(e < 18.0) || !this.menu.clickMenuButton(this.minecraft.player, l)) continue;
+                double d = mouseX - (double) (i + m % 4 * 16);
+                double e = mouseY - (double) (j + m / 4 * 18);
+                if (!(d >= 0.0) || !(e >= 0.0) || !(d < 16.0) || !(e < 18.0) || !this.menu.clickMenuButton(this.minecraft.player, l))
+                    continue;
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0f));
                 this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, l);
                 return true;
             }
             i = this.leftPos + 119;
             j = this.topPos + 9;
-            if (mouseX >= (double)i && mouseX < (double)(i + 12) && mouseY >= (double)j && mouseY < (double)(j + 54)) {
+            if (mouseX >= (double) i && mouseX < (double) (i + 12) && mouseY >= (double) j && mouseY < (double) (j + 54)) {
                 this.scrolling = true;
             }
         }
@@ -158,9 +200,9 @@ public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
         if (this.scrolling && this.isScrollBarActive()) {
             int i = this.topPos + 14;
             int j = i + 54;
-            this.scrollOffs = ((float)mouseY - (float)i - 7.5f) / ((float)(j - i) - 15.0f);
+            this.scrollOffs = ((float) mouseY - (float) i - 7.5f) / ((float) (j - i) - 15.0f);
             this.scrollOffs = Mth.clamp(this.scrollOffs, 0.0f, 1.0f);
-            this.startIndex = (int)((double)(this.scrollOffs * (float)this.getOffscreenRows()) + 0.5) * 4;
+            this.startIndex = (int) ((double) (this.scrollOffs * (float) this.getOffscreenRows()) + 0.5) * 4;
             return true;
         }
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
@@ -170,9 +212,9 @@ public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
         if (this.isScrollBarActive()) {
             int i = this.getOffscreenRows();
-            this.scrollOffs = (float)((double)this.scrollOffs - delta / (double)i);
+            this.scrollOffs = (float) ((double) this.scrollOffs - delta / (double) i);
             this.scrollOffs = Mth.clamp(this.scrollOffs, 0.0f, 1.0f);
-            this.startIndex = (int)((double)(this.scrollOffs * (float)i) + 0.5) * 4;
+            this.startIndex = (int) ((double) (this.scrollOffs * (float) i) + 0.5) * 4;
         }
         return true;
     }

@@ -1,5 +1,10 @@
 package com.mystic.atlantis.blocks.blockentities.energy;
 
+import com.mystic.atlantis.blocks.power.energy.CrystalStorageBlock;
+import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.init.TileEntityInit;
+import com.mystic.atlantis.items.item.energybased.AtlanteanAmuletItem;
+import com.mystic.atlantis.items.item.energybased.AtlanteanSpearItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,7 +39,7 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
     private static BlockPos pos;
 
     public CrystalGenerator(BlockPos arg, BlockState arg2) {
-       super(/*TileRegistry.CRYSTAL_GENERATOR.get()*/ null, arg, arg2);
+        super(TileEntityInit.CRYSTAL_GENERATOR.get(), arg, arg2);
         CrystalGenerator.pos = arg;
         this.data = new ContainerData() {
             @Override
@@ -62,7 +67,7 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
     }
 
     public static CrystalGenerator getCrystalGenerator() {
-        return null; // new CrystalGenerator(pos, BlockInit.CRYSTAL_GENERATOR.get().defaultBlockState());
+        return new CrystalGenerator(pos, BlockInit.CRYSTAL_GENERATOR.get().defaultBlockState());
     }
 
     @Override
@@ -79,8 +84,10 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             return switch (slot) {
-                case 0 -> stack.getItem() == ItemInit.ATLANTEAN_CRYSTAL.get();
-        //        case 1 -> stack.getItem() == ItemInit.ATLANTEAN_AMULET.get() || stack.getItem() == ItemInit.ATLANTEAN_SPEAR.get() || stack.getItem() == BlockInit.CRYSTAL_STORAGE.get().asItem();
+                case 0 ->
+                        stack.getItem() == ItemInit.ATLANTEAN_CRYSTAL.get() || stack.getItem() == BlockInit.CRYSTAL_STORAGE.get().asItem();
+                case 1 ->
+                        stack.getItem() == ItemInit.ATLANTEAN_AMULET.get() || stack.getItem() == ItemInit.ATLANTEAN_SPEAR.get() || stack.getItem() == BlockInit.CRYSTAL_STORAGE.get().asItem();
                 default -> super.isItemValid(slot, stack);
             };
         }
@@ -98,7 +105,7 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
         return new CrystalGeneratorMenu(id, inventory, this, this.data);
     }
 
-    public final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(10000, 32, 20) {
+    public final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(10000, 32, 32) {
         @Override
         public void onEnergyChanged() {
             setChanged();
@@ -115,7 +122,7 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
     private LazyOptional<IEnergyStorage> LazyEnergyHandler = LazyOptional.empty();
 
     @Override
-    public @NotNull <T>LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.@NotNull Capability<T> cap, @Nullable net.minecraft.core.Direction side) {
+    public @NotNull <T> LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.@NotNull Capability<T> cap, @Nullable net.minecraft.core.Direction side) {
         if (cap == ForgeCapabilities.ENERGY) {
             return LazyEnergyHandler.cast();
         }
@@ -134,6 +141,7 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
         super.onLoad();
         lazyItemHandler = LazyOptional.of(() -> itemHandler);
         LazyEnergyHandler = LazyOptional.of(() -> ENERGY_STORAGE);
+        setChanged();
     }
 
     @Override
@@ -148,6 +156,7 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
         nbt.put("inventory", itemHandler.serializeNBT());
         nbt.putInt("crystal_generator.progress", this.progress);
         nbt.putInt("crystal_generator.energy", ENERGY_STORAGE.getEnergyStored());
+        setChanged();
     }
 
     @Override
@@ -156,6 +165,7 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
         progress = nbt.getInt("crystal_generator.progress");
         ENERGY_STORAGE.setEnergy(nbt.getInt("crystal_generator.energy"));
+        setChanged();
     }
 
     public void drops() {
@@ -168,15 +178,15 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, CrystalGenerator blockEntity) {
-        if(level.isClientSide()) {
+        if (level.isClientSide()) {
             return;
         }
 
-        if(blockEntity == null) {
+        if (blockEntity == null) {
             return;
         }
 
-        if (hasCrystalInSlot(blockEntity)) {
+        if (hasCrystalInSlot(blockEntity) && !blockEntity.ENERGY_STORAGE.isFullyCharged()) {
             blockEntity.ENERGY_STORAGE.receiveEnergy(ENERGY_REQ, false);
             blockEntity.ENERGY_STORAGE.comesFromCrystal = true;
             if (blockEntity.ENERGY_STORAGE.receivedEnergyFromCrystal()) {
@@ -186,16 +196,16 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
             blockEntity.ENERGY_STORAGE.comesFromCrystal = false;
         }
 
-        if(!blockEntity.itemHandler.getStackInSlot(1).isEmpty()) {
+        if (!blockEntity.itemHandler.getStackInSlot(1).isEmpty()) {
             blockEntity.progress++;
             setChanged(level, pos, state);
-       /*     if(blockEntity.progress >= blockEntity.maxProgress) {
-                if(blockEntity.itemHandler.getStackInSlot(1).getItem() == ItemInit.ATLANTEAN_SPEAR.get()) {
+            if (blockEntity.progress >= blockEntity.maxProgress && blockEntity.ENERGY_STORAGE.getEnergyStored() > 0) {
+                if (blockEntity.itemHandler.getStackInSlot(1).getItem() == ItemInit.ATLANTEAN_SPEAR.get()) {
                     AtlanteanSpearItem.chargeItem(blockEntity.itemHandler.getStackInSlot(1), blockEntity);
                 } else if (blockEntity.itemHandler.getStackInSlot(1).getItem() == ItemInit.ATLANTEAN_AMULET.get()) {
                     AtlanteanAmuletItem.chargeItem(blockEntity.itemHandler.getStackInSlot(1), blockEntity);
                 }
-            } */
+            }
         } else {
             blockEntity.resetProgress();
             setChanged(level, pos, state);
@@ -224,5 +234,16 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
 
     private static boolean hasCrystalInSlot(CrystalGenerator blockEntity) {
         return blockEntity.itemHandler.getStackInSlot(0).getItem() == ItemInit.ATLANTEAN_CRYSTAL.get();
+    }
+
+    private static boolean hasCrystalStorageInSlot(CrystalGenerator blockEntity) {
+        return blockEntity.itemHandler.getStackInSlot(0).getItem() == BlockInit.CRYSTAL_STORAGE.get().asItem();
+    }
+
+    @Override
+    public void setChanged() {
+        getEnergyStorage().setEnergy(getEnergyStorage().getEnergyStored());
+
+        super.setChanged();
     }
 }

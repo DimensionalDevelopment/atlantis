@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "CIC",
+    "ICI",
+    "CIC"
+  ],
+  "key":
+  {
+    "C":
+    {
+      "item": "atlantis:atlantean_crystal"
+    },
+
+    "I":
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result":
+  {
+    "item": "atlantis:crystal_storage_tank",
+    "count": 1
+  }
+}

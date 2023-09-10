@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:smithing",
+  "type": "minecraft:smithing_transform",
   "template": {
     "item": "minecraft:coast_armor_trim_smithing_template"
   },

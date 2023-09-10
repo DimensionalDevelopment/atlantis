@@ -1,12 +1,15 @@
 package com.mystic.atlantis.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mystic.atlantis.inventory.CrystalGeneratorMenu;
 import com.mystic.atlantis.util.EnergyInfoArea;
 import com.mystic.atlantis.util.MouseUtil;
 import com.mystic.atlantis.util.Reference;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -32,7 +35,8 @@ public class CrystalGeneratorScreen extends AbstractContainerScreen<CrystalGener
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        energyInfoArea = new EnergyInfoArea(253, y + 13, menu.blockEntity.getEnergyStorage());
+        energyInfoArea = new EnergyInfoArea(x + 128, y + 14, menu.blockEntity.getEnergyStorage());
+        energyInfoArea.draw(new GuiGraphics(Minecraft.getInstance(), MultiBufferSource.immediate(new BufferBuilder(200))));
     }
 
     @Override
@@ -59,7 +63,6 @@ public class CrystalGeneratorScreen extends AbstractContainerScreen<CrystalGener
         pPoseStack.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
 
         renderProgressArrow(pPoseStack, x, y);
-        energyInfoArea.draw(pPoseStack);
     }
 
     private void renderProgressArrow(GuiGraphics pPoseStack, int x, int y) {
@@ -73,6 +76,7 @@ public class CrystalGeneratorScreen extends AbstractContainerScreen<CrystalGener
         renderBackground(pPoseStack);
         super.render(pPoseStack, mouseX, mouseY, delta);
         renderTooltip(pPoseStack, mouseX, mouseY);
+        energyInfoArea.draw(pPoseStack);
     }
 
     private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, int width, int height) {

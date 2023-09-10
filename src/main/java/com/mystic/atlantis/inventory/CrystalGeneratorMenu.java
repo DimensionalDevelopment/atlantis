@@ -1,5 +1,6 @@
 package com.mystic.atlantis.inventory;
 
+import com.mystic.atlantis.init.BlockInit;
 import org.jetbrains.annotations.NotNull;
 
 import com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator;
@@ -47,7 +48,7 @@ public class CrystalGeneratorMenu extends AbstractContainerMenu {
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0;
+        return data.get(0) > 0 && data.get(0) <= data.get(1);
     }
 
 
@@ -117,7 +118,7 @@ public class CrystalGeneratorMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
-                player, /*BlockInit.CRYSTAL_GENERATOR.get()*/ null);
+                player, BlockInit.CRYSTAL_GENERATOR.get());
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

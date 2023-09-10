@@ -2,26 +2,25 @@
 	"type": "minecraft:crafting_shaped",
 	"pattern":
 	[
-		" S ",
-		"SWS",
-		" S "
+		"ICI",
+		"ICI",
+		"CIC"
 	],
 	"key":
 	{
-		"W":
+		"C":
 		{
-			"item": "minecraft:acacia_planks"
+			"item": "atlantis:atlantean_crystal"
 		},
 		
-		"S":
+		"I":
 		{
-			"item": "atlantis:algae"
+			"item": "minecraft:iron_ingot"
 		}
 	},
 	"result":
 	{
-		"item": "atlantis:ancient_acacia_wood_moss",
-		"count": 2
+		"item": "atlantis:crystal_generator",
+		"count": 1
 	}
-	
 }					

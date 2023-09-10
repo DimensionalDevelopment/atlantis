@@ -6,6 +6,8 @@ import com.mystic.atlantis.blocks.base.*;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.blocks.plants.*;
 import com.mystic.atlantis.blocks.power.atlanteanstone.*;
+import com.mystic.atlantis.blocks.power.energy.CrystalGeneratorBlock;
+import com.mystic.atlantis.blocks.power.energy.CrystalStorageBlock;
 import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
 import com.mystic.atlantis.blocks.shells.NautilusShellBlock;
 import com.mystic.atlantis.blocks.shells.OysterShellBlock;
@@ -41,9 +43,9 @@ public class BlockInit {
     public static final Map<LinguisticGlyph, Map<DyeColor, RegistryObject<Block>>> DYED_LINGUISTICS = new HashMap<>();
     public static final Map<LinguisticGlyph, RegistryObject<Block>> NON_LINGUISTICS = new HashMap<>();
 
-    //Energy TODO fix Energy Blocks
-    // public static final RegistryObject<Block> CRYSTAL_GENERATOR = registerBlock("crystal_generator", () -> new CrystalGeneratorBlock(BlockBehaviour.Properties.of(Material.AMETHYST)));
-    // public static final RegistryObject<Block> CRYSTAL_STORAGE = registerBlock("crystal_storage", () -> new CrystalStorageBlock(BlockBehaviour.Properties.of(Material.AMETHYST)));
+    //Energy
+    public static final RegistryObject<Block> CRYSTAL_GENERATOR = registerBlock("crystal_generator", () -> new CrystalGeneratorBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<Block> CRYSTAL_STORAGE = registerBlock("crystal_storage_tank", () -> new CrystalStorageBlock(BlockBehaviour.Properties.of()));
 
     //Fluid Blocks
     public static final RegistryObject<LiquidBlock> JETSTREAM_WATER_BLOCK = BLOCKS.register("jetstream_water",
@@ -191,7 +193,7 @@ public class BlockInit {
     public static final RegistryObject<AtlanteanTripwireBlock> ATLANTEAN_TRIPWIRE = registerOnlyBlock("atlantean_tripwire",()-> new AtlanteanTripwireBlock(ATLANTEAN_TRIPWIRE_HOOK.get(), BlockBehaviour.Properties.of().noCollission()));
     public static final RegistryObject<AtlanteanPowerLeverBlock> ATLANTEAN_POWER_LEVER = registerBlock("atlantean_power_lever",()-> new AtlanteanPowerLeverBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<AtlanteanPowerComparatorBlock> ATLANTEAN_POWER_COMPARATOR = registerBlock("atlantean_power_comparator",()-> new AtlanteanPowerComparatorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<BubbleMagmaBlock> CALCITE_BLOCK = registerBlock("calcite_block",()-> new BubbleMagmaBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<CalciteBlock> CALCITE_BLOCK = registerBlock("calcite_block",()-> new CalciteBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<PushBubbleColumnBlock> PUSH_BUBBLE_COLUMN = registerOnlyBlock("push_bubble_column",()-> new PushBubbleColumnBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<AncientWoodSlabBlock> ANCIENT_ACACIA_WOOD_MOSS_SLAB = registerBlock("ancient_acacia_wood_moss_slab",()-> new AncientWoodSlabBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<AncientWoodSlabBlock> ANCIENT_OAK_WOOD_MOSS_SLAB = registerBlock("ancient_oak_wood_moss_slab",()-> new AncientWoodSlabBlock(BlockBehaviour.Properties.of()));

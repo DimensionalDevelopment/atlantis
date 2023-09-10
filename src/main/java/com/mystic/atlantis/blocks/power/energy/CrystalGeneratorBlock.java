@@ -1,6 +1,14 @@
 package com.mystic.atlantis.blocks.power.energy;
 
+import com.mystic.atlantis.blocks.blockentities.energy.CrystalStorage;
+import com.mystic.atlantis.init.TileEntityInit;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator;
@@ -28,9 +36,14 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static net.minecraft.world.level.block.ShulkerBoxBlock.CONTENTS;
+
 public class CrystalGeneratorBlock extends BaseEntityBlock {
-	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-	
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+
     public CrystalGeneratorBlock(Properties settings) {
         super(settings
                 .strength(3.5F)
@@ -62,7 +75,7 @@ public class CrystalGeneratorBlock extends BaseEntityBlock {
     /* BLOCK ENTITY */
 
     @Override
-    public RenderShape getRenderShape(BlockState p_49232_) {
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState p_49232_) {
         return RenderShape.MODEL;
     }
 
@@ -77,8 +90,25 @@ public class CrystalGeneratorBlock extends BaseEntityBlock {
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
+    public @NotNull List<ItemStack> getDrops(@NotNull BlockState pState, LootParams.Builder pParams) {
+        BlockEntity blockentity = pParams.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+        List<ItemStack> list = List.of();
+        if (blockentity instanceof CrystalGenerator crystalGenerator) {
+            pParams = pParams.withDynamicDrop(CONTENTS, (p_56219_) -> {
+                for (int i = 0; i < crystalGenerator.itemHandler.getSlots(); ++i) {
+                    p_56219_.accept(crystalGenerator.itemHandler.getStackInSlot(i));
+                }
+            });
+            ItemStack stack = new ItemStack(this, 1);
+            BlockItem.setBlockEntityData(stack, TileEntityInit.CRYSTAL_GENERATOR.get(), crystalGenerator.saveWithoutMetadata());
+            list = super.getDrops(pState, pParams);
+            list.listIterator().add(stack);
+        }
+        return list;
+    }
+
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public @NotNull InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
             if(entity instanceof CrystalGenerator) {
@@ -100,6 +130,6 @@ public class CrystalGeneratorBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, /*TileRegistry.CRYSTAL_GENERATOR.get()*/ null, CrystalGenerator::tick);
+        return createTickerHelper(type, TileEntityInit.CRYSTAL_GENERATOR.get(), CrystalGenerator::tick);
     }
 }

@@ -1,6 +1,8 @@
 package com.mystic.atlantis.util;
 
-public abstract class ModEnergyStorage extends net.minecraftforge.energy.EnergyStorage {
+import com.mystic.atlantis.capiablities.energy.IAtlanteanCrystalEnergy;
+
+public abstract class ModEnergyStorage extends net.minecraftforge.energy.EnergyStorage implements IAtlanteanCrystalEnergy {
     public boolean comesFromCrystal = false;
     private int receiveEnergyFromCrystal;
     private boolean energyGaining;
@@ -19,6 +21,14 @@ public abstract class ModEnergyStorage extends net.minecraftforge.energy.EnergyS
 
     public boolean receivedEnergyFromCrystal() {
         return receiveEnergyFromCrystal / energyPerCrystal() % 1 == 0;
+    }
+
+    public boolean isFullyCharged() {
+        return this.getEnergyStored() == this.getMaxEnergyStored();
+    }
+
+    public boolean isFullyDepleted() {
+        return this.getEnergyStored() == 0;
     }
 
     public boolean receivingEnergyFromCrystal() {
