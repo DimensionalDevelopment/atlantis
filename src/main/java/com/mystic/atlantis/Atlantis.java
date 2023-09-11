@@ -93,6 +93,7 @@ public class Atlantis {
         AtlantisEntityInit.init(bus);
         AtlantisSoundEventInit.init(bus);
         EffectsInit.init(bus);
+        EnchantmentInit.init(bus);
         MenuTypeInit.init(bus);
         RecipesInit.init(bus);
     }
