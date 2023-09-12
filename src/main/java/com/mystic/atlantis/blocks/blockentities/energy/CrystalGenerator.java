@@ -177,6 +177,8 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
+    public int lifetimeTick = 0;
+
     public static void tick(Level level, BlockPos pos, BlockState state, CrystalGenerator blockEntity) {
         if (level.isClientSide()) {
             return;
@@ -186,24 +188,30 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
             return;
         }
 
-        if (hasCrystalInSlot(blockEntity) && !blockEntity.ENERGY_STORAGE.isFullyCharged()) {
-            blockEntity.ENERGY_STORAGE.receiveEnergy(ENERGY_REQ, false);
-            blockEntity.ENERGY_STORAGE.comesFromCrystal = true;
-            if (blockEntity.ENERGY_STORAGE.receivedEnergyFromCrystal()) {
-                blockEntity.itemHandler.getStackInSlot(0).shrink(1);
+        blockEntity.lifetimeTick++;
+
+        if (blockEntity.lifetimeTick % 30 == 0) {
+            if (hasCrystalInSlot(blockEntity) && !blockEntity.ENERGY_STORAGE.isFullyCharged()) {
+                blockEntity.ENERGY_STORAGE.receiveEnergy(ENERGY_REQ, false);
+                blockEntity.ENERGY_STORAGE.comesFromCrystal = true;
+                if (blockEntity.ENERGY_STORAGE.receivedEnergyFromCrystal()) {
+                    blockEntity.itemHandler.getStackInSlot(0).shrink(1);
+                }
+            } else {
+                blockEntity.ENERGY_STORAGE.comesFromCrystal = false;
             }
-        } else {
-            blockEntity.ENERGY_STORAGE.comesFromCrystal = false;
         }
 
         if (!blockEntity.itemHandler.getStackInSlot(1).isEmpty()) {
             blockEntity.progress++;
             setChanged(level, pos, state);
-            if (blockEntity.progress >= blockEntity.maxProgress && blockEntity.ENERGY_STORAGE.getEnergyStored() > 0) {
-                if (blockEntity.itemHandler.getStackInSlot(1).getItem() == ItemInit.ATLANTEAN_SPEAR.get()) {
-                    AtlanteanSpearItem.chargeItem(blockEntity.itemHandler.getStackInSlot(1), blockEntity);
-                } else if (blockEntity.itemHandler.getStackInSlot(1).getItem() == ItemInit.ATLANTEAN_AMULET.get()) {
-                    AtlanteanAmuletItem.chargeItem(blockEntity.itemHandler.getStackInSlot(1), blockEntity);
+            if (blockEntity.lifetimeTick % 30 == 0) {
+                if (blockEntity.progress >= blockEntity.maxProgress && blockEntity.ENERGY_STORAGE.getEnergyStored() > 0) {
+                    if (blockEntity.itemHandler.getStackInSlot(1).getItem() == ItemInit.ATLANTEAN_SPEAR.get()) {
+                        AtlanteanSpearItem.chargeItem(blockEntity.itemHandler.getStackInSlot(1), blockEntity);
+                    } else if (blockEntity.itemHandler.getStackInSlot(1).getItem() == ItemInit.ATLANTEAN_AMULET.get()) {
+                        AtlanteanAmuletItem.chargeItem(blockEntity.itemHandler.getStackInSlot(1), blockEntity);
+                    }
                 }
             }
         } else {

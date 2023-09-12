@@ -49,7 +49,7 @@ public class AtlanteanSpearItem extends DefaultItem {
     @Override
     public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
         return new ICapabilitySerializable<CompoundTag>() {
-            AtlanteanCrystalEnergy storage = new AtlanteanCrystalEnergy(2000, 20, 200);
+            AtlanteanCrystalEnergy storage = new AtlanteanCrystalEnergy(2000, 32, 200);
             LazyOptional<ModEnergyStorage> opt = LazyOptional.of(() -> storage);
 
             @Override
@@ -94,8 +94,6 @@ public class AtlanteanSpearItem extends DefaultItem {
             }
         }
     }
-
-
 
     @Override
     public @NotNull InteractionResult useOn(UseOnContext context) {

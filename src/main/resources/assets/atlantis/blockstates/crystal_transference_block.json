@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "atlantis:block/crystal_transference_block"
+    }
+  }
+}

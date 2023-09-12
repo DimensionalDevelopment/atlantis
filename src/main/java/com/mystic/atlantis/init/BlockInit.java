@@ -3,11 +3,13 @@ package com.mystic.atlantis.init;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.MultimapBuilder;
 import com.mystic.atlantis.blocks.base.*;
+import com.mystic.atlantis.blocks.blockentities.energy.CrystalTransference;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.blocks.plants.*;
 import com.mystic.atlantis.blocks.power.atlanteanstone.*;
 import com.mystic.atlantis.blocks.power.energy.CrystalGeneratorBlock;
 import com.mystic.atlantis.blocks.power.energy.CrystalStorageBlock;
+import com.mystic.atlantis.blocks.power.energy.CrystalTransferenceBlock;
 import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
 import com.mystic.atlantis.blocks.shells.NautilusShellBlock;
 import com.mystic.atlantis.blocks.shells.OysterShellBlock;
@@ -46,6 +48,7 @@ public class BlockInit {
     //Energy
     public static final RegistryObject<Block> CRYSTAL_GENERATOR = registerBlock("crystal_generator", () -> new CrystalGeneratorBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<Block> CRYSTAL_STORAGE = registerBlock("crystal_storage_tank", () -> new CrystalStorageBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<Block> CRYSTAL_TRANSFERENCE = registerBlock("crystal_transference_block", () -> new CrystalTransferenceBlock(BlockBehaviour.Properties.of()));
 
     //Fluid Blocks
     public static final RegistryObject<LiquidBlock> JETSTREAM_WATER_BLOCK = BLOCKS.register("jetstream_water",

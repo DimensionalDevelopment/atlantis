@@ -54,7 +54,7 @@ public class AtlanteanAmuletItem extends DefaultItem {
     @Override
     public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
         return new ICapabilitySerializable<CompoundTag>() {
-            AtlanteanCrystalEnergy storage = new AtlanteanCrystalEnergy(5000, 20, 1);
+            AtlanteanCrystalEnergy storage = new AtlanteanCrystalEnergy(500, 32, 1);
             LazyOptional<ModEnergyStorage> opt = LazyOptional.of(() -> storage);
 
             @Override
@@ -79,8 +79,8 @@ public class AtlanteanAmuletItem extends DefaultItem {
     public static void chargeItem(ItemStack stack, CrystalGenerator generator) {
         if (stack.getItem() instanceof AtlanteanAmuletItem) {
             if(!getEnergyStorage(stack).isFullyCharged()) {
-                generator.ENERGY_STORAGE.extractEnergy(20, false);
-                getEnergyStorage(stack).receiveEnergy(20, false);
+                generator.ENERGY_STORAGE.extractEnergy(32, false);
+                getEnergyStorage(stack).receiveEnergy(32, false);
             }
         }
     }
@@ -112,14 +112,16 @@ public class AtlanteanAmuletItem extends DefaultItem {
 
     @Override
     public void inventoryTick(ItemStack stack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
-        if (this.isAmuletCharged(stack)) {
-            dischargeItem(stack);
-            if(pEntity instanceof LivingEntity livingEntity) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 20, 1, false, false));
-            }
-        } else {
-            if(pEntity instanceof LivingEntity livingEntity) {
-                livingEntity.removeEffect(MobEffects.FIRE_RESISTANCE);
+        if(pEntity.tickCount % 40 == 0) {
+            if (this.isAmuletCharged(stack)) {
+                dischargeItem(stack);
+                if (pEntity instanceof LivingEntity livingEntity) {
+                    livingEntity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 20, 1, false, false));
+                }
+            } else {
+                if (pEntity instanceof LivingEntity livingEntity) {
+                    livingEntity.removeEffect(MobEffects.FIRE_RESISTANCE);
+                }
             }
         }
     }

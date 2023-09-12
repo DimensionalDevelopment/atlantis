@@ -60,28 +60,35 @@ public class CrystalStorage extends BlockEntity {
     @Override
     public void saveAdditional(@NotNull CompoundTag nbt) {
         super.saveAdditional(nbt);
+        nbt.putInt("crystal_storage.ticklifetime", this.lifetimeTick);
         nbt.putInt("crystal_storage.energy", ENERGY_STORAGE.getEnergyStored());
     }
 
     @Override
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
+        this.lifetimeTick = nbt.getInt("crystal_storage.ticklifetime");
         ENERGY_STORAGE.setEnergy(nbt.getInt("crystal_storage.energy"));
     }
 
+    public int lifetimeTick = 0;
+
     public static void tick(Level level, BlockPos pos, BlockState state, CrystalStorage blockEntity2) {
-        if (level.getBlockState(pos.above()).getBlock() == BlockInit.CRYSTAL_GENERATOR.get() && Objects.requireNonNull(level.getBlockEntity(pos.above())) instanceof CrystalGenerator blockEntity) {
-            if (blockEntity.ENERGY_STORAGE.getEnergyStored() < blockEntity.ENERGY_STORAGE.getMaxEnergyStored()) {
-                if (blockEntity.ENERGY_STORAGE.getEnergyStored() >= ENERGY_REQ) {
-                    blockEntity.ENERGY_STORAGE.extractEnergy(ENERGY_REQ, false);
-                    blockEntity2.ENERGY_STORAGE.receiveEnergy(ENERGY_REQ, false);
+        blockEntity2.lifetimeTick++;
+        if (blockEntity2.lifetimeTick % 30 == 0) {
+            if (level.getBlockState(pos.above()).getBlock() == BlockInit.CRYSTAL_GENERATOR.get() && Objects.requireNonNull(level.getBlockEntity(pos.above())) instanceof CrystalGenerator blockEntity) {
+                if (blockEntity.ENERGY_STORAGE.getEnergyStored() < blockEntity.ENERGY_STORAGE.getMaxEnergyStored()) {
+                    if (blockEntity.ENERGY_STORAGE.getEnergyStored() >= ENERGY_REQ) {
+                        blockEntity.ENERGY_STORAGE.extractEnergy(ENERGY_REQ, false);
+                        blockEntity2.ENERGY_STORAGE.receiveEnergy(ENERGY_REQ, false);
+                    }
                 }
-            }
-        } else if (level.getBlockState(pos.below()).getBlock() == BlockInit.CRYSTAL_GENERATOR.get() && level.getBlockEntity(pos.below()) instanceof CrystalGenerator blockEntity) {
-            if (blockEntity2.ENERGY_STORAGE.getEnergyStored() < blockEntity2.ENERGY_STORAGE.getMaxEnergyStored()) {
-                if (blockEntity2.ENERGY_STORAGE.getEnergyStored() >= ENERGY_REQ) {
-                    blockEntity2.ENERGY_STORAGE.extractEnergy(ENERGY_REQ, false);
-                    blockEntity.ENERGY_STORAGE.receiveEnergy(ENERGY_REQ, false);
+            } else if (level.getBlockState(pos.below()).getBlock() == BlockInit.CRYSTAL_GENERATOR.get() && level.getBlockEntity(pos.below()) instanceof CrystalGenerator blockEntity) {
+                if (blockEntity2.ENERGY_STORAGE.getEnergyStored() < blockEntity2.ENERGY_STORAGE.getMaxEnergyStored()) {
+                    if (blockEntity2.ENERGY_STORAGE.getEnergyStored() >= ENERGY_REQ) {
+                        blockEntity2.ENERGY_STORAGE.extractEnergy(ENERGY_REQ, false);
+                        blockEntity.ENERGY_STORAGE.receiveEnergy(ENERGY_REQ, false);
+                    }
                 }
             }
         }

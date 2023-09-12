@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"RAR",
+		"IRI",
+		"AIA"
+	],
+	"key": {
+		"R": {
+			"item": "minecraft:redstone_block"
+		},
+
+		"I": {
+			"item": "minecraft:iron_ingot"
+		},
+
+		"A": {
+			"item": "atlantis:atlantean_crystal"
+		}
+	},
+	"result":
+	{
+		"item": "atlantis:crystal_transference_block",
+		"count": 1
+	}
+
+}

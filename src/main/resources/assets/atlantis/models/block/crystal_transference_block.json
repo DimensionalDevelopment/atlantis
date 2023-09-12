@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "atlantis:block/crystal_transference_block_bottom",
+    "side": "atlantis:block/crystal_transference_block_side",
+    "top": "atlantis:block/crystal_transference_block_top"
+  }
+}

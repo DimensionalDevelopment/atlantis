@@ -19,8 +19,8 @@ public class MenuTypeInit {
 
     public static final RegistryObject<MenuType<CrystalGeneratorMenu>> CRYSTAL_GENERATOR_MENU =
             registerMenuType(CrystalGeneratorMenu::new, "crystal_generator_menu");
-    public static final RegistryObject<MenuType<LinguisticMenu>> LINGUISTIC = CONTAINERS.register("linguistic", () -> new MenuType<LinguisticMenu>(LinguisticMenu::new, FeatureFlagSet.of()));
-    public static final RegistryObject<MenuType<WritingMenu>> WRITING = CONTAINERS.register("writing", () -> new MenuType<WritingMenu>(WritingMenu::new, FeatureFlagSet.of()));
+    public static final RegistryObject<MenuType<LinguisticMenu>> LINGUISTIC = CONTAINERS.register("linguistic", () -> new MenuType<>(LinguisticMenu::new, FeatureFlagSet.of()));
+    public static final RegistryObject<MenuType<WritingMenu>> WRITING = CONTAINERS.register("writing", () -> new MenuType<>(WritingMenu::new, FeatureFlagSet.of()));
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {
         return CONTAINERS.register(name, () -> IForgeMenuType.create(factory));
