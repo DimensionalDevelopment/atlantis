@@ -17,6 +17,7 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
@@ -24,5 +25,12 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
 
     public JellyfishEntityRenderer(EntityRendererProvider.Context renderManager, GeoModel<JellyfishEntity> modelProvider) {
         super(renderManager, modelProvider);
+    }
+
+    @Override
+    public void preRender(PoseStack poseStack, JellyfishEntity animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        poseStack.pushPose();
+        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, 0.5f);
+        poseStack.popPose();
     }
 }
