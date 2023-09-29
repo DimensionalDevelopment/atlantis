@@ -1,5 +1,6 @@
 package com.mystic.atlantis.init;
 
+import com.mystic.atlantis.blocks.blockentities.AtlantisPortalBlockEntity;
 import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
 import com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator;
 import com.mystic.atlantis.blocks.blockentities.energy.CrystalStorage;
@@ -27,7 +28,7 @@ public class TileEntityInit {
 	public static final RegistryObject<BlockEntityType<BlueLilyTileEntity>> BLUE_LILY_TILE = TILE_ENTITIES.register("blue_lily", () -> BlockEntityType.Builder.of(BlueLilyTileEntity::new, BlockInit.BLUE_LILY_BLOCK.get()).build(null));
 	public static final RegistryObject<BlockEntityType<BurntDeepTileEntity>> BURNT_DEEP_TILE = TILE_ENTITIES.register("burnt_deep", () -> BlockEntityType.Builder.of(BurntDeepTileEntity::new, BlockInit.BURNT_DEEP_BLOCK.get()).build(null));
 	public static final RegistryObject<BlockEntityType<EnenmomyTileEntity>> ENENMOMY_TILE = TILE_ENTITIES.register("enenmomy", () -> BlockEntityType.Builder.of(EnenmomyTileEntity::new, BlockInit.ENENMOMY_BLOCK.get()).build(null));
-
+	public static final RegistryObject<BlockEntityType<AtlantisPortalBlockEntity>> ATLANTIS_PORTAL = TILE_ENTITIES.register("atlantis_portal", () -> BlockEntityType.Builder.of(AtlantisPortalBlockEntity::new, BlockInit.ATLANTIS_CLEAR_PORTAL.get()).build(null));
 	public static final RegistryObject<BlockEntityType<DummyDataStorage>> DUMMY_DATA_STORAGE = TILE_ENTITIES.register("dummydatastorage", () -> BlockEntityType.Builder.of(DummyDataStorage::new, BlockInit.ATLANTIS_PORTAL.get()).build(null));
 	public static final RegistryObject<BlockEntityType<CrystalGenerator>> CRYSTAL_GENERATOR = TILE_ENTITIES.register("crystal_generator", () -> BlockEntityType.Builder.of(CrystalGenerator::new, BlockInit.CRYSTAL_GENERATOR.get()).build(null));
 	public static final RegistryObject<BlockEntityType<CrystalStorage>> CRYSTAL_STORAGE = TILE_ENTITIES.register("crystal_storage", () -> BlockEntityType.Builder.of(CrystalStorage::new, BlockInit.CRYSTAL_STORAGE.get()).build(null));

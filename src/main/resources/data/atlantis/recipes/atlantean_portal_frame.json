@@ -1,0 +1,32 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"SOS",
+		"OWO",
+		"SOS"
+	],
+	"key":
+	{
+		"W":
+		{
+			"item": "atlantis:atlantean_core"
+		},
+		
+		"S":
+		{
+			"item": "atlantis:drop_of_atlantis"
+		},
+
+		"O":
+		{
+			"item": "atlantis:ocean_stone"
+		}
+	},
+	"result":
+	{
+		"item": "atlantis:ancient_acacia_wood_moss",
+		"count": 2
+	}
+	
+}					

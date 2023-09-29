@@ -144,7 +144,7 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
         this.entityData.set(VARIANT, this.random.nextInt(100) > 50 ? 1 : 2);
-        this.entityData.set(COLOR, betterNiceColor());
+        this.entityData.set(COLOR, this.random.nextInt(15));
         return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
@@ -193,7 +193,7 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
         super.defineSynchedData();
         this.entityData.define(VARIANT, 0);
         this.entityData.define(FROM_BUCKET, false);
-        this.entityData.define(COLOR, betterNiceColor());
+        this.entityData.define(COLOR, this.random.nextInt(15));
     }
 
     @Override
@@ -214,10 +214,6 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
             child.setPosRaw(this.getX(), this.getY(), this.getZ());
             world.addFreshEntity(child);
         }
-    }
-
-    public static int betterNiceColor() {
-        return ThreadLocalRandom.current().nextInt(0x01000000);
     }
 
     @Override

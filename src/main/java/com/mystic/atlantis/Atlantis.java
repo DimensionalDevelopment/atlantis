@@ -14,7 +14,6 @@ import com.mystic.atlantis.screen.WritingScreen;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
 import me.shedaniel.autoconfig.AutoConfig;
-import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -22,6 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.client.ConfigScreenHandler;
@@ -81,7 +81,6 @@ public class Atlantis {
 
     public void onInitialize(IEventBus bus) {
         GeckoLib.initialize();
-//        GeckoLibMod.DISABLE_IN_DEV = true; TODO: Fix
         BlockInit.init(bus);
         ItemInit.init(bus);
         PaintingVariantsInit.init(bus);
@@ -111,16 +110,6 @@ public class Atlantis {
         ToolInit.init();
         TagsInit.init();
 
-        CustomPortalBuilder.beginPortal()
-                .frameBlock(BlockInit.ATLANTEAN_CORE.get())
-                .lightWithWater()
-                .flatPortal()
-                .destDimID(new ResourceLocation("atlantis", "atlantis"))
-                .tintColor(0, 125, 255)
-                .customPortalBlock(BlockInit.ATLANTIS_CLEAR_PORTAL.get())
-                .registerPortal();
-
-//        GeckoLibMod.DISABLE_IN_DEV = true; TODO: FIX
         event.enqueueWork(DimensionAtlantis::registerBiomeSources);
 
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get());

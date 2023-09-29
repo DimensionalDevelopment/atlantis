@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "eye=false,facing=east,waterlogged=false": {
+      "model": "atlantis:block/atlantean_portal_frame",
+      "y": 270
+    },
+    "eye=false,facing=north,waterlogged=false": {
+      "model": "atlantis:block/atlantean_portal_frame",
+      "y": 180
+    },
+    "eye=false,facing=south,waterlogged=false": {
+      "model": "atlantis:block/atlantean_portal_frame"
+    },
+    "eye=false,facing=west,waterlogged=false": {
+      "model": "atlantis:block/atlantean_portal_frame",
+      "y": 90
+    },
+    "eye=true,facing=east,waterlogged=false": {
+      "model": "atlantis:block/atlantean_portal_frame_filled",
+      "y": 270
+    },
+    "eye=true,facing=north,waterlogged=false": {
+      "model": "atlantis:block/atlantean_portal_frame_filled",
+      "y": 180
+    },
+    "eye=true,facing=south,waterlogged=false": {
+      "model": "atlantis:block/atlantean_portal_frame_filled"
+    },
+    "eye=true,facing=west,waterlogged=false": {
+      "model": "atlantis:block/atlantean_portal_frame_filled",
+      "y": 90
+    },
+    "eye=false,facing=east,waterlogged=true": {
+      "model": "atlantis:block/atlantean_portal_frame",
+      "y": 270
+    },
+    "eye=false,facing=north,waterlogged=true": {
+      "model": "atlantis:block/atlantean_portal_frame",
+      "y": 180
+    },
+    "eye=false,facing=south,waterlogged=true": {
+      "model": "atlantis:block/atlantean_portal_frame"
+    },
+    "eye=false,facing=west,waterlogged=true": {
+      "model": "atlantis:block/atlantean_portal_frame",
+      "y": 90
+    },
+    "eye=true,facing=east,waterlogged=true": {
+      "model": "atlantis:block/atlantean_portal_frame_filled",
+      "y": 270
+    },
+    "eye=true,facing=north,waterlogged=true": {
+      "model": "atlantis:block/atlantean_portal_frame_filled",
+      "y": 180
+    },
+    "eye=true,facing=south,waterlogged=true": {
+      "model": "atlantis:block/atlantean_portal_frame_filled"
+    },
+    "eye=true,facing=west,waterlogged=true": {
+      "model": "atlantis:block/atlantean_portal_frame_filled",
+      "y": 90
+    }
+  }
+}

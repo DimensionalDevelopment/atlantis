@@ -1,5 +1,4 @@
 {
-	"credit": "Made with Blockbench",
 	"texture_size": [20, 20],
 	"textures": {
 		"0": "atlantis:block/fire_melon_plant",
@@ -7,7 +6,7 @@
 	},
 	"elements": [
 		{
-			"name": "0",
+			"name": "s",
 			"from": [6, 0, 6],
 			"to": [10, 16, 10],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
@@ -46,6 +45,54 @@
 				"west": {"uv": [3.2, 0, 16, 12.8], "texture": "#0"},
 				"up": {"uv": [0, 0, 0, 0], "texture": "#0"},
 				"down": {"uv": [0, 0, 0, 0], "texture": "#0"}
+			}
+		},
+		{
+			"name": "ins",
+			"from": [6, 0, 10],
+			"to": [10, 16, 10],
+			"faces": {
+				"north": {"uv": [3.2, 0, 0, 12.8], "texture": "#0"}
+			}
+		},
+		{
+			"name": "ins",
+			"from": [6, 0, 6],
+			"to": [10, 16, 6],
+			"faces": {
+				"south": {"uv": [3.2, 0, 0, 12.8], "texture": "#0"}
+			}
+		},
+		{
+			"name": "ins",
+			"from": [6, 0, 6],
+			"to": [6, 16, 10],
+			"faces": {
+				"east": {"uv": [3.2, 0, 0, 12.8], "texture": "#0"}
+			}
+		},
+		{
+			"name": "ins",
+			"from": [10, 0, 6],
+			"to": [10, 16, 10],
+			"faces": {
+				"west": {"uv": [3.2, 0, 0, 12.8], "texture": "#0"}
+			}
+		},
+		{
+			"name": "int",
+			"from": [6, 0, 6],
+			"to": [10, 0, 10],
+			"faces": {
+				"up": {"uv": [0, 12.8, 3.2, 16], "texture": "#0"}
+			}
+		},
+		{
+			"name": "inb",
+			"from": [6, 16, 6],
+			"to": [10, 16, 10],
+			"faces": {
+				"down": {"uv": [0, 12.8, 3.2, 16], "texture": "#0"}
 			}
 		}
 	]

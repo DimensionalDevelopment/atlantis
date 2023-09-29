@@ -139,23 +139,11 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     // Libraries
-    implementation fg.deobf("com.github.Mysticpasta1:customportalapi:${customportalapi_version}")
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.2.2')
     implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}")
     implementation fg.deobf("curse.maven:architectury-api-419699:${architectury_version}")
 
-    // Extras
-    //implementation fg.deobf("curse.maven:cyanide_forge-541676:${cyanide_version}")
-    implementation fg.deobf("curse.maven:spark-361579:4057111")
-    implementation fg.deobf("curse.maven:artifacts-forge-312353:${artifacts_version}")
-    implementation fg.deobf("curse.maven:expandability-forge-465066:${expandability_version}")
-
-    implementation fg.deobf("curse.maven:appleskin-248787:${appleskin_version}")
-    implementation fg.deobf("curse.maven:catalogue-459701:${catalogue_version}")
-
     implementation fg.deobf("org.reflections:reflections:${reflections_version}")
-
-    implementation fg.deobf("curse.maven:curios-309927:${curios_version}")
 }
 
 mixin {

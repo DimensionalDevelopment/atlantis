@@ -65,7 +65,7 @@ public class ItemInit {
     public static final RegistryObject<Item> AQUAMARINE_GEM = register("aquamarine_gem", DefaultItem::new);
     public static final RegistryObject<Item> ORICHALCUM_IGNOT = register("orichalcum_ignot", DefaultItem::new);
     public static final RegistryObject<Item> ORICHALCUM_BLEND = register("orichalcum_blend", DefaultItem::new);
-    public static final RegistryObject<Item> ORB_OF_ATLANTIS = register("orb_of_atlantis", DefaultItem::new);
+    public static final RegistryObject<Item> ORB_OF_ATLANTIS = register("orb_of_atlantis", OrbOfAtlantis::new);
     public static final RegistryObject<Item> ATLANTEAN_CRYSTAL = register("atlantean_crystal", AtlanteanCrystal::new);
     public static final RegistryObject<Item> OCEAN_STONE = register("ocean_stone", DefaultItem::new);
     public static final RegistryObject<Item> DROP_OF_ATLANTIS = register("drop_of_atlantis", DefaultItem::new);
