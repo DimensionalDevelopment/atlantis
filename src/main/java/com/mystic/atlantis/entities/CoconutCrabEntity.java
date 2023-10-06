@@ -1,6 +1,7 @@
 package com.mystic.atlantis.entities;
 
 import com.mystic.atlantis.init.ItemInit;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -9,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
@@ -32,12 +34,26 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob {
+public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob, GeoAnimatable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CoconutCrabEntity.class, EntityDataSerializers.BOOLEAN);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+    private final AnimationController<CoconutCrabEntity> mainController = new AnimationController<CoconutCrabEntity>(this, "coconutCrabController", 2, this::mainPredicate);
+    static final RawAnimation NUTON_ANIMATION = RawAnimation.begin().thenLoop("animation.coconut_crab.nuton");
+    static final RawAnimation WALK_ANIMATION = RawAnimation.begin().thenLoop("animation.crab.walk");
+    static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.crab.idle");
+
     private int remainingPersistentAngerTime;
     @Nullable
     private UUID persistentAngerTarget;
@@ -59,6 +75,10 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
         this.entityData.set(FROM_BUCKET, fromBucket);
     }
 
+    public static boolean canSpawn(EntityType<CoconutCrabEntity> crabEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= 350 && 512 >= pos.getY();
+    }
+
     @Override
     public void saveToBucketTag(ItemStack stack) {
         Bucketable.saveDefaultDataToBucketTag(this, stack);
@@ -76,17 +96,12 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
 
     @Override
     public ItemStack getBucketItemStack() {
-        return ItemInit.CRAB_BUCKET.get().getDefaultInstance();
+        return ItemInit.COCONUT_CRAB_BUCKET.get().getDefaultInstance();
     }
 
     @Override
     public SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_FILL_FISH;
-    }
-
-    @Override
-    public boolean canBreatheUnderwater() {
-        return true;
     }
 
     public static AttributeSupplier.Builder createCoconutCrabAttributes() {
@@ -133,12 +148,10 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
 
     @Override
     protected void registerGoals() {
-
-        goalSelector.addGoal(8, new LookAtPlayerGoal(this, LivingEntity.class, 10));
-        goalSelector.addGoal(7, new HurtByTargetGoal(this).setAlertOthers(CoconutCrabEntity.class));
-        goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
-        goalSelector.addGoal(4, new PanicGoal(this, 0.8));
+        goalSelector.addGoal(7, new LookAtPlayerGoal(this, LivingEntity.class, 10));
+        goalSelector.addGoal(6, new HurtByTargetGoal(this).setAlertOthers(CoconutCrabEntity.class));
+        goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
         goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(Items.SEAGRASS), false));
         goalSelector.addGoal(2, new TryFindWaterGoal(this));
         goalSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
@@ -204,6 +217,19 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
+    private <P extends GeoAnimatable> PlayState mainPredicate(AnimationState<P> event) {
+        if(isMovingSlowly()) {
+            event.getController().setAnimation(WALK_ANIMATION);
+        } else if (!isMovingSlowly()) {
+            if (this.hurtMarked) {
+                event.getController().setAnimation(NUTON_ANIMATION);
+            } else {
+                event.getController().setAnimation(IDLE_ANIMATION);
+            }
+        }
+        return PlayState.CONTINUE;
+    }
+
     @Override
     public void setRemainingPersistentAngerTime(int i) {
         this.remainingPersistentAngerTime = i;
@@ -225,4 +251,18 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
         return this.persistentAngerTarget;
     }
 
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(mainController);
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return factory;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return 0;
+    }
 }

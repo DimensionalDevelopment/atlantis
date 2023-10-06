@@ -7,16 +7,21 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
+
+import javax.annotation.Nullable;
 
 public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
     public static AtlantisDimensionalEffect INSTANCE = new AtlantisDimensionalEffect();
     private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("atlantis:textures/environment/sun.png");
     private static final ResourceLocation MOON_PHASES_TEXTURES = new ResourceLocation("atlantis:textures/environment/moon_phases.png");
+
+    @Nullable
+    private VertexBuffer starBuffer;
 
     private AtlantisDimensionalEffect() {
         super(255.0F, true, DimensionSpecialEffects.SkyType.NORMAL, false, false);
@@ -31,12 +36,72 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
         matrixStack.pushPose();
         drawSun(tickDelta, matrixStack, world);
         drawMoonPhases(tickDelta, matrixStack, world);
+        createStars();
         matrixStack.popPose();
         RenderSystem.depthMask(true);
-//        RenderSystem.enableTexture();
         RenderSystem.disableBlend();
         RenderSystem.enableDepthTest();
         return true;
+    }
+
+    private void createStars() {
+        Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder bufferbuilder = tesselator.getBuilder();
+        RenderSystem.setShader(GameRenderer::getPositionShader);
+        if (this.starBuffer != null) {
+            this.starBuffer.close();
+        }
+
+        this.starBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
+        BufferBuilder.RenderedBuffer bufferbuilder$renderedbuffer = this.drawStars(bufferbuilder);
+        this.starBuffer.bind();
+        this.starBuffer.upload(bufferbuilder$renderedbuffer);
+        VertexBuffer.unbind();
+    }
+
+    private BufferBuilder.RenderedBuffer drawStars(BufferBuilder pBuilder) {
+        RandomSource randomsource = RandomSource.create(10842L);
+        pBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
+
+        for(int i = 0; i < 1500; ++i) {
+            double d0 = randomsource.nextFloat() * 2.0F - 1.0F;
+            double d1 = randomsource.nextFloat() * 2.0F - 1.0F;
+            double d2 = randomsource.nextFloat() * 2.0F - 1.0F;
+            double d3 = 0.15F + randomsource.nextFloat() * 0.1F;
+            double d4 = d0 * d0 + d1 * d1 + d2 * d2;
+            if (d4 < 1.0D && d4 > 0.01D) {
+                d4 = 1.0D / Math.sqrt(d4);
+                d0 *= d4;
+                d1 *= d4;
+                d2 *= d4;
+                double d5 = d0 * 100.0D;
+                double d6 = d1 * 100.0D;
+                double d7 = d2 * 100.0D;
+                double d8 = Math.atan2(d0, d2);
+                double d9 = Math.sin(d8);
+                double d10 = Math.cos(d8);
+                double d11 = Math.atan2(Math.sqrt(d0 * d0 + d2 * d2), d1);
+                double d12 = Math.sin(d11);
+                double d13 = Math.cos(d11);
+                double d14 = randomsource.nextDouble() * Math.PI * 2.0D;
+                double d15 = Math.sin(d14);
+                double d16 = Math.cos(d14);
+
+                for(int j = 0; j < 4; ++j) {
+                    double d18 = (double)((j & 2) - 1) * d3;
+                    double d19 = (double)((j + 1 & 2) - 1) * d3;
+                    double d21 = d18 * d16 - d19 * d15;
+                    double d22 = d19 * d16 + d18 * d15;
+                    double d23 = d21 * d12 + 0.0D * d13;
+                    double d24 = 0.0D * d12 - d21 * d13;
+                    double d25 = d24 * d9 - d22 * d10;
+                    double d26 = d22 * d9 + d24 * d10;
+                    pBuilder.vertex(d5 + d25, d6 + d23, d7 + d26).endVertex();
+                }
+            }
+        }
+
+        return pBuilder.end();
     }
 
     public void drawSun(float partialTicks, PoseStack matrix, ClientLevel world){
@@ -85,21 +150,16 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
 
     @Override
     public float getCloudHeight() {
-        return 400.0f;
+        return 450.0f;
     }
 
     @Override
-    public @NotNull Vec3 getBrightnessDependentFogColor(@NotNull Vec3 vector3d, float v) {
-        return vector3d;
+    public @NotNull Vec3 getBrightnessDependentFogColor(Vec3 p_108908_, float p_108909_) {
+        return p_108908_.multiply(p_108909_ * 0.94F + 0.06F, p_108909_ * 0.94F + 0.06F, p_108909_ * 0.91F + 0.09F);
     }
 
     @Override
-    public boolean renderSnowAndRain(ClientLevel level, int ticks, float partialTick, LightTexture lightTexture, double camX, double camY, double camZ) {
-        return false;
-    }
-
-    @Override
-    public boolean isFoggyAt(int i, int i1) {
+    public boolean isFoggyAt(int p_108905_, int p_108906_) {
         return false;
     }
 }

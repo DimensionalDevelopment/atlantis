@@ -2,6 +2,7 @@ package com.mystic.atlantis.configfeature;
 
 import java.util.function.Supplier;
 
+import com.mystic.atlantis.configfeature.trees.AtlanteanPalmTree;
 import com.mystic.atlantis.configfeature.trees.AtlanteanTree;
 import com.mystic.atlantis.util.Reference;
 
@@ -45,6 +46,8 @@ public class AtlantisFeature {
             "underwater_mushroom_atlantis",()-> new UnderwaterMushroomAtlantis(NoneFeatureConfiguration.CODEC));
     public static final RegistryObject<Feature<TreeConfiguration>> ATLANTEAN_TREE_ATLANTIS = register(
             "atlantean_tree_atlantis", () -> new AtlanteanTree(TreeConfiguration.CODEC));
+    public static final RegistryObject<Feature<TreeConfiguration>> ATLANTEAN_PALM_TREE_ATLANTIS = register(
+            "atlantean_palm_tree_atlantis", () -> new AtlanteanPalmTree(TreeConfiguration.CODEC));
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> ATLANTEAN_GLOWSTONES_FEATURE = register(
             "atlantean_glowstones_feature_atlantis", () -> new AtlanteanGlowstonesFeature(NoneFeatureConfiguration.CODEC));
 

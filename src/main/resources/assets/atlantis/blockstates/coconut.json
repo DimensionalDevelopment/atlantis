@@ -1,0 +1,30 @@
+{
+    "variants": {
+        "facing=down": {
+            "model": "atlantis:block/coconut",
+            "x": 180
+        },
+        "facing=east": {
+            "model": "atlantis:block/coconut",
+            "x": 90,
+            "y": 90
+        },
+        "facing=north": {
+            "model": "atlantis:block/coconut",
+            "x": 90
+        },
+        "facing=south": {
+            "model": "atlantis:block/coconut",
+            "x": 90,
+            "y": 180
+        },
+        "facing=up": {
+            "model": "atlantis:block/coconut"
+        },
+        "facing=west": {
+            "model": "atlantis:block/coconut",
+            "x": 90,
+            "y": 270
+        }
+    }
+}

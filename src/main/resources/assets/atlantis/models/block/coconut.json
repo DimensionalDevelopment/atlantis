@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "atlantis:block/coconut_side",
+    "east": "atlantis:block/coconut_side",
+    "north": "atlantis:block/coconut_side",
+    "particle": "atlantis:block/coconut_side",
+    "south": "atlantis:block/coconut_side",
+    "up": "atlantis:block/coconut",
+    "west": "atlantis:block/coconut_side"
+  }
+}

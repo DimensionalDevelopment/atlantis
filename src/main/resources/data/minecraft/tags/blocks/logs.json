@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "atlantis:atlantean_log"
+    "atlantis:atlantean_log",
+    "atlantis:palm_log"
   ]
 }

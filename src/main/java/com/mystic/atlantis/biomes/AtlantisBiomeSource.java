@@ -29,6 +29,7 @@ public class AtlantisBiomeSource extends BiomeSource {
     public static final ResourceLocation ATLANTEAN_ISLANDS = new ResourceLocation(Reference.MODID, "atlantean_islands_biome");
     public static final ResourceLocation VOLCANIC_DARKSEA = new ResourceLocation(Reference.MODID, "volcanic_darksea");
     public static final ResourceLocation GOO_LAGOONS = new ResourceLocation(Reference.MODID, "goo_lagoons");
+    public static final ResourceLocation COCONUT_ISLES = new ResourceLocation(Reference.MODID, "coconut_isles");
 
     private final HolderLookup.RegistryLookup<Biome> biomeHolderLookup;
     private final long seed;
@@ -52,7 +53,9 @@ public class AtlantisBiomeSource extends BiomeSource {
 
     @Override
     protected Stream<Holder<Biome>> collectPossibleBiomes() {
-        return Stream.of(AtlantisBiomeSource.GOO_LAGOONS, AtlantisBiomeSource.VOLCANIC_DARKSEA, AtlantisBiomeSource.JELLYFISH_FIELDS, AtlantisBiomeSource.ATLANTIS_BIOME).map(this::getHolderBiome);
+        return Stream.of(AtlantisBiomeSource.GOO_LAGOONS, AtlantisBiomeSource.VOLCANIC_DARKSEA, AtlantisBiomeSource.JELLYFISH_FIELDS,
+                AtlantisBiomeSource.ATLANTIS_BIOME, AtlantisBiomeSource.ATLANTEAN_GARDEN, AtlantisBiomeSource.ATLANTEAN_ISLANDS,
+                AtlantisBiomeSource.COCONUT_ISLES).map(this::getHolderBiome);
     }
 
     @Override
@@ -66,7 +69,11 @@ public class AtlantisBiomeSource extends BiomeSource {
         } else if ((int) noise.sample(x, y, z).temperature() > 0.20 && noise.sample(x, y, z).temperature() < 0.30) {
             return getHolderBiome(AtlantisBiomeSource.ATLANTIS_BIOME);
         } else if ((int) noise.sample(x, y, z).temperature() > 0.10 && noise.sample(x, y, z).temperature() < 0.20) {
-            return getHolderBiome(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+            if ((int) noise.sample(x, y, z).depth() == 0.00) {
+                return getHolderBiome(AtlantisBiomeSource.COCONUT_ISLES);
+            } else {
+                return getHolderBiome(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+            }
         } else {
             return getHolderBiome(AtlantisBiomeSource.ATLANTEAN_GARDEN);
         }

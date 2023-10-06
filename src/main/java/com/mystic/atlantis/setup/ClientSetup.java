@@ -26,13 +26,16 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.DimensionSpecialEffectsManager;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -84,8 +87,8 @@ public class ClientSetup {
                 BlockInit.ATLANTEAN_FIRE_MELON_TOP.get(),
                 BlockInit.ATLANTEAN_DOOR.get(),
                 BlockInit.ATLANTEAN_TRAPDOOR.get(),
-                BlockInit.ATLANTEAN_LEAVES.get(),
                 BlockInit.ATLANTEAN_SAPLING.get(),
+                BlockInit.ATLANTEAN_PALM_SAPLING.get(),
                 BlockInit.UNDERWATER_FLOWER.get(),
                 BlockInit.ALGAE.get(),
                 BlockInit.ATLANTEAN_POWER_TORCH.get(),
@@ -112,6 +115,8 @@ public class ClientSetup {
                 BlockInit.PURPLE_GLOWING_MUSHROOM.get(),
                 BlockInit.YELLOW_GLOWING_MUSHROOM.get());
         registerBlockRenderLayers(RenderType.translucent(),
+                BlockInit.PALM_LEAVES.get(),
+                BlockInit.ATLANTEAN_LEAVES.get(),
                 BlockInit.BLACK_PEARL_BLOCK.get(),
                 BlockInit.GRAY_PEARL_BLOCK.get(),
                 BlockInit.WHITE_PEARL_BLOCK.get(),
@@ -129,8 +134,6 @@ public class ClientSetup {
                 BlockInit.CYAN_PEARL_BLOCK.get(),
                 BlockInit.BROWN_PEARL_BLOCK.get(),
                 BlockInit.ATLANTIS_CLEAR_PORTAL.get());
-
-        DimensionSpecialEffects.EFFECTS.put(DimensionAtlantis.ATLANTIS_DIMENSION_EFFECT, AtlantisDimensionalEffect.INSTANCE);
     }
 
     private static <T extends GeneralPlantBlockEntity<T>> void registerPlantRenderer(RegistryObject<BlockEntityType<T>> registryObject, String name) {
@@ -138,8 +141,14 @@ public class ClientSetup {
     }
 
     @SubscribeEvent
+    public static void registerDimensionEffect(RegisterDimensionSpecialEffectsEvent event) {
+        event.register(DimensionAtlantis.ATLANTIS_DIMENSION_EFFECT, AtlantisDimensionalEffect.INSTANCE);
+    }
+
+    @SubscribeEvent
     public static void entityRegisterEvent(EntityRenderersEvent.RegisterRenderers bus) {
         bus.registerEntityRenderer(AtlantisEntityInit.CRAB.get(), entityRenderDispatcher -> new CrabEntityRenderer(entityRenderDispatcher, new CrabEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.COCONUT_CRAB.get(), entityRenderDispatcher -> new CoconutCrabEntityRenderer(entityRenderDispatcher, new CoconutCrabEntityModel()));
         bus.registerEntityRenderer(AtlantisEntityInit.JELLYFISH.get(), entityRenderDispatcher -> new JellyfishEntityRenderer(entityRenderDispatcher, new JellyfishEntityModel()));
         bus.registerEntityRenderer(AtlantisEntityInit.SHRIMP.get(), entityRenderDispatcher -> new ShrimpEntityRenderer(entityRenderDispatcher, new ShrimpEntityModel()));
         bus.registerEntityRenderer(AtlantisEntityInit.SUBMARINE.get(), SubmarineEntityRenderer::new);

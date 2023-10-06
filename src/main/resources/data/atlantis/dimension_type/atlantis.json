@@ -8,12 +8,12 @@
   "has_skylight": true,
   "has_ceiling": false,
   "coordinate_scale": 1,
-  "ambient_light": 15,
-  "logical_height": 384,
+  "ambient_light": 0,
+  "logical_height": 512,
   "effects": "atlantis:skyeffect",
   "infiniburn": "#minecraft:infiniburn_overworld",
   "min_y": -64,
-  "height": 384,
+  "height": 512,
   "monster_spawn_light_level": {
     "type": "minecraft:uniform",
     "value": {

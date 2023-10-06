@@ -1,0 +1,108 @@
+{
+  "temperature": 0.7,
+  "downfall": 0,
+  "has_precipitation": false,
+  "category": "ocean",
+  "effects": {
+    "sky_color": 27571,
+    "fog_color": 59110,
+    "water_color": 3386879,
+    "water_fog_color": 59110,
+    "grass_color": 6749952,
+    "foliage_color": 5373696,
+    "mood_sound": {
+      "sound": "minecraft:ambient.underwater.loop",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2
+    }
+  },
+  "spawners": {
+    "creature": [
+      {
+        "type": "atlantis:coconut_crab",
+        "weight": 25,
+        "minCount": 8,
+        "maxCount": 8
+      }
+    ],
+    "monster": [],
+    "water_ambient": [
+      {
+        "type": "atlantis:atlantean_jellyfish",
+        "weight": 25,
+        "minCount": 2,
+        "maxCount": 2
+      },
+      {
+        "type": "atlantis:atlantean_shrimp",
+        "weight": 25,
+        "minCount": 2,
+        "maxCount": 2
+      },
+      {
+        "type": "atlantis:atlantean_seahorse",
+        "weight": 25,
+        "minCount": 2,
+        "maxCount": 2
+      }
+    ],
+    "water_creature": [
+      {
+        "type": "minecraft:squid",
+        "weight": 25,
+        "minCount": 1,
+        "maxCount": 4
+      }
+    ]
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "liquid": []
+  },
+  "features": [
+    [
+    ],
+    [
+      "atlantis:configured_jetstream_lake_feature_atlantis"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:ore_copper_large",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_clay",
+      "minecraft:ore_coal_lower",
+      "minecraft:ore_diamond_buried",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_dirt",
+      "minecraft:ore_gold_lower",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_gravel",
+      "minecraft:ore_iron_middle",
+      "minecraft:ore_lapis_buried",
+      "minecraft:ore_redstone_lower",
+      "minecraft:ore_tuff",
+      "atlantis:aquamarine_placed",
+      "atlantis:ore_sunken_gravel_placed"
+    ],
+    [],
+    [
+      "minecraft:spring_water",
+      "minecraft:spring_lava"
+    ],
+    [
+      "minecraft:sea_pickle",
+      "minecraft:warm_ocean_vegetation",
+      "minecraft:seagrass_deep_warm",
+      "minecraft:seagrass_simple",
+      "atlantis:configured_flower_feature",
+      "atlantis:atlantean_palm_tree"
+    ],
+    [
+      "atlantis:configured_shell_block_feature"
+    ]
+  ]
+}

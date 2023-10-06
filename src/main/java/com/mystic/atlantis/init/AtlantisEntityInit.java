@@ -1,15 +1,7 @@
 package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.blocks.power.atlanteanstone.SodiumPrimedBombBlock;
-import com.mystic.atlantis.entities.AtlanteanBoatEntity;
-import com.mystic.atlantis.entities.CrabEntity;
-import com.mystic.atlantis.entities.JellyfishEntity;
-import com.mystic.atlantis.entities.LeviathanEntity;
-import com.mystic.atlantis.entities.SeahorseEntity;
-import com.mystic.atlantis.entities.ShrimpEntity;
-import com.mystic.atlantis.entities.StarfishEntity;
-import com.mystic.atlantis.entities.StarfishZomEntity;
-import com.mystic.atlantis.entities.SubmarineEntity;
+import com.mystic.atlantis.entities.*;
 import com.mystic.atlantis.util.Reference;
 
 import net.minecraft.world.entity.Entity;
@@ -32,6 +24,7 @@ public class AtlantisEntityInit {
 
     //Geckolib Creatures
     public static final RegistryObject<EntityType<CrabEntity>> CRAB = register("atlantean_crab", EntityType.Builder.of(CrabEntity::new, MobCategory.WATER_CREATURE).sized(1.2f, 0.3f));
+    public static final RegistryObject<EntityType<CoconutCrabEntity>> COCONUT_CRAB = register("coconut_crab",EntityType.Builder.of(CoconutCrabEntity::new, MobCategory.CREATURE).sized(1.2f, 0.3f));
     public static final RegistryObject<EntityType<JellyfishEntity>> JELLYFISH = register("atlantean_jellyfish", EntityType.Builder.of(JellyfishEntity::new, MobCategory.WATER_AMBIENT).sized(0.4f, 0.8f));
     public static final RegistryObject<EntityType<ShrimpEntity>> SHRIMP = register("atlantean_shrimp", EntityType.Builder.of(ShrimpEntity::new, MobCategory.WATER_AMBIENT).sized(0.5f, 0.5f));
     public static final RegistryObject<EntityType<LeviathanEntity>> LEVIATHAN = register("leviathan", EntityType.Builder.of(LeviathanEntity::new, MobCategory.WATER_CREATURE).sized(1.5f, 0.7f));
@@ -42,8 +35,6 @@ public class AtlantisEntityInit {
     //Explosives
     public static final RegistryObject<EntityType<SodiumPrimedBombBlock>> BOMB = register("sodium_bomb", EntityType.Builder.<SodiumPrimedBombBlock>of(SodiumPrimedBombBlock::new, MobCategory.MISC).fireImmune().sized(0.98f, 0.98f).clientTrackingRange(10).updateInterval(10));
 
-    //TODO readd coconut crab as Geckolib entity
-
     //Submarines
     public static final RegistryObject<EntityType<SubmarineEntity>> SUBMARINE = register("atlantean_submarine", EntityType.Builder.of(SubmarineEntity::new, MobCategory.MISC).sized(1.6F, 1.6F).clientTrackingRange(1));
 
@@ -53,6 +44,7 @@ public class AtlantisEntityInit {
 
     @SubscribeEvent
     public static void onAttributeModify(EntityAttributeCreationEvent event) {
+        event.put(AtlantisEntityInit.COCONUT_CRAB.get(), CoconutCrabEntity.createCoconutCrabAttributes().build());
         event.put(AtlantisEntityInit.CRAB.get(), CrabEntity.createCrabAttributes().build());
         event.put(AtlantisEntityInit.JELLYFISH.get(), JellyfishEntity.createJellyfishAttributes().build());
         event.put(AtlantisEntityInit.SHRIMP.get(), ShrimpEntity.createShrimpAttributes().build());

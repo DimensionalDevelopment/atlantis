@@ -19,6 +19,18 @@
           }
         },
         {
+          "biome": "atlantis:coconut_isles",
+          "parameters": {
+            "temperature": 0.2,
+            "humidity": 0.2,
+            "continentalness": 0.3,
+            "erosion": 0.5,
+            "weirdness": 0.1,
+            "depth": 0.0,
+            "offset": 0.1
+          }
+        },
+        {
           "biome": "atlantis:atlantean_garden",
           "parameters": {
             "temperature": 0.5,

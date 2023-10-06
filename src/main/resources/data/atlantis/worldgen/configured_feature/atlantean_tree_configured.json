@@ -13,7 +13,7 @@
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:sand"
+        "Name": "atlantean:seabed"
       }
     },
     "trunk_provider": {
@@ -41,16 +41,6 @@
       "foliage_height": 3,
       "leaf_placement_attempts": 256
     },
-    "decorators": [
-      {
-        "type": "minecraft:alter_ground",
-        "provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "atlantis:underwater_flower"
-          }
-        }
-      }
-    ]
+    "decorators": []
   }
 }

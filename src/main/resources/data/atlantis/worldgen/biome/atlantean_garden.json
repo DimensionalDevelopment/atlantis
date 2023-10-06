@@ -19,14 +19,6 @@
   },
   "spawners": {
     "monster": [],
-    "water_ambient": [
-      {
-        "type": "minecraft:tropical_fish",
-        "weight": 25,
-        "minCount": 8,
-        "maxCount": 8
-      }
-    ],
     "water_creature": [
       {
         "type": "minecraft:squid",
