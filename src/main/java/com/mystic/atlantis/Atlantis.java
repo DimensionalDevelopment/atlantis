@@ -95,6 +95,7 @@ public class Atlantis {
         EnchantmentInit.init(bus);
         MenuTypeInit.init(bus);
         RecipesInit.init(bus);
+        POITypesInit.init(bus);
     }
 
     @SubscribeEvent
