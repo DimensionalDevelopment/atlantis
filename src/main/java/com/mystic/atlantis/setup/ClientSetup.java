@@ -17,18 +17,24 @@ import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -64,6 +70,8 @@ public class ClientSetup {
 
         ItemBlockRenderTypes.setRenderLayer(FluidInit.SALTY_SEA_WATER.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_SALTY_SEA_WATER.get(), RenderType.translucent());
+
+        
 
         registerPlantRenderer(TileEntityInit.UNDERWATER_SHROOM_TILE, "underwater_shroom");
 
@@ -115,8 +123,6 @@ public class ClientSetup {
                 BlockInit.PURPLE_GLOWING_MUSHROOM.get(),
                 BlockInit.YELLOW_GLOWING_MUSHROOM.get());
         registerBlockRenderLayers(RenderType.translucent(),
-                BlockInit.PALM_LEAVES.get(),
-                BlockInit.ATLANTEAN_LEAVES.get(),
                 BlockInit.BLACK_PEARL_BLOCK.get(),
                 BlockInit.GRAY_PEARL_BLOCK.get(),
                 BlockInit.WHITE_PEARL_BLOCK.get(),
@@ -134,6 +140,9 @@ public class ClientSetup {
                 BlockInit.CYAN_PEARL_BLOCK.get(),
                 BlockInit.BROWN_PEARL_BLOCK.get(),
                 BlockInit.ATLANTIS_CLEAR_PORTAL.get());
+        registerBlockRenderLayers(RenderType.cutoutMipped(),
+                BlockInit.PALM_LEAVES.get(),
+                BlockInit.ATLANTEAN_LEAVES.get());
     }
 
     private static <T extends GeneralPlantBlockEntity<T>> void registerPlantRenderer(RegistryObject<BlockEntityType<T>> registryObject, String name) {

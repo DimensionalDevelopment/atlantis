@@ -16,7 +16,7 @@ import java.util.Set;
 public class POITypesInit extends PoiTypes {
     public static final DeferredRegister<PoiType> POI = DeferredRegister.create(ForgeRegistries.POI_TYPES, Reference.MODID);
 
-    public static final RegistryObject<PoiType> ATLANTEAN_PORTAL = POI.register("atlantean_portal" , () -> new PoiType(getBlockStates(BlockInit.ATLANTEAN_PORTAL_FRAME.get()), 0, 1));
+    public static final RegistryObject<PoiType> ATLANTEAN_PORTAL = POI.register("atlantean_portal" , () -> new PoiType(getBlockStates(BlockInit.ATLANTIS_CLEAR_PORTAL.get()), 0, 1));
 
     private static Set<BlockState> getBlockStates(Block pBlock) {
         return ImmutableSet.copyOf(pBlock.getStateDefinition().getPossibleStates());

@@ -1,0 +1,27 @@
+{
+    "variants": {
+        "facing=down": {
+            "model": "atlantis:block/satire_lantern",
+            "x": 90
+        },
+        "facing=up": {
+            "model": "atlantis:block/satire_lantern",
+            "x": 270
+        },
+        "facing=east": {
+            "model": "atlantis:block/satire_lantern",
+            "y": 90
+        },
+        "facing=north": {
+            "model": "atlantis:block/satire_lantern"
+        },
+        "facing=south": {
+            "model": "atlantis:block/satire_lantern",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "atlantis:block/satire_lantern",
+            "y": 270
+        }
+    }
+}

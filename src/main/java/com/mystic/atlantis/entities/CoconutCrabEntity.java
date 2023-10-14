@@ -45,8 +45,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob, GeoAnimatable {
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CoconutCrabEntity.class, EntityDataSerializers.BOOLEAN);
+public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatable {
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
     private final AnimationController<CoconutCrabEntity> mainController = new AnimationController<CoconutCrabEntity>(this, "coconutCrabController", 2, this::mainPredicate);
@@ -67,41 +66,13 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob,
         return world.isUnobstructed(this);
     }
 
-    public boolean fromBucket() {
-        return this.entityData.get(FROM_BUCKET);
-    }
-
-    public void setFromBucket(boolean fromBucket) {
-        this.entityData.set(FROM_BUCKET, fromBucket);
-    }
-
     public static boolean canSpawn(EntityType<CoconutCrabEntity> crabEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
         return pos.getY() >= 350 && 512 >= pos.getY();
     }
 
     @Override
-    public void saveToBucketTag(ItemStack stack) {
-        Bucketable.saveDefaultDataToBucketTag(this, stack);
-    }
-
-    @Override
     public MobType getMobType() {
         return MobType.WATER;
-    }
-
-    @Override
-    public void loadFromBucketTag(CompoundTag nbt) {
-        Bucketable.loadDefaultDataFromBucketTag(this, nbt);
-    }
-
-    @Override
-    public ItemStack getBucketItemStack() {
-        return ItemInit.COCONUT_CRAB_BUCKET.get().getDefaultInstance();
-    }
-
-    @Override
-    public SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_FILL_FISH;
     }
 
     public static AttributeSupplier.Builder createCoconutCrabAttributes() {
@@ -110,18 +81,17 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob,
 
     @Override
     public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.fromBucket();
+        return super.requiresCustomPersistence();
     }
 
     @Override
     public boolean removeWhenFarAway(double distanceSquared) {
-        return !this.fromBucket() && !this.hasCustomName();
+        return !this.hasCustomName();
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(FROM_BUCKET, false);
     }
 
     @Override
@@ -131,13 +101,11 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob,
 
     @Override
     public void load(CompoundTag nbt) {
-        this.setFromBucket(nbt.getBoolean("FromBucket"));
         super.load(nbt);
     }
 
     @Override
     public CompoundTag saveWithoutId(CompoundTag nbt) {
-        nbt.putBoolean("FromBucket", this.fromBucket());
         return super.saveWithoutId(nbt);
     }
 
@@ -172,13 +140,8 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob,
                         }
                         return InteractionResult.SUCCESS;
                     }
-                    return InteractionResult.FAIL;
                 }
-                return InteractionResult.FAIL;
             }
-            return InteractionResult.FAIL;
-        } else if (player.getItemInHand(hand).getItem() == Items.WATER_BUCKET) {
-            return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
         }
         return InteractionResult.FAIL;
     }
