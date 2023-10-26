@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients":
+	[
+	
+	{
+		"item": "atlantis:stripped_atlantean_log"
+	}
+	
+	],
+	
+	"result":
+	{
+		"item": "atlantis:atlantean_planks",
+		"count": 4
+	}
+}	

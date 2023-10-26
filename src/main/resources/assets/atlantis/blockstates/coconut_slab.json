@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "has_milk=false": {
+      "model": "atlantis:block/coconut_slice_bottom"
+    },
+    "has_milk=true": {
+      "model": "atlantis:block/coconut_slice_bottom"
+    }
+  }
+}

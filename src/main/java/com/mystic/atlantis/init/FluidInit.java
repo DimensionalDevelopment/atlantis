@@ -26,7 +26,7 @@ public class FluidInit {
             .bucket(ItemInit.JETSTREAM_WATER_BUCKET);
 
     public static final RegistryObject<FlowingFluid> SALTY_SEA_WATER = FLUIDS.register("salty_sea_water",
-            () -> new ForgeFlowingFluid.Source(FluidInit.JETSTREAM_WATER_FLUID_PROPERTIES));
+            () -> new ForgeFlowingFluid.Source(FluidInit.SALTY_SEA_WATER_FLUID_PROPERTIES));
     public static final RegistryObject<FlowingFluid> FLOWING_SALTY_SEA_WATER = FLUIDS.register("flowing_salty_sea_water",
             () -> new ForgeFlowingFluid.Flowing(FluidInit.SALTY_SEA_WATER_FLUID_PROPERTIES));
 
@@ -34,6 +34,16 @@ public class FluidInit {
             FluidTypesInit.SALTY_SEA_WATER_FLUID_TYPE, SALTY_SEA_WATER, FLOWING_SALTY_SEA_WATER)
             .slopeFindDistance(2).levelDecreasePerBlock(3).block(BlockInit.SALTY_SEA_WATER_BLOCK)
             .bucket(ItemInit.SALTY_SEA_WATER_BUCKET);
+
+  // public static final RegistryObject<FlowingFluid> COCONUT_MILK = FLUIDS.register("coconut_milk",
+  //         () -> new ForgeFlowingFluid.Source(FluidInit.COCONUT_MILK_FLUID_PROPERTIES));
+  // public static final RegistryObject<FlowingFluid> FLOWING_COCONUT_MILK = FLUIDS.register("flowing_coconut_milk",
+  //         () -> new ForgeFlowingFluid.Flowing(FluidInit.COCONUT_MILK_FLUID_PROPERTIES));
+
+  // public static final ForgeFlowingFluid.Properties COCONUT_MILK_FLUID_PROPERTIES = new ForgeFlowingFluid.Properties(
+  //         FluidTypesInit.COCONUT_MILK_FLUID_TYPE, COCONUT_MILK, FLOWING_COCONUT_MILK)
+  //         .slopeFindDistance(2).levelDecreasePerBlock(1).block(BlockInit.COCONUT_MILK)
+  //         .bucket(ItemInit.COCONUT_MILK_BUCKET);
 
     public static void init(IEventBus eventBus) {
         FLUIDS.register(eventBus);

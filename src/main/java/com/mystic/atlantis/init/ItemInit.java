@@ -129,6 +129,9 @@ public class ItemInit {
     public static final RegistryObject<Item> SALTY_SEA_WATER_BUCKET = ITEMS.register("salty_sea_water_bucket",
             () -> new BucketItem(FluidInit.SALTY_SEA_WATER,
                     new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    //public static final RegistryObject<Item> COCONUT_MILK_BUCKET = ITEMS.register("coconut_milk_bucket",
+    //        () -> new BucketItem(FluidInit.COCONUT_MILK,
+    //                new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
     //Entity Buckets
     public static final RegistryObject<Item> CRAB_BUCKET = register("crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntityInit.CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));

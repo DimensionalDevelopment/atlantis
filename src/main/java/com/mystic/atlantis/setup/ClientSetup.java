@@ -71,7 +71,8 @@ public class ClientSetup {
         ItemBlockRenderTypes.setRenderLayer(FluidInit.SALTY_SEA_WATER.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_SALTY_SEA_WATER.get(), RenderType.translucent());
 
-        
+        //ItemBlockRenderTypes.setRenderLayer(FluidInit.COCONUT_MILK.get(), RenderType.translucent());
+        //ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_COCONUT_MILK.get(), RenderType.translucent());
 
         registerPlantRenderer(TileEntityInit.UNDERWATER_SHROOM_TILE, "underwater_shroom");
 
@@ -229,6 +230,9 @@ public class ClientSetup {
 
         BlockColor JetstreamWaterColor = (arg, arg2, arg3, i) -> 0x52A9FFD0;
         blockColors.register(JetstreamWaterColor, BlockInit.JETSTREAM_WATER_BLOCK.get());
+
+        //BlockColor CoconutMilkColor = (arg, arg2, arg3, i) -> 0xFFFFFFFF;
+        //blockColors.register(CoconutMilkColor, BlockInit.COCONUT_MILK.get());
     }
 
     @OnlyIn(Dist.CLIENT)

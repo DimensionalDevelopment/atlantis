@@ -99,11 +99,13 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
             if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()))
                 return BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, curDir).setValue(DECAY, AtlantisConfig.INSTANCE.maxDistanceOfPushBubbleColumn.get());
         } else if (previousState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
-            if (previousState.getValue(DECAY) == 0 || !previousState.getValue(PUSH).equals(curDir))
+            if (previousState.getValue(DECAY) == 0 && !previousState.getValue(PUSH).equals(curDir))
                 return Blocks.WATER.defaultBlockState();
 
-            if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()))
+            if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
+                System.out.println(previousState.getValue(DECAY));
                 return BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, curDir).setValue(DECAY, previousState.getValue(DECAY) - 1);
+            }
         } else if (isStillWater(previousState)) {
             if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()))
                 return Blocks.WATER.defaultBlockState();
