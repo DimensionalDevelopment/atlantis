@@ -42,7 +42,7 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
     public static final IntegerProperty DECAY = IntegerProperty.create("decay", 0, 30);
 
     public PushBubbleColumnBlock(Properties settings) {
-        super(settings.noCollission());
+        super(settings/*.noCollission()*/);
         this.registerDefaultState(this.stateDefinition.any().setValue(DECAY, 0));
     }
 
@@ -67,8 +67,8 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
 
     public static void update(ServerLevel level, BlockPos pos) {
         for (Direction direction : Direction.values()) {
+            BlockPos.MutableBlockPos bubblePos = pos.mutable();
             for (int i = 1; i < AtlantisConfig.INSTANCE.maxDistanceOfPushBubbleColumn.get();  i++) {
-                BlockPos.MutableBlockPos bubblePos = pos.mutable();
                 BlockState bubbleState = level.getBlockState(pos.relative(direction, i));
                 BlockState previousBubbleState = level.getBlockState(pos.relative(direction,i - 1));
                 bubbleState = getBubbleState(previousBubbleState, bubbleState, direction);
@@ -92,30 +92,43 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
     }
 
     private static BlockState getBubbleState(BlockState previousState, BlockState targetState, Direction curDir) {
+        System.out.println("Debugging getBubbleState method:");
+        System.out.println("Previous State: " + previousState.toString());
+        System.out.println("Target State: " + targetState.toString());
+        System.out.println("Current Direction: " + curDir.toString());
+
         if (targetState.is(BlockInit.BUBBLE_MAGMA.get()))
             return null;
 
         if (previousState.is(BlockInit.BUBBLE_MAGMA.get())) {
-            if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()))
+            if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
+                System.out.println("Setting PUSH_BUBBLE_COLUMN state");
                 return BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, curDir).setValue(DECAY, AtlantisConfig.INSTANCE.maxDistanceOfPushBubbleColumn.get());
+            }
         } else if (previousState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
-            if (previousState.getValue(DECAY) == 0 && !previousState.getValue(PUSH).equals(curDir))
+            if (previousState.getValue(DECAY) == 0 && !previousState.getValue(PUSH).equals(curDir)) {
+                System.out.println("Returning default WATER state");
                 return Blocks.WATER.defaultBlockState();
+            }
 
             if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
-                System.out.println(previousState.getValue(DECAY));
+                System.out.println("Setting PUSH_BUBBLE_COLUMN state with reduced decay");
+                System.out.println("Previous decay value: " + previousState.getValue(DECAY));
                 return BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, curDir).setValue(DECAY, previousState.getValue(DECAY) - 1);
             }
         } else if (isStillWater(previousState)) {
-            if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()))
+            if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
+                System.out.println("Returning default WATER state");
                 return Blocks.WATER.defaultBlockState();
+            }
         } else if (targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
+            System.out.println("Returning default WATER state");
             return Blocks.WATER.defaultBlockState();
         }
 
+        System.out.println("No specific state change detected. Returning null.");
         return null;
     }
-
     @Override
     public void animateTick(BlockState targetState, Level level, BlockPos targetPos, RandomSource random) {
         double x = targetPos.getX();
