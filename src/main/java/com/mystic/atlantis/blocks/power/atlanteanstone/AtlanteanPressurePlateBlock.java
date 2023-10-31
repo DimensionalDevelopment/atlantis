@@ -41,10 +41,10 @@ public class AtlanteanPressurePlateBlock extends PressurePlateBlock implements S
         return targetState.setValue(POWERED, power > 0);
     }
 
-    @Override
-    public SoundType getSoundType(BlockState pState) {
-        return SoundType.STONE; //TODO: Figure out how to tell if wood or not.
-    }
+//    @Override
+//    public SoundType getSoundType(BlockState pState) {
+//        return SoundType.STONE; //TODO: Figure out how to tell if wood or not.
+//    }
 
 //    @Override
 //    protected void playOnSound(LevelAccessor accessor, BlockPos targetPos) {

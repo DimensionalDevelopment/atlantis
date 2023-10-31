@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "atlantis:green_linguistic_glyph_n"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "atlantis:blocks/green_linguistic_glyph_n"
+}

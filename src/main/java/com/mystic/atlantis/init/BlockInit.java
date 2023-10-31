@@ -1,5 +1,6 @@
 package com.mystic.atlantis.init;
 
+import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.base.*;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.blocks.plants.*;
@@ -27,6 +28,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -239,6 +241,27 @@ public class BlockInit {
     public static final RegistryObject<AtlanteanFireMelonBody> ATLANTEAN_FIRE_MELON_STEM = registerOnlyBlock("atlantean_fire_melon_stem", () -> new AtlanteanFireMelonBody(BlockBehaviour.Properties.of()));
     public static final RegistryObject<AtlanteanFireMelonHead> ATLANTEAN_FIRE_MELON_TOP = registerOnlyBlock("atlantean_fire_melon_top", () -> new AtlanteanFireMelonHead(BlockBehaviour.Properties.of()));
 
+    public static final BlockType MAGENTA_SEA_GLASS = registerSeaGlass("magenta");
+    public static final BlockType LIGHT_GRAY_SEA_GLASS = registerSeaGlass("light_gray");
+    public static final BlockType PINK_SEA_GLASS = registerSeaGlass("pink");
+    public static final BlockType YELLOW_SEA_GLASS = registerSeaGlass("yellow");
+    public static final BlockType PURPLE_SEA_GLASS = registerSeaGlass("purple");
+    public static final BlockType BASE_SEA_GLASS = registerSeaGlass("base");
+    public static final BlockType LIGHT_BLUE_SEA_GLASS = registerSeaGlass("light_blue");
+    public static final BlockType RED_SEA_GLASS = registerSeaGlass("red");
+    public static final BlockType MONOCHROMIC_SEA_GLASS = registerSeaGlass("monochromic");
+    public static final BlockType GREEN_SEA_GLASS = registerSeaGlass("green");
+    public static final BlockType WHITE_SEA_GLASS = registerSeaGlass("white");
+    public static final BlockType CYAN_SEA_GLASS = registerSeaGlass("cyan");
+    public static final BlockType MULTICOLOR_SEA_GLASS = registerSeaGlass("multicolor");
+    public static final BlockType ORANGE_SEA_GLASS = registerSeaGlass("orange");
+    public static final BlockType BLACK_SEA_GLASS = registerSeaGlass("black");
+    public static final BlockType GRAY_SEA_GLASS = registerSeaGlass("gray");
+    public static final BlockType BLUE_SEA_GLASS = registerSeaGlass("blue");
+    public static final BlockType BROWN_SEA_GLASS = registerSeaGlass("brown");
+
+    public static final RegistryObject<RotatedPillarBlock> COQUINA = registerMainTabBlock("coquina", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(BlockInit.BLACK_COLORED_SHELL_BLOCK.get()).mapColor(MapColor.TERRACOTTA_ORANGE)), registryObject -> () -> new BlockItem(registryObject.get(), new Item.Properties()));
+
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<B> block) {
         return registerMainTabBlock(name, block, b -> () -> new BlockItem(b.get(),new Item.Properties()));
     }
@@ -254,9 +277,41 @@ public class BlockInit {
         return reg;
     }
 
+    private static <T extends Block> BlockType registerBlockType(String name, Function<BlockBehaviour.Properties, T> block, BlockBehaviour.Properties properties, BlockSetType blockSetType, @Nullable WoodType woodType, int pTicksToStayPressed, boolean pArrowsCanPress) {
+        var blockBase = registerMainTabBlock(name, () -> block.apply(properties), tRegistryObject -> () -> new BlockItem(tRegistryObject.get(), new Item.Properties()));
+        var blockSlab = registerMainTabBlock(name + "_slab", blockBase, block1 -> new SlabBlock(BlockBehaviour.Properties.copy(block1)), block2 -> new BlockItem(block2, new Item.Properties()));
+        var blockWall = woodType == null ? registerMainTabBlock(name + "_wall", blockBase, block1 -> new WallBlock(BlockBehaviour.Properties.copy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
+        var blockFence = woodType != null ? registerMainTabBlock(name + "_fence", blockBase, block1 -> new FenceBlock(BlockBehaviour.Properties.copy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
+        var blockGateBlock = woodType != null ? registerMainTabBlock(name + "_fence_gate", blockBase, block1 -> new FenceGateBlock(BlockBehaviour.Properties.copy(block1), woodType), block2 -> new BlockItem(block2, new Item.Properties())) : null;
+
+        var blockDoor = registerMainTabBlock(name + "_door", blockBase, block1 -> new DoorBlock(BlockBehaviour.Properties.copy(block1), blockSetType), block2 -> new BlockItem(block2, new Item.Properties()));
+        var blockTrapDoor = registerMainTabBlock(name + "_trap_door", blockBase, block1 -> new TrapDoorBlock(BlockBehaviour.Properties.copy(block1), blockSetType), block2 -> new BlockItem(block2, new Item.Properties()));
+        var blockButton = registerMainTabBlock(name + "_button", blockBase, block1 -> new ButtonBlock(BlockBehaviour.Properties.copy(block1), blockSetType, pTicksToStayPressed, pArrowsCanPress), block2 -> new BlockItem(block2, new Item.Properties()));
+        var pressurePlate = registerMainTabBlock(name + "_pressure_plate", blockBase, block1 -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(block1), blockSetType), block2 -> new BlockItem(block2, new Item.Properties()));
+
+        return BlockType.of((RegistryObject<Block>) blockBase, blockSlab, blockWall, blockFence, blockGateBlock, blockDoor, blockTrapDoor, blockButton, pressurePlate);
+    }
+
+    private static BlockType registerSeaGlass(String name) {
+        var blockName = name + "_sea_glass";
+
+        return registerBlockType(blockName, Block::new, BlockBehaviour.Properties.copy(Blocks.GLASS), BlockSetType.IRON, null, 40, true);
+    }
+
     private static <B extends Block, I extends BlockItem> RegistryObject<B> registerMainTabBlock(String name, Supplier<B> block, Function<RegistryObject<B>, Supplier<I>> item) {
         var reg = BLOCKS.register(name, block);
         AtlantisGroupInit.addToMainTab(ItemInit.ITEMS.register(name, () -> item.apply(reg).get()));
+        return reg;
+    }
+
+    private static <B extends Block, C extends Block, I extends BlockItem> RegistryObject<C> registerMainTabBlock(String name,
+                                                                                                                  Supplier<B> block,
+                                                                                                                  Function<B, C> blockFunction,
+                                                                                                                  Function<C, I> item) {
+        var reg = BLOCKS.register(name, () -> blockFunction.apply(block.get()));
+        AtlantisGroupInit.addToMainTab(ItemInit
+                .ITEMS.register(name, () ->
+                        item.apply(reg.get())));
         return reg;
     }
 

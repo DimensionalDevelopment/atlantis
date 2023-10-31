@@ -1,0 +1,118 @@
+{
+  "type": "atlantis:writing",
+  "count": 1,
+  "ingredient": [
+    {
+      "item": "atlantis:linguistic_glyph_scroll"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_a"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_b"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_c"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_d"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_e"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_f"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_g"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_h"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_i"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_j"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_k"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_l"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_m"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_n"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_o"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_p"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_q"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_r"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_s"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_t"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_u"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_v"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_w"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_x"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_y"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_z"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_0"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_1"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_2"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_3"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_4"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_5"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_6"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_7"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_8"
+    },
+    {
+      "item": "atlantis:linguistic_glyph_scroll_9"
+    }
+  ],
+  "result": "atlantis:linguistic_glyph_scroll_6"
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "item": "atlantis:atlantean_prismarine"
+    }
+  },
+  "pattern": [
+    "XX",
+    "XX"
+  ],
+  "result": {
+    "count": 2,
+    "item": "atlantis:linguistic_glyph"
+  },
+  "show_notification": true
+}
