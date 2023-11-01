@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "X": {
       "item": "atlantis:atlantean_fire_melon_spike"
@@ -18,5 +19,6 @@
   ],
   "result": {
     "item": "atlantis:writing_block"
-  }
+  },
+  "show_notification": true
 }

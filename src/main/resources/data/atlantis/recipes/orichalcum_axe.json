@@ -1,15 +1,15 @@
 {
   "type": "minecraft:smithing_transform",
-  "template": {
-    "item": "minecraft:coast_armor_trim_smithing_template"
+  "addition": {
+    "item": "atlantis:orichalcum_ignot"
   },
   "base": {
     "item": "atlantis:axe_aquamarine"
   },
-  "addition": {
-    "item": "atlantis:orichalcum_ignot"
-  },
   "result": {
     "item": "atlantis:orichalcum_axe"
+  },
+  "template": {
+    "item": "atlantis:orichalcum_upgrade_smithing_template"
   }
 }
