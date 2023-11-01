@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "atlantis:blue_sea_glass"
+    }
+  ],
+  "result": {
+    "item": "atlantis:blue_sea_glass_button"
+  }
+}

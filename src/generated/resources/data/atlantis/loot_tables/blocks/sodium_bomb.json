@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "atlantis:sodium_bomb"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "atlantis:blocks/sodium_bomb"
+}

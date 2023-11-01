@@ -246,7 +246,7 @@ public class BlockInit {
     public static final BlockType PINK_SEA_GLASS = registerSeaGlass("pink");
     public static final BlockType YELLOW_SEA_GLASS = registerSeaGlass("yellow");
     public static final BlockType PURPLE_SEA_GLASS = registerSeaGlass("purple");
-    public static final BlockType BASE_SEA_GLASS = registerSeaGlass("base");
+//    public static final BlockType BASE_SEA_GLASS = registerSeaGlass("base");
     public static final BlockType LIGHT_BLUE_SEA_GLASS = registerSeaGlass("light_blue");
     public static final BlockType RED_SEA_GLASS = registerSeaGlass("red");
     public static final BlockType MONOCHROMIC_SEA_GLASS = registerSeaGlass("monochromic");
@@ -273,19 +273,18 @@ public class BlockInit {
         return BLOCKS.register(name, block);
     }
     public static <L extends LiquidBlock> RegistryObject<L> registerFluidBlock(String name, Supplier<L> block) {
-        var reg = BLOCKS.register(name, block);
-        return reg;
+        return BLOCKS.register(name, block);
     }
 
-    private static <T extends Block> BlockType registerBlockType(String name, Function<BlockBehaviour.Properties, Block> block, BlockBehaviour.Properties properties, BlockSetType blockSetType, @Nullable WoodType woodType, int pTicksToStayPressed, boolean pArrowsCanPress) {
+    private static <T extends Block> BlockType registerBlockType(String name, Function<BlockBehaviour.Properties, Block> block, BlockBehaviour.Properties properties, boolean genDoors, BlockSetType blockSetType, @Nullable WoodType woodType, int pTicksToStayPressed, boolean pArrowsCanPress) {
         var blockBase = registerMainTabBlock(name, () -> block.apply(properties), tRegistryObject -> () -> new BlockItem(tRegistryObject.get(), new Item.Properties()));
         var blockSlab = registerMainTabBlock(name + "_slab", blockBase, block1 -> new SlabBlock(BlockBehaviour.Properties.copy(block1)), block2 -> new BlockItem(block2, new Item.Properties()));
         var blockWall = woodType == null ? registerMainTabBlock(name + "_wall", blockBase, block1 -> new WallBlock(BlockBehaviour.Properties.copy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockFence = woodType != null ? registerMainTabBlock(name + "_fence", blockBase, block1 -> new FenceBlock(BlockBehaviour.Properties.copy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockGateBlock = woodType != null ? registerMainTabBlock(name + "_fence_gate", blockBase, block1 -> new FenceGateBlock(BlockBehaviour.Properties.copy(block1), woodType), block2 -> new BlockItem(block2, new Item.Properties())) : null;
 
-        var blockDoor = registerMainTabBlock(name + "_door", blockBase, block1 -> new DoorBlock(BlockBehaviour.Properties.copy(block1), blockSetType), block2 -> new BlockItem(block2, new Item.Properties()));
-        var blockTrapDoor = registerMainTabBlock(name + "_trap_door", blockBase, block1 -> new TrapDoorBlock(BlockBehaviour.Properties.copy(block1), blockSetType), block2 -> new BlockItem(block2, new Item.Properties()));
+        var blockDoor = genDoors ? registerMainTabBlock(name + "_door", blockBase, block1 -> new DoorBlock(BlockBehaviour.Properties.copy(block1), blockSetType), block2 -> new BlockItem(block2, new Item.Properties())) : null;
+        var blockTrapDoor = genDoors ? registerMainTabBlock(name + "_trap_door", blockBase, block1 -> new TrapDoorBlock(BlockBehaviour.Properties.copy(block1), blockSetType), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockButton = registerMainTabBlock(name + "_button", blockBase, block1 -> new ButtonBlock(BlockBehaviour.Properties.copy(block1), blockSetType, pTicksToStayPressed, pArrowsCanPress), block2 -> new BlockItem(block2, new Item.Properties()));
         var pressurePlate = registerMainTabBlock(name + "_pressure_plate", blockBase, block1 -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(block1), blockSetType), block2 -> new BlockItem(block2, new Item.Properties()));
 
@@ -295,7 +294,7 @@ public class BlockInit {
     private static BlockType registerSeaGlass(String name) {
         var blockName = name + "_sea_glass";
 
-        return registerBlockType(blockName, Block::new, BlockBehaviour.Properties.copy(Blocks.GLASS), BlockSetType.IRON, null, 40, true);
+        return registerBlockType(blockName, Block::new, BlockBehaviour.Properties.copy(Blocks.GLASS), false, BlockSetType.IRON, null, 40, true);
     }
 
     private static <B extends Block, I extends BlockItem> RegistryObject<B> registerMainTabBlock(String name, Supplier<B> block, Function<RegistryObject<B>, Supplier<I>> item) {

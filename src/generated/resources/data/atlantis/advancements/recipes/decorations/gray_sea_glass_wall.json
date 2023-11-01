@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gray_sea_glass": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "atlantis:gray_sea_glass"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:gray_sea_glass_wall"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_gray_sea_glass",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:gray_sea_glass_wall"
+    ]
+  },
+  "sends_telemetry_event": false
+}

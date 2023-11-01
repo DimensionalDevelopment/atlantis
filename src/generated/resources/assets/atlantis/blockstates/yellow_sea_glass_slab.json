@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "atlantis:block/yellow_sea_glass_slab"
+    },
+    "type=double": {
+      "model": "atlantis:block/yellow_sea_glass"
+    },
+    "type=top": {
+      "model": "atlantis:block/yellow_sea_glass_slab_top"
+    }
+  }
+}

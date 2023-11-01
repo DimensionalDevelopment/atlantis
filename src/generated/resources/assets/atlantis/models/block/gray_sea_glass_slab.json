@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "atlantis:block/gray_sea_glass",
+    "side": "atlantis:block/gray_sea_glass",
+    "top": "atlantis:block/gray_sea_glass"
+  }
+}

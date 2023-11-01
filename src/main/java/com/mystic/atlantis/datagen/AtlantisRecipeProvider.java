@@ -1,9 +1,11 @@
 package com.mystic.atlantis.datagen;
 
+import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.init.RecipesInit;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
@@ -13,8 +15,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -84,6 +89,8 @@ public class AtlantisRecipeProvider extends RecipeProvider {
 
         SimpleCookingRecipeBuilder.smelting(ItemInit.ORICHALCUM_BLEND.lazyMap(Ingredient::of).get(), RecipeCategory.MISC, ItemInit.ORICHALCUM_IGNOT.get(), 0.7f, 200).group("orichalcum_ignot").unlockedBy("has_orichalcum_blend", ItemInit.ORICHALCUM_BLEND.map(RecipeProvider::has).get()).save(consumer, "orichalcum_ignot_from_smelting");
         SimpleCookingRecipeBuilder.blasting(ItemInit.ORICHALCUM_BLEND.lazyMap(Ingredient::of).get(), RecipeCategory.MISC, ItemInit.ORICHALCUM_IGNOT.get(), 0.7f, 100).group("orichalcum_ignot").unlockedBy("has_orichalcum_blend", ItemInit.ORICHALCUM_BLEND.map(RecipeProvider::has).get()).save(consumer, "orichalcum_ignot_from_blasting");
+
+        generateForEnabledBlockFamilies(consumer);
     }
 
     public void orichalcumUpgrade(RegistryObject<Item> base, RegistryObject<Item> result, Consumer<FinishedRecipe> consumer) {
@@ -99,5 +106,20 @@ public class AtlantisRecipeProvider extends RecipeProvider {
 
     public static SingleItemRecipeBuilder writing(Ingredient ingredient, ItemLike result) {
         return new SingleItemRecipeBuilder(RecipeCategory.MISC, RecipesInit.Serializers.WRITING_SERIALIZER.get(), ingredient, result, 1);
+    }
+
+    protected void generateForEnabledBlockFamilies(@NotNull Consumer<FinishedRecipe> consumer) {
+        BlockType.getAllFamilies().forEach(arg -> {
+            generateRecipes(consumer, arg);
+            generateStoneCutterRecipesForFamily(consumer, arg);
+        });
+    }
+
+    private void generateStoneCutterRecipesForFamily(@NotNull Consumer<FinishedRecipe> consumer, @NotNull BlockFamily family) {
+        if (Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(family.getBaseBlock())).toString().contains("planks")) return;
+        if (family.getVariants().containsKey(BlockFamily.Variant.SLAB)) stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, family.get(BlockFamily.Variant.SLAB), family.getBaseBlock(), 2);
+        if (family.getVariants().containsKey(BlockFamily.Variant.STAIRS)) stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, family.get(BlockFamily.Variant.STAIRS), family.getBaseBlock());
+        if (family.getVariants().containsKey(BlockFamily.Variant.WALL)) stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, family.get(BlockFamily.Variant.WALL), family.getBaseBlock());
+        if (family.getVariants().containsKey(BlockFamily.Variant.CHISELED)) stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, family.get(BlockFamily.Variant.CHISELED), family.getBaseBlock());
     }
 }

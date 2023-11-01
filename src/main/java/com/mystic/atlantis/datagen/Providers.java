@@ -29,7 +29,7 @@ public class Providers {
 
         if(event.includeClient()) {
             event.getGenerator().addProvider(true, new AtlantisBlockModelProvider(output, event.getExistingFileHelper()));
-            event.getGenerator().addProvider(true, new AtlantisBlockStateProvider(output, event.getExistingFileHelper()));
+            event.getGenerator().addProvider(true, new AtlantisMainProvider(output, event.getExistingFileHelper(), AtlantisBlockStateProvider::new));
             event.getGenerator().addProvider(true, new AtlantisItemModelProvider(output, event.getExistingFileHelper()));
             event.getGenerator().addProvider(true, new AtlantisEnglishLanguageProvider(output));
 

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_magenta_sea_glass": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "atlantis:magenta_sea_glass"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:magenta_sea_glass_button"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_magenta_sea_glass",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:magenta_sea_glass_button"
+    ]
+  },
+  "sends_telemetry_event": false
+}
