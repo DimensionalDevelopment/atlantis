@@ -42,12 +42,12 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
 
     private void registerBlockFamily(BlockFamily family) {
         registerBlockItem(family.getBaseBlock());
-        family.getVariants().keySet().forEach(variant -> proccessVariant(variant, family));
+        family.getVariants().keySet().forEach(variant -> processVariant(variant, family));
     }
 
     private void registerBlockItem(Block block) {simpleBlockWithItem(block, cubeAll(block));}
 
-    private void proccessVariant(BlockFamily.Variant variant, BlockFamily family) {
+    private void processVariant(BlockFamily.Variant variant, BlockFamily family) {
         Block original = family.getBaseBlock();
         Block variantTarget = family.getVariants().get(variant);
         switch (variant) {

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/button_inventory",
-  "textures": {
-    "texture": "atlantis:block/monochromic_sea_glass"
-  }
-}

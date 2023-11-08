@@ -79,7 +79,7 @@ public class AtlantisRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_orichalcum_ignot", RecipeProvider.has(ItemInit.ORICHALCUM_IGNOT.get()))
                 .save(consumer);
 
-        seaGlassDye();
+        seaGlassDye(consumer);
 
         orichalcumUpgrade(ItemInit.AQUAMARINE_HELMET, ItemInit.ORICHALCUM_HELMET, consumer);
         orichalcumUpgrade(ItemInit.AQUAMARINE_CHESTPLATE, ItemInit.ORICHALCUM_CHESTPLATE, consumer);
@@ -94,30 +94,33 @@ public class AtlantisRecipeProvider extends RecipeProvider {
         SimpleCookingRecipeBuilder.smelting(ItemInit.ORICHALCUM_BLEND.lazyMap(Ingredient::of).get(), RecipeCategory.MISC, ItemInit.ORICHALCUM_IGNOT.get(), 0.7f, 200).group("orichalcum_ignot").unlockedBy("has_orichalcum_blend", ItemInit.ORICHALCUM_BLEND.map(RecipeProvider::has).get()).save(consumer, "orichalcum_ignot_from_smelting");
         SimpleCookingRecipeBuilder.blasting(ItemInit.ORICHALCUM_BLEND.lazyMap(Ingredient::of).get(), RecipeCategory.MISC, ItemInit.ORICHALCUM_IGNOT.get(), 0.7f, 100).group("orichalcum_ignot").unlockedBy("has_orichalcum_blend", ItemInit.ORICHALCUM_BLEND.map(RecipeProvider::has).get()).save(consumer, "orichalcum_ignot_from_blasting");
 
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(BlockInit.SUNKEN_GRAVEL.get()), RecipeCategory.MISC, BlockInit.SEA_GLASS.block().get(), 0.5f, 50).unlockedBy("has_sunken_gravel", RecipeProvider.has(BlockInit.SUNKEN_GRAVEL.get())).save(consumer, "sea_glass_from_smelting");
+        SimpleCookingRecipeBuilder.blasting(Ingredient.of(BlockInit.SUNKEN_GRAVEL.get()), RecipeCategory.MISC, BlockInit.SEA_GLASS.block().get(), 0.5f, 100).unlockedBy("has_sunken_gravel", RecipeProvider.has(BlockInit.SUNKEN_GRAVEL.get())).save(consumer, "sea_glass_from_blasting");
+
         generateForEnabledBlockFamilies(consumer);
     }
 
-    public void seaGlassDye() { //TODO simply this into 1 method
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.BLACK_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.BLACK_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.BLUE_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.BLUE_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.RED_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.RED_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.LIGHT_BLUE_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.LIGHT_BLUE_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.LIGHT_GRAY_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.LIGHT_GRAY_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.GREEN_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.GREEN_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.GRAY_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.GRAY_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.WHITE_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.WHITE_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.YELLOW_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.YELLOW_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.LIME_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.LIME_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.CYAN_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.CYAN_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.MAGENTA_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.MAGENTA_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.ORANGE_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.ORANGE_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.BROWN_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.BROWN_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.PINK_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.PINK_DYE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.PURPLE_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.PURPLE_DYE);
+    public void seaGlassDye(Consumer<FinishedRecipe> consumer) { //TODO simply this into 1 method
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.BLACK_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.BLACK_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.BLUE_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.BLUE_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.RED_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.RED_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.LIGHT_BLUE_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.LIGHT_BLUE_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.LIGHT_GRAY_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.LIGHT_GRAY_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.GREEN_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.GREEN_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.GRAY_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.GRAY_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.WHITE_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.WHITE_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.YELLOW_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.YELLOW_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.LIME_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.LIME_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.CYAN_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.CYAN_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.MAGENTA_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.MAGENTA_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.ORANGE_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.ORANGE_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.BROWN_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.BROWN_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.PINK_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.PINK_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.PURPLE_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.PURPLE_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.MONOCHROMATIC_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.BLACK_DYE, 2)
-                .requires(Items.WHITE_DYE, 2).requires(Items.GRAY_DYE, 2);
+                .requires(Items.WHITE_DYE, 2).requires(Items.GRAY_DYE, 2).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BlockInit.MULTICOLOR_SEA_GLASS.block().get(), 1).requires(BlockInit.SEA_GLASS.block().get()).requires(Items.RED_DYE)
-                .requires(Items.ORANGE_DYE).requires(Items.YELLOW_DYE).requires(Items.LIME_DYE).requires(Items.GREEN_DYE).requires(Items.BLUE_DYE).requires(Items.MAGENTA_DYE).requires(Items.PURPLE_DYE);
+                .requires(Items.ORANGE_DYE).requires(Items.YELLOW_DYE).requires(Items.LIME_DYE).requires(Items.GREEN_DYE).requires(Items.BLUE_DYE).requires(Items.MAGENTA_DYE).requires(Items.PURPLE_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
     }
 
     public void orichalcumUpgrade(RegistryObject<Item> base, RegistryObject<Item> result, Consumer<FinishedRecipe> consumer) {

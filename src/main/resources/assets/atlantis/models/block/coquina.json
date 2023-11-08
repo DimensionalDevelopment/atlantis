@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "atlantis:block/coquina_top",
+    "side": "atlantis:block/coquina"
+  }
+}

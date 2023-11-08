@@ -1,16 +1,16 @@
 {
   "values": [
-    "atlantis:orichalcum_chestplate",
-    "atlantis:orichalcum_boots",
     "atlantis:orichalcum_pickaxe",
-    "atlantis:orichalcum_axe",
-    "atlantis:orichalcum_blend",
-    "atlantis:orichalcum_helmet",
-    "atlantis:orichalcum_ignot",
-    "atlantis:orichalcum_leggings",
-    "atlantis:orichalcum_shovel",
+    "atlantis:orichalcum_boots",
+    "atlantis:orichalcum_chestplate",
     "atlantis:orichalcum_block",
+    "atlantis:orichalcum_hoe",
     "atlantis:orichalcum_sword",
-    "atlantis:orichalcum_hoe"
+    "atlantis:orichalcum_shovel",
+    "atlantis:orichalcum_leggings",
+    "atlantis:orichalcum_ignot",
+    "atlantis:orichalcum_helmet",
+    "atlantis:orichalcum_blend",
+    "atlantis:orichalcum_axe"
   ]
 }

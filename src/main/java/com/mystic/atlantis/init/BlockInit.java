@@ -302,7 +302,7 @@ public class BlockInit {
         } else {
             blockName = name + "_sea_glass";
         }
-        return registerBlockType(blockName, Block::new, BlockBehaviour.Properties.copy(Blocks.GLASS), false, BlockSetType.IRON, null, 40, true);
+        return registerBlockType(blockName, Block::new, BlockBehaviour.Properties.copy(Blocks.GLASS).sound(SoundType.GLASS), false, BlockSetType.IRON, null, 40, true);
     }
 
     private static <B extends Block, I extends BlockItem> RegistryObject<B> registerMainTabBlock(String name, Supplier<B> block, Function<RegistryObject<B>, Supplier<I>> item) {

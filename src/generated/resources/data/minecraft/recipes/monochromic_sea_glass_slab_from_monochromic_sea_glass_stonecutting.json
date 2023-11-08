@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
-    "item": "atlantis:monochromic_sea_glass"
-  },
-  "result": "atlantis:monochromic_sea_glass_slab"
-}
