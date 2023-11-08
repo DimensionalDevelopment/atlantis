@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_monochromatic_sea_glass": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "atlantis:monochromatic_sea_glass"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:monochromatic_sea_glass_wall"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_monochromatic_sea_glass",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:monochromatic_sea_glass_wall"
+    ]
+  },
+  "sends_telemetry_event": false
+}

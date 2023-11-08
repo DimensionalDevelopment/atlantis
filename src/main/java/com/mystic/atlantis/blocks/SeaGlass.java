@@ -9,7 +9,7 @@ public enum SeaGlass {
     BASE("base"),
     LIGHT_BLUE("light_blue"),
     RED("red"),
-    MONOCHROMIC("monochromic"),
+    MONOCHROMATIC("monochromatic"),
     GREEN("green"),
     WHITE("white"),
     CYAN("cyan"),
@@ -18,7 +18,8 @@ public enum SeaGlass {
     BLACK("black"),
     GRAY("gray"),
     BLUE("blue"),
-    BROWN("brown");
+    BROWN("brown"),
+    LIME("lime");
 
     private final String name;
 
