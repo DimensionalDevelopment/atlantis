@@ -7,7 +7,7 @@
       "element": {
         "location": "atlantis:atlantis_city",
         "processors": "minecraft:empty",
-        "projection": "rigid",
+        "projection": "terrain_matching",
         "element_type": "minecraft:single_pool_element"
       }
     }

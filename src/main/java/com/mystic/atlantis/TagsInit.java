@@ -21,7 +21,7 @@ public class TagsInit {
         public static Set<Supplier<net.minecraft.world.item.Item>> getItemsThatCanSink() {
             return Set.of(
                     ItemInit.ORICHALCUM_BLEND,
-                    ItemInit.ORICHALCUM_IGNOT,
+                    ItemInit.ORICHALCUM_INGOT,
                     ItemInit.ORICHALCUM_AXE,
                     ItemInit.ORICHALCUM_PICKAXE,
                     ItemInit.ORICHALCUM_SHOVEL,

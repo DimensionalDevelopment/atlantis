@@ -75,8 +75,8 @@ public class AtlantisRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BlockInit.ORICHALCUM_BLOCK.get())
                 .pattern("XX")
                 .pattern("XX")
-                .define('X', ItemInit.ORICHALCUM_IGNOT.get())
-                .unlockedBy("has_orichalcum_ignot", RecipeProvider.has(ItemInit.ORICHALCUM_IGNOT.get()))
+                .define('X', ItemInit.ORICHALCUM_INGOT.get())
+                .unlockedBy("has_orichalcum_ingot", RecipeProvider.has(ItemInit.ORICHALCUM_INGOT.get()))
                 .save(consumer);
 
         seaGlassDye(consumer);
@@ -91,8 +91,8 @@ public class AtlantisRecipeProvider extends RecipeProvider {
         orichalcumUpgrade(ItemInit.SHOVEL_AQUAMARINE, ItemInit.ORICHALCUM_SHOVEL, consumer);
         orichalcumUpgrade(ItemInit.SWORD_AQUAMARINE, ItemInit.ORICHALCUM_SWORD, consumer);
 
-        SimpleCookingRecipeBuilder.smelting(ItemInit.ORICHALCUM_BLEND.lazyMap(Ingredient::of).get(), RecipeCategory.MISC, ItemInit.ORICHALCUM_IGNOT.get(), 0.7f, 200).group("orichalcum_ignot").unlockedBy("has_orichalcum_blend", ItemInit.ORICHALCUM_BLEND.map(RecipeProvider::has).get()).save(consumer, "orichalcum_ignot_from_smelting");
-        SimpleCookingRecipeBuilder.blasting(ItemInit.ORICHALCUM_BLEND.lazyMap(Ingredient::of).get(), RecipeCategory.MISC, ItemInit.ORICHALCUM_IGNOT.get(), 0.7f, 100).group("orichalcum_ignot").unlockedBy("has_orichalcum_blend", ItemInit.ORICHALCUM_BLEND.map(RecipeProvider::has).get()).save(consumer, "orichalcum_ignot_from_blasting");
+        SimpleCookingRecipeBuilder.smelting(ItemInit.ORICHALCUM_BLEND.lazyMap(Ingredient::of).get(), RecipeCategory.MISC, ItemInit.ORICHALCUM_INGOT.get(), 0.7f, 200).group("orichalcum_ingot").unlockedBy("has_orichalcum_blend", ItemInit.ORICHALCUM_BLEND.map(RecipeProvider::has).get()).save(consumer, "orichalcum_ingot_from_smelting");
+        SimpleCookingRecipeBuilder.blasting(ItemInit.ORICHALCUM_BLEND.lazyMap(Ingredient::of).get(), RecipeCategory.MISC, ItemInit.ORICHALCUM_INGOT.get(), 0.7f, 100).group("orichalcum_ingot").unlockedBy("has_orichalcum_blend", ItemInit.ORICHALCUM_BLEND.map(RecipeProvider::has).get()).save(consumer, "orichalcum_ingot_from_blasting");
 
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(BlockInit.SUNKEN_GRAVEL.get()), RecipeCategory.MISC, BlockInit.SEA_GLASS.block().get(), 0.5f, 50).unlockedBy("has_sunken_gravel", RecipeProvider.has(BlockInit.SUNKEN_GRAVEL.get())).save(consumer, "sea_glass_from_smelting");
         SimpleCookingRecipeBuilder.blasting(Ingredient.of(BlockInit.SUNKEN_GRAVEL.get()), RecipeCategory.MISC, BlockInit.SEA_GLASS.block().get(), 0.5f, 100).unlockedBy("has_sunken_gravel", RecipeProvider.has(BlockInit.SUNKEN_GRAVEL.get())).save(consumer, "sea_glass_from_blasting");
@@ -127,10 +127,10 @@ public class AtlantisRecipeProvider extends RecipeProvider {
         SmithingTransformRecipeBuilder.smithing(
                 ItemInit.ORICHALCUM_UPGRADE_SMITHING_TEMPLATE.lazyMap(Ingredient::of).get(),
                         base.lazyMap(Ingredient::of).get(),
-                        ItemInit.ORICHALCUM_IGNOT.lazyMap(Ingredient::of).get(),
+                        ItemInit.ORICHALCUM_INGOT.lazyMap(Ingredient::of).get(),
                         RecipeCategory.MISC,
                         result.lazyMap(ItemLike::asItem).get())
-                .unlocks("has_orichalcum_ignot", RecipeProvider.has(ItemInit.ORICHALCUM_IGNOT.get()))
+                .unlocks("has_orichalcum_ingot", RecipeProvider.has(ItemInit.ORICHALCUM_INGOT.get()))
                 .save(consumer, result.getId());
     }
 

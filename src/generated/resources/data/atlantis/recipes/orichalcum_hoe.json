@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smithing_transform",
   "addition": {
-    "item": "atlantis:orichalcum_ignot"
+    "item": "atlantis:orichalcum_ingot"
   },
   "base": {
     "item": "atlantis:hoe_aquamarine"

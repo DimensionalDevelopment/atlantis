@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_orichalcum_ingot": {
+    "has_orichalcum_blend": {
       "conditions": {
         "items": [
           {
             "items": [
-              "atlantis:orichalcum_ingot"
+              "atlantis:orichalcum_blend"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "atlantis:orichalcum_hoe"
+        "recipe": "minecraft:orichalcum_ingot_from_blasting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_orichalcum_ingot",
+      "has_orichalcum_blend",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "atlantis:orichalcum_hoe"
+      "minecraft:orichalcum_ingot_from_blasting"
     ]
   },
   "sends_telemetry_event": false

@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_orichalcum_ignot": {
+    "has_orichalcum_ingot": {
       "conditions": {
         "items": [
           {
             "items": [
-              "atlantis:orichalcum_ignot"
+              "atlantis:orichalcum_ingot"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_orichalcum_ignot",
+      "has_orichalcum_ingot",
       "has_the_recipe"
     ]
   ],

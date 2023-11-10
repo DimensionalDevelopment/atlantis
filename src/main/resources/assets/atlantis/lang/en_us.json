@@ -1,4 +1,10 @@
 {
+  "item.minecraft.smithing_template.orichalcum_upgrade.ingredients": "Orichalcum Ingot",
+  "item.minecraft.smithing_template.orichalcum_upgrade.base_slot_description": "Add orichalcum armor, weapon, or tool",
+  "item.minecraft.smithing_template.orichalcum_upgrade.additions_slot_description": "Add Orichalcum Ingot",
+  "item.minecraft.smithing_template.orichalcum_upgrade.applies_to": "Aquamarine Equipment",
+  "upgrade.minecraft.orichalcum_upgrade": "Orichalcum Upgrade Smithing Template",
+  "item.atlantis.orichalcum_ingot": "Orichalcum Ingot",
   "block.atlantis.black_sea_glass": "Black Sea Glass",
   "block.atlantis.black_sea_glass_button": "Black Sea Glass Button",
   "block.atlantis.black_sea_glass_pressure_plate": "Black Sea GlassPressure Plate",

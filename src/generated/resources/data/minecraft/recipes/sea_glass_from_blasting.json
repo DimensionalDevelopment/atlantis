@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "category": "blocks",
-  "cookingtime": 50,
+  "cookingtime": 100,
   "experience": 0.5,
   "ingredient": {
     "item": "atlantis:sunken_gravel"

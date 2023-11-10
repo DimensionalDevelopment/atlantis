@@ -1,4 +1,4 @@
-// 1.20.1	2023-11-08T05:59:47.2874402	Item Models: atlantis
+// 1.20.1	2023-11-09T16:06:10.8860668	Item Models: atlantis
 beebc8b3b30d3adf0b798953152e0c8e6d0b05fa assets/atlantis/models/item/black_linguistic_glyph.json
 b674ed07b2975fad63b10811560d1234a989814f assets/atlantis/models/item/black_linguistic_glyph_0.json
 4e5cbb87c1a50d89f2d6e03cb1d42fdc6d2a3316 assets/atlantis/models/item/black_linguistic_glyph_1.json
@@ -487,7 +487,7 @@ c0b7e8ae45025370390f87c59c561ee9af6eff16 assets/atlantis/models/item/orichalcum_
 90560d204f50a7e0a5d173412ffc5f8c79209c5b assets/atlantis/models/item/orichalcum_chestplate.json
 f184d9eab7d46d5bf09227954bd7c16cfad648dc assets/atlantis/models/item/orichalcum_helmet.json
 8021496cf559dc4737b756378aa37fe91cc06aef assets/atlantis/models/item/orichalcum_hoe.json
-e7b1e2fb680d5c4562a2fbe526d7a621230c7351 assets/atlantis/models/item/orichalcum_ignot.json
+cfb9a862c398ac591359f22cebb29b9b05e45014 assets/atlantis/models/item/orichalcum_ingot.json
 2c46966aff4bc6450fa05f5d207612bd483e11a1 assets/atlantis/models/item/orichalcum_leggings.json
 d98b42d8ec72d76790b84090b71743fb9a63bd26 assets/atlantis/models/item/orichalcum_pickaxe.json
 226ba37a5e752defcbe1fe270f884a56ca947fc6 assets/atlantis/models/item/orichalcum_shovel.json

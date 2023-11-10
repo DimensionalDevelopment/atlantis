@@ -13,7 +13,7 @@ import net.minecraftforge.common.TierSortingRegistry;
 
 public enum ToolInit implements Tier {
     AQUAMARINE(286,5,4,2, 10, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get())),
-    ORICHAClUM(286,5,4,2, 10, () -> Ingredient.of(ItemInit.ORICHALCUM_IGNOT.get()));;
+    ORICHAClUM(286,5,4,2, 10, () -> Ingredient.of(ItemInit.ORICHALCUM_INGOT.get()));;
 
     private final int maxUses;
     private final float toolEfficiency;

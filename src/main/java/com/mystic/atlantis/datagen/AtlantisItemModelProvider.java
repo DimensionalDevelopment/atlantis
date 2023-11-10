@@ -72,7 +72,7 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         //        block(BlockInit.WRITING_BLOCK);
         block(BlockInit.ORICHALCUM_BLOCK);
 
-        item(ItemInit.ORICHALCUM_IGNOT);
+        item(ItemInit.ORICHALCUM_INGOT);
         item(ItemInit.ORICHALCUM_BLEND);
 
         item(ItemInit.ORICHALCUM_HELMET);
