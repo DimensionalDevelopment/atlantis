@@ -29,23 +29,25 @@ public class AtlantisGroupInit {
     public static final RegistryObject<CreativeModeTab> MAIN = CREATIVE_TABS.register("main", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.atlantis.general"))
             .icon(BlockInit.CHISELED_GOLDEN_AQUAMARINE.get().asItem()::getDefaultInstance)
-            .withSearchBar()
+            .withSearchBar(58)
+            .hideTitle()
             .displayItems((pParameters, pOutput) -> {
                     MAIN_BLOCKS.forEach(itemLike -> pOutput.accept(itemLike.get()));
                     MAIN_ITEMS.forEach(itemLike -> pOutput.accept(itemLike.get()));
             })
-            .withBackgroundLocation(new ResourceLocation("atlantis", "textures/gui/tab_atlantis.png"))
+            .withBackgroundLocation(new ResourceLocation("atlantis", "textures/gui/atlantis_tab.png"))
             .build());
 
     public static final RegistryObject<CreativeModeTab> GLYPH = CREATIVE_TABS.register("glyph", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.atlantis.glyph"))
             .icon(BlockInit.LINGUISTIC_BLOCK.get().asItem()::getDefaultInstance)
-            .withSearchBar()
+            .withSearchBar(58)
+            .hideTitle()
             .displayItems((pParameters, pOutput) -> {
                 GLYPH_BLOCKS.forEach(itemLike -> pOutput.accept(itemLike.get()));
                 GLYPH_ITEMS.forEach(itemLike -> pOutput.accept(itemLike.get()));
             })
-            .withBackgroundLocation(new ResourceLocation("atlantis", "textures/gui/tab_atlantis.png"))
+            .withBackgroundLocation(new ResourceLocation("atlantis", "textures/gui/glyph_tab.png"))
             .build());
 
 
