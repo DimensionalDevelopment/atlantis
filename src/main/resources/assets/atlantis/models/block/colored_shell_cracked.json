@@ -1,0 +1,9 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "atlantis:block/shell_base",
+	"textures": {
+		"front": "atlantis:block/colored_shell_front_cracked",
+		"side": "atlantis:block/colored_shell_side_cracked",
+		"faces": "atlantis:block/colored_shell_faces_cracked"
+	}
+}

@@ -1,0 +1,20 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "atlantis:block/oyster_shell_faces_cracked_mossy",
+        "side": "atlantis:block/oyster_shell_side_cracked_mossy"
+    },
+    "elements": [
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  { "texture": "#end", "cullface": "down" },
+                "up":    { "texture": "#end", "cullface": "up"   },
+                "north": { "texture": "#side", "cullface": "north" },
+                "south": { "texture": "#side", "cullface": "south" },
+                "west":  { "texture": "#side", "cullface": "west"  },
+                "east":  { "texture": "#side", "cullface": "east"  }
+            }
+        }
+    ]
+}

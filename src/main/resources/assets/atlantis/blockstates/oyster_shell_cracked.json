@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "axis=y": { "model": "atlantis:block/oyster_shell_cracked" },
+        "axis=z": { "model": "atlantis:block/oyster_shell_cracked", "x": 90 },
+        "axis=x": { "model": "atlantis:block/oyster_shell_cracked", "x": 90, "y": 90 }
+    }
+}

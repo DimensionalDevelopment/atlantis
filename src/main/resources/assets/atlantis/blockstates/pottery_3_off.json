@@ -1,0 +1,38 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "atlantis:block/pottery_3_off"
+      },
+      "when": {
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "atlantis:block/pottery_3_off"
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "atlantis:block/pottery_3_off",
+        "y": 90
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "atlantis:block/pottery_3_off",
+        "y": 90
+      },
+      "when": {
+        "facing": "west"
+      }
+    }
+  ]
+}

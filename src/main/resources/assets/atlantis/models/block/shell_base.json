@@ -1,0 +1,12 @@
+{
+	"parent": "atlantis:block/tinted_cube",
+	"textures": {
+		"particle": "#faces",
+		"north":  "#front",
+		"east":  "#side",
+		"south":  "#faces",
+		"west":  "#side",
+		"up":  "#faces",
+		"down":  "#faces"
+	}
+}

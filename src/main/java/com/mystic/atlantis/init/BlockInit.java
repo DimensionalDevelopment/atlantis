@@ -9,6 +9,7 @@ import com.mystic.atlantis.blocks.power.energy.CrystalGeneratorBlock;
 import com.mystic.atlantis.blocks.power.energy.CrystalStorageBlock;
 import com.mystic.atlantis.blocks.power.energy.CrystalTransferenceBlock;
 import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
+import com.mystic.atlantis.blocks.shells.CrackedShellBlock;
 import com.mystic.atlantis.blocks.shells.NautilusShellBlock;
 import com.mystic.atlantis.blocks.shells.OysterShellBlock;
 import com.mystic.atlantis.blocks.signs.AtlanteanSignBlock;
@@ -41,6 +42,8 @@ public class BlockInit {
 
     public static final Map<LinguisticGlyph, Map<DyeColor, RegistryObject<Block>>> DYED_LINGUISTICS = new HashMap<>();
     public static final Map<LinguisticGlyph, RegistryObject<Block>> NON_LINGUISTICS = new HashMap<>();
+    public static final Map<DyeColor, RegistryObject<Block>> COLORED_SHELL_BLOCKS = new HashMap<>();
+    public static final Map<DyeColor, RegistryObject<Block>> CRACKED_SHELL_BLOCKS = new HashMap<>();
 
     //Energy
     public static final RegistryObject<Block> CRYSTAL_GENERATOR = registerBlock("crystal_generator", () -> new CrystalGeneratorBlock(BlockBehaviour.Properties.of()));
@@ -63,6 +66,15 @@ public class BlockInit {
     //Atlantean Wood Type
     public static final WoodType ATLANTEAN = WoodType.register(new WoodType("atlantean", BlockSetType.OAK));
     public static final WoodType ATLANTEAN_PALM = WoodType.register(new WoodType("atlantean_palm", BlockSetType.OAK));
+
+    //Pottery
+    public static final RegistryObject<Block> POTTERY_BLOCK_1 = registerBlock("pottery_1_off", () -> new AtlanteanPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
+    public static final RegistryObject<Block> POTTERY_BLOCK_2 = registerBlock("pottery_2_off", () -> new AtlanteanPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
+    public static final RegistryObject<Block> POTTERY_BLOCK_3 = registerBlock("pottery_3_off", () -> new AtlanteanPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
+    public static final RegistryObject<Block> POTTERY_BLOCK_4 = registerBlock("pottery_4_off", () -> new AtlanteanPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
+    public static final RegistryObject<Block> POTTERY_BLOCK_5 = registerBlock("pottery_5_off", () -> new AtlanteanPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
+    public static final RegistryObject<Block> POTTERY_BLOCK_6 = registerBlock("pottery_6_off", () -> new AtlanteanPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
+    public static final RegistryObject<Block> POTTERY_BLOCK_7 = registerBlock("pottery_7_off", () -> new AtlanteanPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
 
     //Coconut stuff
     public static final RegistryObject<CoconutSlice> COCONUT_SLICE = registerBlock("coconut_slab", () -> new CoconutSlice(BlockBehaviour.Properties.of()));
@@ -129,25 +141,12 @@ public class BlockInit {
     public static final RegistryObject<AncientWoodDoorBlock> ANCIENT_ACACIA_WOOD_MOSS_DOOR = registerBlock("ancient_acacia_wood_moss_door", () -> new AncientWoodDoorBlock(BlockBehaviour.Properties.of()));
 
     //Shells
-    public static final RegistryObject<ColoredShellBlock> BLACK_COLORED_SHELL_BLOCK = registerBlock("black_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> BLUE_COLORED_SHELL_BLOCK = registerBlock("blue_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> BROWN_COLORED_SHELL_BLOCK = registerBlock("brown_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> CYAN_COLORED_SHELL_BLOCK = registerBlock("cyan_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> GRAY_COLORED_SHELL_BLOCK = registerBlock("gray_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> GREEN_COLORED_SHELL_BLOCK = registerBlock("green_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> LIGHT_BLUE_COLORED_SHELL_BLOCK = registerBlock("light_blue_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> LIGHT_GRAY_COLORED_SHELL_BLOCK = registerBlock("light_gray_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> LIME_COLORED_SHELL_BLOCK = registerBlock("lime_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> MAGENTA_COLORED_SHELL_BLOCK = registerBlock("magenta_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> ORANGE_COLORED_SHELL_BLOCK = registerBlock("orange_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> PINK_COLORED_SHELL_BLOCK = registerBlock("pink_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> PURPLE_COLORED_SHELL_BLOCK = registerBlock("purple_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> RED_COLORED_SHELL_BLOCK = registerBlock("red_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> WHITE_COLORED_SHELL_BLOCK = registerBlock("white_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ColoredShellBlock> YELLOW_COLORED_SHELL_BLOCK = registerBlock("yellow_colored_shell_block", () -> new ColoredShellBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<OysterShellBlock> OYSTER_SHELL_BLOCK = registerBlock("oyster_shell_block", () -> new OysterShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<NautilusShellBlock> NAUTILUS_SHELL_BLOCK = registerBlock("nautilus_shell_block", () -> new NautilusShellBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<NautilusShellBlock> NAUTILUS_SHELL_BLOCK = registerBlock("nautilus_shell_block", () -> new NautilusShellBlock(BlockBehaviour.Properties.of().strength(2.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
 
+    public static final RegistryObject<OysterShellBlock> OYSTER_SHELL_CRACKED = registerBlock("oyster_shell_cracked", () -> new OysterShellBlock(BlockBehaviour.Properties.of().strength(1.5F, 5.0F)));
+
+    public static final RegistryObject<NautilusShellBlock> NAUTILUS_SHELL_CRACKED = registerBlock("nautilus_shell_cracked", () -> new NautilusShellBlock(BlockBehaviour.Properties.of().strength(1.5F, 5.0F).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
     //Regular blocks
     public static final RegistryObject<SodiumBombBlock> SODIUM_BOMB = registerBlock("sodium_bomb", () -> new SodiumBombBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<SeaSaltChunkBlock> SEA_SALT_CHUNK = registerBlock("sea_salt_chunk", () -> new SeaSaltChunkBlock(BlockBehaviour.Properties.of()));
@@ -262,7 +261,10 @@ public class BlockInit {
     public static final BlockType BROWN_SEA_GLASS = registerSeaGlass("brown");
     public static final BlockType LIME_SEA_GLASS = registerSeaGlass("lime");
 
-    public static final RegistryObject<RotatedPillarBlock> COQUINA = registerMainTabBlock("coquina", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(BlockInit.BLACK_COLORED_SHELL_BLOCK.get()).mapColor(MapColor.TERRACOTTA_ORANGE)), registryObject -> () -> new BlockItem(registryObject.get(), new Item.Properties()));
+    public static final RegistryObject<RotatedPillarBlock> COQUINA = registerMainTabBlock("coquina", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of() .sound(SoundType.BONE_BLOCK)
+            .requiresCorrectToolForDrops()
+            .strength(3.0F, 7.0F)
+    .mapColor(MapColor.TERRACOTTA_ORANGE)), registryObject -> () -> new BlockItem(registryObject.get(), new Item.Properties()));
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<B> block) {
         return registerMainTabBlock(name, block, b -> () -> new BlockItem(b.get(), new Item.Properties()));
@@ -357,6 +359,20 @@ public class BlockInit {
             }
 
             NON_LINGUISTICS.put(symbol, registerLinguisticBlock(name, blockSupplier.apply(symbol, null)));
+        }
+    }
+
+    static {
+        Function<DyeColor, Supplier<Block>> blockSupplier = (dyeColor) -> () -> new ColoredShellBlock(BlockBehaviour.Properties.of());
+        for (DyeColor color : DyeColor.values()) {
+            COLORED_SHELL_BLOCKS.put(color, registerBlock(color.getSerializedName() + "_colored_shell_block", blockSupplier.apply(color)));
+        }
+    }
+
+    static {
+        Function<DyeColor, Supplier<Block>> blockSupplier = (dyeColor) -> () -> new CrackedShellBlock(BlockBehaviour.Properties.of());
+        for (DyeColor color : DyeColor.values()) {
+            CRACKED_SHELL_BLOCKS.put(color, registerBlock(color.getSerializedName() + "_colored_shell_cracked", blockSupplier.apply(color)));
         }
     }
 }

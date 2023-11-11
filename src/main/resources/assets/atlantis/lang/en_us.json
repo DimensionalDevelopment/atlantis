@@ -1,4 +1,11 @@
 {
+  "block.atlantis.pottery_1_off": "Pottery Block Tuben",
+  "block.atlantis.pottery_2_off": "Pottery Block Belen",
+  "block.atlantis.pottery_3_off": "Pottery Block Toper",
+  "block.atlantis.pottery_4_off": "Pottery Block Snown",
+  "block.atlantis.pottery_5_off": "Pottery Block Horpen",
+  "block.atlantis.pottery_6_off": "Pottery Block Celen",
+  "block.atlantis.pottery_7_off": "Pottery Block Obemo",
   "item.minecraft.smithing_template.orichalcum_upgrade.ingredients": "Orichalcum Ingot",
   "item.minecraft.smithing_template.orichalcum_upgrade.base_slot_description": "Add orichalcum armor, weapon, or tool",
   "item.minecraft.smithing_template.orichalcum_upgrade.additions_slot_description": "Add Orichalcum Ingot",

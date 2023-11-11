@@ -1,0 +1,14 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "atlantis:colored_shell"
+  },
+  "variants": {
+    "facing=east": { "model": "atlantis:block/colored_shell" },
+    "facing=south": { "model": "atlantis:block/colored_shell", "y": 90 },
+    "facing=west": { "model": "atlantis:block/colored_shell", "y": 180 },
+    "facing=north": { "model": "atlantis:block/colored_shell", "y": 270 },
+    "facing=up": {"model": "atlantis:block/colored_shell", "x": -90},
+    "facing=down": {"model": "atlantis:block/colored_shell", "x": 90}
+  }
+}

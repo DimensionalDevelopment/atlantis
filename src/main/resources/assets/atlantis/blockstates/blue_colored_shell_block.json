@@ -1,14 +1,14 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "atlantis:block/blue_colored_shell_block"
+    "model": "atlantis:colored_shell"
   },
   "variants": {
-    "facing=east": { "model": "atlantis:block/blue_colored_shell_block" },
-    "facing=south": { "model": "atlantis:block/blue_colored_shell_block", "y": 90 },
-    "facing=west": { "model": "atlantis:block/blue_colored_shell_block", "y": 180 },
-    "facing=north": { "model": "atlantis:block/blue_colored_shell_block", "y": 270 },
-    "facing=up": {"model": "atlantis:block/blue_colored_shell_block", "x": -90},
-    "facing=down": {"model": "atlantis:block/blue_colored_shell_block", "x": 90}
+    "facing=east": { "model": "atlantis:block/colored_shell" },
+    "facing=south": { "model": "atlantis:block/colored_shell", "y": 90 },
+    "facing=west": { "model": "atlantis:block/colored_shell", "y": 180 },
+    "facing=north": { "model": "atlantis:block/colored_shell", "y": 270 },
+    "facing=up": {"model": "atlantis:block/colored_shell", "x": -90},
+    "facing=down": {"model": "atlantis:block/colored_shell", "x": 90}
   }
 }
