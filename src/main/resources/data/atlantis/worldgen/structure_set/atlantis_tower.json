@@ -1,7 +1,7 @@
 {
   "structures": [
     {
-      "structure": "atlantis:atlantis_tower",
+      "structure": "atlantis:configured_atlantean_tower",
       "weight": 1
     }
   ],
@@ -9,6 +9,6 @@
     "type": "minecraft:random_spread",
     "spacing": 18,
     "separation": 8,
-    "salt": 49857029430
+    "salt": 698530
   }
 }

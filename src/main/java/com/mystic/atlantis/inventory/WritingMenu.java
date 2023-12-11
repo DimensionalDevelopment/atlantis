@@ -158,7 +158,7 @@ public class WritingMenu extends AbstractContainerMenu {
         this.selectedRecipeIndex.set(-1);
         this.resultSlot.set(ItemStack.EMPTY);
         if (!stack.isEmpty()) {
-            this.recipes = this.level.getRecipeManager().getRecipesFor(RecipesInit.Types.WRITING, inventory, this.level);
+            this.recipes = this.level.getRecipeManager().getRecipesFor(RecipesInit.Types.WRITING.get(), inventory, this.level);
         }
     }
 

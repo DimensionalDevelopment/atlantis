@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "atlantis:atlantean_biome",
+    "atlantis:atlantis_biome",
     "atlantis:atlantean_islands_biome",
     "atlantis:atlantean_garden"
   ]

@@ -1,7 +1,7 @@
 {
   "structures": [
     {
-      "structure": "atlantis:atlantean_house_3",
+      "structure": "atlantis:configured_oyster_structure",
       "weight": 1
     }
   ],
@@ -9,6 +9,6 @@
     "type": "minecraft:random_spread",
     "spacing": 18,
     "separation": 8,
-    "salt": 48239750231
+    "salt": 550231
   }
 }

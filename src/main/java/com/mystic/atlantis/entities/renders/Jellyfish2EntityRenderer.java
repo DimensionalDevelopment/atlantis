@@ -133,6 +133,10 @@ public class Jellyfish2EntityRenderer extends GeoEntityRenderer<Jellyfish2Entity
         }
     }
 
+    protected float handleRotationFloat(Jellyfish2Entity livingBase, float partialTicks) {
+        return (float) livingBase.tickCount + partialTicks;
+    }
+
     private <E extends Entity> void method_4073(Jellyfish2Entity entity, float tickDelta, PoseStack matrices, MultiBufferSource provider, E holdingEntity) {
         matrices.pushPose();
         Vec3 vec3d = holdingEntity.getViewVector(tickDelta);

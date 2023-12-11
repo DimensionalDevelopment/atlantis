@@ -1,5 +1,5 @@
 {
-  "feature": "atlantis:atlantean_tree",
+  "feature": "atlantis:atlantean_tree_configured",
   "placement": [
     {
       "type": "minecraft:count",

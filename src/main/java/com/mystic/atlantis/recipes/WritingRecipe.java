@@ -17,7 +17,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class WritingRecipe extends SingleItemRecipe {
     public WritingRecipe(ResourceLocation arg, String string, Ingredient arg2, ItemStack arg3) {
-        super(RecipesInit.Types.WRITING, RecipesInit.Serializers.WRITING_SERIALIZER.get(), arg, string, arg2, arg3);
+        super(RecipesInit.Types.WRITING.get(), RecipesInit.Serializers.WRITING_SERIALIZER.get(), arg, string, arg2, arg3);
     }
 
     @Override

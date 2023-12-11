@@ -3,6 +3,7 @@ package com.mystic.atlantis.entities.renders;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
+import com.mystic.atlantis.entities.Jellyfish2Entity;
 import com.mystic.atlantis.entities.ShrimpEntity;
 import com.mystic.atlantis.entities.models.ShrimpEntityModel;
 import net.minecraft.client.Minecraft;
@@ -149,6 +150,10 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
         if (this.shouldShowName(entity)) {
             this.renderNameTag(entity, entity.getDisplayName(), stack, bufferIn, packedLightIn);
         }
+    }
+
+    protected float handleRotationFloat(ShrimpEntity livingBase, float partialTicks) {
+        return (float) livingBase.tickCount + partialTicks;
     }
 
     private <E extends Entity> void method_4073(ShrimpEntity entity, float tickDelta, PoseStack matrices, MultiBufferSource provider, E holdingEntity) {

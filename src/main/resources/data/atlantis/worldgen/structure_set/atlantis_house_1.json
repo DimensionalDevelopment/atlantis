@@ -1,7 +1,7 @@
 {
   "structures": [
     {
-      "structure": "atlantis:atlantis_house_1",
+      "structure": "atlantis:configured_atlantean_house_1",
       "weight": 1
     }
   ],
@@ -9,6 +9,6 @@
     "type": "minecraft:random_spread",
     "spacing": 18,
     "separation": 8,
-    "salt": 4284873921
+    "salt": 873921
   }
 }

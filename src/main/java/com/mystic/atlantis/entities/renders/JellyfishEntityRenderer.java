@@ -3,6 +3,7 @@ package com.mystic.atlantis.entities.renders;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
+import com.mystic.atlantis.entities.Jellyfish2Entity;
 import com.mystic.atlantis.entities.JellyfishEntity;
 import com.mystic.atlantis.entities.LeviathanEntity;
 import net.minecraft.client.Minecraft;
@@ -128,6 +129,10 @@ public class JellyfishEntityRenderer extends GeoEntityRenderer<JellyfishEntity> 
         if (this.shouldShowName(entity)) {
             this.renderNameTag(entity, entity.getDisplayName(), stack, bufferIn, packedLightIn);
         }
+    }
+
+    protected float handleRotationFloat(JellyfishEntity livingBase, float partialTicks) {
+        return (float) livingBase.tickCount + partialTicks;
     }
 
     private <E extends Entity> void method_4073(JellyfishEntity entity, float tickDelta, PoseStack matrices, MultiBufferSource provider, E holdingEntity) {
