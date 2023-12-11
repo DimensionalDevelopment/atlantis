@@ -10,6 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -133,7 +134,7 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
                 getTextureLocation(entity));
         boolean invis = entity.isInvisibleTo(Minecraft.getInstance().player);
         render(model, entity, partialTicks, renderType, stack, bufferIn, null, packedLightIn,
-                getPackedOverlay(entity, 0), rColor, gColor,
+                OverlayTexture.pack(0, 0), rColor, gColor,
                 bColor, invis ? 0.0F : 1f);
 
         if (!entity.isSpectator()) {

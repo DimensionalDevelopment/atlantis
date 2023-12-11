@@ -50,7 +50,7 @@ public class SubmarineEntityRenderer extends EntityRenderer<SubmarineEntity> imp
         RenderType renderType = getRenderType(entityIn, yaw, tickDelta, matrices, null, vertexConsumers,
                 getTextureLocation(entityIn));
         render(model, entityIn, yaw, renderType, tickDelta, matrices, null, vertexConsumers,
-                getPackedOverlay(entityIn, 0), (float) renderColor.getRed() / 255f,
+                OverlayTexture.pack(0, 0), (float) renderColor.getRed() / 255f,
                 (float) renderColor.getGreen() / 255f, (float) renderColor.getBlue() / 255f,
                 (float) renderColor.getAlpha() / 255);
 
