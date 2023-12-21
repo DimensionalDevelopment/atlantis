@@ -44,6 +44,8 @@ public class BlockInit {
     public static final Map<LinguisticGlyph, RegistryObject<Block>> NON_LINGUISTICS = new HashMap<>();
     public static final Map<DyeColor, RegistryObject<Block>> COLORED_SHELL_BLOCKS = new HashMap<>();
     public static final Map<DyeColor, RegistryObject<Block>> CRACKED_SHELL_BLOCKS = new HashMap<>();
+    public static final Map<DyeColor, RegistryObject<Block>> CRACKED_MOSSY_SHELL_BLOCKS = new HashMap<>();
+    public static final Map<DyeColor, RegistryObject<Block>> MOSSY_SHELL_BLOCKS = new HashMap<>();
 
     //Energy
     public static final RegistryObject<Block> CRYSTAL_GENERATOR = registerBlock("crystal_generator", () -> new CrystalGeneratorBlock(BlockBehaviour.Properties.of()));
@@ -143,10 +145,12 @@ public class BlockInit {
     //Shells
     public static final RegistryObject<OysterShellBlock> OYSTER_SHELL_BLOCK = registerBlock("oyster_shell_block", () -> new OysterShellBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<NautilusShellBlock> NAUTILUS_SHELL_BLOCK = registerBlock("nautilus_shell_block", () -> new NautilusShellBlock(BlockBehaviour.Properties.of().strength(2.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
-
     public static final RegistryObject<OysterShellBlock> OYSTER_SHELL_CRACKED = registerBlock("oyster_shell_cracked", () -> new OysterShellBlock(BlockBehaviour.Properties.of().strength(1.5F, 5.0F)));
-
     public static final RegistryObject<NautilusShellBlock> NAUTILUS_SHELL_CRACKED = registerBlock("nautilus_shell_cracked", () -> new NautilusShellBlock(BlockBehaviour.Properties.of().strength(1.5F, 5.0F).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
+    public static final RegistryObject<OysterShellBlock> OYSTER_SHELL_CRACKED_MOSSY = registerBlock("oyster_shell_cracked_mossy", () -> new OysterShellBlock(BlockBehaviour.Properties.of().strength(1.5F, 5.0F)));
+    public static final RegistryObject<NautilusShellBlock> NAUTILUS_SHELL_CRACKED_MOSSY = registerBlock("nautilus_shell_cracked_mossy", () -> new NautilusShellBlock(BlockBehaviour.Properties.of().strength(1.5F, 5.0F).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
+    public static final RegistryObject<OysterShellBlock> OYSTER_SHELL_MOSSY = registerBlock("oyster_shell_mossy", () -> new OysterShellBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<NautilusShellBlock> NAUTILUS_SHELL_MOSSY = registerBlock("nautilus_shell_mossy", () -> new NautilusShellBlock(BlockBehaviour.Properties.of().strength(2.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
     //Regular blocks
     public static final RegistryObject<SodiumBombBlock> SODIUM_BOMB = registerBlock("sodium_bomb", () -> new SodiumBombBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<SeaSaltChunkBlock> SEA_SALT_CHUNK = registerBlock("sea_salt_chunk", () -> new SeaSaltChunkBlock(BlockBehaviour.Properties.of()));
@@ -373,6 +377,20 @@ public class BlockInit {
         Function<DyeColor, Supplier<Block>> blockSupplier = (dyeColor) -> () -> new CrackedShellBlock(BlockBehaviour.Properties.of());
         for (DyeColor color : DyeColor.values()) {
             CRACKED_SHELL_BLOCKS.put(color, registerBlock(color.getSerializedName() + "_colored_shell_cracked", blockSupplier.apply(color)));
+        }
+    }
+
+    static {
+        Function<DyeColor, Supplier<Block>> blockSupplier = (dyeColor) -> () -> new CrackedShellBlock(BlockBehaviour.Properties.of());
+        for (DyeColor color : DyeColor.values()) {
+            CRACKED_MOSSY_SHELL_BLOCKS.put(color, registerBlock(color.getSerializedName() + "_colored_shell_cracked_mossy", blockSupplier.apply(color)));
+        }
+    }
+
+    static {
+        Function<DyeColor, Supplier<Block>> blockSupplier = (dyeColor) -> () -> new CrackedShellBlock(BlockBehaviour.Properties.of());
+        for (DyeColor color : DyeColor.values()) {
+            MOSSY_SHELL_BLOCKS.put(color, registerBlock(color.getSerializedName() + "_colored_shell_mossy", blockSupplier.apply(color)));
         }
     }
 }

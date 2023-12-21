@@ -39,12 +39,12 @@ public class AtlantisHouse3 extends Structure {
     private final int maxDistanceFromCenter;
 
     public AtlantisHouse3(Structure.StructureSettings config,
-                          Holder<StructureTemplatePool> startPool,
-                          Optional<ResourceLocation> startJigsawName,
-                          int size,
-                          HeightProvider startHeight,
-                          Optional<Heightmap.Types> projectStartToHeightmap,
-                          int maxDistanceFromCenter) {
+                            Holder<StructureTemplatePool> startPool,
+                            Optional<ResourceLocation> startJigsawName,
+                            int size,
+                            HeightProvider startHeight,
+                            Optional<Heightmap.Types> projectStartToHeightmap,
+                            int maxDistanceFromCenter) {
         super(config);
         this.startPool = startPool;
         this.startJigsawName = startJigsawName;

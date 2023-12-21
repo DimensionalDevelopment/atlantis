@@ -1,0 +1,14 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "atlantis:colored_shell_mossy"
+  },
+  "variants": {
+    "facing=east": { "model": "atlantis:block/colored_shell_mossy" },
+    "facing=south": { "model": "atlantis:block/colored_shell_mossy", "y": 90 },
+    "facing=west": { "model": "atlantis:block/colored_shell_mossy", "y": 180 },
+    "facing=north": { "model": "atlantis:block/colored_shell_mossy", "y": 270 },
+    "facing=up": {"model": "atlantis:block/colored_shell_mossy", "x": -90},
+    "facing=down": {"model": "atlantis:block/colored_shell_mossy", "x": 90}
+  }
+}

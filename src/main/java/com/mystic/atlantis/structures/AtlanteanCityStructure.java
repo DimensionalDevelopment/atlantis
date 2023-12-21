@@ -40,12 +40,12 @@ public class AtlanteanCityStructure extends Structure {
     private final int maxDistanceFromCenter;
 
     public AtlanteanCityStructure(Structure.StructureSettings config,
-                          Holder<StructureTemplatePool> startPool,
-                          Optional<ResourceLocation> startJigsawName,
-                          int size,
-                          HeightProvider startHeight,
-                          Optional<Heightmap.Types> projectStartToHeightmap,
-                          int maxDistanceFromCenter) {
+                            Holder<StructureTemplatePool> startPool,
+                            Optional<ResourceLocation> startJigsawName,
+                            int size,
+                            HeightProvider startHeight,
+                            Optional<Heightmap.Types> projectStartToHeightmap,
+                            int maxDistanceFromCenter) {
         super(config);
         this.startPool = startPool;
         this.startJigsawName = startJigsawName;
@@ -60,7 +60,9 @@ public class AtlanteanCityStructure extends Structure {
         ChunkPos chunkPos = context.chunkPos();
         BlockPos blockPos = new BlockPos(chunkPos.getMinBlockX(), context.heightAccessor().getHeight() - context.chunkGenerator().getSeaLevel(), chunkPos.getMinBlockZ());
 
-        if (AtlantisConfig.INSTANCE.shouldCitiesGenerate.get()) {
+        //Disabled until I can figure out too spilt the structure up! Don't touch!!!
+
+        if (false) {
             Optional<Structure.GenerationStub> structurePiecesGenerator =
                     JigsawPlacement.addPieces(
                             context,

@@ -1,0 +1,41 @@
+{
+	"parent": "block/block",
+	"textures": {
+        "particle": "atlantis:block/colored_shell_faces_cracked",
+        "down": "atlantis:block/colored_shell_faces_cracked",
+        "up": "atlantis:block/colored_shell_faces_cracked",
+        "north": "atlantis:block/colored_shell_front_cracked",
+        "east": "atlantis:block/colored_shell_side_cracked",
+        "south": "atlantis:block/colored_shell_faces_cracked",
+        "west": "atlantis:block/colored_shell_side_cracked",
+		"ovfaces": "atlantis:block/mossy_shell_faces_overlay",
+		"ovfront": "atlantis:block/mossy_shell_front_overlay",
+        "ovsides": "atlantis:block/mossy_shell_side_overlay"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#north", "cullface": "north", "tintindex": 0},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#east", "cullface": "east", "tintindex": 0},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#south", "cullface": "south", "tintindex": 0},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#west", "cullface": "west", "tintindex": 0},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#up", "cullface": "up", "tintindex": 0},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#down", "cullface": "down", "tintindex": 0}
+			}
+		},
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#ovfront", "cullface": "north"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#ovsides", "cullface": "east"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#ovfaces", "cullface": "south"},
+				"west": {"uv": [16, 0, 0, 16], "texture": "#ovsides", "cullface": "west"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#ovfaces", "cullface": "up"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#ovfaces", "cullface": "down"}
+			}
+		}
+	]
+}

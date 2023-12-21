@@ -84,6 +84,12 @@ public class ClientSetup {
 
         registerPlantRenderer(TileEntityInit.ENENMOMY_TILE, "enenmomy");
 
+        for (DyeColor dyeColor : DyeColor.values()) {
+            registerBlockRenderLayers(RenderType.cutoutMipped(),
+                    MOSSY_SHELL_BLOCKS.get(dyeColor).get(),
+                    CRACKED_MOSSY_SHELL_BLOCKS.get(dyeColor).get());
+        }
+
         registerBlockRenderLayers(RenderType.cutout(),
                 BlockInit.BLUE_LILY_BLOCK.get(),
                 BlockInit.BURNT_DEEP_BLOCK.get(),
@@ -259,6 +265,40 @@ public class ClientSetup {
         blockColors.register(RED, CRACKED_SHELL_BLOCKS.get(DyeColor.RED).get());
         blockColors.register(BLACK, CRACKED_SHELL_BLOCKS.get(DyeColor.BLACK).get());
 
+        blockColors.register(WHITE, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.WHITE).get());
+        blockColors.register(ORANGE, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.ORANGE).get());
+        blockColors.register(MAGENTA, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.MAGENTA).get());
+        blockColors.register(LIGHT_BLUE, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.LIGHT_BLUE).get());
+        blockColors.register(YELLOW, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.YELLOW).get());
+        blockColors.register(LIME, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.LIME).get());
+        blockColors.register(PINK, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.PINK).get());
+        blockColors.register(GRAY, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.GRAY).get());
+        blockColors.register(LIGHT_GRAY, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.LIGHT_GRAY).get());
+        blockColors.register(CYAN, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.CYAN).get());
+        blockColors.register(PURPLE, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.PURPLE).get());
+        blockColors.register(BLUE, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.BLUE).get());
+        blockColors.register(BROWN, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.BROWN).get());
+        blockColors.register(GREEN, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.GREEN).get());
+        blockColors.register(RED, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.RED).get());
+        blockColors.register(BLACK, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.BLACK).get());
+
+        blockColors.register(WHITE, MOSSY_SHELL_BLOCKS.get(DyeColor.WHITE).get());
+        blockColors.register(ORANGE, MOSSY_SHELL_BLOCKS.get(DyeColor.ORANGE).get());
+        blockColors.register(MAGENTA, MOSSY_SHELL_BLOCKS.get(DyeColor.MAGENTA).get());
+        blockColors.register(LIGHT_BLUE, MOSSY_SHELL_BLOCKS.get(DyeColor.LIGHT_BLUE).get());
+        blockColors.register(YELLOW, MOSSY_SHELL_BLOCKS.get(DyeColor.YELLOW).get());
+        blockColors.register(LIME, MOSSY_SHELL_BLOCKS.get(DyeColor.LIME).get());
+        blockColors.register(PINK, MOSSY_SHELL_BLOCKS.get(DyeColor.PINK).get());
+        blockColors.register(GRAY, MOSSY_SHELL_BLOCKS.get(DyeColor.GRAY).get());
+        blockColors.register(LIGHT_GRAY, MOSSY_SHELL_BLOCKS.get(DyeColor.LIGHT_GRAY).get());
+        blockColors.register(CYAN, MOSSY_SHELL_BLOCKS.get(DyeColor.CYAN).get());
+        blockColors.register(PURPLE, MOSSY_SHELL_BLOCKS.get(DyeColor.PURPLE).get());
+        blockColors.register(BLUE, MOSSY_SHELL_BLOCKS.get(DyeColor.BLUE).get());
+        blockColors.register(BROWN, MOSSY_SHELL_BLOCKS.get(DyeColor.BROWN).get());
+        blockColors.register(GREEN, MOSSY_SHELL_BLOCKS.get(DyeColor.GREEN).get());
+        blockColors.register(RED, MOSSY_SHELL_BLOCKS.get(DyeColor.RED).get());
+        blockColors.register(BLACK, MOSSY_SHELL_BLOCKS.get(DyeColor.BLACK).get());
+
 
         BlockColor REGULAR = (arg, arg2, arg3, i) -> 0x8caed2; NON_LINGUISTICS.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
 
@@ -350,6 +390,40 @@ public class ClientSetup {
         blockColors.register(GREEN, CRACKED_SHELL_BLOCKS.get(DyeColor.GREEN).get());
         blockColors.register(RED, CRACKED_SHELL_BLOCKS.get(DyeColor.RED).get());
         blockColors.register(BLACK, CRACKED_SHELL_BLOCKS.get(DyeColor.BLACK).get());
+
+        blockColors.register(WHITE, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.WHITE).get());
+        blockColors.register(ORANGE, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.ORANGE).get());
+        blockColors.register(MAGENTA, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.MAGENTA).get());
+        blockColors.register(LIGHT_BLUE, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.LIGHT_BLUE).get());
+        blockColors.register(YELLOW, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.YELLOW).get());
+        blockColors.register(LIME, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.LIME).get());
+        blockColors.register(PINK, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.PINK).get());
+        blockColors.register(GRAY, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.GRAY).get());
+        blockColors.register(LIGHT_GRAY, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.LIGHT_GRAY).get());
+        blockColors.register(CYAN, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.CYAN).get());
+        blockColors.register(PURPLE, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.PURPLE).get());
+        blockColors.register(BLUE, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.BLUE).get());
+        blockColors.register(BROWN, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.BROWN).get());
+        blockColors.register(GREEN, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.GREEN).get());
+        blockColors.register(RED, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.RED).get());
+        blockColors.register(BLACK, CRACKED_MOSSY_SHELL_BLOCKS.get(DyeColor.BLACK).get());
+
+        blockColors.register(WHITE, MOSSY_SHELL_BLOCKS.get(DyeColor.WHITE).get());
+        blockColors.register(ORANGE, MOSSY_SHELL_BLOCKS.get(DyeColor.ORANGE).get());
+        blockColors.register(MAGENTA, MOSSY_SHELL_BLOCKS.get(DyeColor.MAGENTA).get());
+        blockColors.register(LIGHT_BLUE, MOSSY_SHELL_BLOCKS.get(DyeColor.LIGHT_BLUE).get());
+        blockColors.register(YELLOW, MOSSY_SHELL_BLOCKS.get(DyeColor.YELLOW).get());
+        blockColors.register(LIME, MOSSY_SHELL_BLOCKS.get(DyeColor.LIME).get());
+        blockColors.register(PINK, MOSSY_SHELL_BLOCKS.get(DyeColor.PINK).get());
+        blockColors.register(GRAY, MOSSY_SHELL_BLOCKS.get(DyeColor.GRAY).get());
+        blockColors.register(LIGHT_GRAY, MOSSY_SHELL_BLOCKS.get(DyeColor.LIGHT_GRAY).get());
+        blockColors.register(CYAN, MOSSY_SHELL_BLOCKS.get(DyeColor.CYAN).get());
+        blockColors.register(PURPLE, MOSSY_SHELL_BLOCKS.get(DyeColor.PURPLE).get());
+        blockColors.register(BLUE, MOSSY_SHELL_BLOCKS.get(DyeColor.BLUE).get());
+        blockColors.register(BROWN, MOSSY_SHELL_BLOCKS.get(DyeColor.BROWN).get());
+        blockColors.register(GREEN, MOSSY_SHELL_BLOCKS.get(DyeColor.GREEN).get());
+        blockColors.register(RED, MOSSY_SHELL_BLOCKS.get(DyeColor.RED).get());
+        blockColors.register(BLACK, MOSSY_SHELL_BLOCKS.get(DyeColor.BLACK).get());
 
         ItemColor REGULAR = (arg, i) -> 0x8caed2; NON_LINGUISTICS.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
     }

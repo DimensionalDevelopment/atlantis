@@ -27,13 +27,20 @@ public class ShellBlockFeature extends Feature<NoneFeatureConfiguration> {
 
         int randomNum = rand.nextInt(DyeColor.values().length + 1);
         DyeColor color = DyeColor.byId(randomNum);
-        BlockState blockstate = switch (rand.nextInt(5)) {
+        BlockState blockstate = switch (rand.nextInt(12)) {
             case 0 -> BlockInit.COLORED_SHELL_BLOCKS.get(color).get().defaultBlockState();
             case 1 -> BlockInit.NAUTILUS_SHELL_BLOCK.get().defaultBlockState();
             case 2 -> BlockInit.NAUTILUS_SHELL_CRACKED.get().defaultBlockState();
             case 3 -> BlockInit.OYSTER_SHELL_CRACKED.get().defaultBlockState();
             case 4 -> BlockInit.CRACKED_SHELL_BLOCKS.get(color).get().defaultBlockState();
-            default -> throw new IllegalStateException("Unexpected value: " + rand.nextInt(5));
+            case 5 -> BlockInit.OYSTER_SHELL_BLOCK.get().defaultBlockState();
+            case 6 -> BlockInit.NAUTILUS_SHELL_CRACKED_MOSSY.get().defaultBlockState();
+            case 7 -> BlockInit.NAUTILUS_SHELL_MOSSY.get().defaultBlockState();
+            case 8 -> BlockInit.OYSTER_SHELL_CRACKED_MOSSY.get().defaultBlockState();
+            case 9 -> BlockInit.OYSTER_SHELL_MOSSY.get().defaultBlockState();
+            case 10 -> BlockInit.CRACKED_MOSSY_SHELL_BLOCKS.get(color).get().defaultBlockState();
+            case 11 -> BlockInit.MOSSY_SHELL_BLOCKS.get(color).get().defaultBlockState();
+            default -> throw new IllegalStateException("Unexpected value: " + rand.nextInt(12));
         };
         if (reader.getBlockState(pos).is(Blocks.WATER) && blockstate.canSurvive(reader, pos)) {
             reader.setBlock(pos, blockstate, 2);
