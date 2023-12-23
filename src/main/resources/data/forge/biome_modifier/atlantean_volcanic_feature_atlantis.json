@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "atlantis:volcanic_darksea",
-  "features": "atlantis:atlantean_volcanic_feature_atlantis",
-  "step": "raw_generation"
-}

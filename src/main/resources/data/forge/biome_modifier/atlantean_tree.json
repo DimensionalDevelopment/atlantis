@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "atlantis:atlantean_garden",
-  "features": "atlantis:atlantean_tree_configured",
-  "step": "surface_structures"
-}

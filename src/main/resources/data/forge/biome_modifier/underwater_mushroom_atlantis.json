@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "atlantis:volcanic_darksea",
-  "features": "atlantis:underwater_mushroom_atlantis",
-  "step": "vegetal_decoration"
-}

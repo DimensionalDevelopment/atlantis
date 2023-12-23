@@ -8,6 +8,7 @@ import net.minecraft.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.TicketType;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
@@ -54,9 +55,9 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
     public Optional<BlockUtil.FoundRectangle> createPortal(BlockPos pPos, Direction.Axis pAxis) {
         Direction direction = Direction.get(Direction.AxisDirection.POSITIVE, pAxis);
         double d0 = -1.0D;
-        BlockPos blockpos = null;
+        BlockPos blockpos = pPos;
         double d1 = -1.0D;
-        BlockPos blockpos1 = null;
+        BlockPos blockpos1 = pPos;
         WorldBorder worldborder = this.level.getWorldBorder();
         int i = Math.min(this.level.getMaxBuildHeight(), this.level.getMinBuildHeight() + this.level.getLogicalHeight()) - 1;
         BlockPos.MutableBlockPos blockpos$mutableblockpos = pPos.mutable();
@@ -71,22 +72,21 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
                     if (this.canPortalReplaceBlock(blockpos$mutableblockpos1)) {
                         int i1;
                         for (i1 = l; l > this.level.getMinBuildHeight() && this.canPortalReplaceBlock(blockpos$mutableblockpos1.move(Direction.DOWN)); --l) {
-                        }
+                            if (l + 4 <= i) {
+                                int j1 = i1 - l;
+                                if (j1 <= 0 || j1 >= 3) {
+                                    blockpos$mutableblockpos1.setY(l);
+                                    if (this.canHostFrame(blockpos$mutableblockpos1, blockpos$mutableblockpos, direction, 0)) {
+                                        double d2 = pPos.distSqr(blockpos$mutableblockpos1);
+                                        if (this.canHostFrame(blockpos$mutableblockpos1, blockpos$mutableblockpos, direction, -1) && this.canHostFrame(blockpos$mutableblockpos1, blockpos$mutableblockpos, direction, 1) && (d0 == -1.0D || d0 > d2)) {
+                                            d0 = d2;
+                                            blockpos = blockpos$mutableblockpos1.immutable();
+                                        }
 
-                        if (l + 4 <= i) {
-                            int j1 = i1 - l;
-                            if (j1 <= 0 || j1 >= 3) {
-                                blockpos$mutableblockpos1.setY(l);
-                                if (this.canHostFrame(blockpos$mutableblockpos1, blockpos$mutableblockpos, direction, 0)) {
-                                    double d2 = pPos.distSqr(blockpos$mutableblockpos1);
-                                    if (this.canHostFrame(blockpos$mutableblockpos1, blockpos$mutableblockpos, direction, -1) && this.canHostFrame(blockpos$mutableblockpos1, blockpos$mutableblockpos, direction, 1) && (d0 == -1.0D || d0 > d2)) {
-                                        d0 = d2;
-                                        blockpos = blockpos$mutableblockpos1.immutable();
-                                    }
-
-                                    if (d0 == -1.0D && (d1 == -1.0D || d1 > d2)) {
-                                        d1 = d2;
-                                        blockpos1 = blockpos$mutableblockpos1.immutable();
+                                        if (d0 == -1.0D && (d1 == -1.0D || d1 > d2)) {
+                                            d1 = d2;
+                                            blockpos1 = blockpos$mutableblockpos1.immutable();
+                                        }
                                     }
                                 }
                             }
@@ -99,6 +99,7 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
         if (d0 == -1.0D && d1 != -1.0D) {
             blockpos = blockpos1;
         }
+
 
         if (DimensionAtlantis.isAtlantisDimension(this.level)) {
             makePortalOverworld(level, blockpos);

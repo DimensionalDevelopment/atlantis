@@ -1,9 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": [
-    "atlantis:atlantean_islands_biome",
-    "atlantis:atlantis_biome"
-  ],
-  "features": "atlantis:salt_rock_geode_feature_atlantis",
-  "step": "local_modifications"
-}
