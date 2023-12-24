@@ -15,7 +15,7 @@ public class AtlanteanLogBlock extends RotatedPillarBlock {
     public AtlanteanLogBlock(Properties settings) {
         super(settings
                 .sound(SoundType.WOOD)
-                .strength(3.0F, 5.0F));
+                .strength(2.0F));
 
     }
 

@@ -17,7 +17,7 @@ public class PalmLog extends RotatedPillarBlock {
         super(properties
                 .sound(SoundType.WOOD)
                 .requiresCorrectToolForDrops()
-                .strength(4.0F, 6.0F));
+                .strength(2.0F));
     }
 
     @Override

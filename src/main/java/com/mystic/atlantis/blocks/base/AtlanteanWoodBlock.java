@@ -9,7 +9,7 @@ public class AtlanteanWoodBlock extends Block {
         super(settings
                 .sound(SoundType.WOOD)
                 .requiresCorrectToolForDrops()
-                .strength(3.0F, 6.0F));
+                .strength(2.0F));
 
     }
 }
