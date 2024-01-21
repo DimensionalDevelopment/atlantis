@@ -1,0 +1,32 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"SCS",
+		"SWS",
+		"SSS"
+	],
+	"key":
+	{
+		"S":
+		{
+			"item": "atlantis:aquamarine_gem"
+		},
+		
+		"W":
+		{
+			"item": "atlantis:orichalcum_ingot"
+		},
+
+		"C":
+		{
+			"item": "atlantis_orichalcum_upgrade_smithing_template"
+		}
+	},
+	"result":
+	{
+		"item": "atlantis_orichalcum_upgrade_smithing_template",
+		"count": 2
+	}
+	
+}					

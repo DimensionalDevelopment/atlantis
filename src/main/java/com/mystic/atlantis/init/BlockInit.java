@@ -176,6 +176,12 @@ public class BlockInit {
             .strength(3.0F, 15.0F)
             .lightLevel((state) -> 2)));
 
+    public static final RegistryObject<DropExperienceBlock> AQUAMARINE_DEEPSLATE_ORE = registerBlock("aquamarine_deepslate_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of()
+            .sound(SoundType.STONE)
+            .requiresCorrectToolForDrops()
+            .strength(5.0F, 15.0F)
+            .lightLevel((state) -> 4)));
+
     public static final RegistryObject<SeaBedBlock> SEABED = registerBlock("seabed", () -> new SeaBedBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<OceanLanternBlock> OCEAN_LANTERN = registerBlock("ocean_lantern", () -> new OceanLanternBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<AtlantianSeaLanternBlock> ATLANTEAN_SEA_LANTERN = registerBlock("atlantean_sea_lantern", () -> new AtlantianSeaLanternBlock(BlockBehaviour.Properties.of()));
