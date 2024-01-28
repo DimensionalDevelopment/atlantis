@@ -42,9 +42,9 @@ public abstract class RedstoneWireBlockMixin{
     @Inject(method = "calculateTargetStrength", at = @At(value = "HEAD"), cancellable = true)
     public void setPowerToWires1(Level world, BlockPos pos, CallbackInfoReturnable<Integer> cir) {
        cir.cancel();
-        ((RedstoneAccessor) Blocks.REDSTONE_WIRE).setShouldSignal(false);
+        ((RedstoneAccessor) ((RedStoneWireBlock) (Object) this)).setShouldSignal(false);
         int receivedPower = world.getBestNeighborSignal(pos);
-        ((RedstoneAccessor) Blocks.REDSTONE_WIRE).setShouldSignal(true);
+        ((RedstoneAccessor) ((RedStoneWireBlock) (Object) this)).setShouldSignal(true);
         int calculatedPower = 0;
         if(receivedPower == 15) {
             calculatedPower = 15;
