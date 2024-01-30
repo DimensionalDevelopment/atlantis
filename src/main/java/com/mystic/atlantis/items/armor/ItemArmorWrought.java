@@ -10,6 +10,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.Random;
@@ -24,12 +25,10 @@ public class ItemArmorWrought extends ArmorItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-        if(!world.isClientSide()) {
-            if(entity instanceof Player) {
-                Player player = (Player)entity;
-
-                if(hasFullSuitOfArmorOn(player)) {
+    public void inventoryTick(@NotNull ItemStack stack, Level world, @NotNull Entity entity, int slot, boolean selected) {
+        if (!world.isClientSide()) {
+            if (entity instanceof Player player) {
+                if (hasFullSuitOfArmorOn(player)) {
                     evaluateArmorEffects(player);
                 }
             }
@@ -43,7 +42,7 @@ public class ItemArmorWrought extends ArmorItem {
             ArmorMaterial mapArmorMaterial = entry.getKey();
             MobEffect mapStatusEffect = entry.getValue();
 
-            if(hasCorrectArmorOn(mapArmorMaterial, player)) {
+            if (hasCorrectArmorOn(mapArmorMaterial, player)) {
                 addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
             }
         }
@@ -52,10 +51,10 @@ public class ItemArmorWrought extends ArmorItem {
     private void addStatusEffectForMaterial(Player player, ArmorMaterial mapArmorMaterial, MobEffect mapStatusEffect) {
         boolean hasPlayerEffect = player.hasEffect(mapStatusEffect);
 
-        if(hasCorrectArmorOn(mapArmorMaterial, player) && !hasPlayerEffect) {
+        if (hasCorrectArmorOn(mapArmorMaterial, player) && !hasPlayerEffect) {
             player.addEffect(new MobEffectInstance(mapStatusEffect, 200));
 
-            if(new Random().nextFloat() > 0.6f) { // 40% of damaging the armor! Possibly!
+            if (new Random().nextFloat() > 0.6f) { // 40% of damaging the armor! Possibly!
                 player.getInventory().hurtArmor(player.damageSources().magic(), 1f, new int[]{0, 1, 2, 3});
             }
         }
@@ -72,10 +71,35 @@ public class ItemArmorWrought extends ArmorItem {
     }
 
     private boolean hasCorrectArmorOn(ArmorMaterial material, Player player) {
-        ArmorItem boots = ((ArmorItem)player.getInventory().getArmor(0).getItem());
-        ArmorItem leggings = ((ArmorItem)player.getInventory().getArmor(1).getItem());
-        ArmorItem breastplate = ((ArmorItem)player.getInventory().getArmor(2).getItem());
-        ArmorItem helmet = ((ArmorItem)player.getInventory().getArmor(3).getItem());
+        ArmorItem boots = null;
+        ArmorItem leggings = null;
+        ArmorItem breastplate = null;
+        ArmorItem helmet = null;
+        if (player.getInventory().getArmor(0).getItem() instanceof ArmorItem) {
+            boots = ((ArmorItem) player.getInventory().getArmor(0).getItem());
+        }
+        if (player.getInventory().getArmor(0).getItem() instanceof ArmorItem) {
+            leggings = ((ArmorItem) player.getInventory().getArmor(1).getItem());
+        }
+        if (player.getInventory().getArmor(0).getItem() instanceof ArmorItem) {
+            breastplate = ((ArmorItem) player.getInventory().getArmor(2).getItem());
+        }
+        if (player.getInventory().getArmor(0).getItem() instanceof ArmorItem) {
+            helmet = ((ArmorItem) player.getInventory().getArmor(3).getItem());
+        }
+
+        if (helmet == null) {
+            return false;
+        }
+        if (breastplate == null) {
+            return false;
+        }
+        if (leggings == null) {
+            return false;
+        }
+        if (boots == null) {
+            return false;
+        }
 
         return helmet.getMaterial() == material && breastplate.getMaterial() == material &&
                 leggings.getMaterial() == material && boots.getMaterial() == material;
