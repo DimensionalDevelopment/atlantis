@@ -1,6 +1,7 @@
 package com.mystic.atlantis.items.armor;
 
 import com.google.common.collect.ImmutableMap;
+import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -71,37 +72,12 @@ public class ItemArmorWrought extends ArmorItem {
     }
 
     private boolean hasCorrectArmorOn(ArmorMaterial material, Player player) {
-        ArmorItem boots = null;
-        ArmorItem leggings = null;
-        ArmorItem breastplate = null;
-        ArmorItem helmet = null;
-        if (player.getInventory().getArmor(0).getItem() instanceof ArmorItem) {
-            boots = ((ArmorItem) player.getInventory().getArmor(0).getItem());
-        }
-        if (player.getInventory().getArmor(0).getItem() instanceof ArmorItem) {
-            leggings = ((ArmorItem) player.getInventory().getArmor(1).getItem());
-        }
-        if (player.getInventory().getArmor(0).getItem() instanceof ArmorItem) {
-            breastplate = ((ArmorItem) player.getInventory().getArmor(2).getItem());
-        }
-        if (player.getInventory().getArmor(0).getItem() instanceof ArmorItem) {
-            helmet = ((ArmorItem) player.getInventory().getArmor(3).getItem());
-        }
+        ItemStack boots = player.getInventory().getArmor(0);
+        ItemStack leggings = player.getInventory().getArmor(1);
+        ItemStack breastplate = player.getInventory().getArmor(2);
+        ItemStack helmet = player.getInventory().getArmor(3);
 
-        if (helmet == null) {
-            return false;
-        }
-        if (breastplate == null) {
-            return false;
-        }
-        if (leggings == null) {
-            return false;
-        }
-        if (boots == null) {
-            return false;
-        }
-
-        return helmet.getMaterial() == material && breastplate.getMaterial() == material &&
-                leggings.getMaterial() == material && boots.getMaterial() == material;
+        return helmet.is(ItemInit.BROWN_WROUGHT_HELMET.get()) && breastplate.is(ItemInit.BROWN_WROUGHT_CHESTPLATE.get()) &&
+                leggings.is(ItemInit.BROWN_WROUGHT_LEGGINGS.get()) && boots.is(ItemInit.BROWN_WROUGHT_BOOTS.get());
     }
 }
