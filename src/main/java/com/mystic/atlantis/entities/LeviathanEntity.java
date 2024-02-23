@@ -1,5 +1,13 @@
 package com.mystic.atlantis.entities;
 
+import mod.azure.azurelib.common.api.common.animatable.GeoEntity;
+import mod.azure.azurelib.common.internal.common.core.animatable.GeoAnimatable;
+import mod.azure.azurelib.common.internal.common.core.animatable.instance.AnimatableInstanceCache;
+import mod.azure.azurelib.common.internal.common.core.animation.AnimatableManager;
+import mod.azure.azurelib.common.internal.common.core.animation.AnimationController;
+import mod.azure.azurelib.common.internal.common.core.animation.RawAnimation;
+import mod.azure.azurelib.common.internal.common.core.object.PlayState;
+import mod.azure.azurelib.common.internal.common.util.AzureLibUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -31,15 +39,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -54,7 +53,7 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
     private BlockPos anchorPoint;
     private LeviathanEntity.AttackPhase attackPhase;
     private static final RawAnimation SWIM_IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.leviathan.swim");
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+    private final AnimatableInstanceCache factory = AzureLibUtil.createInstanceCache(this);
 
     public static AttributeSupplier.Builder createLeviathanAttributes() {
         return Mob.createMobAttributes()
@@ -224,12 +223,13 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-       controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
-    }
-
-    private <P extends GeoAnimatable> PlayState predicate(AnimationState<P> event) {
-        event.getController().setAnimation(SWIM_IDLE_ANIMATION);
-        return PlayState.CONTINUE;
+       controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, new AnimationController.AnimationStateHandler<>() {
+           @Override
+           public PlayState handle(mod.azure.azurelib.common.internal.common.core.animation.AnimationState<GeoAnimatable> event) {
+               event.getController().setAnimation(SWIM_IDLE_ANIMATION);
+               return PlayState.CONTINUE;
+           }
+       }));
     }
 
     @Override

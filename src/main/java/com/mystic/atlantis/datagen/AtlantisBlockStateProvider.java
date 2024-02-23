@@ -3,13 +3,13 @@ package com.mystic.atlantis.datagen;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.init.BlockInit;
-import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+
+import java.util.function.Supplier;
 
 public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
     public AtlantisBlockStateProvider(AtlantisMainProvider provider) {
@@ -137,7 +137,7 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
         itemModels().trapdoorBottom(trapDoorId.getPath(), texture);
     }
 
-    private void registerTrapDoor(RegistrySupplier<TrapDoorBlock> trapDoor){registerTrapDoor(trapDoor.get(), trapDoor.get());}
+    private void registerTrapDoor(Supplier<TrapDoorBlock> trapDoor){registerTrapDoor(trapDoor.get(), trapDoor.get());}
 
     private void registerSign(StandingSignBlock sign, WallSignBlock wallsign, Block plank){signBlock(sign, wallsign, blockTexture(plank));}
 

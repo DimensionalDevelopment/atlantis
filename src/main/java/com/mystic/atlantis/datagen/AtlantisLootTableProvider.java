@@ -9,6 +9,7 @@ import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
@@ -16,7 +17,6 @@ import net.minecraft.data.loot.packs.VanillaEntityLoot;
 import net.minecraft.data.loot.packs.VanillaLootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -39,8 +39,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWit
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 import java.util.Map;
@@ -74,7 +73,7 @@ public class AtlantisLootTableProvider extends LootTableProvider {
 
 		@Override
 		protected void generate() {
-			for (RegistryObject<Block> blockGenEntry : BlockInit.BLOCKS.getEntries()) {
+			for (DeferredHolder<Block, ? extends Block> blockGenEntry : BlockInit.BLOCKS.getEntries()) {
 				Block blockEntry = blockGenEntry.get();
 
 				// Checks (UNTESTED)
@@ -94,8 +93,8 @@ public class AtlantisLootTableProvider extends LootTableProvider {
 
 		@Override
 		protected Iterable<Block> getKnownBlocks() {
-			return ForgeRegistries.BLOCKS.getValues().stream()
-					.filter(block -> Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getNamespace().equals(Reference.MODID))
+			return BuiltInRegistries.BLOCK.stream()
+					.filter(block -> Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block)).getNamespace().equals(Reference.MODID))
 					.collect(Collectors.toList());
 		}
 
@@ -128,7 +127,7 @@ public class AtlantisLootTableProvider extends LootTableProvider {
 	public static class AtlantisEntityLootTableProvider extends VanillaEntityLoot {
 		@Override
 		public void generate() {
-			for (RegistryObject<EntityType<? extends Entity>> entityGetEntry : AtlantisEntityInit.ENTITIES.getEntries()) {
+			for (DeferredHolder<EntityType<?>, ? extends EntityType<?>> entityGetEntry : AtlantisEntityInit.ENTITIES.getEntries()) {
 
 				EntityType<?> entityTypeEntry = entityGetEntry.get();
 

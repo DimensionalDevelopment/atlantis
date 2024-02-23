@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mojang.serialization.MapCodec;
 import com.mystic.atlantis.inventory.LinguisticMenu;
 
 import net.minecraft.core.BlockPos;
@@ -24,6 +25,11 @@ public class LinguisticBlock extends HorizontalDirectionalBlock {
 
     public LinguisticBlock(Properties settings) {
         super(settings);
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return simpleCodec(LinguisticBlock::new);
     }
 
     @Override

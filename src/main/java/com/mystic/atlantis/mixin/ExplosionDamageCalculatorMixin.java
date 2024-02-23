@@ -22,7 +22,7 @@ public class ExplosionDamageCalculatorMixin {
     @Inject(method = "getBlockExplosionResistance", at = @At("HEAD"), cancellable = true)
     public void getBlockExplosionResistance(Explosion arg, BlockGetter arg2, BlockPos arg3, BlockState arg4, FluidState arg5, CallbackInfoReturnable<Optional<Float>> cir) {
         cir.cancel();
-        if (arg.getExploder() instanceof SodiumPrimedBombBlock) {
+        if (arg.getDirectSourceEntity() instanceof SodiumPrimedBombBlock) {
             if(arg4.isAir() && arg5.isEmpty()) {
                 cir.setReturnValue(arg4.isAir() && arg5.isEmpty() ? Optional.of(Math.max(arg4.getExplosionResistance(arg2, arg3, arg) + 25.0f, arg5.getExplosionResistance(arg2, arg3, arg) + 25.0f)) : Optional.empty());
             } else {

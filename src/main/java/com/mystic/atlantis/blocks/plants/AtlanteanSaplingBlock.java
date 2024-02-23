@@ -13,7 +13,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.grower.OakTreeGrower;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -33,7 +33,7 @@ public class AtlanteanSaplingBlock extends SaplingBlock implements SimpleWaterlo
     public static final Property<Boolean> WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public AtlanteanSaplingBlock(Properties settings) {
-        super(new OakTreeGrower(), settings
+        super(TreeGrower.OAK, settings
                 .randomTicks()
                 .strength(0.2F, 0.4F)
                 .sound(SoundType.GRASS)
@@ -137,7 +137,7 @@ public class AtlanteanSaplingBlock extends SaplingBlock implements SimpleWaterlo
     }
 
     public boolean canPlaceOn(BlockState targetState) {
-        return targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
+        return targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS_BLOCK || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
     }
 
     public boolean canPlaceBlockAt(LevelReader reader, BlockPos targetPos) {

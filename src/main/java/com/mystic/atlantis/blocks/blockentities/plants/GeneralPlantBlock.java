@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.blockentities.plants;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -15,16 +16,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Supplier;
 
 import static com.mystic.atlantis.blocks.plants.UnderwaterFlower.WATERLOGGED;
 
-public class GeneralPlantBlock<T extends GeneralPlantBlockEntity<?>> extends BushBlock implements EntityBlock, SimpleWaterloggedBlock {
+public abstract class GeneralPlantBlock<T extends GeneralPlantBlockEntity<?>> extends BushBlock implements EntityBlock, SimpleWaterloggedBlock {
 
-    private final RegistryObject<BlockEntityType<T>> type;
+    private final Supplier<BlockEntityType<T>> type;
 
-    public GeneralPlantBlock(RegistryObject<BlockEntityType<T>> type) {
+    public GeneralPlantBlock(Supplier<BlockEntityType<T>> type) {
         super(BlockBehaviour.Properties.of()
                 .noOcclusion()
                 .noCollission()
@@ -36,7 +38,7 @@ public class GeneralPlantBlock<T extends GeneralPlantBlockEntity<?>> extends Bus
     }
 
     public boolean canPlaceOn(BlockState targetState){
-        return targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
+        return targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS_BLOCK || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
     }
 
     public boolean canPlaceBlockAt(LevelReader reader, BlockPos targetPos) {
@@ -62,6 +64,7 @@ public class GeneralPlantBlock<T extends GeneralPlantBlockEntity<?>> extends Bus
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED);
     }
+    public abstract MapCodec<? extends BushBlock> codec();
 
     @Override
     protected boolean mayPlaceOn(BlockState targetState, BlockGetter getter, BlockPos targetPos) {

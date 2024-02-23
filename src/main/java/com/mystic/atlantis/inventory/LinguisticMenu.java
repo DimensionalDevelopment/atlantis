@@ -145,7 +145,7 @@ public class LinguisticMenu extends AbstractContainerMenu {
 
 				targetSlot.onQuickCraft(targetStack, emptyStack);
 			} else if (index != this.dyeSlot.index && index != this.blankSlot.index && index != this.symbolSlot.index) {
-				if (BlockInit.getLinguisticBlock(LinguisticGlyph.BLANK, null).map(Block::asItem).filter(a -> a == targetStack.getItem()).isPresent()) {
+				if (BlockInit.getLinguisticBlock(LinguisticGlyph.BLANK, null).get().asItem() == targetStack.getItem()) {
 					if (!this.moveItemStackTo(targetStack, this.blankSlot.index, this.blankSlot.index + 1, false)) {
 						return ItemStack.EMPTY;
 					}

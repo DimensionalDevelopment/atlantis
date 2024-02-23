@@ -35,11 +35,11 @@ public class AtlanteanWoodDoorBlock extends DoorBlock implements SimpleWaterlogg
     public static final Property<Boolean> WATERLOGGED = UnderwaterFlower.WATERLOGGED;
 
     public AtlanteanWoodDoorBlock(Properties settings) {
-        super(settings
-                .sound(SoundType.WOOD)
-                .noOcclusion()
-                .requiresCorrectToolForDrops()
-                .strength(3.0F, 6.0F), BlockSetType.OAK);
+        super(BlockSetType.OAK, settings
+                        .sound(SoundType.WOOD)
+                        .noOcclusion()
+                        .requiresCorrectToolForDrops()
+                        .strength(3.0F, 6.0F));
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(OPEN, false).setValue(HINGE, DoorHingeSide.LEFT).setValue(POWERED, false).setValue(HALF, DoubleBlockHalf.LOWER).setValue(WATERLOGGED, false));
     }
 
@@ -101,7 +101,7 @@ public class AtlanteanWoodDoorBlock extends DoorBlock implements SimpleWaterlogg
     }
 
     @Override
-    public void playerWillDestroy(Level level, BlockPos targetPos, BlockState targetState, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos targetPos, BlockState targetState, Player player) {
         DoubleBlockHalf doubleBlockHalf = targetState.getValue(HALF);
         if (doubleBlockHalf == DoubleBlockHalf.UPPER) {
             BlockPos belowPos = targetPos.below();
@@ -112,6 +112,7 @@ public class AtlanteanWoodDoorBlock extends DoorBlock implements SimpleWaterlogg
             }
         }
         super.playerWillDestroy(level, targetPos, targetState, player);
+        return targetState;
     }
 
     @Override

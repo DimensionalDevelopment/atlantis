@@ -1,13 +1,13 @@
 [
   {
     "modid": "atlantis",
-    "name": "Dimension Atlantis",
-    "description": "An Underwater Altantis like Dimension Mod.",
-    "version": "2024.1.30-1.20.1-2.9.1-forge",
-    "mcversion": "1.20.1",
+    "name": "Atlantis",
+    "description": "An Underwater Dimension Mod.",
+    "version": "2024.2.22-1.20.4-1.0.0-neoforge",
+    "mcversion": "1.20.4",
     "url": "",
     "updateUrl": "",
-    "authorList": ["Mysticpasta1, TelepathicGrunt, Waterpicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity, Booneraniaro, Meme Man"],
+    "authorList": ["Mysticpasta1, TelepathicGrunt, Waterpicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity, Booneraniaro"],
     "credits": "Booneraniaro for his work on the new Atlantean Structure and Revamps, TelepathicGrunt for his help with the JSON files, WaterPicker for his work on the fabric branch, BingJ for his work on all the entity animations and models, LudoCrypt and Firel for the music on the music discs for atlantis, and LimeShulkerBox for the Atlantean Portal and for removing the need for effects in the dimension",
     "logoFile": "",
     "screenshots": [],

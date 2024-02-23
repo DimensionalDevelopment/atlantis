@@ -1,18 +1,15 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.blocks.BlockType;
-import com.mystic.atlantis.blocks.SeaGlass;
-import com.mystic.atlantis.blocks.base.LinguisticGlyph;
-import com.mystic.atlantis.init.*;
-import net.minecraft.data.DataGenerator;
+import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 import org.apache.commons.lang3.text.WordUtils;
+
+import java.util.function.Supplier;
 
 //TODO Convert lang to pure data gen in the future. This will complain about duplicates if run without removing the existing en_us.json first
 public class AtlantisEnglishLanguageProvider extends LanguageProvider {
@@ -42,9 +39,9 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlocksFromType(BlockInit.MULTICOLOR_SEA_GLASS, "Multicolor Sea Glass");
     }
 
-    private void addRecord(RegistryObject<Item> record, String s) {
+    private void addRecord(Supplier<Item> record, String s) {
         addItem(record, "Music Disc");
-        add("item." + record.getId().getNamespace() + "." + record.getId().getPath() + ".desc", s);
+        add("item." + record.get() + "." + record.get() + ".desc", s);
     }
 
     private void addBlocksFromType(BlockType type, String base) {
@@ -59,16 +56,16 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         if(type.wall() != null) addBlock(type.wall(), base + " Wall");
     }
 
-    private void addItem(RegistryObject<Item> registryObject) {
-        addItem(registryObject, WordUtils.capitalizeFully(registryObject.getId().getPath().replace("_", " ")));
+    private void addItem(Supplier<Item> registryObject) {
+        addItem(registryObject, WordUtils.capitalizeFully(registryObject.get().toString().replace("_", " ")));
     }
 
-    private void addBlock(RegistryObject<Block> registryObject) {
-        addBlock(registryObject, WordUtils.capitalizeFully(registryObject.getId().getPath().replace("_", " ")));
+    private void addBlock(Supplier<Block> registryObject) {
+        addBlock(registryObject, WordUtils.capitalizeFully(registryObject.get().toString().replace("_", " ")));
     }
 
 
-    private void add(RegistryObject<CreativeModeTab> tab, String entry) {
-        this.add("itemGroup." + tab.getId().toLanguageKey(), entry);
+    private void add(Supplier<CreativeModeTab> tab, String entry) {
+        this.add("itemGroup." + tab.get(), entry);
     }
 }

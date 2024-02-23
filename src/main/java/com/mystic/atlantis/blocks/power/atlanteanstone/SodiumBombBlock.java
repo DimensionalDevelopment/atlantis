@@ -58,11 +58,12 @@ public class SodiumBombBlock extends Block {
 	}
 
 	@Override
-	public void playerWillDestroy(Level level, @NotNull BlockPos targetPos, @NotNull BlockState targetState, @NotNull Player player) {
+	public @NotNull BlockState playerWillDestroy(Level level, @NotNull BlockPos targetPos, @NotNull BlockState targetState, @NotNull Player player) {
 		if (!level.isClientSide() && !player.isCreative() && targetState.getValue(UNSTABLE)) {
 			this.onCaughtFire(targetState, level, targetPos, null, null);
 		}
 		super.playerWillDestroy(level, targetPos, targetState, player);
+		return targetState;
 	}
 
 	@Override

@@ -2,6 +2,14 @@ package com.mystic.atlantis.entities;
 
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.init.ItemInit;
+import mod.azure.azurelib.common.api.common.animatable.GeoEntity;
+import mod.azure.azurelib.common.internal.common.core.animatable.GeoAnimatable;
+import mod.azure.azurelib.common.internal.common.core.animatable.instance.AnimatableInstanceCache;
+import mod.azure.azurelib.common.internal.common.core.animation.AnimatableManager;
+import mod.azure.azurelib.common.internal.common.core.animation.AnimationController;
+import mod.azure.azurelib.common.internal.common.core.animation.RawAnimation;
+import mod.azure.azurelib.common.internal.common.core.object.PlayState;
+import mod.azure.azurelib.common.internal.common.util.AzureLibUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -32,15 +40,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class CrabEntity extends Animal implements GeoEntity, Bucketable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CrabEntity.class, EntityDataSerializers.BOOLEAN);
@@ -48,8 +47,20 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
     protected static final Ingredient TEMPT_ITEMS = Ingredient.of(Items.SEAGRASS);
     static final RawAnimation WALK_ANIMATION = RawAnimation.begin().thenLoop("animation.crab.walk");
     static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.crab.idle");
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
-    private final AnimationController<CrabEntity> mainController = new AnimationController<CrabEntity>(this, "crabController", 2, this::mainPredicate);
+    private final AnimatableInstanceCache  factory = AzureLibUtil.createInstanceCache(this);
+    private final AnimationController<CrabEntity> mainController = new AnimationController<>(this, "crabController", 2, new AnimationController.AnimationStateHandler<>() {
+        @Override
+        public PlayState handle(mod.azure.azurelib.common.internal.common.core.animation.AnimationState<CrabEntity> state) {
+            if (isMovingSlowly()) {
+                mainController.setAnimation(WALK_ANIMATION);
+                return PlayState.CONTINUE;
+            } else if (!isMovingSlowly()) {
+                mainController.setAnimation(IDLE_ANIMATION);
+                return PlayState.CONTINUE;
+            }
+            return PlayState.CONTINUE;
+        }
+    });
 
     public CrabEntity(EntityType<? extends Animal> entityType, Level world) {
         super(entityType, world);
@@ -97,11 +108,6 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
     @Override
     public SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_FILL_FISH;
-    }
-
-    @Override
-    public boolean canBreatheUnderwater() {
-        return true;
     }
 
     @Override
@@ -218,17 +224,6 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
 
     public boolean isMovingSlowly(){
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
-    }
-
-    private <P extends GeoAnimatable> PlayState mainPredicate(AnimationState<P> event) {
-        if(isMovingSlowly()) {
-            event.getController().setAnimation(WALK_ANIMATION);
-            return PlayState.CONTINUE;
-        } else if (!isMovingSlowly()) {
-            event.getController().setAnimation(IDLE_ANIMATION);
-            return PlayState.CONTINUE;
-        }
-        return PlayState.CONTINUE;
     }
 
     @Override

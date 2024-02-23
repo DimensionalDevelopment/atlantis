@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
@@ -28,7 +29,7 @@ public class WritingMenu extends AbstractContainerMenu {
      */
     private final DataSlot selectedRecipeIndex = DataSlot.standalone();
     private final Level level;
-    private List<WritingRecipe> recipes = new ArrayList<>();
+    private List<RecipeHolder<WritingRecipe>> recipes = new ArrayList<>();
     /**
      * The {@plainlink ItemStack} set in the input slot by the player.
      */
@@ -110,7 +111,7 @@ public class WritingMenu extends AbstractContainerMenu {
         return this.selectedRecipeIndex.get();
     }
 
-    public List<WritingRecipe> getRecipes() {
+    public List<RecipeHolder<WritingRecipe>> getRecipes() {
         return this.recipes;
     }
 
@@ -160,9 +161,9 @@ public class WritingMenu extends AbstractContainerMenu {
 
     private void setupResultSlot() {
         if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
-            WritingRecipe stonecutterRecipe = this.recipes.get(this.selectedRecipeIndex.get());
+            RecipeHolder<WritingRecipe> stonecutterRecipe = this.recipes.get(this.selectedRecipeIndex.get());
             this.resultContainer.setRecipeUsed(stonecutterRecipe);
-            this.resultSlot.set(stonecutterRecipe.assemble(this.container, null));
+            this.resultSlot.set(stonecutterRecipe.value().assemble(this.container, null));
         } else {
             this.resultSlot.set(ItemStack.EMPTY);
         }

@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.power.energy;
-
+/*
+import com.mojang.serialization.MapCodec;
 import com.mystic.atlantis.blocks.blockentities.energy.CrystalStorage;
 import com.mystic.atlantis.blocks.blockentities.energy.CrystalTransference;
 import com.mystic.atlantis.init.TileEntityInit;
@@ -31,6 +32,11 @@ public class CrystalTransferenceBlock extends BaseEntityBlock {
                 .lightLevel((state) -> 5)
                 .sound(SoundType.AMETHYST)
                 .randomTicks());
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return simpleCodec(CrystalTransferenceBlock::new);
     }
 
     @Nullable
@@ -107,4 +113,4 @@ public class CrystalTransferenceBlock extends BaseEntityBlock {
     public <A extends BlockEntity> BlockEntityTicker getTicker(Level level, BlockState state, BlockEntityType<A> type) {
         return createTickerHelper(type, TileEntityInit.CRYSTAL_TRANSFERENCE.get(), CrystalTransference::tick);
     }
-}
+}*/

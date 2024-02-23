@@ -2,8 +2,8 @@ package com.mystic.atlantis.entities.models;
 
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.entities.CoconutCrabEntity;
+import mod.azure.azurelib.common.api.client.model.GeoModel;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.model.GeoModel;
 
 public class CoconutCrabEntityModel extends GeoModel<CoconutCrabEntity> {
     @Override

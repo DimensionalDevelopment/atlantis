@@ -1,47 +1,40 @@
 package com.mystic.atlantis.event;
 
-import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
-import com.mystic.atlantis.enchantments.LightningProtection;
 import com.mystic.atlantis.init.EffectsInit;
 import com.mystic.atlantis.init.EnchantmentInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Reference;
-import dev.architectury.event.EventResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.EntityStruckByLightningEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingHurtEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Random;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ACommonFEvents {
@@ -81,41 +74,6 @@ public class ACommonFEvents {
                     entity.hurt(player.damageSources().thorns(player), (float) getDamage(3, (Random) random));
                 }
             }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onBiomeLightingRegister(BiomeLightingRegister event) {
-        event.register(AtlantisBiomeSource.VOLCANIC_DARKSEA, 11);
-        event.register(AtlantisBiomeSource.JELLYFISH_FIELDS, 8);
-        event.register(AtlantisBiomeSource.ATLANTEAN_ISLANDS, 3);
-        event.register(AtlantisBiomeSource.ATLANTIS_BIOME, 3);
-        event.register(AtlantisBiomeSource.GOO_LAGOONS, 1);
-        event.register(AtlantisBiomeSource.ATLANTEAN_GARDEN, 0);
-    }
-
-    public static Map<ResourceLocation, Integer> map;
-
-    @SubscribeEvent
-    public static void onServerLoad(ServerStartingEvent event) {
-        BiomeLightingRegister biomeLightingRegister = new BiomeLightingRegister();
-        MinecraftForge.EVENT_BUS.post(biomeLightingRegister);
-        map = biomeLightingRegister.getBiomeMap();
-    }
-
-
-    public static class BiomeLightingRegister extends Event {
-        Map<ResourceLocation, Integer> biomeMap = new HashMap<>();
-
-        public BiomeLightingRegister() {
-        }
-
-        public void register(ResourceLocation resourceLocation, int lightLevel) {
-            biomeMap.put(resourceLocation, lightLevel);
-        }
-
-        public Map<ResourceLocation, Integer> getBiomeMap() {
-            return biomeMap;
         }
     }
 

@@ -15,10 +15,9 @@
     "ItemCombinerMenuMixin",
     "ItemEntityMixin",
     "ItemMixin",
-    "RedstoneAccessor",
     "RedstoneWireBlockMixin",
     "RenderBubblesMixin",
-    "WorldLightManagerMixin"
+    "RedstoneAccessor"
   ],
   "client": [
     "VisibilityMixin"

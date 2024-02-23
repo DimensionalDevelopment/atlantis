@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.plants;
 
+import com.mojang.serialization.MapCodec;
 import org.jetbrains.annotations.Nullable;
 
 import com.mystic.atlantis.init.BlockInit;
@@ -41,6 +42,11 @@ public class PurpleGlowingMushroom extends BushBlock implements SimpleWaterlogge
                 .noOcclusion());
         ComposterBlock.COMPOSTABLES.put(this, 0.65f);
         this.defaultBlockState().setValue(WATERLOGGED, Boolean.TRUE);
+    }
+
+    @Override
+    protected MapCodec<? extends BushBlock> codec() {
+        return simpleCodec(PurpleGlowingMushroom::new);
     }
 
     @Override
@@ -105,7 +111,7 @@ public class PurpleGlowingMushroom extends BushBlock implements SimpleWaterlogge
     }
 
     public boolean canPlaceOn(BlockState targetState){
-        return targetState.getBlock() == BlockInit.SEABED.get() || targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
+        return targetState.getBlock() == BlockInit.SEABED.get() || targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS_BLOCK || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
     }
 
     public boolean canPlaceBlockAt(LevelReader reader, BlockPos targetPos) {

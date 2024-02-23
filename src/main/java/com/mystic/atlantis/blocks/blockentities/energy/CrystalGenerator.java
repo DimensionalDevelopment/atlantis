@@ -1,19 +1,13 @@
 package com.mystic.atlantis.blocks.blockentities.energy;
 
-import com.mystic.atlantis.blocks.power.energy.CrystalStorageBlock;
+/*
 import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.init.TileEntityInit;
+import com.mystic.atlantis.inventory.CrystalGeneratorMenu;
 import com.mystic.atlantis.items.item.energybased.AtlanteanAmuletItem;
 import com.mystic.atlantis.items.item.energybased.AtlanteanSpearItem;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import com.mystic.atlantis.init.ItemInit;
-import com.mystic.atlantis.inventory.CrystalGeneratorMenu;
-import com.mystic.atlantis.networking.AtlantisPacketHandler;
-import com.mystic.atlantis.networking.packets.clientbound.EnergySyncS2CPacket;
 import com.mystic.atlantis.util.ModEnergyStorage;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -28,12 +22,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class CrystalGenerator extends BlockEntity implements MenuProvider {
     private static BlockPos pos;
@@ -93,8 +84,6 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
         }
     };
 
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
-
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 78;
@@ -109,7 +98,7 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
         @Override
         public void onEnergyChanged() {
             setChanged();
-            AtlantisPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new EnergySyncS2CPacket(this.energy, getBlockPos()));
+            //AtlantisPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new EnergySyncS2CPacket(this.energy, getBlockPos()));
         }
     };
 
@@ -118,37 +107,6 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
     }
 
     public static final int ENERGY_REQ = 32;
-
-    private LazyOptional<IEnergyStorage> LazyEnergyHandler = LazyOptional.empty();
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.@NotNull Capability<T> cap, @Nullable net.minecraft.core.Direction side) {
-        if (cap == ForgeCapabilities.ENERGY) {
-            return LazyEnergyHandler.cast();
-        }
-
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (side == null) {
-                return lazyItemHandler.cast();
-            }
-        }
-
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        LazyEnergyHandler = LazyOptional.of(() -> ENERGY_STORAGE);
-        setChanged();
-    }
-
-    @Override
-    public void invalidateCaps() {
-        lazyItemHandler.invalidate();
-        LazyEnergyHandler.invalidate();
-    }
 
     @Override
     public void saveAdditional(@NotNull CompoundTag nbt) {
@@ -254,4 +212,4 @@ public class CrystalGenerator extends BlockEntity implements MenuProvider {
 
         super.setChanged();
     }
-}
+}*/

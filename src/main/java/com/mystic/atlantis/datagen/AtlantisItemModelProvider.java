@@ -4,17 +4,16 @@ import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-import java.io.DataOutput;
+import java.util.Objects;
+import java.util.function.Supplier;
 
 public class AtlantisItemModelProvider extends ItemModelProvider {
     public AtlantisItemModelProvider(PackOutput generator, ExistingFileHelper existingFileHelper) {
@@ -86,25 +85,25 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         itemTool(ItemInit.ORICHALCUM_HOE);
     }
 
-    private void itemTool(RegistryObject<Item> tool) {
-        getBuilder(tool.getId().getPath())
+    private void itemTool(Supplier<Item> tool) {
+        getBuilder(tool.get().toString())
                 .parent(getExistingFile(mcLoc("item/handheld")))
-                .texture("layer0", items(tool.getId()));
+                .texture("layer0", items(Objects.requireNonNull(ResourceLocation.tryParse(tool.get().toString()))));
     }
 
-    private void withParent(RegistryObject<Block> block, LinguisticGlyph glyph) {
-        withExistingParent(block.getId().getPath(), block(Atlantis.id("linguistic_" + glyph.name().toLowerCase())));
+    private void withParent(Supplier<Block> block, LinguisticGlyph glyph) {
+        withExistingParent(block.toString(), block(Atlantis.id("linguistic_" + glyph.name().toLowerCase())));
     }
 
-    private void block(RegistryObject<Block> block) {
-        withExistingParent(block.getId().getPath(), block(block.getId()));
+    private void block(Supplier<Block> block) {
+        withExistingParent(block.get().toString(), block(block.get().getLootTable()));
     }
 
-    private void item(RegistryObject<Item> block) {
+    private void item(Supplier<Item> block) {
         try {
-            getBuilder(block.getId().getPath())
+            getBuilder(block.get().toString())
                     .parent(getExistingFile(mcLoc("item/generated")))
-                    .texture("layer0", items(block.getId()));
+                    .texture("layer0", items(new ResourceLocation(block.get().toString())));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

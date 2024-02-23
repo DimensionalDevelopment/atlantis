@@ -50,7 +50,7 @@ public class LinguisticScreen extends AbstractContainerScreen<LinguisticMenu> {
 
 	@Override
 	protected void renderBg(GuiGraphics arg, float f, int i, int j) {
-		this.renderBackground(arg);
+		this.renderBackground(arg, i, j, f);
 		int k = this.leftPos;
 		int l = this.topPos;
 		arg.blit(BG_LOCATION, k, l, 0, 0, this.imageWidth, this.imageHeight);

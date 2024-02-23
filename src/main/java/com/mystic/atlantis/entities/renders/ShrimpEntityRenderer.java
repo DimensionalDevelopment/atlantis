@@ -1,20 +1,15 @@
 package com.mystic.atlantis.entities.renders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mystic.atlantis.entities.ShrimpEntity;
 import com.mystic.atlantis.entities.models.ShrimpEntityModel;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.Model;
-import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import mod.azure.azurelib.common.api.client.renderer.GeoEntityRenderer;
 
 public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
 
@@ -29,8 +24,7 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
         renderStuff(mobEntity, entityYaw, partialTick, matrixStack, vertexConsumerProvider, packedLight);
     }
 
-    private void renderStuff(ShrimpEntity entity, float entityYaw, float partialTicks, PoseStack stack,
-                             MultiBufferSource bufferIn, int packedLightIn) {
+    private void renderStuff(ShrimpEntity entity, float entityYaw, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) {
         stack.pushPose();
         Minecraft.getInstance().getTextureManager().bindForSetup(getTextureLocation(entity));
 

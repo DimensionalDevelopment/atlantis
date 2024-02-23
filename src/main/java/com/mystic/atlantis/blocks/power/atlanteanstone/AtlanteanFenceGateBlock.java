@@ -43,7 +43,7 @@ public class AtlanteanFenceGateBlock extends FenceGateBlock implements SimpleWat
     protected static final VoxelShape X_OCCLUSION_SHAPE_LOW;
 
     public AtlanteanFenceGateBlock(Properties settings) {
-        super(settings, WoodType.OAK);
+        super(WoodType.OAK, settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(OPEN, false).setValue(POWERED, false).setValue(IN_WALL, false).setValue(WATERLOGGED, false));
     }
 

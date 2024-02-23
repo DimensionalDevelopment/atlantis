@@ -1,23 +1,14 @@
 package com.mystic.atlantis.blocks.blockentities.energy;
-
+/*
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.TileEntityInit;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import com.mystic.atlantis.networking.AtlantisPacketHandler;
-import com.mystic.atlantis.networking.packets.clientbound.EnergySyncS2CPacket;
 import com.mystic.atlantis.util.ModEnergyStorage;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.network.PacketDistributor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -32,30 +23,9 @@ public class CrystalStorage extends BlockEntity {
         @Override
         public void onEnergyChanged() {
             setChanged();
-            AtlantisPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new EnergySyncS2CPacket(this.energy, getBlockPos()));
+            //AtlantisPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new EnergySyncS2CPacket(this.energy, getBlockPos()));
         }
     };
-
-    private LazyOptional<IEnergyStorage> LazyEnergyHandler = LazyOptional.empty();
-
-    @Override
-    public @NotNull <T>LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.@NotNull Capability<T> cap, @Nullable net.minecraft.core.Direction side) {
-        if (cap == ForgeCapabilities.ENERGY) {
-            return LazyOptional.of(() -> ENERGY_STORAGE).cast();
-        }
-        return LazyEnergyHandler.cast();
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-        LazyEnergyHandler = LazyOptional.of(() -> ENERGY_STORAGE);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        LazyEnergyHandler.invalidate();
-    }
 
     @Override
     public void saveAdditional(@NotNull CompoundTag nbt) {
@@ -93,4 +63,4 @@ public class CrystalStorage extends BlockEntity {
             }
         }
     }
-}
+}*/

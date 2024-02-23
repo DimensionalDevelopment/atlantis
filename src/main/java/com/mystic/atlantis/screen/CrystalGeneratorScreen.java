@@ -1,4 +1,5 @@
 package com.mystic.atlantis.screen;
+/*
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -82,4 +83,4 @@ public class CrystalGeneratorScreen extends AbstractContainerScreen<CrystalGener
     private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, int width, int height) {
         return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, width, height);
     }
-}
+}*/

@@ -1,8 +1,8 @@
 package com.mystic.atlantis.dimension;
 
+import com.mojang.serialization.Codec;
 import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.util.Reference;
-
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -10,10 +10,15 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class DimensionAtlantis
@@ -41,7 +46,10 @@ public class DimensionAtlantis
         DimensionAtlantis.ATLANTIS_DIMENSION = event.getServer().getLevel(ATLANTIS_WORLD);
     }
 
-    public static void registerBiomeSources() {
-        Registry.register(BuiltInRegistries.BIOME_SOURCE, new ResourceLocation(Reference.MODID, "atlantis_biome_source"), AtlantisBiomeSource.CODEC);
+    public static final DeferredRegister<Codec<? extends BiomeSource>> BIOME_SOURCES = DeferredRegister.create(BuiltInRegistries.BIOME_SOURCE, Reference.MODID);
+
+    public static final Supplier<Codec<? extends BiomeSource>> ATLANTEAN_SOURCE = BIOME_SOURCES.register("atlantean_biome_source", () -> AtlantisBiomeSource.CODEC);
+    public static void registerBiomeSources(IEventBus bus) {
+        BIOME_SOURCES.register(bus);
     }
 }

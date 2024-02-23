@@ -2,9 +2,9 @@ package com.mystic.atlantis.blocks.blockentities.models;
 
 import com.mystic.atlantis.blocks.blockentities.plants.GeneralPlantBlockEntity;
 import com.mystic.atlantis.util.Reference;
+import mod.azure.azurelib.common.api.client.model.GeoModel;
+import mod.azure.azurelib.common.internal.common.AzureLib;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.GeckoLib;
-import software.bernie.geckolib.model.GeoModel;
 
 public class GeneralPlantModel<T extends GeneralPlantBlockEntity<?>> extends GeoModel<T> {
     private final ResourceLocation model;
@@ -28,6 +28,6 @@ public class GeneralPlantModel<T extends GeneralPlantBlockEntity<?>> extends Geo
 
     @Override
     public ResourceLocation getAnimationResource(T object) {
-        return new ResourceLocation(GeckoLib.MOD_ID, "animations/jackinthebox.animation.json");
+        return new ResourceLocation(AzureLib.MOD_ID, "animations/jackinthebox.animation.json");
     }
 }

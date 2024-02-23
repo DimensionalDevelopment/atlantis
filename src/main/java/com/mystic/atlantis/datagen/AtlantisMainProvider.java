@@ -1,12 +1,13 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.util.Reference;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.*;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.client.model.generators.*;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.List;
 import java.util.function.Function;
@@ -67,7 +68,7 @@ public class AtlantisMainProvider extends BlockStateProvider {
         }
 
         public ResourceLocation key(Block block) {
-            return ForgeRegistries.BLOCKS.getKey(block);
+            return BuiltInRegistries.BLOCK.getKey(block);
         }
 
         public boolean registered(Block block) {

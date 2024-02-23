@@ -2,6 +2,10 @@ package com.mystic.atlantis.init;
 
 import static com.mystic.atlantis.blocks.power.atlanteanstone.AtlanteanPowerTorchBlock.WATERLOGGED;
 
+import com.mojang.serialization.MapCodec;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.LevelReader;
+import net.neoforged.neoforge.common.CommonHooks;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
@@ -27,8 +31,8 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.IPlantable;
+import net.neoforged.neoforge.common.IPlantable;
+import org.jetbrains.annotations.Nullable;
 
 public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements LiquidBlockContainer, IPlantable {
     public static final int MAX_AGE = 7;
@@ -48,12 +52,12 @@ public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements Liq
         if(level.getBlockState(blockpos.offset(direction.getOpposite().getNormal().multiply(2))) == Blocks.WATER.defaultBlockState()) {
             if (level.isAreaLoaded(blockPos, 1)) {
                 float f = CropBlock.getGrowthSpeed(this, level, blockPos);
-                if (ForgeHooks.onCropsGrowPre(level, blockPos, blockState, random.nextInt((int) (5.0F / f) + 1) == 5 || random.nextInt((int) (5.0F / f) + 1) == 0)) {
+                if (CommonHooks.onCropsGrowPre(level, blockPos, blockState, random.nextInt((int) (5.0F / f) + 1) == 5 || random.nextInt((int) (5.0F / f) + 1) == 0)) {
                     if (level.isFluidAtPosition(blockpos, fluidState -> fluidState.is(Fluids.WATER))) {
                         level.setBlockAndUpdate(blockpos.offset(direction.getOpposite().getNormal().multiply(2)), BlockInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
                     }
 
-                    ForgeHooks.onCropsGrowPost(level, blockPos, blockState);
+                    CommonHooks.onCropsGrowPost(level, blockPos, blockState);
                 }
             }
         }
@@ -70,7 +74,12 @@ public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements Liq
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockGetter arg, BlockPos arg2, BlockState arg3) {
+    protected MapCodec<? extends GrowingPlantBodyBlock> codec() {
+        return simpleCodec(AtlanteanFireMelonBody::new);
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState) {
         return new ItemStack(ItemInit.ATLANTEAN_FIRE_MELON_SEEDS.get());
     }
 
@@ -85,7 +94,7 @@ public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements Liq
     }
 
     @Override
-    public boolean canPlaceLiquid(BlockGetter arg, BlockPos arg2, BlockState arg3, Fluid arg4) {
+    public boolean canPlaceLiquid(@Nullable Player pPlayer, BlockGetter pLevel, BlockPos pPos, BlockState pState, Fluid pFluid) {
         return false;
     }
 

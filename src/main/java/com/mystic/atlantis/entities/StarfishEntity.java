@@ -1,6 +1,14 @@
 package com.mystic.atlantis.entities;
 
 import com.mystic.atlantis.init.ItemInit;
+import mod.azure.azurelib.common.api.common.animatable.GeoEntity;
+import mod.azure.azurelib.common.internal.common.core.animatable.GeoAnimatable;
+import mod.azure.azurelib.common.internal.common.core.animatable.instance.AnimatableInstanceCache;
+import mod.azure.azurelib.common.internal.common.core.animation.AnimatableManager;
+import mod.azure.azurelib.common.internal.common.core.animation.AnimationController;
+import mod.azure.azurelib.common.internal.common.core.animation.RawAnimation;
+import mod.azure.azurelib.common.internal.common.core.object.PlayState;
+import mod.azure.azurelib.common.internal.common.util.AzureLibUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -27,15 +35,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class StarfishEntity extends Animal implements GeoEntity { //TODO make bucketable
 
@@ -47,7 +46,7 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
     private static final RawAnimation JUMP_ANIMATION = RawAnimation.begin().thenLoop("animation.starfish.jump");
 
 
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+    private final AnimatableInstanceCache factory = AzureLibUtil.createInstanceCache(this);
 
     public StarfishEntity(EntityType<? extends Animal> entityType, Level world) {
         super(entityType, world);
@@ -91,18 +90,20 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
     //     return SoundEvents.BUCKET_FILL_FISH;
     // }
 
-    @Override
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
-
     public static AttributeSupplier.Builder createStarfishAttributes() {
         return createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.6d);
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar data) {
-        data.add(new AnimationController<>(this, "controller", 0, this::predicate));
+        data.add(new AnimationController<GeoAnimatable>(this, "controller", 0, event -> {
+            if (isMovingSlowly()) {
+                event.getController().setAnimation(WALK_ANIMATION);
+            } else {
+                event.getController().setAnimation(IDLE_ANIMATION);
+            }
+            return PlayState.CONTINUE;
+        }));
     }
 
 //    @Override
@@ -244,19 +245,6 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
 
     public boolean isMovingSlowly() {
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
-    }
-
-    private <P extends GeoAnimatable> PlayState predicate(AnimationState<P> event) {
-        if (this.isPassenger()) {
-            event.getController().setAnimation(EAT_ANIMATION);
-        } else if (isMovingSlowly()) {
-            event.getController().setAnimation(WALK_ANIMATION);
-        } else if (this.isSwimming()) {
-            event.getController().setAnimation(JUMP_ANIMATION);
-        } else {
-            event.getController().setAnimation(IDLE_ANIMATION);
-        }
-        return PlayState.CONTINUE;
     }
 
     @Override

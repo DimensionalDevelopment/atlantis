@@ -40,7 +40,7 @@ public class BucketItemMixin extends ItemMixin{
         BlockState blockstate1 = level.getBlockState(blockpos);
         if(DimensionAtlantis.isAtlantisDimension(level)) {
             cir.cancel();
-            if(blockstate1.getBlock() instanceof BucketPickup && !(itemstack1 = ((BucketPickup) blockstate1.getBlock()).pickupBlock(level, blockpos, blockstate1)).isEmpty()) {
+            if(blockstate1.getBlock() instanceof BucketPickup && !(itemstack1 = ((BucketPickup) blockstate1.getBlock()).pickupBlock(player, level, blockpos, blockstate1)).isEmpty()) {
                 if(itemstack1.getItem() != Blocks.WATER.asItem()) {
                     if (player instanceof ServerPlayer serverPlayer) {
                         CriteriaTriggers.FILLED_BUCKET.trigger(serverPlayer, itemstack1);

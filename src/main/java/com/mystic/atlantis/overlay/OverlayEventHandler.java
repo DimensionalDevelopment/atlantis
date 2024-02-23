@@ -6,8 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;
+import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
 
 public class OverlayEventHandler implements IGuiOverlay {
 
@@ -19,12 +19,12 @@ public class OverlayEventHandler implements IGuiOverlay {
     private static final Minecraft minecraft = Minecraft.getInstance();
 
     @Override
-    public void render(ForgeGui gui, GuiGraphics poseStack, float partialTick, int width, int height) {
+    public void render(ExtendedGui gui, GuiGraphics poseStack, float partialTick, int width, int height) {
         gui.setupOverlayRenderState(true, false);
         renderCoconutBlur(gui, poseStack, width, height);
     }
 
-    public void renderCoconutBlur(ForgeGui gui, GuiGraphics stack, int screenWidth, int screenHeight) {
+    public void renderCoconutBlur(ExtendedGui gui, GuiGraphics stack, int screenWidth, int screenHeight) {
         if (minecraft.player != null) {
             if (minecraft.options.getCameraType().isFirstPerson()) {
                 if (!minecraft.player.isScoping()) {

@@ -64,7 +64,7 @@ public class AtlanteanTemple extends Structure {
                 JigsawPlacement.addPieces(
                         context,
                         this.startPool, this.startJigsawName, this.size, blockPos,
-                        false, this.projectStartToHeightmap, this.maxDistanceFromCenter);
+                        false, this.projectStartToHeightmap, this.maxDistanceFromCenter, pPoolKey -> pPoolKey);
         return structurePiecesGenerator;
     }
 

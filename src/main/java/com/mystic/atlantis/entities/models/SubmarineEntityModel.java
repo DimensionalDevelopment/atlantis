@@ -3,7 +3,7 @@ package com.mystic.atlantis.entities.models;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.entities.SubmarineEntity;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.model.GeoModel;
+import mod.azure.azurelib.common.api.client.model.GeoModel;
 
 public class SubmarineEntityModel extends GeoModel<SubmarineEntity> {
     @Override

@@ -1,31 +1,16 @@
 package com.mystic.atlantis.blocks.power.energy;
-
-import com.mystic.atlantis.blocks.blockentities.energy.CrystalStorage;
+/*
+import com.mojang.serialization.MapCodec;
 import com.mystic.atlantis.init.TileEntityInit;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator;
-
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -33,10 +18,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static net.minecraft.world.level.block.ShulkerBoxBlock.CONTENTS;
@@ -50,6 +38,11 @@ public class CrystalGeneratorBlock extends BaseEntityBlock {
                 .mapColor(MapColor.COLOR_LIGHT_BLUE)
                 .lightLevel((state) -> 5)
                 .sound(SoundType.AMETHYST));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return simpleCodec(CrystalGeneratorBlock::new);
     }
 
     @Override
@@ -72,7 +65,7 @@ public class CrystalGeneratorBlock extends BaseEntityBlock {
         builder.add(FACING);
     }
 
-    /* BLOCK ENTITY */
+
 
     @Override
     public @NotNull RenderShape getRenderShape(@NotNull BlockState p_49232_) {
@@ -112,7 +105,7 @@ public class CrystalGeneratorBlock extends BaseEntityBlock {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
             if(entity instanceof CrystalGenerator) {
-                NetworkHooks.openScreen(((ServerPlayer)pPlayer), (CrystalGenerator)entity, pPos);
+                pPlayer.openMenu((CrystalGenerator) entity);
             } else {
                 throw new IllegalStateException("Crystal Generator's Container provider is missing!");
             }
@@ -133,3 +126,4 @@ public class CrystalGeneratorBlock extends BaseEntityBlock {
         return createTickerHelper(type, TileEntityInit.CRYSTAL_GENERATOR.get(), CrystalGenerator::tick);
     }
 }
+*/

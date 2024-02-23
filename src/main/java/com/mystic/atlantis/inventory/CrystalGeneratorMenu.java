@@ -3,7 +3,6 @@ package com.mystic.atlantis.inventory;
 import com.mystic.atlantis.init.BlockInit;
 import org.jetbrains.annotations.NotNull;
 
-import com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator;
 import com.mystic.atlantis.init.MenuTypeInit;
 
 import net.minecraft.network.FriendlyByteBuf;
@@ -17,10 +16,9 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
-public class CrystalGeneratorMenu extends AbstractContainerMenu {
+/*public class CrystalGeneratorMenu extends AbstractContainerMenu {
     public final CrystalGenerator blockEntity;
     private final Level level;
     private final ContainerData data;
@@ -39,10 +37,10 @@ public class CrystalGeneratorMenu extends AbstractContainerMenu {
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, 0, 79, 14));
-            this.addSlot(new SlotItemHandler(handler, 1, 79, 62));
-        });
+    //  this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+    //      this.addSlot(new SlotItemHandler(handler, 0, 79, 14));
+    //      this.addSlot(new SlotItemHandler(handler, 1, 79, 62));
+    //  });
 
         addDataSlots(data);
     }
@@ -115,11 +113,11 @@ public class CrystalGeneratorMenu extends AbstractContainerMenu {
         return copyOfSourceStack;
     }
 
-    @Override
-    public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
-                player, BlockInit.CRYSTAL_GENERATOR.get());
-    }
+   // @Override
+   // public boolean stillValid(Player player) {
+   //     return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
+   //             player, BlockInit.CRYSTAL_GENERATOR.get());
+   // }
 
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
@@ -134,4 +132,4 @@ public class CrystalGeneratorMenu extends AbstractContainerMenu {
             this.addSlot(new Slot(playerInventory, i, 7 + i * 18, 143));
         }
     }
-}
+}*/

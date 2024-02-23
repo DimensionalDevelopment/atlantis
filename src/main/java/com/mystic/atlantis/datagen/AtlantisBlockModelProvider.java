@@ -5,9 +5,10 @@ import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.BlockModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+
+import java.util.function.Supplier;
 
 public class AtlantisBlockModelProvider extends BlockModelProvider {
 
@@ -21,8 +22,8 @@ public class AtlantisBlockModelProvider extends BlockModelProvider {
         this.cubeBottomTop("writing_block", Atlantis.id("block/writing_table_side"), Atlantis.id("block/atlantean_planks"), Atlantis.id("block/writing_table_top"));
     }
 
-    private void cubeAll(RegistryObject<Block> block) {
-        this.cubeAll(block.getId().getPath(), blockTexture(block.getId()));
+    private void cubeAll(Supplier<Block> block) {
+        this.cubeAll(String.valueOf(block.get().getName()), blockTexture(block.get().getLootTable()));
     }
 
     private ResourceLocation blockTexture(ResourceLocation loc) {

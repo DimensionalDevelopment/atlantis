@@ -1,15 +1,17 @@
 package com.mystic.atlantis.entities;
 
-import com.mystic.atlantis.init.ItemInit;
+import mod.azure.azurelib.common.internal.common.core.animatable.GeoAnimatable;
+import mod.azure.azurelib.common.internal.common.core.animatable.instance.AnimatableInstanceCache;
+import mod.azure.azurelib.common.internal.common.core.animation.AnimatableManager;
+import mod.azure.azurelib.common.internal.common.core.animation.AnimationController;
+import mod.azure.azurelib.common.internal.common.core.animation.AnimationState;
+import mod.azure.azurelib.common.internal.common.core.animation.RawAnimation;
+import mod.azure.azurelib.common.internal.common.core.object.PlayState;
+import mod.azure.azurelib.common.internal.common.util.AzureLibUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -23,7 +25,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -34,21 +35,23 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
 
 public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatable {
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
-    private final AnimationController<CoconutCrabEntity> mainController = new AnimationController<CoconutCrabEntity>(this, "coconutCrabController", 2, this::mainPredicate);
+    private final AnimatableInstanceCache factory = AzureLibUtil.createInstanceCache(this);
+    private final AnimationController<CoconutCrabEntity> mainController = new AnimationController<CoconutCrabEntity>(this, "coconutCrabController", 2, new AnimationController.AnimationStateHandler<>() {
+        @Override
+        public PlayState handle(AnimationState<CoconutCrabEntity> state) {
+            if (isMovingSlowly()) {
+                mainController.setAnimation(WALK_ANIMATION);
+            } else if (!isMovingSlowly()) {
+                mainController.setAnimation(IDLE_ANIMATION);
+            }
+            return PlayState.CONTINUE;
+        }
+    });
     static final RawAnimation NUTON_ANIMATION = RawAnimation.begin().thenLoop("animation.coconut_crab.nuton");
     static final RawAnimation WALK_ANIMATION = RawAnimation.begin().thenLoop("animation.crab.walk");
     static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.crab.idle");
@@ -171,26 +174,13 @@ public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatab
         setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
-    public boolean isMovingSlowly(){
+    public boolean isMovingSlowly() {
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
     }
 
     @Override
     public void startPersistentAngerTimer() {
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
-    }
-
-    private <P extends GeoAnimatable> PlayState mainPredicate(AnimationState<P> event) {
-        if(isMovingSlowly()) {
-            event.getController().setAnimation(WALK_ANIMATION);
-        } else if (!isMovingSlowly()) {
-            if (this.hurtMarked) {
-                event.getController().setAnimation(NUTON_ANIMATION);
-            } else {
-                event.getController().setAnimation(IDLE_ANIMATION);
-            }
-        }
-        return PlayState.CONTINUE;
     }
 
     @Override

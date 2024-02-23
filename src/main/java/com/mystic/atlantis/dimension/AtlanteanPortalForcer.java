@@ -40,7 +40,7 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
         int i = isInAtlantis ? 16 : 128;
         poimanager.ensureLoadedAndValid(this.level, pPos, i);
         Optional<PoiRecord> optional = poimanager.getInSquare((p_230634_) ->
-                POITypesInit.ATLANTEAN_PORTAL.get() == p_230634_.get(), pPos, i, PoiManager.Occupancy.ANY).filter((p_192981_) ->
+                POITypesInit.ATLANTEAN_PORTAL.get() == p_230634_.value(), pPos, i, PoiManager.Occupancy.ANY).filter((p_192981_) ->
                 pWorldBorder.isWithinBounds(p_192981_.getPos())).filter((p_192990_) ->
                 this.level.getBlockState(p_192990_.getPos()).hasProperty(AtlantisClearPortalBlock.AXIS)).findFirst();
         return optional.map((p_192975_) -> {

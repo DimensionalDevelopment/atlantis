@@ -8,6 +8,7 @@ import com.mystic.atlantis.init.ItemInit;
 
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public class TagsInit {
@@ -31,7 +32,7 @@ public class TagsInit {
                     ItemInit.ORICHALCUM_CHESTPLATE,
                     ItemInit.ORICHALCUM_LEGGINGS,
                     ItemInit.ORICHALCUM_BOOTS,
-                    BlockInit.ORICHALCUM_BLOCK.lazyMap(Block::asItem));
+                    () -> BlockInit.ORICHALCUM_BLOCK.get().asItem());
         }
 
         public static void init() {

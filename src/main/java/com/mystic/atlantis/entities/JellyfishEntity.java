@@ -1,6 +1,14 @@
 package com.mystic.atlantis.entities;
 
 import com.mystic.atlantis.init.ItemInit;
+import mod.azure.azurelib.common.api.common.animatable.GeoEntity;
+import mod.azure.azurelib.common.internal.common.core.animatable.GeoAnimatable;
+import mod.azure.azurelib.common.internal.common.core.animatable.instance.AnimatableInstanceCache;
+import mod.azure.azurelib.common.internal.common.core.animation.AnimatableManager;
+import mod.azure.azurelib.common.internal.common.core.animation.AnimationController;
+import mod.azure.azurelib.common.internal.common.core.animation.RawAnimation;
+import mod.azure.azurelib.common.internal.common.core.object.PlayState;
+import mod.azure.azurelib.common.internal.common.util.AzureLibUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,6 +23,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -37,17 +46,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketable {
 
@@ -61,7 +59,7 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
     private float ty;
     private float tz;
 
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+    private final AnimatableInstanceCache factory = AzureLibUtil.createInstanceCache(this);
 
     public JellyfishEntity(EntityType<? extends WaterAnimal> entityType, Level world) {
         super(entityType, world);
@@ -228,12 +226,15 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
-    }
-
-    @Override
-    public boolean canBreatheUnderwater() {
-        return true;
+        controllerRegistrar.add(new AnimationController(this, "controller", 0, (AnimationController.AnimationStateHandler<GeoAnimatable>) event -> {
+            if(isMovingSlowly()) {
+                event.getController().setAnimation(HOVER_ANIMATION);
+            }
+            else {
+                event.getController().setAnimation(IDLE_ANIMATION);
+            }
+            return PlayState.CONTINUE;
+        }));
     }
 
     @Override
@@ -248,16 +249,6 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
 
     public boolean isMovingSlowly(){
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
-    }
-
-    private <P extends GeoAnimatable> PlayState predicate(AnimationState<P> event) {
-        if(isMovingSlowly()) {
-            event.getController().setAnimation(HOVER_ANIMATION);
-        }
-        else {
-            event.getController().setAnimation(IDLE_ANIMATION);
-        }
-        return PlayState.CONTINUE;
     }
 
     static class JellyFishRandomMovementGoal extends Goal {

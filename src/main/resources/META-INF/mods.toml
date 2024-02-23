@@ -1,13 +1,13 @@
 modLoader="javafml" 
-loaderVersion="[47,)"
+loaderVersion="[2,)"
 license="LGPLv3"
-issueTrackerURL="https://github.com/Exploding-Creeper/atlantis/issues" 
+issueTrackerURL="https://github.com/DimensionalDevelopment/atlantis/issues"
 
 [[mods]] 
-modId="atlantis" 
-version="2024.1.30-1.20.1-2.9.1-forge"
-displayName="Atlantis" 
-displayURL="https://github.com/Exploding-Creeper/atlantis" 
+modId="atlantis"
+version="2024.2.22-1.20.1-1.0.0-neoforge"
+displayName="Atlantis"
+displayURL="https://github.com/DimensionalDevelopment/atlantis"
 logoFile= "logo.png"
 credits='''
 TelepathicGrunt for his help with the JSON files,
@@ -16,37 +16,31 @@ LudoCrypt and Firel for the music on the music discs for atlantis,
 She's Long for multiple textures, models, and jsons for assets,
 and LimeShulkerBox for the Atlantean Portal and for removing the need for effects in the dimension.
 '''
-authors="Mysticpasta1, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity, She's Long, Meme Man"
+authors="Mysticpasta1, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity, She's Long"
 description='''
-An Underwater Atlantis like dimension mod.
+An underwater dimension mod.
 '''
 
-# Base
-[[dependencies.atlantis]]
-    modId="forge"
-    mandatory=true
-    versionRange="[47,)"
-    ordering="NONE"
-    side="BOTH"
+[[mixins]]
+config = "atlantis.mixins.json"
 
 [[dependencies.atlantis]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.20.1, 1.20.2)"
-    ordering="NONE"
-    side="BOTH"
+modId="neoforge"
+type="required"
+versionRange="[20.4,)"
+ordering="NONE"
+side="BOTH"
 
-# Libraries
-[[dependencies.atlantis]] 
-    modId="cloth_config"
-    mandatory=true 
-    versionRange="[8.0.75,)" 
-    ordering="NONE"
-    side="BOTH"
+[[dependencies.atlantis]]
+modId="minecraft"
+type="required"
+versionRange="[1.20.4,1.21)"
+ordering="NONE"
+side="BOTH"
 
-[[dependencies.atlantis]] 
-    modId="geckolib3"
-    mandatory=false
-    versionRange="[4.2.2,)"
-    ordering="NONE"
-    side="BOTH"
+[[dependencies.atlantis]]
+modId="azurelib"
+type="required"
+versionRange="[2.1.5,)"
+ordering="NONE"
+side="BOTH"

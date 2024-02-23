@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mojang.serialization.MapCodec;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,6 +32,11 @@ public class Coconut extends DirectionalBlock {
         this.defaultBlockState().setValue(FACING, Direction.UP);
     }
 
+    @Override
+    protected MapCodec<? extends DirectionalBlock> codec() {
+        return simpleCodec(Coconut::new);
+    }
+
     public @NotNull BlockState rotate(BlockState pState, Rotation pRot) {
         return pState.setValue(FACING, pRot.rotate(pState.getValue(FACING)));
     }
@@ -50,7 +56,7 @@ public class Coconut extends DirectionalBlock {
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        if (itemstack.canPerformAction(net.minecraftforge.common.ToolActions.SHEARS_CARVE)) {
+        if (itemstack.canPerformAction(net.neoforged.neoforge.common.ToolActions.SHEARS_CARVE)) {
             if (!pLevel.isClientSide) {
                 Direction direction = pHit.getDirection();
                 Direction direction1 = direction.getAxis() == Direction.Axis.Y ? pPlayer.getDirection().getOpposite() : direction;

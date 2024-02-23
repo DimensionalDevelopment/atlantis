@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 public class AtlanteanSignBlock extends StandingSignBlock {
 	
     public AtlanteanSignBlock(Properties settings, WoodType type) {
-        super(settings, type);
+        super(type, settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
     }
 

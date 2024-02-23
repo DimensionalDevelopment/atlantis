@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.plants;
 
+import com.mojang.serialization.MapCodec;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
@@ -40,6 +41,11 @@ public class YellowGlowingMushroom extends BushBlock implements SimpleWaterlogge
                 .noOcclusion());
         ComposterBlock.COMPOSTABLES.put(this, 0.65f);
         this.defaultBlockState().setValue(WATERLOGGED, Boolean.TRUE);
+    }
+
+    @Override
+    protected MapCodec<? extends BushBlock> codec() {
+        return simpleCodec(YellowGlowingMushroom::new);
     }
 
     @Override
@@ -108,7 +114,7 @@ public class YellowGlowingMushroom extends BushBlock implements SimpleWaterlogge
     }
 
     public boolean blockTypes(BlockState blockState){
-        return blockState.getBlock() == Blocks.GRAVEL || blockState.getBlock() == Blocks.SANDSTONE || blockState.getBlock() == Blocks.GRASS || blockState.getBlock() == Blocks.DIRT || blockState.getBlock() == Blocks.SAND;
+        return blockState.getBlock() == Blocks.GRAVEL || blockState.getBlock() == Blocks.SANDSTONE || blockState.getBlock() == Blocks.GRASS_BLOCK || blockState.getBlock() == Blocks.DIRT || blockState.getBlock() == Blocks.SAND;
     }
 
     public boolean canPlaceBlockAt(LevelReader worldReader, BlockPos pos) {

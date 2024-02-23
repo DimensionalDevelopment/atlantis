@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.power.energy;
-
+/*
+import com.mojang.serialization.MapCodec;
 import com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator;
 import com.mystic.atlantis.blocks.blockentities.energy.CrystalStorage;
 import com.mystic.atlantis.init.TileEntityInit;
@@ -35,6 +36,11 @@ public class CrystalStorageBlock extends BaseEntityBlock {
                 .sound(SoundType.AMETHYST));
     }
 
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return simpleCodec(CrystalStorageBlock::new);
+    }
+
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
     }
@@ -60,4 +66,4 @@ public class CrystalStorageBlock extends BaseEntityBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return createTickerHelper(type, TileEntityInit.CRYSTAL_STORAGE.get(), CrystalStorage::tick);
     }
-}
+}*/

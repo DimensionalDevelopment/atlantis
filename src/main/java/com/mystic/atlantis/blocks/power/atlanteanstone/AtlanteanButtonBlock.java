@@ -14,7 +14,7 @@ import static com.mystic.atlantis.blocks.power.atlanteanstone.AtlanteanPowerTorc
 public class AtlanteanButtonBlock extends ButtonBlock implements SimpleWaterloggedBlock {
 	
     public AtlanteanButtonBlock(Properties settings) {
-        super(settings, BlockSetType.OAK, 30, true); //TODO: Custom BlockSetType
+        super(BlockSetType.OAK, 30, settings); //TODO: Custom BlockSetType
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(WATERLOGGED, false));
     }
 

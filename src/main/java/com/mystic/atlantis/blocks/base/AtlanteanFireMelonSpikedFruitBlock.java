@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mojang.serialization.MapCodec;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.core.BlockPos;
@@ -34,8 +35,8 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.ToolActions;
 
 import javax.annotation.Nullable;
 
@@ -56,6 +57,11 @@ public class AtlanteanFireMelonSpikedFruitBlock extends HorizontalDirectionalBlo
     }
 
     @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return simpleCodec(AtlanteanFireMelonSpikedFruitBlock::new);
+    }
+
+    @Override
     public boolean isRandomlyTicking(BlockState targetState) {
         return targetState.getValue(AGE) < 4;
     }
@@ -64,9 +70,9 @@ public class AtlanteanFireMelonSpikedFruitBlock extends HorizontalDirectionalBlo
     public void randomTick(BlockState targetState, ServerLevel level, BlockPos targetPos, RandomSource random) {
         int age = targetState.getValue(AGE);
         
-        if (age < 4 && ForgeHooks.onCropsGrowPre(level, targetPos, targetState, level.random.nextInt(4) == 0)) {
+        if (age < 4 && CommonHooks.onCropsGrowPre(level, targetPos, targetState, level.random.nextInt(4) == 0)) {
             level.setBlock(targetPos, targetState.setValue(AGE, age + 1), 4);
-            ForgeHooks.onCropsGrowPost(level, targetPos, targetState);
+            CommonHooks.onCropsGrowPost(level, targetPos, targetState);
         }
 
     }
@@ -138,8 +144,8 @@ public class AtlanteanFireMelonSpikedFruitBlock extends HorizontalDirectionalBlo
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
-        return pState.getValue(AGE) < 4;
+    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
+        return blockState.getValue(AGE) < 4;
     }
 
     @Override

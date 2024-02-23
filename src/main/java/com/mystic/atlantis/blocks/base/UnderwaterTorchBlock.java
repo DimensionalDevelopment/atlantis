@@ -2,6 +2,7 @@ package com.mystic.atlantis.blocks.base;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.TorchBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -9,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class UnderwaterTorchBlock extends TorchBlock {
 
 	public UnderwaterTorchBlock(Properties pProperties, ParticleOptions pFlameParticle) {
-		super(pProperties, pFlameParticle);
+		super((SimpleParticleType) pFlameParticle, pProperties);
 	}
 	
 	@Override

@@ -1,10 +1,9 @@
 package com.mystic.atlantis.entities.renders;
 
 import com.mystic.atlantis.entities.CoconutCrabEntity;
-import com.mystic.atlantis.entities.CrabEntity;
+import mod.azure.azurelib.common.api.client.model.GeoModel;
+import mod.azure.azurelib.common.api.client.renderer.GeoEntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class CoconutCrabEntityRenderer extends GeoEntityRenderer<CoconutCrabEntity> {
 
