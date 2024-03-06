@@ -72,6 +72,16 @@ public class ItemArmorWrought extends ArmorItem {
     }
 
     private boolean hasCorrectArmorOn(ArmorMaterial material, Player player) {
+        for (ItemStack armor : player.getInventory().armor) {
+            if (armor.getItem() instanceof ArmorItem armorItem) {
+                if (armorItem.getMaterial() != material) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
         ItemStack boots = player.getInventory().getArmor(0);
         ItemStack leggings = player.getInventory().getArmor(1);
         ItemStack breastplate = player.getInventory().getArmor(2);

@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/Exploding-Creeper/atlantis/issues"
 
 [[mods]] 
 modId="atlantis" 
-version="2024.1.30-1.20.1-2.9.1-forge"
+version="2024.3.6-1.20.1-3.0.0-forge"
 displayName="Atlantis" 
 displayURL="https://github.com/Exploding-Creeper/atlantis" 
 logoFile= "logo.png"
@@ -16,9 +16,9 @@ LudoCrypt and Firel for the music on the music discs for atlantis,
 She's Long for multiple textures, models, and jsons for assets,
 and LimeShulkerBox for the Atlantean Portal and for removing the need for effects in the dimension.
 '''
-authors="Mysticpasta1, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity, She's Long, Meme Man"
+authors="Mysticpasta1, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity, She's Long"
 description='''
-An Underwater Atlantis like dimension mod.
+An Underwater Dimension Mod.
 '''
 
 # Base

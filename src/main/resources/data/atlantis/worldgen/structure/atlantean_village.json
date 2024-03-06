@@ -26,13 +26,12 @@
 			]
 		}
 	},
-	"terrain_adaptation": "beard_thin",
 	"start_pool": "atlantis:atlantean_village/start",
 	"size": 4,
 	"start_height": {
 		"absolute": 0
 	},
-	"project_start_to_heightmap": "OCEAN_FLOOR",
+	"project_start_to_heightmap": "OCEAN_FLOOR_WG",
 	"max_distance_from_center": 112,
 	"use_expansion_hack": true
 }

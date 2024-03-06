@@ -72,12 +72,22 @@ public class ItemArmorAtlantis extends ArmorItem {
     }
 
     private boolean hasCorrectArmorOn(ArmorMaterial material, Player player) {
+        for (ItemStack armor : player.getInventory().armor) {
+            if (armor.getItem() instanceof ArmorItem armorItem) {
+                if (armorItem.getMaterial() != material) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
         ItemStack boots = player.getInventory().getArmor(0);
         ItemStack leggings = player.getInventory().getArmor(1);
         ItemStack breastplate = player.getInventory().getArmor(2);
         ItemStack helmet = player.getInventory().getArmor(3);
 
-        return helmet.is(ItemInit.AQUAMARINE_CHESTPLATE.get()) && breastplate.is(ItemInit.AQUAMARINE_CHESTPLATE.get()) &&
+        return helmet.is(ItemInit.AQUAMARINE_HELMET.get()) && breastplate.is(ItemInit.AQUAMARINE_CHESTPLATE.get()) &&
                 leggings.is(ItemInit.AQUAMARINE_LEGGINGS.get()) && boots.is(ItemInit.AQUAMARINE_BOOTS.get());
     }
 }
