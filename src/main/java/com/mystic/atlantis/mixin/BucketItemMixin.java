@@ -26,7 +26,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 
-@Mixin(value = BucketItem.class)
+@Mixin(value = BucketItem.class, priority = 1100)
 public class BucketItemMixin extends ItemMixin{
 
     @Shadow @Final private Fluid content;
