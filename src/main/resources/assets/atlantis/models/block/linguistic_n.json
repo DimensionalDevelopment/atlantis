@@ -2,11 +2,11 @@
   "parent": "atlantis:block/tinted_cube",
    "textures": {
      "particle": "atlantis:block/blank/blank_bottom",
-     "up": "atlantis:block/blank/blank_top_n",
+     "up": "atlantis:block/blank/blank_n_top",
      "down": "atlantis:block/blank/blank_bottom",
-     "east": "atlantis:block/blank/blank_side_n",
-     "west": "atlantis:block/blank/blank_side_n",
-     "north": "atlantis:block/blank/blank_side_n",
-     "south": "atlantis:block/blank/blank_side_n"
+     "east": "atlantis:block/blank/blank_n_side",
+     "west": "atlantis:block/blank/blank_n_side",
+     "north": "atlantis:block/blank/blank_n_side",
+     "south": "atlantis:block/blank/blank_n_side"
    }
 }
