@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.google.common.collect.ImmutableMap;
 
+import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -75,12 +76,22 @@ public class ItemArmorAtlantis extends ArmorItem {
     }
 
     private boolean hasCorrectArmorOn(ArmorMaterial material, Player player) {
-        ArmorItem boots = ((ArmorItem)player.getInventory().getArmor(0).getItem());
-        ArmorItem leggings = ((ArmorItem)player.getInventory().getArmor(1).getItem());
-        ArmorItem breastplate = ((ArmorItem)player.getInventory().getArmor(2).getItem());
-        ArmorItem helmet = ((ArmorItem)player.getInventory().getArmor(3).getItem());
+        for (ItemStack armor : player.getInventory().armor) {
+            if (armor.getItem() instanceof ArmorItem armorItem) {
+                if (armorItem.getMaterial() != material) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
 
-        return helmet.getMaterial() == material && breastplate.getMaterial() == material &&
-                leggings.getMaterial() == material && boots.getMaterial() == material;
+        ItemStack boots = player.getInventory().getArmor(0);
+        ItemStack leggings = player.getInventory().getArmor(1);
+        ItemStack breastplate = player.getInventory().getArmor(2);
+        ItemStack helmet = player.getInventory().getArmor(3);
+
+        return helmet.is(ItemInit.AQUAMARINE_HELMET.get()) && breastplate.is(ItemInit.AQUAMARINE_CHESTPLATE.get()) &&
+                leggings.is(ItemInit.AQUAMARINE_LEGGINGS.get()) && boots.is(ItemInit.AQUAMARINE_BOOTS.get());
     }
 }
