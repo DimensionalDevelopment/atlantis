@@ -61,7 +61,6 @@ import software.bernie.geckolib3.GeckoLib;
 @Mod(Reference.MODID)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Atlantis {
-    public static final Logger LOGGER = LogManager.getLogger(Reference.MODID);
 
     public Atlantis() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
