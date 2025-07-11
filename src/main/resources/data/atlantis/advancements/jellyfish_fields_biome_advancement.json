@@ -34,7 +34,7 @@
             "conditions": {
                 "player": {
                     "location": {
-                        "biome": "atlantis:jellyfish_fields",
+                        "biome": "atlantis:aquaiel_jellyfish_fields",
                         "dimension": "atlantis:atlantis"
                     }
                 }

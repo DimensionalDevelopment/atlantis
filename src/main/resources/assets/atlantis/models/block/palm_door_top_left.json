@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_top_left",
-  "textures": {
-    "bottom": "atlantis:block/palm_door_bottom",
-    "top": "atlantis:block/palm_door_top"
-  }
-}

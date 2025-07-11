@@ -1,10 +1,10 @@
 package com.mystic.atlantis.blocks.blockentities.plants;
 
-import com.mystic.atlantis.init.TileEntityInit;
+import com.mystic.atlantis.init.BlockEntityInit;
 
-public class AnemoneBlock extends GeneralPlantBlock<AnemoneTileEntity> {
+public class AnemoneBlock extends GeneralPlantBlock<AnemoneBlockEntity> {
 	
     public AnemoneBlock() {
-        super(TileEntityInit.ANEMONE_TILE);
+        super(BlockEntityInit.ANEMONE);
     }
 }

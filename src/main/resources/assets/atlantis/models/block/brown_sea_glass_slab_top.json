@@ -1,9 +1,0 @@
-{
-  "parent": "atlantis:block/sea_glass_slab_top",
-	"render_type": "translucent",
-  "textures": {
-    "bottom": "atlantis:block/brown_sea_glass",
-    "side": "atlantis:block/brown_sea_glass",
-    "top": "atlantis:block/brown_sea_glass"
-  }
-}

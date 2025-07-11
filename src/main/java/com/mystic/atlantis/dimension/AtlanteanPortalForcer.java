@@ -1,7 +1,7 @@
 package com.mystic.atlantis.dimension;
 
-import com.mystic.atlantis.blocks.base.AtlanteanCoreFrame;
-import com.mystic.atlantis.blocks.base.AtlantisClearPortalBlock;
+import com.mystic.atlantis.blocks.base.AtlanteanPortalFrame;
+import com.mystic.atlantis.blocks.base.AtlanteanPortalBlock;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.POITypesInit;
 import net.minecraft.BlockUtil;
@@ -22,11 +22,11 @@ import net.minecraft.world.level.levelgen.Heightmap;
 
 import java.util.Optional;
 
-import static com.mystic.atlantis.blocks.plants.UnderwaterFlower.WATERLOGGED;
+import static com.mystic.atlantis.blocks.plants.Seabloom.WATERLOGGED;
 
 public class AtlanteanPortalForcer implements AtlanteanITeleporter {
-    private static final DirectionProperty FACING = AtlanteanCoreFrame.FACING;
-    private static final BooleanProperty HAS_EYE = AtlanteanCoreFrame.HAS_EYE;
+    private static final DirectionProperty FACING = AtlanteanPortalFrame.FACING;
+    private static final BooleanProperty HAS_EYE = AtlanteanPortalFrame.HAS_EYE;
     protected final ServerLevel level;
 
     public AtlanteanPortalForcer(ServerLevel pLevel) {
@@ -40,7 +40,7 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
         Optional<PoiRecord> optional = poimanager.getInSquare((p_230634_) ->
                 POITypesInit.ATLANTEAN_PORTAL.get() == p_230634_.get(), pPos, i, PoiManager.Occupancy.ANY).filter((p_192981_) ->
                 pWorldBorder.isWithinBounds(p_192981_.getPos())).filter((p_192990_) ->
-                this.level.getBlockState(p_192990_.getPos()).hasProperty(AtlantisClearPortalBlock.AXIS)).findFirst();
+                this.level.getBlockState(p_192990_.getPos()).hasProperty(AtlanteanPortalBlock.AXIS)).findFirst();
         return optional.map((p_192975_) -> {
             BlockPos blockpos = p_192975_.getPos();
             this.level.getChunkSource().addRegionTicket(TicketType.PORTAL, new ChunkPos(blockpos), 3, blockpos);
@@ -139,10 +139,10 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
         });
         makePortalFrameAtlantis(pServerLevel, blockpos);
         BlockPos.betweenClosed(i - 2, j, k - 2, i + 2, j, k + 2).forEach((p_184101_) -> {
-            pServerLevel.setBlockAndUpdate(p_184101_, BlockInit.CALCITE_BLOCK.get().defaultBlockState());
+            pServerLevel.setBlockAndUpdate(p_184101_, BlockInit.HARDENED_CALCITE_BLOCK.get().defaultBlockState());
         });
         BlockPos.betweenClosed(i - 1, j + 1, k - 1, i + 1, j + 1, k + 1).forEach((p_184101_) -> {
-            pServerLevel.setBlockAndUpdate(p_184101_, BlockInit.ATLANTIS_CLEAR_PORTAL.get().defaultBlockState());
+            pServerLevel.setBlockAndUpdate(p_184101_, BlockInit.ATLANTEAN_PORTAL.get().defaultBlockState());
         });
     }
 
@@ -155,10 +155,10 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
         });
         makePortalFrameOverworld(pServerLevel, blockpos);
         BlockPos.betweenClosed(i - 2, j, k - 2, i + 2, j, k + 2).forEach((p_184101_) -> {
-            pServerLevel.setBlockAndUpdate(p_184101_, BlockInit.CALCITE_BLOCK.get().defaultBlockState());
+            pServerLevel.setBlockAndUpdate(p_184101_, BlockInit.HARDENED_CALCITE_BLOCK.get().defaultBlockState());
         });
         BlockPos.betweenClosed(i - 1, j + 1, k - 1, i + 1, j + 1, k + 1).forEach((p_184101_) -> {
-            pServerLevel.setBlockAndUpdate(p_184101_, BlockInit.ATLANTIS_CLEAR_PORTAL.get().defaultBlockState());
+            pServerLevel.setBlockAndUpdate(p_184101_, BlockInit.ATLANTEAN_PORTAL.get().defaultBlockState());
         });
     }
 

@@ -22,21 +22,21 @@ import static net.minecraft.world.level.levelgen.placement.RarityFilter.onAverag
 import static net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter.forMaxDepth;
 
 public class PlacedFeatureInit {
-    public static final ResourceKey<PlacedFeature> ANCIENT_METAL_PLACED = key("ancient_metal_placed");
+    public static final ResourceKey<PlacedFeature> ANCIENT_CUPRUM_PLACED = key("ancient_cuprum_placed");
     public static final ResourceKey<PlacedFeature> AQUAMARINE_PLACED = key("aquamarine_placed");
-    public static final ResourceKey<PlacedFeature> ATLANTEAN_PALM_TREE_PLACED = key("atlantean_palm_tree_placed");
-    public static final ResourceKey<PlacedFeature> ATLANTEAN_TREE_PLACED = key("atlantean_tree_placed");
-    public static final ResourceKey<PlacedFeature> ATLANTEAN_GLOWSTONES_PLACED = key("atlantean_glowstones_placed");
-    public static final ResourceKey<PlacedFeature> ATLANTEAN_ISLANDS_PLACED = key("atlantean_islands_placed");
-    public static final ResourceKey<PlacedFeature> ATLANTEAN_VOLCANO_PLACED = key("atlantean_volcano_placed");
-    public static final ResourceKey<PlacedFeature> UNDERWATER_FLOWER_PLACED = key("underwater_flower_placed");
+    public static final ResourceKey<PlacedFeature> PALM_TREE_PLACED = key("palm_tree_placed");
+    public static final ResourceKey<PlacedFeature> NYMPH_TREE_PLACED = key("nymph_tree_placed");
+    public static final ResourceKey<PlacedFeature> GLOWSTONES_PLACED = key("glowstones_placed");
+    public static final ResourceKey<PlacedFeature> ISLANDS_PLACED = key("islands_placed");
+    public static final ResourceKey<PlacedFeature> VOLCANOES_PLACED = key("volcanoes_placed");
+    public static final ResourceKey<PlacedFeature> SEABLOOM_PLACED = key("seabloom_placed");
     public static final ResourceKey<PlacedFeature> GARDEN_FOLIAGE_PLACED = key("garden_foliage_placed");
     public static final ResourceKey<PlacedFeature> JETSTREAM_LAKE_PLACED = key("jetstream_lake_placed");
-    public static final ResourceKey<PlacedFeature> UNDERWATER_MUSHROOM_PLACED = key("underwater_mushroom_placed");
+    public static final ResourceKey<PlacedFeature> SEASHROOM_PLACED = key("seashroom_placed");
     public static final ResourceKey<PlacedFeature> SALT_ROCK_GEODE_PLACED = key("salt_rock_geode_placed");
     public static final ResourceKey<PlacedFeature> SALTY_SEA_LAKE_PLACED = key("salty_sea_lake_placed");
     public static final ResourceKey<PlacedFeature> SHELL_BLOCK_PLACED = key("shell_block_placed");
-    public static final ResourceKey<PlacedFeature> ORE_SUNKEN_GRAVEL_PLACED = key("ore_sunken_gravel_placed");
+    public static final ResourceKey<PlacedFeature> SUNKEN_GRAVEL_PLACED = key("sunken_gravel_placed");
 
     private static ResourceKey<PlacedFeature> key(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, Atlantis.id(name));
@@ -45,7 +45,7 @@ public class PlacedFeatureInit {
     public PlacedFeatureInit(BootstapContext<PlacedFeature> context) {
         var registry = context.lookup(Registries.CONFIGURED_FEATURE);
 
-        register(context, registry, ANCIENT_METAL_PLACED, ANCIENT_METAL_CONFIGURED,
+        register(context, registry, ANCIENT_CUPRUM_PLACED, ANCIENT_CUPRUM_CONFIGURED,
                 count(20),
                 spread(),
                 absolute(-64, 64),
@@ -57,36 +57,36 @@ public class PlacedFeatureInit {
                 absolute(-64, 64),
                 biome());
 
-        register(context, registry, ATLANTEAN_PALM_TREE_PLACED, ATLANTEAN_PALM_TREE_CONFIGURED,
+        register(context, registry, PALM_TREE_PLACED, PALM_TREE_CONFIGURED,
                 count(2),
                 spread(),
                 onHeightmap(OCEAN_FLOOR_WG),
                 biome());
 
-        register(context, registry, ATLANTEAN_TREE_PLACED, ATLANTEAN_TREE_CONFIGURED,
+        register(context, registry, NYMPH_TREE_PLACED, NYMPH_TREE_CONFIGURED,
                 count(5),
                 spread(),
                 onHeightmap(OCEAN_FLOOR_WG),
                 biome());
 
-        register(context, registry, ATLANTEAN_GLOWSTONES_PLACED, ATLANTEAN_GLOWSTONES_CONFIGURED,
+        register(context, registry, GLOWSTONES_PLACED, GLOWSTONES_CONFIGURED,
                 biome(),
                 spread(),
                 onHeightmap(OCEAN_FLOOR_WG),
                 absolute(65, 300));
 
-        register(context, registry, ATLANTEAN_ISLANDS_PLACED, ATLANTEAN_ISLANDS_CONFIGURED,
+        register(context, registry, ISLANDS_PLACED, ISLANDS_CONFIGURED,
                 biome(),
                 spread(),
                 absolute(90, 270));
 
-        register(context, registry, ATLANTEAN_VOLCANO_PLACED, ATLANTEAN_VOLCANO_CONFiGURED,
+        register(context, registry, VOLCANOES_PLACED, VOLCANOES_CONFIGURED,
                 biome(),
                 spread(),
                 onHeightmap(OCEAN_FLOOR_WG),
                 absolute(65, 300));
 
-        register(context, registry, UNDERWATER_FLOWER_PLACED, UNDERWATER_FLOWER_CONFIGURED,
+        register(context, registry, SEABLOOM_PLACED, SEABLOOM_CONFIGURED,
                 onAverageOnceEvery(1),
                 biome(),
                 onHeightmap(OCEAN_FLOOR_WG),
@@ -103,7 +103,7 @@ public class PlacedFeatureInit {
                 absolute(-60, 80),
                 biome());
 
-        register(context, registry, UNDERWATER_MUSHROOM_PLACED, UNDERWATER_MUSHROOM_CONFIGURED,
+        register(context, registry, SEASHROOM_PLACED, SEASHROOM_CONFIGURED,
                 count(1),
                 biome(),
                 onHeightmap(OCEAN_FLOOR_WG),
@@ -125,7 +125,7 @@ public class PlacedFeatureInit {
                 onHeightmap(OCEAN_FLOOR_WG),
                 countOnEveryLayer(0, 99));
 
-        register(context, registry, ORE_SUNKEN_GRAVEL_PLACED, ORE_SUNKEN_GRAVEL_CONFIGURED,
+        register(context, registry, SUNKEN_GRAVEL_PLACED, SUNKEN_GRAVEL_CONFIGURED,
                 count(10),
                 spread(),
                 absolute(-64, 45),

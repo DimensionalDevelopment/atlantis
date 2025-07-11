@@ -1,7 +1,7 @@
 package com.mystic.atlantis.blocks.base;
 
 
-import static com.mystic.atlantis.blocks.base.AtlanteanWoodDoorBlock.WATERLOGGED;
+import static com.mystic.atlantis.blocks.base.NymphDoorBlock.WATERLOGGED;
 
 import org.jetbrains.annotations.Nullable;
 

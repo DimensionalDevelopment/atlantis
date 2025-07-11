@@ -1,0 +1,23 @@
+{
+  "feature": "atlantis:islands",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 270
+        },
+        "min_inclusive": {
+          "absolute": 90
+        }
+      }
+    }
+  ]
+}

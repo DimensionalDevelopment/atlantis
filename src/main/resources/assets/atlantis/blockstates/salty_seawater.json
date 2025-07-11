@@ -1,0 +1,22 @@
+{
+  "forge_marker": 1,
+  "uvlock": false,
+  "variants": {
+    "level=0": { "model": "atlantis:block/salty_seawater" },
+    "level=1": { "model": "atlantis:block/salty_seawater" },
+    "level=2": { "model": "atlantis:block/salty_seawater" },
+    "level=3": { "model": "atlantis:block/salty_seawater" },
+    "level=4": { "model": "atlantis:block/salty_seawater" },
+    "level=5": { "model": "atlantis:block/salty_seawater" },
+    "level=6": { "model": "atlantis:block/salty_seawater" },
+    "level=7": { "model": "atlantis:block/salty_seawater" },
+    "level=8": { "model": "atlantis:block/salty_seawater" },
+    "level=9": { "model": "atlantis:block/salty_seawater" },
+    "level=10": { "model": "atlantis:block/salty_seawater" },
+    "level=11": { "model": "atlantis:block/salty_seawater" },
+    "level=12": { "model": "atlantis:block/salty_seawater" },
+    "level=13": { "model": "atlantis:block/salty_seawater" },
+    "level=14": { "model": "atlantis:block/salty_seawater" },
+    "level=15": { "model": "atlantis:block/salty_seawater" }
+  }
+}

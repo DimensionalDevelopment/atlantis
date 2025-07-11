@@ -1,5 +1,5 @@
 {
-  "feature": "atlantis:salt_rock_geode_configured",
+  "feature": "atlantis:salt_rock_geode",
   "placement": [
     {
       "type": "minecraft:biome"

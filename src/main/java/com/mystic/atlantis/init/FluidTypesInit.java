@@ -30,7 +30,7 @@ public class FluidTypesInit {
     public static final RegistryObject<FluidType> JETSTREAM_WATER_FLUID_TYPE = registerJetstreamWaterType("jetstream_water",
             FluidType.Properties.create().lightLevel(0).density(15).viscosity(1000).sound(SoundAction.get("drink"),
                     SoundEvents.GENERIC_DRINK));
-    public static final RegistryObject<FluidType> SALTY_SEA_WATER_FLUID_TYPE = registerSaltySeaWaterFluidType("salty_sea_water",
+    public static final RegistryObject<FluidType> SALTY_SEAWATER_FLUID_TYPE = registerSaltySeaWaterFluidType("salty_seawater",
             FluidType.Properties.create().lightLevel(0).density(0).viscosity(1000).sound(SoundAction.get("drink"),
                     SoundEvents.GENERIC_DRINK));
 
@@ -42,40 +42,6 @@ public class FluidTypesInit {
     private static RegistryObject<FluidType> registerSaltySeaWaterFluidType(String name, FluidType.Properties properties) {
         return FLUID_TYPES.register(name, () -> new BaseFluidType(WATER_STILL, WATER_FLOWING, WATER_OVERLAY,
                 FastColor.ARGB32.color(255, 10, 96, 208), new Vector3f(10f / 255f, 96f / 255f, 208f / 255f), properties));
-    }
-
-    //public static final RegistryObject<FluidType> COCONUT_MILK_FLUID_TYPE = registerMilkType("coconut_milk", new FluidType(FluidType.Properties.create()
-    //        .canSwim(false)
-    //        .canDrown(true)
-    //        .pathType(BlockPathTypes.WATER)
-    //        .adjacentPathType(null)
-    //        .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
-    //        .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY)
-    //        .lightLevel(0)
-    //        .density(10)) {
-    //    @Override
-    //    public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
-    //        consumer.accept(new IClientFluidTypeExtensions() {
-    //            @Override
-    //            public ResourceLocation getStillTexture() {
-    //                return WATER_STILL;
-    //            }
-//
-    //            @Override
-    //            public ResourceLocation getFlowingTexture() {
-    //                return WATER_FLOWING;
-    //            }
-//
-    //            @Override
-    //            public @NotNull ResourceLocation getOverlayTexture() {
-    //                return WATER_OVERLAY;
-    //            }
-    //        });
-    //    }
-    //});
-
-    private static RegistryObject<FluidType> registerMilkType(String name, FluidType fluidType) {
-        return FLUID_TYPES.register(name, () -> fluidType);
     }
 
     public static void init(IEventBus eventBus) {

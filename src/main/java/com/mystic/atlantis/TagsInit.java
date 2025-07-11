@@ -55,36 +55,40 @@ public class TagsInit {
 
         public static Set<ResourceKey<net.minecraft.world.level.biome.Biome>> isDeepOcean() {
             return Set.of(
+                    BiomeInit.COCONUT_ISLES_KEY,
                     BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY,
                     BiomeInit.VOLCANIC_DARKSEA_KEY,
                     BiomeInit.ATLANTIS_BIOME_KEY,
                     BiomeInit.GOO_LAGOONS_KEY,
-                    BiomeInit.JELLYFISH_FIELDS_KEY,
+                    BiomeInit.AQUAIEL_JELLYFISH_FIELDS_KEY,
                     BiomeInit.ATLANTEAN_GARDEN_KEY);
         }
 
         public static Set<ResourceKey<net.minecraft.world.level.biome.Biome>> isOcean() {
             return Set.of(
+                    BiomeInit.COCONUT_ISLES_KEY,
                     BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY,
                     BiomeInit.VOLCANIC_DARKSEA_KEY,
                     BiomeInit.ATLANTIS_BIOME_KEY,
                     BiomeInit.GOO_LAGOONS_KEY,
-                    BiomeInit.JELLYFISH_FIELDS_KEY,
+                    BiomeInit.AQUAIEL_JELLYFISH_FIELDS_KEY,
                     BiomeInit.ATLANTEAN_GARDEN_KEY);
         }
 
         public static Set<ResourceKey<net.minecraft.world.level.biome.Biome>> hasAtlanteanVillage() {
             return Set.of(
+                    BiomeInit.COCONUT_ISLES_KEY,
                     BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY,
                     BiomeInit.VOLCANIC_DARKSEA_KEY,
                     BiomeInit.ATLANTIS_BIOME_KEY,
                     BiomeInit.GOO_LAGOONS_KEY,
-                    BiomeInit.JELLYFISH_FIELDS_KEY,
+                    BiomeInit.AQUAIEL_JELLYFISH_FIELDS_KEY,
                     BiomeInit.ATLANTEAN_GARDEN_KEY);
         }
 
         public static Set<ResourceKey<net.minecraft.world.level.biome.Biome>> hasAtlanteanFountain() {
             return Set.of(
+                    BiomeInit.COCONUT_ISLES_KEY,
                     BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY,
                     BiomeInit.ATLANTIS_BIOME_KEY,
                     BiomeInit.ATLANTEAN_GARDEN_KEY);
@@ -92,6 +96,7 @@ public class TagsInit {
 
         public static Set<ResourceKey<net.minecraft.world.level.biome.Biome>> hasAtlanteanHouse1() {
             return Set.of(
+                    BiomeInit.COCONUT_ISLES_KEY,
                     BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY,
                     BiomeInit.ATLANTIS_BIOME_KEY,
                     BiomeInit.ATLANTEAN_GARDEN_KEY);
@@ -99,6 +104,7 @@ public class TagsInit {
 
         public static Set<ResourceKey<net.minecraft.world.level.biome.Biome>> hasAtlanteanHouse3() {
             return Set.of(
+                    BiomeInit.COCONUT_ISLES_KEY,
                     BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY,
                     BiomeInit.ATLANTIS_BIOME_KEY,
                     BiomeInit.ATLANTEAN_GARDEN_KEY);
@@ -106,6 +112,7 @@ public class TagsInit {
 
         public static Set<ResourceKey<net.minecraft.world.level.biome.Biome>> hasAtlanteanSpire() {
             return Set.of(
+                    BiomeInit.COCONUT_ISLES_KEY,
                     BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY,
                     BiomeInit.ATLANTIS_BIOME_KEY,
                     BiomeInit.ATLANTEAN_GARDEN_KEY);
@@ -113,6 +120,7 @@ public class TagsInit {
 
         public static Set<ResourceKey<net.minecraft.world.level.biome.Biome>> hasAtlanteanTemple() {
             return Set.of(
+                    BiomeInit.COCONUT_ISLES_KEY,
                     BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY,
                     BiomeInit.ATLANTIS_BIOME_KEY,
                     BiomeInit.ATLANTEAN_GARDEN_KEY);
@@ -120,6 +128,7 @@ public class TagsInit {
 
         public static Set<ResourceKey<net.minecraft.world.level.biome.Biome>> hasAtlanteanTower() {
             return Set.of(
+                    BiomeInit.COCONUT_ISLES_KEY,
                     BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY,
                     BiomeInit.ATLANTIS_BIOME_KEY,
                     BiomeInit.ATLANTEAN_GARDEN_KEY);
@@ -127,6 +136,7 @@ public class TagsInit {
 
         public static Set<ResourceKey<net.minecraft.world.level.biome.Biome>> hasOysterStructure() {
             return Set.of(
+                    BiomeInit.COCONUT_ISLES_KEY,
                     BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY,
                     BiomeInit.ATLANTIS_BIOME_KEY,
                     BiomeInit.ATLANTEAN_GARDEN_KEY);

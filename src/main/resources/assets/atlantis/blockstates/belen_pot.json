@@ -1,0 +1,38 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "atlantis:block/belen_pot"
+      },
+      "when": {
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "atlantis:block/belen_pot"
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "atlantis:block/belen_pot",
+        "y": 90
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "atlantis:block/belen_pot",
+        "y": 90
+      },
+      "when": {
+        "facing": "west"
+      }
+    }
+  ]
+}

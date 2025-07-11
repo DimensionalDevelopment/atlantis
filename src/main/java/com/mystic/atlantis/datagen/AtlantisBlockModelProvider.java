@@ -1,7 +1,7 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
-import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
+import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -27,14 +27,14 @@ public class AtlantisBlockModelProvider extends BlockModelProvider {
                 Atlantis.id("block/writing_table_side_0"),
                 Atlantis.id("block/writing_table_side_2"));
 
-        BlockInit.ANCIENT_METALS.values().stream().map(TrailsGroup::bulb).forEach(holder -> {
+        BlockInit.ANCIENT_CUPRUM.values().stream().map(TrailsGroup::bulb).forEach(holder -> {
             cubeAll(holder, "_unlit");
             cubeAll(holder, "_lit");
             cubeAll(holder, "_lit_powered");
             cubeAll(holder, "_unlit_powered");
         });
 
-        BlockInit.ANCIENT_METALS.values().stream().map(TrailsGroup::waxed_bulb).forEach(holder -> {
+        BlockInit.ANCIENT_CUPRUM.values().stream().map(TrailsGroup::waxed_bulb).forEach(holder -> {
             cubeAll(holder, "_unlit");
             cubeAll(holder, "_lit");
             cubeAll(holder, "_lit_powered");

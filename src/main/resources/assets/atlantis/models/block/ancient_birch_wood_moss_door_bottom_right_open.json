@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_bottom_right_open",
-  "textures": {
-    "bottom": "atlantis:block/ancient_birch_wood_moss_door_bottom",
-    "top": "atlantis:block/ancient_birch_wood_moss_door_top"
-  }
-}

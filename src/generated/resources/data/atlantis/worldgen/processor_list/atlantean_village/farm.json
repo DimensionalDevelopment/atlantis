@@ -42,7 +42,7 @@
             "probability": 0.2
           },
           "output_state": {
-            "Name": "atlantis:atlantean_sapling",
+            "Name": "atlantis:nymph_sapling",
             "Properties": {
               "stage": "1",
               "waterlogged": "true"
@@ -59,7 +59,7 @@
             "probability": 0.2
           },
           "output_state": {
-            "Name": "atlantis:atlantean_fire_melon_top",
+            "Name": "atlantis:fire_melon_top",
             "Properties": {
               "age": "25"
             }

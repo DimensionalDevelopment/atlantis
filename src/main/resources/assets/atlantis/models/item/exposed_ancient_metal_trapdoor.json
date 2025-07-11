@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_trapdoor_bottom",
-  "textures": {
-    "texture": "atlantis:block/exposed_ancient_metal_trapdoor"
-  }
-}

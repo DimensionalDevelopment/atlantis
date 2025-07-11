@@ -1,11 +1,9 @@
 package com.mystic.atlantis.entities;
 
 import com.mystic.atlantis.init.ItemInit;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -18,15 +16,12 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -40,9 +35,6 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class StarfishEntity extends Animal implements GeoEntity { //TODO make bucketable
-
-    //   private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(com.mystic.atlantis.entities.StarfishEntity.class, EntityDataSerializers.BOOLEAN);
-
     private static final RawAnimation WALK_ANIMATION = RawAnimation.begin().thenLoop("animation.starfish.walk");
     private static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.starfish.idle");
     private static final RawAnimation EAT_ANIMATION = RawAnimation.begin().thenLoop("animation.starfish.eat");
@@ -60,38 +52,10 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
         return world.isUnobstructed(this);
     }
 
-    //  public boolean fromBucket() {
-    //      return this.entityData.get(FROM_BUCKET);
-    //  }
-
-    //  public void setFromBucket(boolean fromBucket) {
-    //      this.entityData.set(FROM_BUCKET, fromBucket);
-    //  }
-
-    //   @Override
-    //  public void saveToBucketTag(ItemStack stack) {
-    //       Bucketable.saveDefaultDataToBucketTag(this, stack);
-    //   }
-
     @Override
     public MobType getMobType() {
         return MobType.WATER;
     }
-
-    // @Override
-    // public void loadFromBucketTag(CompoundTag nbt) {
-    //     Bucketable.loadDefaultDataFromBucketTag(this, nbt);
-    // }
-
-    //  @Override
-    //  public ItemStack getBucketItemStack() {
-    //      return ItemInit.STARFISH_BUCKET.get().getDefaultInstance();
-    //  }
-
-    //  @Override
-    //  public SoundEvent getPickupSound() {
-    //     return SoundEvents.BUCKET_FILL_FISH;
-    // }
 
     @Override
     public boolean canBreatheUnderwater() {
@@ -106,22 +70,6 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
     public void registerControllers(AnimatableManager.ControllerRegistrar data) {
         data.add(new AnimationController<>(this, "controller", 0, this::predicate));
     }
-
-//    @Override
-//    public boolean requiresCustomPersistence() {
-//        return super.requiresCustomPersistence() || this.fromBucket();
-//    }
-
-//   @Override
-//   public boolean removeWhenFarAway(double distanceSquared) {
-//       return !this.fromBucket() && !this.hasCustomName();
-//   }
-
-    //   @Override
-    //   protected void defineSynchedData() {
-    //       super.defineSynchedData();
-    //       this.entityData.define(FROM_BUCKET, false);
-    //   }
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
@@ -141,7 +89,7 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
             }
         }
 
-        if (!entity.isAlive() && !((entity instanceof ShrimpEntity) || (entity instanceof Player)) && !canRide(entity)) {
+        if (!entity.isAlive() && !((entity instanceof GlittertailShrimpEntity) || (entity instanceof Player)) && !canRide(entity)) {
             this.stopRiding();
         } else {
             this.setDeltaMovement(0, 0, 0);
@@ -156,7 +104,7 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
                 if (!player.isAlive()) {
                     this.removeVehicle();
                 }
-            } else if (entity instanceof ShrimpEntity shrimp) {
+            } else if (entity instanceof GlittertailShrimpEntity shrimp) {
                 this.setPos(shrimp.getX(), Math.max(shrimp.getY() + shrimp.getEyeHeight(), shrimp.getY()), shrimp.getZ());
                 shrimp.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 1, 5));
                 shrimp.hurt(damageSources().mobAttack(this), 1.0f);
@@ -183,10 +131,7 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
         goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(ItemInit.SHRIMP.get()), false));
         goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.6));
         goalSelector.addGoal(1, new TryFindWaterGoal(this));
-        goalSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, ShrimpEntity.class, true));
-        //TODO fix
-        //goalSelector.addGoal(1, new LatchOntoGoal<>(this, ShrimpEntity.class, true));
-        //goalSelector.addGoal(0, new LatchOntoGoal<>(this, Player.class, true));
+        goalSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, GlittertailShrimpEntity.class, true));
     }
 
     @Override
@@ -210,9 +155,6 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
             }
             return InteractionResult.FAIL;
         }
-        //      } else if (player.getItemInHand(hand).getItem() == Items.WATER_BUCKET) {
-        //          return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
-        //      }
         return InteractionResult.FAIL;
     }
 

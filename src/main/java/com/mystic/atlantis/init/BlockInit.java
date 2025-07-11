@@ -1,42 +1,26 @@
 package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.blocks.BlockType;
-import com.mystic.atlantis.blocks.ancient_metal.*;
+import com.mystic.atlantis.blocks.ancient_cuprum.*;
 import com.mystic.atlantis.blocks.base.*;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.blocks.plants.*;
-import com.mystic.atlantis.blocks.pottery.*;
-import com.mystic.atlantis.blocks.power.atlanteanstone.*;
+import com.mystic.atlantis.blocks.pots.*;
+import com.mystic.atlantis.blocks.aquaticpower.*;
 import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
 import com.mystic.atlantis.blocks.shells.CrackedShellBlock;
 import com.mystic.atlantis.blocks.shells.NautilusShellBlock;
 import com.mystic.atlantis.blocks.shells.OysterShellBlock;
-import com.mystic.atlantis.blocks.signs.AtlanteanSignBlock;
-import com.mystic.atlantis.blocks.signs.AtlanteanWallSignBlock;
-import com.mystic.atlantis.blocks.slabs.AncientWoodSlabBlock;
-import com.mystic.atlantis.blocks.slabs.AtlanteanWoodSlabBlock;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.Util;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -63,30 +47,32 @@ public class BlockInit {
     public static final Map<DyeColor, BlockType> SEA_GLASS_LIST = new HashMap<>();
     public static final RegistryObject<Block> WATERFALL_BLOCK = registerBlock("waterfall_block", () -> new WaterfallBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<Block> WAVE_BLOCK = registerBlock("wave_block", () -> new WaveBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<Block> CRYSTAL_TRANSFERENCE = registerBlock("crystal_transference_block", () -> new CrystalRedstoneTransferenceBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<Block> CRYSTAL_TRANSFERENCE_BLOCK = registerBlock("crystal_transference_block", () -> new CrystalTransferenceBlock(BlockBehaviour.Properties.of()));
 
     //Portal
-    public static final RegistryObject<Block> ATLANTEAN_PORTAL_FRAME = registerBlock("atlantean_portal_frame", AtlanteanCoreFrame::new);
-    public static final RegistryObject<AtlantisClearPortalBlock> ATLANTIS_CLEAR_PORTAL = registerOnlyBlock("atlantis_clear_portal", () -> new AtlantisClearPortalBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<Block> ATLANTEAN_PORTAL_FRAME = registerBlock("atlantean_portal_frame", AtlanteanPortalFrame::new);
+    public static final RegistryObject<AtlanteanPortalBlock> ATLANTEAN_PORTAL = registerOnlyBlock("atlantean_portal", () -> new AtlanteanPortalBlock(BlockBehaviour.Properties.of()));
 
     //Fluid Blocks
-    public static final RegistryObject<LiquidBlock> JETSTREAM_WATER_BLOCK = BLOCKS.register("jetstream_water",
+    public static final RegistryObject<LiquidBlock> JETSTREAM_WATER = BLOCKS.register("jetstream_water",
             () -> new LiquidBlock(FluidInit.JETSTREAM_WATER, BlockBehaviour.Properties.copy(Blocks.WATER)));
-    public static final RegistryObject<LiquidBlock> SALTY_SEA_WATER_BLOCK = BLOCKS.register("salty_sea_water",
-            () -> new LiquidBlock(FluidInit.SALTY_SEA_WATER, BlockBehaviour.Properties.copy(Blocks.WATER)));
+    public static final RegistryObject<LiquidBlock> SALTY_SEAWATER = BLOCKS.register("salty_seawater",
+            () -> new LiquidBlock(FluidInit.SALTY_SEAWATER, BlockBehaviour.Properties.copy(Blocks.WATER)));
 
     //Atlantean Wood Type
-    public static final WoodType ATLANTEAN = WoodType.register(new WoodType("atlantean", BlockSetType.OAK));
-    public static final WoodType PALM = WoodType.register(new WoodType("palm", BlockSetType.OAK));
+    public static BlockSetType NYMPH_BLOCK_TYPE = new BlockSetType("nymph");
+    public static BlockSetType PALM_BLOCK_TYPE = new BlockSetType("palm");
+    public static final WoodType NYMPH_WOOD_TYPE = WoodType.register(new WoodType("nymph", NYMPH_BLOCK_TYPE));
+    public static final WoodType PALM_WOOD_TYPE = WoodType.register(new WoodType("palm", BlockSetType.OAK));
 
-    //Pottery
-    public static final RegistryObject<Block> POTTERY_BLOCK_1 = registerBlock("pottery_1_off", () -> new TubenPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
-    public static final RegistryObject<Block> POTTERY_BLOCK_2 = registerBlock("pottery_2_off", () -> new BelenPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
-    public static final RegistryObject<Block> POTTERY_BLOCK_3 = registerBlock("pottery_3_off", () -> new ToperPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
-    public static final RegistryObject<Block> POTTERY_BLOCK_4 = registerBlock("pottery_4_off", () -> new SnownPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
-    public static final RegistryObject<Block> POTTERY_BLOCK_5 = registerBlock("pottery_5_off", () -> new HorpenPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
-    public static final RegistryObject<Block> POTTERY_BLOCK_6 = registerBlock("pottery_6_off", () -> new CelenPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
-    public static final RegistryObject<Block> POTTERY_BLOCK_7 = registerBlock("pottery_7_off", () -> new ObemoPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
+    //Pots
+    public static final RegistryObject<Block> TUBEN_POT = registerBlock("tuben_pot", () -> new TubenPotBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
+    public static final RegistryObject<Block> BELEN_POT = registerBlock("belen_pot", () -> new BelenPotBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
+    public static final RegistryObject<Block> TOPER_POT = registerBlock("toper_pot", () -> new ToperPotBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
+    public static final RegistryObject<Block> SNOWN_POT = registerBlock("snown_pot", () -> new SnownPotBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
+    public static final RegistryObject<Block> HORPEN_POT = registerBlock("horpen_pot", () -> new HorpenPotBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
+    public static final RegistryObject<Block> CELEN_POT = registerBlock("celen_pot", () -> new CelenPotBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
+    public static final RegistryObject<Block> OBEMO_POT = registerBlock("obemo_pot", () -> new ObemoPotBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
 
     //Coconut stuff
     public static final RegistryObject<CoconutSlice> COCONUT_SLICE = registerOnlyBlock("coconut_slice", () -> new CoconutSlice(BlockBehaviour.Properties.of()));
@@ -94,120 +80,134 @@ public class BlockInit {
     public static final RegistryObject<EquipableCarvedCoconut> CARVED_COCONUT = registerBlock("carved_coconut", () -> new EquipableCarvedCoconut(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).strength(1.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<CarvedCoconut> SATIRE_LANTERN = registerBlock("satire_lantern", () -> new CarvedCoconut(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(1.0F).sound(SoundType.WOOD).lightLevel((p_50870_) -> 15)));
 
-    //Atlantean Palm Wood Variants
-    public static final RegistryObject<PalmLog> PALM_LOG = registerBlock("palm_log", () -> new PalmLog(BlockBehaviour.Properties.of()));
+    //Palm Variants
+    public static final RegistryObject<PalmLogBlock> PALM_LOG = registerBlock("palm_log", () -> new PalmLogBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<StrippedPalmLog> STRIPPED_PALM_LOG = registerBlock("stripped_palm_log", () -> new StrippedPalmLog(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<PalmWoodBlock> PALM_PLANKS = registerBlock("palm_planks", () -> new PalmWoodBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanButtonBlock> PALM_BUTTON = registerBlock("palm_button", () -> new AtlanteanButtonBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWoodDoorBlock> PALM_DOOR = registerBlock("palm_door", () -> new AtlanteanWoodDoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWoodFenceBlock> PALM_FENCE = registerBlock("palm_fence", () -> new AtlanteanWoodFenceBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanFenceGateBlock> PALM_FENCE_GATE = registerBlock("palm_fence_gate", () -> new AtlanteanFenceGateBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanPressurePlateBlock> PALM_PRESSURE_PLATE = registerBlock("palm_pressure_plate", () -> new AtlanteanPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanSignBlock> PALM_SIGNS = registerOnlyBlock("palm_sign", () -> new AtlanteanSignBlock(BlockBehaviour.Properties.of(), PALM));
-    public static final RegistryObject<AtlanteanWoodSlabBlock> PALM_SLAB = registerBlock("palm_slab", () -> new AtlanteanWoodSlabBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWoodStairBlock> PALM_STAIRS = registerBlock("palm_stairs", () -> new AtlanteanWoodStairBlock(BlockInit.PALM_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWoodTrapdoorBlock> PALM_TRAPDOOR = registerBlock("palm_trapdoor", () -> new AtlanteanWoodTrapdoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWallSignBlock> PALM_WALL_SIGN = registerOnlyBlock("palm_wall_sign", () -> new AtlanteanWallSignBlock(BlockBehaviour.Properties.of(), PALM));
+    public static final RegistryObject<StandingSignBlock> PALM_SIGN = registerOnlyBlock("palm_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_SIGN), PALM_WOOD_TYPE));
+    public static final RegistryObject<WallSignBlock> PALM_WALL_SIGN = registerOnlyBlock("palm_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_SIGN), PALM_WOOD_TYPE));
 
+    public static final BlockType PALM_PLANKS = registerBlockType("palm", PalmWoodBlock::new,
+            BlockBehaviour.Properties.of().sound(SoundType.WOOD)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.0F), true, PALM_BLOCK_TYPE, PALM_WOOD_TYPE,
+            30, true
+    );
 
-    //Atlantean Wood Variants
-    public static final RegistryObject<StrippedAtlanteanLog> STRIPPED_ATLANTEAN_LOG = registerBlock("stripped_atlantean_log", () -> new StrippedAtlanteanLog(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanButtonBlock> ATLANTEAN_BUTTON = registerBlock("atlantean_button", () -> new AtlanteanButtonBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWoodDoorBlock> ATLANTEAN_DOOR = registerBlock("atlantean_door", () -> new AtlanteanWoodDoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWoodFenceBlock> ATLANTEAN_FENCE = registerBlock("atlantean_fence", () -> new AtlanteanWoodFenceBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanFenceGateBlock> ATLANTEAN_FENCE_GATE = registerBlock("atlantean_fence_gate", () -> new AtlanteanFenceGateBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWoodBlock> ATLANTEAN_PLANKS = registerBlock("atlantean_planks", () -> new AtlanteanWoodBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanPressurePlateBlock> ATLANTEAN_PRESSURE_PLATE = registerBlock("atlantean_pressure_plate", () -> new AtlanteanPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanSignBlock> ATLANTEAN_SIGNS = registerOnlyBlock("atlantean_sign", () -> new AtlanteanSignBlock(BlockBehaviour.Properties.of(), ATLANTEAN));
-    public static final RegistryObject<AtlanteanWoodSlabBlock> ATLANTEAN_SLAB = registerBlock("atlantean_slab", () -> new AtlanteanWoodSlabBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWoodStairBlock> ATLANTEAN_STAIRS = registerBlock("atlantean_stairs", () -> new AtlanteanWoodStairBlock(BlockInit.ATLANTEAN_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWoodTrapdoorBlock> ATLANTEAN_TRAPDOOR = registerBlock("atlantean_trapdoor", () -> new AtlanteanWoodTrapdoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWallSignBlock> ATLANTEAN_WALL_SIGN = registerOnlyBlock("atlantean_wall_sign", () -> new AtlanteanWallSignBlock(BlockBehaviour.Properties.of(), ATLANTEAN));
+    //Nymph Variants
+    public static final RegistryObject<NymphLogBlock> NYMPH_LOG = registerBlock("nymph_log", () -> new NymphLogBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<StrippedNymphLog> STRIPPED_NYMPH_LOG = registerBlock("stripped_nymph_log", () -> new StrippedNymphLog(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<StandingSignBlock> NYMPH_SIGN = registerOnlyBlock("nymph_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN), NYMPH_WOOD_TYPE));
+    public static final RegistryObject<WallSignBlock> NYMPH_WALL_SIGN = registerOnlyBlock("nymph_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_SIGN), NYMPH_WOOD_TYPE));
+
+    public static final BlockType NYMPH_PLANKS = registerBlockType("nymph", NymphLogBlock::new,
+            BlockBehaviour.Properties.of().sound(SoundType.WOOD)
+                    .requiresCorrectToolForDrops()
+                    .strength(2.0F), true, NYMPH_BLOCK_TYPE, NYMPH_WOOD_TYPE,
+            30, true
+    );
 
     //Geckolib blocktypes
-    public static final RegistryObject<UnderwaterShroomBlock> UNDERWATER_SHROOM_BLOCK = registerBlock("underwater_shroom", UnderwaterShroomBlock::new);
-    public static final RegistryObject<TuberUpBlock> TUBER_UP_BLOCK = registerBlock("tuber_up", TuberUpBlock::new);
-    public static final RegistryObject<BlueLilyBlock> BLUE_LILY_BLOCK = registerBlock("blue_lily", BlueLilyBlock::new);
-    public static final RegistryObject<BurntDeepBlock> BURNT_DEEP_BLOCK = registerBlock("burnt_deep", BurntDeepBlock::new);
-    public static final RegistryObject<AnemoneBlock> ANEMONE_BLOCK = registerBlock("anemone", AnemoneBlock::new);
+    public static final RegistryObject<SeashroomBlock> SEASHROOM = registerBlock("seashroom", SeashroomBlock::new);
+    public static final RegistryObject<TuberUpBlock> TUBER_UP = registerBlock("tuber_up", TuberUpBlock::new);
+    public static final RegistryObject<BlueLilyBlock> BLUE_LILY = registerBlock("blue_lily", BlueLilyBlock::new);
+    public static final RegistryObject<BurntDeepBlock> BURNT_DEEP = registerBlock("burnt_deep", BurntDeepBlock::new);
+    public static final RegistryObject<AnemoneBlock> ANEMONE = registerBlock("anemone", AnemoneBlock::new);
 
-    //Trapdoors
-    public static final RegistryObject<AncientWoodTrapdoorBlock> ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR = registerBlock("ancient_dark_oak_wood_moss_trapdoor", () -> new AncientWoodTrapdoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodTrapdoorBlock> ANCIENT_BIRCH_WOOD_MOSS_TRAPDOOR = registerBlock("ancient_birch_wood_moss_trapdoor", () -> new AncientWoodTrapdoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodTrapdoorBlock> ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR = registerBlock("ancient_spruce_wood_moss_trapdoor", () -> new AncientWoodTrapdoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodTrapdoorBlock> ANCIENT_JUNGLE_WOOD_MOSS_TRAPDOOR = registerBlock("ancient_jungle_wood_moss_trapdoor", () -> new AncientWoodTrapdoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodTrapdoorBlock> ANCIENT_OAK_WOOD_MOSS_TRAPDOOR = registerBlock("ancient_oak_wood_moss_trapdoor", () -> new AncientWoodTrapdoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodTrapdoorBlock> ANCIENT_ACACIA_WOOD_MOSS_TRAPDOOR = registerBlock("ancient_acacia_wood_moss_trapdoor", () -> new AncientWoodTrapdoorBlock(BlockBehaviour.Properties.of()));
+    //Ancient Woods
+    public static final BlockType ANCIENT_DARK_OAK = registerBlockType("ancient_dark_oak", AncientWoodBlock::new,
+            BlockBehaviour.Properties.of(), true, BlockSetType.DARK_OAK, WoodType.DARK_OAK,
+            30, true
+    );
 
-    //Stairs
-    public static final RegistryObject<AncientWoodStairBlock> ANCIENT_DARK_OAK_WOOD_MOSS_STAIRS = registerBlock("ancient_dark_oak_wood_moss_stairs", () -> new AncientWoodStairBlock(Blocks.DARK_OAK_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodStairBlock> ANCIENT_BIRCH_WOOD_MOSS_STAIRS = registerBlock("ancient_birch_wood_moss_stairs", () -> new AncientWoodStairBlock(Blocks.BIRCH_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodStairBlock> ANCIENT_SPRUCE_WOOD_MOSS_STAIRS = registerBlock("ancient_spruce_wood_moss_stairs", () -> new AncientWoodStairBlock(Blocks.SPRUCE_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodStairBlock> ANCIENT_JUNGLE_WOOD_MOSS_STAIRS = registerBlock("ancient_jungle_wood_moss_stairs", () -> new AncientWoodStairBlock(Blocks.JUNGLE_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodStairBlock> ANCIENT_OAK_WOOD_MOSS_STAIRS = registerBlock("ancient_oak_wood_moss_stairs", () -> new AncientWoodStairBlock(Blocks.OAK_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodStairBlock> ANCIENT_ACACIA_WOOD_MOSS_STAIRS = registerBlock("ancient_acacia_wood_moss_stairs", () -> new AncientWoodStairBlock(Blocks.ACACIA_STAIRS.defaultBlockState(), BlockBehaviour.Properties.of()));
+    public static final BlockType ANCIENT_OAK = registerBlockType("ancient_oak", AncientWoodBlock::new,
+            BlockBehaviour.Properties.of(), true, BlockSetType.OAK, WoodType.OAK,
+            30, true
+    );
 
-    //Fences
-    public static final RegistryObject<AncientWoodFenceBlock> ANCIENT_DARK_OAK_WOOD_MOSS_FENCE = registerBlock("ancient_dark_oak_wood_moss_fence", () -> new AncientWoodFenceBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodFenceBlock> ANCIENT_BIRCH_WOOD_MOSS_FENCE = registerBlock("ancient_birch_wood_moss_fence", () -> new AncientWoodFenceBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodFenceBlock> ANCIENT_SPRUCE_WOOD_MOSS_FENCE = registerBlock("ancient_spruce_wood_moss_fence", () -> new AncientWoodFenceBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodFenceBlock> ANCIENT_JUNGLE_WOOD_MOSS_FENCE = registerBlock("ancient_jungle_wood_moss_fence", () -> new AncientWoodFenceBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodFenceBlock> ANCIENT_OAK_WOOD_MOSS_FENCE = registerBlock("ancient_oak_wood_moss_fence", () -> new AncientWoodFenceBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodFenceBlock> ANCIENT_ACACIA_WOOD_MOSS_FENCE = registerBlock("ancient_acacia_wood_moss_fence", () -> new AncientWoodFenceBlock(BlockBehaviour.Properties.of()));
+    public static final BlockType ANCIENT_JUNGLE = registerBlockType("ancient_jungle", AncientWoodBlock::new,
+            BlockBehaviour.Properties.of(), true, BlockSetType.JUNGLE, WoodType.JUNGLE,
+            30, true
+    );
 
-    //Doors
-    public static final RegistryObject<AncientWoodDoorBlock> ANCIENT_DARK_OAK_WOOD_MOSS_DOOR = registerBlock("ancient_dark_oak_wood_moss_door", () -> new AncientWoodDoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodDoorBlock> ANCIENT_BIRCH_WOOD_MOSS_DOOR = registerBlock("ancient_birch_wood_moss_door", () -> new AncientWoodDoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodDoorBlock> ANCIENT_SPRUCE_WOOD_MOSS_DOOR = registerBlock("ancient_spruce_wood_moss_door", () -> new AncientWoodDoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodDoorBlock> ANCIENT_JUNGLE_WOOD_MOSS_DOOR = registerBlock("ancient_jungle_wood_moss_door", () -> new AncientWoodDoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodDoorBlock> ANCIENT_OAK_WOOD_MOSS_DOOR = registerBlock("ancient_oak_wood_moss_door", () -> new AncientWoodDoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodDoorBlock> ANCIENT_ACACIA_WOOD_MOSS_DOOR = registerBlock("ancient_acacia_wood_moss_door", () -> new AncientWoodDoorBlock(BlockBehaviour.Properties.of()));
+    public static final BlockType ANCIENT_ACACIA = registerBlockType("ancient_acacia", AncientWoodBlock::new,
+            BlockBehaviour.Properties.of(), true, BlockSetType.ACACIA, WoodType.ACACIA,
+            30, true
+    );
+
+    public static final BlockType ANCIENT_BIRCH = registerBlockType("ancient_birch", AncientWoodBlock::new,
+            BlockBehaviour.Properties.of(), true, BlockSetType.BIRCH, WoodType.BIRCH,
+            30, true
+    );
+
+    public static final BlockType ANCIENT_SPRUCE = registerBlockType("ancient_spruce", AncientWoodBlock::new,
+            BlockBehaviour.Properties.of(), true, BlockSetType.SPRUCE, WoodType.SPRUCE,
+            30, true
+    );
+
+    public static final BlockType ANCIENT_BAMBOO = registerBlockType("ancient_bamboo", AncientWoodBlock::new,
+            BlockBehaviour.Properties.of(), true, BlockSetType.BAMBOO, WoodType.BAMBOO,
+            30, true
+    );
+
+    public static final BlockType ANCIENT_MANGROVE = registerBlockType("ancient_mangrove", AncientWoodBlock::new,
+            BlockBehaviour.Properties.of(), true, BlockSetType.MANGROVE, WoodType.MANGROVE,
+            30, true
+    );
+
+    public static final BlockType ANCIENT_CHERRY = registerBlockType("ancient_cherry", AncientWoodBlock::new,
+            BlockBehaviour.Properties.of(), true, BlockSetType.CHERRY, WoodType.CHERRY,
+            30, true
+    );
+
+    public static final BlockType ANCIENT_CRIMSON = registerBlockType("ancient_crimson", AncientWoodBlock::new,
+            BlockBehaviour.Properties.of(), true, BlockSetType.CRIMSON, WoodType.CRIMSON,
+            30, true
+    );
+
+    public static final BlockType ANCIENT_WARPED = registerBlockType("ancient_warped", AncientWoodBlock::new,
+            BlockBehaviour.Properties.of(), true, BlockSetType.WARPED, WoodType.WARPED,
+            30, true
+    );
 
     //Shells
     public static final RegistryObject<OysterShellBlock> OYSTER_SHELL_BLOCK = registerBlock("oyster_shell_block", () -> new OysterShellBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<NautilusShellBlock> NAUTILUS_SHELL_BLOCK = registerBlock("nautilus_shell_block", () -> new NautilusShellBlock(BlockBehaviour.Properties.of().strength(2.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
-    public static final RegistryObject<OysterShellBlock> OYSTER_SHELL_CRACKED = registerBlock("oyster_shell_cracked", () -> new OysterShellBlock(BlockBehaviour.Properties.of().strength(1.5F, 5.0F)));
-    public static final RegistryObject<NautilusShellBlock> NAUTILUS_SHELL_CRACKED = registerBlock("nautilus_shell_cracked", () -> new NautilusShellBlock(BlockBehaviour.Properties.of().strength(1.5F, 5.0F).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
-    public static final RegistryObject<OysterShellBlock> OYSTER_SHELL_CRACKED_MOSSY = registerBlock("oyster_shell_cracked_mossy", () -> new OysterShellBlock(BlockBehaviour.Properties.of().strength(1.5F, 5.0F)));
-    public static final RegistryObject<NautilusShellBlock> NAUTILUS_SHELL_CRACKED_MOSSY = registerBlock("nautilus_shell_cracked_mossy", () -> new NautilusShellBlock(BlockBehaviour.Properties.of().strength(1.5F, 5.0F).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
-    public static final RegistryObject<OysterShellBlock> OYSTER_SHELL_MOSSY = registerBlock("oyster_shell_mossy", () -> new OysterShellBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<NautilusShellBlock> NAUTILUS_SHELL_MOSSY = registerBlock("nautilus_shell_mossy", () -> new NautilusShellBlock(BlockBehaviour.Properties.of().strength(2.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
+    public static final RegistryObject<OysterShellBlock> CRACKED_OYSTER_SHELL = registerBlock("cracked_oyster_shell", () -> new OysterShellBlock(BlockBehaviour.Properties.of().strength(1.5F, 5.0F)));
+    public static final RegistryObject<NautilusShellBlock> CRACKED_NAUTILUS_SHELL = registerBlock("cracked_nautilus_shell", () -> new NautilusShellBlock(BlockBehaviour.Properties.of().strength(1.5F, 5.0F).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
+    public static final RegistryObject<OysterShellBlock> CRACKED_MOSSY_OYSTER_SHELL = registerBlock("cracked_mossy_oyster_shell", () -> new OysterShellBlock(BlockBehaviour.Properties.of().strength(1.5F, 5.0F)));
+    public static final RegistryObject<NautilusShellBlock> CRACKED_MOSSY_NAUTILUS_SHELL = registerBlock("cracked_mossy_nautilus_shell", () -> new NautilusShellBlock(BlockBehaviour.Properties.of().strength(1.5F, 5.0F).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
+    public static final RegistryObject<OysterShellBlock> MOSSY_OYSTER_SHELL = registerBlock("mossy_oyster_shell", () -> new OysterShellBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<NautilusShellBlock> MOSSY_NAUTILUS_SHELL = registerBlock("mossy_nautilus_shell", () -> new NautilusShellBlock(BlockBehaviour.Properties.of().strength(2.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
+
     //Regular blocks
     public static final RegistryObject<SodiumBombBlock> SODIUM_BOMB = registerBlock("sodium_bomb", () -> new SodiumBombBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<SeaSaltChunkBlock> SEA_SALT_CHUNK = registerBlock("sea_salt_chunk", () -> new SeaSaltChunkBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<SeasaltChunkBlock> SEASALT_CHUNK = registerBlock("seasalt_chunk", () -> new SeasaltChunkBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<Block> SUNKEN_GRAVEL = registerBlock("sunken_gravel", () -> new SunkenGravelBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<CrackedGlowStoneBlock> CRACKED_GLOWSTONE = registerBlock("cracked_glowstone", () -> new CrackedGlowStoneBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<DeadGlowStoneBlock> DEAD_GLOWSTONE = registerBlock("dead_glowstone", () -> new DeadGlowStoneBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<CrackedGlowstoneBlock> CRACKED_GLOWSTONE = registerBlock("cracked_glowstone", () -> new CrackedGlowstoneBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<DeadGlowstoneBlock> DEAD_GLOWSTONE = registerBlock("dead_glowstone", () -> new DeadGlowstoneBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<AlgaeDetritusStoneBlock> ALGAE_DETRITUS_STONE = registerBlock("algae_detritus_stone", () -> new AlgaeDetritusStoneBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<DetritusSandStoneBlock> DETRITUS_SANDSTONE = registerBlock("detritus_sandstone", () -> new DetritusSandStoneBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanPrismarineBlock> ATLANTEAN_PRISMARINE = registerBlock("atlantean_prismarine", () -> new AtlanteanPrismarineBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<DetritusSandstoneBlock> DETRITUS_SANDSTONE = registerBlock("detritus_sandstone", () -> new DetritusSandstoneBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<LuminescentPrismarine> LUMINESCENT_PRISMARINE = registerBlock("luminescent_prismarine", () -> new LuminescentPrismarine(BlockBehaviour.Properties.of()));
     public static final RegistryObject<BubbleMagmaBlock> BUBBLE_MAGMA = registerBlock("bubble_magma", () -> new BubbleMagmaBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<PalmLeavesBlock> PALM_LEAVES = registerBlock("palm_leaves", () -> new PalmLeavesBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanLeavesBlock> ATLANTEAN_LEAVES = registerBlock("atlantean_leaf_block", () -> new AtlanteanLeavesBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanLogBlock> ATLANTEAN_LOGS = registerBlock("atlantean_log", () -> new AtlanteanLogBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodBlock> ANCIENT_ACACIA_WOOD_MOSS = registerBlock("ancient_acacia_wood_moss", () -> new AncientWoodBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodBlock> ANCIENT_OAK_WOOD_MOSS = registerBlock("ancient_oak_wood_moss", () -> new AncientWoodBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodBlock> ANCIENT_JUNGLE_WOOD_MOSS = registerBlock("ancient_jungle_wood_moss", () -> new AncientWoodBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodBlock> ANCIENT_SPRUCE_WOOD_MOSS = registerBlock("ancient_spruce_wood_moss", () -> new AncientWoodBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodBlock> ANCIENT_BIRCH_WOOD_MOSS = registerBlock("ancient_birch_wood_moss", () -> new AncientWoodBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodBlock> ANCIENT_DARK_OAK_WOOD_MOSS = registerBlock("ancient_dark_oak_wood_moss", () -> new AncientWoodBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<NymphLeavesBlock> NYMPH_LEAVES = registerBlock("nymph_leaves", () -> new NymphLeavesBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<Block> AQUAMARINE_ORE = registerBlock("aquamarine_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of()
             .sound(SoundType.STONE)
             .requiresCorrectToolForDrops()
             .strength(3.0F, 15.0F)
             .lightLevel((state) -> 2)));
 
-    public static final RegistryObject<Block> AQUAMARINE_DEEPSLATE_ORE = registerBlock("aquamarine_deepslate_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of()
+    public static final RegistryObject<Block> DEEPSLATE_AQUAMARINE_ORE = registerBlock("deepslate_aquamarine_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of()
             .sound(SoundType.STONE)
             .requiresCorrectToolForDrops()
             .strength(5.0F, 15.0F)
             .lightLevel((state) -> 4)));
 
-    public static final RegistryObject<SeaBedBlock> SEABED = registerBlock("seabed", () -> new SeaBedBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<SeabedBlock> SEABED = registerBlock("seabed", () -> new SeabedBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<OceanLanternBlock> OCEAN_LANTERN = registerBlock("ocean_lantern", () -> new OceanLanternBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlantianSeaLanternBlock> ATLANTEAN_SEA_LANTERN = registerBlock("atlantean_sea_lantern", () -> new AtlantianSeaLanternBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<SurgeLanternBlock> SURGE_LANTERN = registerBlock("surge_lantern", () -> new SurgeLanternBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<AtlanteanCoreBlock> ATLANTEAN_CORE = registerBlock("atlantean_core", () -> new AtlanteanCoreBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AquamarineBlock> BLOCK_OF_AQUAMARINE = registerBlock("block_of_aquamarine", () -> new AquamarineBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<AquamarineBlock> BLOCK_OF_AQUAMARINE = registerBlock("aquamarine_block", () -> new AquamarineBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<AquamarineBlock> CHISELED_GOLDEN_BLOCK = registerBlock("chiseled_golden_block", () -> new AquamarineBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<AquamarineBlock> CHISELED_GOLDEN_AQUAMARINE = registerBlock("chiseled_golden_aquamarine", () -> new AquamarineBlock(BlockBehaviour.Properties.of()));
     ;
@@ -227,52 +227,46 @@ public class BlockInit {
     public static final RegistryObject<PearlBlock> RED_PEARL_BLOCK = registerBlock("red_pearl_block", () -> new PearlBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<PearlBlock> WHITE_PEARL_BLOCK = registerBlock("white_pearl_block", () -> new PearlBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<PearlBlock> YELLOW_PEARL_BLOCK = registerBlock("yellow_pearl_block", () -> new PearlBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<UnderwaterFlower> UNDERWATER_FLOWER = registerBlock("underwater_flower", () -> new UnderwaterFlower(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<UnderwaterFlower> RED_UNDERWATER_FLOWER = registerBlock("red_underwater_flower", () -> new UnderwaterFlower(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<PurpleGlowingMushroom> PURPLE_GLOWING_MUSHROOM = registerBlock("purple_glowing_mushroom", () -> new PurpleGlowingMushroom(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<YellowGlowingMushroom> YELLOW_GLOWING_MUSHROOM = registerBlock("yellow_glowing_mushroom", () -> new YellowGlowingMushroom(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<UnderwaterFlower> YELLOW_UNDERWATER_FLOWER = registerBlock("yellow_underwater_flower", () -> new UnderwaterFlower(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<Seabloom> SEABLOOM = registerBlock("seabloom", () -> new Seabloom(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<Seabloom> RED_SEABLOOM = registerBlock("red_seabloom", () -> new Seabloom(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<PurpleSeashroom> PURPLE_SEASHROOM = registerBlock("purple_seashroom", () -> new PurpleSeashroom(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<YellowSeashroom> YELLOW_SEASHROOM = registerBlock("yellow_seashroom", () -> new YellowSeashroom(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<Seabloom> YELLOW_SEABLOOM = registerBlock("yellow_seabloom", () -> new Seabloom(BlockBehaviour.Properties.of()));
     public static final RegistryObject<AlgaePlantBlock> ALGAE = registerBlock("algae", () -> new AlgaePlantBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanPowerStoneBlock> ATLANTEAN_POWER_STONE = registerBlock("atlantean_power_stone", () -> new AtlanteanPowerStoneBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanPowerLampBlock> ATLANTEAN_POWER_LAMP = registerBlock("atlantean_power_lamp", () -> new AtlanteanPowerLampBlock(BlockBehaviour.Properties.of().strength(0.3F)));
-    public static final RegistryObject<AtlanteanPowerTorchBlock> ATLANTEAN_POWER_TORCH = registerOnlyBlock("atlantean_power_torch", () -> new AtlanteanPowerTorchBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<WallAtlanteanPowerTorchBlock> WALL_ATLANTEAN_POWER_TORCH = registerOnlyBlock("atlantean_power_wall_torch", () -> new WallAtlanteanPowerTorchBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanPowerDustBlock> ATLANTEAN_POWER_DUST_WIRE = registerOnlyBlock("atlantean_power_dust", () -> new AtlanteanPowerDustBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanPowerRepeaterBlock> ATLANTEAN_POWER_REPEATER = registerBlock("atlantean_power_repeater", () -> new AtlanteanPowerRepeaterBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanTripwireHook> ATLANTEAN_TRIPWIRE_HOOK = registerBlock("atlantean_tripwire_hook", () -> new AtlanteanTripwireHook(BlockBehaviour.Properties.of().noCollission()));
-    public static final RegistryObject<AtlanteanTripwireBlock> ATLANTEAN_TRIPWIRE = registerOnlyBlock("atlantean_tripwire", () -> new AtlanteanTripwireBlock(ATLANTEAN_TRIPWIRE_HOOK.get(), BlockBehaviour.Properties.of().noCollission()));
-    public static final RegistryObject<AtlanteanPowerLeverBlock> ATLANTEAN_POWER_LEVER = registerBlock("atlantean_power_lever", () -> new AtlanteanPowerLeverBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.WOOD)));
-    public static final RegistryObject<AtlanteanPowerComparatorBlock> ATLANTEAN_POWER_COMPARATOR = registerBlock("atlantean_power_comparator", () -> new AtlanteanPowerComparatorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<CalciteBlock> CALCITE_BLOCK = registerBlock("calcite_block", () -> new CalciteBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<AquaticPowerStoneBlock> AQUATIC_POWER_STONE = registerBlock("aquatic_power_stone", () -> new AquaticPowerStoneBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<AquaticPowerLampBlock> AQUATIC_POWER_LAMP = registerBlock("aquatic_power_lamp", () -> new AquaticPowerLampBlock(BlockBehaviour.Properties.of().strength(0.3F)));
+    public static final RegistryObject<AquaticPowerTorchBlock> AQUATIC_POWER_TORCH = registerOnlyBlock("aquatic_power_torch", () -> new AquaticPowerTorchBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<WallAquaticPowerTorchBlock> WALL_AQUATIC_POWER_TORCH = registerOnlyBlock("aquatic_power_wall_torch", () -> new WallAquaticPowerTorchBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<AquaticPowerDustBlock> AQUATIC_POWER_DUST_WIRE = registerOnlyBlock("aquatic_power_dust", () -> new AquaticPowerDustBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<AquaticPowerRepeaterBlock> AQUATIC_POWER_REPEATER = registerBlock("aquatic_power_repeater", () -> new AquaticPowerRepeaterBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<AquaticPowerTripwireHook> AQUATIC_POWER_TRIPWIRE_HOOK = registerBlock("aquatic_power_tripwire_hook", () -> new AquaticPowerTripwireHook(BlockBehaviour.Properties.of().noCollission()));
+    public static final RegistryObject<AquaticPowerTripwireBlock> AQUATIC_POWER_TRIPWIRE = registerOnlyBlock("aquatic_power_tripwire", () -> new AquaticPowerTripwireBlock(AQUATIC_POWER_TRIPWIRE_HOOK.get(), BlockBehaviour.Properties.of().noCollission()));
+    public static final RegistryObject<AquaticPowerLeverBlock> AQUATIC_POWER_LEVER = registerBlock("power_lever", () -> new AquaticPowerLeverBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<AquaticPowerComparatorBlock> AQUATIC_POWER_COMPARATOR = registerBlock("power_comparator", () -> new AquaticPowerComparatorBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<HardenedCalciteBlock> HARDENED_CALCITE_BLOCK = registerBlock("hardened_calcite_block", () -> new HardenedCalciteBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<PushBubbleColumnBlock> PUSH_BUBBLE_COLUMN = registerOnlyBlock("push_bubble_column", () -> new PushBubbleColumnBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodSlabBlock> ANCIENT_ACACIA_WOOD_MOSS_SLAB = registerBlock("ancient_acacia_wood_moss_slab", () -> new AncientWoodSlabBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodSlabBlock> ANCIENT_OAK_WOOD_MOSS_SLAB = registerBlock("ancient_oak_wood_moss_slab", () -> new AncientWoodSlabBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodSlabBlock> ANCIENT_JUNGLE_WOOD_MOSS_SLAB = registerBlock("ancient_jungle_wood_moss_slab", () -> new AncientWoodSlabBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodSlabBlock> ANCIENT_SPRUCE_WOOD_MOSS_SLAB = registerBlock("ancient_spruce_wood_moss_slab", () -> new AncientWoodSlabBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodSlabBlock> ANCIENT_BIRCH_WOOD_MOSS_SLAB = registerBlock("ancient_birch_wood_moss_slab", () -> new AncientWoodSlabBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AncientWoodSlabBlock> ANCIENT_DARK_OAK_WOOD_MOSS_SLAB = registerBlock("ancient_dark_oak_wood_moss_slab", () -> new AncientWoodSlabBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<AlgaeBlock> ALGAE_BLOCK = registerBlock("algae_block", () -> new AlgaeBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<ChiseledAquamarineBlock> CHISELED_AQUAMARINE = registerBlock("chiseled_aquamarine", () -> new ChiseledAquamarineBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<Block> RAW_ANCIENT_METAL_BLOCK = registerBlock("raw_ancient_metal_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.METAL)));
-    public static final RegistryObject<Block> ANCIENT_METAL_ORE = registerBlock("ancient_metal_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0F, 15.0F).lightLevel((state) -> 1), ConstantInt.of(5)));
-    public static final RegistryObject<Block> DEEPSLATE_ANCIENT_METAL_ORE = registerBlock("deepslate_ancient_metal_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(4.0F, 15.0F).lightLevel((state) -> 3), ConstantInt.of(5)));
+    public static final RegistryObject<ChiseledAquamarineBlock> CHISELED_AQUAMARINE_BLOCK = registerBlock("chiseled_aquamarine_block", () -> new ChiseledAquamarineBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<Block> RAW_ANCIENT_CUPRUM_BLOCK = registerBlock("raw_ancient_cuprum_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.METAL)));
+    public static final RegistryObject<Block> ANCIENT_CUPRUM_ORE = registerBlock("ancient_cuprum_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0F, 15.0F).lightLevel((state) -> 1), ConstantInt.of(5)));
+    public static final RegistryObject<Block> DEEPSLATE_ANCIENT_CUPRUM_ORE = registerBlock("deepslate_ancient_cuprum_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(4.0F, 15.0F).lightLevel((state) -> 3), ConstantInt.of(5)));
 
     public static final RegistryObject<Block> ORICHALCUM_BLOCK = registerBlock("orichalcum_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
 
     public static final RegistryObject<LinguisticBlock> LINGUISTIC_BLOCK = registerLinguisticBlock("linguistic_block", () -> new LinguisticBlock(BlockBehaviour.Properties.of().strength(2.5F).sound(SoundType.WOOD)));
 
     public static final RegistryObject<WritingBlock> WRITING_BLOCK = registerLinguisticBlock("writing_block", () -> new WritingBlock(BlockBehaviour.Properties.of().strength(2.5F).sound(SoundType.WOOD)));
-    public static final RegistryObject<AtlanteanSaplingBlock> ATLANTEAN_SAPLING = registerBlock("atlantean_sapling", () ->
-            new AtlanteanSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<NymphSaplingBlock> NYMPH_SAPLING = registerBlock("nymph_sapling", () ->
+            new NymphSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
-    public static final RegistryObject<AtlanteanPalmSaplingBlock> ATLANTEAN_PALM_SAPLING = registerBlock("palm_sapling", () ->
-            new AtlanteanPalmSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<PalmSaplingBlock> PALM_SAPLING = registerBlock("palm_sapling", () ->
+            new PalmSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
-    public static final RegistryObject<AtlanteanFireMelonSpikedFruitBlock> ATLANTEAN_FIRE_MELON_FRUIT_SPIKED = registerOnlyBlock("atlantean_fire_melon_fruit_spiked", () -> new AtlanteanFireMelonSpikedFruitBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanFireMelonFruitBlock> ATLANTEAN_FIRE_MELON_FRUIT = registerOnlyBlock("atlantean_fire_melon_fruit", () -> new AtlanteanFireMelonFruitBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops()));
+    public static final RegistryObject<FireMelonSpikedFruitBlock> FIRE_MELON_FRUIT_SPIKED = registerOnlyBlock("fire_melon_fruit_spiked", () -> new FireMelonSpikedFruitBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<FireMelonFruitBlock> FIRE_MELON_FRUIT = registerOnlyBlock("fire_melon_fruit", () -> new FireMelonFruitBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<AtlanteanFireMelonBody> ATLANTEAN_FIRE_MELON_STEM = registerOnlyBlock("atlantean_fire_melon_stem", () -> new AtlanteanFireMelonBody(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanFireMelonHead> ATLANTEAN_FIRE_MELON_TOP = registerOnlyBlock("atlantean_fire_melon_top", () -> new AtlanteanFireMelonHead(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<FireMelonBody> FIRE_MELON_STEM = registerOnlyBlock("fire_melon_stem", () -> new FireMelonBody(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<FireMelonHead> FIRE_MELON_TOP = registerOnlyBlock("fire_melon_top", () -> new FireMelonHead(BlockBehaviour.Properties.of()));
 
     public static final BlockType MAGENTA_SEA_GLASS = registerSeaGlass("magenta");
     public static final BlockType LIGHT_GRAY_SEA_GLASS = registerSeaGlass("light_gray");
@@ -328,22 +322,17 @@ public class BlockInit {
         return BLOCKS.register(name, block);
     }
 
-    public static <L extends LiquidBlock> RegistryObject<L> registerFluidBlock(String name, Supplier<L> block) {
-        return BLOCKS.register(name, block);
-    }
-
     private static <T extends Block> BlockType registerBlockType(String name, Function<BlockBehaviour.Properties, Block> block, BlockBehaviour.Properties properties, boolean genDoors, BlockSetType blockSetType, @Nullable WoodType woodType, int pTicksToStayPressed, boolean pArrowsCanPress) {
-        var blockBase = registerMainTabBlock(name, () -> block.apply(properties), tRegistryObject -> () -> new BlockItem(tRegistryObject.get(), new Item.Properties()));
+        var blockBase = registerMainTabBlock(name + (woodType != null ? "_planks" : ""), () -> block.apply(properties), tRegistryObject -> () -> new BlockItem(tRegistryObject.get(), new Item.Properties()));
         var blockSlab = registerMainTabBlock(name + "_slab", blockBase, block1 -> new SlabBlock(BlockBehaviour.Properties.copy(block1)), block2 -> new BlockItem(block2, new Item.Properties()));
         var blockWall = woodType == null ? registerMainTabBlock(name + "_wall", blockBase, block1 -> new WallBlock(BlockBehaviour.Properties.copy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockFence = woodType != null ? registerMainTabBlock(name + "_fence", blockBase, block1 -> new FenceBlock(BlockBehaviour.Properties.copy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockGateBlock = woodType != null ? registerMainTabBlock(name + "_fence_gate", blockBase, block1 -> new FenceGateBlock(BlockBehaviour.Properties.copy(block1), woodType), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockStairs = registerMainTabBlock(name + "_stairs", blockBase, block1 -> new StairBlock(block1.defaultBlockState(), BlockBehaviour.Properties.copy(block1)), block2 -> new BlockItem(block2, new Item.Properties()));
         var blockDoor = genDoors ? registerMainTabBlock(name + "_door", blockBase, block1 -> new DoorBlock(BlockBehaviour.Properties.copy(block1), blockSetType), block2 -> new BlockItem(block2, new Item.Properties())) : null;
-        var blockTrapDoor = genDoors ? registerMainTabBlock(name + "_trap_door", blockBase, block1 -> new TrapDoorBlock(BlockBehaviour.Properties.copy(block1), blockSetType), block2 -> new BlockItem(block2, new Item.Properties())) : null;
+        var blockTrapDoor = genDoors ? registerMainTabBlock(name + "_trapdoor", blockBase, block1 -> new TrapDoorBlock(BlockBehaviour.Properties.copy(block1), blockSetType), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockButton = registerMainTabBlock(name + "_button", blockBase, block1 -> new ButtonBlock(BlockBehaviour.Properties.copy(block1), blockSetType, pTicksToStayPressed, pArrowsCanPress), block2 -> new BlockItem(block2, new Item.Properties()));
         var pressurePlate = registerMainTabBlock(name + "_pressure_plate", blockBase, block1 -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(block1), blockSetType), block2 -> new BlockItem(block2, new Item.Properties()));
-
         return BlockType.of(blockBase, blockSlab, blockWall, blockFence, blockGateBlock, blockStairs, blockDoor, blockTrapDoor, blockButton, pressurePlate);
     }
 
@@ -416,22 +405,22 @@ public class BlockInit {
     }
 
 
-    public static final BlockBehaviour.Properties ANCIENT_METAL_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.METAL);
+    public static final BlockBehaviour.Properties ANCIENT_CUPRUM_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.METAL);
 
-    public static Map<WeatheringMetal.WeatherState, TrailsGroup> ANCIENT_METALS = Util.make(new HashMap<>(), map -> Arrays.stream(WeatheringMetal.WeatherState.values()).forEach(state -> map.put(state, registerTrialsGroup("ancient_metal", state, ANCIENT_METAL_PROPERTIES))));
+    public static Map<WeatheringCuprum.WeatherState, TrailsGroup> ANCIENT_CUPRUM = Util.make(new HashMap<>(), map -> Arrays.stream(WeatheringCuprum.WeatherState.values()).forEach(state -> map.put(state, registerTrialsGroup("ancient_cuprum", state, ANCIENT_CUPRUM_PROPERTIES))));
 
-    private static TrailsGroup registerTrialsGroup(String name, WeatheringMetal.WeatherState state, BlockBehaviour.Properties properties) {
-        var prefix = state == WeatheringMetal.WeatherState.UNAFFECTED ? "" : state.getSerializedName() + "_";
+    private static TrailsGroup registerTrialsGroup(String name, WeatheringCuprum.WeatherState state, BlockBehaviour.Properties properties) {
+        var prefix = state == WeatheringCuprum.WeatherState.UNAFFECTED ? "" : state.getSerializedName() + "_";
 
-        RegistryObject<WeatheringMetalFullBlock> block = registerBlock(prefix + name + "_block", () -> new WeatheringMetalFullBlock(state, properties));
-        RegistryObject<WeatheringMetalFullBlock> cut = registerBlock(prefix + "cut_" + name, () -> new  WeatheringMetalFullBlock(state, properties));
-        RegistryObject<WeatheringMetalFullBlock> chiseled = registerBlock(prefix + "chiseled_" + name, () -> new  WeatheringMetalFullBlock(state, properties));
-        RegistryObject<WeatheringMetalStairBlock> cut_stairs = registerBlock(prefix + "cut_" + name + "_stairs", () -> new  WeatheringMetalStairBlock(state, cut.get().defaultBlockState(), properties));
-        RegistryObject<WeatheringMetalSlabBlock> cut_slab = registerBlock(prefix + "cut_" + name + "_slab", () -> new  WeatheringMetalSlabBlock(state, properties));
-        RegistryObject<WeatheringMetalDoorBlock> door = registerBlock(prefix + name + "_door", () -> new WeatheringMetalDoorBlock(BlockSetType.IRON, state, BlockBehaviour.Properties.copy(block.get()).noOcclusion().pushReaction(PushReaction.DESTROY)));
-        RegistryObject<WeatheringMetalTrapDoorBlock> trapdoor = registerBlock(prefix + name + "_trapdoor", () -> new WeatheringMetalTrapDoorBlock(state, BlockBehaviour.Properties.copy(block.get()).noOcclusion().isValidSpawn((pState, pLevel, pPos, pValue) -> false)));
-        RegistryObject<WeatheringMetalGrateBlock> grate = registerBlock(prefix + name + "_grate", () -> new WeatheringMetalGrateBlock(state, BlockBehaviour.Properties.copy(block.get()).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion().isValidSpawn((pState, pLevel, pPos, pValue) -> false).isRedstoneConductor((pState, pLevel, pPos) -> false).isSuffocating((pState, pLevel, pPos) -> false).isViewBlocking((pState, pLevel, pPos) -> false)));
-        RegistryObject<WeatheringMetalBulbBlock> bulb = registerBlock(prefix + name + "_bulb", () -> new WeatheringMetalBulbBlock(state, BlockBehaviour.Properties.copy(block.get()).sound(SoundType.GLASS).isRedstoneConductor((pState, pLevel, pPos) -> false).lightLevel(value -> value.getValue(WeatheringMetalBulbBlock.LIT) ? state.lightLevel() : 0)));
+        RegistryObject<WeatheringCuprumFullBlock> block = registerBlock(prefix + name + "_block", () -> new WeatheringCuprumFullBlock(state, properties));
+        RegistryObject<WeatheringCuprumFullBlock> cut = registerBlock(prefix + "cut_" + name, () -> new WeatheringCuprumFullBlock(state, properties));
+        RegistryObject<WeatheringCuprumFullBlock> chiseled = registerBlock(prefix + "chiseled_" + name, () -> new WeatheringCuprumFullBlock(state, properties));
+        RegistryObject<WeatheringCuprumStairsBlock> cut_stairs = registerBlock(prefix + "cut_" + name + "_stairs", () -> new WeatheringCuprumStairsBlock(state, cut.get().defaultBlockState(), properties));
+        RegistryObject<WeatheringCuprumSlabBlock> cut_slab = registerBlock(prefix + "cut_" + name + "_slab", () -> new WeatheringCuprumSlabBlock(state, properties));
+        RegistryObject<WeatheringCuprumDoorBlock> door = registerBlock(prefix + name + "_door", () -> new WeatheringCuprumDoorBlock(BlockSetType.IRON, state, BlockBehaviour.Properties.copy(block.get()).noOcclusion().pushReaction(PushReaction.DESTROY)));
+        RegistryObject<WeatheringCuprumTrapdoorBlock> trapdoor = registerBlock(prefix + name + "_trapdoor", () -> new WeatheringCuprumTrapdoorBlock(state, BlockBehaviour.Properties.copy(block.get()).noOcclusion().isValidSpawn((pState, pLevel, pPos, pValue) -> false)));
+        RegistryObject<WeatheringCuprumGrateBlock> grate = registerBlock(prefix + name + "_grate", () -> new WeatheringCuprumGrateBlock(state, BlockBehaviour.Properties.copy(block.get()).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion().isValidSpawn((pState, pLevel, pPos, pValue) -> false).isRedstoneConductor((pState, pLevel, pPos) -> false).isSuffocating((pState, pLevel, pPos) -> false).isViewBlocking((pState, pLevel, pPos) -> false)));
+        RegistryObject<WeatheringCuprumBulbBlock> bulb = registerBlock(prefix + name + "_bulb", () -> new WeatheringCuprumBulbBlock(state, BlockBehaviour.Properties.copy(block.get()).sound(SoundType.GLASS).isRedstoneConductor((pState, pLevel, pPos) -> false).lightLevel(value -> value.getValue(WeatheringCuprumBulbBlock.LIT) ? state.lightLevel() : 0)));
 
         RegistryObject<Block> waxed_block = registerBlock("waxed_" + prefix + name + "_block", () -> new Block(BlockBehaviour.Properties.copy(block.get())));
         RegistryObject<Block> waxed_cut = registerBlock("waxed_" + prefix + "cut_" + name, () -> new Block(BlockBehaviour.Properties.copy(cut.get())));
@@ -441,12 +430,14 @@ public class BlockInit {
         RegistryObject<DoorBlock> waxed_door = registerBlock("waxed_" + prefix + name + "_door", () -> new DoorBlock(BlockBehaviour.Properties.copy(door.get()).noOcclusion().pushReaction(PushReaction.DESTROY), BlockSetType.IRON));
         RegistryObject<TrapDoorBlock> waxed_trapdoor = registerBlock("waxed_" + prefix + name + "_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(trapdoor.get()).noOcclusion().isValidSpawn((pState, pLevel, pPos, pValue) -> false), BlockSetType.IRON));
         RegistryObject<Block> waxed_grate = registerBlock("waxed_" + prefix + name + "_grate", () -> new Block(BlockBehaviour.Properties.copy(grate.get()).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion().isValidSpawn((pState, pLevel, pPos, pValue) -> false).isRedstoneConductor((pState, pLevel, pPos) -> false).isSuffocating((pState, pLevel, pPos) -> false).isViewBlocking((pState, pLevel, pPos) -> false)));
-        RegistryObject<MetalBulbBlock> waxed_bulb = registerBlock("waxed_" + prefix + name + "_bulb", () -> new MetalBulbBlock(BlockBehaviour.Properties.copy(bulb.get()).sound(SoundType.GLASS).isRedstoneConductor((pState, pLevel, pPos) -> false).lightLevel(value -> value.getValue(MetalBulbBlock.LIT) ? state.lightLevel() : 0)));
+        RegistryObject<CuprumBulbBlock> waxed_bulb = registerBlock("waxed_" + prefix + name + "_bulb", () -> new CuprumBulbBlock(BlockBehaviour.Properties.copy(bulb.get()).sound(SoundType.GLASS).isRedstoneConductor((pState, pLevel, pPos) -> false).lightLevel(value -> value.getValue(CuprumBulbBlock.LIT) ? state.lightLevel() : 0)));
 
         return new TrailsGroup(block, cut, chiseled, cut_stairs, cut_slab, door, trapdoor, grate, bulb, waxed_block, waxed_cut, waxed_chiseled, waxed_cut_stairs, waxed_cut_slab, waxed_door, waxed_trapdoor, waxed_grate, waxed_bulb);
     }
 
     public static void init(IEventBus bus) {
+        BlockSetType.register(NYMPH_BLOCK_TYPE);
+        BlockSetType.register(PALM_BLOCK_TYPE);
         BLOCKS.register(bus);
     }
 
@@ -468,28 +459,28 @@ public class BlockInit {
     static {
         Function<DyeColor, Supplier<Block>> blockSupplier = (dyeColor) -> () -> new ColoredShellBlock(BlockBehaviour.Properties.of());
         for (DyeColor color : DyeColor.values()) {
-            COLORED_SHELL_BLOCKS.put(color, registerBlock(color.getSerializedName() + "_colored_shell_block", blockSupplier.apply(color)));
+            COLORED_SHELL_BLOCKS.put(color, registerBlock(color.getSerializedName() + "_shell_block", blockSupplier.apply(color)));
         }
     }
 
     static {
         Function<DyeColor, Supplier<Block>> blockSupplier = (dyeColor) -> () -> new CrackedShellBlock(BlockBehaviour.Properties.of());
         for (DyeColor color : DyeColor.values()) {
-            CRACKED_SHELL_BLOCKS.put(color, registerBlock(color.getSerializedName() + "_colored_shell_cracked", blockSupplier.apply(color)));
+            CRACKED_SHELL_BLOCKS.put(color, registerBlock("cracked_" + color.getSerializedName() + "_shell", blockSupplier.apply(color)));
         }
     }
 
     static {
         Function<DyeColor, Supplier<Block>> blockSupplier = (dyeColor) -> () -> new CrackedShellBlock(BlockBehaviour.Properties.of());
         for (DyeColor color : DyeColor.values()) {
-            CRACKED_MOSSY_SHELL_BLOCKS.put(color, registerBlock(color.getSerializedName() + "_colored_shell_cracked_mossy", blockSupplier.apply(color)));
+            CRACKED_MOSSY_SHELL_BLOCKS.put(color, registerBlock("cracked_mossy_" +color.getSerializedName() + "_shell", blockSupplier.apply(color)));
         }
     }
 
     static {
         Function<DyeColor, Supplier<Block>> blockSupplier = (dyeColor) -> () -> new CrackedShellBlock(BlockBehaviour.Properties.of());
         for (DyeColor color : DyeColor.values()) {
-            MOSSY_SHELL_BLOCKS.put(color, registerBlock(color.getSerializedName() + "_colored_shell_mossy", blockSupplier.apply(color)));
+            MOSSY_SHELL_BLOCKS.put(color, registerBlock("mossy_" +   color.getSerializedName() + "_shell", blockSupplier.apply(color)));
         }
     }
 }

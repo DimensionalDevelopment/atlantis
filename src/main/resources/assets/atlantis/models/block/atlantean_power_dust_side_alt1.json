@@ -1,6 +1,0 @@
-{
-  "parent": "atlantis:block/atlantean_power_dust_side_alt",
-  "textures": {
-    "line": "atlantis:block/atlantean_power_dust_line1"
-  }
-}

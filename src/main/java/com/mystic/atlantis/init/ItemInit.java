@@ -40,30 +40,30 @@ public class ItemInit {
     public static final RegistryObject<Item> ATLANTEAN_SPEAR = register("atlantean_spear", () -> new AtlanteanSpearItem(ToolInit.AQUAMARINE, 5));
 
     //BOATS
-    public static final RegistryObject<Item> ATLANTEAN_BOAT = register("atlantean_boat", () -> new AtlanteanBoatItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> NYMPH_BOAT = register("nymph_boat", () -> new NymphBoatItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> PALM_BOAT = register("palm_boat", () -> new PalmBoatItem(new Item.Properties().stacksTo(1)));
 
     //SPAWN EGGS
-    public static final RegistryObject<Item> ATLANTEAN_CRAB_EGG = register("atlantean_crab_egg",() -> new ForgeSpawnEggItem(AtlantisEntityInit.CRAB, 0x800002, 0xff0f45, new Item.Properties()));
-    public static final RegistryObject<Item> ATLANTEAN_JELLYFISH_EGG = register("atlantean_jellyfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.JELLYFISH, 0x00458a, 0x0582ff, new Item.Properties()));
-    public static final RegistryObject<Item> ATLANTEAN_SHRIMP_EGG = register("atlantean_shrimp_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.SHRIMP, 0xff0000, 0xff8000, new Item.Properties()));
+    public static final RegistryObject<Item> RUBYCLAW_CRAB_EGG = register("rubyclaw_crab_egg",() -> new ForgeSpawnEggItem(AtlantisEntityInit.RUBYCLAW_CRAB, 0x800002, 0xff0f45, new Item.Properties()));
+    public static final RegistryObject<Item> AQUAIEL_JELLYFISH_EGG = register("aquaiel_jellyfishcc_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.AQUAIEL_JELLYFISH, 0x00458a, 0x0582ff, new Item.Properties()));
+    public static final RegistryObject<Item> GLITTERTAIL_SHRIMP_EGG = register("atlantean_shrimp_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.GLITTERTAIL_SHRIMP, 0xff0000, 0xff8000, new Item.Properties()));
     public static final RegistryObject<Item> LEVIATHAN_EGG = register("leviathan_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.LEVIATHAN, 0x01ddddd, 0xaddedb, new Item.Properties()));
-
-    public static final RegistryObject<Item> ATLANTEAN_SEAHORSE_EGG = register("atlantean_seahorse_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.SEAHORSE, 0xf6eb3e, 0xcfc85b, new Item.Properties()));
+    public static final RegistryObject<Item> THALASSIAN_SEAHORSE_EGG = register("thalassian_seahorse_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.THALASSIAN_SEAHORSE, 0xf6eb3e, 0xcfc85b, new Item.Properties()));
 
     public static final RegistryObject<Item> COCONUT_CRAB_EGG = register("coconut_crab_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.COCONUT_CRAB, 0x800002, 0xff0f45, new Item.Properties()));
-    public static final RegistryObject<Item> STARFISH_EGG = register("atlantean_starfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.STARFISH, 0xFFA41D, 0xF6E25F, new Item.Properties()));
-    public static final RegistryObject<Item> STARFISH_ZOM_EGG = register("atlantean_starzomfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.STARFISH_ZOM, 0xFE00F6, 0x00A170, new Item.Properties()));
+    public static final RegistryObject<Item> STARFISH_EGG = register("starfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.STARFISH, 0xFFA41D, 0xF6E25F, new Item.Properties()));
+    public static final RegistryObject<Item> ZOMBIE_STARFISH_EGG = register("zombie_starfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.ZOMBIE_STARFISH, 0xFE00F6, 0x00A170, new Item.Properties()));
+
     //MUSIC DISC
     public static final RegistryObject<Item> PANBEE = register("panbee", () -> new RecordItem(15, AtlantisSoundEventInit.PANBEE, ATLANTIS_SETTINGS, 4040));
     public static final RegistryObject<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new RecordItem(15, AtlantisSoundEventInit.COLUMN, ATLANTIS_SETTINGS, 4420));
 
     //ITEMS
-    public static final RegistryObject<Item> ANCIENT_METAL_INGOT = register("ancient_metal_ingot", DefaultItem::new);
-    public static final RegistryObject<Item> RAW_ANCIENT_METAL_INGOT = register("raw_ancient_metal_ingot", DefaultItem::new);
+    public static final RegistryObject<Item> ANCIENT_CUPRUM_INGOT = register("ancient_cuprum_ingot", DefaultItem::new);
+    public static final RegistryObject<Item> RAW_ANCIENT_CUPRUM = register("raw_ancient_cuprum", DefaultItem::new);
     public static final RegistryObject<Item> BROKEN_SHELLS = register("broken_shells", DefaultItem::new);
     public static final RegistryObject<Item> SODIUM_NUGGET = register("sodium_nugget", () -> new SodiumItem(new Item.Properties()));
-    public static final RegistryObject<Item> SEA_SALT = register("sea_salt", DefaultItem::new);
+    public static final RegistryObject<Item> SEASALT = register("seasalt", DefaultItem::new);
     public static final RegistryObject<Item> FIRE_MELON_JELLY_BOTTLE = register("fire_melon_jelly_bottle", () -> new FireMelonJellyBottle(new Item.Properties()));
     public static final RegistryObject<Item> JELLY_BOTTLE = register("jellyfish_jelly_bottle", () -> new JellyfishJellyBottle(new Item.Properties()));
     public static final RegistryObject<Item> AQUAMARINE_GEM = register("aquamarine_gem", DefaultItem::new);
@@ -77,21 +77,20 @@ public class ItemInit {
     public static final RegistryObject<Item> CRAB_LEGS = register("crab_legs", () -> new CrabLegsItem(new Item.Properties()));
     public static final RegistryObject<Item> SHRIMP = register("shrimp", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(5).saturationMod(0.2f).effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 100), 0.05f).build())));
     public static final RegistryObject<Item> COOKED_SHRIMP = register("cooked_shrimp", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(2).saturationMod(0.4f).build())));
-    public static final RegistryObject<Item> ATLANTEAN_POWER_TORCH = register("atlantean_power_torch", () -> new StandingAndWallBlockItem(BlockInit.ATLANTEAN_POWER_TORCH.get(), BlockInit.WALL_ATLANTEAN_POWER_TORCH.get(), new Item.Properties(), Direction.DOWN));
-    public static final RegistryObject<Item> ATLANTEAN_POWER_DUST = register("atlantean_power_dust",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get(), new Item.Properties()));
-    public static final RegistryObject<Item> ATLANTEAN_STRING = register("atlantean_string",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_TRIPWIRE.get(), (new Item.Properties())));
+    public static final RegistryObject<Item> AQUATIC_POWER_TORCH = register("aquatic_power_torch", () -> new StandingAndWallBlockItem(BlockInit.AQUATIC_POWER_TORCH.get(), BlockInit.WALL_AQUATIC_POWER_TORCH.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> AQUATIC_POWER_DUST = register("aquatic_power_dust",  () -> new ItemNameBlockItem(BlockInit.AQUATIC_POWER_DUST_WIRE.get(), new Item.Properties()));
+    public static final RegistryObject<Item> AQUAIEL_STRING = register("aquaiel_string",  () -> new ItemNameBlockItem(BlockInit.AQUATIC_POWER_TRIPWIRE.get(), (new Item.Properties())));
     public static final RegistryObject<Item> SUBMARINE = register("submarine", () -> new SubmarineItem(new Item.Properties()));
     public static final RegistryObject<Item> WATER_PILL = register("water_pill", WaterPill::new);
-    public static final RegistryObject<Item> ATLANTEAN_SIGN = register("atlantean_sign", () -> new SignItem(new Item.Properties(), BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get()));
-    public static final RegistryObject<Item> PALM_SIGN = register("palm_sign", () -> new SignItem(new Item.Properties(), BlockInit.PALM_SIGNS.get(), BlockInit.PALM_WALL_SIGN.get()));
+    public static final RegistryObject<Item> NYMPH_SIGN = register("nymph_sign", () -> new SignItem(new Item.Properties(), BlockInit.NYMPH_SIGN.get(), BlockInit.NYMPH_WALL_SIGN.get()));
+    public static final RegistryObject<Item> PALM_SIGN = register("palm_sign", () -> new SignItem(new Item.Properties(), BlockInit.PALM_SIGN.get(), BlockInit.PALM_WALL_SIGN.get()));
 
-    public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_FRUIT = register("atlantean_fire_melon_fruit", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(1).build())));
-    public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_FRUIT_SPIKED = register("atlantean_fire_melon_fruit_spiked", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(1).effect(() -> new MobEffectInstance(MobEffects.HARM, 60), 1.0f).build())));
+    public static final RegistryObject<Item> FIRE_MELON_FRUIT = register("fire_melon_fruit", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(1).build())));
+    public static final RegistryObject<Item> FIRE_MELON_FRUIT_SPIKED = register("fire_melon_fruit_spiked", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(1).effect(() -> new MobEffectInstance(MobEffects.HARM, 60), 1.0f).build())));
+    public static final RegistryObject<Item> FIRE_MELON_SEEDS = register("fire_melon_fruit_seeds",  () -> new ItemNameBlockItem(BlockInit.FIRE_MELON_TOP.get(), new Item.Properties()));
+    public static final RegistryObject<Item> FIRE_MELON_SPIKE = register("fire_melon_spike",  DefaultItem::new);
 
-    public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_SEEDS = register("atlantean_fire_melon_fruit_seeds",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_FIRE_MELON_TOP.get(), new Item.Properties()));
-    public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_SPIKE = register("atlantean_fire_melon_spike",  DefaultItem::new);
-
-    public static final RegistryObject<Item> COCONUT_SLICE_ITEM = register("coconut_slice", () -> new CoconutSliceItem(new Item.Properties()));
+    public static final RegistryObject<Item> COCONUT_SLICE = register("coconut_slice", () -> new CoconutSliceItem(new Item.Properties()));
 
     public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL = registerGlyph(LinguisticGlyph.BLANK);
     public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_A = registerGlyph(LinguisticGlyph.A);
@@ -134,25 +133,22 @@ public class ItemInit {
     //Fluid Buckets
     public static final RegistryObject<Item> JETSTREAM_WATER_BUCKET = ITEMS.register("jetstream_water_bucket", () -> new BucketItem(FluidInit.JETSTREAM_WATER,
                     new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
-    public static final RegistryObject<Item> SALTY_SEA_WATER_BUCKET = ITEMS.register("salty_sea_water_bucket",
-            () -> new BucketItem(FluidInit.SALTY_SEA_WATER,
+    public static final RegistryObject<Item> SALTY_SEAWATER_BUCKET = ITEMS.register("salty_seawater_bucket",
+            () -> new BucketItem(FluidInit.SALTY_SEAWATER,
                     new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
-    //public static final RegistryObject<Item> COCONUT_MILK_BUCKET = ITEMS.register("coconut_milk_bucket",
-    //        () -> new BucketItem(FluidInit.COCONUT_MILK,
-    //                new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
     //Entity Buckets
-    public static final RegistryObject<Item> CRAB_BUCKET = register("crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntityInit.CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
-    public static final RegistryObject<Item> JELLYFISH_BUCKET = register("jellyfish_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.JELLYFISH, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
-    public static final RegistryObject<Item> SHRIMP_BUCKET = register("shrimp_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.SHRIMP, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
-    public static final RegistryObject<Item> SEAHORSE_BUCKET = register("seahorse_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.SEAHORSE, ()->Fluids.WATER, ()-> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
+    public static final RegistryObject<Item> RUBYCLAW_CRAB_BUCKET = register("rubyclaw_crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntityInit.RUBYCLAW_CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
+    public static final RegistryObject<Item> AQUAIEL_JELLYFISH_BUCKET = register("aquaiel_jellyfish_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.AQUAIEL_JELLYFISH, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
+    public static final RegistryObject<Item> GLITTERTAIL_SHRIMP_BUCKET = register("glittertail_shrimp_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.GLITTERTAIL_SHRIMP, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
+    public static final RegistryObject<Item> THALASSIAN_SEAHORSE_BUCKET = register("thalassian_seahorse_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.THALASSIAN_SEAHORSE, ()->Fluids.WATER, ()-> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
 
     //TOOLS
-    public static final RegistryObject<Item> AXE_AQUAMARINE = register("axe_aquamarine", () -> new AtlanteanAxe(ToolInit.AQUAMARINE, 3));
-    public static final RegistryObject<Item> PICKAXE_AQUAMARINE = register("pickaxe_aquamarine", () -> new AtlanteanPickaxe(ToolInit.AQUAMARINE, 2));
-    public static final RegistryObject<Item> SHOVEL_AQUAMARINE = register("shovel_aquamarine", () -> new AtlanteanShovel(ToolInit.AQUAMARINE, 1));
-    public static final RegistryObject<Item> HOE_AQUAMARINE = register("hoe_aquamarine", () -> new AtlanteanHoe(ToolInit.AQUAMARINE, 2));
-    public static final RegistryObject<Item> SWORD_AQUAMARINE = register("sword_aquamarine", () -> new AtlanteanSword(ToolInit.AQUAMARINE, 4));
+    public static final RegistryObject<Item> AQUAMARINE_AXE = register("aquamarine_axe", () -> new AtlanteanAxe(ToolInit.AQUAMARINE, 3));
+    public static final RegistryObject<Item> AQUAMARINE_PICKAXE = register("aquamarine_pickaxe", () -> new AtlanteanPickaxe(ToolInit.AQUAMARINE, 2));
+    public static final RegistryObject<Item> AQUAMARINE_SHOVEL = register("aquamarine_shovel", () -> new AtlanteanShovel(ToolInit.AQUAMARINE, 1));
+    public static final RegistryObject<Item> AQUAMARINE_HOE = register("aquamarine_hoe", () -> new AtlanteanHoe(ToolInit.AQUAMARINE, 2));
+    public static final RegistryObject<Item> AQUAMARINE_SWORD = register("aquamarine_sword", () -> new AtlanteanSword(ToolInit.AQUAMARINE, 4));
     public static final RegistryObject<Item> AQUAMARINE_HAMMER = register("aquamarine_hammer", AquamarineHammer::new);
     public static final RegistryObject<Item> ORICHALCUM_AXE = register("orichalcum_axe", () -> new AtlanteanAxe(ToolInit.ORICHALCUM, 3));
     public static final RegistryObject<Item> ORICHALCUM_PICKAXE = register("orichalcum_pickaxe", () -> new AtlanteanPickaxe(ToolInit.ORICHALCUM, 2));

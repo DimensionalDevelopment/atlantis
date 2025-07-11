@@ -54,7 +54,7 @@
           }
         },
         {
-          "biome": "atlantis:jellyfish_fields",
+          "biome": "atlantis:aquariel_jellyfish_fields",
           "parameters": {
             "continentalness": 0.1,
             "depth": 1.0,

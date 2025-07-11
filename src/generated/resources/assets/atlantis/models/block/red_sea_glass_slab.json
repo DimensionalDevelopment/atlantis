@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "atlantis:block/red_sea_glass",
-    "side": "atlantis:block/red_sea_glass",
-    "top": "atlantis:block/red_sea_glass"
-  }
-}

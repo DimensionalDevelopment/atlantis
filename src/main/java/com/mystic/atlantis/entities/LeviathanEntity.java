@@ -260,10 +260,10 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
             }
             else {
                 this.nextScanTick = reducedTickDelay(60);
-                List<JellyfishEntity> list = LeviathanEntity.this.level().getEntitiesOfClass(JellyfishEntity.class, LeviathanEntity.this.getBoundingBox().inflate(16.0D, 64.0D, 16.0D));
+                List<AquaielJellyfishEntity> list = LeviathanEntity.this.level().getEntitiesOfClass(AquaielJellyfishEntity.class, LeviathanEntity.this.getBoundingBox().inflate(16.0D, 64.0D, 16.0D));
                 if (!list.isEmpty()) {
                     list.sort(Comparator.<Entity, Double>comparing(Entity::getY).reversed());
-                    for(JellyfishEntity jellyFish : list) {
+                    for(AquaielJellyfishEntity jellyFish : list) {
                         if (LeviathanEntity.this.canAttack(jellyFish, TargetingConditions.DEFAULT)) {
                             LeviathanEntity.this.setTarget(jellyFish);
                             return true;

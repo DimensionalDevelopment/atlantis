@@ -1,6 +1,6 @@
 package com.mystic.atlantis.items;
 
-import com.mystic.atlantis.entities.AtlanteanBoatEntity;
+import com.mystic.atlantis.entities.NymphBoatEntity;
 import com.mystic.atlantis.entities.PalmBoatEntity;
 import com.mystic.atlantis.init.AtlantisEntityInit;
 import net.minecraft.core.BlockPos;
@@ -27,9 +27,11 @@ import java.util.function.Predicate;
 
 public class PalmBoatItem extends Item {
     private static final Predicate<Entity> RIDERS;
+
     public PalmBoatItem(Properties settings) {
         super(settings);
     }
+
     public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
         ItemStack itemStack = user.getItemInHand(hand);
         HitResult hitResult = getPlayerPOVHitResult(world, user, ClipContext.Fluid.SOURCE_ONLY);
@@ -38,7 +40,7 @@ public class PalmBoatItem extends Item {
         } else if (!(world instanceof ServerLevel)) {
             return InteractionResultHolder.success(itemStack);
         } else {
-            BlockHitResult blockHitResult = (BlockHitResult)hitResult;
+            BlockHitResult blockHitResult = (BlockHitResult) hitResult;
             BlockPos blockPos = blockHitResult.getBlockPos();
             if (!(world.getBlockState(blockPos).getBlock() instanceof LiquidBlock)) {
                 return InteractionResultHolder.pass(itemStack);
@@ -80,30 +82,23 @@ public class PalmBoatItem extends Item {
                 }
             }
 
-            //if (hitResult.getType() == HitResult.Type.BLOCK) {
-            AtlanteanBoatEntity boatEntity = new AtlanteanBoatEntity(AtlantisEntityInit.ATLANTEAN_BOAT.get(), world);
+            PalmBoatEntity boatEntity = new PalmBoatEntity(AtlantisEntityInit.PALM_BOAT.get(), world);
             boatEntity.setPos(hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z);
             boatEntity.setYRot(user.getYRot());
-//                if (!world.isSpaceEmpty(boatEntity, boatEntity.getBoundingBox())) {
-//                    return TypedActionResult.fail(itemStack);
-//                } else
-            {
-                if (!world.isClientSide) {
-                    world.addFreshEntity(boatEntity);
-                    world.gameEvent(user, GameEvent.ENTITY_PLACE, new BlockPos((int) hitResult.getLocation().x, (int) hitResult.getLocation().y, (int) hitResult.getLocation().z));
-                    if (!user.getAbilities().instabuild) {
-                        itemStack.shrink(1);
-                    }
-                }
 
-                user.awardStat(Stats.ITEM_USED.get(this));
-                return InteractionResultHolder.sidedSuccess(itemStack, world.isClientSide());
+            if (!world.isClientSide) {
+                world.addFreshEntity(boatEntity);
+                world.gameEvent(user, GameEvent.ENTITY_PLACE, new BlockPos((int) hitResult.getLocation().x, (int) hitResult.getLocation().y, (int) hitResult.getLocation().z));
+                if (!user.getAbilities().instabuild) {
+                    itemStack.shrink(1);
+                }
             }
-            //} else {
-            //return TypedActionResult.pass(itemStack);
-            //}
+
+            user.awardStat(Stats.ITEM_USED.get(this));
+            return InteractionResultHolder.sidedSuccess(itemStack, world.isClientSide());
         }
     }
+
     static {
         RIDERS = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
     }

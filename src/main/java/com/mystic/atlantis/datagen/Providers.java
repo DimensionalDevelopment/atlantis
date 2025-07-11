@@ -2,13 +2,10 @@ package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.TagsInit;
-import com.mystic.atlantis.biomes.AtlantisBiomeSource;
-import com.mystic.atlantis.blocks.BlockType;
-import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
-import com.mystic.atlantis.blocks.ancient_metal.WeatheringMetal;
+import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
+import com.mystic.atlantis.blocks.ancient_cuprum.WeatheringCuprum;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.*;
-import com.mystic.atlantis.recipes.WritingRecipe;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -19,12 +16,9 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.recipes.*;
-import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
@@ -38,7 +32,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -49,9 +42,7 @@ import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
-import pro.mikey.justhammers.HammerTags;
 
 import java.util.List;
 import java.util.OptionalLong;
@@ -100,16 +91,16 @@ public class Providers {
                     glyphScroll(recipeOutput, result, ingredient);
                 }
 
-                for (WeatheringMetal.WeatherState state : WeatheringMetal.WeatherState.values()) {
-                    var group = BlockInit.ANCIENT_METALS.get(state);
+                for (WeatheringCuprum.WeatherState state : WeatheringCuprum.WeatherState.values()) {
+                    var group = BlockInit.ANCIENT_CUPRUM.get(state);
                     registerGroup(group, recipeOutput);
 
-                    if (WeatheringMetal.WeatherState.UNAFFECTED == group.block().get().getAge()) {
-                        SimpleCookingRecipeBuilder.smelting(Ingredient.of(BlockInit.RAW_ANCIENT_METAL_BLOCK.get()), RecipeCategory.BUILDING_BLOCKS, group.block().get(), 0.7F, 200)
+                    if (WeatheringCuprum.WeatherState.UNAFFECTED == group.block().get().getAge()) {
+                        SimpleCookingRecipeBuilder.smelting(Ingredient.of(BlockInit.RAW_ANCIENT_CUPRUM_BLOCK.get()), RecipeCategory.BUILDING_BLOCKS, group.block().get(), 0.7F, 200)
                                 .unlockedBy(getHasName(group.block().get()), has(group.block().get()))
                                 .save(recipeOutput, Atlantis.id(group.block().get().getDescriptionId().replace("block.atlantis.", "") + "_smelting"));
 
-                        SimpleCookingRecipeBuilder.blasting(Ingredient.of(BlockInit.RAW_ANCIENT_METAL_BLOCK.get()), RecipeCategory.BUILDING_BLOCKS, group.block().get(), 0.7F, 100)
+                        SimpleCookingRecipeBuilder.blasting(Ingredient.of(BlockInit.RAW_ANCIENT_CUPRUM_BLOCK.get()), RecipeCategory.BUILDING_BLOCKS, group.block().get(), 0.7F, 100)
                                 .unlockedBy(getHasName(group.block().get()), has(group.block().get()))
                                 .save(recipeOutput, Atlantis.id(group.block().get().getDescriptionId().replace("block.atlantis.", "") + "_blasting"));
                     }
@@ -117,21 +108,21 @@ public class Providers {
 
                 registerBlockType(recipeOutput);
 
-                SimpleCookingRecipeBuilder.smelting(Ingredient.of(ItemInit.RAW_ANCIENT_METAL_INGOT.get()), RecipeCategory.BUILDING_BLOCKS, ItemInit.ANCIENT_METAL_INGOT.get(), 0.7F, 200)
-                        .unlockedBy(getHasName(ItemInit.RAW_ANCIENT_METAL_INGOT.get()), has(ItemInit.RAW_ANCIENT_METAL_INGOT.get()))
-                        .save(recipeOutput, Atlantis.id(ItemInit.ANCIENT_METAL_INGOT.get().getDescriptionId().replace("item.atlantis.", "") + "_smelting"));
+                SimpleCookingRecipeBuilder.smelting(Ingredient.of(ItemInit.RAW_ANCIENT_CUPRUM.get()), RecipeCategory.BUILDING_BLOCKS, ItemInit.ANCIENT_CUPRUM_INGOT.get(), 0.7F, 200)
+                        .unlockedBy(getHasName(ItemInit.RAW_ANCIENT_CUPRUM.get()), has(ItemInit.RAW_ANCIENT_CUPRUM.get()))
+                        .save(recipeOutput, Atlantis.id(ItemInit.ANCIENT_CUPRUM_INGOT.get().getDescriptionId().replace("item.atlantis.", "") + "_smelting"));
 
-                SimpleCookingRecipeBuilder.blasting(Ingredient.of(ItemInit.RAW_ANCIENT_METAL_INGOT.get()), RecipeCategory.BUILDING_BLOCKS, ItemInit.ANCIENT_METAL_INGOT.get(), 0.7F, 100)
-                        .unlockedBy(getHasName(ItemInit.RAW_ANCIENT_METAL_INGOT.get()), has(ItemInit.RAW_ANCIENT_METAL_INGOT.get()))
-                        .save(recipeOutput, Atlantis.id(ItemInit.ANCIENT_METAL_INGOT.get().getDescriptionId().replace("item.atlantis.", "") + "_blasting"));
+                SimpleCookingRecipeBuilder.blasting(Ingredient.of(ItemInit.RAW_ANCIENT_CUPRUM.get()), RecipeCategory.BUILDING_BLOCKS, ItemInit.ANCIENT_CUPRUM_INGOT.get(), 0.7F, 100)
+                        .unlockedBy(getHasName(ItemInit.RAW_ANCIENT_CUPRUM.get()), has(ItemInit.RAW_ANCIENT_CUPRUM.get()))
+                        .save(recipeOutput, Atlantis.id(ItemInit.ANCIENT_CUPRUM_INGOT.get().getDescriptionId().replace("item.atlantis.", "") + "_blasting"));
 
-                ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BlockInit.RAW_ANCIENT_METAL_BLOCK.get(), 1)
+                ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BlockInit.RAW_ANCIENT_CUPRUM_BLOCK.get(), 1)
                         .pattern("###")
                         .pattern("###")
                         .pattern("###")
-                        .define('#', ItemInit.RAW_ANCIENT_METAL_INGOT.get())
-                        .unlockedBy(getHasName(ItemInit.RAW_ANCIENT_METAL_INGOT.get()), has(ItemInit.RAW_ANCIENT_METAL_INGOT.get()))
-                        .save(recipeOutput, Atlantis.id(BlockInit.RAW_ANCIENT_METAL_BLOCK.get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
+                        .define('#', ItemInit.RAW_ANCIENT_CUPRUM.get())
+                        .unlockedBy(getHasName(ItemInit.RAW_ANCIENT_CUPRUM.get()), has(ItemInit.RAW_ANCIENT_CUPRUM.get()))
+                        .save(recipeOutput, Atlantis.id(BlockInit.RAW_ANCIENT_CUPRUM_BLOCK.get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
             }
 
             private static void registerBlockType(Consumer<FinishedRecipe> recipeOutput) {
@@ -183,7 +174,7 @@ public class Providers {
                         .define('#', group.block().get())
                         .define('X', Items.BLAZE_ROD)
                         .define('R', Items.REDSTONE)
-                        .unlockedBy(getHasName(ItemInit.ANCIENT_METAL_INGOT.get()), has(ItemInit.ANCIENT_METAL_INGOT.get()))
+                        .unlockedBy(getHasName(ItemInit.ANCIENT_CUPRUM_INGOT.get()), has(ItemInit.ANCIENT_CUPRUM_INGOT.get()))
                         .save(recipeOutput, Atlantis.id(group.bulb().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
 
                 ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, group.block().get(), 1)
@@ -191,20 +182,20 @@ public class Providers {
                         .pattern("###")
                         .pattern("###")
                         .define('#', group.block().get())
-                        .unlockedBy(getHasName(ItemInit.ANCIENT_METAL_INGOT.get()), has(ItemInit.ANCIENT_METAL_INGOT.get()))
+                        .unlockedBy(getHasName(ItemInit.ANCIENT_CUPRUM_INGOT.get()), has(ItemInit.ANCIENT_CUPRUM_INGOT.get()))
                         .save(recipeOutput, Atlantis.id(group.block().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
 
                 ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, group.cut().get(), 4)
                         .pattern("##")
                         .pattern("##")
                         .define('#', group.block().get())
-                        .unlockedBy(getHasName(ItemInit.ANCIENT_METAL_INGOT.get()), has(ItemInit.ANCIENT_METAL_INGOT.get()))
+                        .unlockedBy(getHasName(ItemInit.ANCIENT_CUPRUM_INGOT.get()), has(ItemInit.ANCIENT_CUPRUM_INGOT.get()))
                         .save(recipeOutput, Atlantis.id(group.cut().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
 
                 ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, group.cut_slab().get(), 6)
                         .pattern("###")
                         .define('#', group.cut().get())
-                        .unlockedBy(getHasName(ItemInit.ANCIENT_METAL_INGOT.get()), has(ItemInit.ANCIENT_METAL_INGOT.get()))
+                        .unlockedBy(getHasName(ItemInit.ANCIENT_CUPRUM_INGOT.get()), has(ItemInit.ANCIENT_CUPRUM_INGOT.get()))
                         .save(recipeOutput, Atlantis.id(group.cut_slab().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
 
                 ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, group.cut_stairs().get(), 4)
@@ -212,7 +203,7 @@ public class Providers {
                         .pattern("## ")//import pro.mikey.justhammers.HammerTags;
                         .pattern("###")
                         .define('#', group.cut().get())
-                        .unlockedBy(getHasName(ItemInit.ANCIENT_METAL_INGOT.get()), has(ItemInit.ANCIENT_METAL_INGOT.get()))
+                        .unlockedBy(getHasName(ItemInit.ANCIENT_CUPRUM_INGOT.get()), has(ItemInit.ANCIENT_CUPRUM_INGOT.get()))
                         .save(recipeOutput, Atlantis.id(group.cut_stairs().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
 
                 ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, group.chiseled().get(), 1)
@@ -220,22 +211,22 @@ public class Providers {
                         .pattern(" # ")
                         .pattern("   ")
                         .define('#', group.cut_slab().get())
-                        .unlockedBy(getHasName(ItemInit.ANCIENT_METAL_INGOT.get()), has(ItemInit.ANCIENT_METAL_INGOT.get()))
+                        .unlockedBy(getHasName(ItemInit.ANCIENT_CUPRUM_INGOT.get()), has(ItemInit.ANCIENT_CUPRUM_INGOT.get()))
                         .save(recipeOutput, Atlantis.id(group.chiseled().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
 
                 ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, group.door().get(), 3)
                         .pattern("##")
                         .pattern("##")
                         .pattern("##")
-                        .define('#', ItemInit.ANCIENT_METAL_INGOT.get())
-                        .unlockedBy(getHasName(ItemInit.ANCIENT_METAL_INGOT.get()), has(ItemInit.ANCIENT_METAL_INGOT.get()))
+                        .define('#', ItemInit.ANCIENT_CUPRUM_INGOT.get())
+                        .unlockedBy(getHasName(ItemInit.ANCIENT_CUPRUM_INGOT.get()), has(ItemInit.ANCIENT_CUPRUM_INGOT.get()))
                         .save(recipeOutput, Atlantis.id(group.door().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
 
                 ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, group.trapdoor().get(), 2)
                         .pattern("###")
                         .pattern("###")
-                        .define('#', ItemInit.ANCIENT_METAL_INGOT.get())
-                        .unlockedBy(getHasName(ItemInit.ANCIENT_METAL_INGOT.get()), has(ItemInit.ANCIENT_METAL_INGOT.get()))
+                        .define('#', ItemInit.ANCIENT_CUPRUM_INGOT.get())
+                        .unlockedBy(getHasName(ItemInit.ANCIENT_CUPRUM_INGOT.get()), has(ItemInit.ANCIENT_CUPRUM_INGOT.get()))
                         .save(recipeOutput, Atlantis.id(group.trapdoor().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
 
                 ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, group.grate().get(), 3)
@@ -243,7 +234,7 @@ public class Providers {
                         .pattern("# #")
                         .pattern(" # ")
                         .define('#', group.block().get())
-                        .unlockedBy(getHasName(ItemInit.ANCIENT_METAL_INGOT.get()), has(ItemInit.ANCIENT_METAL_INGOT.get()))
+                        .unlockedBy(getHasName(ItemInit.ANCIENT_CUPRUM_INGOT.get()), has(ItemInit.ANCIENT_CUPRUM_INGOT.get()))
                         .save(recipeOutput, Atlantis.id(group.grate().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
 
                 ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, group.waxed_block().get(), 1)
@@ -313,7 +304,7 @@ public class Providers {
         });
 
         LootTableProvider.SubProviderEntry lootTableProvider = new LootTableProvider.SubProviderEntry(() -> p_249643_ -> {
-            for (TrailsGroup group : BlockInit.ANCIENT_METALS.values()) {
+            for (TrailsGroup group : BlockInit.ANCIENT_CUPRUM.values()) {
                 dropSelf(group.block().get(), p_249643_);
                 dropSelf(group.bulb().get(), p_249643_);
                 dropSelf(group.grate().get(), p_249643_);
@@ -344,9 +335,9 @@ public class Providers {
                 dropSelfIfSilkTouched(blockType.wall().get(), p_249643_);
             }
 
-            dropSelf(BlockInit.ANCIENT_METAL_ORE.get(), p_249643_);
-            dropSelf(BlockInit.DEEPSLATE_ANCIENT_METAL_ORE.get(), p_249643_);
-            dropSelf(BlockInit.RAW_ANCIENT_METAL_BLOCK.get(), p_249643_);
+            dropSelf(BlockInit.ANCIENT_CUPRUM_ORE.get(), p_249643_);
+            dropSelf(BlockInit.DEEPSLATE_ANCIENT_CUPRUM_ORE.get(), p_249643_);
+            dropSelf(BlockInit.RAW_ANCIENT_CUPRUM_BLOCK.get(), p_249643_);
         }, LootContextParamSets.BLOCK);
 
 
@@ -377,7 +368,7 @@ public class Providers {
                 tag(BlockTags.ANIMALS_SPAWNABLE_ON).add(BlockInit.SEABED.get());
                 tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.ORICHALCUM_BLOCK.get());
                 tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.ORICHALCUM_BLOCK.get());
-                for (TrailsGroup group : BlockInit.ANCIENT_METALS.values()) {
+                for (TrailsGroup group : BlockInit.ANCIENT_CUPRUM.values()) {
                     tag(BlockTags.MINEABLE_WITH_PICKAXE).add(group.block().get());
                     tag(BlockTags.MINEABLE_WITH_PICKAXE).add(group.bulb().get());
                     tag(BlockTags.MINEABLE_WITH_PICKAXE).add(group.grate().get());
@@ -423,101 +414,196 @@ public class Providers {
                     tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.SEA_GLASS_PATTERNS.get(color).button().get());
                     tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.SEA_GLASS_PATTERNS.get(color).wall().get());
                 }
-                tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.RAW_ANCIENT_METAL_BLOCK.get());
-                tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.RAW_ANCIENT_METAL_BLOCK.get());
-                tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.ANCIENT_METAL_ORE.get());
-                tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.ANCIENT_METAL_ORE.get());
-                tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.DEEPSLATE_ANCIENT_METAL_ORE.get());
-                tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.DEEPSLATE_ANCIENT_METAL_ORE.get());
+                tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.RAW_ANCIENT_CUPRUM_BLOCK.get());
+                tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.RAW_ANCIENT_CUPRUM_BLOCK.get());
+                tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.ANCIENT_CUPRUM_ORE.get());
+                tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.ANCIENT_CUPRUM_ORE.get());
+                tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.DEEPSLATE_ANCIENT_CUPRUM_ORE.get());
+                tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.DEEPSLATE_ANCIENT_CUPRUM_ORE.get());
                 tag(BlockTags.MINEABLE_WITH_AXE).add(
-                        BlockInit.PALM_BUTTON.get(),
-                        BlockInit.PALM_DOOR.get(),
-                        BlockInit.PALM_FENCE.get(),
-                        BlockInit.PALM_FENCE_GATE.get(),
-                        BlockInit.PALM_PRESSURE_PLATE.get(),
-                        BlockInit.PALM_SIGNS.get(),
-                        BlockInit.PALM_SLAB.get(),
-                        BlockInit.PALM_STAIRS.get(),
-                        BlockInit.PALM_TRAPDOOR.get(),
+                        BlockInit.NYMPH_PLANKS.block().get(),
+                        BlockInit.NYMPH_PLANKS.slab().get(),
+                        BlockInit.NYMPH_PLANKS.fence().get(),
+                        BlockInit.NYMPH_PLANKS.fenceGate().get(),
+                        BlockInit.NYMPH_PLANKS.stairs().get(),
+                        BlockInit.NYMPH_PLANKS.door().get(),
+                        BlockInit.NYMPH_PLANKS.trapDoor().get(),
+                        BlockInit.NYMPH_PLANKS.button().get(),
+                        BlockInit.NYMPH_PLANKS.pressurePlate().get(),
+
+                        BlockInit.PALM_PLANKS.block().get(),
+                        BlockInit.PALM_PLANKS.slab().get(),
+                        BlockInit.PALM_PLANKS.fence().get(),
+                        BlockInit.PALM_PLANKS.fenceGate().get(),
+                        BlockInit.PALM_PLANKS.stairs().get(),
+                        BlockInit.PALM_PLANKS.door().get(),
+                        BlockInit.PALM_PLANKS.trapDoor().get(),
+
+                        BlockInit.ANCIENT_CHERRY.button().get(),
+                        BlockInit.ANCIENT_CHERRY.pressurePlate().get(),
+                        BlockInit.ANCIENT_CHERRY.block().get(),
+                        BlockInit.ANCIENT_CHERRY.slab().get(),
+                        BlockInit.ANCIENT_CHERRY.fence().get(),
+                        BlockInit.ANCIENT_CHERRY.fenceGate().get(),
+                        BlockInit.ANCIENT_CHERRY.stairs().get(),
+                        BlockInit.ANCIENT_CHERRY.door().get(),
+                        BlockInit.ANCIENT_CHERRY.trapDoor().get(),
+                        BlockInit.ANCIENT_CHERRY.button().get(),
+                        BlockInit.ANCIENT_CHERRY.pressurePlate().get(),
+
+                        BlockInit.ANCIENT_OAK.button().get(),
+                        BlockInit.ANCIENT_OAK.pressurePlate().get(),
+                        BlockInit.ANCIENT_OAK.block().get(),
+                        BlockInit.ANCIENT_OAK.slab().get(),
+                        BlockInit.ANCIENT_OAK.fence().get(),
+                        BlockInit.ANCIENT_OAK.fenceGate().get(),
+                        BlockInit.ANCIENT_OAK.stairs().get(),
+                        BlockInit.ANCIENT_OAK.door().get(),
+                        BlockInit.ANCIENT_OAK.trapDoor().get(),
+                        BlockInit.ANCIENT_OAK.button().get(),
+                        BlockInit.ANCIENT_OAK.pressurePlate().get(),
+
+                        BlockInit.ANCIENT_DARK_OAK.button().get(),
+                        BlockInit.ANCIENT_DARK_OAK.pressurePlate().get(),
+                        BlockInit.ANCIENT_DARK_OAK.block().get(),
+                        BlockInit.ANCIENT_DARK_OAK.slab().get(),
+                        BlockInit.ANCIENT_DARK_OAK.fence().get(),
+                        BlockInit.ANCIENT_DARK_OAK.fenceGate().get(),
+                        BlockInit.ANCIENT_DARK_OAK.stairs().get(),
+                        BlockInit.ANCIENT_DARK_OAK.door().get(),
+                        BlockInit.ANCIENT_DARK_OAK.trapDoor().get(),
+                        BlockInit.ANCIENT_DARK_OAK.button().get(),
+                        BlockInit.ANCIENT_DARK_OAK.pressurePlate().get(),
+
+                        BlockInit.ANCIENT_SPRUCE.button().get(),
+                        BlockInit.ANCIENT_SPRUCE.pressurePlate().get(),
+                        BlockInit.ANCIENT_SPRUCE.block().get(),
+                        BlockInit.ANCIENT_SPRUCE.slab().get(),
+                        BlockInit.ANCIENT_SPRUCE.fence().get(),
+                        BlockInit.ANCIENT_SPRUCE.fenceGate().get(),
+                        BlockInit.ANCIENT_SPRUCE.stairs().get(),
+                        BlockInit.ANCIENT_SPRUCE.door().get(),
+                        BlockInit.ANCIENT_SPRUCE.trapDoor().get(),
+                        BlockInit.ANCIENT_SPRUCE.button().get(),
+                        BlockInit.ANCIENT_SPRUCE.pressurePlate().get(),
+
+                        BlockInit.ANCIENT_ACACIA.button().get(),
+                        BlockInit.ANCIENT_ACACIA.pressurePlate().get(),
+                        BlockInit.ANCIENT_ACACIA.block().get(),
+                        BlockInit.ANCIENT_ACACIA.slab().get(),
+                        BlockInit.ANCIENT_ACACIA.fence().get(),
+                        BlockInit.ANCIENT_ACACIA.fenceGate().get(),
+                        BlockInit.ANCIENT_ACACIA.stairs().get(),
+                        BlockInit.ANCIENT_ACACIA.door().get(),
+                        BlockInit.ANCIENT_ACACIA.trapDoor().get(),
+                        BlockInit.ANCIENT_ACACIA.button().get(),
+                        BlockInit.ANCIENT_ACACIA.pressurePlate().get(),
+
+                        BlockInit.ANCIENT_BIRCH.button().get(),
+                        BlockInit.ANCIENT_BIRCH.pressurePlate().get(),
+                        BlockInit.ANCIENT_BIRCH.block().get(),
+                        BlockInit.ANCIENT_BIRCH.slab().get(),
+                        BlockInit.ANCIENT_BIRCH.fence().get(),
+                        BlockInit.ANCIENT_BIRCH.fenceGate().get(),
+                        BlockInit.ANCIENT_BIRCH.stairs().get(),
+                        BlockInit.ANCIENT_BIRCH.door().get(),
+                        BlockInit.ANCIENT_BIRCH.trapDoor().get(),
+                        BlockInit.ANCIENT_BIRCH.button().get(),
+                        BlockInit.ANCIENT_BIRCH.pressurePlate().get(),
+
+                        BlockInit.ANCIENT_JUNGLE.button().get(),
+                        BlockInit.ANCIENT_JUNGLE.pressurePlate().get(),
+                        BlockInit.ANCIENT_JUNGLE.block().get(),
+                        BlockInit.ANCIENT_JUNGLE.slab().get(),
+                        BlockInit.ANCIENT_JUNGLE.fence().get(),
+                        BlockInit.ANCIENT_JUNGLE.fenceGate().get(),
+                        BlockInit.ANCIENT_JUNGLE.stairs().get(),
+                        BlockInit.ANCIENT_JUNGLE.door().get(),
+                        BlockInit.ANCIENT_JUNGLE.trapDoor().get(),
+                        BlockInit.ANCIENT_JUNGLE.button().get(),
+                        BlockInit.ANCIENT_JUNGLE.pressurePlate().get(),
+
+                        BlockInit.ANCIENT_BAMBOO.button().get(),
+                        BlockInit.ANCIENT_BAMBOO.pressurePlate().get(),
+                        BlockInit.ANCIENT_BAMBOO.block().get(),
+                        BlockInit.ANCIENT_BAMBOO.slab().get(),
+                        BlockInit.ANCIENT_BAMBOO.fence().get(),
+                        BlockInit.ANCIENT_BAMBOO.fenceGate().get(),
+                        BlockInit.ANCIENT_BAMBOO.stairs().get(),
+                        BlockInit.ANCIENT_BAMBOO.door().get(),
+                        BlockInit.ANCIENT_BAMBOO.trapDoor().get(),
+                        BlockInit.ANCIENT_BAMBOO.button().get(),
+                        BlockInit.ANCIENT_BAMBOO.pressurePlate().get(),
+
+                        BlockInit.ANCIENT_MANGROVE.button().get(),
+                        BlockInit.ANCIENT_MANGROVE.pressurePlate().get(),
+                        BlockInit.ANCIENT_MANGROVE.block().get(),
+                        BlockInit.ANCIENT_MANGROVE.slab().get(),
+                        BlockInit.ANCIENT_MANGROVE.fence().get(),
+                        BlockInit.ANCIENT_MANGROVE.fenceGate().get(),
+                        BlockInit.ANCIENT_MANGROVE.stairs().get(),
+                        BlockInit.ANCIENT_MANGROVE.door().get(),
+                        BlockInit.ANCIENT_MANGROVE.trapDoor().get(),
+                        BlockInit.ANCIENT_MANGROVE.button().get(),
+                        BlockInit.ANCIENT_MANGROVE.pressurePlate().get(),
+
+                        BlockInit.ANCIENT_CRIMSON.button().get(),
+                        BlockInit.ANCIENT_CRIMSON.pressurePlate().get(),
+                        BlockInit.ANCIENT_CRIMSON.block().get(),
+                        BlockInit.ANCIENT_CRIMSON.slab().get(),
+                        BlockInit.ANCIENT_CRIMSON.fence().get(),
+                        BlockInit.ANCIENT_CRIMSON.fenceGate().get(),
+                        BlockInit.ANCIENT_CRIMSON.stairs().get(),
+                        BlockInit.ANCIENT_CRIMSON.door().get(),
+                        BlockInit.ANCIENT_CRIMSON.trapDoor().get(),
+                        BlockInit.ANCIENT_CRIMSON.button().get(),
+                        BlockInit.ANCIENT_CRIMSON.pressurePlate().get(),
+
+                        BlockInit.ANCIENT_WARPED.button().get(),
+                        BlockInit.ANCIENT_WARPED.pressurePlate().get(),
+                        BlockInit.ANCIENT_WARPED.block().get(),
+                        BlockInit.ANCIENT_WARPED.slab().get(),
+                        BlockInit.ANCIENT_WARPED.fence().get(),
+                        BlockInit.ANCIENT_WARPED.fenceGate().get(),
+                        BlockInit.ANCIENT_WARPED.stairs().get(),
+                        BlockInit.ANCIENT_WARPED.door().get(),
+                        BlockInit.ANCIENT_WARPED.trapDoor().get(),
+                        BlockInit.ANCIENT_WARPED.button().get(),
+                        BlockInit.ANCIENT_WARPED.pressurePlate().get(),
+
+                        BlockInit.PALM_SIGN.get(),
                         BlockInit.PALM_WALL_SIGN.get(),
-                        BlockInit.PALM_PLANKS.get(),
                         BlockInit.STRIPPED_PALM_LOG.get(),
-                        BlockInit.STRIPPED_ATLANTEAN_LOG.get(),
+                        BlockInit.STRIPPED_NYMPH_LOG.get(),
                         BlockInit.COCONUT_SLICE.get(),
                         BlockInit.SATIRE_LANTERN.get(),
                         BlockInit.CARVED_COCONUT.get(),
                         BlockInit.COCONUT.get(),
                         BlockInit.PALM_LOG.get(),
-                        BlockInit.ATLANTEAN_BUTTON.get(),
-                        BlockInit.ATLANTEAN_DOOR.get(),
-                        BlockInit.ATLANTEAN_FENCE.get(),
-                        BlockInit.ATLANTEAN_FENCE_GATE.get(),
-                        BlockInit.ATLANTEAN_PLANKS.get(),
-                        BlockInit.ATLANTEAN_PRESSURE_PLATE.get(),
-                        BlockInit.ATLANTEAN_SIGNS.get(),
-                        BlockInit.ATLANTEAN_SLAB.get(),
-                        BlockInit.ATLANTEAN_STAIRS.get(),
-                        BlockInit.ATLANTEAN_TRAPDOOR.get(),
-                        BlockInit.ATLANTEAN_WALL_SIGN.get(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR.get(),
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_TRAPDOOR.get(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR.get(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_TRAPDOOR.get(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS_TRAPDOOR.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_TRAPDOOR.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_TRAPDOOR.get(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_STAIRS.get(),
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_STAIRS.get(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_STAIRS.get(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_STAIRS.get(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS_STAIRS.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_STAIRS.get(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_DOOR.get(),
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_DOOR.get(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_DOOR.get(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_DOOR.get(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS_DOOR.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_DOOR.get(),
-                        BlockInit.ATLANTEAN_LOGS.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS.get(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS.get(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS.get(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS.get(),
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS.get(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_SLAB.get(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS_SLAB.get(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_SLAB.get(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_SLAB.get(),
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_SLAB.get(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_SLAB.get()
+                        BlockInit.NYMPH_SIGN.get(),
+                        BlockInit.NYMPH_WALL_SIGN.get(),
+                        BlockInit.NYMPH_LOG.get()
                 );
 
                 tag(BlockTags.MINEABLE_WITH_HOE).add(
-                        BlockInit.ATLANTEAN_LEAVES.get(),
+                        BlockInit.NYMPH_LEAVES.get(),
                         BlockInit.PALM_LEAVES.get(),
-                        BlockInit.UNDERWATER_FLOWER.get(),
-                        BlockInit.RED_UNDERWATER_FLOWER.get(),
-                        BlockInit.PURPLE_GLOWING_MUSHROOM.get(),
-                        BlockInit.YELLOW_GLOWING_MUSHROOM.get(),
-                        BlockInit.YELLOW_UNDERWATER_FLOWER.get(),
+                        BlockInit.SEABLOOM.get(),
+                        BlockInit.RED_SEABLOOM.get(),
+                        BlockInit.PURPLE_SEASHROOM.get(),
+                        BlockInit.YELLOW_SEASHROOM.get(),
+                        BlockInit.YELLOW_SEABLOOM.get(),
                         BlockInit.ALGAE.get(),
-                        BlockInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get(),
-                        BlockInit.ATLANTEAN_FIRE_MELON_FRUIT.get(),
-                        BlockInit.ATLANTEAN_FIRE_MELON_STEM.get(),
-                        BlockInit.ATLANTEAN_FIRE_MELON_TOP.get(),
-                        BlockInit.ATLANTEAN_SAPLING.get(),
-                        BlockInit.UNDERWATER_SHROOM_BLOCK.get(),
-                        BlockInit.TUBER_UP_BLOCK.get(),
-                        BlockInit.BLUE_LILY_BLOCK.get(),
-                        BlockInit.BURNT_DEEP_BLOCK.get(),
-                        BlockInit.ANEMONE_BLOCK.get(),
+                        BlockInit.FIRE_MELON_FRUIT_SPIKED.get(),
+                        BlockInit.FIRE_MELON_FRUIT.get(),
+                        BlockInit.FIRE_MELON_STEM.get(),
+                        BlockInit.FIRE_MELON_TOP.get(),
+                        BlockInit.NYMPH_SAPLING.get(),
+                        BlockInit.SEASHROOM.get(),
+                        BlockInit.TUBER_UP.get(),
+                        BlockInit.BLUE_LILY.get(),
+                        BlockInit.BURNT_DEEP.get(),
+                        BlockInit.ANEMONE.get(),
                         BlockInit.ALGAE_BLOCK.get()
                 );
 
@@ -525,24 +611,29 @@ public class Providers {
 
                 tag(BlockTags.LEAVES).add(
                         BlockInit.PALM_LEAVES.get(),
-                        BlockInit.ATLANTEAN_LEAVES.get()
+                        BlockInit.NYMPH_LEAVES.get()
                 );
 
                 tag(BlockTags.LOGS).add(
-                        BlockInit.ATLANTEAN_LOGS.get(),
+                        BlockInit.NYMPH_LOG.get(),
                         BlockInit.PALM_LOG.get(),
                         BlockInit.STRIPPED_PALM_LOG.get(),
-                        BlockInit.STRIPPED_ATLANTEAN_LOG.get()
+                        BlockInit.STRIPPED_NYMPH_LOG.get()
                 );
 
                 tag(BlockTags.WOODEN_FENCES).add(
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ATLANTEAN_FENCE.get()
+                        BlockInit.ANCIENT_BIRCH.fence().get(),
+                        BlockInit.ANCIENT_ACACIA.fence().get(),
+                        BlockInit.ANCIENT_JUNGLE.fence().get(),
+                        BlockInit.ANCIENT_OAK.fence().get(),
+                        BlockInit.ANCIENT_DARK_OAK.fence().get(),
+                        BlockInit.ANCIENT_SPRUCE.fence().get(),
+                        BlockInit.ANCIENT_MANGROVE.fence().get(),
+                        BlockInit.ANCIENT_BAMBOO.fence().get(),
+                        BlockInit.ANCIENT_CHERRY.fence().get(),
+                        BlockInit.ANCIENT_CRIMSON.fence().get(),
+                        BlockInit.ANCIENT_WARPED.fence().get(),
+                        BlockInit.NYMPH_PLANKS.fence().get()
                 );
             }
         };
@@ -552,8 +643,8 @@ public class Providers {
             protected void addTags(HolderLookup.@NotNull Provider provider) {
                 tag(FluidTags.WATER).add(
                         FluidInit.JETSTREAM_WATER.get(),
-                        FluidInit.SALTY_SEA_WATER.get(),
-                        FluidInit.FLOWING_SALTY_SEA_WATER.get(),
+                        FluidInit.SALTY_SEAWATER.get(),
+                        FluidInit.FLOWING_SALTY_SEAWATER.get(),
                         FluidInit.FLOWING_JETSTREAM_WATER.get()
                 );
             }
@@ -568,26 +659,14 @@ public class Providers {
             protected void addTags(HolderLookup.@NotNull Provider pProvider) {
                 TagAppender<Item> tag = tag(TagsInit.Item.CAN_ITEM_SINK);
                 tag(ItemTags.LOGS_THAT_BURN).add(
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS.get().asItem(),
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS.get().asItem(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS.get().asItem(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS.get().asItem(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS.get().asItem(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS.get().asItem(),
-                        BlockInit.ATLANTEAN_LOGS.get().asItem(),
-                        BlockInit.STRIPPED_ATLANTEAN_LOG.get().asItem(),
+                        BlockInit.NYMPH_LOG.get().asItem(),
+                        BlockInit.STRIPPED_NYMPH_LOG.get().asItem(),
                         BlockInit.PALM_LOG.get().asItem(),
                         BlockInit.STRIPPED_PALM_LOG.get().asItem()
                 );
                 tag(ItemTags.LOGS).add(
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS.get().asItem(),
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS.get().asItem(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS.get().asItem(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS.get().asItem(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS.get().asItem(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS.get().asItem(),
-                        BlockInit.ATLANTEAN_LOGS.get().asItem(),
-                        BlockInit.STRIPPED_ATLANTEAN_LOG.get().asItem(),
+                        BlockInit.NYMPH_LOG.get().asItem(),
+                        BlockInit.STRIPPED_NYMPH_LOG.get().asItem(),
                         BlockInit.PALM_LOG.get().asItem(),
                         BlockInit.STRIPPED_PALM_LOG.get().asItem()
                 );

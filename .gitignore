@@ -26,3 +26,4 @@ runs
 forge*changelog.txt
 
 .vscode/
+/src/generated/resources/.cache/

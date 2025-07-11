@@ -1,10 +1,10 @@
 package com.mystic.atlantis.blocks.blockentities.plants;
 
-import com.mystic.atlantis.init.TileEntityInit;
+import com.mystic.atlantis.init.BlockEntityInit;
 
-public class BlueLilyBlock extends GeneralPlantBlock<BlueLilyTileEntity> {
+public class BlueLilyBlock extends GeneralPlantBlock<BlueLilyBlockEntity> {
 
 	public BlueLilyBlock() {
-		super(TileEntityInit.BLUE_LILY_TILE);
+		super(BlockEntityInit.BLUE_LILY);
 	}
 }

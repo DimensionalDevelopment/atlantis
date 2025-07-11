@@ -3,7 +3,7 @@ package com.mystic.atlantis.setup;
 import com.google.common.collect.ArrayListMultimap;
 import com.mystic.atlantis.AtlantisDimensionalEffect;
 import com.mystic.atlantis.blocks.BlockType;
-import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
+import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
 import com.mystic.atlantis.blocks.blockentities.plants.GeneralPlantBlockEntity;
 import com.mystic.atlantis.blocks.blockentities.renderers.*;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
@@ -42,7 +42,6 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import static com.mystic.atlantis.init.BlockInit.*;
-import static com.mystic.atlantis.init.BlockInit.ANEMONE_BLOCK;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetup {
@@ -52,21 +51,14 @@ public class ClientSetup {
         ItemBlockRenderTypes.setRenderLayer(FluidInit.JETSTREAM_WATER.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_JETSTREAM_WATER.get(), RenderType.translucent());
 
-        ItemBlockRenderTypes.setRenderLayer(FluidInit.SALTY_SEA_WATER.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_SALTY_SEA_WATER.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(FluidInit.SALTY_SEAWATER.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_SALTY_SEAWATER.get(), RenderType.translucent());
 
-        //ItemBlockRenderTypes.setRenderLayer(FluidInit.COCONUT_MILK.get(), RenderType.translucent());
-        //ItemBlockRenderTypes.setRenderLayer(FluidInit.FLOWING_COCONUT_MILK.get(), RenderType.translucent());
-
-        registerPlantRenderer(TileEntityInit.UNDERWATER_SHROOM_TILE, "underwater_shroom");
-
-        registerPlantRenderer(TileEntityInit.TUBER_UP_TILE, "tuber_up");
-
-        registerPlantRenderer(TileEntityInit.BLUE_LILY_TILE, "blue_lily");
-
-        registerPlantRenderer(TileEntityInit.BURNT_DEEP_TILE, "burnt_deep");
-
-        registerPlantRenderer(TileEntityInit.ANEMONE_TILE, "anemone");
+        registerPlantRenderer(BlockEntityInit.SEASHROOM, "seashroom");
+        registerPlantRenderer(BlockEntityInit.TUBER_UP, "tuber_up");
+        registerPlantRenderer(BlockEntityInit.BLUE_LILY, "blue_lily");
+        registerPlantRenderer(BlockEntityInit.BURNT_DEEP, "burnt_deep");
+        registerPlantRenderer(BlockEntityInit.ANEMONE, "anemone");
 
         for (DyeColor dyeColor : DyeColor.values()) {
             registerBlockRenderLayers(RenderType.cutoutMipped(),
@@ -74,7 +66,7 @@ public class ClientSetup {
                     CRACKED_MOSSY_SHELL_BLOCKS.get(dyeColor).get());
         }
 
-        for(TrailsGroup group : ANCIENT_METALS.values()) {
+        for(TrailsGroup group : ANCIENT_CUPRUM.values()) {
             registerBlockRenderLayers(RenderType.cutoutMipped(), group.grate().get(), group.waxed_grate().get());
         }
 
@@ -84,7 +76,7 @@ public class ClientSetup {
                     CRACKED_MOSSY_SHELL_BLOCKS.get(dyeColor).get());
         }
 
-        for (TrailsGroup group : ANCIENT_METALS.values()) {
+        for (TrailsGroup group : ANCIENT_CUPRUM.values()) {
             registerBlockRenderLayers(RenderType.cutoutMipped(),
                     group.grate().get());
         }
@@ -110,44 +102,54 @@ public class ClientSetup {
         }
 
         registerBlockRenderLayers(RenderType.cutout(),
-                BLUE_LILY_BLOCK.get(),
-                BURNT_DEEP_BLOCK.get(),
-                ANEMONE_BLOCK.get(),
-                TUBER_UP_BLOCK.get(),
-                UNDERWATER_SHROOM_BLOCK.get(),
-                ATLANTEAN_FIRE_MELON_FRUIT.get(),
-                ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get(),
-                ATLANTEAN_FIRE_MELON_STEM.get(),
-                ATLANTEAN_FIRE_MELON_TOP.get(),
-                ATLANTEAN_DOOR.get(),
-                ATLANTEAN_TRAPDOOR.get(),
-                ATLANTEAN_SAPLING.get(),
-                ATLANTEAN_PALM_SAPLING.get(),
-                UNDERWATER_FLOWER.get(),
+                BLUE_LILY.get(),
+                BURNT_DEEP.get(),
+                ANEMONE.get(),
+                TUBER_UP.get(),
+                SEASHROOM.get(),
+                FIRE_MELON_FRUIT.get(),
+                FIRE_MELON_FRUIT_SPIKED.get(),
+                FIRE_MELON_STEM.get(),
+                FIRE_MELON_TOP.get(),
+                NYMPH_PLANKS.door().get(),
+                NYMPH_PLANKS.trapDoor().get(),
+                NYMPH_SAPLING.get(),
+                PALM_SAPLING.get(),
+                SEABLOOM.get(),
                 ALGAE.get(),
-                ATLANTEAN_POWER_TORCH.get(),
-                WALL_ATLANTEAN_POWER_TORCH.get(),
-                ATLANTEAN_POWER_DUST_WIRE.get(),
-                ATLANTEAN_POWER_REPEATER.get(),
-                ATLANTEAN_TRIPWIRE.get(),
-                ATLANTEAN_TRIPWIRE_HOOK.get(),
-                YELLOW_UNDERWATER_FLOWER.get(),
-                RED_UNDERWATER_FLOWER.get(),
-                ATLANTEAN_POWER_COMPARATOR.get(),
-                ANCIENT_ACACIA_WOOD_MOSS_DOOR.get(),
-                ANCIENT_BIRCH_WOOD_MOSS_DOOR.get(),
-                ANCIENT_DARK_OAK_WOOD_MOSS_DOOR.get(),
-                ANCIENT_JUNGLE_WOOD_MOSS_DOOR.get(),
-                ANCIENT_OAK_WOOD_MOSS_DOOR.get(),
-                ANCIENT_SPRUCE_WOOD_MOSS_DOOR.get(),
-                ANCIENT_ACACIA_WOOD_MOSS_TRAPDOOR.get(),
-                ANCIENT_BIRCH_WOOD_MOSS_TRAPDOOR.get(),
-                ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR.get(),
-                ANCIENT_JUNGLE_WOOD_MOSS_TRAPDOOR.get(),
-                ANCIENT_OAK_WOOD_MOSS_TRAPDOOR.get(),
-                ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR.get(),
-                PURPLE_GLOWING_MUSHROOM.get(),
-                YELLOW_GLOWING_MUSHROOM.get());
+                AQUATIC_POWER_TORCH.get(),
+                WALL_AQUATIC_POWER_TORCH.get(),
+                AQUATIC_POWER_DUST_WIRE.get(),
+                AQUATIC_POWER_REPEATER.get(),
+                AQUATIC_POWER_TRIPWIRE.get(),
+                AQUATIC_POWER_TRIPWIRE_HOOK.get(),
+                YELLOW_SEABLOOM.get(),
+                RED_SEABLOOM.get(),
+                AQUATIC_POWER_COMPARATOR.get(),
+                ANCIENT_ACACIA.door().get(),
+                ANCIENT_BIRCH.door().get(),
+                ANCIENT_DARK_OAK.door().get(),
+                ANCIENT_JUNGLE.door().get(),
+                ANCIENT_OAK.door().get(),
+                ANCIENT_SPRUCE.door().get(),
+                ANCIENT_BAMBOO.door().get(),
+                ANCIENT_MANGROVE.door().get(),
+                ANCIENT_CHERRY.door().get(),
+                ANCIENT_WARPED.door().get(),
+                ANCIENT_CRIMSON.door().get(),
+                ANCIENT_ACACIA.trapDoor().get(),
+                ANCIENT_BIRCH.trapDoor().get(),
+                ANCIENT_DARK_OAK.trapDoor().get(),
+                ANCIENT_JUNGLE.trapDoor().get(),
+                ANCIENT_OAK.trapDoor().get(),
+                ANCIENT_SPRUCE.trapDoor().get(),
+                ANCIENT_BAMBOO.trapDoor().get(),
+                ANCIENT_MANGROVE.trapDoor().get(),
+                ANCIENT_CHERRY.trapDoor().get(),
+                ANCIENT_WARPED.trapDoor().get(),
+                ANCIENT_CRIMSON.trapDoor().get(),
+                PURPLE_SEASHROOM.get(),
+                YELLOW_SEASHROOM.get());
         registerBlockRenderLayers(RenderType.translucent(),
                 BLACK_PEARL_BLOCK.get(),
                 GRAY_PEARL_BLOCK.get(),
@@ -165,10 +167,10 @@ public class ClientSetup {
                 MAGENTA_PEARL_BLOCK.get(),
                 CYAN_PEARL_BLOCK.get(),
                 BROWN_PEARL_BLOCK.get(),
-                ATLANTIS_CLEAR_PORTAL.get());
+                ATLANTEAN_PORTAL.get());
         registerBlockRenderLayers(RenderType.cutoutMipped(),
                 PALM_LEAVES.get(),
-                ATLANTEAN_LEAVES.get());
+                NYMPH_LEAVES.get());
     }
 
     private static <T extends GeneralPlantBlockEntity<T>> void registerPlantRenderer(RegistryObject<BlockEntityType<T>> registryObject, String name) {
@@ -182,26 +184,26 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void entityRegisterEvent(EntityRenderersEvent.RegisterRenderers bus) {
-        bus.registerEntityRenderer(AtlantisEntityInit.CRAB.get(), entityRenderDispatcher -> new CrabEntityRenderer(entityRenderDispatcher, new CrabEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.RUBYCLAW_CRAB.get(), entityRenderDispatcher -> new RubyclawCrabEntityRenderer(entityRenderDispatcher, new RubyclawCrabEntityModel()));
         bus.registerEntityRenderer(AtlantisEntityInit.COCONUT_CRAB.get(), entityRenderDispatcher -> new CoconutCrabEntityRenderer(entityRenderDispatcher, new CoconutCrabEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntityInit.JELLYFISH.get(), entityRenderDispatcher -> new JellyfishEntityRenderer(entityRenderDispatcher, new JellyfishEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntityInit.SHRIMP.get(), entityRenderDispatcher -> new ShrimpEntityRenderer(entityRenderDispatcher, new ShrimpEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.AQUAIEL_JELLYFISH.get(), entityRenderDispatcher -> new AquaielJellyfishEntityRenderer(entityRenderDispatcher, new AquaielJellyfishEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.GLITTERTAIL_SHRIMP.get(), entityRenderDispatcher -> new GlittertailShrimpEntityRenderer(entityRenderDispatcher, new GlittertailShrimpEntityModel()));
         bus.registerEntityRenderer(AtlantisEntityInit.SUBMARINE.get(), SubmarineEntityRenderer::new);
-        bus.registerEntityRenderer(AtlantisEntityInit.ATLANTEAN_BOAT.get(), AtlanteanBoatRenderer::new);
+        bus.registerEntityRenderer(AtlantisEntityInit.NYMPH_BOAT.get(), NymphBoatRenderer::new);
         bus.registerEntityRenderer(AtlantisEntityInit.PALM_BOAT.get(), PalmBoatRenderer::new);
         bus.registerEntityRenderer(AtlantisEntityInit.LEVIATHAN.get(), entityRenderDispatcher -> new LeviathanEntityRenderer(entityRenderDispatcher, new LeviathanEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntityInit.SEAHORSE.get(), entityRenderDispatcher -> new SeahorseEntityRenderer(entityRenderDispatcher, new SeahorseEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.THALASSIAN_SEAHORSE.get(), entityRenderDispatcher -> new ThalassianSeahorseEntityRenderer(entityRenderDispatcher, new ThalassianSeahorseEntityModel()));
         bus.registerEntityRenderer(AtlantisEntityInit.STARFISH.get(), entityRenderDispatcher -> new StarfishEntityRenderer(entityRenderDispatcher, new StarfishEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntityInit.STARFISH_ZOM.get(), entityRenderDispatcher -> new StarfishZomEntityRenderer(entityRenderDispatcher, new StarfishZomEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.ZOMBIE_STARFISH.get(), entityRenderDispatcher -> new ZombieStarfishEntityRenderer(entityRenderDispatcher, new ZombieStarfishEntityModel()));
 
-        bus.registerEntityRenderer(AtlantisEntityInit.BOMB.get(), SodiumBombRenderer::new);
+        bus.registerEntityRenderer(AtlantisEntityInit.SODIUM_BOMB.get(), SodiumBombRenderer::new);
     }
 
     @SubscribeEvent
     public static void spawnRules(SpawnPlacementRegisterEvent event) {
         event.register(AtlantisEntityInit.STARFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, (pEntityType, pServerLevel, pSpawnType, pPos, pRandom) -> true, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(AtlantisEntityInit.STARFISH_ZOM.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, (pEntityType, pServerLevel, pSpawnType, pPos, pRandom) -> true, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(AtlantisEntityInit.SEAHORSE.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, (pEntityType, pServerLevel, pSpawnType, pPos, pRandom) -> true, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(AtlantisEntityInit.ZOMBIE_STARFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, (pEntityType, pServerLevel, pSpawnType, pPos, pRandom) -> true, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(AtlantisEntityInit.THALASSIAN_SEAHORSE.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, (pEntityType, pServerLevel, pSpawnType, pPos, pRandom) -> true, SpawnPlacementRegisterEvent.Operation.OR);
     }
 
     @SubscribeEvent
@@ -336,13 +338,10 @@ public class ClientSetup {
         BlockColor REGULAR = (arg, arg2, arg3, i) -> 0x8caed2; NON_LINGUISTICS.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
 
         BlockColor JetstreamWaterColor = (arg, arg2, arg3, i) -> FastColor.ARGB32.color(255, 169, 255, 208);
-        blockColors.register(JetstreamWaterColor, BlockInit.JETSTREAM_WATER_BLOCK.get());
+        blockColors.register(JetstreamWaterColor, BlockInit.JETSTREAM_WATER.get());
 
         BlockColor SaltySeaWaterColor = (arg, arg2, arg3, i) -> FastColor.ARGB32.color(255, 10, 96, 208);
-        blockColors.register(SaltySeaWaterColor, BlockInit.SALTY_SEA_WATER_BLOCK.get());
-
-        //BlockColor CoconutMilkColor = (arg, arg2, arg3, i) -> 0xFFFFFFFF;
-        //blockColors.register(CoconutMilkColor, BlockInit.COCONUT_MILK.get());
+        blockColors.register(SaltySeaWaterColor, BlockInit.SALTY_SEAWATER.get());
     }
 
     @OnlyIn(Dist.CLIENT)

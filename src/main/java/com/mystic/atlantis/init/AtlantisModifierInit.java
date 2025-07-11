@@ -85,7 +85,7 @@ public class AtlantisModifierInit {
 			if (seedRarity < 1 || random.nextInt(seedRarity) == 0) {
 				BlockState ctxBlockState = context.getParamOrNull(LootContextParams.BLOCK_STATE);
 				if (ctxBlockState == Blocks.SEAGRASS.defaultBlockState() || ctxBlockState == Blocks.TALL_SEAGRASS.defaultBlockState()) {
-					generatedLoot.add(new ItemStack(ItemInit.ATLANTEAN_FIRE_MELON_SEEDS.get()));
+					generatedLoot.add(new ItemStack(ItemInit.FIRE_MELON_SEEDS.get()));
 				}
 			}
 			return generatedLoot;

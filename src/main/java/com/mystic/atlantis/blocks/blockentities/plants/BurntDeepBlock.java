@@ -1,9 +1,9 @@
 package com.mystic.atlantis.blocks.blockentities.plants;
 
-import com.mystic.atlantis.init.TileEntityInit;
+import com.mystic.atlantis.init.BlockEntityInit;
 
-public class BurntDeepBlock extends GeneralPlantBlock<BurntDeepTileEntity> {
+public class BurntDeepBlock extends GeneralPlantBlock<BurntDeepBlockEntity> {
 	public BurntDeepBlock() {
-		super(TileEntityInit.BURNT_DEEP_TILE);
+		super(BlockEntityInit.BURNT_DEEP);
 	}
 }

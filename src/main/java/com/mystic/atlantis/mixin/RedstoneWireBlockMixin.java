@@ -22,14 +22,14 @@ public abstract class RedstoneWireBlockMixin {
 
     @Redirect(method = "shouldConnectTo(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0))
     private static boolean is(BlockState state, Block block) {
-        return state.is(block) || state.is(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get());
+        return state.is(block) || state.is(BlockInit.AQUATIC_POWER_DUST_WIRE.get());
     }
 
     @Unique
     private int getWireSignal(BlockState state) {
         if (state.is(Blocks.REDSTONE_WIRE)) {
             return state.getValue(RedStoneWireBlock.POWER);
-        } else if (state.is(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get())) {
+        } else if (state.is(BlockInit.AQUATIC_POWER_DUST_WIRE.get())) {
             return state.getValue(RedStoneWireBlock.POWER);
         }
         return 0;
@@ -44,9 +44,9 @@ public abstract class RedstoneWireBlockMixin {
         int calculatedPower = 0;
         if(receivedPower >= 15) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
-                if (level.getBlockState(targetPos.relative(direction)).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()
-                        || level.getBlockState(targetPos.relative(direction).below()).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()
-                || level.getBlockState(targetPos.relative(direction).above()).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()) {
+                if (level.getBlockState(targetPos.relative(direction)).getBlockHolder().get() == BlockInit.AQUATIC_POWER_DUST_WIRE.get()
+                        || level.getBlockState(targetPos.relative(direction).below()).getBlockHolder().get() == BlockInit.AQUATIC_POWER_DUST_WIRE.get()
+                || level.getBlockState(targetPos.relative(direction).above()).getBlockHolder().get() == BlockInit.AQUATIC_POWER_DUST_WIRE.get()) {
                     cir.setReturnValue(Math.max(receivedPower - 1, calculatedPower - 1));
                 }
             }

@@ -1,5 +1,5 @@
 {
-  "feature": "atlantis:garden_foliage_configured",
+  "feature": "atlantis:garden_foliage",
   "placement": [
     {
       "type": "minecraft:rarity_filter",

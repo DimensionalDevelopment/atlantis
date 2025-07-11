@@ -1,0 +1,6 @@
+{
+  "parent": "atlantis:block/aquatic_power_dust_alt",
+  "textures": {
+    "line": "atlantis:block/aquatic_power_dust_line1"
+  }
+}

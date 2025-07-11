@@ -1,7 +1,0 @@
-{
-  "parent": "atlantis:block/sea_glass_stairs",
-	"render_type": "translucent",
-  "textures": {
-    "0": "atlantis:block/cyan_sea_glass"
-  }
-}

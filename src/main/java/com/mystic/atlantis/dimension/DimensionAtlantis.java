@@ -29,10 +29,6 @@ import java.util.List;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class DimensionAtlantis
 {
-    //public static final Identifier ATLANTIS_ID = new Identifier(Reference.MODID,  "atlantis");
-    //public static final RegistryKey<DimensionType> ATLANTIS_DIMENSION_TYPE_KEY = RegistryKey.of(Registry.DIMENSION_TYPE_KEY, ATLANTIS_ID);
-    //public static final RegistryKey<World> ATLANTIS_WORLD_KEY = RegistryKey.of(Registry.WORLD_KEY, ATLANTIS_ID);
-
     public static ResourceKey<Level> ATLANTIS_WORLD = ResourceKey.create(Registries.DIMENSION, new ResourceLocation("atlantis:atlantis"));
     public static final ResourceKey<DimensionType> ATLANTIS_DIMENSION_TYPE_KEY = ResourceKey.create(Registries.DIMENSION_TYPE, new ResourceLocation("atlantis:atlantis"));
     public static ResourceKey<LevelStem> ATLANTIS_DIMENSION_STEM = ResourceKey.create(Registries.LEVEL_STEM, new ResourceLocation(Reference.MODID, "atlantis"));
@@ -68,7 +64,7 @@ public class DimensionAtlantis
                                         Pair.of(Climate.parameters(1F, 1F, 1F, 1F, 1F, 1F, 0F), holderGetter.getOrThrow(BiomeInit.COCONUT_ISLES_KEY)),
                                         Pair.of(Climate.parameters(0.3F, 0.2F, 0.1F, 0.2F, 1F, 0F, 0F), holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY)),
                                         Pair.of(Climate.parameters(0.1F, 0.1F, 0.2F, 0.1F, 1F, 0F, 0F), holderGetter.getOrThrow(BiomeInit.ATLANTIS_BIOME_KEY)),
-                                        Pair.of(Climate.parameters(0.1F, 0.1F, 0.1F, 0.2F, 1F, 0F, 0F), holderGetter.getOrThrow(BiomeInit.JELLYFISH_FIELDS_KEY)),
+                                        Pair.of(Climate.parameters(0.1F, 0.1F, 0.1F, 0.2F, 1F, 0F, 0F), holderGetter.getOrThrow(BiomeInit.AQUAIEL_JELLYFISH_FIELDS_KEY)),
                                         Pair.of(Climate.parameters(0.2F, 0.1F, 0.1F, 0.1F, 1F, 0F, 0F), holderGetter.getOrThrow(BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY)),
                                         Pair.of(Climate.parameters(0.1F, 0.2F, 0.1F, 0.1F, 1F, 0F, 0F), holderGetter.getOrThrow(BiomeInit.VOLCANIC_DARKSEA_KEY))
                                 ))), holderGetter2.getOrThrow(ATLANTIS_DIMENSION_NOISE_SETTING))));

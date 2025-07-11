@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "atlantis:block/oxidized_cut_ancient_metal",
-    "side": "atlantis:block/oxidized_cut_ancient_metal",
-    "top": "atlantis:block/oxidized_cut_ancient_metal"
-  }
-}

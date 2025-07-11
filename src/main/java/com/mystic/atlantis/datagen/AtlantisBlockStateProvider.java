@@ -2,8 +2,9 @@ package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.BlockType;
-import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
-import com.mystic.atlantis.blocks.ancient_metal.WeatheringMetalBulbBlock;
+import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
+import com.mystic.atlantis.blocks.ancient_cuprum.WeatheringCuprumBulbBlock;
+import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.models.model.ModelLocationUtils;
@@ -20,8 +21,86 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
     @Override
     public void registerStatesAndModels() {
         BlockType.getAllFamilies().filter(BlockFamily::shouldGenerateModel).forEach(this::registerBlockFamily);
-        BlockInit.ANCIENT_METALS.values().forEach(this::registerTrialGroup);
-        this.simpleBlock(BlockInit.RAW_ANCIENT_METAL_BLOCK.get());
+        BlockInit.ANCIENT_CUPRUM.values().forEach(this::registerTrialGroup);
+        BlockInit.COLORED_SHELL_BLOCKS.forEach((color, block) -> this.simpleBlock(block.get()));
+        BlockInit.CRACKED_SHELL_BLOCKS.forEach((color, block) -> this.simpleBlock(block.get()));
+        BlockInit.MOSSY_SHELL_BLOCKS.forEach((color, block) -> this.simpleBlock(block.get()));
+        BlockInit.CRACKED_MOSSY_SHELL_BLOCKS.forEach((color, block) -> this.simpleBlock(block.get()));
+        BlockInit.DYED_LINGUISTICS.forEach((glyph, registryObjectMap) -> registryObjectMap.forEach(
+                ((color, block) -> this.simpleBlock(block.get()))
+        ));
+        BlockInit.NON_LINGUISTICS.forEach(((glyph, block) -> this.simpleBlock(block.get())));
+        this.simpleBlock(BlockInit.WATERFALL_BLOCK.get());
+        this.simpleBlock(BlockInit.WAVE_BLOCK.get());
+        this.simpleBlock(BlockInit.ALGAE_BLOCK.get());
+        this.simpleBlock(BlockInit.CRYSTAL_TRANSFERENCE_BLOCK.get());
+        this.simpleBlock(BlockInit.COCONUT.get());
+        this.simpleBlock(BlockInit.CARVED_COCONUT.get());
+        this.simpleBlock(BlockInit.SATIRE_LANTERN.get());
+        this.simpleBlock(BlockInit.PALM_LOG.get());
+        this.simpleBlock(BlockInit.STRIPPED_PALM_LOG.get());;
+        registerSign(BlockInit.PALM_SIGN.get(), BlockInit.PALM_WALL_SIGN.get(), BlockInit.PALM_PLANKS.block().get());
+        registerSign(BlockInit.NYMPH_SIGN.get(), BlockInit.NYMPH_WALL_SIGN.get(), BlockInit.NYMPH_PLANKS.block().get());
+        this.simpleBlock(BlockInit.OYSTER_SHELL_BLOCK.get());
+        this.simpleBlock(BlockInit.MOSSY_NAUTILUS_SHELL.get());
+        this.simpleBlock(BlockInit.MOSSY_OYSTER_SHELL.get());
+        this.simpleBlock(BlockInit.CRACKED_MOSSY_NAUTILUS_SHELL.get());
+        this.simpleBlock(BlockInit.NAUTILUS_SHELL_BLOCK.get());
+        this.simpleBlock(BlockInit.CRACKED_NAUTILUS_SHELL.get());
+        this.simpleBlock(BlockInit.CRACKED_OYSTER_SHELL.get());
+        this.simpleBlock(BlockInit.CRACKED_MOSSY_OYSTER_SHELL.get());
+        this.simpleBlock(BlockInit.SODIUM_BOMB.get());
+        this.simpleBlock(BlockInit.SEASALT_CHUNK.get());
+        this.simpleBlock(BlockInit.SUNKEN_GRAVEL.get());
+        this.simpleBlock(BlockInit.CRACKED_GLOWSTONE.get());
+        this.simpleBlock(BlockInit.DEAD_GLOWSTONE.get());
+        this.simpleBlock(BlockInit.ALGAE_DETRITUS_STONE.get());
+        this.simpleBlock(BlockInit.DETRITUS_SANDSTONE.get());
+        this.simpleBlock(BlockInit.LUMINESCENT_PRISMARINE.get());
+        this.simpleBlock(BlockInit.BUBBLE_MAGMA.get());
+        this.simpleBlock(BlockInit.PALM_LEAVES.get());
+        this.simpleBlock(BlockInit.NYMPH_LEAVES.get());
+        this.simpleBlock(BlockInit.AQUAMARINE_ORE.get());
+        this.simpleBlock(BlockInit.DEEPSLATE_AQUAMARINE_ORE.get());
+        this.simpleBlock(BlockInit.SEABED.get());
+        this.simpleBlock(BlockInit.OCEAN_LANTERN.get());
+        this.simpleBlock(BlockInit.SURGE_LANTERN.get());
+        this.simpleBlock(BlockInit.ATLANTEAN_CORE.get());
+        this.simpleBlock(BlockInit.BLOCK_OF_AQUAMARINE.get());
+        this.simpleBlock(BlockInit.CHISELED_GOLDEN_BLOCK.get());
+        this.simpleBlock(BlockInit.CHISELED_GOLDEN_AQUAMARINE.get());
+        this.simpleBlock(BlockInit.BLACK_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.BLUE_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.BROWN_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.CYAN_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.GRAY_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.GREEN_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.LIGHT_BLUE_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.LIGHT_GRAY_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.LIME_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.MAGENTA_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.ORANGE_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.PINK_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.PURPLE_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.RED_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.WHITE_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.YELLOW_PEARL_BLOCK.get());
+        this.simpleBlock(BlockInit.SEABLOOM.get(), models().cross("seabloom", modLoc("seabloom")));
+        this.simpleBlock(BlockInit.RED_SEABLOOM.get(), models().cross("red_seabloom", modLoc("red_seabloom")));
+        this.simpleBlock(BlockInit.YELLOW_SEABLOOM.get(), models().cross("yellow_seabloom", modLoc("yellow_seabloom")));
+        this.simpleBlock(BlockInit.PURPLE_SEASHROOM.get(), models().cross("purple_seabloom", modLoc("purple_seashroom")));
+        this.simpleBlock(BlockInit.YELLOW_SEASHROOM.get(), models().cross("yellow_seashroom", modLoc("yellow_seashroom")));
+        this.simpleBlock(BlockInit.AQUATIC_POWER_STONE.get());
+        this.simpleBlock(BlockInit.HARDENED_CALCITE_BLOCK.get());
+        this.simpleBlock(BlockInit.PUSH_BUBBLE_COLUMN.get());
+        this.simpleBlock(BlockInit.CHISELED_AQUAMARINE_BLOCK.get());
+        this.simpleBlock(BlockInit.RAW_ANCIENT_CUPRUM_BLOCK.get());
+        this.simpleBlock(BlockInit.ANCIENT_CUPRUM_ORE.get());
+        this.simpleBlock(BlockInit.DEEPSLATE_ANCIENT_CUPRUM_ORE.get());
+        this.simpleBlock(BlockInit.NYMPH_SAPLING.get(), models().cross("nymph_sapling", modLoc("nymph_sapling")));
+        this.simpleBlock(BlockInit.PALM_SAPLING.get(), models().cross("palm_sapling", modLoc("palm_sapling")));
+        this.simpleBlock(BlockInit.COQUINA.get());
+        this.simpleBlock(BlockInit.RAW_ANCIENT_CUPRUM_BLOCK.get());
         this.horizontalBlock(BlockInit.WRITING_BLOCK.get(), new ModelFile.ExistingModelFile(Atlantis.id("block/writing_block"), itemModels().existingFileHelper));
         this.simpleBlock(BlockInit.ORICHALCUM_BLOCK.get());
     }
@@ -59,10 +138,10 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
 
 
         this.getVariantBuilder(bulb)
-                .partialState().with(WeatheringMetalBulbBlock.LIT, false).with(WeatheringMetalBulbBlock.POWERED, false).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(unlit)))
-                .partialState().with(WeatheringMetalBulbBlock.LIT, false).with(WeatheringMetalBulbBlock.POWERED, true).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(unlit_powered)))
-                .partialState().with(WeatheringMetalBulbBlock.LIT, true).with(WeatheringMetalBulbBlock.POWERED, false).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(lit)))
-                .partialState().with(WeatheringMetalBulbBlock.LIT, true).with(WeatheringMetalBulbBlock.POWERED, true).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(lit_powered)));
+                .partialState().with(WeatheringCuprumBulbBlock.LIT, false).with(WeatheringCuprumBulbBlock.POWERED, false).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(unlit)))
+                .partialState().with(WeatheringCuprumBulbBlock.LIT, false).with(WeatheringCuprumBulbBlock.POWERED, true).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(unlit_powered)))
+                .partialState().with(WeatheringCuprumBulbBlock.LIT, true).with(WeatheringCuprumBulbBlock.POWERED, false).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(lit)))
+                .partialState().with(WeatheringCuprumBulbBlock.LIT, true).with(WeatheringCuprumBulbBlock.POWERED, true).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(lit_powered)));
         simpleBlockItem(bulb, new ModelFile.UncheckedModelFile(unlit));
     }
 
@@ -86,8 +165,12 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
             case BUTTON -> registerButton(variantTarget, original);
             case CHISELED, CRACKED, CUT -> simpleBlockWithItem(variantTarget, cubeAll(variantTarget));
             case DOOR -> registerDoor((DoorBlock) variantTarget);
-            case FENCE -> registerFence((FenceBlock) variantTarget, original);
             case FENCE_GATE -> registerGate((FenceGateBlock) variantTarget, (FenceBlock) family.get(BlockFamily.Variant.FENCE), original);
+            case FENCE -> {
+                //for some reason this comes out as a fence gate idk why!
+                if(variantTarget instanceof FenceBlock fenceBlock)
+                    registerFence(fenceBlock, original);
+                }
             case SIGN -> registerSign((StandingSignBlock) variantTarget, (WallSignBlock) family.get(BlockFamily.Variant.WALL_SIGN), original);
             case SLAB -> registerSlab((SlabBlock) variantTarget, original);
             case STAIRS -> registerStairs((StairBlock) variantTarget, original);

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/door_top_right_open",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "bottom": "atlantis:block/ancient_metal_door_bottom",
-    "top": "atlantis:block/ancient_metal_door_top"
-  }
-}

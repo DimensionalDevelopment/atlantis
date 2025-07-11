@@ -30,14 +30,14 @@ public class ShellBlockFeature extends Feature<NoneFeatureConfiguration> {
         BlockState blockstate = switch (rand.nextInt(12)) {
             case 0 -> BlockInit.COLORED_SHELL_BLOCKS.get(color).get().defaultBlockState();
             case 1 -> BlockInit.NAUTILUS_SHELL_BLOCK.get().defaultBlockState();
-            case 2 -> BlockInit.NAUTILUS_SHELL_CRACKED.get().defaultBlockState();
-            case 3 -> BlockInit.OYSTER_SHELL_CRACKED.get().defaultBlockState();
+            case 2 -> BlockInit.CRACKED_NAUTILUS_SHELL.get().defaultBlockState();
+            case 3 -> BlockInit.CRACKED_OYSTER_SHELL.get().defaultBlockState();
             case 4 -> BlockInit.CRACKED_SHELL_BLOCKS.get(color).get().defaultBlockState();
             case 5 -> BlockInit.OYSTER_SHELL_BLOCK.get().defaultBlockState();
-            case 6 -> BlockInit.NAUTILUS_SHELL_CRACKED_MOSSY.get().defaultBlockState();
-            case 7 -> BlockInit.NAUTILUS_SHELL_MOSSY.get().defaultBlockState();
-            case 8 -> BlockInit.OYSTER_SHELL_CRACKED_MOSSY.get().defaultBlockState();
-            case 9 -> BlockInit.OYSTER_SHELL_MOSSY.get().defaultBlockState();
+            case 6 -> BlockInit.CRACKED_MOSSY_NAUTILUS_SHELL.get().defaultBlockState();
+            case 7 -> BlockInit.MOSSY_NAUTILUS_SHELL.get().defaultBlockState();
+            case 8 -> BlockInit.CRACKED_MOSSY_OYSTER_SHELL.get().defaultBlockState();
+            case 9 -> BlockInit.MOSSY_OYSTER_SHELL.get().defaultBlockState();
             case 10 -> BlockInit.CRACKED_MOSSY_SHELL_BLOCKS.get(color).get().defaultBlockState();
             case 11 -> BlockInit.MOSSY_SHELL_BLOCKS.get(color).get().defaultBlockState();
             default -> throw new IllegalStateException("Unexpected value: " + rand.nextInt(12));

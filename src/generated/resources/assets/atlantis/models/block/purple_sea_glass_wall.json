@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/wall_inventory",
-  "textures": {
-    "wall": "atlantis:block/purple_sea_glass"
-  }
-}

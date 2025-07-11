@@ -18,7 +18,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 
-import static com.mystic.atlantis.blocks.plants.UnderwaterFlower.WATERLOGGED;
+import static com.mystic.atlantis.blocks.plants.Seabloom.WATERLOGGED;
 
 public class GeneralPlantBlock<T extends GeneralPlantBlockEntity<?>> extends BushBlock implements EntityBlock, SimpleWaterloggedBlock {
 

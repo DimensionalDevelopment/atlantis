@@ -1,16 +1,8 @@
 package com.mystic.atlantis.entities;
 
-import com.mystic.atlantis.init.ItemInit;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
@@ -22,8 +14,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -46,7 +36,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-public class CoconutCrabEntity extends CrabEntity implements NeutralMob, GeoAnimatable {
+public class CoconutCrabEntity extends RubyclawCrabEntity implements NeutralMob, GeoAnimatable {
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
     private final AnimationController<CoconutCrabEntity> mainController = new AnimationController<CoconutCrabEntity>(this, "coconutCrabController", 2, this::mainPredicate);
@@ -58,7 +48,7 @@ public class CoconutCrabEntity extends CrabEntity implements NeutralMob, GeoAnim
     @Nullable
     private UUID persistentAngerTarget;
 
-    public CoconutCrabEntity(EntityType<? extends CrabEntity> entityType, Level world) {
+    public CoconutCrabEntity(EntityType<? extends RubyclawCrabEntity> entityType, Level world) {
         super(entityType, world);
     }
 

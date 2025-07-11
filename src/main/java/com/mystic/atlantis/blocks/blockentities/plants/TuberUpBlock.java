@@ -1,10 +1,10 @@
 package com.mystic.atlantis.blocks.blockentities.plants;
 
-import com.mystic.atlantis.init.TileEntityInit;
+import com.mystic.atlantis.init.BlockEntityInit;
 
-public class TuberUpBlock extends GeneralPlantBlock<TuberUpTileEntity> {
+public class TuberUpBlock extends GeneralPlantBlock<TuberUpBlockEntity> {
 	
     public TuberUpBlock() {
-		super(TileEntityInit.TUBER_UP_TILE);
+		super(BlockEntityInit.TUBER_UP);
 	}
 }

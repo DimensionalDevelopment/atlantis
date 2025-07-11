@@ -5,7 +5,7 @@
     "atlantis:atlantean_islands_biome",
     "atlantis:atlantean_garden",
     "atlantis:goo_lagoons",
-    "atlantis:jellyfish_fields",
+    "atlantis:aquariel_jellyfish_fields",
     "atlantis:volcanic_darksea",
     "atlantis:coconut_isles"
   ],
@@ -28,7 +28,7 @@
       "bounding_box": "full",
       "spawns": [
         {
-          "type": "atlantis:atlantean_starfish",
+          "type": "atlantis:starfish",
           "maxCount": 2,
           "minCount": 2,
           "weight": 25

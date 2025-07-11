@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "atlantis:block/weathered_cut_ancient_metal",
-    "side": "atlantis:block/weathered_cut_ancient_metal",
-    "top": "atlantis:block/weathered_cut_ancient_metal"
-  }
-}

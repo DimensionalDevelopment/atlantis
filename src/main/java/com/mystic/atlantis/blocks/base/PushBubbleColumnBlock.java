@@ -31,8 +31,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-import static com.mystic.atlantis.blocks.base.AtlanteanWoodDoorBlock.WATERLOGGED;
-
 public class PushBubbleColumnBlock extends Block implements BucketPickup {
     public static final DirectionProperty PUSH = BlockStateProperties.FACING;
     public static final IntegerProperty DECAY = IntegerProperty.create("decay", 0, 30);

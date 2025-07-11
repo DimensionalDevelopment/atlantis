@@ -1,5 +1,5 @@
 {
-  "feature": "atlantis:shell_block_configured",
+  "feature": "atlantis:shell_block",
   "placement": [
     {
       "type": "minecraft:rarity_filter",

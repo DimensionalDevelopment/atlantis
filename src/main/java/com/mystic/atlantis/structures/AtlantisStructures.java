@@ -9,7 +9,6 @@ import net.minecraftforge.registries.RegistryObject;
 public class AtlantisStructures {
     public static final DeferredRegister<StructureType<?>> DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(Registries.STRUCTURE_TYPE, Reference.MODID);
 
-    public static final RegistryObject<StructureType<AtlanteanCityStructure>> ATLANTEAN_CITY = DEFERRED_REGISTRY_STRUCTURE.register("atlantean_city", () -> (StructureType<AtlanteanCityStructure>) () -> AtlanteanCityStructure.CODEC);
     public static final RegistryObject<StructureType<AtlanteanFountain>> ATLANTEAN_FOUNTAIN = DEFERRED_REGISTRY_STRUCTURE.register("atlantean_fountain", () -> (StructureType<AtlanteanFountain>) () -> AtlanteanFountain.CODEC);
     public static final RegistryObject<StructureType<AtlantisHouse1>> ATLANTIS_HOUSE_1 = DEFERRED_REGISTRY_STRUCTURE.register("atlantis_house_1", () -> (StructureType<AtlantisHouse1>) () -> AtlantisHouse1.CODEC);
     public static final RegistryObject<StructureType<AtlantisHouse3>> ATLANTIS_HOUSE_3 = DEFERRED_REGISTRY_STRUCTURE.register("atlantis_house_3", () -> (StructureType<AtlantisHouse3>) () -> AtlantisHouse3.CODEC);

@@ -14,8 +14,8 @@
       "tick_delay": 6000
     },
     "sky_color": 27571,
-    "water_color": 3386879,
-    "water_fog_color": 59110
+    "water_color": 6072508,
+    "water_fog_color": 6072508
   },
   "features": [
     [],
@@ -41,9 +41,9 @@
       "minecraft:ore_lapis_buried",
       "minecraft:ore_redstone_lower",
       "minecraft:ore_tuff",
-      "atlantis:ancient_metal_placed",
+      "atlantis:ancient_cuprum_placed",
       "atlantis:aquamarine_placed",
-      "atlantis:ore_sunken_gravel_placed"
+      "atlantis:sunken_gravel_placed"
     ],
     [],
     [],
@@ -52,8 +52,8 @@
       "minecraft:warm_ocean_vegetation",
       "minecraft:seagrass_deep_warm",
       "minecraft:seagrass_simple",
-      "atlantis:underwater_flower_placed",
-      "atlantis:atlantean_palm_tree_placed"
+      "atlantis:seabloom_placed",
+      "atlantis:palm_tree_placed"
     ],
     [
       "atlantis:shell_block_placed"
@@ -84,13 +84,13 @@
     "underground_water_creature": [],
     "water_ambient": [
       {
-        "type": "atlantis:atlantean_jellyfish",
+        "type": "atlantis:aquaiel_jellyfish",
         "maxCount": 4,
         "minCount": 2,
         "weight": 25
       },
       {
-        "type": "atlantis:atlantean_shrimp",
+        "type": "atlantis:glittertail_shrimp",
         "maxCount": 2,
         "minCount": 2,
         "weight": 25
@@ -110,19 +110,19 @@
         "weight": 25
       },
       {
-        "type": "atlantis:atlantean_crab",
+        "type": "atlantis:rubyclaw_crab",
         "maxCount": 2,
         "minCount": 2,
         "weight": 25
       },
       {
-        "type": "atlantis:atlantean_starfish",
+        "type": "atlantis:starfish",
         "maxCount": 2,
         "minCount": 2,
         "weight": 25
       },
       {
-        "type": "atlantis:atlantean_seahorse",
+        "type": "atlantis:thalassian_seahorse",
         "maxCount": 2,
         "minCount": 1,
         "weight": 1

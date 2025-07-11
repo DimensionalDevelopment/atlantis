@@ -1,7 +1,0 @@
-{
-  "parent": "atlantis:block/sea_glass_button_pressed",
-	"render_type": "translucent",
-  "textures": {
-    "texture": "atlantis:block/multicolor_sea_glass"
-  }
-}

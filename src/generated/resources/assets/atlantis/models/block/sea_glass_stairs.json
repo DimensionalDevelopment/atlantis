@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "atlantis:block/sea_glass",
-    "side": "atlantis:block/sea_glass",
-    "top": "atlantis:block/sea_glass"
-  }
-}

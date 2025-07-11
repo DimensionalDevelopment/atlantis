@@ -1,8 +1,8 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
-import com.mystic.atlantis.blocks.plants.AtlanteanSaplingBlock;
-import com.mystic.atlantis.init.AtlanteanFireMelonHead;
+import com.mystic.atlantis.blocks.plants.NymphSaplingBlock;
+import com.mystic.atlantis.init.FireMelonHead;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -33,12 +33,12 @@ public class ProcessorListInit {
                         new ProcessorRule(
                                 AlwaysTrueTest.INSTANCE,
                                 new RandomBlockMatchTest(Blocks.SEA_PICKLE, 0.2f),
-                                BlockInit.ATLANTEAN_SAPLING.get().defaultBlockState().setValue(AtlanteanSaplingBlock.STAGE, 1)
+                                BlockInit.NYMPH_SAPLING.get().defaultBlockState().setValue(NymphSaplingBlock.STAGE, 1)
                         ),
                         new ProcessorRule(
                                 AlwaysTrueTest.INSTANCE,
                                 new RandomBlockMatchTest(Blocks.SEA_PICKLE, 0.2f),
-                                BlockInit.ATLANTEAN_FIRE_MELON_TOP.get().defaultBlockState().setValue(AtlanteanFireMelonHead.AGE, AtlanteanFireMelonHead.MAX_AGE)
+                                BlockInit.FIRE_MELON_TOP.get().defaultBlockState().setValue(FireMelonHead.AGE, FireMelonHead.MAX_AGE)
                         )
                 )))
         ));
@@ -47,7 +47,7 @@ public class ProcessorListInit {
                 List.of(new RuleProcessor(List.of(
                         new ProcessorRule(
                                 AlwaysTrueTest.INSTANCE,
-                                new RandomBlockMatchTest(BlockInit.ATLANTEAN_PLANKS.get(), 0.25f),
+                                new RandomBlockMatchTest(BlockInit.NYMPH_PLANKS.block().get(), 0.25f),
                                 Blocks.SAND.defaultBlockState()
                         )
                 )))
