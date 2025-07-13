@@ -1,0 +1,11 @@
+{
+  "parent": "atlantis:block/tinted_cube",
+  "textures": {
+    "down": "atlantis:block/oyster_shell_faces",
+    "east": "atlantis:block/oyster_shell_side",
+    "north": "atlantis:block/oyster_shell_side",
+    "south": "atlantis:block/oyster_shell_side",
+    "up": "atlantis:block/oyster_shell_faces",
+    "west": "atlantis:block/oyster_shell_side"
+  }
+}

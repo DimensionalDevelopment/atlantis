@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pressure_plate_up",
+  "textures": {
+    "texture": "atlantis:block/light_blue_sea_glass"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "parent": "atlantis:block/tinted_cube",
+  "textures": {
+    "down": "atlantis:block/sodium_bomb_bottom",
+    "east": "atlantis:block/sodium_bomb_side",
+    "north": "atlantis:block/sodium_bomb_side",
+    "south": "atlantis:block/sodium_bomb_side",
+    "up": "atlantis:block/sodium_bomb_top",
+    "west": "atlantis:block/sodium_bomb_side"
+  }
+}

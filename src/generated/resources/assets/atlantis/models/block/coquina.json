@@ -1,0 +1,11 @@
+{
+  "parent": "atlantis:block/tinted_cube",
+  "textures": {
+    "down": "atlantis:block/coquina_top",
+    "east": "atlantis:block/coquina",
+    "north": "atlantis:block/coquina",
+    "south": "atlantis:block/coquina",
+    "up": "atlantis:block/coquina_top",
+    "west": "atlantis:block/coquina"
+  }
+}

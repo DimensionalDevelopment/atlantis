@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "atlantis:ancient_cuprum_placed",
+  "step": "underground_ores"
+}

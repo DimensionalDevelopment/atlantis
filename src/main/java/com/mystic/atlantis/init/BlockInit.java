@@ -6,7 +6,7 @@ import com.mystic.atlantis.blocks.base.*;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.blocks.plants.*;
 import com.mystic.atlantis.blocks.pots.*;
-import com.mystic.atlantis.blocks.aquaticpower.*;
+import com.mystic.atlantis.blocks.aquatic_power.*;
 import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
 import com.mystic.atlantis.blocks.shells.CrackedShellBlock;
 import com.mystic.atlantis.blocks.shells.NautilusShellBlock;
@@ -59,11 +59,11 @@ public class BlockInit {
     public static final RegistryObject<LiquidBlock> SALTY_SEAWATER = BLOCKS.register("salty_seawater",
             () -> new LiquidBlock(FluidInit.SALTY_SEAWATER, BlockBehaviour.Properties.copy(Blocks.WATER)));
 
-    //Atlantean Wood Type
-    public static BlockSetType NYMPH_BLOCK_TYPE = new BlockSetType("nymph");
-    public static BlockSetType PALM_BLOCK_TYPE = new BlockSetType("palm");
+    //Wood Types
+    public static BlockSetType NYMPH_BLOCK_TYPE = BlockSetType.register(new BlockSetType("nymph"));
+    public static BlockSetType PALM_BLOCK_TYPE = BlockSetType.register(new BlockSetType("palm"));
     public static final WoodType NYMPH_WOOD_TYPE = WoodType.register(new WoodType("nymph", NYMPH_BLOCK_TYPE));
-    public static final WoodType PALM_WOOD_TYPE = WoodType.register(new WoodType("palm", BlockSetType.OAK));
+    public static final WoodType PALM_WOOD_TYPE = WoodType.register(new WoodType("palm", PALM_BLOCK_TYPE));
 
     //Pots
     public static final RegistryObject<Block> TUBEN_POT = registerBlock("tuben_pot", () -> new TubenPotBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
@@ -99,7 +99,7 @@ public class BlockInit {
     public static final RegistryObject<StandingSignBlock> NYMPH_SIGN = registerOnlyBlock("nymph_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN), NYMPH_WOOD_TYPE));
     public static final RegistryObject<WallSignBlock> NYMPH_WALL_SIGN = registerOnlyBlock("nymph_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WALL_SIGN), NYMPH_WOOD_TYPE));
 
-    public static final BlockType NYMPH_PLANKS = registerBlockType("nymph", NymphLogBlock::new,
+    public static final BlockType NYMPH_PLANKS = registerBlockType("nymph", NymphWoodBlock::new,
             BlockBehaviour.Properties.of().sound(SoundType.WOOD)
                     .requiresCorrectToolForDrops()
                     .strength(2.0F), true, NYMPH_BLOCK_TYPE, NYMPH_WOOD_TYPE,
@@ -241,8 +241,8 @@ public class BlockInit {
     public static final RegistryObject<AquaticPowerRepeaterBlock> AQUATIC_POWER_REPEATER = registerBlock("aquatic_power_repeater", () -> new AquaticPowerRepeaterBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<AquaticPowerTripwireHook> AQUATIC_POWER_TRIPWIRE_HOOK = registerBlock("aquatic_power_tripwire_hook", () -> new AquaticPowerTripwireHook(BlockBehaviour.Properties.of().noCollission()));
     public static final RegistryObject<AquaticPowerTripwireBlock> AQUATIC_POWER_TRIPWIRE = registerOnlyBlock("aquatic_power_tripwire", () -> new AquaticPowerTripwireBlock(AQUATIC_POWER_TRIPWIRE_HOOK.get(), BlockBehaviour.Properties.of().noCollission()));
-    public static final RegistryObject<AquaticPowerLeverBlock> AQUATIC_POWER_LEVER = registerBlock("power_lever", () -> new AquaticPowerLeverBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.WOOD)));
-    public static final RegistryObject<AquaticPowerComparatorBlock> AQUATIC_POWER_COMPARATOR = registerBlock("power_comparator", () -> new AquaticPowerComparatorBlock(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<AquaticPowerLeverBlock> AQUATIC_POWER_LEVER = registerBlock("aquatic_power_lever", () -> new AquaticPowerLeverBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<AquaticPowerComparatorBlock> AQUATIC_POWER_COMPARATOR = registerBlock("aquatic_power_comparator", () -> new AquaticPowerComparatorBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<HardenedCalciteBlock> HARDENED_CALCITE_BLOCK = registerBlock("hardened_calcite_block", () -> new HardenedCalciteBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<PushBubbleColumnBlock> PUSH_BUBBLE_COLUMN = registerOnlyBlock("push_bubble_column", () -> new PushBubbleColumnBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<AlgaeBlock> ALGAE_BLOCK = registerBlock("algae_block", () -> new AlgaeBlock(BlockBehaviour.Properties.of()));
@@ -253,9 +253,9 @@ public class BlockInit {
 
     public static final RegistryObject<Block> ORICHALCUM_BLOCK = registerBlock("orichalcum_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
 
-    public static final RegistryObject<LinguisticBlock> LINGUISTIC_BLOCK = registerLinguisticBlock("linguistic_block", () -> new LinguisticBlock(BlockBehaviour.Properties.of().strength(2.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<LinguisticBlock> LINGUISTIC_TABLE = registerLinguisticBlock("linguistic_table", () -> new LinguisticBlock(BlockBehaviour.Properties.of().strength(2.5F).sound(SoundType.WOOD)));
 
-    public static final RegistryObject<WritingBlock> WRITING_BLOCK = registerLinguisticBlock("writing_block", () -> new WritingBlock(BlockBehaviour.Properties.of().strength(2.5F).sound(SoundType.WOOD)));
+    public static final RegistryObject<WritingBlock> WRITING_TABLE = registerLinguisticBlock("writing_table", () -> new WritingBlock(BlockBehaviour.Properties.of().strength(2.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<NymphSaplingBlock> NYMPH_SAPLING = registerBlock("nymph_sapling", () ->
             new NymphSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
@@ -436,8 +436,6 @@ public class BlockInit {
     }
 
     public static void init(IEventBus bus) {
-        BlockSetType.register(NYMPH_BLOCK_TYPE);
-        BlockSetType.register(PALM_BLOCK_TYPE);
         BLOCKS.register(bus);
     }
 

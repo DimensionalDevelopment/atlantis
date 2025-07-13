@@ -32,7 +32,7 @@ public record BlockType(RegistryObject<Block> block, RegistryObject<SlabBlock> s
         if(type.button != null) family.button(type.button.get());
         if(type.wall != null) family.wall(type.wall.get());
         if(type.fence != null) family.fence(type.fence.get());
-        if(type.fenceGate != null) family.fence(type.fenceGate.get());
+        if(type.fenceGate != null) family.fenceGate(type.fenceGate.get());
 
         return family.getFamily();
     }

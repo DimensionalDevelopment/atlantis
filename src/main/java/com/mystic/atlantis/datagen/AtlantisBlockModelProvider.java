@@ -18,15 +18,6 @@ public class AtlantisBlockModelProvider extends BlockModelProvider {
 
     @Override
     protected void registerModels() {
-        this.cubeAll(BlockInit.ORICHALCUM_BLOCK);
-        this.cube("writing_block",
-                Atlantis.id("block/writing_table_top"),
-                Atlantis.id("block/linguistic_table_bottom"),
-                Atlantis.id("block/writing_table_side"),
-                Atlantis.id("block/writing_table_side_1"),
-                Atlantis.id("block/writing_table_side_0"),
-                Atlantis.id("block/writing_table_side_2"));
-
         BlockInit.ANCIENT_CUPRUM.values().stream().map(TrailsGroup::bulb).forEach(holder -> {
             cubeAll(holder, "_unlit");
             cubeAll(holder, "_lit");
@@ -42,10 +33,6 @@ public class AtlantisBlockModelProvider extends BlockModelProvider {
         });
     }
 
-    private <T extends Block> void cubeAll(RegistryObject<T> block) {
-        this.cubeAll(block.getId().getPath(), blockTexture(block.getId()));
-    }
-
     private <T extends Block> void cubeAll(RegistryObject<T> block, String name) {
         var texture = block.getId().withSuffix(name);
         this.cubeAll(texture.getPath(), blockTexture(texture));
@@ -53,8 +40,8 @@ public class AtlantisBlockModelProvider extends BlockModelProvider {
 
     private ResourceLocation blockTexture(ResourceLocation loc) {
         if (loc.getPath().contains("waxed")) {
-            return new ResourceLocation(loc.getNamespace(), "block/" + loc.getPath().replace("waxed_", ""));
+            return ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), "block/" + loc.getPath().replace("waxed_", ""));
         }
-        return new ResourceLocation(loc.getNamespace(), "block/" + loc.getPath());
+        return ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), "block/" + loc.getPath());
     }
 }

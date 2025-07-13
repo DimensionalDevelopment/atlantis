@@ -1,0 +1,11 @@
+{
+  "parent": "atlantis:block/tinted_cube",
+  "textures": {
+    "down": "atlantis:block/waterfall_block_bottom",
+    "east": "atlantis:block/waterfall_block_side",
+    "north": "atlantis:block/waterfall_block_front",
+    "south": "atlantis:block/waterfall_block_side",
+    "up": "atlantis:block/waterfall_block_top",
+    "west": "atlantis:block/waterfall_block_side"
+  }
+}

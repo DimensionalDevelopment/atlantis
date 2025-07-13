@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.mystic.atlantis.blocks.aquaticpower.SodiumPrimedBombBlock;
+import com.mystic.atlantis.blocks.aquatic_power.SodiumPrimedBombBlock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;

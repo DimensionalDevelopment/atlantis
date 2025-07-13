@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "atlantis:block/ancient_bamboo_slab"
+    },
+    "type=double": {
+      "model": "atlantis:block/ancient_bamboo_planks"
+    },
+    "type=top": {
+      "model": "atlantis:block/ancient_bamboo_slab_top"
+    }
+  }
+}

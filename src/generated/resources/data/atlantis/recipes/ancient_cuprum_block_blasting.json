@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "blocks",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "atlantis:raw_ancient_cuprum_block"
+  },
+  "result": "atlantis:ancient_cuprum_block"
+}

@@ -7,6 +7,7 @@ import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
 import com.mystic.atlantis.blocks.blockentities.plants.GeneralPlantBlockEntity;
 import com.mystic.atlantis.blocks.blockentities.renderers.*;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.entities.*;
 import com.mystic.atlantis.entities.models.*;
 import com.mystic.atlantis.entities.renders.*;
 import com.mystic.atlantis.init.*;
@@ -201,9 +202,12 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void spawnRules(SpawnPlacementRegisterEvent event) {
-        event.register(AtlantisEntityInit.STARFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, (pEntityType, pServerLevel, pSpawnType, pPos, pRandom) -> true, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(AtlantisEntityInit.ZOMBIE_STARFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, (pEntityType, pServerLevel, pSpawnType, pPos, pRandom) -> true, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(AtlantisEntityInit.THALASSIAN_SEAHORSE.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, (pEntityType, pServerLevel, pSpawnType, pPos, pRandom) -> true, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(AtlantisEntityInit.STARFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, StarfishEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(AtlantisEntityInit.ZOMBIE_STARFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, ZombieStarfishEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(AtlantisEntityInit.THALASSIAN_SEAHORSE.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, ThalassianSeahorseEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(AtlantisEntityInit.AQUAIEL_JELLYFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, AquaielJellyfishEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(AtlantisEntityInit.RUBYCLAW_CRAB.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, RubyclawCrabEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(AtlantisEntityInit.GLITTERTAIL_SHRIMP.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, GlittertailShrimpEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
     }
 
     @SubscribeEvent

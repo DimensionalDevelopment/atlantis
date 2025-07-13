@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "atlantis:block/weathered_cut_ancient_cuprum_slab"
+    },
+    "type=double": {
+      "model": "atlantis:block/weathered_cut_ancient_cuprum"
+    },
+    "type=top": {
+      "model": "atlantis:block/weathered_cut_ancient_cuprum_slab_top"
+    }
+  }
+}

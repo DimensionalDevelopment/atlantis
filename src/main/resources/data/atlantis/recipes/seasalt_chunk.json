@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"SS ",
+		"SS ",
+		"   "
+	],
+	"key":
+	{
+		"S":
+		{
+			"item": "atlantis:seasalt"
+		}
+	},
+	"result":
+	{
+		"item": "atlantis:seasalt_chunk",
+		"count": 1
+	}
+	
+}					

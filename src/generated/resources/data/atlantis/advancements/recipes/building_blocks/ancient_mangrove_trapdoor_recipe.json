@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ancient_mangrove_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "atlantis:ancient_mangrove_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:ancient_mangrove_trapdoor_recipe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_ancient_mangrove_planks",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:ancient_mangrove_trapdoor_recipe"
+    ]
+  },
+  "sends_telemetry_event": false
+}

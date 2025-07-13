@@ -54,9 +54,6 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlock(BlockInit.PALM_LOG, "Palm Log");
         this.addBlock(BlockInit.STRIPPED_PALM_LOG, "Stripped Palm Log");
         this.addBlocksFromType(BlockInit.PALM_PLANKS, "Palm", true);
- //       this.addBlock(BlockInit.PALM_SIGN, "Palm Sign");
-
-        this.addBlock(BlockInit.PALM_WALL_SIGN, "Palm Wall Sign");
         this.addBlock(BlockInit.STRIPPED_NYMPH_LOG, "Stripped Nymph Log");
         this.addBlocksFromType(BlockInit.NYMPH_PLANKS, "Nymph", true);
 
@@ -130,9 +127,8 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlock(BlockInit.PUSH_BUBBLE_COLUMN, "Push Bubble Column");
         this.addBlock(BlockInit.ALGAE_BLOCK, "Algae Block");
         this.addBlock(BlockInit.CHISELED_AQUAMARINE_BLOCK, "Chiseled Aquamarine Block");
-        this.addBlock(BlockInit.ORICHALCUM_BLOCK, "Orichalcum Block");
-        this.addBlock(BlockInit.LINGUISTIC_BLOCK, "Linguistic Block");
-        this.addBlock(BlockInit.WRITING_BLOCK, "Writing Block");
+        this.addBlock(BlockInit.LINGUISTIC_TABLE, "Linguistic Table");
+        this.addBlock(BlockInit.WRITING_TABLE, "Writing Table");
         this.addBlock(BlockInit.NYMPH_SAPLING, "Nymph Sapling");
         this.addBlock(BlockInit.PALM_SAPLING, "Palm Sapling");
         this.addBlock(BlockInit.FIRE_MELON_FRUIT_SPIKED, "Fire Melon Fruit Spiked");
@@ -221,11 +217,11 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add("orichalcum_hammer.tooltip", "Right click to break blocks in a 5x5 area");
         this.add("enchantment.atlantis.deeper_depth", "Deeper Depth");
 
-        this.add("item.atlantis.smithing_template.orichalcum_upgrade.ingredients", "Orichalcum Ingot");
-        this.add("item.atlantis.smithing_template.orichalcum_upgrade.base_slot_description", "Add orichalcum armor, weapon, or tool");
-        this.add("item.atlantis.smithing_template.orichalcum_upgrade.additions_slot_description", "Add Orichalcum Ingot");
-        this.add("item.atlantis.smithing_template.orichalcum_upgrade.applies_to", "Aquamarine Equipment");
-        this.add("upgrade.atlantis.orichalcum_upgrade", "Orichalcum Upgrade Smithing Template");
+        this.add("item.minecraft.smithing_template.orichalcum_upgrade.ingredients", "Orichalcum Ingot");
+        this.add("item.minecraft.smithing_template.orichalcum_upgrade.base_slot_description", "Add orichalcum armor, weapon, or tool");
+        this.add("item.minecraft.smithing_template.orichalcum_upgrade.additions_slot_description", "Add Orichalcum Ingot");
+        this.add("item.minecraft.smithing_template.orichalcum_upgrade.applies_to", "Aquamarine Equipment");
+        this.add("upgrade.minecraft.orichalcum_upgrade", "Orichalcum Upgrade Smithing Template");
         this.add("enchantment.atlantis.lightning_protection", "Lightning Protection");
         this.add("container.writing", "Writing");
         this.add("container.linguistic", "Linguistic");
@@ -293,9 +289,10 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(ItemInit.ANCIENT_CUPRUM_INGOT.get(), "Ancient Cuprum Ingot");
         this.add(ItemInit.RAW_ANCIENT_CUPRUM.get(), "Raw Ancient Cuprum");
 
-        add("block.atlantis.atlantean_sign", "Nymph Sign");
-        add("block.atlantis.atlantean_wall_sign", "Nymph Wall Sign");
-        add("block.atlantis.palm_wall_sign", "Palm Wall Sign");
+        add("block.atlantis.nymph_sign", "Nymph Sign");
+        add("block.atlantis.nymph_wall_sign", "Nymph Sign");
+        add("block.atlantis.palm_sign", "Palm Sign");
+        add("block.atlantis.palm_wall_sign", "Palm Sign");
 
         this.add(ItemInit.FIRE_MELON_FRUIT.get(), "Fire Melon Fruit");
         this.add(ItemInit.FIRE_MELON_FRUIT_SPIKED.get(), "Fire Melon Fruit Spiked");

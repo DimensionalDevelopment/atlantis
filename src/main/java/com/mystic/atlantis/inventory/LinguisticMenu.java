@@ -107,7 +107,7 @@ public class LinguisticMenu extends AbstractContainerMenu {
 
 	@Override
 	public boolean stillValid(Player usingPlayer) {
-		return stillValid(this.access, usingPlayer, BlockInit.LINGUISTIC_BLOCK.get());
+		return stillValid(this.access, usingPlayer, BlockInit.LINGUISTIC_TABLE.get());
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 {
     "display": {
         "icon": {
-            "item": "atlantis:atlantean_jellyfish_egg"
+            "item": "atlantis:aquaiel_jellyfish_egg"
         },
         "title": {
             "text": "Jellyshocked",
@@ -34,7 +34,7 @@
             "conditions": {
                 "damage": {
                     "source_entity": {
-                        "type": "atlantis:atlantean_jellyfish"
+                        "type": "atlantis:aquaiel_jellyfish"
                     }
                 }
             }

@@ -1,0 +1,30 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"III",
+		" C ",
+		" C "
+	],
+	
+	"key":
+	{
+		"C":
+		{
+			"item": "minecraft:stick"
+		},
+		
+		"I":
+		{
+			"item": "atlantis:aquamarine_gem"
+		}
+	},
+	
+	"result":
+	{
+		"item": "atlantis:aquamarine_pickaxe",
+		"count": 1
+	}
+	
+}					

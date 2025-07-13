@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_linguistic_glyph_scroll": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "atlantis:linguistic_glyph_scroll"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:linguistic_glyph_scroll_o_from_linguistic_glyph_scroll_writing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_linguistic_glyph_scroll",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:linguistic_glyph_scroll_o_from_linguistic_glyph_scroll_writing"
+    ]
+  },
+  "sends_telemetry_event": false
+}

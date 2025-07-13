@@ -1,7 +1,7 @@
 {
     "display": {
         "icon": {
-            "item": "atlantis:crab_bucket"
+            "item": "atlantis:rubyclaw_crab_bucket"
         },
         "title": {
             "text": "Crab Raves",
@@ -39,7 +39,7 @@
                     "count": 1
                 },
                 "entity": {
-                    "type": "atlantis:atlantean_crab"
+                    "type": "atlantis:rubyclaw_crab"
                 }
             }
         }

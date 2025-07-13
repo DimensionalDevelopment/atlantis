@@ -1,0 +1,11 @@
+{
+  "parent": "atlantis:block/tinted_cube",
+  "textures": {
+    "down": "atlantis:block/nymph_planks",
+    "east": "atlantis:block/writing_table_side_1",
+    "north": "atlantis:block/writing_table_side",
+    "south": "atlantis:block/writing_table_side_2",
+    "up": "atlantis:block/writing_table_top",
+    "west": "atlantis:block/writing_table_side_0"
+  }
+}

@@ -26,7 +26,7 @@ public class OrbOfAtlantis extends DefaultItem {
                 level.setBlock(blockpos, blockstate1, 2);
                 level.updateNeighbourForOutputSignal(blockpos, BlockInit.ATLANTEAN_PORTAL_FRAME.get());
                 pContext.getItemInHand().shrink(1);
-                level.playLocalSound(blockpos, SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 1.0F, 1.0F, false);
+                level.playSound(null, blockpos, SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 1.0F, 0.4F / (pContext.getLevel().getRandom().nextFloat() * 0.4F + 0.8F));
                 BlockPattern.BlockPatternMatch blockpattern$blockpatternmatch = AtlanteanPortalFrame.getOrCreatePortalShape().find(level, blockpos);
                 if (blockpattern$blockpatternmatch != null) {
                     BlockPos blockpos1 = blockpattern$blockpatternmatch.getFrontTopLeft().offset(-3, 0, -3);
@@ -37,7 +37,7 @@ public class OrbOfAtlantis extends DefaultItem {
                         }
                     }
 
-                    level.playLocalSound(blockpos, SoundEvents.END_PORTAL_SPAWN, SoundSource.HOSTILE, 1.0F, 1.0F, false);
+                    level.playSound(null, blockpos, SoundEvents.END_PORTAL_SPAWN, SoundSource.HOSTILE, 1.0F, 1.0F);
                 }
 
                 return InteractionResult.CONSUME;

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "atlantis:weathered_chiseled_ancient_cuprum"
+    },
+    {
+      "item": "minecraft:honeycomb"
+    }
+  ],
+  "result": {
+    "item": "atlantis:waxed_weathered_chiseled_ancient_cuprum"
+  }
+}

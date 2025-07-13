@@ -4,7 +4,7 @@
     "item": "atlantis:orichalcum_ingot"
   },
   "base": {
-    "item": "atlantis:shovel_aquamarine"
+    "item": "atlantis:aquamarine_shovel"
   },
   "result": {
     "item": "atlantis:orichalcum_shovel"

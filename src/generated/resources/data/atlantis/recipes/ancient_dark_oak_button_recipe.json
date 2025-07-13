@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "atlantis:ancient_dark_oak_planks"
+    }
+  ],
+  "result": {
+    "item": "atlantis:ancient_dark_oak_button"
+  }
+}

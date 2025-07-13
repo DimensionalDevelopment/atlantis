@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "atlantis:broken_shells"
+    },
+
+    "T": {
+      "item": "minecraft:brick"
+    },
+
+    "A": {
+      "item": "minecraft:clay"
+    }
+  },
+  "pattern": [
+    "TNA",
+    "NNN",
+    "TNA"
+  ],
+  "result": {
+    "count": 1,
+    "item": "atlantis:snown_pot"
+  },
+  "show_notification": true
+}

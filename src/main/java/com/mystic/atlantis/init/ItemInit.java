@@ -45,8 +45,8 @@ public class ItemInit {
 
     //SPAWN EGGS
     public static final RegistryObject<Item> RUBYCLAW_CRAB_EGG = register("rubyclaw_crab_egg",() -> new ForgeSpawnEggItem(AtlantisEntityInit.RUBYCLAW_CRAB, 0x800002, 0xff0f45, new Item.Properties()));
-    public static final RegistryObject<Item> AQUAIEL_JELLYFISH_EGG = register("aquaiel_jellyfishcc_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.AQUAIEL_JELLYFISH, 0x00458a, 0x0582ff, new Item.Properties()));
-    public static final RegistryObject<Item> GLITTERTAIL_SHRIMP_EGG = register("atlantean_shrimp_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.GLITTERTAIL_SHRIMP, 0xff0000, 0xff8000, new Item.Properties()));
+    public static final RegistryObject<Item> AQUAIEL_JELLYFISH_EGG = register("aquaiel_jellyfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.AQUAIEL_JELLYFISH, 0x00458a, 0x0582ff, new Item.Properties()));
+    public static final RegistryObject<Item> GLITTERTAIL_SHRIMP_EGG = register("glittertail_shrimp_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.GLITTERTAIL_SHRIMP, 0xff0000, 0xff8000, new Item.Properties()));
     public static final RegistryObject<Item> LEVIATHAN_EGG = register("leviathan_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.LEVIATHAN, 0x01ddddd, 0xaddedb, new Item.Properties()));
     public static final RegistryObject<Item> THALASSIAN_SEAHORSE_EGG = register("thalassian_seahorse_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.THALASSIAN_SEAHORSE, 0xf6eb3e, 0xcfc85b, new Item.Properties()));
 

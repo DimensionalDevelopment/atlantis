@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "atlantis:oxidized_cut_ancient_cuprum_stairs"
+    },
+    {
+      "item": "minecraft:honeycomb"
+    }
+  ],
+  "result": {
+    "item": "atlantis:waxed_oxidized_cut_ancient_cuprum_stairs"
+  }
+}

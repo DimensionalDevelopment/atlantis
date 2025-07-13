@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "atlantis:oxidized_ancient_cuprum_trapdoor"
+    },
+    {
+      "item": "minecraft:honeycomb"
+    }
+  ],
+  "result": {
+    "item": "atlantis:waxed_oxidized_ancient_cuprum_trapdoor"
+  }
+}

@@ -1,7 +1,7 @@
 {
     "display": {
         "icon": {
-            "item": "atlantis:jellyfish_bucket"
+            "item": "atlantis:aquaiel_jellyfish_bucket"
         },
         "title": {
             "text": "Squishy Jellies",
@@ -39,7 +39,7 @@
                     "count": 1
                 },
                 "entity": {
-                    "type": "atlantis:atlantean_jellyfish"
+                    "type": "atlantis:aquaiel_jellyfish"
                 }
             }
         }

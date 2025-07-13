@@ -1,6 +1,6 @@
 package com.mystic.atlantis.init;
 
-import static com.mystic.atlantis.blocks.aquaticpower.AquaticPowerTorchBlock.WATERLOGGED;
+import static com.mystic.atlantis.blocks.aquatic_power.AquaticPowerTorchBlock.WATERLOGGED;
 
 import org.jetbrains.annotations.NotNull;
 

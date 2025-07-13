@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "atlantis:block/oxidized_cut_ancient_cuprum",
+    "side": "atlantis:block/oxidized_cut_ancient_cuprum",
+    "top": "atlantis:block/oxidized_cut_ancient_cuprum"
+  }
+}

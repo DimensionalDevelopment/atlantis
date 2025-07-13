@@ -1,0 +1,11 @@
+{
+  "parent": "atlantis:block/tinted_cube",
+  "textures": {
+    "down": "atlantis:block/colored_shell_faces_cracked",
+    "east": "atlantis:block/colored_shell_side_cracked",
+    "north": "atlantis:block/colored_shell_front_cracked",
+    "south": "atlantis:block/colored_shell_faces_cracked",
+    "up": "atlantis:block/colored_shell_faces_cracked",
+    "west": "atlantis:block/colored_shell_side_cracked"
+  }
+}

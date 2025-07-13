@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "atlantis:block/ancient_bamboo_planks",
+    "side": "atlantis:block/ancient_bamboo_planks",
+    "top": "atlantis:block/ancient_bamboo_planks"
+  }
+}

@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "atlantis:block/horpon_pot"
+        "model": "atlantis:block/horpen_pot"
       },
       "when": {
         "facing": "north"
@@ -10,7 +10,7 @@
     },
     {
       "apply": {
-        "model": "atlantis:block/horpon_pot"
+        "model": "atlantis:block/horpen_pot"
       },
       "when": {
         "facing": "south"
@@ -18,7 +18,7 @@
     },
     {
       "apply": {
-        "model": "atlantis:block/horpon_pot",
+        "model": "atlantis:block/horpen_pot",
         "y": 90
       },
       "when": {
@@ -27,7 +27,7 @@
     },
     {
       "apply": {
-        "model": "atlantis:block/horpon_pot",
+        "model": "atlantis:block/horpen_pot",
         "y": 90
       },
       "when": {

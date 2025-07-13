@@ -79,8 +79,8 @@
       },
       {
         "type": "atlantis:zombie_starfish",
-        "maxCount": 2,
-        "minCount": 2,
+        "maxCount": 1,
+        "minCount": 1,
         "weight": 25
       },
       {

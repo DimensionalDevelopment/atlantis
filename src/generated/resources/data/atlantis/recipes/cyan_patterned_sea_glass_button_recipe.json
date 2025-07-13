@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "atlantis:cyan_patterned_sea_glass"
+    }
+  ],
+  "result": {
+    "item": "atlantis:cyan_patterned_sea_glass_button"
+  }
+}

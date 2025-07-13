@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "atlantis:block/lime_sea_glass"
+  }
+}

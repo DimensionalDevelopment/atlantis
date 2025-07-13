@@ -1,0 +1,9 @@
+{
+  "type": "atlantis:seeds_drop",
+  "conditions": [
+    {
+      "block": "minecraft:seagrass",
+      "condition": "minecraft:block_state_property"
+    }
+  ]
+}

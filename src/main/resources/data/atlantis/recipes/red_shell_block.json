@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:red_dye"
+    },
+    {
+      "item": "atlantis:white_shell_block"
+    }
+  ],
+  "result": {
+    "item": "atlantis:red_shell_block",
+    "count": 1
+  }
+}

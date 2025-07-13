@@ -5,14 +5,14 @@
 	[
 	
 	{
-		"item": "atlantis:stripped_atlantean_log"
+		"item": "atlantis:stripped_nymph_log"
 	}
 	
 	],
 	
 	"result":
 	{
-		"item": "atlantis:atlantean_planks",
+		"item": "atlantis:nymph_planks",
 		"count": 4
 	}
 }	

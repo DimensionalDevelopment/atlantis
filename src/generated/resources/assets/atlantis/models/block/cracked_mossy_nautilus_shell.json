@@ -1,0 +1,11 @@
+{
+  "parent": "atlantis:block/tinted_cube",
+  "textures": {
+    "down": "atlantis:block/cracked_mossy_nautilus_shell_faces",
+    "east": "atlantis:block/cracked_mossy_nautilus_shell_side",
+    "north": "atlantis:block/cracked_mossy_nautilus_shell_front",
+    "south": "atlantis:block/cracked_mossy_nautilus_shell_faces",
+    "up": "atlantis:block/cracked_mossy_nautilus_shell_faces",
+    "west": "atlantis:block/cracked_mossy_nautilus_shell_side"
+  }
+}

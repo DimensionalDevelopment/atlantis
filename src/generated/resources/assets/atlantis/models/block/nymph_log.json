@@ -1,0 +1,11 @@
+{
+  "parent": "atlantis:block/tinted_cube",
+  "textures": {
+    "down": "atlantis:block/nymph_log_top",
+    "east": "atlantis:block/nymph_log",
+    "north": "atlantis:block/nymph_log",
+    "south": "atlantis:block/nymph_log",
+    "up": "atlantis:block/nymph_log_top",
+    "west": "atlantis:block/nymph_log"
+  }
+}

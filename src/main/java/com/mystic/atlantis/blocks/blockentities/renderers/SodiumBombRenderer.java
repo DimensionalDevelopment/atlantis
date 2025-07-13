@@ -2,7 +2,7 @@ package com.mystic.atlantis.blocks.blockentities.renderers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.mystic.atlantis.blocks.aquaticpower.SodiumPrimedBombBlock;
+import com.mystic.atlantis.blocks.aquatic_power.SodiumPrimedBombBlock;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;

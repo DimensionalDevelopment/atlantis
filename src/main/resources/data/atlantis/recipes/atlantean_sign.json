@@ -14,12 +14,12 @@
 		},
 		"S":
 		{
-			"item": "atlantis:atlantean_planks"
+			"item": "atlantis:nymph_planks"
 		}
 	},
 	"result":
 	{
-		"item": "atlantis:atlantean_sign",
+		"item": "atlantis:nymph_sign",
 		"count": 2
 	}
 

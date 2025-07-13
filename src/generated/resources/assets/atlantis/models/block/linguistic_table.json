@@ -1,0 +1,11 @@
+{
+  "parent": "atlantis:block/tinted_cube",
+  "textures": {
+    "down": "atlantis:block/linguistic_table_bottom",
+    "east": "atlantis:block/linguistic_table_side",
+    "north": "atlantis:block/linguistic_table_side_1",
+    "south": "atlantis:block/linguistic_table_side",
+    "up": "atlantis:block/linguistic_table_top",
+    "west": "atlantis:block/linguistic_table_side_0"
+  }
+}

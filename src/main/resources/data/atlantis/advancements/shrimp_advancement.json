@@ -1,7 +1,7 @@
 {
     "display": {
         "icon": {
-            "item": "atlantis:shrimp_bucket"
+            "item": "atlantis:glittertail_shrimp_bucket"
         },
         "title": {
             "text": "Shrimpify",
@@ -38,7 +38,7 @@
                     ]
                 },
                 "entity": {
-                    "type": "atlantis:atlantean_shrimp"
+                    "type": "atlantis:glittertail_shrimp"
                 }
             }
         }

@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "atlantis:shrimp"
   },
-  "result": "minecraft:dried_kelp",
+  "result": "atlantis:cooked_shrimp",
   "experience": 0.5,
   "cookingtime": 50
 }

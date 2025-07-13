@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "atlantis:block/ancient_mangrove_planks",
+    "side": "atlantis:block/ancient_mangrove_planks",
+    "top": "atlantis:block/ancient_mangrove_planks"
+  }
+}

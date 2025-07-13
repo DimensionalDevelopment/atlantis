@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=false,powered=false": {
+      "model": "atlantis:block/exposed_ancient_cuprum_bulb_unlit"
+    },
+    "lit=false,powered=true": {
+      "model": "atlantis:block/exposed_ancient_cuprum_bulb_unlit_powered"
+    },
+    "lit=true,powered=false": {
+      "model": "atlantis:block/exposed_ancient_cuprum_bulb_lit"
+    },
+    "lit=true,powered=true": {
+      "model": "atlantis:block/exposed_ancient_cuprum_bulb_lit_powered"
+    }
+  }
+}

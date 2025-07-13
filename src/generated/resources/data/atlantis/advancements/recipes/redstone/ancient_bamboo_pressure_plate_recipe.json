@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ancient_bamboo_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "atlantis:ancient_bamboo_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:ancient_bamboo_pressure_plate_recipe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_ancient_bamboo_planks",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:ancient_bamboo_pressure_plate_recipe"
+    ]
+  },
+  "sends_telemetry_event": false
+}

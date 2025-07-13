@@ -3,8 +3,8 @@
 	"parent":"block/block",
 	"texture_size": [24, 24],
 	"textures": {
-		"0": "atlantis:block/pottery/horpen",
-		"1": "atlantis:block/pottery/horpen_top",
+		"0": "atlantis:block/pottery/horpen_pot",
+		"1": "atlantis:block/pottery/horpen_pot_top",
 		"particle": "block/terracotta"
 	},
 	"elements": [

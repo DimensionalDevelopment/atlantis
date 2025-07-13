@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            }
+          ],
+          "name": "atlantis:ancient_warped_trapdoor"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "atlantis:ancient_warped_trapdoor"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "atlantis:blocks/ancient_warped_trapdoor"
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "atlantis:ancient_cherry_planks"
+    }
+  ],
+  "result": {
+    "item": "atlantis:ancient_cherry_button"
+  }
+}

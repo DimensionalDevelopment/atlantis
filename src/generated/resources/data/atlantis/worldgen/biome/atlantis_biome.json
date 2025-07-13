@@ -76,8 +76,8 @@
       },
       {
         "type": "atlantis:zombie_starfish",
-        "maxCount": 2,
-        "minCount": 2,
+        "maxCount": 1,
+        "minCount": 1,
         "weight": 25
       },
       {
@@ -91,8 +91,8 @@
     "water_ambient": [
       {
         "type": "atlantis:aquaiel_jellyfish",
-        "maxCount": 4,
-        "minCount": 2,
+        "maxCount": 1,
+        "minCount": 1,
         "weight": 25
       },
       {
@@ -123,15 +123,15 @@
       },
       {
         "type": "atlantis:starfish",
-        "maxCount": 2,
-        "minCount": 2,
+        "maxCount": 1,
+        "minCount": 1,
         "weight": 25
       },
       {
         "type": "atlantis:thalassian_seahorse",
-        "maxCount": 2,
+        "maxCount": 1,
         "minCount": 1,
-        "weight": 1
+        "weight": 25
       }
     ]
   },

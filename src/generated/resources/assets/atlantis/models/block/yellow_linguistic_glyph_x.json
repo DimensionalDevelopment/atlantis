@@ -1,0 +1,11 @@
+{
+  "parent": "atlantis:block/tinted_cube",
+  "textures": {
+    "down": "atlantis:block/blank/blank_bottom",
+    "east": "atlantis:block/blank/blank_side_x",
+    "north": "atlantis:block/blank/blank_side_x",
+    "south": "atlantis:block/blank/blank_side_x",
+    "up": "atlantis:block/blank/blank_top_x",
+    "west": "atlantis:block/blank/blank_side_x"
+  }
+}

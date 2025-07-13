@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "atlantis:block/black_patterned_sea_glass",
+    "side": "atlantis:block/black_patterned_sea_glass",
+    "top": "atlantis:block/black_patterned_sea_glass"
+  }
+}

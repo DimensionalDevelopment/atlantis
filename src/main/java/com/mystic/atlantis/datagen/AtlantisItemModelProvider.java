@@ -1,6 +1,8 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.blocks.BlockType;
+import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
 import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.GlyphBlock;
@@ -13,6 +15,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.Locale;
 
 public class AtlantisItemModelProvider extends ItemModelProvider {
     public AtlantisItemModelProvider(PackOutput generator, ExistingFileHelper existingFileHelper) {
@@ -35,12 +39,12 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         item(ItemInit.LINGUISTIC_GLYPH_SCROLL_K);
         item(ItemInit.LINGUISTIC_GLYPH_SCROLL_L);
         item(ItemInit.LINGUISTIC_GLYPH_SCROLL_M);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_N);
+        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_N, "linguistic_glyph_n_scroll");
         item(ItemInit.LINGUISTIC_GLYPH_SCROLL_O);
         item(ItemInit.LINGUISTIC_GLYPH_SCROLL_P);
         item(ItemInit.LINGUISTIC_GLYPH_SCROLL_Q);
         item(ItemInit.LINGUISTIC_GLYPH_SCROLL_R);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_S);
+        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_S, "linguistic_glyph_s_scroll");
         item(ItemInit.LINGUISTIC_GLYPH_SCROLL_T);
         item(ItemInit.LINGUISTIC_GLYPH_SCROLL_U);
         item(ItemInit.LINGUISTIC_GLYPH_SCROLL_V);
@@ -59,18 +63,35 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         item(ItemInit.LINGUISTIC_GLYPH_SCROLL_8);
         item(ItemInit.LINGUISTIC_GLYPH_SCROLL_9);
 
-        for(LinguisticGlyph glyph : LinguisticGlyph.values()) {
-            for(DyeColor color : DyeColor.values()) {
-                withParent(BlockInit.getLinguisticBlock(glyph, color), glyph);
-            }
-
-            withParent(BlockInit.getLinguisticBlock(glyph, null), glyph);
-        }
-
-        block(BlockInit.LINGUISTIC_BLOCK);
         block(BlockInit.ORICHALCUM_BLOCK);
         block(BlockInit.RAW_ANCIENT_CUPRUM_BLOCK);
 
+        for (TrailsGroup trailsGroup : BlockInit.ANCIENT_CUPRUM.values()) {
+            blockGenerated(trailsGroup.waxed_door().getId().getPath(), trailsGroup.door().getId().getPath());
+            blockGenerated(trailsGroup.door().getId().getPath());
+        }
+
+        blockGenerated("ancient_acacia_door");
+        blockGenerated("ancient_birch_door");
+        blockGenerated("ancient_dark_oak_door");
+        blockGenerated("ancient_jungle_door");
+        blockGenerated("ancient_oak_door");
+        blockGenerated("ancient_spruce_door");
+        blockGenerated("ancient_mangrove_door");
+        blockGenerated("ancient_cherry_door");
+        blockGenerated("ancient_bamboo_door");
+        blockGenerated("ancient_crimson_door");
+        blockGenerated("ancient_warped_door");
+
+        blockGenerated("seabloom", BlockInit.SEABLOOM);
+        blockGenerated("red_seabloom", BlockInit.RED_SEABLOOM);
+        blockGenerated("yellow_seabloom", BlockInit.YELLOW_SEABLOOM);
+        blockGenerated("purple_seashroom", BlockInit.PURPLE_SEASHROOM);
+        blockGenerated("yellow_seashroom", BlockInit.YELLOW_SEASHROOM);
+        blockGenerated("palm_sapling", BlockInit.PALM_SAPLING);
+        blockGenerated("nymph_sapling", BlockInit.NYMPH_SAPLING);
+
+        item(ItemInit.ORICHALCUM_UPGRADE_SMITHING_TEMPLATE);
         item(ItemInit.RUBYCLAW_CRAB_EGG);
         item(ItemInit.RUBYCLAW_CRAB_BUCKET);
         item(ItemInit.AQUAIEL_JELLYFISH_EGG);
@@ -164,22 +185,62 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         withExistingParent(block.getId().getPath(), block(block.getId()));
     }
 
-    private <T extends Item> void item(RegistryObject<T> block) {
+    private <T extends Item> void item(RegistryObject<T> item) {
+        try {
+            getBuilder(item.getId().getPath())
+                    .parent(getExistingFile(mcLoc("item/generated")))
+                    .texture("layer0", items(item.getId()));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private <T extends Item> void item(RegistryObject<T> item, String id) {
+        try {
+            getBuilder(item.getId().getPath())
+                    .parent(getExistingFile(mcLoc("item/generated")))
+                    .texture("layer0", items(modLoc(id)));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private <T extends Block> void blockGenerated(String id, RegistryObject<T> block) {
         try {
             getBuilder(block.getId().getPath())
                     .parent(getExistingFile(mcLoc("item/generated")))
-                    .texture("layer0", items(block.getId()));
+                    .texture("layer0", block(modLoc(id)));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private <T extends Block> void blockGenerated(String id) {
+        try {
+            getBuilder(id)
+                    .parent(getExistingFile(mcLoc("item/generated")))
+                    .texture("layer0", items(modLoc(id)));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private <T extends Block> void blockGenerated(String id, String path) {
+        try {
+            getBuilder(id)
+                    .parent(getExistingFile(mcLoc("item/generated")))
+                    .texture("layer0", items(modLoc(path)));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     private ResourceLocation block(ResourceLocation location) {
-        return new ResourceLocation(location.getNamespace(), "block/" + location.getPath());
+        return ResourceLocation.fromNamespaceAndPath(location.getNamespace(), "block/" + location.getPath());
     }
 
 
     private ResourceLocation items(ResourceLocation location) {
-        return new ResourceLocation(location.getNamespace(), "item/" + location.getPath());
+        return ResourceLocation.fromNamespaceAndPath(location.getNamespace(), "item/" + location.getPath());
     }
 }

@@ -124,7 +124,7 @@ public class WritingMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return WritingMenu.stillValid(this.access, player, BlockInit.WRITING_BLOCK.get());
+        return WritingMenu.stillValid(this.access, player, BlockInit.WRITING_TABLE.get());
     }
 
     @Override

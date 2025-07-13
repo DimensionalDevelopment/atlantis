@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients":
+	[
+	
+	{
+		"item": "minecraft:tripwire_hook"
+	},					
+	
+	{
+		"item": "atlantis:aquatic_power_dust"
+	}
+	
+	],
+	
+	"result":
+	{
+		"item": "atlantis:aquatic_power_tripwire_hook",
+		"count": 2
+	}
+}	

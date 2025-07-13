@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "atlantis:block/ancient_birch_slab"
+    },
+    "type=double": {
+      "model": "atlantis:block/ancient_birch_planks"
+    },
+    "type=top": {
+      "model": "atlantis:block/ancient_birch_slab_top"
+    }
+  }
+}

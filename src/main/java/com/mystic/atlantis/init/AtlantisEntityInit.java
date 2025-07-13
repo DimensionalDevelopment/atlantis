@@ -1,6 +1,6 @@
 package com.mystic.atlantis.init;
 
-import com.mystic.atlantis.blocks.aquaticpower.SodiumPrimedBombBlock;
+import com.mystic.atlantis.blocks.aquatic_power.SodiumPrimedBombBlock;
 import com.mystic.atlantis.entities.*;
 import com.mystic.atlantis.util.Reference;
 

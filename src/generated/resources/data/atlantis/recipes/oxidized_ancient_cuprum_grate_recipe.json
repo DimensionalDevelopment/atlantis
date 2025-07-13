@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "atlantis:oxidized_ancient_cuprum_block"
+    }
+  },
+  "pattern": [
+    " # ",
+    "# #",
+    " # "
+  ],
+  "result": {
+    "count": 3,
+    "item": "atlantis:oxidized_ancient_cuprum_grate"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,17 @@
+{
+  "parent": "atlantis:block/tinted_overlay_cube",
+  "textures": {
+    "base_down": "atlantis:block/colored_shell_faces",
+    "base_east": "atlantis:block/colored_shell_side",
+    "base_north": "atlantis:block/colored_shell_front",
+    "base_south": "atlantis:block/colored_shell_faces",
+    "base_up": "atlantis:block/colored_shell_faces",
+    "base_west": "atlantis:block/colored_shell_side",
+    "overlay_down": "atlantis:block/mossy_shell_faces_overlay",
+    "overlay_east": "atlantis:block/mossy_shell_side_overlay",
+    "overlay_north": "atlantis:block/mossy_shell_front_overlay",
+    "overlay_south": "atlantis:block/mossy_shell_faces_overlay",
+    "overlay_up": "atlantis:block/mossy_shell_faces_overlay",
+    "overlay_west": "atlantis:block/mossy_shell_side_overlay"
+  }
+}

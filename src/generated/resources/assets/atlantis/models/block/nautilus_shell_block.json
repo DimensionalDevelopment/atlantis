@@ -1,0 +1,11 @@
+{
+  "parent": "atlantis:block/tinted_cube",
+  "textures": {
+    "down": "atlantis:block/nautilus_shell_faces",
+    "east": "atlantis:block/nautilus_shell_side",
+    "north": "atlantis:block/nautilus_shell_front",
+    "south": "atlantis:block/nautilus_shell_faces",
+    "up": "atlantis:block/nautilus_shell_faces",
+    "west": "atlantis:block/nautilus_shell_faces"
+  }
+}

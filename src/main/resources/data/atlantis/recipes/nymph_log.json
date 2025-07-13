@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients":
+	[
+	
+	{
+		"item": "atlantis:nymph_log"
+	}
+	
+	],
+	
+	"result":
+	{
+		"item": "atlantis:nymph_planks",
+		"count": 4
+	}
+}	

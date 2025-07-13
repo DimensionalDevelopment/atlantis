@@ -1,7 +1,7 @@
 package com.mystic.atlantis;
 
 import com.mystic.atlantis.blocks.base.ExtendedBlockEntity;
-import com.mystic.atlantis.blocks.aquaticpower.SodiumPrimedBombBlock;
+import com.mystic.atlantis.blocks.aquatic_power.SodiumPrimedBombBlock;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.datagen.WaterAttachedToLeavesDecorator;
 import com.mystic.atlantis.feature.AtlantisFeature;
@@ -98,7 +98,7 @@ public class Atlantis {
     }
 
     public static ResourceLocation id(String id) {
-        return new ResourceLocation("atlantis", id);
+        return ResourceLocation.fromNamespaceAndPath("atlantis", id);
     }
 
     public void onInitialize(IEventBus bus) {

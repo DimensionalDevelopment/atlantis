@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "atlantis:block/nymph_slab"
+    },
+    "type=double": {
+      "model": "atlantis:block/nymph_planks"
+    },
+    "type=top": {
+      "model": "atlantis:block/nymph_slab_top"
+    }
+  }
+}

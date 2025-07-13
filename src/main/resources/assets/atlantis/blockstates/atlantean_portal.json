@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "axis=x,waterlogged=true": {
+      "model": "atlantis:block/atlantean_portal_ns"
+    },
+    "axis=y,waterlogged=true": {
+      "model": "atlantis:block/atlantean_portal_ud"
+    },
+    "axis=z,waterlogged=true": {
+      "model": "atlantis:block/atlantean_portal_ew"
+    },
+    "axis=x,waterlogged=false": {
+      "model": "atlantis:block/atlantean_portal_ns"
+    },
+    "axis=y,waterlogged=false": {
+      "model": "atlantis:block/atlantean_portal_ud"
+    },
+    "axis=z,waterlogged=false": {
+      "model": "atlantis:block/atlantean_portal_ew"
+    }
+  }
+}

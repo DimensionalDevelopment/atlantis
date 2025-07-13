@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "atlantis:block/exposed_cut_ancient_cuprum",
+    "side": "atlantis:block/exposed_cut_ancient_cuprum",
+    "top": "atlantis:block/exposed_cut_ancient_cuprum"
+  }
+}

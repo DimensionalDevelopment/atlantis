@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=true": {
+      "model": "atlantis:block/seashroom"
+    },
+    "waterlogged=false": {
+      "model": "atlantis:block/seashroom"
+    }
+  }
+}

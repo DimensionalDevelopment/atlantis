@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "atlantis:block/ancient_warped_slab"
+    },
+    "type=double": {
+      "model": "atlantis:block/ancient_warped_planks"
+    },
+    "type=top": {
+      "model": "atlantis:block/ancient_warped_slab_top"
+    }
+  }
+}

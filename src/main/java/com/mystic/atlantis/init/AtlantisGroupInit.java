@@ -35,19 +35,19 @@ public class AtlantisGroupInit {
                     MAIN_BLOCKS.forEach(itemLike -> pOutput.accept(itemLike.get()));
                     MAIN_ITEMS.forEach(itemLike -> pOutput.accept(itemLike.get()));
             })
-            .withBackgroundLocation(new ResourceLocation("atlantis", "textures/gui/atlantis_tab.png"))
+            .withBackgroundLocation(ResourceLocation.fromNamespaceAndPath("atlantis", "textures/gui/atlantis_tab.png"))
             .build());
 
     public static final RegistryObject<CreativeModeTab> GLYPH = CREATIVE_TABS.register("glyph", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.atlantis.glyph"))
-            .icon(BlockInit.LINGUISTIC_BLOCK.get().asItem()::getDefaultInstance)
+            .icon(BlockInit.LINGUISTIC_TABLE.get().asItem()::getDefaultInstance)
             .withSearchBar(58)
             .hideTitle()
             .displayItems((pParameters, pOutput) -> {
                 GLYPH_BLOCKS.forEach(itemLike -> pOutput.accept(itemLike.get()));
                 GLYPH_ITEMS.forEach(itemLike -> pOutput.accept(itemLike.get()));
             })
-            .withBackgroundLocation(new ResourceLocation("atlantis", "textures/gui/glyph_tab.png"))
+            .withBackgroundLocation(ResourceLocation.fromNamespaceAndPath("atlantis", "textures/gui/glyph_tab.png"))
             .build());
 
 

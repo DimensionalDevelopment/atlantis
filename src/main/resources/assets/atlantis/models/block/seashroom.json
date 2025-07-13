@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/air",
   "textures": {
-  "particle": "atlantis:block/underwater_shroom"
+  "particle": "atlantis:block/seashroom"
   }
 }

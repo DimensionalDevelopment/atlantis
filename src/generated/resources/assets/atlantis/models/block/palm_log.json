@@ -1,0 +1,11 @@
+{
+  "parent": "atlantis:block/tinted_cube",
+  "textures": {
+    "down": "atlantis:block/palm_log_top",
+    "east": "atlantis:block/palm_log",
+    "north": "atlantis:block/palm_log",
+    "south": "atlantis:block/palm_log",
+    "up": "atlantis:block/palm_log_top",
+    "west": "atlantis:block/palm_log"
+  }
+}
