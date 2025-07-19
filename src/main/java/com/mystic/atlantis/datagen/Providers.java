@@ -40,6 +40,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.*;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
@@ -1325,6 +1326,13 @@ public class Providers {
                         ANCIENT_WARPED.fence().get().asItem(),
                         NYMPH_PLANKS.fence().get().asItem(),
                         PALM_PLANKS.fence().get().asItem()
+                );
+                tag(Tags.Items.INGOTS).add(
+                        ItemInit.ANCIENT_CUPRUM_INGOT.get(),
+                        ItemInit.ORICHALCUM_INGOT.get()
+                );
+                tag(Tags.Items.GEMS).add(
+                        ItemInit.AQUAMARINE_GEM.get()
                 );
                 tag(ItemTags.WOODEN_DOORS).add(
                         ANCIENT_BIRCH.door().get().asItem(),
