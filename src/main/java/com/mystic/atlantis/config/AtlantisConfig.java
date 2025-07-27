@@ -1,39 +1,37 @@
 package com.mystic.atlantis.config;
 
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
-import me.shedaniel.autoconfig.ConfigData;
-import net.minecraftforge.common.ForgeConfigSpec;
+public class AtlantisConfig {
 
-public class AtlantisConfig implements ConfigData {
+    public static final ModConfigSpec CONFIG_SPEC;
+    public static final AtlantisConfig CONFIG;
 
-    public static final ForgeConfigSpec CONFIG_SPEC;
-    public static final AtlantisConfig INSTANCE;
+    public ModConfigSpec.BooleanValue islandsOn;
+    public ModConfigSpec.BooleanValue volcanoesOn;
+    public ModConfigSpec.BooleanValue glowstoneCrystsOn;
+    public ModConfigSpec.IntValue minCrabSpawnHeight;
+    public ModConfigSpec.IntValue maxCrabSpawnHeight;
+    public ModConfigSpec.IntValue maxDistanceOfPushBubbleColumn;
+    public ModConfigSpec.DoubleValue magmaAcceleration;
+    public ModConfigSpec.DoubleValue magmaThreshold;
+    public ModConfigSpec.BooleanValue startInAtlantis;
+    public ModConfigSpec.BooleanValue turnOnDimensionalWaterBreathing;
+    public ModConfigSpec.BooleanValue turnOnDimensionalHaste;
+    public ModConfigSpec.DoubleValue waterVisibility;
+    public ModConfigSpec.BooleanValue shouldHavePerBiomeLighting;
 
     static {
-        Pair<AtlantisConfig, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(AtlantisConfig::new);
+        Pair<AtlantisConfig, ModConfigSpec> pair =
+                new ModConfigSpec.Builder().configure(AtlantisConfig::new);
+
+        CONFIG = pair.getLeft();
         CONFIG_SPEC = pair.getRight();
-        INSTANCE = pair.getLeft();
     }
 
-    public ForgeConfigSpec.BooleanValue islandsOn;
-    public ForgeConfigSpec.BooleanValue volcanoesOn;
-    public ForgeConfigSpec.BooleanValue glowstoneCrystsOn;
-    public ForgeConfigSpec.IntValue minCrabSpawnHeight;
-    public ForgeConfigSpec.IntValue maxCrabSpawnHeight;
-    public ForgeConfigSpec.IntValue maxDistanceOfPushBubbleColumn;
-    public ForgeConfigSpec.DoubleValue magmaAcceleration;
-    public ForgeConfigSpec.DoubleValue magmaThreshold;
-    public ForgeConfigSpec.BooleanValue startInAtlantis;
-    public ForgeConfigSpec.BooleanValue turnOnDimensionalWaterBreathing;
-    public ForgeConfigSpec.BooleanValue turnOnDimensionalHaste;
-    public ForgeConfigSpec.DoubleValue waterVisibility;
-    public ForgeConfigSpec.BooleanValue shouldHavePerBiomeLighting;
 
-
-
-    private AtlantisConfig(ForgeConfigSpec.Builder builder) {
-
+    private AtlantisConfig(ModConfigSpec.Builder builder) {
         this.islandsOn = builder.comment("Should Islands Generate?").define("islandsOn", true);
         this.volcanoesOn = builder.comment("Should Volcanoes Generate?").define("volcanoesOn", true);
         this.glowstoneCrystsOn = builder.comment("Should Glowstone Crysts Generate?").define("glowstoneCrystsOn", true);

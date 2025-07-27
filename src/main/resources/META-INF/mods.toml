@@ -1,13 +1,13 @@
-modLoader="javafml" 
+modLoader="javafml"
 loaderVersion="[47,)"
 license="LGPLv3"
-issueTrackerURL="https://github.com/Exploding-Creeper/atlantis/issues" 
+issueTrackerURL="https://github.com/Exploding-Creeper/atlantis/issues"
 
-[[mods]] 
-modId="atlantis" 
+[[mods]]
+modId="atlantis"
 version="2025.7.13-1.20.1-10.0.0-forge"
-displayName="Atlantis" 
-displayURL="https://github.com/Exploding-Creeper/atlantis" 
+displayName="Atlantis"
+displayURL="https://github.com/Exploding-Creeper/atlantis"
 logoFile= "logo.png"
 credits='''
 TelepathicGrunt for his help with the JSON files,
@@ -37,14 +37,14 @@ An Underwater Dimension Mod.
     side="BOTH"
 
 # Libraries
-[[dependencies.atlantis]] 
+[[dependencies.atlantis]]
     modId="cloth_config"
-    mandatory=true 
-    versionRange="[8.0.75,)" 
+    mandatory=true
+    versionRange="[8.0.75,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.atlantis]] 
+[[dependencies.atlantis]]
     modId="geckolib3"
     mandatory=false
     versionRange="[4.2.2,)"

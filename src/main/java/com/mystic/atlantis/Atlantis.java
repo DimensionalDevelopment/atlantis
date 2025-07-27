@@ -13,10 +13,8 @@ import com.mystic.atlantis.screen.LinguisticScreen;
 import com.mystic.atlantis.screen.WritingScreen;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
-import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -31,27 +29,19 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-import net.minecraftforge.client.ConfigScreenHandler;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.GeckoLib;
 
 @Mod(Reference.MODID)
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber()
 public class Atlantis {
     public static final Logger LOGGER = LogManager.getLogger(Reference.MODID);
 
@@ -59,9 +49,9 @@ public class Atlantis {
 
     public static final RegistryObject<TreeDecoratorType<WaterAttachedToLeavesDecorator>> WATER_ATTACH_TO_LEAVES = TREE_DECO_TYPES.register("water_attached_to_leaves", () -> new TreeDecoratorType<>(WaterAttachedToLeavesDecorator.CODEC));
 
-    public Atlantis(FMLJavaModLoadingContext context) {
-        IEventBus bus = context.getModEventBus();
-        context.registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC);
+    public Atlantis(ModContainer container) {
+        IEventBus bus = container.getEventBus();
+        container.registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC);
         ModParticleTypes.PARTICLES.register(bus);
         onInitialize(bus);
         TREE_DECO_TYPES.register(bus);
@@ -83,14 +73,6 @@ public class Atlantis {
                 return p_123426_;
             }
         });
-    }
-
-    @SubscribeEvent
-    public void loadCompleted(FMLLoadCompleteEvent event) {
-        ModContainer atlantisContainer = ModList.get()
-                .getModContainerById(Reference.MODID)
-                .orElseThrow(() -> new IllegalStateException("Atlantis Mod Container missing after loadCompleted"));
-        atlantisContainer.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((mc, previousScreen) -> AutoConfig.getConfigScreen(AtlantisConfig.class, previousScreen).get()));
     }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey(String name) {
