@@ -1,14 +1,13 @@
 package com.mystic.atlantis.biomes;
 
-import com.mojang.serialization.Codec;
-
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.common.world.ModifiableBiomeInfo;
+import net.neoforged.neoforge.common.world.BiomeModifier;
+import net.neoforged.neoforge.common.world.ModifiableBiomeInfo;
 
 public record AtlantisBiomeModifier(HolderSet<Biome> biomes, Holder<PlacedFeature> feature) implements BiomeModifier
 {
@@ -20,7 +19,7 @@ public record AtlantisBiomeModifier(HolderSet<Biome> biomes, Holder<PlacedFeatur
         }
     }
 
-    public Codec<? extends BiomeModifier> codec()
+    public MapCodec<? extends BiomeModifier> codec()
     {
         return AtlantisModifierSerializer.ATLANTIS_SERIALIZED_CODEC.get();
     }

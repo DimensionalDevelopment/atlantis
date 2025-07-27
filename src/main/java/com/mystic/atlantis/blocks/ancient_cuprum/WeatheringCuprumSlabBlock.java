@@ -19,7 +19,7 @@ public class WeatheringCuprumSlabBlock extends SlabBlock implements WeatheringCu
      */
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        this.applyChangeOverTime(pState, pLevel, pPos, pRandom);
+        this.changeOverTime(pState, pLevel, pPos, pRandom);
     }
 
     @Override

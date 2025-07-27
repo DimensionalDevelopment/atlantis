@@ -12,7 +12,7 @@ public class WeatheringCuprumDoorBlock extends DoorBlock implements WeatheringCu
     private final WeatherState weatherState;
 
     public WeatheringCuprumDoorBlock(BlockSetType p_309051_, WeatherState p_308937_, Properties p_309122_) {
-        super(p_309122_.randomTicks(), p_309051_);
+        super(p_309051_, p_309122_.randomTicks());
         this.weatherState = p_308937_;
     }
 
@@ -22,7 +22,7 @@ public class WeatheringCuprumDoorBlock extends DoorBlock implements WeatheringCu
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         if (pState.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER) {
-            this.applyChangeOverTime(pState, pLevel, pPos, pRandom);
+            this.changeOverTime(pState, pLevel, pPos, pRandom);
         }
     }
 
