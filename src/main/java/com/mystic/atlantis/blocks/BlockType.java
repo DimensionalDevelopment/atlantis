@@ -4,19 +4,19 @@ import com.google.common.base.Suppliers;
 import com.google.common.collect.Maps;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public record BlockType(RegistryObject<Block> block, RegistryObject<SlabBlock> slab, RegistryObject<WallBlock> wall, RegistryObject<FenceBlock> fence, RegistryObject<FenceGateBlock> fenceGate, RegistryObject<StairBlock> stairs, RegistryObject<DoorBlock> door, RegistryObject<TrapDoorBlock> trapDoor, RegistryObject<ButtonBlock> button, RegistryObject<PressurePlateBlock> pressurePlate) {
+public record BlockType(DeferredBlock<Block> block, DeferredBlock<SlabBlock> slab, DeferredBlock<WallBlock> wall, DeferredBlock<FenceBlock> fence, DeferredBlock<FenceGateBlock> fenceGate, DeferredBlock<StairBlock> stairs, DeferredBlock<DoorBlock> door, DeferredBlock<TrapDoorBlock> trapDoor, DeferredBlock<ButtonBlock> button, DeferredBlock<PressurePlateBlock> pressurePlate) {
     private static final Map<BlockType, Supplier<BlockFamily>> MAP = Maps.newHashMap();
 
     public static @NotNull Stream<BlockFamily> getAllFamilies() {return MAP.values().stream().map(Supplier::get);}
 
-    public static BlockType of(RegistryObject<Block> blockBase, RegistryObject<SlabBlock> blockSlab, RegistryObject<WallBlock> blockWall, RegistryObject<FenceBlock> blockFence, RegistryObject<FenceGateBlock> blockGateBlock, RegistryObject<StairBlock> blockStair, RegistryObject<DoorBlock> blockDoor, RegistryObject<TrapDoorBlock> blockTrapDoor, RegistryObject<ButtonBlock> blockButton, RegistryObject<PressurePlateBlock> pressurePlate) {
+    public static BlockType of(DeferredBlock<Block> blockBase, DeferredBlock<SlabBlock> blockSlab, DeferredBlock<WallBlock> blockWall, DeferredBlock<FenceBlock> blockFence, DeferredBlock<FenceGateBlock> blockGateBlock, DeferredBlock<StairBlock> blockStair, DeferredBlock<DoorBlock> blockDoor, DeferredBlock<TrapDoorBlock> blockTrapDoor, DeferredBlock<ButtonBlock> blockButton, DeferredBlock<PressurePlateBlock> pressurePlate) {
         var blockType = new BlockType(blockBase, blockSlab, blockWall, blockFence, blockGateBlock, blockStair, blockDoor, blockTrapDoor, blockButton, pressurePlate);
         MAP.computeIfAbsent(blockType, blockType1 -> Suppliers.memoize(() -> BlockType.family(blockType1)));
         return blockType;

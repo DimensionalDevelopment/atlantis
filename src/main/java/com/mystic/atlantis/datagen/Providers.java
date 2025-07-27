@@ -5,9 +5,7 @@ import com.mystic.atlantis.TagsInit;
 import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
 import com.mystic.atlantis.blocks.ancient_cuprum.WeatheringCuprum;
-import com.mystic.atlantis.blocks.plants.PurpleSeashroom;
-import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
-import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.dimension.AtlantisDimensions;
 import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
@@ -39,23 +37,20 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.predicates.*;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
-import net.minecraftforge.common.data.GlobalLootModifierProvider;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.jetbrains.annotations.NotNull;
-import pro.mikey.justhammers.HammerTags;
 
 import java.util.List;
 import java.util.Map;
 import java.util.OptionalLong;
 import java.util.Set;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static com.mystic.atlantis.init.BlockInit.*;
@@ -71,12 +66,12 @@ public class Providers {
         var registryProvider = new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(), new RegistrySetBuilder()
                 .add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesInit::new)
                 .add(Registries.PLACED_FEATURE, PlacedFeatureInit::new)
-                .add(Registries.DIMENSION_TYPE, context -> context.register(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, new DimensionType(
+                .add(Registries.DIMENSION_TYPE, context -> context.register(AtlantisDimensions.ATLANTIS_DIMENSION_TYPE_KEY, new DimensionType(
                         OptionalLong.empty(),
-                        true, false, false, false, 1, true, true, -64, 512, 512, BlockTags.INFINIBURN_OVERWORLD, DimensionAtlantis.ATLANTIS_DIMENSION_EFFECT, 0, new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 0)
+                        true, false, false, false, 1, true, true, -64, 512, 512, BlockTags.INFINIBURN_OVERWORLD, AtlantisDimensions.ATLANTIS_DIMENSION_EFFECT, 0, new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 0)
                 )))
                 .add(Registries.BIOME, BiomeInit::new)
-                .add(Registries.LEVEL_STEM, DimensionAtlantis::new)
+                .add(Registries.LEVEL_STEM, AtlantisDimensions::new)
                 .add(Registries.PROCESSOR_LIST, ProcessorListInit::new)
                 .add(Registries.TEMPLATE_POOL, TemplatePoolInit::new)
                 .add(Registries.NOISE_SETTINGS, NoiseSettingsInit::new)
@@ -88,9 +83,9 @@ public class Providers {
         event.getGenerator().addProvider(true, new AtlantisMainProvider(output, event.getExistingFileHelper(), AtlantisBlockStateProvider::new));
         event.getGenerator().addProvider(true, new AtlantisItemModelProvider(output, event.getExistingFileHelper()));
         event.getGenerator().addProvider(true, new AtlantisEnglishLanguageProvider(output));
-        event.getGenerator().addProvider(true, new RecipeProvider(output) {
+        event.getGenerator().addProvider(true, new RecipeProvider(output, event.getLookupProvider()) {
             @Override
-            protected void buildRecipes(@NotNull Consumer<FinishedRecipe> recipeOutput) {
+            protected void buildRecipes(@NotNull RecipeOutput recipeOutput) {
                 var list = ItemInit.getScrolls();
                 var ingredient = Ingredient.of(list.toArray(Item[]::new));
 
@@ -146,7 +141,7 @@ public class Providers {
                         .save(recipeOutput, Atlantis.id(BlockInit.RAW_ANCIENT_CUPRUM_BLOCK.get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
             }
 
-            private static void registerWood(BlockType blockType, Consumer<FinishedRecipe> recipeOutput) {
+            private static void registerWood(BlockType blockType, RecipeOutput recipeOutput) {
                 ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, blockType.button().get())
                         .requires(blockType.block().get())
                         .unlockedBy(getHasName(blockType.block().get()), has(blockType.block().get()))
@@ -197,7 +192,7 @@ public class Providers {
                         .save(recipeOutput, Atlantis.id(blockType.pressurePlate().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
             }
 
-            private static void registerSeaGlass(Consumer<FinishedRecipe> recipeOutput) {
+            private static void registerSeaGlass(RecipeOutput recipeOutput) {
                 for (DyeColor color : DyeColor.values()) {
                     var blockType = BlockInit.SEA_GLASS_PATTERNS.get(color);
                     var blockType2 = SEA_GLASS_LIST.get(color);
@@ -238,7 +233,7 @@ public class Providers {
                 }
             }
 
-            private static void registerGroup(TrailsGroup group, Consumer<FinishedRecipe> recipeOutput) {
+            private static void registerGroup(TrailsGroup group, RecipeOutput recipeOutput) {
                 ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, group.bulb().get(), 1)
                         .pattern(" # ")
                         .pattern("#X#")
@@ -364,7 +359,7 @@ public class Providers {
                         .save(recipeOutput, Atlantis.id(group.waxed_bulb().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
             }
 
-            private static void glyphScroll(Consumer<FinishedRecipe> recipeOutput, ItemLike result, Ingredient material) {
+            private static void glyphScroll(RecipeOutput recipeOutput, ItemLike result, Ingredient material) {
                 writing(material, RecipeCategory.MISC, result, 1)
                         .unlockedBy(getHasName(ItemInit.LINGUISTIC_GLYPH_SCROLL.get()), has(ItemInit.LINGUISTIC_GLYPH_SCROLL.get()))
                         .save(recipeOutput, getConversionRecipeName(result, ItemInit.LINGUISTIC_GLYPH_SCROLL.get()) + "_writing");

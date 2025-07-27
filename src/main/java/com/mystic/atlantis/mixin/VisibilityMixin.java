@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mystic.atlantis.config.AtlantisConfig;
-import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.dimension.AtlantisDimensions;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -21,7 +21,7 @@ public class VisibilityMixin {
         FogType cameraSubmersionType = camera.getFluidInCamera();
         AtlantisConfig config = AtlantisConfig.INSTANCE;
 
-        if(DimensionAtlantis.isAtlantisDimension(Minecraft.getInstance().level)) {
+        if(AtlantisDimensions.isAtlantisDimension(Minecraft.getInstance().level)) {
             if (cameraSubmersionType == FogType.WATER) {
                 float endVal = config.waterVisibility.get().floatValue();
                 endVal = endVal > 200 ? 200 : (endVal < 1 ? 1 : endVal);

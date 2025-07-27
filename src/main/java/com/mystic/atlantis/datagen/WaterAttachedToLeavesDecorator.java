@@ -1,6 +1,7 @@
 package com.mystic.atlantis.datagen;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mystic.atlantis.Atlantis;
 import net.minecraft.Util;
@@ -9,7 +10,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 
@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Set;
 
 public class WaterAttachedToLeavesDecorator extends TreeDecorator {
-    public static final Codec<WaterAttachedToLeavesDecorator> CODEC =
-            RecordCodecBuilder.create((p_225996_) -> p_225996_.group(
+    public static final MapCodec<WaterAttachedToLeavesDecorator> CODEC =
+            RecordCodecBuilder.mapCodec((p_225996_) -> p_225996_.group(
                     Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((p_226012_) -> p_226012_.probability),
                     Codec.intRange(0, 16).fieldOf("exclusion_radius_xz").forGetter((p_226012_) -> p_226012_.exclusionRadiusXZ),
                     Codec.intRange(0, 16).fieldOf("exclusion_radius_y").forGetter((p_226010_) -> p_226010_.exclusionRadiusY),

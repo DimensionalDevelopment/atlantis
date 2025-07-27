@@ -1,7 +1,7 @@
 package com.mystic.atlantis.blocks.base;
 
 import com.mystic.atlantis.dimension.AtlanteanPortalForcer;
-import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.dimension.AtlantisDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -47,7 +47,7 @@ public class AtlanteanPortalBlock extends EndPortalBlock implements SimpleWaterl
     @Override
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
         if (pLevel instanceof ServerLevel && pEntity.canChangeDimensions() && Shapes.joinIsNotEmpty(Shapes.create(pEntity.getBoundingBox().move(-pPos.getX(), -pPos.getY(), -pPos.getZ())), pState.getShape(pLevel, pPos), BooleanOp.AND)) {
-            ResourceKey<Level> resourcekey = DimensionAtlantis.isAtlantisDimension(pLevel) ? Level.OVERWORLD : DimensionAtlantis.ATLANTIS_WORLD;
+            ResourceKey<Level> resourcekey = AtlantisDimensions.isAtlantisDimension(pLevel) ? Level.OVERWORLD : AtlantisDimensions.ATLANTIS_WORLD;
             ServerLevel serverlevel = ((ServerLevel) pLevel).getServer().getLevel(resourcekey);
             if (serverlevel == null) {
                 return;
@@ -56,7 +56,7 @@ public class AtlanteanPortalBlock extends EndPortalBlock implements SimpleWaterl
             AtlanteanPortalForcer atlanteanPortalForcer = new AtlanteanPortalForcer(serverlevel);
 
             if(pEntity instanceof ServerPlayer player) {
-                if (resourcekey.equals(DimensionAtlantis.ATLANTIS_WORLD) && pEntity.getPortalCooldown() == 0) {
+                if (resourcekey.equals(AtlantisDimensions.ATLANTIS_WORLD) && pEntity.getPortalCooldown() == 0) {
                     player.changeDimension(serverlevel, atlanteanPortalForcer);
                     player.setPortalCooldown(300);
                 } else if (player.getPortalCooldown() == 0) {
@@ -64,7 +64,7 @@ public class AtlanteanPortalBlock extends EndPortalBlock implements SimpleWaterl
                     player.setPortalCooldown(300);
                 }
             } else {
-                if (resourcekey.equals(DimensionAtlantis.ATLANTIS_WORLD) && pEntity.getPortalCooldown() == 0) {
+                if (resourcekey.equals(AtlantisDimensions.ATLANTIS_WORLD) && pEntity.getPortalCooldown() == 0) {
                     pEntity.changeDimension(serverlevel, atlanteanPortalForcer);
                     pEntity.setPortalCooldown(300);
                 } else if (pEntity.getPortalCooldown() == 0) {

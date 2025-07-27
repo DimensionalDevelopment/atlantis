@@ -3,7 +3,7 @@ package com.mystic.atlantis.datagen;
 import com.mystic.atlantis.Atlantis;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -19,7 +19,6 @@ import static net.minecraft.world.level.levelgen.placement.BiomeFilter.biome;
 import static net.minecraft.world.level.levelgen.placement.HeightmapPlacement.onHeightmap;
 import static net.minecraft.world.level.levelgen.placement.InSquarePlacement.spread;
 import static net.minecraft.world.level.levelgen.placement.RarityFilter.onAverageOnceEvery;
-import static net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter.forMaxDepth;
 
 public class PlacedFeatureInit {
     public static final ResourceKey<PlacedFeature> ANCIENT_CUPRUM_PLACED = key("ancient_cuprum_placed");
@@ -42,7 +41,7 @@ public class PlacedFeatureInit {
         return ResourceKey.create(Registries.PLACED_FEATURE, Atlantis.id(name));
     }
 
-    public PlacedFeatureInit(BootstapContext<PlacedFeature> context) {
+    public PlacedFeatureInit(BootstrapContext<PlacedFeature> context) {
         var registry = context.lookup(Registries.CONFIGURED_FEATURE);
 
         register(context, registry, ANCIENT_CUPRUM_PLACED, ANCIENT_CUPRUM_CONFIGURED,
@@ -136,7 +135,7 @@ public class PlacedFeatureInit {
         return CountOnEveryLayerPlacement.of(BiasedToBottomInt.of(min, max)); //TODO: Haunted figure out what its replacement is.
     }
 
-    private static void register(BootstapContext<PlacedFeature> context, HolderGetter<ConfiguredFeature<?,?>> registry, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> configuredKey, PlacementModifier... modifiers) {
+    private static void register(BootstrapContext<PlacedFeature> context, HolderGetter<ConfiguredFeature<?,?>> registry, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> configuredKey, PlacementModifier... modifiers) {
         context.register(key, new PlacedFeature(registry.getOrThrow(configuredKey), List.of(modifiers)));
     }
 

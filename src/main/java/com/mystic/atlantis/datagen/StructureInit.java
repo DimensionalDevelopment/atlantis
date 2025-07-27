@@ -7,6 +7,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.EntityType;
@@ -40,7 +41,7 @@ public class StructureInit {
         return ResourceKey.create(Registries.STRUCTURE, Atlantis.id(name));
     }
 
-    public StructureInit(BootstapContext<Structure> context) {
+    public StructureInit(BootstrapContext<Structure> context) {
         HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
         HolderGetter<StructureTemplatePool> holderGetter1 = context.lookup(Registries.TEMPLATE_POOL);
 

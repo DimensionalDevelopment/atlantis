@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.dimension.AtlantisDimensions;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -38,7 +38,7 @@ public class BucketItemMixin extends ItemMixin{
         ItemStack itemstack1;
         ItemStack itemStack = player.getItemInHand(usedHand);
         BlockState blockstate1 = level.getBlockState(blockpos);
-        if(DimensionAtlantis.isAtlantisDimension(level)) {
+        if(AtlantisDimensions.isAtlantisDimension(level)) {
             cir.cancel();
             if(blockstate1.getBlock() instanceof BucketPickup && !(itemstack1 = ((BucketPickup) blockstate1.getBlock()).pickupBlock(level, blockpos, blockstate1)).isEmpty()) {
                 if(itemstack1.getItem() != Blocks.WATER.asItem()) {

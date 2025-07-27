@@ -2,6 +2,7 @@ package com.mystic.atlantis.structures;
 
 import java.util.Optional;
 
+import com.mojang.serialization.MapCodec;
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.serialization.Codec;
@@ -20,7 +21,7 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 
 public class OysterStructure extends Structure {
 
-    public static final Codec<OysterStructure> CODEC = RecordCodecBuilder.<OysterStructure>mapCodec(instance ->
+    public static final MapCodec<OysterStructure> CODEC = RecordCodecBuilder.<OysterStructure>mapCodec(instance ->
             instance.group(OysterStructure.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
@@ -28,7 +29,7 @@ public class OysterStructure extends Structure {
                     HeightProvider.CODEC.fieldOf("start_height").forGetter(structure -> structure.startHeight),
                     Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter(structure -> structure.projectStartToHeightmap),
                     Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistanceFromCenter)
-            ).apply(instance, OysterStructure::new)).codec();
+            ).apply(instance, OysterStructure::new));
 
 
     private final Holder<StructureTemplatePool> startPool;

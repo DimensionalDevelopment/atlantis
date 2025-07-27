@@ -1,6 +1,6 @@
 package com.mystic.atlantis.mixin;
 
-import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.dimension.AtlantisDimensions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
@@ -57,7 +57,7 @@ public abstract class RenderBubblesMixin {
         this.minecraft.getProfiler().popPush("air");
         ah = playerEntity.getMaxAirSupply();
         ai = Math.min(playerEntity.getAirSupply(), ah);
-        if (playerEntity.level().dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
+        if (playerEntity.level().dimension() == AtlantisDimensions.ATLANTIS_WORLD) {
             if (!playerEntity.isEyeInFluid(FluidTags.WATER) || ai < ah) {/*change*/
                 ad = this.getVisibleVehicleHeartRows(aa) - 1;
                 t -= ad * 10;

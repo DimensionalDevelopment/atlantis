@@ -1,7 +1,7 @@
 package com.mystic.atlantis.event;
 
 import com.mystic.atlantis.config.AtlantisConfig;
-import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.dimension.AtlantisDimensions;
 import com.mystic.atlantis.init.EffectsInit;
 import com.mystic.atlantis.init.EnchantmentInit;
 import com.mystic.atlantis.init.ItemInit;
@@ -81,10 +81,10 @@ public class CommonEvents {
     public static void onPlayerLoginEvent(PlayerEvent.PlayerLoggedInEvent event) {
         if (AtlantisConfig.INSTANCE.startInAtlantis.get()) {
             if (event.getEntity().getServer() != null) {
-                ServerLevel atlantisLevel = event.getEntity().getServer().getLevel(DimensionAtlantis.ATLANTIS_WORLD);
+                ServerLevel atlantisLevel = event.getEntity().getServer().getLevel(AtlantisDimensions.ATLANTIS_WORLD);
                 CompoundTag tag = event.getEntity().getPersistentData();
                 CompoundTag persistedTag = tag.getCompound(Player.PERSISTED_NBT_TAG);
-                if (DimensionAtlantis.ATLANTIS_WORLD != null) {
+                if (AtlantisDimensions.ATLANTIS_WORLD != null) {
                     boolean isFirstTimeSpawning = !persistedTag.getBoolean(NOT_FIRST_SPAWN_NBT);
                     if (isFirstTimeSpawning) {
                         if (atlantisLevel != null) {
@@ -105,15 +105,15 @@ public class CommonEvents {
         LivingEntity livingEntity = event.getEntity();
         if (livingEntity instanceof ServerPlayer serverPlayer) {
             ServerLevel serverLevel = serverPlayer.serverLevel();
-            if (DimensionAtlantis.ATLANTIS_DIMENSION != null) {
-                if (previousDimension == DimensionAtlantis.ATLANTIS_WORLD) {
-                    serverPlayer.setRespawnPosition(DimensionAtlantis.ATLANTIS_WORLD, serverPlayer.blockPosition(), serverPlayer.getYHeadRot(), true, false);
+            if (AtlantisDimensions.ATLANTIS_DIMENSION != null) {
+                if (previousDimension == AtlantisDimensions.ATLANTIS_WORLD) {
+                    serverPlayer.setRespawnPosition(AtlantisDimensions.ATLANTIS_WORLD, serverPlayer.blockPosition(), serverPlayer.getYHeadRot(), true, false);
                     serverPlayer.serverLevel().setDefaultSpawnPos(serverPlayer.blockPosition(), 16);
                     if (serverPlayer.getRespawnPosition() != null) {
-                        Optional<Vec3> bedPos = Player.findRespawnPositionAndUseSpawnBlock(DimensionAtlantis.ATLANTIS_DIMENSION, serverPlayer.getRespawnPosition(), serverPlayer.getRespawnAngle(), serverPlayer.isRespawnForced(), false);
+                        Optional<Vec3> bedPos = Player.findRespawnPositionAndUseSpawnBlock(AtlantisDimensions.ATLANTIS_DIMENSION, serverPlayer.getRespawnPosition(), serverPlayer.getRespawnAngle(), serverPlayer.isRespawnForced(), false);
                         if (bedPos.isEmpty()) {
-                            serverPlayer.setRespawnPosition(DimensionAtlantis.ATLANTIS_WORLD, serverLevel.getSharedSpawnPos(), serverPlayer.getYHeadRot(), true, false);
-                            sendPlayerToDimension(serverPlayer, DimensionAtlantis.ATLANTIS_DIMENSION, new Vec3(serverPlayer.getRespawnPosition().getX(), serverPlayer.getRespawnPosition().getY(), serverPlayer.getRespawnPosition().getZ()));
+                            serverPlayer.setRespawnPosition(AtlantisDimensions.ATLANTIS_WORLD, serverLevel.getSharedSpawnPos(), serverPlayer.getYHeadRot(), true, false);
+                            sendPlayerToDimension(serverPlayer, AtlantisDimensions.ATLANTIS_DIMENSION, new Vec3(serverPlayer.getRespawnPosition().getX(), serverPlayer.getRespawnPosition().getY(), serverPlayer.getRespawnPosition().getZ()));
                         }
                     }
                 }

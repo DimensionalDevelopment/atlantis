@@ -5,7 +5,7 @@ import com.mystic.atlantis.Atlantis;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.structure.pools.EmptyPoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
@@ -33,12 +33,12 @@ public class TemplatePoolInit {
     public static final ResourceKey<StructureTemplatePool> OYSTER_STRUCTURE = key("oyster_structure");
     private final HolderGetter<StructureProcessorList> listRegistry;
     private HolderGetter<StructureTemplatePool> templateRegistry;
-    private BootstapContext<StructureTemplatePool> context;
+    private BootstrapContext<StructureTemplatePool> context;
 
     public static ResourceKey<StructureTemplatePool> key(String name) {
         return ResourceKey.create(Registries.TEMPLATE_POOL, Atlantis.id(name));
     }
-    public TemplatePoolInit(BootstapContext<StructureTemplatePool> context) {
+    public TemplatePoolInit(BootstrapContext<StructureTemplatePool> context) {
         this.context = context;
         templateRegistry = context.lookup(Registries.TEMPLATE_POOL);
         listRegistry = context.lookup(Registries.PROCESSOR_LIST);

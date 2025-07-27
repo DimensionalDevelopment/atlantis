@@ -1,25 +1,25 @@
 package com.mystic.atlantis.blocks.ancient_cuprum;
 
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 public record TrailsGroup(
-       RegistryObject<WeatheringCuprumFullBlock> block,
-       RegistryObject<WeatheringCuprumFullBlock> cut,
-       RegistryObject<WeatheringCuprumFullBlock> chiseled,
-       RegistryObject<WeatheringCuprumStairsBlock> cut_stairs,
-       RegistryObject<WeatheringCuprumSlabBlock> cut_slab,
-       RegistryObject<WeatheringCuprumDoorBlock> door,
-       RegistryObject<WeatheringCuprumTrapdoorBlock> trapdoor,
-       RegistryObject<WeatheringCuprumGrateBlock> grate,
-       RegistryObject<WeatheringCuprumBulbBlock> bulb,
-       RegistryObject<Block> waxed_block,
-       RegistryObject<Block> waxed_cut,
-       RegistryObject<Block> waxed_chiseled,
-       RegistryObject<StairBlock> waxed_cut_stairs,
-       RegistryObject<SlabBlock> waxed_cut_slab,
-       RegistryObject<DoorBlock> waxed_door,
-       RegistryObject<TrapDoorBlock> waxed_trapdoor,
-       RegistryObject<Block> waxed_grate,
-       RegistryObject<CuprumBulbBlock> waxed_bulb) {
+       DeferredBlock<WeatheringCuprumFullBlock> block,
+       DeferredBlock<WeatheringCuprumFullBlock> cut,
+       DeferredBlock<WeatheringCuprumFullBlock> chiseled,
+       DeferredBlock<WeatheringCuprumStairsBlock> cut_stairs,
+       DeferredBlock<WeatheringCuprumSlabBlock> cut_slab,
+       DeferredBlock<WeatheringCuprumDoorBlock> door,
+       DeferredBlock<WeatheringCuprumTrapdoorBlock> trapdoor,
+       DeferredBlock<WeatheringCuprumGrateBlock> grate,
+       DeferredBlock<WeatheringCuprumBulbBlock> bulb,
+       DeferredBlock<Block> waxed_block,
+       DeferredBlock<Block> waxed_cut,
+       DeferredBlock<Block> waxed_chiseled,
+       DeferredBlock<StairBlock> waxed_cut_stairs,
+       DeferredBlock<SlabBlock> waxed_cut_slab,
+       DeferredBlock<DoorBlock> waxed_door,
+       DeferredBlock<TrapDoorBlock> waxed_trapdoor,
+       DeferredBlock<Block> waxed_grate,
+       DeferredBlock<CuprumBulbBlock> waxed_bulb) {
 }

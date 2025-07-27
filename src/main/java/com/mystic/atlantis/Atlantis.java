@@ -6,7 +6,7 @@ import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.datagen.WaterAttachedToLeavesDecorator;
 import com.mystic.atlantis.feature.AtlantisFeature;
 import com.mystic.atlantis.datagen.Providers;
-import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.dimension.AtlantisDimensions;
 import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.particles.ModParticleTypes;
 import com.mystic.atlantis.screen.LinguisticScreen;
@@ -16,6 +16,7 @@ import com.mystic.atlantis.util.Reference;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -34,20 +35,20 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.GeckoLib;
 
 @Mod(Reference.MODID)
 @EventBusSubscriber()
 public class Atlantis {
     public static final Logger LOGGER = LogManager.getLogger(Reference.MODID);
 
-    public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECO_TYPES = DeferredRegister.create(ForgeRegistries.TREE_DECORATOR_TYPES, "atlantis");
+    public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECO_TYPES = DeferredRegister.create(BuiltInRegistries.TREE_DECORATOR_TYPE, "atlantis");
 
-    public static final RegistryObject<TreeDecoratorType<WaterAttachedToLeavesDecorator>> WATER_ATTACH_TO_LEAVES = TREE_DECO_TYPES.register("water_attached_to_leaves", () -> new TreeDecoratorType<>(WaterAttachedToLeavesDecorator.CODEC));
+    public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<WaterAttachedToLeavesDecorator>> WATER_ATTACH_TO_LEAVES = TREE_DECO_TYPES.register("water_attached_to_leaves", () -> new TreeDecoratorType<>(WaterAttachedToLeavesDecorator.CODEC));
 
     public Atlantis(ModContainer container) {
         IEventBus bus = container.getEventBus();
@@ -84,7 +85,7 @@ public class Atlantis {
     }
 
     public void onInitialize(IEventBus bus) {
-        GeckoLib.initialize();
+//        GeckoLib.initialize();
         BlockInit.init(bus);
         ItemInit.init(bus);
         PaintingVariantsInit.init(bus);
@@ -115,7 +116,7 @@ public class Atlantis {
         ToolInit.init();
         TagsInit.init();
 
-        event.enqueueWork(DimensionAtlantis::registerBiomeSources);
+        event.enqueueWork(AtlantisDimensions::registerBiomeSources);
 
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.NYMPH_SIGN.get(), BlockInit.NYMPH_WALL_SIGN.get());
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.PALM_SIGN.get(), BlockInit.PALM_WALL_SIGN.get());

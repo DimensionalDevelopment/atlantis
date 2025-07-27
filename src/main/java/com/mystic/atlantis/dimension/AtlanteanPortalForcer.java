@@ -99,7 +99,7 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
         }
 
 
-        if (DimensionAtlantis.isAtlantisDimension(this.level)) {
+        if (AtlantisDimensions.isAtlantisDimension(this.level)) {
             makePortalOverworld(level, blockpos);
         } else {
             makePortalAtlantis(level, blockpos);

@@ -7,6 +7,7 @@ import com.mystic.atlantis.feature.AtlantisFeature;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -49,7 +50,7 @@ public class ConfiguredFeaturesInit {
     public static final ResourceKey<ConfiguredFeature<?, ?>> GARDEN_FOLIAGE_CONFIGURED = Atlantis.configuredFeatureKey("garden_foliage");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SEASHROOM_CONFIGURED = Atlantis.configuredFeatureKey("seashroom");
 
-    public ConfiguredFeaturesInit(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public ConfiguredFeaturesInit(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         registerOre(context, ANCIENT_CUPRUM_CONFIGURED, BlockInit.ANCIENT_CUPRUM_ORE, BlockInit.DEEPSLATE_ANCIENT_CUPRUM_ORE, 6, 0);
         registerOre(context, AQUAMARINE_CONFIGURED, BlockInit.AQUAMARINE_ORE, BlockInit.DEEPSLATE_AQUAMARINE_ORE, 4, 0);
         registerOre(context, SUNKEN_GRAVEL_CONFIGURED, BlockInit.SUNKEN_GRAVEL, BlockInit.SUNKEN_GRAVEL, 40, 0);
@@ -105,7 +106,7 @@ public class ConfiguredFeaturesInit {
         register(context, key, Feature.LAKE, new LakeFeature.Configuration(BlockStateProvider.simple(fluid), BlockStateProvider.simple(barrier)));
     }
 
-    private static <T extends Block, V extends Block> void registerOre(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, RegistryObject<Block> regular, RegistryObject<Block> deepslate, int size, int discardChanceOnAirExposure) {
+    private static <T extends Block, V extends Block> void registerOre(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, RegistryObject<Block> regular, RegistryObject<Block> deepslate, int size, int discardChanceOnAirExposure) {
         register(context, key, Feature.ORE, new OreConfiguration(List.of(
                 OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), regular.get().defaultBlockState()),
                 OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), deepslate.get().defaultBlockState())
@@ -113,7 +114,7 @@ public class ConfiguredFeaturesInit {
         ), size, discardChanceOnAirExposure));
     }
 
-    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
+    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
         context.register(key, new ConfiguredFeature<>(feature, configuration));
     }
 

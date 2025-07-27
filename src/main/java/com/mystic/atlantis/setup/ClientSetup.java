@@ -6,7 +6,7 @@ import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
 import com.mystic.atlantis.blocks.blockentities.plants.GeneralPlantBlockEntity;
 import com.mystic.atlantis.blocks.blockentities.renderers.*;
-import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.dimension.AtlantisDimensions;
 import com.mystic.atlantis.entities.*;
 import com.mystic.atlantis.entities.models.*;
 import com.mystic.atlantis.entities.renders.*;
@@ -180,7 +180,7 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void registerDimensionEffect(RegisterDimensionSpecialEffectsEvent event) {
-        event.register(DimensionAtlantis.ATLANTIS_DIMENSION_EFFECT, AtlantisDimensionalEffect.INSTANCE);
+        event.register(AtlantisDimensions.ATLANTIS_DIMENSION_EFFECT, AtlantisDimensionalEffect.INSTANCE);
     }
 
     @SubscribeEvent

@@ -1,22 +1,18 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
-import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
 import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
-import com.mystic.atlantis.init.GlyphBlock;
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
-
-import java.util.Locale;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 public class AtlantisItemModelProvider extends ItemModelProvider {
     public AtlantisItemModelProvider(PackOutput generator, ExistingFileHelper existingFileHelper) {
@@ -171,21 +167,21 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         item(ItemInit.RAW_ANCIENT_CUPRUM);
     }
 
-    private <T extends Item> void itemTool(RegistryObject<T> tool) {
+    private <T extends Item> void itemTool(DeferredItem<T> tool) {
         getBuilder(tool.getId().getPath())
                 .parent(getExistingFile(mcLoc("item/handheld")))
                 .texture("layer0", items(tool.getId()));
     }
 
-    private void withParent(RegistryObject<Block> block, LinguisticGlyph glyph) {
+    private void withParent(DeferredBlock<Block> block, LinguisticGlyph glyph) {
         withExistingParent(block.getId().getPath(), block(Atlantis.id("linguistic_" + glyph.name().toLowerCase())));
     }
 
-    private <T extends Block> void block(RegistryObject<T> block) {
+    private <T extends Block> void block(DeferredBlock<T> block) {
         withExistingParent(block.getId().getPath(), block(block.getId()));
     }
 
-    private <T extends Item> void item(RegistryObject<T> item) {
+    private <T extends Item> void item(DeferredItem<T> item) {
         try {
             getBuilder(item.getId().getPath())
                     .parent(getExistingFile(mcLoc("item/generated")))
@@ -195,7 +191,7 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         }
     }
 
-    private <T extends Item> void item(RegistryObject<T> item, String id) {
+    private <T extends Item> void item(DeferredItem<T> item, String id) {
         try {
             getBuilder(item.getId().getPath())
                     .parent(getExistingFile(mcLoc("item/generated")))
@@ -205,7 +201,7 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         }
     }
 
-    private <T extends Block> void blockGenerated(String id, RegistryObject<T> block) {
+    private <T extends Block> void blockGenerated(String id, DeferredBlock<T> block) {
         try {
             getBuilder(block.getId().getPath())
                     .parent(getExistingFile(mcLoc("item/generated")))

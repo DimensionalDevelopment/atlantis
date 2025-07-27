@@ -1,12 +1,13 @@
 package com.mystic.atlantis.datagen;
 
-import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.dimension.AtlantisDimensions;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -14,7 +15,6 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.*;
-import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 import java.util.List;
@@ -29,11 +29,11 @@ public class NoiseSettingsInit {
     private static HolderGetter<NormalNoise.NoiseParameters> noiseRegistry = null;
     private static HolderGetter<DensityFunction> functionRegistry = null;
 
-    public NoiseSettingsInit(BootstapContext<NoiseGeneratorSettings> context) {
+    public NoiseSettingsInit(BootstrapContext<NoiseGeneratorSettings> context) {
         noiseRegistry = context.lookup(Registries.NOISE);
         functionRegistry = context.lookup(Registries.DENSITY_FUNCTION);
 
-        context.register(DimensionAtlantis.ATLANTIS_DIMENSION_NOISE_SETTING, new NoiseGeneratorSettings(
+        context.register(AtlantisDimensions.ATLANTIS_DIMENSION_NOISE_SETTING, new NoiseGeneratorSettings(
                 new NoiseSettings(-64, 512, 1, 2),
                 Blocks.STONE.defaultBlockState(),
                 Blocks.WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, 0),

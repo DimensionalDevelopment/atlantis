@@ -6,6 +6,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.OrePlacements;
@@ -26,13 +27,13 @@ public class BiomeInit {
     public static final ResourceKey<Biome> GOO_LAGOONS_KEY = key("goo_lagoons");
     public static final ResourceKey<Biome> AQUAIEL_JELLYFISH_FIELDS_KEY = key("aquariel_jellyfish_fields");
     public static final ResourceKey<Biome> VOLCANIC_DARKSEA_KEY = key("volcanic_darksea");
-    private final BootstapContext<Biome> context;
+    private final BootstrapContext<Biome> context;
 
     public static ResourceKey<Biome> key(String name) {
         return ResourceKey.create(Registries.BIOME, Atlantis.id(name));
     }
 
-    public BiomeInit(BootstapContext<Biome> context) {
+    public BiomeInit(BootstrapContext<Biome> context) {
         this.context = context;
         HolderGetter<PlacedFeature> holdergetter = context.lookup(Registries.PLACED_FEATURE);
         HolderGetter<ConfiguredWorldCarver<?>> holdergetter1 = context.lookup(Registries.CONFIGURED_CARVER);
