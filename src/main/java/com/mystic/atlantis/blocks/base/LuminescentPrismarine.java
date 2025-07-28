@@ -22,20 +22,14 @@ public class LuminescentPrismarine extends Block {
     }
 
     public BlockState rotate(BlockState targetState, Rotation currentRot) {
-        switch(currentRot) {
-            case COUNTERCLOCKWISE_90:
-            case CLOCKWISE_90:
-                switch((Direction.Axis)targetState.getValue(AXIS)) {
-                    case X:
-                        return targetState.setValue(AXIS, Direction.Axis.Z);
-                    case Z:
-                        return targetState.setValue(AXIS, Direction.Axis.X);
-                    default:
-                        return targetState;
-                }
-            default:
-                return targetState;
-        }
+        return switch (currentRot) {
+            case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> switch (targetState.getValue(AXIS)) {
+                case X -> targetState.setValue(AXIS, Direction.Axis.Z);
+                case Z -> targetState.setValue(AXIS, Direction.Axis.X);
+                default -> targetState;
+            };
+            default -> targetState;
+        };
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder< Block, BlockState> builder) {

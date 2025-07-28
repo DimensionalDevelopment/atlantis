@@ -26,10 +26,9 @@ public class OceanLanternBlock extends Block {
     @Override
     public void playerDestroy(Level level, Player player, BlockPos targetPos, BlockState targetState, @Nullable BlockEntity targetTileEntity, ItemStack curStack) {
         super.playerDestroy(level, player, targetPos, targetState, targetTileEntity, curStack);
-        
-        if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.SILK_TOUCH, curStack) == 0) {
+
+        if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.getEnchantmentHolder(level, Enchantments.SILK_TOUCH), player) == 0) {
             level.removeBlock(targetPos, false);
-            return;
         }
     }
 }

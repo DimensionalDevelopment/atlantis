@@ -70,6 +70,7 @@ public class Providers {
         var output = event.getGenerator().getPackOutput();
 
         var registryProvider = new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(), new RegistrySetBuilder()
+                .add(Registries.ENCHANTMENT, EnchantmentInit::new)
                 .add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesInit::new)
                 .add(Registries.PLACED_FEATURE, PlacedFeatureInit::new)
                 .add(Registries.DIMENSION_TYPE, context -> context.register(AtlantisDimensions.ATLANTIS_DIMENSION_TYPE_KEY, new DimensionType(

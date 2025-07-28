@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mojang.serialization.MapCodec;
 import com.mystic.atlantis.inventory.LinguisticMenu;
 
 import net.minecraft.core.BlockPos;
@@ -20,6 +21,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class LinguisticBlock extends HorizontalDirectionalBlock {
+    public static final MapCodec<LinguisticBlock> CODEC = simpleCodec(LinguisticBlock::new);
+
     private static final Component CONTAINER_TITLE = Component.translatable("container.linguistic");
 
     public LinguisticBlock(Properties settings) {
@@ -27,7 +30,12 @@ public class LinguisticBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand curHand, BlockHitResult result) {
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    public InteractionResult useWithoutItem(BlockState targetState, Level level, BlockPos targetPos, Player player, BlockHitResult result) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         } else {
