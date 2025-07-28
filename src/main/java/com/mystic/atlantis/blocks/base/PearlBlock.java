@@ -3,6 +3,7 @@ package com.mystic.atlantis.blocks.base;
 
 import static com.mystic.atlantis.blocks.base.NymphDoorBlock.WATERLOGGED;
 
+import com.mystic.atlantis.datagen.EnchantmentInit;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
@@ -46,7 +47,7 @@ public class PearlBlock extends HalfTransparentBlock implements SimpleWaterlogge
     public void playerDestroy(Level level, Player player, BlockPos targetPos, BlockState targetState, @Nullable BlockEntity targetTileEntity, ItemStack curStack) {
         super.playerDestroy(level, player, targetPos, targetState, targetTileEntity, curStack);
         
-        if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.SILK_TOUCH, curStack) == 0) {
+        if (EnchantmentHelper.getTagEnchantmentLevel(EnchantmentInit.getEnchantmentHolder(level, Enchantments.SILK_TOUCH), curStack) == 0) {
             level.removeBlock(targetPos, false);
             return;
         }

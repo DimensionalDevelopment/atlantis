@@ -5,17 +5,13 @@ import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
 import com.mystic.atlantis.blocks.ancient_cuprum.WeatheringCuprumBulbBlock;
 import com.mystic.atlantis.blocks.base.LinguisticGlyph;
-import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-
-import java.util.function.Function;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 
 public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
     public AtlantisBlockStateProvider(AtlantisMainProvider provider) {

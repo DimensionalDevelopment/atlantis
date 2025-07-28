@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 public class AtlantisBlockModelProvider extends BlockModelProvider {
 
@@ -31,7 +32,7 @@ public class AtlantisBlockModelProvider extends BlockModelProvider {
         });
     }
 
-    private <T extends Block> void cubeAll(RegistryObject<T> block, String name) {
+    private <T extends Block> void cubeAll(DeferredBlock<T> block, String name) {
         var texture = block.getId().withSuffix(name);
         this.cubeAll(texture.getPath(), blockTexture(texture));
     }

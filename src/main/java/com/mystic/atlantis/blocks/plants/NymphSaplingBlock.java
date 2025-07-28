@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.plants;
 
+import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.BlockPos;
@@ -14,7 +15,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.grower.OakTreeGrower;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -34,7 +35,7 @@ public class NymphSaplingBlock extends SaplingBlock implements SimpleWaterlogged
     public static final Property<Boolean> WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public NymphSaplingBlock(Properties settings) {
-        super(new OakTreeGrower(), settings
+        super(TreeGrower.OAK, settings
                 .randomTicks()
                 .strength(0.2F, 0.4F)
                 .sound(SoundType.GRASS)
@@ -83,7 +84,7 @@ public class NymphSaplingBlock extends SaplingBlock implements SimpleWaterlogged
 
     private void growTree(ServerLevel level, ChunkGenerator generator, BlockPos targetPos, BlockState targetState, RandomSource random) {
         if (level.registryAccess().registry(Registries.CONFIGURED_FEATURE).isPresent()) {
-            ConfiguredFeature<?, ?> configuredAtlanteanTreeFeature = level.registryAccess().registry(Registries.CONFIGURED_FEATURE).get().get(new ResourceLocation(Reference.MODID, "atlantean_tree_configured"));
+            ConfiguredFeature<?, ?> configuredAtlanteanTreeFeature = level.registryAccess().registry(Registries.CONFIGURED_FEATURE).get().get(Atlantis.id("atlantean_tree_configured"));
             BlockState legacyTargetState = level.getFluidState(targetPos).createLegacyBlock();
             
             level.setBlock(targetPos, legacyTargetState, 4);
@@ -138,7 +139,7 @@ public class NymphSaplingBlock extends SaplingBlock implements SimpleWaterlogged
     }
 
     public boolean canPlaceOn(BlockState targetState) {
-        return targetState.getBlock() == BlockInit.SEABED.get() || targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
+        return targetState.getBlock() == BlockInit.SEABED.get() || targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS_BLOCK || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
     }
 
     public boolean canPlaceBlockAt(LevelReader reader, BlockPos targetPos) {

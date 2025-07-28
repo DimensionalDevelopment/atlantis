@@ -1,12 +1,12 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.TagsInit;
 import com.mystic.atlantis.init.AtlantisEntityInit;
 import com.mystic.atlantis.structures.*;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.random.WeightedRandomList;
@@ -21,9 +21,12 @@ import net.minecraft.world.level.levelgen.heightproviders.ConstantHeight;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
+import net.minecraft.world.level.levelgen.structure.pools.DimensionPadding;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
+import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -46,25 +49,23 @@ public class StructureInit {
         HolderGetter<StructureTemplatePool> holderGetter1 = context.lookup(Registries.TEMPLATE_POOL);
 
         context.register(ATLANTEAN_VILLAGE, new JigsawStructure(
-                new Structure.StructureSettings(
-                        HolderSet.direct(holderGetter.getOrThrow(BiomeInit.ATLANTIS_BIOME_KEY), holderGetter.getOrThrow(BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY),
-                                holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY), holderGetter.getOrThrow(BiomeInit.GOO_LAGOONS_KEY),
-                                holderGetter.getOrThrow(BiomeInit.AQUAIEL_JELLYFISH_FIELDS_KEY), holderGetter.getOrThrow(BiomeInit.VOLCANIC_DARKSEA_KEY),
-                                holderGetter.getOrThrow(BiomeInit.COCONUT_ISLES_KEY)),
-                        Map.of(
-                                MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
+                new Structure.StructureSettings.Builder(
+                        holderGetter.getOrThrow(TagsInit.Biome.HAS_ATLANTEAN_VILLAGE))
+                        .generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
+                        .spawnOverrides(Map.of(MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
-                                        25, 2, 2))),
-                                MobCategory.WATER_CREATURE, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
-                                        WeightedRandomList.create(new MobSpawnSettings.SpawnerData(AtlantisEntityInit.STARFISH.get(),
-                                                25, 2, 2)))),
-                        GenerationStep.Decoration.SURFACE_STRUCTURES,
-                        TerrainAdjustment.BEARD_THIN),
-                holderGetter1.getOrThrow(TemplatePoolInit.ATLANTEAN_VILLAGE_START),
+                                        25, 2, 2)))))
+                        .spawnOverrides(Map.of(MobCategory.WATER_CREATURE, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
+                                WeightedRandomList.create(new MobSpawnSettings.SpawnerData(AtlantisEntityInit.STARFISH.get(),
+                                        25, 2, 2)))))
+                        .terrainAdapation(TerrainAdjustment.BEARD_THIN)
+                        .build(),
+                holderGetter1.getOrThrow(TemplatePoolInit.ATLANTEAN_VILLAGE_START).getDelegate(),
                 Optional.empty(),
                 6, ConstantHeight.of(VerticalAnchor.absolute(0)),
                 true, Optional.of(Heightmap.Types.OCEAN_FLOOR_WG),
-                112));
+                112, List.of(), DimensionPadding.ZERO,
+                LiquidSettings.APPLY_WATERLOGGING));
 
         context.register(CONFIGURED_ATLANTEAN_FOUNTAIN, new AtlanteanFountain(
                 new Structure.StructureSettings(

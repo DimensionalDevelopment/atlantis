@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
@@ -10,7 +11,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.MapColor;
 
 public class WaveBlock extends DirectionalBlock {
-	
+    public static final MapCodec<WaveBlock> CODEC = simpleCodec(WaveBlock::new);
+
     public WaveBlock(Properties settings) {
         super(settings
                 .strength(4.5F)
@@ -18,6 +20,11 @@ public class WaveBlock extends DirectionalBlock {
                 .lightLevel((state) -> 5)
                 .sound(SoundType.AMETHYST));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<? extends DirectionalBlock> codec() {
+        return CODEC;
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {

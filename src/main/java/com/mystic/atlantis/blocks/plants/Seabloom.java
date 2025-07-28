@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.plants;
 
+import com.mojang.serialization.MapCodec;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,9 +21,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class Seabloom extends BushBlock implements SimpleWaterloggedBlock {
+    public static final MapCodec<Seabloom> CODEC = simpleCodec(Seabloom::new);
     public static final Property<Boolean> WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D);
-
     public Seabloom(Properties settings) {
         super(settings
                 .randomTicks()
@@ -33,6 +34,11 @@ public class Seabloom extends BushBlock implements SimpleWaterloggedBlock {
                 .noOcclusion());
         ComposterBlock.COMPOSTABLES.put(this, 0.65f);
         this.defaultBlockState().setValue(WATERLOGGED, Boolean.TRUE);
+    }
+
+    @Override
+    protected MapCodec<? extends BushBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -97,7 +103,7 @@ public class Seabloom extends BushBlock implements SimpleWaterloggedBlock {
     }
 
     public boolean canPlaceOn(BlockState targetState){
-        return targetState.getBlock() == BlockInit.SEABED.get() || targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
+        return targetState.getBlock() == BlockInit.SEABED.get() || targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS_BLOCK || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
     }
 
     public boolean canPlaceBlockAt(LevelReader reader, BlockPos targetPos) {

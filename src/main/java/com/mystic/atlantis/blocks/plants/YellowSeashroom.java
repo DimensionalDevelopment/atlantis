@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.plants;
 
+import com.mojang.serialization.MapCodec;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
@@ -25,7 +26,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class YellowSeashroom extends BushBlock implements SimpleWaterloggedBlock {
-
+    public static final MapCodec<YellowSeashroom> CODEC = simpleCodec(YellowSeashroom::new);
     public static final Property<Boolean> WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D);
 
@@ -40,6 +41,11 @@ public class YellowSeashroom extends BushBlock implements SimpleWaterloggedBlock
                 .noOcclusion());
         ComposterBlock.COMPOSTABLES.put(this, 0.65f);
         this.defaultBlockState().setValue(WATERLOGGED, Boolean.TRUE);
+    }
+
+    @Override
+    protected MapCodec<? extends BushBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -108,7 +114,7 @@ public class YellowSeashroom extends BushBlock implements SimpleWaterloggedBlock
     }
 
     public boolean canPlaceOn(BlockState blockState){
-        return blockState.getBlock() == Blocks.GRAVEL || blockState.getBlock() == Blocks.SANDSTONE || blockState.getBlock() == Blocks.GRASS || blockState.getBlock() == Blocks.DIRT || blockState.getBlock() == Blocks.SAND;
+        return blockState.getBlock() == Blocks.GRAVEL || blockState.getBlock() == Blocks.SANDSTONE || blockState.getBlock() == Blocks.GRASS_BLOCK || blockState.getBlock() == Blocks.DIRT || blockState.getBlock() == Blocks.SAND;
     }
 
     public boolean canPlaceBlockAt(LevelReader reader, BlockPos targetPos) {

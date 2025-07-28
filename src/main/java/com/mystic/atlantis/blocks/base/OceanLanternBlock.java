@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mystic.atlantis.datagen.EnchantmentInit;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;

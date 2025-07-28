@@ -12,6 +12,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.*;
@@ -28,6 +29,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
@@ -63,7 +65,7 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
         for (Direction direction : Direction.values()) {
             BlockPos.MutableBlockPos bubblePos = pos.mutable();
 
-            for (int i = 1; i < AtlantisConfig.INSTANCE.maxDistanceOfPushBubbleColumn.get(); i++) {
+            for (int i = 1; i < AtlantisConfig.CONFIG.maxDistanceOfPushBubbleColumn.get(); i++) {
                 bubblePos.move(direction);
                 BlockState previousState = level.getBlockState(bubblePos.relative(direction.getOpposite()));
                 var previousFluidState = level.getFluidState(bubblePos.relative(direction.getOpposite()));
@@ -106,7 +108,7 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
         if (previousState.is(BlockInit.BUBBLE_MAGMA.get())) {
             if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
                 //System.out.println("Setting PUSH_BUBBLE_COLUMN state");
-                return BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, curDir).setValue(DECAY, AtlantisConfig.INSTANCE.maxDistanceOfPushBubbleColumn.get());
+                return BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, curDir).setValue(DECAY, AtlantisConfig.CONFIG.maxDistanceOfPushBubbleColumn.get());
             }
         } else if (previousState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
             if (previousState.getValue(DECAY) == 0) {
@@ -204,7 +206,7 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
     }
 
     @Override
-    public ItemStack pickupBlock(LevelAccessor level, BlockPos targetPos, BlockState targetState) {
+    public ItemStack pickupBlock(@Nullable Player player, LevelAccessor level, BlockPos targetPos, BlockState targetState) {
         level.setBlock(targetPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_IMMEDIATE);
         return new ItemStack(Items.WATER_BUCKET);
     }
@@ -215,7 +217,7 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
     }
 
     public void onBubbleColumnSurfaceCollision(Entity targetEntity, Direction dragDir) {
-        adjustEntityMovement(targetEntity, dragDir, AtlantisConfig.INSTANCE.magmaAcceleration.get(), AtlantisConfig.INSTANCE.magmaThreshold.get());
+        adjustEntityMovement(targetEntity, dragDir, AtlantisConfig.CONFIG.magmaAcceleration.get(), AtlantisConfig.CONFIG.magmaThreshold.get());
     }
 
     public void adjustEntityMovement(Entity entity, Direction dragDir, double magnitude, double limit) {

@@ -6,7 +6,6 @@ import com.mystic.atlantis.blocks.base.PalmLogBlock;
 import com.mystic.atlantis.feature.AtlantisFeature;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.Direction;
-import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -27,7 +26,8 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 import java.util.Optional;
@@ -102,11 +102,11 @@ public class ConfiguredFeaturesInit {
 
     }
 
-    private static void registerLake(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, Block fluid, Block barrier) {
+    private static void registerLake(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, Block fluid, Block barrier) {
         register(context, key, Feature.LAKE, new LakeFeature.Configuration(BlockStateProvider.simple(fluid), BlockStateProvider.simple(barrier)));
     }
 
-    private static <T extends Block, V extends Block> void registerOre(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, RegistryObject<Block> regular, RegistryObject<Block> deepslate, int size, int discardChanceOnAirExposure) {
+    private static <T extends Block, V extends Block> void registerOre(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, DeferredBlock<Block> regular, DeferredBlock<Block> deepslate, int size, int discardChanceOnAirExposure) {
         register(context, key, Feature.ORE, new OreConfiguration(List.of(
                 OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), regular.get().defaultBlockState()),
                 OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), deepslate.get().defaultBlockState())
@@ -118,7 +118,7 @@ public class ConfiguredFeaturesInit {
         context.register(key, new ConfiguredFeature<>(feature, configuration));
     }
 
-    private static <T extends Feature<NoneFeatureConfiguration>> void registerNone(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, RegistryObject<T> holder) {
+    private static <T extends Feature<NoneFeatureConfiguration>> void registerNone(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, DeferredHolder<Feature<?>, T> holder) {
         context.register(key, new ConfiguredFeature<>(holder.get(), FeatureConfiguration.NONE));
     }
 }
