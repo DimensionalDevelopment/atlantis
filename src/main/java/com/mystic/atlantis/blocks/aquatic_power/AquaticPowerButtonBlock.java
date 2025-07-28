@@ -14,7 +14,7 @@ import static com.mystic.atlantis.blocks.aquatic_power.AquaticPowerTorchBlock.WA
 public class AquaticPowerButtonBlock extends ButtonBlock implements SimpleWaterloggedBlock {
 	
     public AquaticPowerButtonBlock(Properties settings) {
-        super(BlockSetType.OAK, 30, settings); //TODO: Custom BlockSetType
+        super(BlockSetType.OAK, 30, settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(WATERLOGGED, false));
     }
 

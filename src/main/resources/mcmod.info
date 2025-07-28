@@ -1,13 +1,13 @@
 [
   {
     "modid": "atlantis",
-    "name": "Dimension Atlantis",
+    "name": "Atlantis",
     "description": "An Underwater Dimension Mod.",
-    "version": "2025.7.13-1.20.1-10.0.0-forge",
+    "version": "1.21.1-1.0.0",
     "mcversion": "1.20.1",
     "url": "",
     "updateUrl": "",
-    "authorList": ["Mysticpasta1, TelepathicGrunt, Waterpicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity, Booneraniaro, She's Long, Safe Of Arsenal"],
+    "authorList": ["Mysticpasta1, Waterpicker"],
     "credits": "Booneraniaro for his work on the new Atlantean Structure and Revamps, TelepathicGrunt for his help with the JSON files, WaterPicker for his work on the fabric branch, BingJ for his work on all the entity animations and models, LudoCrypt and Firel for the music on the music discs for atlantis, LimeShulkerBox for the Atlantean Portal and for removing the need for effects in the dimension, and She's Long for multiple textures, models, and jsons for assets,",
     "logoFile": "",
     "screenshots": [],
