@@ -40,6 +40,11 @@ public class GlittertailShrimpEntity extends AbstractSchoolingFish implements Ge
         super(entityType, world);
     }
 
+    @Override
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+
     public static AttributeSupplier.Builder createShrimpAttributes() {
         return createAttributes().add(Attributes.MOVEMENT_SPEED, 2d);
     }

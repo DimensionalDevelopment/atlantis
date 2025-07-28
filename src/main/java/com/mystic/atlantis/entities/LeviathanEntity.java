@@ -61,6 +61,11 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
                 .add(Attributes.ATTACK_DAMAGE, 2D);
     }
 
+    @Override
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+
     public LeviathanEntity(EntityType<? extends WaterAnimal> arg, Level arg2) {
         super(arg, arg2);
         this.moveTargetPoint = Vec3.ZERO;

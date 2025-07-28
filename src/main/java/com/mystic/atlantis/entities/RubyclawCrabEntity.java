@@ -60,6 +60,11 @@ public class RubyclawCrabEntity extends Animal implements GeoEntity, Bucketable 
         return world.isUnobstructed(this);
     }
 
+    @Override
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+
     public static AttributeSupplier.Builder createCrabAttributes() {
         return createMobAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 1D)

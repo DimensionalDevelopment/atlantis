@@ -74,6 +74,11 @@ public class ThalassianSeahorseEntity extends WaterAnimal implements GeoEntity, 
     }
 
     @Override
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+
+    @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
         this.entityData.set(COLOR, betterNiceColor());
         return super.finalizeSpawn(world, difficulty, spawnReason, entityData);

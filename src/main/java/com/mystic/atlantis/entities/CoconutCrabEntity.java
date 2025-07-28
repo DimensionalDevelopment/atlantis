@@ -61,6 +61,11 @@ public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatab
         return pos.getY() >= 350 && 512 >= pos.getY();
     }
 
+    @Override
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+
     public static AttributeSupplier.Builder createCoconutCrabAttributes() {
         return createMobAttributes().add(Attributes.ATTACK_DAMAGE, 1d).add(Attributes.MOVEMENT_SPEED, 0.6d);
     }
