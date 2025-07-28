@@ -1,20 +1,25 @@
 package com.mystic.atlantis.init;
 
+import com.mystic.atlantis.Atlantis;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.decoration.PaintingVariant;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
 public class PaintingVariantsInit {
-    public static final DeferredRegister<PaintingVariant> UNDERWATER_PAINTING_VARIANTS = DeferredRegister.create(ForgeRegistries.PAINTING_VARIANTS, "atlantis");
+    public static final ResourceKey<PaintingVariant> SPLASH = ResourceKey.create(Registries.PAINTING_VARIANT, Atlantis.id("splash"));
+    public static final ResourceKey<PaintingVariant> DRAGON = ResourceKey.create(Registries.PAINTING_VARIANT, Atlantis.id("dragon"));
+    public static final ResourceKey<PaintingVariant> SUNRISE = ResourceKey.create(Registries.PAINTING_VARIANT, Atlantis.id("sunrise"));
+    public static final ResourceKey<PaintingVariant> KRAKEN = ResourceKey.create(Registries.PAINTING_VARIANT, Atlantis.id("kraken"));
 
-    public static final RegistryObject<PaintingVariant> SPLASH = UNDERWATER_PAINTING_VARIANTS.register("splash", () -> new PaintingVariant(32, 32));
-    public static final RegistryObject<PaintingVariant> DRAGON = UNDERWATER_PAINTING_VARIANTS.register("dragon", () -> new PaintingVariant(32, 32));
-    public static final RegistryObject<PaintingVariant> SUNRISE = UNDERWATER_PAINTING_VARIANTS.register("sunrise", () -> new PaintingVariant(16, 16));
-    public static final RegistryObject<PaintingVariant> KRAKEN = UNDERWATER_PAINTING_VARIANTS.register("kraken", () -> new PaintingVariant(32, 64));
+    public static void init(BootstrapContext<PaintingVariant> context) {
+        register(context, SPLASH, 2, 2);
+        register(context, DRAGON, 2, 2);
+        register(context, SUNRISE, 1, 1);
+        register(context, KRAKEN, 2, 4);
+    }
 
-    public static void init(IEventBus bus) {
-        UNDERWATER_PAINTING_VARIANTS.register(bus);
+    private static void register(BootstrapContext<PaintingVariant> context, ResourceKey<PaintingVariant> key, int width, int height) {
+        context.register(key, new PaintingVariant(width, height, key.location()));
     }
 }

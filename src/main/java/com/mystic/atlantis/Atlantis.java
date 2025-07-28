@@ -1,12 +1,12 @@
 package com.mystic.atlantis;
 
-import com.mystic.atlantis.blocks.base.ExtendedBlockEntity;
 import com.mystic.atlantis.blocks.aquatic_power.SodiumPrimedBombBlock;
+import com.mystic.atlantis.blocks.base.ExtendedBlockEntity;
 import com.mystic.atlantis.config.AtlantisConfig;
-import com.mystic.atlantis.datagen.WaterAttachedToLeavesDecorator;
-import com.mystic.atlantis.feature.AtlantisFeature;
 import com.mystic.atlantis.datagen.Providers;
+import com.mystic.atlantis.datagen.WaterAttachedToLeavesDecorator;
 import com.mystic.atlantis.dimension.AtlantisDimensions;
+import com.mystic.atlantis.feature.AtlantisFeature;
 import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.particles.ModParticleTypes;
 import com.mystic.atlantis.screen.LinguisticScreen;
@@ -15,6 +15,7 @@ import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -31,10 +32,14 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
@@ -64,8 +69,8 @@ public class Atlantis {
     public static void registerDispenserBehavior() {
         DispenserBlock.registerBehavior(BlockInit.SODIUM_BOMB.get(), new DefaultDispenseItemBehavior() {
             protected @NotNull ItemStack execute(@NotNull BlockSource p_123425_, @NotNull ItemStack p_123426_) {
-                Level level = p_123425_.getLevel();
-                BlockPos blockpos = p_123425_.getPos().relative(p_123425_.getBlockState().getValue(DispenserBlock.FACING));
+                Level level = p_123425_.level();
+                BlockPos blockpos = p_123425_.pos().relative(p_123425_.state().getValue(DispenserBlock.FACING));
                 SodiumPrimedBombBlock primedtnt = new SodiumPrimedBombBlock(level, (double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D, (LivingEntity)null);
                 level.addFreshEntity(primedtnt);
                 level.playSound(null, primedtnt.getX(), primedtnt.getY(), primedtnt.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -88,7 +93,6 @@ public class Atlantis {
 //        GeckoLib.initialize();
         BlockInit.init(bus);
         ItemInit.init(bus);
-        PaintingVariantsInit.init(bus);
         AtlantisModifierInit.init(bus);
         BlockEntityInit.init(bus);
         FluidTypesInit.init(bus);
@@ -104,11 +108,9 @@ public class Atlantis {
     }
 
     @SubscribeEvent
-    public static void onClientSet(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
-            MenuScreens.register(MenuTypeInit.LINGUISTIC.get(), LinguisticScreen::new);
-            MenuScreens.register(MenuTypeInit.WRITING.get(), WritingScreen::new);
-        });
+    public static void onClientSet(RegisterMenuScreensEvent event) {
+        event.register(MenuTypeInit.LINGUISTIC.get(), LinguisticScreen::new);
+        event.register(MenuTypeInit.WRITING.get(), WritingScreen::new);
     }
 
     @SubscribeEvent

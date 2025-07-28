@@ -24,21 +24,27 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent;
+import net.neoforged.neoforge.event.entity.EntityStruckByLightningEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Random;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber
 public class CommonEvents {
 
     public static boolean hasEnchantment(ItemStack itemStack, Enchantment enchantment) {
-        Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(itemStack);
+        Map<Enchantment, Integer> enchantments = EnchantmentHelper.isImmuneToDamage().getEnchantments(itemStack);
         return enchantments.containsKey(enchantment);
     }
 
@@ -62,7 +68,7 @@ public class CommonEvents {
     public static ResourceKey<Level> previousDimension;
 
     @SubscribeEvent
-    public static void spikesEffectEvent(final LivingHurtEvent event) {
+    public static void spikesEffectEvent(final LivingDamageEvent.Post event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
             RandomSource random = player.getRandom();
@@ -79,7 +85,7 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onPlayerLoginEvent(PlayerEvent.PlayerLoggedInEvent event) {
-        if (AtlantisConfig.INSTANCE.startInAtlantis.get()) {
+        if (AtlantisConfig.CONFIG.startInAtlantis.get()) {
             if (event.getEntity().getServer() != null) {
                 ServerLevel atlantisLevel = event.getEntity().getServer().getLevel(AtlantisDimensions.ATLANTIS_WORLD);
                 CompoundTag tag = event.getEntity().getPersistentData();
@@ -110,7 +116,7 @@ public class CommonEvents {
                     serverPlayer.setRespawnPosition(AtlantisDimensions.ATLANTIS_WORLD, serverPlayer.blockPosition(), serverPlayer.getYHeadRot(), true, false);
                     serverPlayer.serverLevel().setDefaultSpawnPos(serverPlayer.blockPosition(), 16);
                     if (serverPlayer.getRespawnPosition() != null) {
-                        Optional<Vec3> bedPos = Player.findRespawnPositionAndUseSpawnBlock(AtlantisDimensions.ATLANTIS_DIMENSION, serverPlayer.getRespawnPosition(), serverPlayer.getRespawnAngle(), serverPlayer.isRespawnForced(), false);
+                        Optional<Vec3> bedPos = ServerPlayer.findRespawnPositionAndUseSpawnBlock(AtlantisDimensions.ATLANTIS_DIMENSION, serverPlayer.getRespawnPosition(), serverPlayer.getRespawnAngle(), serverPlayer.isRespawnForced(), false);
                         if (bedPos.isEmpty()) {
                             serverPlayer.setRespawnPosition(AtlantisDimensions.ATLANTIS_WORLD, serverLevel.getSharedSpawnPos(), serverPlayer.getYHeadRot(), true, false);
                             sendPlayerToDimension(serverPlayer, AtlantisDimensions.ATLANTIS_DIMENSION, new Vec3(serverPlayer.getRespawnPosition().getX(), serverPlayer.getRespawnPosition().getY(), serverPlayer.getRespawnPosition().getZ()));
@@ -127,13 +133,13 @@ public class CommonEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingHurtEvent(LivingHurtEvent event) {
+    public static void onLivingHurtEvent(EntityInvulnerabilityCheckEvent event) {
         if (event.getEntity() instanceof Player player) {
             for (ItemStack stack : player.getArmorSlots()) {
                 if (hasEnchantment(stack, EnchantmentInit.LIGHTNING_PROTECTION.get())) {
                     if (event.getSource().is(DamageTypes.LIGHTNING_BOLT)) {
-                        event.setAmount(0);
-                        event.setCanceled(true);
+                        event.setInvulnerable(true);
+                        return;
                     }
                 }
             }

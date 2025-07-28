@@ -17,8 +17,8 @@ import javax.annotation.Nullable;
 
 public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
     public static AtlantisDimensionalEffect INSTANCE = new AtlantisDimensionalEffect();
-    private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("atlantis:textures/environment/sun.png");
-    private static final ResourceLocation MOON_PHASES_TEXTURES = new ResourceLocation("atlantis:textures/environment/moon_phases.png");
+    private static final ResourceLocation SUN_TEXTURES = Atlantis.id("textures/environment/sun.png");
+    private static final ResourceLocation MOON_PHASES_TEXTURES = Atlantis.id("textures/environment/moon_phases.png");
 
     @Nullable
     private VertexBuffer starBuffer;
@@ -28,7 +28,11 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
     }
 
     @Override
-    public boolean renderSky(@NotNull ClientLevel world, int ticks, float tickDelta, PoseStack matrixStack, @NotNull Camera camera, @NotNull Matrix4f projectionMatrix, boolean isFoggy, @NotNull Runnable setupFog) {
+    public boolean renderSky(ClientLevel world, int ticks, float tickDelta, Matrix4f modelViewMatrix, Camera camera, Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
+        PoseStack matrixStack = new PoseStack();
+        matrixStack.mulPose(modelViewMatrix);
+
+
         RenderSystem.disableDepthTest();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
@@ -45,23 +49,19 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
     }
 
     private void createStars() {
-        Tesselator tesselator = Tesselator.getInstance();
-        BufferBuilder bufferbuilder = tesselator.getBuilder();
-        RenderSystem.setShader(GameRenderer::getPositionShader);
         if (this.starBuffer != null) {
             this.starBuffer.close();
         }
 
         this.starBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
-        BufferBuilder.RenderedBuffer bufferbuilder$renderedbuffer = this.drawStars(bufferbuilder);
         this.starBuffer.bind();
-        this.starBuffer.upload(bufferbuilder$renderedbuffer);
+        this.starBuffer.upload(this.drawStars().buildOrThrow());
         VertexBuffer.unbind();
     }
 
-    private BufferBuilder.RenderedBuffer drawStars(BufferBuilder pBuilder) {
+    private BufferBuilder drawStars() {
         RandomSource randomsource = RandomSource.create(10842L);
-        pBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
+        var pBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
 
         for(int i = 0; i < 1500; ++i) {
             double d0 = randomsource.nextFloat() * 2.0F - 1.0F;
@@ -96,17 +96,15 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
                     double d24 = 0.0D * d12 - d21 * d13;
                     double d25 = d24 * d9 - d22 * d10;
                     double d26 = d22 * d9 + d24 * d10;
-                    pBuilder.vertex(d5 + d25, d6 + d23, d7 + d26).endVertex();
+                    pBuilder.addVertex((float) (d5 + d25), (float) (d6 + d23), (float) (d7 + d26));
                 }
             }
         }
 
-        return pBuilder.end();
+        return pBuilder;
     }
 
     public void drawSun(float partialTicks, PoseStack matrix, ClientLevel world){
-        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
-        Tesselator tessellator = Tesselator.getInstance();
 
         float size = 30.0F;
         VertexFormat.Mode drawMode = VertexFormat.Mode.QUADS;
@@ -115,18 +113,15 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
         matrix.mulPose(Axis.YP.rotationDegrees(-90.0F));
         matrix.mulPose(Axis.XP.rotationDegrees(world.getTimeOfDay(partialTicks) * 360));
         Matrix4f matrix4f = matrix.last().pose();
-        bufferbuilder.begin(drawMode, DefaultVertexFormat.POSITION_TEX);
-        bufferbuilder.vertex(matrix4f, (-size), 100.0F, (-size)).uv(0.0F, 0.0F).endVertex();
-        bufferbuilder.vertex(matrix4f, size, 100.0F, (-size)).uv(1.0F, 0.0F).endVertex();
-        bufferbuilder.vertex(matrix4f, size, 100.0F, size).uv(1.0F, 1.F).endVertex();
-        bufferbuilder.vertex(matrix4f, (-size), 100.0F, size).uv(0.0F, 1.0F).endVertex();
-        tessellator.end();
+        BufferBuilder bufferbuilder = Tesselator.getInstance().begin(drawMode, DefaultVertexFormat.POSITION_TEX);
+        bufferbuilder.addVertex(matrix4f, (-size), 100.0F, (-size)).setUv(0.0F, 0.0F);
+        bufferbuilder.addVertex(matrix4f, size, 100.0F, (-size)).setUv(1.0F, 0.0F);
+        bufferbuilder.addVertex(matrix4f, size, 100.0F, size).setUv(1.0F, 1.F);
+        bufferbuilder.addVertex(matrix4f, (-size), 100.0F, size).setUv(0.0F, 1.0F);
+        BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
     }
 
     public void drawMoonPhases(float partialTicks, PoseStack matrix, ClientLevel world){
-        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
-        Tesselator tessellator = Tesselator.getInstance();
-
         float size = 30.0F;
         VertexFormat.Mode drawMode = VertexFormat.Mode.QUADS;
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -140,12 +135,12 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
         float f24 = (float)(i2 + 1) / 4.0F;
         float f14 = (float)(k2 + 1) / 2.0F;
         Matrix4f matrix4f = matrix.last().pose();
-        bufferbuilder.begin(drawMode, DefaultVertexFormat.POSITION_TEX);
-        bufferbuilder.vertex(matrix4f, (-size), -100.0F, size).uv(f24, f14).endVertex();
-        bufferbuilder.vertex(matrix4f, size, -100.0F, size).uv(f22, f14).endVertex();
-        bufferbuilder.vertex(matrix4f, size, -100.0F, (-size)).uv(f22, f23).endVertex();
-        bufferbuilder.vertex(matrix4f, (-size), -100.0F, (-size)).uv(f24, f23).endVertex();
-        tessellator.end();
+        BufferBuilder bufferbuilder = Tesselator.getInstance().begin(drawMode, DefaultVertexFormat.POSITION_TEX);
+        bufferbuilder.addVertex(matrix4f, (-size), -100.0F, size).setUv(f24, f14);
+        bufferbuilder.addVertex(matrix4f, size, -100.0F, size).setUv(f22, f14);
+        bufferbuilder.addVertex(matrix4f, size, -100.0F, (-size)).setUv(f22, f23);
+        bufferbuilder.addVertex(matrix4f, (-size), -100.0F, (-size)).setUv(f24, f23);
+        BufferUploader.draw(bufferbuilder.buildOrThrow());
     }
 
     @Override
