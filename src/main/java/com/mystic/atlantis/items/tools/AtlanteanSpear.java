@@ -6,7 +6,6 @@ import net.minecraft.world.item.Tier;
 public class AtlanteanSpear extends SwordItem {
     public AtlanteanSpear(Tier tier, Properties properties) {
         super(tier, properties
-                .stacksTo(1)
-                .durability(tier.getUses()));
+                .stacksTo(1));
     }
 }

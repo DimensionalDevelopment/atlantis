@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 
 public class AtlanteanAmulet extends Item {
     public AtlanteanAmulet(Properties properties) {
-        super(properties.stacksTo(1));
+        super(properties);
     }
 
     @Override

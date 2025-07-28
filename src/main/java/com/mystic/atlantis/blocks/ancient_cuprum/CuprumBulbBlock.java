@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import org.jetbrains.annotations.NotNull;
 
 public class CuprumBulbBlock extends Block {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -64,7 +65,7 @@ public class CuprumBulbBlock extends Block {
      * @deprecated call via {@link net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase#getAnalogOutputSignal} whenever possible. Implementing/overriding is fine.
      */
     @Override
-    public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
+    public int getAnalogOutputSignal(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos) {
         return pLevel.getBlockState(pPos).getValue(LIT) ? 15 : 0;
     }
 }

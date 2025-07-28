@@ -21,7 +21,6 @@ import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.tags.FluidTagsProvider;
-import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -1213,7 +1212,7 @@ public class Providers {
             }
 
             private void addArmorSet(IntrinsicTagAppender<Item> tag, AtlantisArmorSet set) {
-                tag.add(set.helmet().get(), set.chestplate().get(), set.leggings().get(), set.boots().get())
+                tag.add(set.helmet().get(), set.chestplate().get(), set.leggings().get(), set.boots().get());
             }
         });
     }
