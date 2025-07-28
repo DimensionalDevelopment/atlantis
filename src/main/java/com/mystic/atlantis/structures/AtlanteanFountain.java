@@ -1,9 +1,17 @@
 package com.mystic.atlantis.structures;
 
 
-import com.mojang.serialization.Codec;
+import java.util.Optional;
+
 import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.levelgen.structure.pools.DimensionPadding;
+import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasLookup;
+import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
+import org.jetbrains.annotations.NotNull;
+
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
@@ -14,13 +22,10 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
 
 public class AtlanteanFountain extends Structure {
 
-    public static final MapCodec<AtlanteanFountain> CODEC = RecordCodecBuilder.<AtlanteanFountain>mapCodec(instance ->
+    public static final MapCodec<AtlanteanFountain> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(AtlanteanFountain.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
@@ -39,12 +44,12 @@ public class AtlanteanFountain extends Structure {
     private final int maxDistanceFromCenter;
 
     public AtlanteanFountain(Structure.StructureSettings config,
-                            Holder<StructureTemplatePool> startPool,
-                            Optional<ResourceLocation> startJigsawName,
-                            int size,
-                            HeightProvider startHeight,
-                            Optional<Heightmap.Types> projectStartToHeightmap,
-                            int maxDistanceFromCenter) {
+                             Holder<StructureTemplatePool> startPool,
+                             Optional<ResourceLocation> startJigsawName,
+                             int size,
+                             HeightProvider startHeight,
+                             Optional<Heightmap.Types> projectStartToHeightmap,
+                             int maxDistanceFromCenter) {
         super(config);
         this.startPool = startPool;
         this.startJigsawName = startJigsawName;
@@ -63,7 +68,7 @@ public class AtlanteanFountain extends Structure {
                 JigsawPlacement.addPieces(
                         context,
                         this.startPool, this.startJigsawName, this.size, blockPos,
-                        false, this.projectStartToHeightmap, this.maxDistanceFromCenter);
+                        false, this.projectStartToHeightmap, this.maxDistanceFromCenter, PoolAliasLookup.EMPTY, DimensionPadding.ZERO, LiquidSettings.APPLY_WATERLOGGING);
         return structurePiecesGenerator;
     }
 

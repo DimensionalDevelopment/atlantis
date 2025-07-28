@@ -15,10 +15,6 @@ public class MenuTypeInit {
     public static final DeferredHolder<MenuType<?>, MenuType<LinguisticMenu>> LINGUISTIC = CONTAINERS.register("linguistic", () -> new MenuType<>(LinguisticMenu::new, FeatureFlagSet.of()));
     public static final DeferredHolder<MenuType<?>, MenuType<WritingMenu>> WRITING = CONTAINERS.register("writing", () -> new MenuType<>(WritingMenu::new, FeatureFlagSet.of()));
 
-//    private static <T extends AbstractContainerMenu> DeferredRegister<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {
-//        return CONTAINERS.register(name, () -> new MenuType<AbstractContainerMenu>());
-//    }
-
     public static void init(IEventBus bus) {
         CONTAINERS.register(bus);
     }

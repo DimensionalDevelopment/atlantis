@@ -10,10 +10,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -24,17 +22,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class GlittertailShrimpEntity extends AbstractSchoolingFish implements GeoEntity, Bucketable {
@@ -50,14 +44,13 @@ public class GlittertailShrimpEntity extends AbstractSchoolingFish implements Ge
         return createAttributes().add(Attributes.MOVEMENT_SPEED, 2d);
     }
 
-    @Override
-    public float getScale() {
-        return 0.5f;
+    public static boolean canSpawn(EntityType<GlittertailShrimpEntity> GlittertailShrimpEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= 75 && 95 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
-        return dimensions.height * 0.6875f;
+    public float getScale() {
+        return 0.5f;
     }
 
     @Override
@@ -135,7 +128,7 @@ public class GlittertailShrimpEntity extends AbstractSchoolingFish implements Ge
     }
 
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed() {
         return true;
     }
 
@@ -144,9 +137,6 @@ public class GlittertailShrimpEntity extends AbstractSchoolingFish implements Ge
         return factory;
     }
 
-    public static boolean canSpawn(EntityType<?> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= 65 && 70 >= pos.getY() && world.getBlockState(pos).is(Blocks.WATER);
-    }
 
     private <P extends GeoAnimatable> PlayState predicate(AnimationState<P> event) {
         event.getController().setAnimation(IDLE_ANIMATION);

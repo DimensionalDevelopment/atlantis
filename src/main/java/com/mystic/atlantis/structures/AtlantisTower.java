@@ -3,6 +3,9 @@ package com.mystic.atlantis.structures;
 import java.util.Optional;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.levelgen.structure.pools.DimensionPadding;
+import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasLookup;
+import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.serialization.Codec;
@@ -40,12 +43,12 @@ public class AtlantisTower extends Structure {
     private final int maxDistanceFromCenter;
 
     public AtlantisTower(Structure.StructureSettings config,
-                            Holder<StructureTemplatePool> startPool,
-                            Optional<ResourceLocation> startJigsawName,
-                            int size,
-                            HeightProvider startHeight,
-                            Optional<Heightmap.Types> projectStartToHeightmap,
-                            int maxDistanceFromCenter) {
+                         Holder<StructureTemplatePool> startPool,
+                         Optional<ResourceLocation> startJigsawName,
+                         int size,
+                         HeightProvider startHeight,
+                         Optional<Heightmap.Types> projectStartToHeightmap,
+                         int maxDistanceFromCenter) {
         super(config);
         this.startPool = startPool;
         this.startJigsawName = startJigsawName;
@@ -64,7 +67,7 @@ public class AtlantisTower extends Structure {
                 JigsawPlacement.addPieces(
                         context,
                         this.startPool, this.startJigsawName, this.size, blockPos,
-                        false, this.projectStartToHeightmap, this.maxDistanceFromCenter);
+                        false, this.projectStartToHeightmap, this.maxDistanceFromCenter, PoolAliasLookup.EMPTY, DimensionPadding.ZERO, LiquidSettings.APPLY_WATERLOGGING);
         return structurePiecesGenerator;
     }
 
@@ -73,4 +76,3 @@ public class AtlantisTower extends Structure {
         return AtlantisStructures.ATLANTIS_TOWER.get();
     }
 }
-

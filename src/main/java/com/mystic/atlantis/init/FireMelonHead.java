@@ -2,6 +2,9 @@ package com.mystic.atlantis.init;
 
 import javax.annotation.Nullable;
 
+import com.mojang.serialization.MapCodec;
+import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.common.CommonHooks;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
@@ -22,10 +25,8 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.IPlantable;
 
-public class FireMelonHead extends GrowingPlantHeadBlock implements LiquidBlockContainer, IPlantable {
+public class FireMelonHead extends GrowingPlantHeadBlock implements LiquidBlockContainer {
     protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 9.0, 16.0);
     private static final double GROW_PER_TICK_PROBABILITY = 0.14;
 
@@ -35,19 +36,24 @@ public class FireMelonHead extends GrowingPlantHeadBlock implements LiquidBlockC
     }
 
     @Override
+    protected MapCodec<? extends GrowingPlantHeadBlock> codec() {
+        return simpleCodec(FireMelonHead::new);
+    }
+
+    @Override
     public void randomTick(BlockState arg, ServerLevel arg2, BlockPos arg3, RandomSource random) {
-        if (arg.getValue(AGE) < 8 && ForgeHooks.onCropsGrowPre(arg2, arg3.relative(this.growthDirection), arg2.getBlockState(arg3.relative(this.growthDirection)), random.nextDouble() < GROW_PER_TICK_PROBABILITY)) {
+        if (arg.getValue(AGE) < 8 && CommonHooks.canCropGrow(arg2, arg3.relative(this.growthDirection), arg2.getBlockState(arg3.relative(this.growthDirection)), random.nextDouble() < GROW_PER_TICK_PROBABILITY)) {
             BlockPos blockpos = arg3.relative(this.growthDirection);
             if (this.canGrowInto(arg2.getBlockState(blockpos))) {
                 arg2.setBlockAndUpdate(blockpos, this.getGrowIntoState(arg, arg2.random));
-                ForgeHooks.onCropsGrowPost(arg2, blockpos, arg2.getBlockState(blockpos));
+                CommonHooks.fireCropGrowPost(arg2, blockpos, arg2.getBlockState(blockpos));
             }
         }
     }
 
     @Override
     public @NotNull BlockState getMaxAgeState(BlockState arg) {
-            return arg.setValue(AGE, 7);
+        return arg.setValue(AGE, 7);
     }
 
     @Override
@@ -71,7 +77,7 @@ public class FireMelonHead extends GrowingPlantHeadBlock implements LiquidBlockC
     }
 
     @Override
-    public boolean canPlaceLiquid(BlockGetter arg, BlockPos arg2, BlockState arg3, Fluid arg4) {
+    public boolean canPlaceLiquid(@org.jetbrains.annotations.Nullable Player pPlayer, BlockGetter pLevel, BlockPos pPos, BlockState pState, Fluid pFluid) {
         return false;
     }
 
@@ -100,10 +106,5 @@ public class FireMelonHead extends GrowingPlantHeadBlock implements LiquidBlockC
     @Override
     public FluidState getFluidState(BlockState arg) {
         return Fluids.WATER.getSource(false);
-    }
-
-    @Override
-    public BlockState getPlant(BlockGetter arg, BlockPos arg2) {
-        return this.defaultBlockState();
     }
 }

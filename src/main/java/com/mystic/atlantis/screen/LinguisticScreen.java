@@ -9,10 +9,14 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ColorRGBA;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.Map;
 import java.util.Objects;
@@ -22,9 +26,9 @@ import java.util.stream.Stream;
 public class LinguisticScreen extends AbstractContainerScreen<LinguisticMenu> {
 	private static final ResourceLocation BG_LOCATION = Atlantis.id("textures/gui/container/linguistic.png");
 
-	private static final Map<DyeColor, Color> colorMap = Stream.of(DyeColor.values()).collect(Collectors.toMap(a -> a, a -> new Color(a.getTextureDiffuseColors())));
+	private static final Map<DyeColor, Color> colorMap = Stream.of(DyeColor.values()).collect(Collectors.toMap(a -> a, a -> new Color(a.getTextureDiffuseColor())));
 
-	private static final Color defaultColor = new Color(140f / 255f, 174f / 255f, 210f / 255f);
+	private static final Color defaultColor = new Color(FastColor.ARGB32.opaque (0x8CAED2));
 
 	public LinguisticScreen(LinguisticMenu arg, Inventory arg2, Component arg3) {
 		super(arg, arg2, arg3);
@@ -50,7 +54,6 @@ public class LinguisticScreen extends AbstractContainerScreen<LinguisticMenu> {
 
 	@Override
 	protected void renderBg(GuiGraphics arg, float f, int i, int j) {
-		this.renderBackground(arg);
 		int k = this.leftPos;
 		int l = this.topPos;
 		arg.blit(BG_LOCATION, k, l, 0, 0, this.imageWidth, this.imageHeight);
@@ -85,16 +88,20 @@ public class LinguisticScreen extends AbstractContainerScreen<LinguisticMenu> {
 
 				arg.blit(glyphBlock.getGlyph().getTexture(), 0, 0, 34, 34, 0,0, 16,16,16,16);
 
-				RenderSystem.setShaderColor(1, 1, 1, 1);
+				RenderSystem.setShaderColor(1 , 1, 1, 1);
 
 				arg.pose().popPose();
 			}
 		}
 	}
 
-	private static record Color(float r, float g, float b) {
+	private record Color(float r, float g, float b) {
 		public Color(float[] color) {
 			this(color[0], color[1], color[2]);
+		}
+
+		public Color(int color) {
+			this(FastColor.ARGB32.red(color) / 255.0f, FastColor.ARGB32.green(color) / 255.0f, FastColor.ARGB32.blue(color) / 255.0f);
 		}
 
 		public void setup() {

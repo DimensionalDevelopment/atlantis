@@ -1,8 +1,11 @@
 package com.mystic.atlantis.entities;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
@@ -14,6 +17,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -23,20 +27,16 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-public class CoconutCrabEntity extends RubyclawCrabEntity implements NeutralMob, GeoAnimatable {
+public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatable {
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
     private final AnimationController<CoconutCrabEntity> mainController = new AnimationController<CoconutCrabEntity>(this, "coconutCrabController", 2, this::mainPredicate);
@@ -48,7 +48,7 @@ public class CoconutCrabEntity extends RubyclawCrabEntity implements NeutralMob,
     @Nullable
     private UUID persistentAngerTarget;
 
-    public CoconutCrabEntity(EntityType<? extends RubyclawCrabEntity> entityType, Level world) {
+    public CoconutCrabEntity(EntityType<? extends Animal> entityType, Level world) {
         super(entityType, world);
     }
 
@@ -57,9 +57,8 @@ public class CoconutCrabEntity extends RubyclawCrabEntity implements NeutralMob,
         return world.isUnobstructed(this);
     }
 
-    @Override
-    public MobType getMobType() {
-        return MobType.WATER;
+    public static boolean canSpawn(EntityType<CoconutCrabEntity> crabEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= 350 && 512 >= pos.getY();
     }
 
     public static AttributeSupplier.Builder createCoconutCrabAttributes() {
@@ -77,13 +76,13 @@ public class CoconutCrabEntity extends RubyclawCrabEntity implements NeutralMob,
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
+    protected void defineSynchedData(SynchedEntityData.Builder p_326308_) {
+        super.defineSynchedData(p_326308_);
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
-        return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
     @Override
@@ -97,7 +96,7 @@ public class CoconutCrabEntity extends RubyclawCrabEntity implements NeutralMob,
     }
 
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed() {
         return true;
     }
 
@@ -113,7 +112,7 @@ public class CoconutCrabEntity extends RubyclawCrabEntity implements NeutralMob,
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (player.getItemInHand(hand).getItem() == Blocks.SEAGRASS.asItem()) {
             if (player instanceof ServerPlayer) {
                 if (this.isFood(Blocks.SEAGRASS.asItem().getDefaultInstance())) {

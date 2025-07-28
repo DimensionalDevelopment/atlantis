@@ -19,13 +19,13 @@ public class SubmarineEntityRenderer extends GeoEntityRenderer<SubmarineEntity> 
     }
 
     @Override
-    public void preRender(PoseStack poseStack, SubmarineEntity animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+    public void preRender(PoseStack poseStack, SubmarineEntity animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int color) {
+        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, color);
         poseStack.translate(0, -0.5, 0);
     }
 
     @Override
-    protected void applyRotations(SubmarineEntity animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
+    protected void applyRotations(SubmarineEntity animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick, float nativeScale) {
         poseStack.mulPose(Axis.YN.rotationDegrees(Mth.rotLerp(partialTick, animatable.yRotO, animatable.getYRot())));
     }
 }

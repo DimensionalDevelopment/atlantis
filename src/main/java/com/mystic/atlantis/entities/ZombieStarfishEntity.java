@@ -1,3 +1,4 @@
+
 package com.mystic.atlantis.entities;
 
 import net.minecraft.core.BlockPos;
@@ -19,19 +20,18 @@ import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class ZombieStarfishEntity extends Monster implements GeoEntity {
@@ -53,32 +53,18 @@ public class ZombieStarfishEntity extends Monster implements GeoEntity {
         return world.isUnobstructed(this);
     }
 
-    @Override
-    public MobType getMobType() {
-        return MobType.WATER;
-    }
-
-    @Override
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
-
     public static AttributeSupplier.Builder createStarfishAttributes() {
         return createMobAttributes().add(Attributes.MOVEMENT_SPEED, 1.2d);
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
-    }
-
-    public static boolean canSpawn(EntityType<?> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= 65 && 70 >= pos.getY() && world.getBlockState(pos).is(Blocks.WATER);
+        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
-        return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
     @Override
@@ -121,8 +107,12 @@ public class ZombieStarfishEntity extends Monster implements GeoEntity {
         }
     }
 
+    public static boolean canSpawn(EntityType<ZombieStarfishEntity> ZombieStarfishEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= 75 && 95 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
+    }
+
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed() {
         return true;
     }
 

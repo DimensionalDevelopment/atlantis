@@ -29,19 +29,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -62,7 +61,11 @@ public class ThalassianSeahorseEntity extends WaterAnimal implements GeoEntity, 
     }
 
     public static AttributeSupplier.Builder createSeahorseAttributes() {
-        return createMobAttributes().add(Attributes.MOVEMENT_SPEED, 2.5d).add(Attributes.MAX_HEALTH, 2);
+        return createMobAttributes().add(Attributes.MOVEMENT_SPEED, 2.5d);
+    }
+
+    public static boolean canSpawn(EntityType<ThalassianSeahorseEntity> ThalassianSeahorseEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= 75 && 95 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
     }
 
     @Override
@@ -71,18 +74,9 @@ public class ThalassianSeahorseEntity extends WaterAnimal implements GeoEntity, 
     }
 
     @Override
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
-
-    public static boolean canSpawn(EntityType<?> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= 65 && 70 >= pos.getY() && world.getBlockState(pos).is(Blocks.WATER);
-    }
-
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
         this.entityData.set(COLOR, betterNiceColor());
-        return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
     @Override
@@ -118,10 +112,10 @@ public class ThalassianSeahorseEntity extends WaterAnimal implements GeoEntity, 
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(FROM_BUCKET, false);
-        this.entityData.define(COLOR, betterNiceColor());
+    protected void defineSynchedData(SynchedEntityData.Builder p_326499_) {
+        super.defineSynchedData(p_326499_);
+        p_326499_.define(FROM_BUCKET, false);
+        p_326499_.define(COLOR, betterNiceColor());
     }
 
     public void createChild(ServerLevel world, ThalassianSeahorseEntity entity) {
@@ -130,11 +124,6 @@ public class ThalassianSeahorseEntity extends WaterAnimal implements GeoEntity, 
             child.setPosRaw(this.getX(), this.getY(), this.getZ());
             world.addFreshEntity(child);
         }
-    }
-
-    @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
-        return dimensions.height * 0.6875f;
     }
 
     @Override
@@ -202,7 +191,7 @@ public class ThalassianSeahorseEntity extends WaterAnimal implements GeoEntity, 
     }
 
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed() {
         return true;
     }
 
@@ -230,7 +219,7 @@ public class ThalassianSeahorseEntity extends WaterAnimal implements GeoEntity, 
             Blocks.TUBE_CORAL, Blocks.TUBE_CORAL_BLOCK, Blocks.TUBE_CORAL_FAN, Blocks.TUBE_CORAL_WALL_FAN);
 
     private final List<BlockPos> HORIZONAL_DIRECTIONS = List.of(this.blockPosition().north(), this.blockPosition().south(),
-        this.blockPosition().west(), this.blockPosition().east());
+            this.blockPosition().west(), this.blockPosition().east());
 
     public boolean isMovingSlowly(){
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;

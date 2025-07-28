@@ -33,7 +33,7 @@ public class GlowstonesFeature extends Feature<NoneFeatureConfiguration> {
         if (!context.level().getBlockState(context.origin().below()).isSolidRender(context.level(), pos))
             return false;
 
-        if(AtlantisConfig.INSTANCE.glowstoneCrystsOn.get()) {
+        if(AtlantisConfig.CONFIG.glowstoneCrystsOn.get()) {
             BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
             double baseRadius = 3;

@@ -10,6 +10,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -21,24 +22,23 @@ import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -58,7 +58,7 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
 
     public static AttributeSupplier.Builder createLeviathanAttributes() {
         return Mob.createMobAttributes()
-        		.add(Attributes.ATTACK_DAMAGE, 2D);
+                .add(Attributes.ATTACK_DAMAGE, 2D);
     }
 
     public LeviathanEntity(EntityType<? extends WaterAnimal> arg, Level arg2) {
@@ -73,13 +73,11 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(2, new LeviathanEntity.LeviathanEntityAttackStrategyGoal());
-        this.goalSelector.addGoal(3, new LeviathanEntity.LeviathanEntitySweepAttackGoal());
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new WaterAvoidingRandomFlyingGoal(this, 0.2));
-        this.goalSelector.addGoal(4, new LeviathanEntity.LeviathanEntityCircleAroundAnchorGoal());
-        this.targetSelector.addGoal(1, new LeviathanEntity.LeviathanEntityAttackJellyfishGoal());
-        this.targetSelector.addGoal(2, new LeviathanEntity.LeviathanEntityAttackPlayerTargetGoal());
+        this.goalSelector.addGoal(1, new LeviathanEntity.LeviathanEntityAttackStrategyGoal());
+        this.goalSelector.addGoal(2, new LeviathanEntity.LeviathanEntitySweepAttackGoal());
+        this.goalSelector.addGoal(3, new LeviathanEntity.LeviathanEntityCircleAroundAnchorGoal());
+        this.targetSelector.addGoal(0, new LeviathanEntity.LeviathanEntityAttackJellyfishGoal());
+        this.targetSelector.addGoal(1, new LeviathanEntity.LeviathanEntityAttackPlayerTargetGoal());
     }
 
     @Override
@@ -105,16 +103,16 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(ID_SIZE, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder p_326499_) {
+        super.defineSynchedData(p_326499_);
+        p_326499_.define(ID_SIZE, 0);
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor pLevel, @NotNull DifficultyInstance pDifficulty, @NotNull MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor pLevel, @NotNull DifficultyInstance pDifficulty, @NotNull MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         this.anchorPoint = this.blockPosition().above(5);
         this.setLeviathanEntitySize(0);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     @Override
@@ -161,11 +159,6 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
     }
 
     @Override
-    public @NotNull MobType getMobType() {
-        return MobType.UNDEAD;
-    }
-
-    @Override
     protected float getSoundVolume() {
         return 1.0F;
     }
@@ -175,21 +168,8 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
         return true;
     }
 
-    @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull Pose pPose) {
-        int i = this.getLeviathanEntitySize();
-        EntityDimensions entitydimensions = super.getDimensions(pPose);
-        float f = (entitydimensions.width + 0.2F * (float)i) / entitydimensions.width;
-        return entitydimensions.scale(f);
-    }
-
     public int getLeviathanEntitySize() {
         return this.entityData.get(ID_SIZE);
-    }
-
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pPose, EntityDimensions pSize) {
-        return pSize.height * 0.35F;
     }
 
     @Override
@@ -226,7 +206,7 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-       controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
+        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
     }
 
     private <P extends GeoAnimatable> PlayState predicate(AnimationState<P> event) {
@@ -238,8 +218,8 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
     }
-    
-     enum AttackPhase {
+
+    enum AttackPhase {
         CIRCLE,
         SWOOP
     }
@@ -294,6 +274,10 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
             super.stop();
             LeviathanEntity.this.removeEffect(MobEffects.INVISIBILITY);
         }
+    }
+
+    public static boolean canSpawn(EntityType<LeviathanEntity> leviathanEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= 75 && 105 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
     }
 
     class LeviathanEntityAttackPlayerTargetGoal extends Goal {

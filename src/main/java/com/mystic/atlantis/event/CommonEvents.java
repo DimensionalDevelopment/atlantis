@@ -1,6 +1,7 @@
 package com.mystic.atlantis.event;
 
 import com.mystic.atlantis.config.AtlantisConfig;
+import com.mystic.atlantis.datagen.EnchantmentInit;
 import com.mystic.atlantis.dimension.AtlantisDimensions;
 import com.mystic.atlantis.init.EffectsInit;
 import com.mystic.atlantis.init.ItemInit;
@@ -40,9 +41,8 @@ import java.util.Random;
 @EventBusSubscriber
 public class CommonEvents {
 
-    public static boolean hasEnchantment(ItemStack itemStack, Enchantment enchantment) {
-        Map<Enchantment, Integer> enchantments = EnchantmentHelper.isImmuneToDamage().getEnchantments(itemStack);
-        return enchantments.containsKey(enchantment);
+    public static boolean hasEnchantment(Level level, ItemStack itemStack, ResourceKey<Enchantment> enchantment) {
+        return level.registryAccess().holder(enchantment).filter(holder -> itemStack.getEnchantments().getLevel(holder) > 0).isPresent();
     }
 
     @SubscribeEvent
@@ -70,7 +70,7 @@ public class CommonEvents {
             Player player = (Player) event.getEntity();
             RandomSource random = player.getRandom();
             Entity entity = event.getSource().getEntity();
-            if (player.hasEffect(EffectsInit.SPIKES.get())) {
+            if (player.hasEffect(EffectsInit.SPIKES)) {
                 if (player.isHurt()) {
                     entity.hurt(player.damageSources().thorns(player), (float) getDamage(3, (Random) random));
                 }
@@ -94,29 +94,8 @@ public class CommonEvents {
                             persistedTag.putBoolean(NOT_FIRST_SPAWN_NBT, true);
                             tag.put(Player.PERSISTED_NBT_TAG, persistedTag);
                             if (event.getEntity() instanceof ServerPlayer serverPlayer) {
-                                sendPlayerToDimension(serverPlayer, atlantisLevel, new Vec3(atlantisLevel.getLevel().getLevelData().getXSpawn(), 100, atlantisLevel.getLevel().getLevelData().getZSpawn()));
+                                sendPlayerToDimension(serverPlayer, atlantisLevel, new Vec3(atlantisLevel.getLevel().getLevelData().getSpawnPos().getX(), 100, atlantisLevel.getLevel().getLevelData().getSpawnPos().getZ()));
                             }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onPlayerRespawnEvent(PlayerEvent.PlayerRespawnEvent event) {
-        LivingEntity livingEntity = event.getEntity();
-        if (livingEntity instanceof ServerPlayer serverPlayer) {
-            ServerLevel serverLevel = serverPlayer.serverLevel();
-            if (AtlantisDimensions.ATLANTIS_DIMENSION != null) {
-                if (previousDimension == AtlantisDimensions.ATLANTIS_WORLD) {
-                    serverPlayer.setRespawnPosition(AtlantisDimensions.ATLANTIS_WORLD, serverPlayer.blockPosition(), serverPlayer.getYHeadRot(), true, false);
-                    serverPlayer.serverLevel().setDefaultSpawnPos(serverPlayer.blockPosition(), 16);
-                    if (serverPlayer.getRespawnPosition() != null) {
-                        Optional<Vec3> bedPos = ServerPlayer.findRespawnPositionAndUseSpawnBlock(AtlantisDimensions.ATLANTIS_DIMENSION, serverPlayer.getRespawnPosition(), serverPlayer.getRespawnAngle(), serverPlayer.isRespawnForced(), false);
-                        if (bedPos.isEmpty()) {
-                            serverPlayer.setRespawnPosition(AtlantisDimensions.ATLANTIS_WORLD, serverLevel.getSharedSpawnPos(), serverPlayer.getYHeadRot(), true, false);
-                            sendPlayerToDimension(serverPlayer, AtlantisDimensions.ATLANTIS_DIMENSION, new Vec3(serverPlayer.getRespawnPosition().getX(), serverPlayer.getRespawnPosition().getY(), serverPlayer.getRespawnPosition().getZ()));
                         }
                     }
                 }
@@ -133,7 +112,7 @@ public class CommonEvents {
     public static void onLivingHurtEvent(EntityInvulnerabilityCheckEvent event) {
         if (event.getEntity() instanceof Player player) {
             for (ItemStack stack : player.getArmorSlots()) {
-                if (hasEnchantment(stack, EnchantmentInit.LIGHTNING_PROTECTION.get())) {
+                if (hasEnchantment(player.level(), stack, EnchantmentInit.LIGHTNING_PROTECTION)) {
                     if (event.getSource().is(DamageTypes.LIGHTNING_BOLT)) {
                         event.setInvulnerable(true);
                         return;

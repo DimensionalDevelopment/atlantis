@@ -1,5 +1,6 @@
 package com.mystic.atlantis.entities;
 
+import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -26,20 +27,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class RubyclawCrabEntity extends Animal implements GeoEntity, Bucketable {
@@ -59,7 +59,7 @@ public class RubyclawCrabEntity extends Animal implements GeoEntity, Bucketable 
     public boolean checkSpawnObstruction(LevelReader world) {
         return world.isUnobstructed(this);
     }
-    
+
     public static AttributeSupplier.Builder createCrabAttributes() {
         return createMobAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 1D)
@@ -80,11 +80,6 @@ public class RubyclawCrabEntity extends Animal implements GeoEntity, Bucketable 
     }
 
     @Override
-    public MobType getMobType() {
-        return MobType.WATER;
-    }
-
-    @Override
     public void loadFromBucketTag(CompoundTag nbt) {
         Bucketable.loadDefaultDataFromBucketTag(this, nbt);
     }
@@ -97,11 +92,6 @@ public class RubyclawCrabEntity extends Animal implements GeoEntity, Bucketable 
     @Override
     public SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_FILL_FISH;
-    }
-
-    @Override
-    public boolean canBreatheUnderwater() {
-        return true;
     }
 
     @Override
@@ -124,20 +114,16 @@ public class RubyclawCrabEntity extends Animal implements GeoEntity, Bucketable 
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
-        this.entityData.define(FROM_BUCKET, false);
-    }
-
-    public static boolean canSpawn(EntityType<?> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= 65 && 70 >= pos.getY() && world.getBlockState(pos).is(Blocks.WATER);
+    protected void defineSynchedData(SynchedEntityData.Builder p_326308_) {
+        super.defineSynchedData(p_326308_);
+        p_326308_.define(VARIANT, 0);
+        p_326308_.define(FROM_BUCKET, false);
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
         this.entityData.set(VARIANT, this.random.nextInt(100) > 50 ? 1 : 2);
-        return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
     @Override
@@ -155,13 +141,13 @@ public class RubyclawCrabEntity extends Animal implements GeoEntity, Bucketable 
     }
 
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed() {
         return true;
     }
 
     @Override
     protected void registerGoals() {
-    	goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        goalSelector.addGoal(0, new TryFindWaterGoal(this));
         goalSelector.addGoal(0, new HurtByTargetGoal(this).setAlertOthers(RubyclawCrabEntity.class));
         goalSelector.addGoal(1, new PanicGoal(this, 1.35));
         goalSelector.addGoal(1, new TemptGoal(this, 1.05D, TEMPT_ITEMS, false));
@@ -203,7 +189,7 @@ public class RubyclawCrabEntity extends Animal implements GeoEntity, Bucketable 
     }
 
     private static boolean isTempting(ItemStack stack) {
-    	return TEMPT_ITEMS.test(stack);
+        return TEMPT_ITEMS.test(stack);
     }
 
     @Nullable
@@ -225,8 +211,8 @@ public class RubyclawCrabEntity extends Animal implements GeoEntity, Bucketable 
     }
 
     private <P extends GeoAnimatable> PlayState mainPredicate(AnimationState<P> event) {
-        if(isMovingSlowly()) {
-            event.getController().setAnimation(WALK_ANIMATION);
+        if (isMovingSlowly()) {
+            event.setAnimation(WALK_ANIMATION);
             return PlayState.CONTINUE;
         } else if (!isMovingSlowly()) {
             event.getController().setAnimation(IDLE_ANIMATION);
@@ -238,5 +224,9 @@ public class RubyclawCrabEntity extends Animal implements GeoEntity, Bucketable 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
+    }
+
+    public static boolean canSpawn(EntityType<RubyclawCrabEntity> RubyclawCrabEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= AtlantisConfig.CONFIG.minCrabSpawnHeight.get() && AtlantisConfig.CONFIG.maxCrabSpawnHeight.get() >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
     }
 }

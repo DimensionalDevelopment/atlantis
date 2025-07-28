@@ -1,7 +1,11 @@
 package com.mystic.atlantis.init;
 
-import static com.mystic.atlantis.blocks.aquatic_power.AquaticPowerTorchBlock.WATERLOGGED;
+import static com.mystic.atlantis.blocks.plants.Seabloom.WATERLOGGED;
 
+import com.mojang.serialization.MapCodec;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.LevelReader;
+import net.neoforged.neoforge.common.CommonHooks;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
@@ -27,10 +31,9 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.IPlantable;
+import org.jetbrains.annotations.Nullable;
 
-public class FireMelonBody extends GrowingPlantBodyBlock implements LiquidBlockContainer, IPlantable {
+public class FireMelonBody extends GrowingPlantBodyBlock implements LiquidBlockContainer {
     public static final int MAX_AGE = 7;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
     protected static final float AABB_OFFSET = 1.0F;
@@ -47,13 +50,13 @@ public class FireMelonBody extends GrowingPlantBodyBlock implements LiquidBlockC
         BlockPos blockpos = blockPos.relative(direction);
         if(level.getBlockState(blockpos.offset(direction.getOpposite().getNormal().multiply(2))) == Blocks.WATER.defaultBlockState()) {
             if (level.isAreaLoaded(blockPos, 1)) {
-                float f = CropBlock.getGrowthSpeed(this, level, blockPos);
-                if (ForgeHooks.onCropsGrowPre(level, blockPos, blockState, random.nextInt((int) (5.0F / f) + 1) == 5 || random.nextInt((int) (5.0F / f) + 1) == 0)) {
+                int f = CropBlock.getId(this.defaultBlockState());
+                if (CommonHooks.canCropGrow(level, blockPos, blockState, random.nextInt((int) (5.0F / f) + 1) == 5 || random.nextInt((int) (5.0F / f) + 1) == 0)) {
                     if (level.isFluidAtPosition(blockpos, fluidState -> fluidState.is(Fluids.WATER))) {
                         level.setBlockAndUpdate(blockpos.offset(direction.getOpposite().getNormal().multiply(2)), BlockInit.FIRE_MELON_FRUIT_SPIKED.get().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
                     }
 
-                    ForgeHooks.onCropsGrowPost(level, blockPos, blockState);
+                    CommonHooks.fireCropGrowPost(level, blockPos, blockState);
                 }
             }
         }
@@ -70,7 +73,12 @@ public class FireMelonBody extends GrowingPlantBodyBlock implements LiquidBlockC
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockGetter arg, BlockPos arg2, BlockState arg3) {
+    protected MapCodec<? extends GrowingPlantBodyBlock> codec() {
+        return simpleCodec(FireMelonBody::new);
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState) {
         return new ItemStack(ItemInit.FIRE_MELON_SEEDS.get());
     }
 
@@ -85,17 +93,12 @@ public class FireMelonBody extends GrowingPlantBodyBlock implements LiquidBlockC
     }
 
     @Override
-    public boolean canPlaceLiquid(BlockGetter arg, BlockPos arg2, BlockState arg3, Fluid arg4) {
+    public boolean canPlaceLiquid(@Nullable Player pPlayer, BlockGetter pLevel, BlockPos pPos, BlockState pState, Fluid pFluid) {
         return false;
     }
 
     @Override
     public boolean placeLiquid(LevelAccessor arg, BlockPos arg2, BlockState arg3, FluidState arg4) {
         return false;
-    }
-
-    @Override
-    public BlockState getPlant(BlockGetter arg, BlockPos arg2) {
-        return this.defaultBlockState();
     }
 }

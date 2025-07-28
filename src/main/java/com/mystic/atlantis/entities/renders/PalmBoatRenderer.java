@@ -53,7 +53,7 @@ public class PalmBoatRenderer extends EntityRenderer<PalmBoatEntity> {
         pMatrixStack.mulPose(Axis.YP.rotationDegrees(90.0F));
         model.setupAnim(pEntity, pPartialTicks, 0.0F, -0.1F, 0.0F, 0.0F);
         VertexConsumer vertexconsumer = pBuffer.getBuffer(model.renderType(resourcelocation));
-        model.renderToBuffer(pMatrixStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        model.renderToBuffer(pMatrixStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY);
         if (!pEntity.isUnderWater()) {
             VertexConsumer vertexconsumer1 = pBuffer.getBuffer(RenderType.waterMask());
             model.waterPatch().render(pMatrixStack, vertexconsumer1, pPackedLight, OverlayTexture.NO_OVERLAY);
@@ -68,7 +68,7 @@ public class PalmBoatRenderer extends EntityRenderer<PalmBoatEntity> {
      */
     @Deprecated // forge: override getModelWithLocation to change the texture / model
     public @NotNull ResourceLocation getTextureLocation(PalmBoatEntity pEntity) {
-        return new ResourceLocation(Reference.MODID, "textures/entity/boat/palm.png");
+        return ResourceLocation.fromNamespaceAndPath(Reference.MODID, "textures/entity/boat/atlantean.png");
     }
 
 }

@@ -2,7 +2,6 @@ package com.mystic.atlantis.entities;
 
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
@@ -22,23 +21,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class StarfishEntity extends Animal implements GeoEntity { //TODO make bucketable
+public class StarfishEntity extends Animal implements GeoEntity {
     private static final RawAnimation WALK_ANIMATION = RawAnimation.begin().thenLoop("animation.starfish.walk");
     private static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.starfish.idle");
     private static final RawAnimation EAT_ANIMATION = RawAnimation.begin().thenLoop("animation.starfish.eat");
@@ -56,16 +54,6 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
         return world.isUnobstructed(this);
     }
 
-    @Override
-    public MobType getMobType() {
-        return MobType.WATER;
-    }
-
-    @Override
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
-
     public static AttributeSupplier.Builder createStarfishAttributes() {
         return createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.6d);
     }
@@ -76,12 +64,8 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
-        return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
-    }
-
-    public static boolean canSpawn(EntityType<?> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= 65 && 70 >= pos.getY() && world.getBlockState(pos).is(Blocks.WATER);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
     @Override
@@ -91,8 +75,8 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
 
     public void rideTick() {
         final Entity entity = this.getVehicle();
-        if (entity instanceof Player player) {
-            if (player.isShiftKeyDown()) {
+        if(entity instanceof Player player) {
+            if(player.isShiftKeyDown()) {
                 this.stopRiding();
             }
         }
@@ -102,10 +86,10 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
         } else {
             this.setDeltaMovement(0, 0, 0);
             this.tick();
-            if (entity instanceof Player player) {
+            if(entity instanceof Player player) {
                 this.setPos(player.getX(), Math.max(player.getY() + player.getEyeHeight(), player.getY()), player.getZ());
                 player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 1, 5));
-                if (player.getHealth() > 1.0f) {
+                if(player.getHealth() > 1.0f) {
                     player.hurt(damageSources().mobAttack(this), 1.0f);
                 }
 
@@ -123,9 +107,8 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
         }
     }
 
-
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed() {
         return true;
     }
 
@@ -140,6 +123,10 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
         goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.6));
         goalSelector.addGoal(1, new TryFindWaterGoal(this));
         goalSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, GlittertailShrimpEntity.class, true));
+    }
+
+    public static boolean canSpawn(EntityType<StarfishEntity> starfishEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= 75 && 95 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
     }
 
     @Override
@@ -163,6 +150,9 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
             }
             return InteractionResult.FAIL;
         }
+        //      } else if (player.getItemInHand(hand).getItem() == Items.WATER_BUCKET) {
+        //          return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+        //      }
         return InteractionResult.FAIL;
     }
 

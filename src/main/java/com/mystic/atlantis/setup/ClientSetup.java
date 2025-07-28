@@ -22,29 +22,30 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.util.FastColor;
-import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Map;
 import java.util.stream.Stream;
 
 import static com.mystic.atlantis.init.BlockInit.*;
 
-@Mod.EventBusSubscriber(modid = Reference.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Reference.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class ClientSetup {
     @SubscribeEvent
     public static void onInitializeClient(FMLClientSetupEvent event) {
@@ -174,7 +175,7 @@ public class ClientSetup {
                 NYMPH_LEAVES.get());
     }
 
-    private static <T extends GeneralPlantBlockEntity<T>> void registerPlantRenderer(RegistryObject<BlockEntityType<T>> registryObject, String name) {
+    private static <T extends GeneralPlantBlockEntity<T>> void registerPlantRenderer(DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> registryObject, String name) {
         BlockEntityRenderers.register(registryObject.get(), pContext -> new GeneralPlantRenderer<T>(name));
     }
 
@@ -201,13 +202,13 @@ public class ClientSetup {
     }
 
     @SubscribeEvent
-    public static void spawnRules(SpawnPlacementRegisterEvent event) {
-        event.register(AtlantisEntityInit.STARFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, StarfishEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
-        event.register(AtlantisEntityInit.ZOMBIE_STARFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, ZombieStarfishEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
-        event.register(AtlantisEntityInit.THALASSIAN_SEAHORSE.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, ThalassianSeahorseEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
-        event.register(AtlantisEntityInit.AQUAIEL_JELLYFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, AquaielJellyfishEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
-        event.register(AtlantisEntityInit.RUBYCLAW_CRAB.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, RubyclawCrabEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
-        event.register(AtlantisEntityInit.GLITTERTAIL_SHRIMP.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, GlittertailShrimpEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
+    public static void spawnRules(RegisterSpawnPlacementsEvent event) {
+        event.register(AtlantisEntityInit.STARFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, StarfishEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
+        event.register(AtlantisEntityInit.ZOMBIE_STARFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, ZombieStarfishEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
+        event.register(AtlantisEntityInit.THALASSIAN_SEAHORSE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, ThalassianSeahorseEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
+        event.register(AtlantisEntityInit.AQUAIEL_JELLYFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, AquaielJellyfishEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
+        event.register(AtlantisEntityInit.RUBYCLAW_CRAB.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, RubyclawCrabEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
+        event.register(AtlantisEntityInit.GLITTERTAIL_SHRIMP.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, GlittertailShrimpEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
     }
 
     @SubscribeEvent
@@ -229,7 +230,7 @@ public class ClientSetup {
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
         ArrayListMultimap<DyeColor, Block> mapLinguistic = ArrayListMultimap.create();
 
-        for(Map<DyeColor, RegistryObject<Block>> colorMapLinguistics : DYED_LINGUISTICS.values()) {
+        for(Map<DyeColor, DeferredBlock<Block>> colorMapLinguistics : DYED_LINGUISTICS.values()) {
             colorMapLinguistics.forEach((k,v) -> mapLinguistic.put(k, v.get()));
         }
 
@@ -339,7 +340,7 @@ public class ClientSetup {
         blockColors.register(BLACK, MOSSY_SHELL_BLOCKS.get(DyeColor.BLACK).get());
 
 
-        BlockColor REGULAR = (arg, arg2, arg3, i) -> 0x8caed2; NON_LINGUISTICS.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
+        BlockColor REGULAR = (arg, arg2, arg3, i) -> 0x8caed2; NON_LINGUISTICS.values().stream().map(DeferredBlock::get).forEach(block -> blockColors.register(REGULAR, block));
 
         BlockColor JetstreamWaterColor = (arg, arg2, arg3, i) -> FastColor.ARGB32.color(255, 169, 255, 208);
         blockColors.register(JetstreamWaterColor, BlockInit.JETSTREAM_WATER.get());
@@ -353,7 +354,7 @@ public class ClientSetup {
     public static void registerItemColor(RegisterColorHandlersEvent.Item event) {
         ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.<DyeColor, Block>create();
 
-        for(Map<DyeColor, RegistryObject<Block>> colorMap : DYED_LINGUISTICS.values()) {
+        for(Map<DyeColor, DeferredBlock<Block>> colorMap : DYED_LINGUISTICS.values()) {
             colorMap.forEach((k,v) -> map.put(k, v.get()));
         }
 
@@ -461,6 +462,6 @@ public class ClientSetup {
         blockColors.register(RED, MOSSY_SHELL_BLOCKS.get(DyeColor.RED).get());
         blockColors.register(BLACK, MOSSY_SHELL_BLOCKS.get(DyeColor.BLACK).get());
 
-        ItemColor REGULAR = (arg, i) -> 0x8caed2; NON_LINGUISTICS.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
+        ItemColor REGULAR = (arg, i) -> 0x8caed2; NON_LINGUISTICS.values().stream().map(DeferredBlock::get).forEach(block -> blockColors.register(REGULAR, block));
     }
 }

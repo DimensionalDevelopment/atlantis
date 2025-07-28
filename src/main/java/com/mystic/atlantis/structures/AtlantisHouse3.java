@@ -1,8 +1,12 @@
+
 package com.mystic.atlantis.structures;
 
 import java.util.Optional;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.levelgen.structure.pools.DimensionPadding;
+import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasLookup;
+import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.serialization.Codec;
@@ -21,7 +25,7 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 
 public class AtlantisHouse3 extends Structure {
 
-    public static final MapCodec<AtlantisHouse3> CODEC = RecordCodecBuilder.<AtlantisHouse3>mapCodec(instance ->
+    public static final MapCodec<AtlantisHouse3> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(AtlantisHouse3.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
@@ -40,12 +44,12 @@ public class AtlantisHouse3 extends Structure {
     private final int maxDistanceFromCenter;
 
     public AtlantisHouse3(Structure.StructureSettings config,
-                            Holder<StructureTemplatePool> startPool,
-                            Optional<ResourceLocation> startJigsawName,
-                            int size,
-                            HeightProvider startHeight,
-                            Optional<Heightmap.Types> projectStartToHeightmap,
-                            int maxDistanceFromCenter) {
+                          Holder<StructureTemplatePool> startPool,
+                          Optional<ResourceLocation> startJigsawName,
+                          int size,
+                          HeightProvider startHeight,
+                          Optional<Heightmap.Types> projectStartToHeightmap,
+                          int maxDistanceFromCenter) {
         super(config);
         this.startPool = startPool;
         this.startJigsawName = startJigsawName;
@@ -64,7 +68,7 @@ public class AtlantisHouse3 extends Structure {
                 JigsawPlacement.addPieces(
                         context,
                         this.startPool, this.startJigsawName, this.size, blockPos,
-                        false, this.projectStartToHeightmap, this.maxDistanceFromCenter);
+                        false, this.projectStartToHeightmap, this.maxDistanceFromCenter, PoolAliasLookup.EMPTY, DimensionPadding.ZERO, LiquidSettings.APPLY_WATERLOGGING);
         return structurePiecesGenerator;
     }
 

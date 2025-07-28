@@ -13,8 +13,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +32,7 @@ public class WritingMenu extends AbstractContainerMenu {
      */
     private final DataSlot selectedRecipeIndex = DataSlot.standalone();
     private final Level level;
-    private List<WritingRecipe> recipes = new ArrayList<>();
+    private List<RecipeHolder<WritingRecipe>> recipes = new ArrayList<>();
     /**
      * The {@plainlink ItemStack} set in the input slot by the player.
      */
@@ -103,6 +107,10 @@ public class WritingMenu extends AbstractContainerMenu {
         this.addDataSlot(this.selectedRecipeIndex);
     }
 
+    private static SingleRecipeInput createRecipeInput(Container p_346312_) {
+        return new SingleRecipeInput(p_346312_.getItem(0));
+    }
+
     /**
      * Returns the index of the selected recipe.
      */
@@ -110,7 +118,7 @@ public class WritingMenu extends AbstractContainerMenu {
         return this.selectedRecipeIndex.get();
     }
 
-    public List<WritingRecipe> getRecipes() {
+    public List<RecipeHolder<WritingRecipe>> getRecipes() {
         return this.recipes;
     }
 
@@ -142,27 +150,28 @@ public class WritingMenu extends AbstractContainerMenu {
 
     @Override
     public void slotsChanged(Container inventory) {
-        ItemStack itemStack = this.inputSlot.getItem();
-        if (!itemStack.is(this.input.getItem())) {
-            this.input = itemStack.copy();
-            this.setupRecipeList(inventory, itemStack);
+        ItemStack itemstack = this.inputSlot.getItem();
+        if (!itemstack.is(this.input.getItem())) {
+            this.input = itemstack.copy();
+            this.setupRecipeList(inventory, itemstack);
         }
     }
 
-    private void setupRecipeList(Container inventory, ItemStack stack) {
+    private void setupRecipeList(Container container, ItemStack stack) {
         this.recipes.clear();
         this.selectedRecipeIndex.set(-1);
         this.resultSlot.set(ItemStack.EMPTY);
         if (!stack.isEmpty()) {
-            this.recipes = this.level.getRecipeManager().getRecipesFor(RecipesInit.Types.WRITING, inventory, this.level);
+            this.recipes = this.level.getRecipeManager().getRecipesFor(RecipesInit.Types.WRITING, createRecipeInput(container), this.level);
+            System.out.println(this.level.getRecipeManager().getRecipesFor(RecipesInit.Types.WRITING, createRecipeInput(container), this.level));
         }
     }
 
     private void setupResultSlot() {
         if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
-            WritingRecipe stonecutterRecipe = this.recipes.get(this.selectedRecipeIndex.get());
+            RecipeHolder<WritingRecipe> stonecutterRecipe = this.recipes.get(this.selectedRecipeIndex.get());
             this.resultContainer.setRecipeUsed(stonecutterRecipe);
-            this.resultSlot.set(stonecutterRecipe.assemble(this.container, null));
+            this.resultSlot.set(stonecutterRecipe.value().assemble(createRecipeInput(this.container), this.level.registryAccess()));
         } else {
             this.resultSlot.set(ItemStack.EMPTY);
         }
@@ -197,7 +206,7 @@ public class WritingMenu extends AbstractContainerMenu {
                     return ItemStack.EMPTY;
                 }
                 slot.onQuickCraft(itemStack2, itemStack);
-            } else if (index == 0 ? !this.moveItemStackTo(itemStack2, 2, 38, false) : (this.level.getRecipeManager().getRecipeFor(RecipeType.STONECUTTING, new SimpleContainer(itemStack2), this.level).isPresent() ? !this.moveItemStackTo(itemStack2, 0, 1, false) : (index >= 2 && index < 29 ? !this.moveItemStackTo(itemStack2, 29, 38, false) : index >= 29 && index < 38 && !this.moveItemStackTo(itemStack2, 2, 29, false)))) {
+            } else if (index == 0 ? !this.moveItemStackTo(itemStack2, 2, 38, false) : (this.level.getRecipeManager().getRecipeFor(RecipeType.STONECUTTING, new SingleRecipeInput(itemStack2), this.level).isPresent() ? !this.moveItemStackTo(itemStack2, 0, 1, false) : (index >= 2 && index < 29 ? !this.moveItemStackTo(itemStack2, 29, 38, false) : index >= 29 && index < 38 && !this.moveItemStackTo(itemStack2, 2, 29, false)))) {
                 return ItemStack.EMPTY;
             }
             if (itemStack2.isEmpty()) {
@@ -220,4 +229,3 @@ public class WritingMenu extends AbstractContainerMenu {
         this.access.execute((arg2, arg3) -> this.clearContainer(player, this.container));
     }
 }
-

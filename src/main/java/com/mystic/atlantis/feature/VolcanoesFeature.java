@@ -34,7 +34,7 @@ public class VolcanoesFeature extends Feature<NoneFeatureConfiguration> {
         if (!context.level().getBlockState(context.origin().below()).isSolidRender(context.level(), pos))
             return false;
 
-        if(AtlantisConfig.INSTANCE.volcanoesOn.get()) {
+        if(AtlantisConfig.CONFIG.volcanoesOn.get()) {
             BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
             double baseRadius = 15;

@@ -20,7 +20,10 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
@@ -29,20 +32,15 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class AquaielJellyfishEntity extends WaterAnimal implements GeoEntity, Bucketable {
@@ -62,10 +60,15 @@ public class AquaielJellyfishEntity extends WaterAnimal implements GeoEntity, Bu
     public AquaielJellyfishEntity(EntityType<? extends WaterAnimal> entityType, Level world) {
         super(entityType, world);
         this.randomTimer = this.getRandom().nextInt(61);
+        this.setNoGravity(true);
     }
 
     public static AttributeSupplier.Builder createJellyfishAttributes() {
         return createMobAttributes().add(Attributes.ATTACK_DAMAGE, 2d).add(Attributes.MOVEMENT_SPEED, 0.5d);
+    }
+
+    public static boolean canSpawn(EntityType<AquaielJellyfishEntity> AquaielJellyfishEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= 75 && 105 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
     }
 
     @Override
@@ -114,12 +117,10 @@ public class AquaielJellyfishEntity extends WaterAnimal implements GeoEntity, Bu
 
     @Override
     protected void registerGoals() {
-        goalSelector.addGoal(0, new WaterAvoidingRandomFlyingGoal(this, 0.2));
-        this.goalSelector.addGoal(0, new WaterAvoidingRandomStrollGoal(this, 0.2));
-        goalSelector.addGoal(1, new JellyFishRandomMovementGoal(this));
-        goalSelector.addGoal(2, new RandomLookAroundGoal(this));
-        goalSelector.addGoal(3, new TryFindWaterGoal(this));
-        goalSelector.addGoal(4, new TemptGoal(this, 1, Ingredient.of(ItemInit.CRAB_LEGS.get()), false));
+        goalSelector.addGoal(0, new JellyFishRandomMovementGoal(this));
+        goalSelector.addGoal(1, new RandomLookAroundGoal(this));
+        goalSelector.addGoal(2, new TryFindWaterGoal(this));
+        goalSelector.addGoal(3, new TemptGoal(this, 1, Ingredient.of(ItemInit.CRAB_LEGS.get()), false));
     }
 
     public boolean fromBucket() {
@@ -135,10 +136,10 @@ public class AquaielJellyfishEntity extends WaterAnimal implements GeoEntity, Bu
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
         this.entityData.set(VARIANT, this.random.nextInt(100) > 50 ? 1 : 2);
         this.entityData.set(COLOR, this.random.nextInt(15));
-        return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
     @Override
@@ -147,10 +148,6 @@ public class AquaielJellyfishEntity extends WaterAnimal implements GeoEntity, Bu
         this.entityData.set(VARIANT, nbt.getInt("Variant"));
         this.setColor(nbt.getInt("Color"));
         super.load(nbt);
-    }
-
-    public static boolean canSpawn(EntityType<?> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= 65 && 70 >= pos.getY() && world.getBlockState(pos).is(Blocks.WATER);
     }
 
     @Override
@@ -186,11 +183,11 @@ public class AquaielJellyfishEntity extends WaterAnimal implements GeoEntity, Bu
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
-        this.entityData.define(FROM_BUCKET, false);
-        this.entityData.define(COLOR, this.random.nextInt(15));
+    protected void defineSynchedData(SynchedEntityData.Builder p_326499_) {
+        super.defineSynchedData(p_326499_);
+        p_326499_.define(VARIANT, 0);
+        p_326499_.define(FROM_BUCKET, false);
+        p_326499_.define(COLOR, this.random.nextInt(15));
     }
 
     @Override
@@ -225,16 +222,11 @@ public class AquaielJellyfishEntity extends WaterAnimal implements GeoEntity, Bu
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
+        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
     }
 
     @Override
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
-
-    @Override
-    public boolean canBeLeashed(@NotNull Player player) {
+    public boolean canBeLeashed() {
         return true;
     }
 
@@ -258,10 +250,10 @@ public class AquaielJellyfishEntity extends WaterAnimal implements GeoEntity, Bu
     }
 
     static class JellyFishRandomMovementGoal extends Goal {
-        private final AquaielJellyfishEntity jellyfishEntity;
+        private final AquaielJellyfishEntity AquaielJellyfishEntity;
 
         public JellyFishRandomMovementGoal(AquaielJellyfishEntity arg2) {
-            this.jellyfishEntity = arg2;
+            this.AquaielJellyfishEntity = arg2;
         }
 
         @Override
@@ -271,16 +263,16 @@ public class AquaielJellyfishEntity extends WaterAnimal implements GeoEntity, Bu
 
         @Override
         public void tick() {
-            int i = this.jellyfishEntity.getNoActionTime();
+            int i = this.AquaielJellyfishEntity.getNoActionTime();
             if (i > 100) {
-                this.jellyfishEntity.setMovementVector(0.0f, 0.0f, 0.0f);
+                this.AquaielJellyfishEntity.setMovementVector(0.0f, 0.0f, 0.0f);
             }
-            else if (this.jellyfishEntity.getRandom().nextInt(AquaielJellyfishEntity.JellyFishRandomMovementGoal.reducedTickDelay(50)) == 0 || !this.jellyfishEntity.wasTouchingWater || !this.jellyfishEntity.hasMovementVector()) {
-                float f = this.jellyfishEntity.getRandom().nextFloat() * ((float)Math.PI * 2);
+            else if (this.AquaielJellyfishEntity.getRandom().nextInt(JellyFishRandomMovementGoal.reducedTickDelay(50)) == 0 || !this.AquaielJellyfishEntity.wasTouchingWater || !this.AquaielJellyfishEntity.hasMovementVector()) {
+                float f = this.AquaielJellyfishEntity.getRandom().nextFloat() * ((float)Math.PI * 2);
                 float g = Mth.cos(f) * 0.2f;
-                float h = -0.1f + this.jellyfishEntity.getRandom().nextFloat() * 0.2f;
+                float h = -0.1f + this.AquaielJellyfishEntity.getRandom().nextFloat() * 0.2f;
                 float j = Mth.sin(f) * 0.2f;
-                this.jellyfishEntity.setMovementVector(g, h, j);
+                this.AquaielJellyfishEntity.setMovementVector(g, h, j);
             }
         }
     }

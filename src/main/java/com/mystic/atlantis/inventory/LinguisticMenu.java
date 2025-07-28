@@ -20,6 +20,8 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 public class LinguisticMenu extends AbstractContainerMenu {
 	private final ContainerLevelAccess access;
@@ -145,7 +147,7 @@ public class LinguisticMenu extends AbstractContainerMenu {
 
 				targetSlot.onQuickCraft(targetStack, emptyStack);
 			} else if (index != this.dyeSlot.index && index != this.blankSlot.index && index != this.symbolSlot.index) {
-				if (BlockInit.getLinguisticBlock(LinguisticGlyph.BLANK, null).map(Block::asItem).filter(a -> a == targetStack.getItem()).isPresent()) {
+				if (BlockInit.getLinguisticBlock(LinguisticGlyph.BLANK, null).asOptional().map(Block::asItem).filter(a -> a == targetStack.getItem()).isPresent()) {
 					if (!this.moveItemStackTo(targetStack, this.blankSlot.index, this.blankSlot.index + 1, false)) {
 						return ItemStack.EMPTY;
 					}

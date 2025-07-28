@@ -32,16 +32,6 @@ public class FluidInit {
             .slopeFindDistance(2).levelDecreasePerBlock(3).block(BlockInit.SALTY_SEAWATER)
             .bucket(ItemInit.SALTY_SEAWATER_BUCKET);
 
-  // public static final RegistryObject<FlowingFluid> COCONUT_MILK = FLUIDS.register("coconut_milk",
-  //         () -> new ForgeFlowingFluid.Source(FluidInit.COCONUT_MILK_FLUID_PROPERTIES));
-  // public static final RegistryObject<FlowingFluid> FLOWING_COCONUT_MILK = FLUIDS.register("flowing_coconut_milk",
-  //         () -> new ForgeFlowingFluid.Flowing(FluidInit.COCONUT_MILK_FLUID_PROPERTIES));
-
-  // public static final ForgeFlowingFluid.Properties COCONUT_MILK_FLUID_PROPERTIES = new ForgeFlowingFluid.Properties(
-  //         FluidTypesInit.COCONUT_MILK_FLUID_TYPE, COCONUT_MILK, FLOWING_COCONUT_MILK)
-  //         .slopeFindDistance(2).levelDecreasePerBlock(1).block(BlockInit.COCONUT_MILK)
-  //         .bucket(ItemInit.COCONUT_MILK_BUCKET);
-
     public static void init(IEventBus eventBus) {
         FLUIDS.register(eventBus);
     }

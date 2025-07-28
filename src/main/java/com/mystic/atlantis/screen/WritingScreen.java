@@ -16,6 +16,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.List;
 
@@ -57,7 +60,6 @@ public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
 
     @Override
     protected void renderBg(GuiGraphics poseStack, float partialTick, int mouseX, int mouseY) {
-        this.renderBackground(poseStack);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         int i = this.leftPos;
         int j = this.topPos;
@@ -88,14 +90,14 @@ public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
             int i = this.leftPos + 52;
             int j = this.topPos + 14;
             int k = this.startIndex + 12;
-            List<WritingRecipe> list = this.menu.getRecipes();
+            List<RecipeHolder<WritingRecipe>> list = this.menu.getRecipes();
             for (int l = this.startIndex; l < k && l < this.menu.getNumRecipes(); ++l) {
                 int m = l - this.startIndex;
                 int n = i + m % 4 * 16;
                 int o = j + m / 4 * 18 + 2;
                 if (x < n || x >= n + 16 || y < o || y >= o + 18) continue;
                 assert Minecraft.getInstance().level != null;
-                poseStack.renderTooltip(font, list.get(l).getResultItem(this.minecraft.level.registryAccess()), x, y);
+                poseStack.renderTooltip(font, list.get(l).value().getResultItem(this.minecraft.level.registryAccess()), x, y);
             }
         }
     }
@@ -117,7 +119,7 @@ public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
     }
 
     private void renderRecipes(GuiGraphics guiGraphics, int left, int top, int recipeIndexOffsetMax) {
-        List<WritingRecipe> list = this.menu.getRecipes();
+        List<RecipeHolder<WritingRecipe>> list = this.menu.getRecipes();
         for (int i = this.startIndex; i < recipeIndexOffsetMax && i < this.menu.getNumRecipes(); ++i) {
             int j = i - this.startIndex;
             int k = left + j % 4 * 16;
@@ -208,11 +210,12 @@ public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
     }
 
+
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+    public boolean mouseScrolled(double pMouseX, double pMouseY, double pScrollX, double pScrollY) {
         if (this.isScrollBarActive()) {
             int i = this.getOffscreenRows();
-            this.scrollOffs = (float) ((double) this.scrollOffs - delta / (double) i);
+            this.scrollOffs = (float) ((double) this.scrollOffs - pScrollY / (double) i);
             this.scrollOffs = Mth.clamp(this.scrollOffs, 0.0f, 1.0f);
             this.startIndex = (int) ((double) (this.scrollOffs * (float) i) + 0.5) * 4;
         }
@@ -238,4 +241,3 @@ public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
         }
     }
 }
-

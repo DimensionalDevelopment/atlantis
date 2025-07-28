@@ -35,15 +35,13 @@ public class GlittertailShrimpEntityRenderer extends GeoEntityRenderer<Glitterta
         int p = n % o;
         int q = (n + 1) % o;
         float r = ((float) (entity.tickCount % 25) + partialTicks) / 25.0F;
-        float[] fs = Sheep.getColorArray(DyeColor.byId(p));
-        float[] gs = Sheep.getColorArray(DyeColor.byId(q));
-        float rColor = fs[0] * (1.0F - r) + gs[0] * r;
-        float gColor = fs[1] * (1.0F - r) + gs[1] * r;
-        float bColor = fs[2] * (1.0F - r) + gs[2] * r;
+        float fs = Sheep.getColor(DyeColor.byId(p));
+        float gs = Sheep.getColor(DyeColor.byId(q));
+        int color = (int) fs * (1 -  (int) r) + (int) gs * (int) r;
         //Shrimp Rainbow color END
 
         stack.scale(0.5f, 0.5f, 0.5f);
-        renderFinal(stack, entity, this.getGeoModel().getBakedModel(this.getGeoModel().getModelResource(entity)) ,bufferIn, bufferIn.getBuffer(RenderType.cutout()), partialTicks, packedLightIn, getPackedOverlay(entity, 0), rColor, gColor,  bColor, 255.0f);
+        renderFinal(stack, entity, this.getGeoModel().getBakedModel(this.getGeoModel().getModelResource(entity)) ,bufferIn, bufferIn.getBuffer(RenderType.cutout()), partialTicks, packedLightIn, getPackedOverlay(entity, 0, partialTicks), color);
         stack.popPose();
     }
 }

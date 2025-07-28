@@ -1,39 +1,36 @@
 package com.mystic.atlantis.overlay;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.init.BlockInit;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.LayeredDraw;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
-public class OverlayEventHandler implements IGuiOverlay {
+@OnlyIn(Dist.CLIENT)
+public class OverlayEventHandler implements LayeredDraw.Layer {
 
-    protected static final ResourceLocation COCONUT_BLUR = ResourceLocation.fromNamespaceAndPath("atlantis", "textures/misc/coconutblur.png");
-    protected static final ResourceLocation COCONUT_BLUR_2 = ResourceLocation.fromNamespaceAndPath("atlantis", "textures/misc/coconutblur2.png");
+    public static final ResourceLocation COCONUT_BLUR = Atlantis.id("textures/misc/coconutblur.png");
 
     public OverlayEventHandler() {
     }
 
     private static final Minecraft minecraft = Minecraft.getInstance();
 
-    @Override
-    public void render(ForgeGui gui, GuiGraphics poseStack, float partialTick, int width, int height) {
-        gui.setupOverlayRenderState(true, false);
-        renderCoconutBlur(gui, poseStack, width, height);
-    }
-
-    public void renderCoconutBlur(ForgeGui gui, GuiGraphics stack, int screenWidth, int screenHeight) {
+    public void renderCoconutBlur(GuiGraphics stack) {
         if (minecraft.player != null) {
             if (minecraft.options.getCameraType().isFirstPerson()) {
                 if (!minecraft.player.isScoping()) {
                     ItemStack itemstack = minecraft.player.getInventory().getArmor(3);
                     if (itemstack.is(BlockInit.CARVED_COCONUT.get().asItem())) {
-                        renderTextureOverlay(stack, COCONUT_BLUR, 1.0f, screenWidth, screenHeight);
-                    } else if (itemstack.is(BlockInit.COCONUT.get().asItem())) {
-                        renderTextureOverlay(stack, COCONUT_BLUR_2, 1.0f, screenWidth, screenHeight);
+                        Screen screen = Minecraft.getInstance().screen;
+                        renderTextureOverlay(stack, COCONUT_BLUR, 1.0f, screen.width, screen.height);
                     }
                 }
             }
@@ -48,5 +45,10 @@ public class OverlayEventHandler implements IGuiOverlay {
         RenderSystem.depthMask(true);
         RenderSystem.enableDepthTest();
         pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    @Override
+    public void render(GuiGraphics p_316811_, DeltaTracker p_348559_) {
+        renderCoconutBlur(p_316811_);
     }
 }
