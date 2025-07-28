@@ -5,6 +5,7 @@ import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
 import com.mystic.atlantis.init.AtlantisEntityInit;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
+import com.mystic.atlantis.items.armor.AtlantisArmorSet;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
@@ -14,7 +15,6 @@ import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.Map;
@@ -354,19 +354,10 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(ItemInit.ORICHALCUM_SHOVEL.get(), "Orichalcum Shovel");
         this.add(ItemInit.ORICHALCUM_HOE.get(), "Orichalcum Hoe");
         this.add(ItemInit.ORICHALCUM_SWORD.get(), "Orichalcum Sword");
-        this.add(ItemInit.AQUAMARINE_HELMET.get(), "Aquamarine Helmet");
-        this.add(ItemInit.AQUAMARINE_CHESTPLATE.get(), "Aquamarine Chestplate");
-        this.add(ItemInit.AQUAMARINE_LEGGINGS.get(), "Aquamarine Leggings");
-        this.add(ItemInit.AQUAMARINE_BOOTS.get(), "Aquamarine Boots");
-        this.add(ItemInit.BROWN_WROUGHT_HELMET.get(), "Brown Wrought Helmet");
-        this.add(ItemInit.BROWN_WROUGHT_CHESTPLATE.get(), "Brown Wrought Chestplate");
-        this.add(ItemInit.BROWN_WROUGHT_LEGGINGS.get(), "Brown Wrought Leggings");
-        this.add(ItemInit.BROWN_WROUGHT_BOOTS.get(), "Brown Wrought Boots");
+        armorEntry(ItemInit.AQUAMARINE, "Aquamarine");
+        armorEntry(ItemInit.BROWN_WROUGHT, "Brown Wrought");
+        armorEntry(ItemInit.ORICHALCUM, "Orichalcum");
         this.add(ItemInit.ORICHALCUM_UPGRADE_SMITHING_TEMPLATE.get(), "Orichalcum Upgrade Smithing Template");
-        this.add(ItemInit.ORICHALCUM_HELMET.get(), "Orichalcum Helmet");
-        this.add(ItemInit.ORICHALCUM_CHESTPLATE.get(), "Orichalcum Chestplate");
-        this.add(ItemInit.ORICHALCUM_LEGGINGS.get(), "Orichalcum Leggings");
-        this.add(ItemInit.ORICHALCUM_BOOTS.get(), "Orichalcum Boots");
 
         this.add(AtlantisEntityInit.PALM_BOAT.get(), "Palm Boat");
         this.add(AtlantisEntityInit.NYMPH_BOAT.get(), "Nymph Boat");
@@ -412,6 +403,13 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add("text.autoconfig.atlantis.option.minCrabSpawnHeight.@Tooltip", "The Minimum Height The Rubyclaw Crab Will Spawn At");
         this.add("text.autoconfig.atlantis.option.volcanoesOn", "Are volcanoes on?");
         this.add("text.autoconfig.atlantis.title", "Atlantean Config");
+    }
+
+    private void armorEntry(AtlantisArmorSet set, String name) {
+        this.add(set.helmet().get(), name + " Helmet");
+        this.add(set.chestplate().get(), name + " Chestplate");
+        this.add(set.leggings().get(), name + " Leggings");
+        this.add(set.boots().get(), name + " Boots");
     }
 
     private <T extends Item> void addRecord(DeferredItem<T> record, String s) {

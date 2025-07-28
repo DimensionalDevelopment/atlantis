@@ -1,20 +1,19 @@
 package com.mystic.atlantis.init;
 
-import java.util.function.Supplier;
-
-import com.google.common.collect.Lists;
-import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.util.Lazy;
-
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.TierSortingRegistry;
+import net.minecraft.world.level.block.Block;
+
+import java.util.function.Supplier;
 
 public enum ToolInit implements Tier {
-    AQUAMARINE(286,5,4,2, 10, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get())),
-    ORICHALCUM(500,7,5,4, 15, () -> Ingredient.of(ItemInit.ORICHALCUM_INGOT.get()));;
+    AQUAMARINE(BlockTags.INCORRECT_FOR_IRON_TOOL, 286,5,4,2, 10, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get())),
+    ORICHALCUM(BlockTags.INCORRECT_FOR_IRON_TOOL, 500,7,5,4, 15, () -> Ingredient.of(ItemInit.ORICHALCUM_INGOT.get()));;
 
+    private final TagKey<Block> incorrectTag;
     private final int maxUses;
     private final float toolEfficiency;
     private final float attackDamage;
@@ -22,7 +21,8 @@ public enum ToolInit implements Tier {
     private final int enchantability;
     private final Lazy<Ingredient> repairMaterial;
 
-    ToolInit(int uses, float efficiency, float damage, int harvest, int enchant, Supplier<Ingredient> material) {
+    ToolInit(TagKey<Block> incorrectTag, int uses, float efficiency, float damage, int harvest, int enchant, Supplier<Ingredient> material) {
+        this.incorrectTag = incorrectTag;
         maxUses = uses;
         toolEfficiency = efficiency;
         attackDamage = damage;
@@ -47,7 +47,11 @@ public enum ToolInit implements Tier {
     }
 
     @Override
-    public int getLevel() {
+    public TagKey<Block> getIncorrectBlocksForDrops() {
+        return incorrectTag;
+    }
+
+    public int getHarvestLvl() {
         return harvestLvl;
     }
 
@@ -62,6 +66,5 @@ public enum ToolInit implements Tier {
     }
 
     public static void init() {
-        TierSortingRegistry.registerTier(AQUAMARINE, Atlantis.id("aquamarine"), Lists.newArrayList(new ResourceLocation("stone")), Lists.newArrayList(new ResourceLocation("iron")));
     }
 }

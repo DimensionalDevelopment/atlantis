@@ -1,11 +1,9 @@
 package com.mystic.atlantis.init;
 
+import com.mystic.atlantis.JukeboxSongsInit;
 import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.items.*;
-import com.mystic.atlantis.items.armor.BasicArmorMaterial;
-import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
-import com.mystic.atlantis.items.armor.ItemArmorOrichalcum;
-import com.mystic.atlantis.items.armor.ItemArmorWrought;
+import com.mystic.atlantis.items.armor.*;
 import com.mystic.atlantis.items.food.*;
 import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
@@ -51,8 +49,8 @@ public class ItemInit {
     public static final DeferredItem<Item> ZOMBIE_STARFISH_EGG = register("zombie_starfish_egg", () -> new DeferredSpawnEggItem(AtlantisEntityInit.ZOMBIE_STARFISH, 0xFE00F6, 0x00A170, new Item.Properties()));
 
     //MUSIC DISC
-    public static final DeferredItem<Item> PANBEE = register("panbee", () -> new RecordItem(15, AtlantisSoundEventInit.PANBEE, ATLANTIS_SETTINGS, 4040));
-    public static final DeferredItem<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new RecordItem(15, AtlantisSoundEventInit.COLUMN, ATLANTIS_SETTINGS, 4420));
+    public static final DeferredItem<Item> PANBEE = register("panbee", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).jukeboxPlayable(JukeboxSongsInit.PANBEE)));
+    public static final DeferredItem<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).jukeboxPlayable(JukeboxSongsInit.COLUMN)));
 
     //ITEMS
     public static final DeferredItem<Item> ANCIENT_CUPRUM_INGOT = register("ancient_cuprum_ingot", DefaultItem::new);
@@ -154,20 +152,10 @@ public class ItemInit {
     public static final DeferredItem<Item> ORICHALCUM_HAMMER = register("orichalcum_hammer", OrichalcumHammer::new);
 
     //ARMOR
-    public static final DeferredItem<Item> AQUAMARINE_HELMET = register("aquamarine_helmet", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, ArmorItem.Type.HELMET, new Item.Properties()));
-    public static final DeferredItem<Item> AQUAMARINE_CHESTPLATE = register("aquamarine_chestplate", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-    public static final DeferredItem<Item> AQUAMARINE_LEGGINGS= register("aquamarine_leggings", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-    public static final DeferredItem<Item> AQUAMARINE_BOOTS = register("aquamarine_boots", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, ArmorItem.Type.BOOTS, new Item.Properties()));
-    public static final DeferredItem<Item> BROWN_WROUGHT_HELMET = register("brown_wrought_helmet", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, ArmorItem.Type.HELMET, new Item.Properties()));
-    public static final DeferredItem<Item> BROWN_WROUGHT_CHESTPLATE = register("brown_wrought_chestplate", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-    public static final DeferredItem<Item> BROWN_WROUGHT_LEGGINGS= register("brown_wrought_leggings", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-    public static final DeferredItem<Item> BROWN_WROUGHT_BOOTS = register("brown_wrought_boots", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, ArmorItem.Type.BOOTS, new Item.Properties()));
+    public static final AtlantisArmorSet AQUAMARINE = AtlantisArmorSet.create(ITEMS, "aquamarine", BasicArmorMaterial.ARMOR_AQUAMARINE, MobEffects.DIG_SPEED);
+    public static final AtlantisArmorSet BROWN_WROUGHT = AtlantisArmorSet.create(ITEMS, "brown_wrought", BasicArmorMaterial.ARMOR_BROWN_WROUGHT, MobEffects.INVISIBILITY);
+    public static final AtlantisArmorSet ORICHALCUM = AtlantisArmorSet.create(ITEMS, "orichalcum", BasicArmorMaterial.ARMOR_ORICHALCUM, MobEffects.DAMAGE_RESISTANCE);
     public static final DeferredItem<Item> ORICHALCUM_UPGRADE_SMITHING_TEMPLATE = register("orichalcum_upgrade_smithing_template", OrichalcumSmithingTemplateItem::new);
-
-    public static final DeferredItem<Item> ORICHALCUM_HELMET = register("orichalcum_helmet", () -> new ItemArmorOrichalcum(BasicArmorMaterial.ARMOR_ORICHALCUM, ArmorItem.Type.HELMET, new Item.Properties()));
-    public static final DeferredItem<Item> ORICHALCUM_CHESTPLATE = register("orichalcum_chestplate", () -> new ItemArmorOrichalcum(BasicArmorMaterial.ARMOR_ORICHALCUM, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-    public static final DeferredItem<Item> ORICHALCUM_LEGGINGS= register("orichalcum_leggings", () -> new ItemArmorOrichalcum(BasicArmorMaterial.ARMOR_ORICHALCUM, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-    public static final DeferredItem<Item> ORICHALCUM_BOOTS = register("orichalcum_boots", () -> new ItemArmorOrichalcum(BasicArmorMaterial.ARMOR_ORICHALCUM, ArmorItem.Type.BOOTS, new Item.Properties()));
 
     public static <T extends Item> DeferredItem<T> register(String name, Supplier<T> item) {
         var register = ITEMS.register(name, item);

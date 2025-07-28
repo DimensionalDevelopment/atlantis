@@ -120,10 +120,10 @@ public class TagsInit {
                     ItemInit.ORICHALCUM_SHOVEL.get(),
                     ItemInit.ORICHALCUM_HOE.get(),
                     ItemInit.ORICHALCUM_SWORD.get(),
-                    ItemInit.ORICHALCUM_HELMET.get(),
-                    ItemInit.ORICHALCUM_CHESTPLATE.get(),
-                    ItemInit.ORICHALCUM_LEGGINGS.get(),
-                    ItemInit.ORICHALCUM_BOOTS.get(),
+                    ItemInit.ORICHALCUM.helmet().get(),
+                    ItemInit.ORICHALCUM.chestplate().get(),
+                    ItemInit.ORICHALCUM.leggings().get(),
+                    ItemInit.ORICHALCUM.boots().get(),
                     ItemInit.ORICHALCUM_HAMMER.get(),
                     BlockInit.ORICHALCUM_BLOCK.get());
         }

@@ -1,12 +1,14 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.JukeboxSongsInit;
 import com.mystic.atlantis.TagsInit;
 import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
 import com.mystic.atlantis.blocks.ancient_cuprum.WeatheringCuprum;
 import com.mystic.atlantis.dimension.AtlantisDimensions;
 import com.mystic.atlantis.init.*;
+import com.mystic.atlantis.items.armor.AtlantisArmorSet;
 import com.mystic.atlantis.recipes.WritingRecipe;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.advancements.critereon.*;
@@ -19,6 +21,7 @@ import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.tags.FluidTagsProvider;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -57,7 +60,6 @@ import java.util.OptionalLong;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import static com.mystic.atlantis.init.BlockInit.*;
 
@@ -83,7 +85,8 @@ public class Providers {
                 .add(Registries.TEMPLATE_POOL, TemplatePoolInit::new)
                 .add(Registries.NOISE_SETTINGS, NoiseSettingsInit::new)
                 .add(Registries.STRUCTURE, StructureInit::new)
-                .add(Registries.PAINTING_VARIANT, PaintingVariantsInit::init),
+                .add(Registries.PAINTING_VARIANT, PaintingVariantsInit::init)
+                .add(Registries.JUKEBOX_SONG, JukeboxSongsInit::new),
                 Set.of(Reference.MODID));
 
         event.getGenerator().addProvider(event.includeServer(), new AtlantisModifierInit.DataProvider(event.getGenerator(), event.getLookupProvider(), Reference.MODID));
@@ -1202,21 +1205,15 @@ public class Providers {
                 );
 //                tag(ItemTags.MUSIC_DISCS).add(ItemInit.PANBEE.get(), ItemInit.COLUMN_CAVITATION.get());
                 tag(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ItemInit.PANBEE.get(), ItemInit.COLUMN_CAVITATION.get());
-                TagsInit.Item.getItemsThatCanSink().stream().map(Supplier::get).map(ItemLike::asItem).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);
-                tag(ItemTags.TRIMMABLE_ARMOR).add(
-                        ItemInit.AQUAMARINE_BOOTS.get(),
-                        ItemInit.AQUAMARINE_CHESTPLATE.get(),
-                        ItemInit.AQUAMARINE_HELMET.get(),
-                        ItemInit.AQUAMARINE_LEGGINGS.get(),
-                        ItemInit.BROWN_WROUGHT_BOOTS.get(),
-                        ItemInit.BROWN_WROUGHT_CHESTPLATE.get(),
-                        ItemInit.BROWN_WROUGHT_HELMET.get(),
-                        ItemInit.BROWN_WROUGHT_LEGGINGS.get(),
-                        ItemInit.ORICHALCUM_BOOTS.get(),
-                        ItemInit.ORICHALCUM_CHESTPLATE.get(),
-                        ItemInit.ORICHALCUM_HELMET.get(),
-                        ItemInit.ORICHALCUM_LEGGINGS.get()
-                );
+                TagsInit.Item.getItemsThatCanSink().stream().map(ItemLike::asItem).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);
+                var trimmables = tag(ItemTags.TRIMMABLE_ARMOR);
+                addArmorSet(trimmables, ItemInit.AQUAMARINE);
+                addArmorSet(trimmables, ItemInit.BROWN_WROUGHT);
+                addArmorSet(trimmables, ItemInit.ORICHALCUM);
+            }
+
+            private void addArmorSet(IntrinsicTagAppender<Item> tag, AtlantisArmorSet set) {
+                tag.add(set.helmet().get(), set.chestplate().get(), set.leggings().get(), set.boots().get())
             }
         });
     }

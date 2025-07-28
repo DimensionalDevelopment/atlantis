@@ -5,6 +5,7 @@ import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
 import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
+import com.mystic.atlantis.items.armor.AtlantisArmorSet;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -105,18 +106,11 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         item(ItemInit.COLUMN_CAVITATION);
         item(ItemInit.ORICHALCUM_INGOT);
         item(ItemInit.ORICHALCUM_BLEND);
-        item(ItemInit.ORICHALCUM_HELMET);
-        item(ItemInit.ORICHALCUM_CHESTPLATE);
-        item(ItemInit.ORICHALCUM_LEGGINGS);
-        item(ItemInit.ORICHALCUM_BOOTS);
-        item(ItemInit.AQUAMARINE_HELMET);
-        item(ItemInit.AQUAMARINE_CHESTPLATE);
-        item(ItemInit.AQUAMARINE_LEGGINGS);
-        item(ItemInit.AQUAMARINE_BOOTS);
-        item(ItemInit.BROWN_WROUGHT_HELMET);
-        item(ItemInit.BROWN_WROUGHT_CHESTPLATE);
-        item(ItemInit.BROWN_WROUGHT_LEGGINGS);
-        item(ItemInit.BROWN_WROUGHT_BOOTS);
+
+        armorSet(ItemInit.ORICHALCUM);
+        armorSet(ItemInit.AQUAMARINE);
+        armorSet(ItemInit.BROWN_WROUGHT);
+
         itemTool(ItemInit.ORICHALCUM_AXE);
         itemTool(ItemInit.ORICHALCUM_PICKAXE);
         itemTool(ItemInit.ORICHALCUM_SHOVEL);
@@ -165,6 +159,13 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         item(ItemInit.ATLANTEAN_SPEAR);
         item(ItemInit.ANCIENT_CUPRUM_INGOT);
         item(ItemInit.RAW_ANCIENT_CUPRUM);
+    }
+
+    private void armorSet(AtlantisArmorSet set) {
+        item(set.helmet());
+        item(set.chestplate());
+        item(set.leggings());
+        item(set.boots());
     }
 
     private <T extends Item> void itemTool(DeferredItem<T> tool) {

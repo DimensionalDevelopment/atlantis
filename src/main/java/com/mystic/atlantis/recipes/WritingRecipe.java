@@ -24,9 +24,8 @@ public class WritingRecipe extends SingleItemRecipe {
         return new ItemStack(BlockInit.WRITING_TABLE.get());
     }
 
-
-    public static class WritingSerializer extends SingleItemRecipe.Serializer<WritingRecipe> {
-        public WritingSerializer() {
+    public static class Serializer extends SingleItemRecipe.Serializer<WritingRecipe> {
+        public Serializer() {
             super(WritingRecipe::new);
         }
     }
