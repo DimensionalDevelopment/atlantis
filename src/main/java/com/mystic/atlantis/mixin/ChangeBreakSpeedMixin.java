@@ -6,11 +6,11 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Final;
@@ -28,11 +28,11 @@ public abstract class ChangeBreakSpeedMixin extends LivingEntity {
     @Final
     private Inventory inventory;
 
+    @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
+
     protected ChangeBreakSpeedMixin(EntityType<? extends LivingEntity> entityType, Level world) {
         super(entityType, world);
     }
-
-    //copied from base with changed lines marked with /*change*/
 
     /**
      * @author j, Mysticpasta1
@@ -40,14 +40,14 @@ public abstract class ChangeBreakSpeedMixin extends LivingEntity {
      */
     @Inject(method = "getDestroySpeed", at = @At(value = "HEAD"), cancellable = true)
     public void getBlockBreakingSpeed(BlockState block, CallbackInfoReturnable<Float> cir) {
-        if (AtlantisConfig.INSTANCE.turnOnDimensionalHaste.get()) {
+        if (AtlantisConfig.CONFIG.turnOnDimensionalHaste.get()) {
             cir.cancel();
             float f = this.inventory.getDestroySpeed(block);
             if (f > 1.0F) {
-                int i = EnchantmentHelper.getBlockEfficiency(this);
+                float i = block.getBlock().getSpeedFactor();
                 ItemStack itemStack = this.getMainHandItem();
                 if (i > 0 && !itemStack.isEmpty()) {
-                    f += (float) (i * i + 1);
+                    f += i * i + 1;
                 }
             }
 
@@ -64,12 +64,6 @@ public abstract class ChangeBreakSpeedMixin extends LivingEntity {
                 };
 
                 f *= k;
-            }
-
-            if (level().dimension() == AtlantisDimensions.ATLANTIS_WORLD) {
-                if (!this.isEyeInFluid(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(this)) {
-                    f /= 5.0F;
-                }
             }
 
             if (level().dimension() == AtlantisDimensions.ATLANTIS_WORLD) {

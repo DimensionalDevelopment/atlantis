@@ -81,6 +81,8 @@ public class AquaielJellyfishEntity extends WaterAnimal implements GeoEntity, Bu
         return true;
     }
 
+
+
     public int getVariant(){
         return this.entityData.get(VARIANT);
     }

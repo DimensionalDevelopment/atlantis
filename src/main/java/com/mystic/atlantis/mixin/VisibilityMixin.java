@@ -19,7 +19,7 @@ public class VisibilityMixin {
     @Inject(method = "setupFog", at = @At(value = "TAIL"), require = 0)
     private static void waterVisibility(Camera camera, FogRenderer.FogMode fogMode, float waterSeeThroughFactor, boolean shouldOverrideWaterFogDensity, float shouldCompletelySeeThroughWater, CallbackInfo ci) {
         FogType cameraSubmersionType = camera.getFluidInCamera();
-        AtlantisConfig config = AtlantisConfig.INSTANCE;
+        AtlantisConfig config = AtlantisConfig.CONFIG;
 
         if(AtlantisDimensions.isAtlantisDimension(Minecraft.getInstance().level)) {
             if (cameraSubmersionType == FogType.WATER) {

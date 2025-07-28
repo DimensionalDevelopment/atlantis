@@ -2,7 +2,6 @@ package com.mystic.atlantis.mixin;
 
 import com.mystic.atlantis.init.BlockInit;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,7 +25,7 @@ public abstract class RedstoneWireBlockMixin {
     }
 
     @Unique
-    private int getWireSignal(BlockState state) {
+    private int atlantis$getWireSignal(BlockState state) {
         if (state.is(Blocks.REDSTONE_WIRE)) {
             return state.getValue(RedStoneWireBlock.POWER);
         } else if (state.is(BlockInit.AQUATIC_POWER_DUST_WIRE.get())) {
@@ -44,9 +43,9 @@ public abstract class RedstoneWireBlockMixin {
         int calculatedPower = 0;
         if(receivedPower >= 15) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
-                if (level.getBlockState(targetPos.relative(direction)).getBlockHolder().get() == BlockInit.AQUATIC_POWER_DUST_WIRE.get()
-                        || level.getBlockState(targetPos.relative(direction).below()).getBlockHolder().get() == BlockInit.AQUATIC_POWER_DUST_WIRE.get()
-                || level.getBlockState(targetPos.relative(direction).above()).getBlockHolder().get() == BlockInit.AQUATIC_POWER_DUST_WIRE.get()) {
+                if (level.getBlockState(targetPos.relative(direction)).getBlockHolder().value() == BlockInit.AQUATIC_POWER_DUST_WIRE.get()
+                        || level.getBlockState(targetPos.relative(direction).below()).getBlockHolder().value() == BlockInit.AQUATIC_POWER_DUST_WIRE.get()
+                || level.getBlockState(targetPos.relative(direction).above()).getBlockHolder().value() == BlockInit.AQUATIC_POWER_DUST_WIRE.get()) {
                     cir.setReturnValue(Math.max(receivedPower - 1, calculatedPower - 1));
                 }
             }
@@ -55,12 +54,12 @@ public abstract class RedstoneWireBlockMixin {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 BlockPos relativePos = targetPos.relative(direction);
                 BlockState relativeState = level.getBlockState(relativePos);
-                calculatedPower = Math.max(calculatedPower, this.getWireSignal(relativeState));
+                calculatedPower = Math.max(calculatedPower, this.atlantis$getWireSignal(relativeState));
                 BlockPos aboveTargetPos = targetPos.above();
                 if (relativeState.isRedstoneConductor(level, relativePos) && !level.getBlockState(aboveTargetPos).isRedstoneConductor(level, aboveTargetPos)) {
-                    calculatedPower = Math.max(calculatedPower, this.getWireSignal(level.getBlockState(relativePos.above())));
+                    calculatedPower = Math.max(calculatedPower, this.atlantis$getWireSignal(level.getBlockState(relativePos.above())));
                 } else if (!relativeState.isRedstoneConductor(level, relativePos)) {
-                    calculatedPower = Math.max(calculatedPower, this.getWireSignal(level.getBlockState(relativePos.below())));
+                    calculatedPower = Math.max(calculatedPower, this.atlantis$getWireSignal(level.getBlockState(relativePos.below())));
                 }
             }
             if (receivedPower == 0) {
