@@ -31,7 +31,7 @@ public class FireMelonJellyBottle extends Item {
         }
 
         if (!arg2.isClientSide) {
-            arg3.addEffect(new MobEffectInstance(EffectsInit.SPIKES.get(), 230, 0));
+            arg3.addEffect(new MobEffectInstance(EffectsInit.SPIKES, 230, 0));
         }
 
         if (arg.isEmpty()) {
@@ -51,7 +51,7 @@ public class FireMelonJellyBottle extends Item {
     }
 
     @Override
-    public int getUseDuration(ItemStack arg) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 30;
     }
 

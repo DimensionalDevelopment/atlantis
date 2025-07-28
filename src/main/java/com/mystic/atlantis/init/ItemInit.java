@@ -3,7 +3,8 @@ package com.mystic.atlantis.init;
 import com.mystic.atlantis.JukeboxSongsInit;
 import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.items.*;
-import com.mystic.atlantis.items.armor.*;
+import com.mystic.atlantis.items.armor.AtlantisArmorSet;
+import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.food.*;
 import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
@@ -11,11 +12,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -132,10 +136,14 @@ public class ItemInit {
                     new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
     //Entity Buckets
-    public static final DeferredItem<Item> RUBYCLAW_CRAB_BUCKET = register("rubyclaw_crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntityInit.RUBYCLAW_CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
-    public static final DeferredItem<Item> AQUAIEL_JELLYFISH_BUCKET = register("aquaiel_jellyfish_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.AQUAIEL_JELLYFISH, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
-    public static final DeferredItem<Item> GLITTERTAIL_SHRIMP_BUCKET = register("glittertail_shrimp_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.GLITTERTAIL_SHRIMP, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
-    public static final DeferredItem<Item> THALASSIAN_SEAHORSE_BUCKET = register("thalassian_seahorse_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.THALASSIAN_SEAHORSE, ()->Fluids.WATER, ()-> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
+    public static final DeferredItem<Item> RUBYCLAW_CRAB_BUCKET = registerBucket(AtlantisEntityInit.RUBYCLAW_CRAB);
+    public static final DeferredItem<Item> AQUAIEL_JELLYFISH_BUCKET = registerBucket(AtlantisEntityInit.AQUAIEL_JELLYFISH);
+    public static final DeferredItem<Item> GLITTERTAIL_SHRIMP_BUCKET = registerBucket(AtlantisEntityInit.GLITTERTAIL_SHRIMP);
+    public static final DeferredItem<Item> THALASSIAN_SEAHORSE_BUCKET = registerBucket(AtlantisEntityInit.THALASSIAN_SEAHORSE);
+
+    private static <T extends Entity> DeferredItem<Item> registerBucket(DeferredHolder<EntityType<?>, EntityType<T>> type) {
+        return ITEMS.register(type.getRegisteredName() + "_bucket", () -> new MobBucketItem(AtlantisEntityInit.RUBYCLAW_CRAB.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
+    }
 
     //TOOLS
     public static final DeferredItem<Item> AQUAMARINE_AXE = register("aquamarine_axe", () -> new AtlanteanAxe(ToolInit.AQUAMARINE, 3));

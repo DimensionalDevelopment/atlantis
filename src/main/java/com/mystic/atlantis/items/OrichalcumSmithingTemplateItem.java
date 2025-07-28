@@ -9,11 +9,11 @@ import net.minecraft.world.item.SmithingTemplateItem;
 import java.util.List;
 
 public class OrichalcumSmithingTemplateItem extends SmithingTemplateItem {
-    private static final Component ORICHALCUM_UPGRADE = Component.translatable(Util.makeDescriptionId("upgrade", new ResourceLocation("orichalcum_upgrade"))).withStyle(ChatFormatting.GRAY);
-    private static final Component ORICHALCUM_UPGRADE_APPLIES_TO = Component.translatable(Util.makeDescriptionId("item", new ResourceLocation("smithing_template.orichalcum_upgrade.applies_to"))).withStyle(ChatFormatting.BLUE);
-    private static final Component ORICHALCUM_UPGRADE_INGREDIENTS = Component.translatable(Util.makeDescriptionId("item", new ResourceLocation("smithing_template.orichalcum_upgrade.ingredients"))).withStyle(ChatFormatting.BLUE);
-    private static final Component ORICHALCUM_UPGRADE_BASE_SLOT_DESCRIPTION = Component.translatable(Util.makeDescriptionId("item", new ResourceLocation("smithing_template.orichalcum_upgrade.base_slot_description")));
-    private static final Component ORICHALCUM_UPGRADE_ADDITIONS_SLOT_DESCRIPTION = Component.translatable(Util.makeDescriptionId("item", new ResourceLocation("smithing_template.orichalcum_upgrade.additions_slot_description")));
+    private static final Component ORICHALCUM_UPGRADE = Component.translatable(Util.makeDescriptionId("upgrade", ResourceLocation.withDefaultNamespace("orichalcum_upgrade"))).withStyle(ChatFormatting.GRAY);
+    private static final Component ORICHALCUM_UPGRADE_APPLIES_TO = Component.translatable(Util.makeDescriptionId("item", ResourceLocation.withDefaultNamespace("smithing_template.orichalcum_upgrade.applies_to"))).withStyle(ChatFormatting.BLUE);
+    private static final Component ORICHALCUM_UPGRADE_INGREDIENTS = Component.translatable(Util.makeDescriptionId("item", ResourceLocation.withDefaultNamespace("smithing_template.orichalcum_upgrade.ingredients"))).withStyle(ChatFormatting.BLUE);
+    private static final Component ORICHALCUM_UPGRADE_BASE_SLOT_DESCRIPTION = Component.translatable(Util.makeDescriptionId("item", ResourceLocation.withDefaultNamespace("smithing_template.orichalcum_upgrade.base_slot_description")));
+    private static final Component ORICHALCUM_UPGRADE_ADDITIONS_SLOT_DESCRIPTION = Component.translatable(Util.makeDescriptionId("item", ResourceLocation.withDefaultNamespace("smithing_template.orichalcum_upgrade.additions_slot_description")));
 
     public OrichalcumSmithingTemplateItem() {
         super(ORICHALCUM_UPGRADE_APPLIES_TO, ORICHALCUM_UPGRADE_INGREDIENTS, ORICHALCUM_UPGRADE, ORICHALCUM_UPGRADE_BASE_SLOT_DESCRIPTION, ORICHALCUM_UPGRADE_ADDITIONS_SLOT_DESCRIPTION, createOrichalcumUpgradeIconList(), createOrichalcumUpgradeMaterialList());
