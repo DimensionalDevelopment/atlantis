@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
@@ -10,10 +11,16 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
 public class CarvedCoconut extends DirectionalBlock {
+    public static final MapCodec<CarvedCoconut> CODEC = simpleCodec(CarvedCoconut::new);
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
     public CarvedCoconut(BlockBehaviour.Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<? extends DirectionalBlock> codec() {
+        return CODEC;
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {

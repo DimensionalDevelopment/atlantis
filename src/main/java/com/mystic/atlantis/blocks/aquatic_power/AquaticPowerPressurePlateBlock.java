@@ -22,10 +22,10 @@ import java.util.List;
 public class AquaticPowerPressurePlateBlock extends PressurePlateBlock implements SimpleWaterloggedBlock {
     private static final Property<Boolean> WATERLOGGED = Seabloom.WATERLOGGED;
     private static final BooleanProperty POWERED;
-    private final PressurePlateBlock.Sensitivity sensitivity;
+    private final BlockSetType.PressurePlateSensitivity sensitivity;
 
-    public AquaticPowerPressurePlateBlock(PressurePlateBlock.Sensitivity sensitivity, Properties settings) {
-        super(sensitivity, settings, BlockSetType.OAK);
+    public AquaticPowerPressurePlateBlock(BlockSetType.PressurePlateSensitivity sensitivity, Properties settings) {
+        super(BlockSetType.OAK, settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(WATERLOGGED, false));
         this.sensitivity = sensitivity;
     }
@@ -44,8 +44,8 @@ public class AquaticPowerPressurePlateBlock extends PressurePlateBlock implement
     protected int getSignalStrength(Level level, BlockPos targetPos) {
         AABB touchableAABB = TOUCH_AABB.move(targetPos);
         List<? extends Entity> touchingEntities;
-        
-        switch(this.sensitivity) {
+
+        switch (this.sensitivity) {
             case EVERYTHING:
                 touchingEntities = level.getEntities(null, touchableAABB);
                 break;
@@ -59,8 +59,8 @@ public class AquaticPowerPressurePlateBlock extends PressurePlateBlock implement
         if (!touchingEntities.isEmpty()) {
             Iterator<? extends Entity> touchingEntitiesIterator = touchingEntities.iterator();
 
-            while(touchingEntitiesIterator.hasNext()) {
-                Entity nextEntity = (Entity)touchingEntitiesIterator.next();
+            while (touchingEntitiesIterator.hasNext()) {
+                Entity nextEntity = touchingEntitiesIterator.next();
                 if (!nextEntity.isIgnoringBlockTriggers()) {
                     return 15;
                 }

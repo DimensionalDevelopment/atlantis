@@ -1,14 +1,17 @@
 package com.mystic.atlantis.dimension;
 
-import com.mystic.atlantis.blocks.base.AtlanteanPortalFrame;
 import com.mystic.atlantis.blocks.base.AtlanteanPortalBlock;
+import com.mystic.atlantis.blocks.base.AtlanteanPortalFrame;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.POITypesInit;
 import net.minecraft.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.TicketType;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.RelativeMovement;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.level.ChunkPos;
@@ -24,7 +27,7 @@ import java.util.Optional;
 
 import static com.mystic.atlantis.blocks.plants.Seabloom.WATERLOGGED;
 
-public class AtlanteanPortalForcer implements AtlanteanITeleporter {
+public class AtlanteanPortalForcer {
     private static final DirectionProperty FACING = AtlanteanPortalFrame.FACING;
     private static final BooleanProperty HAS_EYE = AtlanteanPortalFrame.HAS_EYE;
     protected final ServerLevel level;
@@ -38,7 +41,7 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
         int i = isInAtlantis ? 16 : 128;
         poimanager.ensureLoadedAndValid(this.level, pPos, i);
         Optional<PoiRecord> optional = poimanager.getInSquare((p_230634_) ->
-                POITypesInit.ATLANTEAN_PORTAL.get() == p_230634_.get(), pPos, i, PoiManager.Occupancy.ANY).filter((p_192981_) ->
+                POITypesInit.ATLANTEAN_PORTAL.get() == p_230634_.value(), pPos, i, PoiManager.Occupancy.ANY).filter((p_192981_) ->
                 pWorldBorder.isWithinBounds(p_192981_.getPos())).filter((p_192990_) ->
                 this.level.getBlockState(p_192990_.getPos()).hasProperty(AtlanteanPortalBlock.AXIS)).findFirst();
         return optional.map((p_192975_) -> {
@@ -48,6 +51,56 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
             return BlockUtil.getLargestRectangleAround(blockpos, blockstate.getValue(BlockStateProperties.AXIS), 21, Direction.Axis.Y, 21, (p_192978_) ->
                     this.level.getBlockState(p_192978_) == blockstate);
         });
+    }
+
+    public void teleportToPortal(BlockPos pos, boolean isInAtlantis, WorldBorder worldBorder, ServerPlayer player) {
+        if (!findPortalAround(pos, isInAtlantis, worldBorder).equals(Optional.empty())) {
+            Optional<BlockUtil.FoundRectangle> optional = findPortalAround(pos, isInAtlantis, worldBorder);
+            if (optional.isPresent()) {
+                BlockUtil.FoundRectangle blockutil$foundrectangle = optional.get();
+                this.teleportPlayer(player, blockutil$foundrectangle);
+            }
+        }
+    }
+
+    public void teleportToPortal(BlockPos pos, boolean isInAtlantis, WorldBorder worldBorder, Entity entity) {
+        if (!findPortalAround(pos, isInAtlantis, worldBorder).equals(Optional.empty())) {
+            Optional<BlockUtil.FoundRectangle> optional = findPortalAround(pos, isInAtlantis, worldBorder);
+            if (optional.isPresent()) {
+                BlockUtil.FoundRectangle blockutil$foundrectangle = optional.get();
+                this.teleportEntity(entity, blockutil$foundrectangle);
+            }
+        }
+    }
+
+    private void teleportEntity(Entity entity, BlockUtil.FoundRectangle blockutil$foundrectangle) {
+        if (this.level == entity.level()) {
+            entity.teleportTo(blockutil$foundrectangle.minCorner.getX() + 0.5D, blockutil$foundrectangle.minCorner.getY() + 1.5D, blockutil$foundrectangle.minCorner.getZ() + 0.5D);
+        } else {
+            ServerLevel serverlevel = entity.getServer().getLevel(this.level.dimension());
+            if (serverlevel == null) {
+                return;
+            }
+
+            entity.teleportTo(serverlevel, blockutil$foundrectangle.minCorner.getX() + 0.5D, blockutil$foundrectangle.minCorner.getY() + 1.5D, blockutil$foundrectangle.minCorner.getZ() + 0.5D, RelativeMovement.ALL ,entity.getYRot(), entity.getXRot());
+        }
+    }
+
+    private void teleportPlayer(ServerPlayer player, BlockUtil.FoundRectangle blockutil$foundrectangle) {
+        if (player.isSleeping()) {
+            return;
+        }
+
+        if (this.level == player.level()) {
+            player.connection.teleport(blockutil$foundrectangle.minCorner.getX() + 0.5D, blockutil$foundrectangle.minCorner.getY() + 1.5D, blockutil$foundrectangle.minCorner.getZ() + 0.5D, player.getYRot(), player.getXRot());
+        } else {
+            ServerLevel serverlevel = player.getServer().getLevel(this.level.dimension());
+            if (serverlevel == null) {
+                return;
+            }
+
+            player.teleportTo(serverlevel, blockutil$foundrectangle.minCorner.getX() + 0.5D, blockutil$foundrectangle.minCorner.getY() + 1.5D, blockutil$foundrectangle.minCorner.getZ() + 0.5D, player.getYRot(), player.getXRot());
+        }
     }
 
     public Optional<BlockUtil.FoundRectangle> createPortal(BlockPos pPos, Direction.Axis pAxis) {
@@ -61,7 +114,7 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
         BlockPos.MutableBlockPos blockpos$mutableblockpos = pPos.mutable();
 
         for (BlockPos.MutableBlockPos blockpos$mutableblockpos1 : BlockPos.spiralAround(pPos, 16, Direction.EAST, Direction.SOUTH)) {
-            int j = Math.min(i, this.level.getHeight(Heightmap.Types.MOTION_BLOCKING, blockpos$mutableblockpos1.getX(), blockpos$mutableblockpos1.getZ()));
+            int j = Math.min(i, this.level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, blockpos$mutableblockpos1.getX(), blockpos$mutableblockpos1.getZ()));
             if (worldborder.isWithinBounds(blockpos$mutableblockpos1) && worldborder.isWithinBounds(blockpos$mutableblockpos1.move(direction, 1))) {
                 blockpos$mutableblockpos1.move(direction.getOpposite(), 1);
 
@@ -117,11 +170,11 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
         for (int i = -1; i < 3; ++i) {
             for (int j = -1; j < 3; ++j) {
                 pOffsetPos.setWithOffset(pOriginalPos, pDirection.getStepX() * i + pDirection.getStepX() * pOffsetScale, j, pDirection.getStepZ() * i + pDirection.getStepZ() * pOffsetScale);
-                if (j < 0 && !this.level.getBlockState(pOffsetPos).isSolid()) {
+                if (j < 0 && this.level.getBlockState(pOffsetPos).isSolid() && !this.level.getBlockState(pOffsetPos).is(Blocks.WATER)) {
                     return false;
                 }
 
-                if (j >= 0 && !this.canPortalReplaceBlock(pOffsetPos)) {
+                if (j >= 0 && !this.canPortalReplaceBlock(pOffsetPos) && !this.level.getBlockState(pOffsetPos).is(Blocks.WATER)) {
                     return false;
                 }
             }
@@ -222,4 +275,3 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
                 .setValue(FACING, Direction.SOUTH).setValue(HAS_EYE, true).setValue(WATERLOGGED, true));
     }
 }
-

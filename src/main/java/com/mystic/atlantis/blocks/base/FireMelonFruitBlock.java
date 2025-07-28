@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mojang.serialization.MapCodec;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,6 +30,7 @@ import static com.mystic.atlantis.blocks.base.NymphDoorBlock.WATERLOGGED;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_1;
 
 public class FireMelonFruitBlock extends HorizontalDirectionalBlock implements BonemealableBlock, SimpleWaterloggedBlock {
+    public static final MapCodec<FireMelonFruitBlock> CODEC = simpleCodec(FireMelonFruitBlock::new);
     public static final IntegerProperty AGE = AGE_1;
     public static final BooleanProperty SPIKED = BooleanProperty.create("spiked");
     protected static final VoxelShape[] EAST_AABB = new VoxelShape[]{Block.box(11.0D, 7.0D, 6.0D, 15.0D, 12.0D, 10.0D), Block.box(9.0D, 5.0D, 5.0D, 15.0D, 12.0D, 11.0D), Block.box(7.0D, 3.0D, 4.0D, 15.0D, 12.0D, 12.0D)};
@@ -39,6 +41,11 @@ public class FireMelonFruitBlock extends HorizontalDirectionalBlock implements B
     public FireMelonFruitBlock(Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AGE, 0).setValue(WATERLOGGED, Boolean.TRUE));
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     public HolderSet<Block> getAir(){
@@ -107,7 +114,7 @@ public class FireMelonFruitBlock extends HorizontalDirectionalBlock implements B
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
         return true;
     }
 
@@ -131,7 +138,7 @@ public class FireMelonFruitBlock extends HorizontalDirectionalBlock implements B
     }
 
     @Override
-    public boolean isPathfindable(BlockState targetState, BlockGetter getter, BlockPos targetPos, PathComputationType type) {
+    protected boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
         return false;
     }
 }

@@ -38,21 +38,16 @@ public class AquaticPowerLeverBlock extends LeverBlock implements SimpleWaterlog
 		this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(FACE, AttachFace.WALL).setValue(WATERLOGGED, true));
 	}
 
-	@Override
-	public InteractionResult use(BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand hand, BlockHitResult result) {
-		BlockState cycledState;
+	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 		if (level.isClientSide) {
-			cycledState = targetState.cycle(POWERED);
-			if (cycledState.getValue(POWERED)) {
-				makeParticle(cycledState, level, targetPos, 1.0F);
+			BlockState blockstate = state.cycle(POWERED);
+			if (blockstate.getValue(POWERED)) {
+				makeParticle(blockstate, level, pos, 1.0F);
 			}
 
 			return InteractionResult.SUCCESS;
 		} else {
-			cycledState = this.pull(targetState, level, targetPos);
-			float powerMod = cycledState.getValue(POWERED) ? 0.6F : 0.5F;
-			level.playSound(null, targetPos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.3F, powerMod);
-			level.gameEvent(player, cycledState.getValue(POWERED).booleanValue() ? GameEvent.BLOCK_ACTIVATE : GameEvent.BLOCK_DEACTIVATE, targetPos);
+			this.pull(state, level, pos, null);
 			return InteractionResult.CONSUME;
 		}
 	}

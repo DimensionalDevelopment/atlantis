@@ -43,7 +43,7 @@ public class AquaticPowerFenceGateBlock extends FenceGateBlock implements Simple
     protected static final VoxelShape X_OCCLUSION_SHAPE_LOW;
 
     public AquaticPowerFenceGateBlock(Properties settings) {
-        super(settings, WoodType.OAK);
+        super(WoodType.OAK, settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(OPEN, false).setValue(POWERED, false).setValue(IN_WALL, false).setValue(WATERLOGGED, false));
     }
 
@@ -87,16 +87,11 @@ public class AquaticPowerFenceGateBlock extends FenceGateBlock implements Simple
     }
 
     @Override
-    public boolean isPathfindable(BlockState targetState, BlockGetter getter, BlockPos targetPos, PathComputationType type) {
-        switch(type) {
-            case LAND:
-            case WATER:
-                return targetState.getValue(OPEN);
-            case AIR:
-                return false;
-            default:
-                return false;
-        }
+    public boolean isPathfindable(BlockState targetState, PathComputationType type) {
+        return switch (type) {
+            case LAND, WATER -> targetState.getValue(OPEN);
+            case AIR -> false;
+        };
     }
 
     @Override
@@ -115,7 +110,7 @@ public class AquaticPowerFenceGateBlock extends FenceGateBlock implements Simple
     }
 
     @Override
-    public InteractionResult use(BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand hand, BlockHitResult result) {
+    public InteractionResult useWithoutItem(BlockState targetState, Level level, BlockPos targetPos, Player player, BlockHitResult result) {
         if (targetState.getValue(OPEN)) {
             targetState = targetState.setValue(OPEN, false);
             level.setBlock(targetPos, targetState, 10);

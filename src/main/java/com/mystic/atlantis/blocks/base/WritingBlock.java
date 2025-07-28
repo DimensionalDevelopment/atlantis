@@ -47,7 +47,7 @@ public class WritingBlock extends Block {
     }
 
     @Override
-    public InteractionResult use(BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand hand, BlockHitResult result) {
+    public InteractionResult useWithoutItem(BlockState targetState, Level level, BlockPos targetPos, Player player, BlockHitResult result) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
@@ -93,7 +93,7 @@ public class WritingBlock extends Block {
     }
 
     @Override
-    public boolean isPathfindable(BlockState targetState, BlockGetter level, BlockPos targetPos, PathComputationType type) {
+    protected boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
         return false;
     }
 }

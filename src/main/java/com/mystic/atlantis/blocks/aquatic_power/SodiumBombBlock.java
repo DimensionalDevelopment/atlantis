@@ -7,6 +7,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -58,11 +59,11 @@ public class SodiumBombBlock extends Block {
 	}
 
 	@Override
-	public void playerWillDestroy(Level level, @NotNull BlockPos targetPos, @NotNull BlockState targetState, @NotNull Player player) {
+	public BlockState playerWillDestroy(Level level, @NotNull BlockPos targetPos, @NotNull BlockState targetState, @NotNull Player player) {
 		if (!level.isClientSide() && !player.isCreative() && targetState.getValue(UNSTABLE)) {
 			this.onCaughtFire(targetState, level, targetPos, null, null);
 		}
-		super.playerWillDestroy(level, targetPos, targetState, player);
+		return super.playerWillDestroy(level, targetPos, targetState, player);
 	}
 
 	@Override
@@ -90,12 +91,11 @@ public class SodiumBombBlock extends Block {
 		}
 	}
 
-	@NotNull
 	@Override
-	public InteractionResult use(@NotNull BlockState targetState, @NotNull Level level, @NotNull BlockPos targetPos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult result) {
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand hand, BlockHitResult result) {
 		ItemStack heldStack = player.getItemInHand(hand);
 		if (!heldStack.is(Items.FLINT_AND_STEEL) && !heldStack.is(Items.FIRE_CHARGE)) {
-			return super.use(targetState, level, targetPos, player, hand, result);
+			return super.useItemOn(stack, targetState, level, targetPos, player, hand, result);
 		}
 		this.onCaughtFire(targetState, level, targetPos, result.getDirection(), player);
 		BlockState airState = Blocks.AIR.defaultBlockState();
@@ -110,13 +110,13 @@ public class SodiumBombBlock extends Block {
 		Item heldItem = heldStack.getItem();
 		if (!player.isCreative()) {
 			if (heldStack.is(Items.FLINT_AND_STEEL)) {
-				heldStack.hurtAndBreak(1, player, arg2 -> arg2.broadcastBreakEvent(hand));
+				heldStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(stack));
 			} else {
 				heldStack.shrink(1);
 			}
 		}
 		player.awardStat(Stats.ITEM_USED.get(heldItem));
-		return InteractionResult.sidedSuccess(level.isClientSide);
+		return ItemInteractionResult.sidedSuccess(level.isClientSide);
 	}
 
 	@Override

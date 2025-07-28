@@ -9,13 +9,14 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class SodiumPrimedBombBlock extends Entity {
+public class SodiumPrimedBombBlock extends Entity implements TraceableEntity {
     private static final EntityDataAccessor<Integer> DATA_FUSE_ID = SynchedEntityData.defineId(SodiumPrimedBombBlock.class, EntityDataSerializers.INT);
     @Nullable
     private LivingEntity owner;
@@ -36,11 +37,6 @@ public class SodiumPrimedBombBlock extends Entity {
         this.owner = owner;
     }
 
-    @Override
-    protected void defineSynchedData() {
-        this.entityData.define(DATA_FUSE_ID, 80);
-    }
-
     @NotNull
     @Override
     protected MovementEmission getMovementEmission() {
@@ -50,6 +46,11 @@ public class SodiumPrimedBombBlock extends Entity {
     @Override
     public boolean isPickable() {
         return !this.isRemoved();
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DATA_FUSE_ID, 80);
     }
 
     @Override
@@ -96,8 +97,8 @@ public class SodiumPrimedBombBlock extends Entity {
     }
 
     @Override
-    protected float getEyeHeight(@NotNull Pose curPose, @NotNull EntityDimensions dimensions) {
-        return 0.15f;
+    public double getEyeY() {
+        return 0.15F;
     }
 
     public void setFuse(int fuse) {
@@ -106,10 +107,5 @@ public class SodiumPrimedBombBlock extends Entity {
 
     public int getFuse() {
         return this.entityData.get(DATA_FUSE_ID);
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return new ClientboundAddEntityPacket(this);
     }
 }

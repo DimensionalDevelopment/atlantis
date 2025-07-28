@@ -7,13 +7,11 @@ import com.mystic.atlantis.blocks.plants.Seabloom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -35,16 +33,16 @@ public class NymphDoorBlock extends DoorBlock implements SimpleWaterloggedBlock 
     public static final Property<Boolean> WATERLOGGED = Seabloom.WATERLOGGED;
 
     public NymphDoorBlock(Properties settings) {
-        super(settings
-                .sound(SoundType.WOOD)
-                .noOcclusion()
-                .requiresCorrectToolForDrops()
-                .strength(3.0F, 6.0F), BlockSetType.OAK);
+        super(BlockSetType.OAK, settings
+                        .sound(SoundType.WOOD)
+                        .noOcclusion()
+                        .requiresCorrectToolForDrops()
+                        .strength(3.0F, 6.0F));
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(OPEN, false).setValue(HINGE, DoorHingeSide.LEFT).setValue(POWERED, false).setValue(HALF, DoubleBlockHalf.LOWER).setValue(WATERLOGGED, false));
     }
 
     @Override
-    public boolean isPathfindable(BlockState targetState, BlockGetter getter, BlockPos targetPos, PathComputationType type) {
+    protected boolean isPathfindable(BlockState targetState, PathComputationType type) {
         return switch (type) {
             case LAND, AIR -> targetState.getValue(OPEN);
             case WATER -> targetState.getValue(WATERLOGGED);
@@ -52,8 +50,8 @@ public class NymphDoorBlock extends DoorBlock implements SimpleWaterloggedBlock 
     }
 
     @Override
-    public InteractionResult use(BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand hand, BlockHitResult result) {
-        InteractionResult superResult = super.use(targetState, level, targetPos, player, hand, result);
+    public InteractionResult useWithoutItem(BlockState targetState, Level level, BlockPos targetPos, Player player, BlockHitResult result) {
+        InteractionResult superResult = super.useWithoutItem(targetState, level, targetPos, player, result);
         if (superResult.consumesAction()) {
             level.scheduleTick(targetPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
@@ -101,7 +99,7 @@ public class NymphDoorBlock extends DoorBlock implements SimpleWaterloggedBlock 
     }
 
     @Override
-    public void playerWillDestroy(Level level, BlockPos targetPos, BlockState targetState, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos targetPos, BlockState targetState, Player player) {
         DoubleBlockHalf doubleBlockHalf = targetState.getValue(HALF);
         if (doubleBlockHalf == DoubleBlockHalf.UPPER) {
             BlockPos belowPos = targetPos.below();
@@ -111,7 +109,7 @@ public class NymphDoorBlock extends DoorBlock implements SimpleWaterloggedBlock 
                 level.levelEvent(player, 2001, belowPos, Block.getId(belowState));
             }
         }
-        super.playerWillDestroy(level, targetPos, targetState, player);
+        return super.playerWillDestroy(level, targetPos, targetState, player);
     }
 
     @Override

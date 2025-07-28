@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mojang.serialization.MapCodec;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.core.BlockPos;
@@ -13,6 +14,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -34,14 +36,15 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.ItemAbilities;
 
 import javax.annotation.Nullable;
 
 import static com.mystic.atlantis.blocks.base.NymphDoorBlock.WATERLOGGED;
 
 public class FireMelonSpikedFruitBlock extends HorizontalDirectionalBlock implements BonemealableBlock, SimpleWaterloggedBlock {
+    public static final MapCodec<FireMelonSpikedFruitBlock> CODEC = simpleCodec(FireMelonSpikedFruitBlock::new);
     public static final IntegerProperty AGE_4 = IntegerProperty.create("age", 0, 4);
     public static final IntegerProperty AGE = AGE_4;
     public static final BooleanProperty SPIKED = BooleanProperty.create("spiked");
@@ -56,6 +59,11 @@ public class FireMelonSpikedFruitBlock extends HorizontalDirectionalBlock implem
     }
 
     @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
     public boolean isRandomlyTicking(BlockState targetState) {
         return targetState.getValue(AGE) < 4;
     }
@@ -64,9 +72,9 @@ public class FireMelonSpikedFruitBlock extends HorizontalDirectionalBlock implem
     public void randomTick(BlockState targetState, ServerLevel level, BlockPos targetPos, RandomSource random) {
         int age = targetState.getValue(AGE);
         
-        if (age < 4 && ForgeHooks.onCropsGrowPre(level, targetPos, targetState, level.random.nextInt(4) == 0)) {
+        if (age < 4 && CommonHooks.canCropGrow(level, targetPos, targetState, level.random.nextInt(4) == 0)) {
             level.setBlock(targetPos, targetState.setValue(AGE, age + 1), 4);
-            ForgeHooks.onCropsGrowPost(level, targetPos, targetState);
+            CommonHooks.fireCropGrowPost(level, targetPos, targetState);
         }
 
     }
@@ -138,8 +146,8 @@ public class FireMelonSpikedFruitBlock extends HorizontalDirectionalBlock implem
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
-        return pState.getValue(AGE) < 4;
+    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
+        return blockState.getValue(AGE) < 4;
     }
 
     @Override
@@ -158,15 +166,15 @@ public class FireMelonSpikedFruitBlock extends HorizontalDirectionalBlock implem
     }
 
     @Override
-    public boolean isPathfindable(BlockState targetState, BlockGetter getter, BlockPos targetPos, PathComputationType type) {
+    protected boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
         return false;
     }
 
     @Override
-    public InteractionResult use(BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand hand, BlockHitResult result) {
-        ItemStack mainHandStack = player.getItemInHand(hand);
-        
-        if (mainHandStack.canPerformAction(ToolActions.SHEARS_CARVE) && targetState.getValue(SPIKED)) {
+    public InteractionResult useWithoutItem(BlockState targetState, Level level, BlockPos targetPos, Player player, BlockHitResult result) {
+        ItemStack mainHandStack = player.getItemInHand(InteractionHand.MAIN_HAND);
+
+        if (mainHandStack.canPerformAction(ItemAbilities.SHEARS_CARVE) && targetState.getValue(SPIKED)) {
             if (!level.isClientSide) {
                 Direction resultDir = result.getDirection();
                 Direction oppositeDir = resultDir.getAxis() == Direction.Axis.Y ? player.getDirection().getOpposite() : resultDir;
@@ -181,15 +189,14 @@ public class FireMelonSpikedFruitBlock extends HorizontalDirectionalBlock implem
                 );
                 fireMelonSpikeItemEntity.setDeltaMovement(0.05 * (double)oppositeDir.getStepX() + level.random.nextDouble() * 0.02, 0.05, 0.05 * (double)oppositeDir.getStepZ() + level.random.nextDouble() * 0.02);
                 level.addFreshEntity(fireMelonSpikeItemEntity);
-                mainHandStack.hurtAndBreak(1, player, arg2x -> arg2x.broadcastBreakEvent(hand));
+                mainHandStack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
                 level.gameEvent(player, GameEvent.SHEAR, targetPos);
                 player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
             }
 
             return InteractionResult.sidedSuccess(level.isClientSide);
         } else {
-            return super.use(targetState, level, targetPos, player, hand, result);
+            return super.useWithoutItem(targetState, level, targetPos, player, result);
         }
     }
-
 }
