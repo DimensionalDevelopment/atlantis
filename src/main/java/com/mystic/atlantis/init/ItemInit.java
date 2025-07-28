@@ -10,7 +10,6 @@ import com.mystic.atlantis.items.food.*;
 import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -33,8 +32,8 @@ public class ItemInit {
 
     private static final Item.Properties ATLANTIS_SETTINGS = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON);
 
-    public static final DeferredItem<Item> ATLANTEAN_AMULET = register("atlantean_amulet", AtlanteanAmuletItem::new);
-    public static final DeferredItem<Item> ATLANTEAN_SPEAR = register("atlantean_spear", () -> new AtlanteanSpearItem(ToolInit.AQUAMARINE, 5));
+    public static final DeferredItem<Item> ATLANTEAN_AMULET = register("atlantean_amulet", AtlanteanAmulet::new);
+    public static final DeferredItem<Item> ATLANTEAN_SPEAR = register("atlantean_spear", () -> new AtlanteanSpear(ToolInit.AQUAMARINE, 5));
 
     //BOATS
     public static final DeferredItem<Item> NYMPH_BOAT = register("nymph_boat", () -> new NymphBoatItem(new Item.Properties().stacksTo(1)));

@@ -4,10 +4,9 @@ import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Tier;
 
 public class AtlanteanAxe extends AxeItem {
-    public AtlanteanAxe(Tier tier, float attack) {
-        super(tier, attack, -3.2F, new Properties()
+    public AtlanteanAxe(Tier tier, int attack) {
+        super(tier, new Properties().attributes(createAttributes(tier, attack, 3.2f))
                 .stacksTo(1)
-                .defaultDurability(tier.getUses()));
+                .durability(tier.getUses()));
     }
-
 }
