@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_raw_ancient_cuprum": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:raw_ancient_cuprum"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:raw_ancient_cuprum_block_recipe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_raw_ancient_cuprum"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:raw_ancient_cuprum_block_recipe"
+    ]
+  }
+}

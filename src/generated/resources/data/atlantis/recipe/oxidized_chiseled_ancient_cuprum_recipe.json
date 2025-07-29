@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "atlantis:oxidized_cut_ancient_cuprum_slab"
+    }
+  },
+  "pattern": [
+    " # ",
+    " # ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:oxidized_chiseled_ancient_cuprum"
+  }
+}

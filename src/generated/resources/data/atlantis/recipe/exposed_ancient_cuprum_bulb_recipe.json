@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "atlantis:exposed_ancient_cuprum_block"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "X": {
+      "item": "minecraft:blaze_rod"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:exposed_ancient_cuprum_bulb"
+  }
+}

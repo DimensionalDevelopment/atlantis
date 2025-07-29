@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mystic.atlantis.blocks.blockentities.AtlanteanPortalBlockEntity;
 import com.mystic.atlantis.dimension.AtlanteanPortalForcer;
 import com.mystic.atlantis.dimension.AtlantisDimensions;
 import net.minecraft.core.BlockPos;
@@ -15,6 +16,8 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.TheEndPortalBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -35,6 +38,11 @@ public class AtlanteanPortalBlock extends EndPortalBlock implements SimpleWaterl
     protected static final VoxelShape SHAPE = Block.box(0.0D, 6.0D, 0.0D, 16.0D, 12.0D, 16.0D);
 
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
+
+    @Override
+    public BlockEntity newBlockEntity(BlockPos p_153196_, BlockState p_153197_) {
+        return new AtlanteanPortalBlockEntity(p_153196_, p_153197_);
+    }
 
     public AtlanteanPortalBlock(Properties settings) {
         super(settings

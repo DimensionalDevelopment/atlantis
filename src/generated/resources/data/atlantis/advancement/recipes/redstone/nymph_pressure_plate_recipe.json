@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nymph_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:nymph_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:nymph_pressure_plate_recipe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nymph_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:nymph_pressure_plate_recipe"
+    ]
+  }
+}

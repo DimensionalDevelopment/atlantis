@@ -40,15 +40,11 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 @Mod(Reference.MODID)
 @EventBusSubscriber()
 public class Atlantis {
-    public static final Logger LOGGER = LogManager.getLogger(Reference.MODID);
-
     public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECO_TYPES = DeferredRegister.create(BuiltInRegistries.TREE_DECORATOR_TYPE, "atlantis");
 
     public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<WaterAttachedToLeavesDecorator>> WATER_ATTACH_TO_LEAVES = TREE_DECO_TYPES.register("water_attached_to_leaves", () -> new TreeDecoratorType<>(WaterAttachedToLeavesDecorator.CODEC));
@@ -88,7 +84,6 @@ public class Atlantis {
     }
 
     public void onInitialize(IEventBus bus) {
-//        GeckoLib.initialize();
         BlockInit.init(bus);
         ItemInit.init(bus);
         AtlantisModifierInit.init(bus);
@@ -102,6 +97,7 @@ public class Atlantis {
         MenuTypeInit.init(bus);
         RecipesInit.init(bus);
         POITypesInit.init(bus);
+        AtlantisDimensions.init(bus);
     }
 
     @SubscribeEvent
@@ -114,8 +110,6 @@ public class Atlantis {
     public static void onCommonSet(FMLCommonSetupEvent event) {
         ToolInit.init();
         TagsInit.init();
-
-        event.enqueueWork(AtlantisDimensions::registerBiomeSources);
 
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.NYMPH_SIGN.get(), BlockInit.NYMPH_WALL_SIGN.get());
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.PALM_SIGN.get(), BlockInit.PALM_WALL_SIGN.get());

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ancient_cuprum_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:ancient_cuprum_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:weathered_chiseled_ancient_cuprum_recipe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ancient_cuprum_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:weathered_chiseled_ancient_cuprum_recipe"
+    ]
+  }
+}

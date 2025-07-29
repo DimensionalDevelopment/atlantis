@@ -1,9 +1,11 @@
 package com.mystic.atlantis.dimension;
 
 import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.MapCodec;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.biomes.AtlanteanBiomeSource;
 import com.mystic.atlantis.datagen.BiomeInit;
+import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -12,21 +14,25 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
 public class AtlantisDimensions
 {
+    public static final DeferredRegister<MapCodec<? extends BiomeSource>> BIOME_SOURCE = DeferredRegister.create(BuiltInRegistries.BIOME_SOURCE, Reference.MODID);
     public static ResourceKey<Level> ATLANTIS_WORLD = ResourceKey.create(Registries.DIMENSION, Atlantis.id("atlantis"));
     public static final ResourceKey<DimensionType> ATLANTIS_DIMENSION_TYPE_KEY = ResourceKey.create(Registries.DIMENSION_TYPE, Atlantis.id("atlantis"));
     public static ResourceKey<LevelStem> ATLANTIS_DIMENSION_STEM = ResourceKey.create(Registries.LEVEL_STEM, Atlantis.id("atlantis"));
@@ -46,9 +52,10 @@ public class AtlantisDimensions
         AtlantisDimensions.ATLANTIS_DIMENSION = event.getServer().getLevel(ATLANTIS_WORLD);
     }
 
-    public static void registerBiomeSources() {
-        Registry.register(BuiltInRegistries.BIOME_SOURCE, Atlantis.id("atlantean_biome_source"), AtlanteanBiomeSource.CODEC);
+    public static void init(IEventBus bus) {
+        BIOME_SOURCE.register(bus);
     }
+
 
     public AtlantisDimensions(BootstrapContext<LevelStem> context) {
         var holderGetter = context.lookup(Registries.BIOME);

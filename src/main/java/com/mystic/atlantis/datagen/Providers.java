@@ -408,18 +408,6 @@ public class Providers {
             }
         });
 
-        var globalLootModifierProvider = new GlobalLootModifierProvider(output, event.getLookupProvider(), Reference.MODID) {
-            @Override
-            protected void start() {
-                add("seeds_drop", new AtlantisModifierInit.SeaGrassModifier(
-                        new LootItemCondition[]{
-                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SEAGRASS).build()
-                        })
-                );
-            }
-        };
-
-
         BlockTagsProvider blockTagsProvider = new BlockTagsProvider(output, event.getLookupProvider(), "atlantis", event.getExistingFileHelper()) {
             @Override
             protected void addTags(HolderLookup.@NotNull Provider pProvider) {
@@ -909,7 +897,6 @@ public class Providers {
 
         event.getGenerator().addProvider(true, blockTagsProvider);
         event.getGenerator().addProvider(true, fluidTagsProvider);
-        event.getGenerator().addProvider(true, globalLootModifierProvider);
 
         event.getGenerator().addProvider(true, new ItemTagsProvider(output, event.getLookupProvider(), blockTagsProvider.contentsGetter(), "atlantis", event.getExistingFileHelper()) {
             @Override
@@ -1009,16 +996,6 @@ public class Providers {
                         NYMPH_PLANKS.trapDoor().get().asItem(),
                         PALM_PLANKS.trapDoor().get().asItem()
                 );
-//                tag(ItemTags.TOOLS).add(
-//                        ItemInit.AQUAMARINE_AXE.get(),
-//                        ItemInit.ORICHALCUM_AXE.get(),
-//                        ItemInit.ORICHALCUM_PICKAXE.get(),
-//                        ItemInit.ORICHALCUM_PICKAXE.get(),
-//                        ItemInit.AQUAMARINE_HOE.get(),
-//                        ItemInit.ORICHALCUM_HOE.get(),
-//                        ItemInit.ORICHALCUM_SHOVEL.get(),
-//                        ItemInit.ORICHALCUM_SHOVEL.get()
-//                );
                 for (BlockType blockType : SEA_GLASS_LIST.values()) {
                     tag(ItemTags.WALLS).add(blockType.wall().get().asItem());
                 }
@@ -1202,7 +1179,6 @@ public class Providers {
                         BlockInit.PALM_LOG.get().asItem(),
                         BlockInit.STRIPPED_PALM_LOG.get().asItem()
                 );
-//                tag(ItemTags.MUSIC_DISCS).add(ItemInit.PANBEE.get(), ItemInit.COLUMN_CAVITATION.get());
                 tag(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ItemInit.PANBEE.get(), ItemInit.COLUMN_CAVITATION.get());
                 TagsInit.Item.getItemsThatCanSink().stream().map(ItemLike::asItem).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);
                 var trimmables = tag(ItemTags.TRIMMABLE_ARMOR);
@@ -1440,7 +1416,7 @@ public class Providers {
 
             ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, group.cut_stairs().get(), 4)
                     .pattern("#  ")
-                    .pattern("## ")//import pro.mikey.justhammers.HammerTags;
+                    .pattern("## ")
                     .pattern("###")
                     .define('#', group.cut().get())
                     .unlockedBy(getHasName(ItemInit.ANCIENT_CUPRUM_INGOT.get()), has(ItemInit.ANCIENT_CUPRUM_INGOT.get()))

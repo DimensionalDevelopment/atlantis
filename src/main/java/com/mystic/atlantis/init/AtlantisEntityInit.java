@@ -37,7 +37,7 @@ public class AtlantisEntityInit {
     public static final DeferredHolder<EntityType<?>, EntityType<SubmarineEntity>> SUBMARINE = register("submarine", EntityType.Builder.of(SubmarineEntity::new, MobCategory.MISC).sized(1.6F, 1.6F).clientTrackingRange(1));
 
     private static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(String name, EntityType.Builder<T> builder) {
-        return ENTITIES.register(name, ()->builder.build("atlantis:" + name));
+        return ENTITIES.register(name, ()->builder.build(name));
     }
 
     @SubscribeEvent

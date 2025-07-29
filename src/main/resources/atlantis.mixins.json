@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "com.mystic.atlantis.mixin",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_21",
   "refmap": "atlantis.refmap.json",
   "mixins": [
     "BlockBehaviourMixin",

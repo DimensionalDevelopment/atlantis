@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ancient_oak_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:ancient_oak_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:ancient_oak_fence_recipe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ancient_oak_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:ancient_oak_fence_recipe"
+    ]
+  }
+}

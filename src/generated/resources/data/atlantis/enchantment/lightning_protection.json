@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 3,
+  "description": {
+    "translate": "enchantment.atlantis.lightning_protection"
+  },
+  "max_cost": {
+    "base": 32,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 2,
+    "per_level_above_first": 0
+  },
+  "primary_items": [],
+  "slots": [
+    "chest"
+  ],
+  "supported_items": [],
+  "weight": 1
+}

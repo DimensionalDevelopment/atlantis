@@ -1,0 +1,43 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="LGPLv3"
+[[mods]]
+modId="atlantis"
+version="7.28.2025-1.21.1-1.0.0-neoforge"
+displayName="Atlantis"
+displayURL="https://github.com/Exploding-Creeper/atlantis"
+logoFile= "logo.png"
+credits='''
+TelepathicGrunt for his help with the JSON files,
+WaterPicker for his work on the fabric branch,
+LudoCrypt and Firel for the music on the music discs for atlantis,
+She's Long and Afton for multiple textures, models, and jsons for assets,
+and LimeShulkerBox for the Atlantean Portal and for removing the need for effects in the dimension.
+'''
+authors="Mysticpasta1, WaterPicker"
+description='''
+An Underwater Dimension Mod.
+'''
+[[mixins]]
+config = "atlantis.mixins.json"
+
+[[dependencies.atlantis]]
+modId="neoforge"
+type="required"
+versionRange="[21.+,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.atlantis]]
+modId="minecraft"
+type="required"
+versionRange="[1.21,1.21.1)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.atlantis]]
+modId="geckolib"
+type="required"
+versionRange="[4.5.+,)"
+ordering="NONE"
+side="BOTH"

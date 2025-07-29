@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "atlantis:green_patterned_sea_glass"
+    }
+  },
+  "pattern": [
+    "## "
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:green_patterned_sea_glass_pressure_plate"
+  }
+}

@@ -25,6 +25,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -142,7 +143,7 @@ public class ItemInit {
     public static final DeferredItem<Item> THALASSIAN_SEAHORSE_BUCKET = registerBucket(AtlantisEntityInit.THALASSIAN_SEAHORSE);
 
     private static <T extends Entity> DeferredItem<Item> registerBucket(DeferredHolder<EntityType<?>, EntityType<T>> type) {
-        return ITEMS.register(type.getRegisteredName() + "_bucket", () -> new MobBucketItem(AtlantisEntityInit.RUBYCLAW_CRAB.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
+        return ITEMS.register(type.getId().getPath().toLowerCase(Locale.ROOT) + "_bucket", () -> new MobBucketItem(AtlantisEntityInit.RUBYCLAW_CRAB.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
     }
 
     //TOOLS

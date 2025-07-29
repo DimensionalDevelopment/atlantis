@@ -357,7 +357,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         armorEntry(ItemInit.AQUAMARINE, "Aquamarine");
         armorEntry(ItemInit.BROWN_WROUGHT, "Brown Wrought");
         armorEntry(ItemInit.ORICHALCUM, "Orichalcum");
-        this.add(ItemInit.ORICHALCUM_UPGRADE_SMITHING_TEMPLATE.get(), "Orichalcum Upgrade Smithing Template");
+        this.add(ItemInit.ORICHALCUM_UPGRADE_SMITHING_TEMPLATE.get(), "Smithing Template");
 
         this.add(AtlantisEntityInit.PALM_BOAT.get(), "Palm Boat");
         this.add(AtlantisEntityInit.NYMPH_BOAT.get(), "Nymph Boat");

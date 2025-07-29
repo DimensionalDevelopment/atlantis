@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "atlantis:raw_ancient_cuprum"
+  },
+  "result": {
+    "count": 1,
+    "id": "atlantis:ancient_cuprum_ingot"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ancient_cuprum_door": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:ancient_cuprum_door"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:waxed_ancient_cuprum_door_recipe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ancient_cuprum_door"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:waxed_ancient_cuprum_door_recipe"
+    ]
+  }
+}

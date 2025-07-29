@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_oxidized_ancient_cuprum_grate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:oxidized_ancient_cuprum_grate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:waxed_oxidized_ancient_cuprum_grate_recipe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_oxidized_ancient_cuprum_grate"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:waxed_oxidized_ancient_cuprum_grate_recipe"
+    ]
+  }
+}
