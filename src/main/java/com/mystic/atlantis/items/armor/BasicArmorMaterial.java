@@ -24,8 +24,7 @@ public class BasicArmorMaterial {
     public static final DeferredRegister<ArmorMaterial> REGISTER = DeferredRegister.create(BuiltInRegistries.ARMOR_MATERIAL, Reference.MODID);
 
     public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARMOR_AQUAMARINE = register( "aquamarine", 24, new int[] {2, 6, 7, 3,6} , 9, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get()));
-
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARMOR_ORICHALCUM = register( "orichalcum", 24, new int[] {2, 6, 7, 3, 6} , 9, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get()));
+    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARMOR_ORICHALCUM = register( "orichalcum", 24, new int[] {2, 6, 7, 3, 6} , 9, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.of(ItemInit.ORICHALCUM_INGOT.get()));
     public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARMOR_BROWN_WROUGHT = register("wrought", 24, new int[] {3, 5, 5, 4, 5} , 7, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.0F, () -> Ingredient.of(ItemInit.BROWN_WROUGHT_PATCHES.get()));
 
 

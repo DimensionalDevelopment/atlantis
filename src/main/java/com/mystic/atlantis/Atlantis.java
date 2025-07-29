@@ -43,7 +43,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 
 @Mod(Reference.MODID)
-@EventBusSubscriber()
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class Atlantis {
     public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECO_TYPES = DeferredRegister.create(BuiltInRegistries.TREE_DECORATOR_TYPE, "atlantis");
 
