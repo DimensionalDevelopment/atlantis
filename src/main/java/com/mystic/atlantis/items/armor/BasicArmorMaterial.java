@@ -1,9 +1,11 @@
 package com.mystic.atlantis.items.armor;
 
+import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
@@ -13,40 +15,60 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class BasicArmorMaterial {
+
     public static final DeferredRegister<ArmorMaterial> REGISTER = DeferredRegister.create(BuiltInRegistries.ARMOR_MATERIAL, Reference.MODID);
 
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARMOR_AQUAMARINE = register( "aquamarine", 24, new int[] {2, 6, 7, 3,6} , 9, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get()));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARMOR_ORICHALCUM = register( "orichalcum", 24, new int[] {2, 6, 7, 3, 6} , 9, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.of(ItemInit.ORICHALCUM_INGOT.get()));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARMOR_BROWN_WROUGHT = register("wrought", 24, new int[] {3, 5, 5, 4, 5} , 7, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.0F, () -> Ingredient.of(ItemInit.BROWN_WROUGHT_PATCHES.get()));
+    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARMOR_AQUAMARINE = register(
+            "aquamarine", 24, makeProtectionMap(2, 6, 7, 3), 9,
+            SoundEvents.ARMOR_EQUIP_IRON.value(), 1.0F, 0.0F, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get()));
 
+    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARMOR_ORICHALCUM = register(
+            "orichalcum", 24, makeProtectionMap(3, 6, 6, 2), 9,
+            SoundEvents.ARMOR_EQUIP_IRON.value(), 1.0F, 0.0F, () -> Ingredient.of(ItemInit.ORICHALCUM_INGOT.get()));
 
+    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARMOR_BROWN_WROUGHT = register(
+            "wrought", 24, makeProtectionMap(3, 5, 5, 2), 7,
+            SoundEvents.ARMOR_EQUIP_LEATHER.value(), 2.0F, 0.0F, () -> Ingredient.of(ItemInit.BROWN_WROUGHT_PATCHES.get()));
 
     public static void init(IEventBus bus) {
         REGISTER.register(bus);
     }
 
-    private static DeferredHolder<ArmorMaterial, ArmorMaterial> register(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability, Holder<SoundEvent> soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> supplier) {
-        return REGISTER.register(name, id -> new ArmorMaterial(
-                IntStream.of(damageReductionAmountArray).mapToObj(value -> Map.entry(ArmorItem.Type.values()[value], value)).collect(BasicArmorMaterial.asMap()),
+    private static DeferredHolder<ArmorMaterial, ArmorMaterial> register(
+            String name,
+            int maxDamageFactor,
+            EnumMap<ArmorItem.Type, Integer> protection,
+            int enchantability,
+            SoundEvent equipSound,
+            float toughness,
+            float knockbackResistance,
+            Supplier<Ingredient> repairIngredient
+    ) {
+        List<ArmorMaterial.Layer> layers = List.of(new ArmorMaterial.Layer(Atlantis.id(name)));
+
+        return REGISTER.register(name, () -> new ArmorMaterial(
+                protection,
                 enchantability,
-                soundEvent,
-                supplier,
-                List.of(new ArmorMaterial.Layer(id)),
+                Holder.direct(equipSound),
+                repairIngredient,
+                layers,
                 toughness,
                 knockbackResistance
         ));
     }
 
-    public static <K, V> Collector<Map.Entry<K, V>, ?, Map<K, V>> asMap() {
-        return Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue);
+    private static EnumMap<ArmorItem.Type, Integer> makeProtectionMap(int head, int chest, int legs, int feet) {
+        EnumMap<ArmorItem.Type, Integer> map = new EnumMap<>(ArmorItem.Type.class);
+        map.put(ArmorItem.Type.HELMET, head);
+        map.put(ArmorItem.Type.CHESTPLATE, chest);
+        map.put(ArmorItem.Type.LEGGINGS, legs);
+        map.put(ArmorItem.Type.BOOTS, feet);
+        map.put(ArmorItem.Type.BODY, chest);
+        return map;
     }
-
 }
