@@ -8,6 +8,7 @@ import com.mystic.atlantis.datagen.WaterAttachedToLeavesDecorator;
 import com.mystic.atlantis.dimension.AtlantisDimensions;
 import com.mystic.atlantis.feature.AtlantisFeature;
 import com.mystic.atlantis.init.*;
+import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.particles.ModParticleTypes;
 import com.mystic.atlantis.screen.LinguisticScreen;
 import com.mystic.atlantis.screen.WritingScreen;
@@ -86,6 +87,7 @@ public class Atlantis {
     public void onInitialize(IEventBus bus) {
         BlockInit.init(bus);
         ItemInit.init(bus);
+        BasicArmorMaterial.init(bus);
         AtlantisModifierInit.init(bus);
         BlockEntityInit.init(bus);
         FluidTypesInit.init(bus);
