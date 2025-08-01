@@ -16,10 +16,10 @@
     "ItemEntityMixin",
     "ItemMixin",
     "RedstoneAccessor",
-    "RedstoneWireBlockMixin",
-    "RenderBubblesMixin"
+    "RedstoneWireBlockMixin"
   ],
   "client": [
+    "RenderBubblesMixin",
     "VisibilityMixin"
   ],
   "injectors": {
