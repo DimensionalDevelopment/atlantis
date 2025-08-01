@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 1,
+  "description": {
+    "translate": "enchantment.atlantis.depth_pulse"
+  },
+  "max_cost": {
+    "base": 40,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 18,
+    "per_level_above_first": 0
+  },
+  "primary_items": [],
+  "slots": [
+    "chest"
+  ],
+  "supported_items": [],
+  "weight": 1
+}

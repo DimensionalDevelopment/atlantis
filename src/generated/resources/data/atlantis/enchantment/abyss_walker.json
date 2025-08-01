@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 3,
+  "description": {
+    "translate": "enchantment.atlantis.abyss_walker"
+  },
+  "max_cost": {
+    "base": 35,
+    "per_level_above_first": 0
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 0
+  },
+  "primary_items": [],
+  "slots": [
+    "legs"
+  ],
+  "supported_items": [],
+  "weight": 1
+}

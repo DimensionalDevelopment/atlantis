@@ -226,6 +226,13 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add("item.minecraft.smithing_template.orichalcum_upgrade.applies_to", "Aquamarine Equipment");
         this.add("upgrade.minecraft.orichalcum_upgrade", "Orichalcum Upgrade Smithing Template");
         this.add("enchantment.atlantis.lightning_protection", "Lightning Protection");
+        this.add("enchantment.atlantis.gill_breath", "Gill Breath");
+        this.add("enchantment.atlantis.abyssal_armor", "Abyssal Armor");
+        this.add("enchantment.atlantis.reel_bind", "Reel Bind");
+        this.add("enchantment.atlantis.current_glide", "Current Glide");
+        this.add("enchantment.atlantis.tide_call", "Tide Call");
+        this.add("enchantment.atlantis.abyss_walker", "Abyss Walker");
+        this.add("enchantment.atlantis.depth_pulse", "Depth Pulse");
         this.add("container.writing", "Writing");
         this.add("container.linguistic", "Linguistic");
         this.add("effect.atlantis.spikes", "Spikes");

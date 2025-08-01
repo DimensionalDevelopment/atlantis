@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 2,
+  "description": {
+    "translate": "enchantment.atlantis.current_glide"
+  },
+  "max_cost": {
+    "base": 25,
+    "per_level_above_first": 0
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 7,
+    "per_level_above_first": 0
+  },
+  "primary_items": [],
+  "slots": [
+    "feet"
+  ],
+  "supported_items": [],
+  "weight": 1
+}

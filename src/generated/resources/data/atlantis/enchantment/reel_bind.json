@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 2,
+  "description": {
+    "translate": "enchantment.atlantis.reel_bind"
+  },
+  "max_cost": {
+    "base": 30,
+    "per_level_above_first": 0
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 0
+  },
+  "primary_items": [],
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": [],
+  "weight": 1
+}
