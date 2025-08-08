@@ -45,7 +45,7 @@ import java.util.stream.Stream;
 
 import static com.mystic.atlantis.init.BlockInit.*;
 
-@EventBusSubscriber(modid = Reference.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Reference.MODID, value = Dist.CLIENT)
 public class ClientSetup {
     @SubscribeEvent
     public static void onInitializeClient(FMLClientSetupEvent event) {
@@ -203,12 +203,53 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void spawnRules(RegisterSpawnPlacementsEvent event) {
-        event.register(AtlantisEntityInit.STARFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, StarfishEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(AtlantisEntityInit.ZOMBIE_STARFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, ZombieStarfishEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(AtlantisEntityInit.THALASSIAN_SEAHORSE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, ThalassianSeahorseEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(AtlantisEntityInit.AQUAIEL_JELLYFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, AquaielJellyfishEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(AtlantisEntityInit.RUBYCLAW_CRAB.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, RubyclawCrabEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(AtlantisEntityInit.GLITTERTAIL_SHRIMP.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, GlittertailShrimpEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
+        event.register(AtlantisEntityInit.STARFISH.get(),
+                SpawnPlacementTypes.IN_WATER,
+                Heightmap.Types.OCEAN_FLOOR,
+                StarfishEntity::canSpawn,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(AtlantisEntityInit.ZOMBIE_STARFISH.get(),
+                SpawnPlacementTypes.IN_WATER,
+                Heightmap.Types.OCEAN_FLOOR,
+                ZombieStarfishEntity::canSpawn,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(AtlantisEntityInit.THALASSIAN_SEAHORSE.get(),
+                SpawnPlacementTypes.IN_WATER,
+                Heightmap.Types.OCEAN_FLOOR,
+                ThalassianSeahorseEntity::canSpawn,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(AtlantisEntityInit.AQUAIEL_JELLYFISH.get(),
+                SpawnPlacementTypes.IN_WATER,
+                Heightmap.Types.OCEAN_FLOOR,
+                AquaielJellyfishEntity::canSpawn,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(AtlantisEntityInit.RUBYCLAW_CRAB.get(),
+                SpawnPlacementTypes.IN_WATER,
+                Heightmap.Types.OCEAN_FLOOR,
+                RubyclawCrabEntity::canSpawn,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(AtlantisEntityInit.GLITTERTAIL_SHRIMP.get(),
+                SpawnPlacementTypes.IN_WATER,
+                Heightmap.Types.OCEAN_FLOOR,
+                GlittertailShrimpEntity::canSpawn,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(AtlantisEntityInit.COCONUT_CRAB.get(),
+                SpawnPlacementTypes.IN_WATER,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                CoconutCrabEntity::canSpawn,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+
+        event.register(AtlantisEntityInit.LEVIATHAN.get(),
+                SpawnPlacementTypes.IN_WATER,
+                Heightmap.Types.OCEAN_FLOOR,
+                LeviathanEntity::canSpawn,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 
     @SubscribeEvent

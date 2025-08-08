@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sodium_bomb": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:sodium_nugget"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:sodium_bomb"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_sodium_bomb"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:sodium_bomb"
+    ]
+  }
+}

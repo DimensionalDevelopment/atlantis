@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:ink_sac"
+    },
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "atlantis:fire_melon_spike"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:linguistic_glyph_scroll"
+  }
+}

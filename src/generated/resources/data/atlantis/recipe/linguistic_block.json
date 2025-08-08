@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "item": "atlantis:aquamarine_gem"
+    },
+    "Y": {
+      "item": "atlantis:nymph_planks"
+    },
+    "Z": {
+      "item": "minecraft:crafting_table"
+    }
+  },
+  "pattern": [
+    "XYX",
+    "YZY",
+    "XYX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:linguistic_table"
+  }
+}

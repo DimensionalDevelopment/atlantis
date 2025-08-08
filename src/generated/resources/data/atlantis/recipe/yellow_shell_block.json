@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:yellow_dye"
+    },
+    {
+      "item": "atlantis:white_shell_block"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:yellow_shell_block"
+  }
+}

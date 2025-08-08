@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:lime_dye"
+    },
+    {
+      "item": "atlantis:white_shell_block"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:lime_shell_block"
+  }
+}

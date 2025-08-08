@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:brown_dye"
+    },
+    {
+      "item": "atlantis:white_pearl_block"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:brown_pearl_block"
+  }
+}

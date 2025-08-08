@@ -22,12 +22,19 @@ public class AtlantisEntityInit {
 
     //Geckolib Creatures
     public static final DeferredHolder<EntityType<?>, EntityType<RubyclawCrabEntity>> RUBYCLAW_CRAB = register("rubyclaw_crab", EntityType.Builder.of(RubyclawCrabEntity::new, MobCategory.WATER_CREATURE).sized(1.2f, 0.3f));
-    public static final DeferredHolder<EntityType<?>, EntityType<CoconutCrabEntity>> COCONUT_CRAB = register("coconut_crab",EntityType.Builder.of(CoconutCrabEntity::new, MobCategory.CREATURE).sized(1.2f, 0.3f));
+    public static final DeferredHolder<EntityType<?>, EntityType<CoconutCrabEntity>> COCONUT_CRAB = register("coconut_crab",EntityType.Builder.of(CoconutCrabEntity::new, MobCategory.WATER_CREATURE).sized(1.2f, 0.3f));
     public static final DeferredHolder<EntityType<?>, EntityType<AquaielJellyfishEntity>> AQUAIEL_JELLYFISH = register("aquaiel_jellyfish", EntityType.Builder.of(AquaielJellyfishEntity::new, MobCategory.WATER_AMBIENT).sized(0.4f, 0.8f));
     public static final DeferredHolder<EntityType<?>, EntityType<GlittertailShrimpEntity>> GLITTERTAIL_SHRIMP = register("glittertail_shrimp", EntityType.Builder.of(GlittertailShrimpEntity::new, MobCategory.WATER_AMBIENT).sized(0.5f, 0.5f));
     public static final DeferredHolder<EntityType<?>, EntityType<LeviathanEntity>> LEVIATHAN = register("leviathan", EntityType.Builder.of(LeviathanEntity::new, MobCategory.WATER_CREATURE).sized(1.5f, 0.7f));
-    public static final DeferredHolder<EntityType<?>, EntityType<ThalassianSeahorseEntity>> THALASSIAN_SEAHORSE = register("thalassian_seahorse", EntityType.Builder.of(ThalassianSeahorseEntity::new, MobCategory.CREATURE).sized(.4f, 1.5f));
-    public static final DeferredHolder<EntityType<?>, EntityType<StarfishEntity>> STARFISH = register("starfish", EntityType.Builder.of(StarfishEntity::new, MobCategory.CREATURE).sized(1.5f, 0.7f));
+    public static final DeferredHolder<EntityType<?>, EntityType<ThalassianSeahorseEntity>> THALASSIAN_SEAHORSE =
+            register("thalassian_seahorse",
+                    EntityType.Builder.of(ThalassianSeahorseEntity::new, MobCategory.WATER_CREATURE)
+                            .sized(.4f, 1.5f));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<StarfishEntity>> STARFISH =
+            register("starfish",
+                    EntityType.Builder.of(StarfishEntity::new, MobCategory.WATER_CREATURE)
+                            .sized(1.5f, 0.7f));
     public static final DeferredHolder<EntityType<?>, EntityType<ZombieStarfishEntity>> ZOMBIE_STARFISH = register("zombie_starfish", EntityType.Builder.of(ZombieStarfishEntity::new, MobCategory.MONSTER).sized(1.5f, 0.7f));
 
     //Explosives

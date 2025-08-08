@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "atlantis:aquamarine_ore"
-  },
-  "result": "atlantis:aquamarine_gem",
-  "experience": 0.3,
-  "cookingtime": 140
-}

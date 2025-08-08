@@ -7,10 +7,12 @@ import net.minecraft.world.entity.vehicle.Boat;
 
 @Mixin(Boat.class)
 public interface BoatEntityAccessor {
-    @Accessor
-    void setOutOfControlTicks(float outOfControlTicks);
-    @Accessor
-    Boat.Status getStatus();
+    @Accessor("outOfControlTicks")
+    void atlantis$setOutOfControlTicks(float outOfControlTicks);
+
     @Accessor("status")
-    void setStatusField(Boat.Status status);
+    Boat.Status atlantis$getStatus();
+
+    @Accessor("status")
+    void atlantis$setStatusField(Boat.Status status);
 }

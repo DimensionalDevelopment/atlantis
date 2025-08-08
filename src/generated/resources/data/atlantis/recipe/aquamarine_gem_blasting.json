@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 140,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "atlantis:aquamarine_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "atlantis:aquamarine_gem"
+  }
+}

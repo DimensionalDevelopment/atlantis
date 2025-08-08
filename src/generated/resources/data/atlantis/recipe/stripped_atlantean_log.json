@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "atlantis:stripped_nymph_log"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "atlantis:nymph_planks"
+  }
+}

@@ -50,9 +50,9 @@ public class SubmarineEntity extends Boat implements GeoEntity {
 
     @Override
     public void tick() {
-        ((BoatEntityAccessor) this).setStatusField(Status.UNDER_WATER);
         super.tick();
-        ((BoatEntityAccessor) this).setOutOfControlTicks(0);
+        ((BoatEntityAccessor) this).atlantis$setStatusField(Status.UNDER_WATER);
+        ((BoatEntityAccessor) this).atlantis$setOutOfControlTicks(0);
         floatBoat();
         this.move(MoverType.SELF, this.getDeltaMovement());
         if (this.getFirstPassenger() != null && this.pressingForward) {
@@ -96,7 +96,7 @@ public class SubmarineEntity extends Boat implements GeoEntity {
 
     private void floatBoat() {
         Vec3 vec3d = this.getDeltaMovement();
-        if (((BoatEntityAccessor) this).getStatus() == Boat.Status.UNDER_WATER && this.getFirstPassenger() != null && this.pressingForward) {
+        if (((BoatEntityAccessor) this).atlantis$getStatus() == Boat.Status.UNDER_WATER && this.getFirstPassenger() != null && this.pressingForward) {
             this.setDeltaMovement(vec3d.x * 1.5, vec3d.y - (this.getXRot()) * 0.001, vec3d.z * 1.5);
         }
         Vec3 velocity = this.getDeltaMovement();

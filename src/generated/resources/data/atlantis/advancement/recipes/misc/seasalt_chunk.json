@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_seasalt_chunk": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:seasalt"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:seasalt_chunk"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_seasalt_chunk"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:seasalt_chunk"
+    ]
+  }
+}

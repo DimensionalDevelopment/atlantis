@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "atlantis:aquatic_power_torch"
+    },
+    "S": {
+      "item": "minecraft:stone"
+    },
+    "W": {
+      "item": "atlantis:aquatic_power_dust"
+    }
+  },
+  "pattern": [
+    "EWE",
+    "SSS",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:aquatic_power_repeater"
+  }
+}

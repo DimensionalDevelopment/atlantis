@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dead_glowstone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:sunken_gravel"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:dead_glowstone"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dead_glowstone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:dead_glowstone"
+    ]
+  }
+}

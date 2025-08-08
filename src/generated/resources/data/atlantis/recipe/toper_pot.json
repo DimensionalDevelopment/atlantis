@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:clay"
+    },
+    "N": {
+      "item": "atlantis:broken_shells"
+    },
+    "T": {
+      "item": "minecraft:brick"
+    }
+  },
+  "pattern": [
+    "ANA",
+    "TNT",
+    "TNT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:toper_pot"
+  }
+}

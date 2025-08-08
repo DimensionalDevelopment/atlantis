@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "atlantis:orichalcum_ingot"
+  },
+  "base": {
+    "item": "atlantis:aquamarine_pickaxe"
+  },
+  "result": {
+    "count": 1,
+    "id": "atlantis:orichalcum_pickaxe"
+  },
+  "template": {
+    "item": "atlantis:orichalcum_upgrade_smithing_template"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 50,
+  "experience": 0.5,
+  "ingredient": {
+    "item": "atlantis:sunken_gravel"
+  },
+  "result": {
+    "count": 1,
+    "id": "atlantis:sea_glass"
+  }
+}

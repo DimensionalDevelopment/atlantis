@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "atlantis:nautilus_shell_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "minecraft:nautilus_shell"
+  }
+}

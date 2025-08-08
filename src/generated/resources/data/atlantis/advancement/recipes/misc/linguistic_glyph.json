@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_linguistic_glyph": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:luminescent_prismarine"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:linguistic_glyph"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_linguistic_glyph"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:linguistic_glyph"
+    ]
+  }
+}

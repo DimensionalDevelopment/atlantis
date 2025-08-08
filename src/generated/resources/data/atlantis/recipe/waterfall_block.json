@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "atlantis:atlantean_crystal"
+    },
+    "W": {
+      "item": "atlantis:ocean_stone"
+    }
+  },
+  "pattern": [
+    "CWC",
+    "CWC",
+    "CCC"
+  ],
+  "result": {
+    "count": 3,
+    "id": "atlantis:waterfall_block"
+  }
+}

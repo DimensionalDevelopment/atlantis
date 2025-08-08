@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_fire_melon_fruit_jelly": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:jellyfish_jelly_bottle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:fire_melon_fruit_jelly"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_fire_melon_fruit_jelly"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:fire_melon_fruit_jelly"
+    ]
+  }
+}

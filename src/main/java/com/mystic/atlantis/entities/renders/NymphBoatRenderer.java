@@ -68,7 +68,7 @@ public class NymphBoatRenderer extends EntityRenderer<NymphBoatEntity> {
      */
     @Deprecated // forge: override getModelWithLocation to change the texture / model
     public @NotNull ResourceLocation getTextureLocation(NymphBoatEntity pEntity) {
-        return ResourceLocation.fromNamespaceAndPath(Reference.MODID, "textures/entity/boat/atlantean.png");
+        return ResourceLocation.fromNamespaceAndPath(Reference.MODID, "textures/entity/boat/nymph.png");
     }
 
 }

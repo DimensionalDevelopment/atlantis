@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "atlantis:aquamarine_gem"
+    },
+    "W": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "SSS",
+    "SWS",
+    " W "
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:aquamarine_hammer"
+  }
+}

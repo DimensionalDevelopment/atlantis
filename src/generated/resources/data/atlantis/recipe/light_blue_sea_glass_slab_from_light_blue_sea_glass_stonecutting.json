@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "atlantis:light_blue_sea_glass"
+  },
+  "result": {
+    "count": 2,
+    "id": "atlantis:light_blue_sea_glass_slab"
+  }
+}

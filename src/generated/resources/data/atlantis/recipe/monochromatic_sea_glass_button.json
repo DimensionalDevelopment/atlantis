@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "atlantis:monochromatic_sea_glass"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:monochromatic_sea_glass_button"
+  }
+}

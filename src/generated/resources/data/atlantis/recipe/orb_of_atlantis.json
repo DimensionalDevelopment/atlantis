@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "atlantis:atlantean_crystal"
+    },
+    "W": {
+      "item": "atlantis:drop_of_atlantis"
+    }
+  },
+  "pattern": [
+    " S ",
+    "SWS",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:orb_of_atlantis"
+  }
+}

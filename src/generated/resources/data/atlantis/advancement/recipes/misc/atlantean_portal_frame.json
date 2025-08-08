@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_atlantean_portal_frame": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:atlantean_core"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:atlantean_portal_frame"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_atlantean_portal_frame"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:atlantean_portal_frame"
+    ]
+  }
+}

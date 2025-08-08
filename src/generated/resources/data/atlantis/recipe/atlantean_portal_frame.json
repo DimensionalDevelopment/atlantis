@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "O": {
+      "item": "atlantis:ocean_stone"
+    },
+    "S": {
+      "item": "atlantis:drop_of_atlantis"
+    },
+    "W": {
+      "item": "atlantis:atlantean_core"
+    }
+  },
+  "pattern": [
+    "SOS",
+    "OWO",
+    "SOS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:atlantean_portal_frame"
+  }
+}

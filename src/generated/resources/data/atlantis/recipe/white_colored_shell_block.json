@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "O": {
+      "item": "atlantis:ocean_stone"
+    },
+    "S": {
+      "item": "minecraft:white_dye"
+    },
+    "W": {
+      "item": "minecraft:stone"
+    }
+  },
+  "pattern": [
+    " O ",
+    "SWS",
+    " O "
+  ],
+  "result": {
+    "count": 2,
+    "id": "atlantis:white_shell_block"
+  }
+}

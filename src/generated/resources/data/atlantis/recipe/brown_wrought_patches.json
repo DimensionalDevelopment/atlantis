@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:vine"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "#L#",
+    "LPL",
+    "#L#"
+  ],
+  "result": {
+    "count": 6,
+    "id": "atlantis:brown_wrought_patches"
+  }
+}

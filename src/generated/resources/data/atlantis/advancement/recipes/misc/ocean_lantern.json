@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ocean_lantern": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:sea_lantern"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:ocean_lantern"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ocean_lantern"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:ocean_lantern"
+    ]
+  }
+}

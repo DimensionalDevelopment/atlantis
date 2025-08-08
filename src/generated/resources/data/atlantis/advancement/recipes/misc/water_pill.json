@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:water_pill"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_water_pill": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:sugar"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_water_pill"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:water_pill"
+    ]
+  }
+}

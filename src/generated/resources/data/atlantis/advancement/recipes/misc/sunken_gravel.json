@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sunken_gravel": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:ocean_stone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:sunken_gravel"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_sunken_gravel"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:sunken_gravel"
+    ]
+  }
+}

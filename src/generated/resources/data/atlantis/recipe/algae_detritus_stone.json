@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "atlantis:algae"
+    },
+    {
+      "item": "atlantis:detritus_sandstone"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:algae_detritus_stone"
+  }
+}

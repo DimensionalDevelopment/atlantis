@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_celen_pot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:broken_shells"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:celen_pot"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_celen_pot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:celen_pot"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "atlantis:palm_log"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "atlantis:palm_planks"
+  }
+}

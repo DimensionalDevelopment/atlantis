@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "atlantis:jellyfish_jelly_bottle"
+    },
+    {
+      "item": "atlantis:fire_melon_fruit"
+    }
+  ],
+  "result": {
+    "count": 3,
+    "id": "atlantis:fire_melon_jelly_bottle"
+  }
+}

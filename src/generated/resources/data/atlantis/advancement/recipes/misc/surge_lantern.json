@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_surge_lantern": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:ocean_lantern"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:surge_lantern"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_surge_lantern"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:surge_lantern"
+    ]
+  }
+}

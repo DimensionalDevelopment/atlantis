@@ -29,7 +29,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber()
 public class AtlantisDimensions
 {
     public static final DeferredRegister<MapCodec<? extends BiomeSource>> BIOME_SOURCE = DeferredRegister.create(BuiltInRegistries.BIOME_SOURCE, Reference.MODID);

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "atlantis:orichalcum_blend"
+  },
+  "result": {
+    "count": 1,
+    "id": "atlantis:orichalcum_ingot"
+  }
+}

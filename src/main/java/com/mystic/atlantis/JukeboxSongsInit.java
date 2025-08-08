@@ -13,6 +13,6 @@ public class JukeboxSongsInit {
 
     public JukeboxSongsInit(BootstrapContext<JukeboxSong> context) {
         context.register(PANBEE, new JukeboxSong(AtlantisSoundEventInit.PANBEE, Component.literal("by LudoCrypt"), 4040, 15));
-        context.register(COLUMN, new JukeboxSong(AtlantisSoundEventInit.COLUMN, Component.literal("by LudoCrypt"), 4420, 15));
+        context.register(COLUMN, new JukeboxSong(AtlantisSoundEventInit.COLUMN, Component.literal("by Firel"), 4420, 15));
     }
 }

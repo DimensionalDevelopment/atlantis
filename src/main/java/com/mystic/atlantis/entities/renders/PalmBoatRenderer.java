@@ -68,7 +68,7 @@ public class PalmBoatRenderer extends EntityRenderer<PalmBoatEntity> {
      */
     @Deprecated // forge: override getModelWithLocation to change the texture / model
     public @NotNull ResourceLocation getTextureLocation(PalmBoatEntity pEntity) {
-        return ResourceLocation.fromNamespaceAndPath(Reference.MODID, "textures/entity/boat/atlantean.png");
+        return ResourceLocation.fromNamespaceAndPath(Reference.MODID, "textures/entity/boat/palm.png");
     }
 
 }

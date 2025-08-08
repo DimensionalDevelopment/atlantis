@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_luminescent_prismarine": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:prismarine"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:luminescent_prismarine"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_luminescent_prismarine"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:luminescent_prismarine"
+    ]
+  }
+}

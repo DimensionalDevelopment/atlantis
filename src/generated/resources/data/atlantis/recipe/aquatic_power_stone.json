@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "atlantis:aquatic_power_dust"
+    },
+    "S": {
+      "item": "atlantis:aquamarine_gem"
+    },
+    "W": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "ESE",
+    "SWS",
+    "ESE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:aquatic_power_stone"
+  }
+}

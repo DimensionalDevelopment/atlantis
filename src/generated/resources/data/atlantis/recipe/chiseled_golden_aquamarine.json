@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "atlantis:chiseled_golden_block"
+    },
+    {
+      "item": "atlantis:aquamarine_gem"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "atlantis:chiseled_golden_aquamarine"
+  }
+}
