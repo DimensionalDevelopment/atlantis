@@ -2,81 +2,90 @@ package com.mystic.atlantis.items.tools;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.TieredItem;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
-public class HammerItem extends TieredItem {
+public class HammerItem extends PickaxeItem {
 
-    private final int sizeX;
-    private final int sizeY;
-    private final int sizeZ;
+    private final int sizeX, sizeY, sizeZ;
 
-    public HammerItem(Tier tier, int sizeX, int sizeY, int sizeZ, Properties properties) {
-        super(tier, properties);
+    public HammerItem(Tier tier, int sizeX, int sizeY, int sizeZ, Properties props) {
+        super(tier, props);
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.sizeZ = sizeZ;
     }
 
-    @Override
-    public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity player) {
-        if (!level.isClientSide && !player.isShiftKeyDown()) {
-            mineSmartArea(level, player, pos);
-        }
-        return super.mineBlock(stack, level, state, pos, player);
-    }
+    public void minePlaneAround(ServerLevel level, BlockPos origin, Direction face,
+                                ServerPlayer player, ItemStack tool) {
+        Direction normal = face.getOpposite();
 
-    private void mineSmartArea(Level level, LivingEntity player, BlockPos origin) {
-        Direction facing = player.getDirection();
+        PlaneAxes axes = planeAxesForFace(face);
 
-        // Determine forward direction offsets
-        int xForward = 0;
-        int zForward = 0;
-        switch (facing) {
-            case NORTH -> zForward = -1;
-            case SOUTH -> zForward = 1;
-            case WEST -> xForward = -1;
-            case EAST -> xForward = 1;
-        }
+        int uStart = -(axes.sizeU % 2 == 0 ? axes.sizeU / 2 - 1 : axes.sizeU / 2);
+        int vStart = -(axes.sizeV % 2 == 0 ? axes.sizeV / 2 - 1 : axes.sizeV / 2);
 
-        // Compute offset start positions (smart center vs corner)
-        int xStart = sizeX % 2 == 0 ? 0 : -(sizeX / 2);
-        int yStart = sizeY % 2 == 0 ? 0 : -(sizeY / 2);
-        int zStart = 0; // Always start from mined block forward
+        int forwardDepth = switch (normal) {
+            case UP, DOWN -> this.sizeY;
+            case NORTH, SOUTH -> this.sizeZ;
+            case WEST, EAST -> this.sizeX;
+        };
 
-        for (int y = 0; y < sizeY; y++) {
-            for (int x = 0; x < sizeX; x++) {
-                for (int z = 0; z < sizeZ; z++) {
-                    int relativeX = xStart + x;
-                    int relativeY = yStart + y;
-                    int offsetX, offsetZ;
+        for (int du = 0; du < axes.sizeU; du++) {
+            for (int dv = 0; dv < axes.sizeV; dv++) {
+                for (int dn = 0; dn < forwardDepth; dn++) {
+                    int offU = uStart + du;
+                    int offV = vStart + dv;
 
-                    if (facing.getAxis() == Direction.Axis.Z) {
-                        offsetX = relativeX;
-                        offsetZ = zForward * (zStart + z);
-                    } else {
-                        offsetX = xForward * (zStart + z);
-                        offsetZ = relativeX;
-                    }
+                    BlockPos target = offsetInPlane(origin, axes, offU, offV, normal, dn);
+                    if (target.equals(origin)) continue;
+                    if (!level.isLoaded(target)) continue;
 
-                    BlockPos targetPos = origin.offset(offsetX, relativeY, offsetZ);
-                    if (targetPos.equals(origin)) continue;
+                    BlockState state = level.getBlockState(target);
+                    if (state.isAir() || state.getDestroySpeed(level, target) < 0) continue;
+                    if (!tool.isCorrectToolForDrops(state)) continue;
 
-                    BlockState targetState = level.getBlockState(targetPos);
-                    if (!targetState.isAir() && targetState.getDestroySpeed(level, targetPos) >= 0) {
-                        if (player instanceof ServerPlayer serverPlayer) {
-                            serverPlayer.gameMode.destroyBlock(targetPos);
-                        } else {
-                            level.destroyBlock(targetPos, true, player);
-                        }
+                    if (player.gameMode.destroyBlock(target)) {
+                        tool.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+                        level.gameEvent(GameEvent.BLOCK_DESTROY, target, GameEvent.Context.of(player, state));
                     }
                 }
             }
         }
+    }
+
+    private record PlaneAxes(Direction uAxis, Direction vAxis, int sizeU, int sizeV) {
+    }
+
+    private PlaneAxes planeAxesForFace(Direction face) {
+        return switch (face) {
+            case UP, DOWN   -> new PlaneAxes(Direction.EAST,  Direction.SOUTH, sizeX, sizeZ); // X/Z plane
+            case NORTH, SOUTH -> new PlaneAxes(Direction.EAST,  Direction.UP,    sizeX, sizeY); // X/Y plane
+            case WEST, EAST -> new PlaneAxes(Direction.SOUTH, Direction.UP,    sizeZ, sizeY); // Z/Y plane
+        };
+    }
+
+    private BlockPos offsetInPlane(BlockPos origin, PlaneAxes axes, int offU, int offV, Direction normal, int depth) {
+        int x = origin.getX(), y = origin.getY(), z = origin.getZ();
+
+        x += offU * axes.uAxis.getStepX();
+        y += offU * axes.uAxis.getStepY();
+        z += offU * axes.uAxis.getStepZ();
+
+        x += offV * axes.vAxis.getStepX();
+        y += offV * axes.vAxis.getStepY();
+        z += offV * axes.vAxis.getStepZ();
+
+        x += depth * normal.getStepX();
+        y += depth * normal.getStepY();
+        z += depth * normal.getStepZ();
+
+        return new BlockPos(x, y, z);
     }
 }

@@ -19,19 +19,10 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.Map;
 
-//TODO Convert lang to pure data gen in the future. This will complain about duplicates if run without removing the existing en_us.json first
 public class AtlantisEnglishLanguageProvider extends LanguageProvider {
     public AtlantisEnglishLanguageProvider(PackOutput generator) {
         super(generator, "atlantis", "en_us");
     }
-
-
-    /* TODO: NEXT TIME YOU TOUCH THIS READ THIS WATERPICKER!!!
-        make all of the translations equal to the ones in the current lang files of en_us.json
-        add all of the translations for the items, blocks, etc
-        make lang files for other languages that we include at the current moment!
-        after this is done then and only then remove lang files from the normal resources folder
-    */
 
     @Override
     protected void addTranslations() {

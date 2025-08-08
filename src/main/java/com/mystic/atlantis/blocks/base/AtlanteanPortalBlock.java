@@ -5,6 +5,7 @@ import com.mystic.atlantis.dimension.AtlanteanPortalForcer;
 import com.mystic.atlantis.dimension.AtlantisDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -42,6 +43,14 @@ public class AtlanteanPortalBlock extends EndPortalBlock implements SimpleWaterl
     @Override
     public BlockEntity newBlockEntity(BlockPos p_153196_, BlockState p_153197_) {
         return new AtlanteanPortalBlockEntity(p_153196_, p_153197_);
+    }
+
+    @Override
+    public void animateTick(BlockState p_221102_, Level p_221103_, BlockPos p_221104_, RandomSource p_221105_) {
+        double d0 = (double)p_221104_.getX() + p_221105_.nextDouble();
+        double d1 = (double)p_221104_.getY() + 0.8;
+        double d2 = (double)p_221104_.getZ() + p_221105_.nextDouble();
+        p_221103_.addParticle(ParticleTypes.BUBBLE_POP, d0, d1, d2, 0.0, 0.0, 0.0);
     }
 
     public AtlanteanPortalBlock(Properties settings) {
