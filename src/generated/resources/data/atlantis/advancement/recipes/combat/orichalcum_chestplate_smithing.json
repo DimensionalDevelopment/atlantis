@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aquamarine_chestplate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:aquamarine_chestplate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:orichalcum_chestplate_smithing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_aquamarine_chestplate"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:orichalcum_chestplate_smithing"
+    ]
+  }
+}

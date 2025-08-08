@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aquamarine_axe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:aquamarine_axe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:orichalcum_axe_smithing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_aquamarine_axe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:orichalcum_axe_smithing"
+    ]
+  }
+}
