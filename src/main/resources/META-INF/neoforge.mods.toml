@@ -3,7 +3,7 @@ loaderVersion="[4,)"
 license="LGPLv3"
 [[mods]]
 modId="atlantis"
-version="8.1.2025-1.21.1-2.0.1-neoforge"
+version="8.8.2025-1.21.1-2.3.0-neoforge"
 displayName="Atlantis"
 displayURL="https://github.com/Exploding-Creeper/atlantis"
 logoFile= "logo.png"
