@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "down": "atlantis:blocks/waterfall_block_bottom",
+    "east": "atlantis:blocks/waterfall_block_side",
+    "north": "atlantis:blocks/waterfall_block_front",
+    "south": "atlantis:blocks/waterfall_block_side",
+    "up": "atlantis:blocks/waterfall_block_top",
+    "west": "atlantis:blocks/waterfall_block_side",
+    "particle": "atlantis:blocks/waterfall_block_side"
+  }
+}

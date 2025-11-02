@@ -56,6 +56,8 @@ tile.atlantis.pink_pearl_block.name=Pink Pearl Block
 tile.atlantis.purple_pearl_block.name=Purple Pearl Block
 tile.atlantis.red_pearl_block.name=Red Pearl Block
 tile.atlantis.yellow_pearl_block.name=Yellow Pearl Block
+tile.atlantis.waterfall_block.name=Waterfall Block
+
 
 //Tools
 item.atlantis.atlantean_shield.name=Atlantean Shield

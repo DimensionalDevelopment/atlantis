@@ -64,4 +64,5 @@ public class ModBlocks
 	public static final Block YELLOW_PEARL_BLOCK = new PearlBlock("yellow_pearl_block", Material.ROCK);
 	public static final Block UNDERWATER_FLOWER = new UnderwaterFlower("underwater_flower", Material.WATER);
 	public static final Block ALGAE = new Algae("algae", Material.WATER);
+    public static final Block WATERFALL_BLOCK = new WaterfallBlock("waterfall_block");
 }
