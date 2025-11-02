@@ -6,7 +6,6 @@ import com.mystic.atlantis.init.ModItems;
 import com.mystic.atlantis.tabs.AtlantisTab;
 import com.mystic.atlantis.util.IHasModel;
 import com.mystic.atlantis.util.Reference;
-import io.github.opencubicchunks.cubicchunks.core.CubicChunks;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -265,7 +264,7 @@ public class Algae extends Block implements IShearable, IHasModel {
                 EnumFacing enumfacing1 = EnumFacing.random(rand);
                 BlockPos blockpos2 = pos.up();
 
-                if (enumfacing1 == EnumFacing.UP && pos.getY() < CubicChunks.MAX_SUPPORTED_BLOCK_Y && isWaterBlock(worldIn, blockpos2))
+                if (enumfacing1 == EnumFacing.UP && isWaterBlock(worldIn, blockpos2))
                 {
                     IBlockState iblockstate2 = state;
 
