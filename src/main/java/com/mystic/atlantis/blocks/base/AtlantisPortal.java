@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 
 public class AtlantisPortal extends BlockBase 
 {
-	
 	Potion night_vision = Potion.getPotionById(16);
 	Potion water_breathing = Potion.getPotionById(13);
 	Potion haste = Potion.getPotionById(3);
@@ -74,7 +73,6 @@ public class AtlantisPortal extends BlockBase
                     playerIn.addPotionEffect(potioneffect2);
                     PotionEffect potioneffect3 = new PotionEffect(haste, 9999, 3, false, true);
                     playerIn.addPotionEffect(potioneffect3);
-                    	
                 }
                 if (!foundBlock){
                     otherWorld.setBlockState(otherWorldPos.down(), ModBlocks.PORTAL.getDefaultState());

@@ -58,7 +58,6 @@ tile.atlantis.red_pearl_block.name=Red Pearl Block
 tile.atlantis.yellow_pearl_block.name=Yellow Pearl Block
 tile.atlantis.waterfall_block.name=Waterfall Block
 
-
 //Tools
 item.atlantis.atlantean_shield.name=Atlantean Shield
 item.atlantis.axe_aquamarine.name=Aquamarine Axe
@@ -78,5 +77,6 @@ item.atlantis.helmet_wrought.name=Wrought Helmet
 item.atlantis.leggings_wrought.name=Wrought Leggings
 item.atlantis.boots_wrought.name=Wrought Boots
 item.atlantis.chestplate_wrought.name=Wrought Chestplate
+
 //Tabs
 itemGroup.Atlantis=§3Atlantis

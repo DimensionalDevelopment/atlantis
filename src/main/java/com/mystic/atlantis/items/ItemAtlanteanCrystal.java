@@ -1,6 +1,7 @@
 package com.mystic.atlantis.items;
 
 import java.util.Random;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
@@ -34,7 +35,5 @@ public class ItemAtlanteanCrystal extends ItemBase {
 		}
 		playerIn.addStat(StatList.getObjectUseStats(this));
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
-
 	}
-
 }

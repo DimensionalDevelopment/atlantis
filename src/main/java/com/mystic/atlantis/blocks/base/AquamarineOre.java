@@ -16,7 +16,6 @@ public class AquamarineOre extends BlockBase
 
 	public AquamarineOre(String name, Material material) 
 	{
-		
 		super(name, material);
 		setSoundType(SoundType.STONE);
 		setHardness(3.0F);

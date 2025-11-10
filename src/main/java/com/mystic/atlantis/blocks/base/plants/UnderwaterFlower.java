@@ -6,6 +6,7 @@ import com.mystic.atlantis.init.ModItems;
 import com.mystic.atlantis.tabs.AtlantisTab;
 import com.mystic.atlantis.util.IHasModel;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.SoundType;
@@ -20,12 +21,14 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+
 import java.util.Objects;
 import java.util.Random;
 
@@ -33,21 +36,17 @@ import static net.minecraft.block.BlockLiquid.LEVEL;
 
 public class UnderwaterFlower extends Block implements IPlantable, IHasModel {
 
-
     public static final EnumPlantType UNDERWATERFLOWER = EnumPlantType.getPlantType("UnderwaterFlower");
     protected static final AxisAlignedBB UNDERWATERFLOWER_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1.0D, 0.875D);
-
 
     public UnderwaterFlower(String name, Material material) {
         super(material);
         setTranslationKey(Reference.MODID + "." + name);
         setRegistryName(name);
         setCreativeTab(AtlantisTab.ATLANTIS_TAB);
-
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(Objects.requireNonNull(this.getRegistryName())));
         setTickRandomly(true);
-        setCreativeTab(AtlantisTab.ATLANTIS_TAB);
         setHardness(0.0F);
         setSoundType(SoundType.PLANT);
         setDefaultState(getDefaultState().withProperty(BlockLiquid.LEVEL, 15));
@@ -133,12 +132,10 @@ public class UnderwaterFlower extends Block implements IPlantable, IHasModel {
         return false;
     }
 
-
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
     }
-
 
    @SideOnly(Side.CLIENT)
    @Override

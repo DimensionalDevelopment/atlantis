@@ -18,4 +18,3 @@ public class CreativeTab extends CreativeTabs {
 		return new ItemStack(Item.getItemFromBlock(ModBlocks.OCEAN_LANTERN));
 	}
 }
-

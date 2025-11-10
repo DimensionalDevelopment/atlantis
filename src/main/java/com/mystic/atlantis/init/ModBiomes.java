@@ -1,17 +1,15 @@
 package com.mystic.atlantis.init;
 
-
 import com.mystic.atlantis.world.biomes.BiomeATLANTIS;
-
 import com.mystic.atlantis.world.dimension.atlantis.ModBiomeAtlantis;
+
 import net.minecraft.world.biome.Biome;
+
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
-import net.minecraftforge.common.BiomeManager.BiomeEntry;
 import net.minecraftforge.common.BiomeManager.BiomeType;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,6 @@ import java.util.List;
 public class ModBiomes {
 
 	public static final List<ModBiomeEntry> biomeEntryList = new ArrayList<>();
-
 	public static final BiomeATLANTIS BIOME_ATLANTIS = new BiomeATLANTIS();
 
 	public static void registerBiomes(RegistryEvent.Register<Biome> event) {
@@ -69,6 +66,5 @@ public class ModBiomes {
 		public int getDimensionWeight() {
 			return this.weightDimension;
 		}
-
 	}
 }

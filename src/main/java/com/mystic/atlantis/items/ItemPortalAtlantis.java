@@ -1,6 +1,5 @@
 package com.mystic.atlantis.items;
 
-
 import com.mystic.atlantis.util.Reference;
 
 import net.minecraft.init.Items;

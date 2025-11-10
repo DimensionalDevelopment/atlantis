@@ -6,6 +6,7 @@ import com.mystic.atlantis.init.ModItems;
 import com.mystic.atlantis.tabs.AtlantisTab;
 import com.mystic.atlantis.util.IHasModel;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -21,10 +22,8 @@ public abstract class BlockBase extends Block implements IHasModel {
 		setTranslationKey(Reference.MODID + "." + name);
 		setRegistryName(name);
 		setCreativeTab(AtlantisTab.ATLANTIS_TAB);
-		
 		ModBlocks.BLOCKS.add(this);
 		ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(Objects.requireNonNull(this.getRegistryName())));
-		
 	}
 	
 	@Override

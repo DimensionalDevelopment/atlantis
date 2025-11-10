@@ -8,23 +8,18 @@ import com.mystic.atlantis.util.Reference;
 
 import net.minecraft.item.ItemHoe;
 
-public class ToolHoe extends ItemHoe implements IHasModel
-{
+public class ToolHoe extends ItemHoe implements IHasModel {
 
-	public ToolHoe(String name, ToolMaterial material) 
-	{
-		super(material);
-		setTranslationKey(Reference.MODID + "." + name);
-		setRegistryName(name);
-		setCreativeTab(AtlantisTab.ATLANTIS_TAB);
-		
-		ModItems.ITEMS.add(this);
-	}
-	
-	@Override
-	public void registerModels() 
-	{
-		Main.proxy.registerModel(this, 0);
-	}
+    public ToolHoe(String name, ToolMaterial material) {
+        super(material);
+        setTranslationKey(Reference.MODID + "." + name);
+        setRegistryName(name);
+        setCreativeTab(AtlantisTab.ATLANTIS_TAB);
+        ModItems.ITEMS.add(this);
+    }
 
+    @Override
+    public void registerModels() {
+        Main.proxy.registerModel(this, 0);
+    }
 }

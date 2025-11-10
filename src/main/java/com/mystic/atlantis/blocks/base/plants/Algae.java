@@ -6,6 +6,7 @@ import com.mystic.atlantis.init.ModItems;
 import com.mystic.atlantis.tabs.AtlantisTab;
 import com.mystic.atlantis.util.IHasModel;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -30,11 +31,13 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+
 import java.util.Objects;
 import java.util.Random;
 
@@ -56,16 +59,13 @@ public class Algae extends Block implements IShearable, IHasModel {
     protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.0625D);
     protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.9375D, 1.0D, 1.0D, 1.0D);
 
-
     public Algae(String name, Material material)
     {
         super(material);
         setTranslationKey(Reference.MODID + "." + name);
         setRegistryName(name);
         setCreativeTab(AtlantisTab.ATLANTIS_TAB);
-
         setTickRandomly(true);
-        setCreativeTab(AtlantisTab.ATLANTIS_TAB);
         setHardness(0.0F);
         setSoundType(SoundType.PLANT);
         setDefaultState(getBlockState().getBaseState().withProperty(BlockLiquid.LEVEL, 15).withProperty(UP, Boolean.FALSE).withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE));
@@ -211,7 +211,6 @@ public class Algae extends Block implements IShearable, IHasModel {
             this.dropBlockAsItem(worldIn, pos, state, 0);
             setBlockToWater(worldIn, pos);
         }
-
     }
 
     public boolean setBlockToWater(World world, BlockPos blockPos)

@@ -17,7 +17,6 @@ public class ToolAxe extends ItemAxe implements IHasModel
 		setTranslationKey(Reference.MODID + "." + name);
 		setRegistryName(name);
 		setCreativeTab(AtlantisTab.ATLANTIS_TAB);
-		
 		ModItems.ITEMS.add(this);
 	}
 	
@@ -26,5 +25,4 @@ public class ToolAxe extends ItemAxe implements IHasModel
 	{
 		Main.proxy.registerModel(this, 0);
 	}
-
 }

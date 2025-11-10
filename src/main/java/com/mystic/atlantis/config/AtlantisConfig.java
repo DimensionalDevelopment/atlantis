@@ -1,8 +1,8 @@
 package com.mystic.atlantis.config;
 
 import com.mystic.atlantis.util.Reference;
-
 import com.mystic.atlantis.world.dimension.atlantis.Dimension;
+
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;

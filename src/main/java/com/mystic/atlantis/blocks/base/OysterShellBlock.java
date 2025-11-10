@@ -21,7 +21,6 @@ public class OysterShellBlock extends BlockRotatedPillar implements IHasModel {
 		setTranslationKey(Reference.MODID + "." + name);
 		setRegistryName(name);
 		setCreativeTab(AtlantisTab.ATLANTIS_TAB);
-		
 		ModBlocks.BLOCKS.add(this);
 		ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
 		setSoundType(SoundType.STONE);

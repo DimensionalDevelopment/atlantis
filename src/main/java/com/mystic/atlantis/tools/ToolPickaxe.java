@@ -17,7 +17,6 @@ public class ToolPickaxe extends ItemPickaxe implements IHasModel
 		setTranslationKey(Reference.MODID + "." + name);
 		setRegistryName(name);
 		setCreativeTab(AtlantisTab.ATLANTIS_TAB);
-		
 		ModItems.ITEMS.add(this);
 	}
 	
@@ -26,5 +25,4 @@ public class ToolPickaxe extends ItemPickaxe implements IHasModel
 	{
 		Main.proxy.registerModel(this, 0);
 	}
-
 }

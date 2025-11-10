@@ -1,6 +1,7 @@
 package com.mystic.atlantis.tabs;
 
 import com.mystic.atlantis.init.ModBlocks;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -12,5 +13,4 @@ public class AtlantisTab{
             return new ItemStack(Item.getItemFromBlock(ModBlocks.OCEAN_LANTERN));
         }
     };
-
 }

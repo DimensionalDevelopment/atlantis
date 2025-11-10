@@ -6,6 +6,7 @@ import com.mystic.atlantis.init.ModItems;
 import com.mystic.atlantis.tabs.AtlantisTab;
 import com.mystic.atlantis.util.IHasModel;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -44,7 +45,6 @@ public class WaterfallBlock extends Block implements IHasModel {
         EnumFacing enumfacing = placer.getHorizontalFacing().getOpposite();
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
-
 
     @Override
     public IBlockState getStateFromMeta(int meta) {

@@ -25,5 +25,4 @@ public class ItemBase extends Item implements IHasModel {
 	{
 		Main.proxy.registerModel(this, 0);
 	}
-	
 }

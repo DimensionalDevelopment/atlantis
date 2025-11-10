@@ -3,13 +3,11 @@ package com.mystic.atlantis.init;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mystic.atlantis.blocks.BlockBase;
 import com.mystic.atlantis.blocks.base.*;
-
 import com.mystic.atlantis.blocks.base.plants.Algae;
 import com.mystic.atlantis.blocks.base.plants.UnderwaterFlower;
+
 import net.minecraft.block.Block;
-import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 
 public class ModBlocks 

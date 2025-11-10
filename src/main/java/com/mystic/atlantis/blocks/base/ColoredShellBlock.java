@@ -19,7 +19,6 @@ public class ColoredShellBlock extends BlockBase {
 	
 	public ColoredShellBlock(String name, Material material) 
 	{
-		
 		super(name, material);
 		setSoundType(SoundType.STONE);
 		setHardness(2.0F);

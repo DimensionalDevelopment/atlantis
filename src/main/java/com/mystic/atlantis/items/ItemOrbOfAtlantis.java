@@ -1,9 +1,7 @@
 package com.mystic.atlantis.items;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -30,6 +28,5 @@ public class ItemOrbOfAtlantis extends ItemBase
         }
         playerIn.addStat(Objects.requireNonNull(StatList.getObjectUseStats(this)));
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
-
     }
 }

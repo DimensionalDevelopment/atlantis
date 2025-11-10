@@ -3,7 +3,6 @@ package com.mystic.atlantis.init;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.mystic.atlantis.armor.ArmorBase;
 import com.mystic.atlantis.armor.WroughtArmor;
 import com.mystic.atlantis.items.ItemAquamarineIngot;
@@ -22,11 +21,11 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+
 import net.minecraftforge.common.util.EnumHelper;
 
 public class ModItems
 {
-
 	public static final List<Item> ITEMS = new ArrayList<Item>();
 	
 	//Material
