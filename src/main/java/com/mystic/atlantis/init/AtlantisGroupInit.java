@@ -35,7 +35,7 @@ public class AtlantisGroupInit {
                     MAIN_BLOCKS.forEach(itemLike -> pOutput.accept(itemLike.get()));
                     MAIN_ITEMS.forEach(itemLike -> pOutput.accept(itemLike.get()));
             })
-            .withBackgroundLocation(ResourceLocation.fromNamespaceAndPath("atlantis", "textures/gui/atlantis_tab.png"))
+            .withBackgroundLocation(new ResourceLocation("atlantis", "textures/gui/atlantis_tab.png"))
             .build());
 
     public static final RegistryObject<CreativeModeTab> GLYPH = CREATIVE_TABS.register("glyph", () -> CreativeModeTab.builder()
@@ -47,7 +47,7 @@ public class AtlantisGroupInit {
                 GLYPH_BLOCKS.forEach(itemLike -> pOutput.accept(itemLike.get()));
                 GLYPH_ITEMS.forEach(itemLike -> pOutput.accept(itemLike.get()));
             })
-            .withBackgroundLocation(ResourceLocation.fromNamespaceAndPath("atlantis", "textures/gui/glyph_tab.png"))
+            .withBackgroundLocation(new ResourceLocation("atlantis", "textures/gui/glyph_tab.png"))
             .build());
 
 

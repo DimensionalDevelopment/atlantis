@@ -20,7 +20,7 @@ import net.minecraft.world.entity.player.Inventory;
 import java.util.List;
 
 public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
-    private static final ResourceLocation BG_LOCATION = ResourceLocation.withDefaultNamespace("textures/gui/container/stonecutter.png");
+    private static final ResourceLocation BG_LOCATION = new ResourceLocation("textures/gui/container/stonecutter.png");
     private static final ResourceLocation GRADIENT = Atlantis.id("textures/gui/container/gradient.png");
     private static final ResourceLocation GRADIENT_TOP = Atlantis.id("textures/gui/container/gradient_top.png");
     private static final int SCROLLER_WIDTH = 12;

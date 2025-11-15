@@ -32,10 +32,12 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -59,15 +61,21 @@ public class Atlantis {
 
     public static final RegistryObject<TreeDecoratorType<WaterAttachedToLeavesDecorator>> WATER_ATTACH_TO_LEAVES = TREE_DECO_TYPES.register("water_attached_to_leaves", () -> new TreeDecoratorType<>(WaterAttachedToLeavesDecorator.CODEC));
 
-    public Atlantis(FMLJavaModLoadingContext context) {
-        IEventBus bus = context.getModEventBus();
-        context.registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC);
+    public Atlantis() {
+        final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onCommonSet);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onClientSet);
+        bus.addListener(this::onCommonSet);
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC);
         ModParticleTypes.PARTICLES.register(bus);
         onInitialize(bus);
         TREE_DECO_TYPES.register(bus);
         AtlantisFeature.init(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
         Providers.init(bus);
+        MinecraftForge.EVENT_BUS.register(this);
+
     }
 
     public static void registerDispenserBehavior() {
@@ -98,7 +106,7 @@ public class Atlantis {
     }
 
     public static ResourceLocation id(String id) {
-        return ResourceLocation.fromNamespaceAndPath("atlantis", id);
+        return new ResourceLocation("atlantis", id);
     }
 
     public void onInitialize(IEventBus bus) {
@@ -120,17 +128,15 @@ public class Atlantis {
         POITypesInit.init(bus);
     }
 
-    @SubscribeEvent
-    public static void onClientSet(FMLClientSetupEvent event) {
+    private void onClientSet(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             MenuScreens.register(MenuTypeInit.LINGUISTIC.get(), LinguisticScreen::new);
             MenuScreens.register(MenuTypeInit.WRITING.get(), WritingScreen::new);
         });
     }
 
-    @SubscribeEvent
-    public static void onCommonSet(FMLCommonSetupEvent event) {
-        ToolInit.init();
+    private void onCommonSet(FMLCommonSetupEvent event) {
+        //ToolInit.init();
         TagsInit.init();
 
         event.enqueueWork(DimensionAtlantis::registerBiomeSources);

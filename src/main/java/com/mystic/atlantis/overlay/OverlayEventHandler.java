@@ -11,8 +11,8 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 public class OverlayEventHandler implements IGuiOverlay {
 
-    protected static final ResourceLocation COCONUT_BLUR = ResourceLocation.fromNamespaceAndPath("atlantis", "textures/misc/coconutblur.png");
-    protected static final ResourceLocation COCONUT_BLUR_2 = ResourceLocation.fromNamespaceAndPath("atlantis", "textures/misc/coconutblur2.png");
+    protected static final ResourceLocation COCONUT_BLUR = new ResourceLocation("atlantis", "textures/misc/coconutblur.png");
+    protected static final ResourceLocation COCONUT_BLUR_2 = new ResourceLocation("atlantis", "textures/misc/coconutblur2.png");
 
     public OverlayEventHandler() {
     }

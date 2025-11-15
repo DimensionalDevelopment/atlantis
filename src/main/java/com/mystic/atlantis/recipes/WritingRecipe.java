@@ -42,7 +42,7 @@ public class WritingRecipe extends SingleItemRecipe {
 
             String s1 = GsonHelper.getAsString(json, "result");
             int i = GsonHelper.getAsInt(json, "count");
-            ItemStack itemstack = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(s1)), i);
+            ItemStack itemstack = new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(s1)), i);
             return new WritingRecipe(recipeId, s, ingredient, itemstack);
         }
 

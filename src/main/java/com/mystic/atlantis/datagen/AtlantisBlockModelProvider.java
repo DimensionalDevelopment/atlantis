@@ -40,8 +40,8 @@ public class AtlantisBlockModelProvider extends BlockModelProvider {
 
     private ResourceLocation blockTexture(ResourceLocation loc) {
         if (loc.getPath().contains("waxed")) {
-            return ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), "block/" + loc.getPath().replace("waxed_", ""));
+            return new ResourceLocation(loc.getNamespace(), "block/" + loc.getPath().replace("waxed_", ""));
         }
-        return ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), "block/" + loc.getPath());
+        return new ResourceLocation(loc.getNamespace(), "block/" + loc.getPath());
     }
 }

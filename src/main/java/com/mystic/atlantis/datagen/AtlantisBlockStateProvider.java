@@ -346,7 +346,7 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
 
     private void registerDoor(DoorBlock door, DoorBlock texturedBlock) {
         ResourceLocation blockId = key(texturedBlock);
-        doorBlockWithRenderType(door, ResourceLocation.fromNamespaceAndPath(blockId.getNamespace(), "block/" + blockId.getPath() + "_bottom"), ResourceLocation.fromNamespaceAndPath(blockId.getNamespace(), "block/" + blockId.getPath() + "_top"), "cutout");
+        doorBlockWithRenderType(door, new ResourceLocation(blockId.getNamespace(), "block/" + blockId.getPath() + "_bottom"), new ResourceLocation(blockId.getNamespace(), "block/" + blockId.getPath() + "_top"), "cutout");
     }
 
     private void registerPressurePlate(PressurePlateBlock pressurePlate, Block texturedBlock) {
@@ -359,7 +359,7 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
         ResourceLocation buttonId = key(button);
         ResourceLocation textureBlockId = key(texturedBlock);
 
-        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(textureBlockId.getNamespace(), "block/" + textureBlockId.getPath());
+        ResourceLocation texture = new ResourceLocation(textureBlockId.getNamespace(), "block/" + textureBlockId.getPath());
         buttonBlock((ButtonBlock) button, texture);
         itemModels().buttonInventory(buttonId.getPath(), texture);
     }
