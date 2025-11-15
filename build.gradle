@@ -19,7 +19,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
-    mappings channel: project.mappings, version: project.mappings_version
+    mappings channel: mapping_channel, version: mapping_version
 
     // Enable Access Transformer File
     accessTransformer = rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
