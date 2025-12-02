@@ -3,6 +3,7 @@ package com.mystic.atlantis;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
+
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
@@ -10,12 +11,15 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
+
 import org.jetbrains.annotations.NotNull;
+
 import org.joml.Matrix4f;
 
 import javax.annotation.Nullable;
 
 public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
+
     public static AtlantisDimensionalEffect INSTANCE = new AtlantisDimensionalEffect();
     private static final ResourceLocation SUN_TEXTURES = Atlantis.id("textures/environment/sun.png");
     private static final ResourceLocation MOON_PHASES_TEXTURES = Atlantis.id("textures/environment/moon_phases.png");
@@ -31,7 +35,6 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
     public boolean renderSky(ClientLevel world, int ticks, float tickDelta, Matrix4f modelViewMatrix, Camera camera, Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
         PoseStack matrixStack = new PoseStack();
         matrixStack.mulPose(modelViewMatrix);
-
 
         RenderSystem.disableDepthTest();
         RenderSystem.enableBlend();
@@ -100,7 +103,6 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
                 }
             }
         }
-
         return pBuilder;
     }
 

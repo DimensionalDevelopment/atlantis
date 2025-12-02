@@ -2,6 +2,7 @@ package com.mystic.atlantis;
 
 import com.mystic.atlantis.init.AtlantisSoundEventInit;
 import net.minecraft.core.registries.Registries;
+
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
