@@ -62,10 +62,9 @@ public class Atlantis {
     public static final RegistryObject<TreeDecoratorType<WaterAttachedToLeavesDecorator>> WATER_ATTACH_TO_LEAVES = TREE_DECO_TYPES.register("water_attached_to_leaves", () -> new TreeDecoratorType<>(WaterAttachedToLeavesDecorator.CODEC));
 
     public Atlantis() {
-        final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onCommonSet);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onClientSet);
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::onCommonSet);
+        bus.addListener(this::onClientSet);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC);
         ModParticleTypes.PARTICLES.register(bus);
@@ -74,7 +73,7 @@ public class Atlantis {
         AtlantisFeature.init(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
         Providers.init(bus);
-        MinecraftForge.EVENT_BUS.register(this);
+      //  MinecraftForge.EVENT_BUS.register(this);
 
     }
 
