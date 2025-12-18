@@ -1,5 +1,7 @@
 package com.mystic.atlantis.blocks.aquatic_power;
 
+import com.mystic.atlantis.blocks.blockentities.AquaticComparatorEntity;
+import com.mystic.atlantis.blocks.blockentities.AquaticTorchEntity;
 import com.mystic.atlantis.blocks.plants.Seabloom;
 
 import net.minecraft.core.BlockPos;
@@ -15,14 +17,17 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RedstoneTorchBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
 public class AquaticPowerTorchBlock extends RedstoneTorchBlock implements SimpleWaterloggedBlock {
-	public static final Property<Boolean> WATERLOGGED = Seabloom.WATERLOGGED;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	public AquaticPowerTorchBlock(Properties settings) {
 		super(settings

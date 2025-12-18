@@ -52,14 +52,19 @@ public class WallAquaticPowerTorchBlock extends AquaticPowerTorchBlock {
 		return curDir.getOpposite() == targetState.getValue(FACING) && !this.canSurvive(targetState, accessor, targetPos) ? Blocks.WATER.defaultBlockState() : targetState;
 	}
 
-	@Override
-	public boolean canSurvive(BlockState targetState, LevelReader reader, BlockPos targetPos) {
-		if (reader.getFluidState(targetPos).is(FluidTags.WATER)) {
-			return this.canSurvive(targetState, reader, targetPos);
-		} else {
-			return false;
-		}
-	}
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        if (!world.getFluidState(pos).is(FluidTags.WATER)) return false;
+
+        Direction facing = state.getValue(FACING);
+        BlockPos attachedPos = pos.relative(facing.getOpposite()); // block torch attaches to
+
+        if (!world.hasChunkAt(attachedPos)) return false; // avoids crashes in unloaded chunks
+
+        BlockState attachedState = world.getBlockState(attachedPos);
+        return attachedState.isFaceSturdy(world, attachedPos, facing);
+    }
+
 
 	@Override
 	protected boolean hasNeighborSignal(Level level, BlockPos targetPos, BlockState targetState) {
