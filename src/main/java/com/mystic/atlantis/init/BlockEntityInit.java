@@ -4,9 +4,10 @@ import com.mystic.atlantis.blocks.blockentities.AquaticComparatorEntity;
 import com.mystic.atlantis.blocks.blockentities.AtlanteanPortalBlockEntity;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.ComparatorBlockEntity;
+
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;

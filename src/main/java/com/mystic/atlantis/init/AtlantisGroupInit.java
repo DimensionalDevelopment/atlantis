@@ -2,11 +2,13 @@ package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
+
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -33,6 +35,7 @@ public class AtlantisGroupInit {
                     MAIN_ITEMS.forEach(itemLike -> pOutput.accept(itemLike.get()));
             })
             .backgroundTexture(Atlantis.id("textures/gui/atlantis_tab.png"))
+            .withSearchBar(58)
             .build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> GLYPH = CREATIVE_TABS.register("glyph", () -> CreativeModeTab.builder()
@@ -44,6 +47,7 @@ public class AtlantisGroupInit {
                 GLYPH_ITEMS.forEach(itemLike -> pOutput.accept(itemLike.get()));
             })
             .backgroundTexture(Atlantis.id("textures/gui/glyph_tab.png"))
+            .withSearchBar(58)
             .build());
 
 
