@@ -93,9 +93,7 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
                 );
             }
         }));
-        tintedCube(BlockInit.WATERFALL_BLOCK.get(), "waterfall_block", "block/waterfall_block_top", "block/waterfall_block_bottom",
-        "block/waterfall_block_front", "block/waterfall_block_side", "block/waterfall_block_side", "block/waterfall_block_side");
-        tintedCube(BlockInit.WAVE_BLOCK.get(), "wave_block", "block/wave_block_top", "block/wave_block_top", "block/wave_block_side",
+         tintedCube(BlockInit.WAVE_BLOCK.get(), "wave_block", "block/wave_block_top", "block/wave_block_top", "block/wave_block_side",
                 "block/wave_block_side", "block/wave_block_side", "block/wave_block_side");
         registerBlockItem(BlockInit.ALGAE_BLOCK.get());
         tintedCube(BlockInit.CRYSTAL_TRANSFERENCE_BLOCK.get(), "crystal_transference_block",
