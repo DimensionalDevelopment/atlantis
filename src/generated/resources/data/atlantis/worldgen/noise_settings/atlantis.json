@@ -125,7 +125,7 @@
     "vein_toggle": 0.0
   },
   "ore_veins_enabled": true,
-  "sea_level": 512,
+  "sea_level": 255,
   "spawn_target": [],
   "surface_rule": {
     "type": "minecraft:sequence",

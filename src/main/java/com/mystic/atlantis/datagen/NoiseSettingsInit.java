@@ -93,7 +93,7 @@ public class NoiseSettingsInit {
                         )
                 ),
                 List.of(),
-                512,
+                255,
                 false,
                 true,
                 true,
