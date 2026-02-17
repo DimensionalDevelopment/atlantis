@@ -3,12 +3,14 @@ package com.mystic.atlantis.blocks.base;
 import com.google.common.base.Predicates;
 import com.mystic.atlantis.blocks.plants.Seabloom;
 import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.init.ItemInit;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EndPortalFrameBlock;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
@@ -70,5 +72,37 @@ public class AtlanteanPortalFrame extends EndPortalFrameBlock implements SimpleW
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING, HAS_EYE, WATERLOGGED);
+    }
+
+    @Override
+    public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack tool, boolean dropExperience) {
+        super.spawnAfterBreak(state, level, pos, tool, dropExperience);
+
+        if (state.getValue(HAS_EYE)) {
+            popResource(level, pos, new ItemStack(ItemInit.ORB_OF_ATLANTIS.get()));
+        }
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.is(newState.getBlock())) {
+            if (!level.isClientSide) {
+
+                BlockPos.MutableBlockPos checkPos = new BlockPos.MutableBlockPos();
+
+                for (int x = -3; x <= 3; x++) {
+                    for (int z = -3; z <= 3; z++) {
+
+                        checkPos.set(pos.getX() + x, pos.getY(), pos.getZ() + z);
+
+                        if (level.getBlockState(checkPos).is(BlockInit.ATLANTEAN_PORTAL.get())) {
+                            level.setBlock(checkPos, Blocks.AIR.defaultBlockState(), 3);
+                        }
+                    }
+                }
+            }
+        }
+
+        super.onRemove(state, level, pos, newState, isMoving);
     }
 }
