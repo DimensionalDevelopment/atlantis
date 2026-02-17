@@ -79,7 +79,6 @@ public class Providers {
                 .add(Registries.LEVEL_STEM, DimensionAtlantis::new)
                 .add(Registries.PROCESSOR_LIST, ProcessorListInit::new)
                 .add(Registries.TEMPLATE_POOL, TemplatePoolInit::new)
-                .add(Registries.NOISE_SETTINGS, NoiseSettingsInit::new)
                 .add(Registries.STRUCTURE, StructureInit::new),
                 Set.of(Reference.MODID));
 
