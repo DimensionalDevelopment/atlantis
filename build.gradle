@@ -14,12 +14,13 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
 }
-apply plugin: 'org.spongepowered.mixin'
 
 mixin {
-    add sourceSets.main, "atlantis.mixins.refmap.json"
+    add sourceSets.main, "atlantis.refmap.json"
     config "atlantis.mixins.json"
+    debug.verbose = true
 }
 
 version = mod_version
@@ -46,7 +47,9 @@ minecraft {
         configureEach {
             workingDirectory project.file('run')
 
-
+            arg "-mixin.config=atlantis.mixins.json"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.logging.markers', 'REGISTRIES'
 
             property 'forge.logging.console.level', 'debug'
