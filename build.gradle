@@ -1,184 +1,153 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://repo.spongepowered.org/maven' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
+    }
+}
+
 plugins {
-    id 'net.minecraftforge.gradle' version '[6.0.13, 6.2)'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
-    id 'org.spongepowered.mixin' version '0.7.+'
     id 'eclipse'
+    id 'idea'
     id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+}
+apply plugin: 'org.spongepowered.mixin'
+
+mixin {
+    add sourceSets.main, "atlantis.mixins.refmap.json"
+    config "atlantis.mixins.json"
 }
 
-archivesBaseName = project.archives_base_name
-version = project.mod_version
-group = project.maven_group
+version = mod_version
+group = maven_group
 
-// JENKINS STUFF! LEAVE THIS ALONE!
-if (System.getenv('BUILD_NUMBER') != null) {
-    version = "${version}." + System.getenv('BUILD_NUMBER')
+base {
+    archivesName = archives_base_name
 }
 
+// Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
-    mappings channel: mapping_channel, version: mapping_version
 
-    // Enable Access Transformer File
+    mappings channel: mapping_channel, version: mapping_version
     accessTransformer = rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
 
+    copyIdeResources = true
+
+
     runs {
-        client {
+        // applies to all the run configs below
+        configureEach {
             workingDirectory project.file('run')
-            
+
+
             property 'forge.logging.markers', 'REGISTRIES'
+
             property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'examplemod'
-            
-            arg "-mixin.config=atlantis.mixins.json"
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
-                atlantis {
+                "${archives_base_name}" {
                     source sourceSets.main
                 }
             }
+        }
+
+        client {
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            property 'forge.enabledGameTestNamespaces', archives_base_name
         }
 
         server {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'examplemod'
-            
-            arg "-mixin.config=atlantis.mixins.json"
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-
-            mods {
-                atlantis {
-                    source sourceSets.main
-                }
-            }
+            property 'forge.enabledGameTestNamespaces', archives_base_name
+            args '--nogui'
         }
 
         gameTestServer {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'examplemod'
-            
-            arg "-mixin.config=atlantis.mixins.json"
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            
-            mods {
-                atlantis {
-                    source sourceSets.main
-                }
-            }
+            property 'forge.enabledGameTestNamespaces', archives_base_name
         }
 
         data {
-            workingDirectory project.file('run')
+            // example of overriding the workingDirectory set in configureEach above
+            workingDirectory project.file('run-data')
 
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-
-            args '--mod', 'atlantis', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-
-            mods {
-                atlantis {
-                    source sourceSets.main
-                }
-            }
+            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+            args '--mod', archives_base_name, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
         }
     }
 }
 
-sourceSets.main.resources {
-    srcDir 'src/generated/resources' }
+// Include resources generated by data generators.
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    maven {
-        name = "CurseForge Maven" //Base
-		url = "https://www.cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-	}
-    maven { 
-	    name = "Shedaniel Maven" //REI + Cloth Config
-	    url "https://maven.shedaniel.me/" 
-	}
-	maven { 
-	 	name = "Jitpack IO" //Jitpack
-		url 'https://jitpack.io' 
-	}
-    maven {
-        name = "TerraformersMC" //Terraformers
-        url = 'https://maven.terraformersmc.com/'
-    }
-    maven {
-        name = "ModMaven" //ModMaven
-        url = "https://modmaven.dev"
-    }
-    maven {
-        name = 'GeckoLib'
-        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
-    }
-    flatDir {
-        dir 'libs'
-    }
+    mavenCentral()
+    maven { url 'https://www.cursemaven.com'}
+
+    mavenCentral()
+    maven { url 'https://jitpack.io'}
+
+    mavenCentral()
+    maven { url 'https://maven.terraformersmc.com/'}
+
+    mavenCentral()
+    maven { url 'https://modmaven.dev'}
+
+    mavenCentral()
+    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'}
 }
 
 dependencies {
-    // Base
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    // Libraries
+    implementation fg.deobf("curse.maven:jei-238222:4644453")
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.2.2')
-    implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}")
-    implementation fg.deobf("curse.maven:architectury-api-419699:${architectury_version}")
     implementation fg.deobf("org.reflections:reflections:${reflections_version}")
-    implementation fg.deobf("curse.maven:justhammers-681606:4995650")
     implementation fg.deobf("curse.maven:neruina-851046:5666519")
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    testAnnotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
-mixin {
-    add sourceSets.main, "atlantis.refmap.json"
-    config "atlantis.mixins.json"
-    
-    debug.verbose = true
-}
+tasks.named('processResources', ProcessResources).configure {
+    var replaceProperties = [
+            minecraft_version: minecraft_version, minecraft_version_range: minecraft_version,
+            forge_version: forge_version, forge_version_range: forge_version,
+            loader_version_range: forge_version,
+            mod_id: archives_base_name, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
+            mod_authors: mod_authors, mod_description: mod_description,
+    ]
+    inputs.properties replaceProperties
 
-tasks.processResources {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
-
-jar {
-    manifest {
-        attributes([
-                "Specification-Title"     : "atlantis",
-                "Specification-Vendor"    : "Mysticpasta1",
-                "Specification-Version"   : "1",
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "Mysticpasta1",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [project: project]
     }
 }
 
-jar.finalizedBy('reobfJar')
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes([
+                'Specification-Title'     : archives_base_name,
+                'Specification-Vendor'    : mod_authors,
+                'Specification-Version'   : '1', // We are version 1 of ourselves
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : project.jar.archiveVersion,
+                'Implementation-Vendor'   : mod_authors,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+
+    finalizedBy 'reobfJar'
+}
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        register('mavenJava', MavenPublication) {
             artifact jar
         }
     }
@@ -190,5 +159,5 @@ publishing {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }

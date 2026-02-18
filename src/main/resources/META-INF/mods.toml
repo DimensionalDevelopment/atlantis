@@ -1,22 +1,24 @@
 modLoader="javafml" 
 loaderVersion="[47,)"
-license="LGPLv3"
-issueTrackerURL="https://github.com/Exploding-Creeper/atlantis/issues" 
+license="ARR"
+issueTrackerURL="https://github.com/DimensionalDevelopment/atlantis/issues"
 
 [[mods]] 
 modId="atlantis" 
 version="11.19.2025-1.20.1-10.0.2-forge"
 displayName="Atlantis" 
-displayURL="https://github.com/Exploding-Creeper/atlantis" 
+displayURL="https://www.curseforge.com/minecraft/mc-mods/atlantis"
 logoFile= "logo.png"
 credits='''
 TelepathicGrunt for his help with the JSON files,
 WaterPicker for his work on the fabric branch,
 LudoCrypt and Firel for the music on the music discs for atlantis,
 She's Long for multiple textures, models, and jsons for assets,
-and LimeShulkerBox for the Atlantean Portal and for removing the need for effects in the dimension.
+LimeShulkerBox for the Atlantean Portal and for removing the need for effects in the dimension,
+Booneraniaro for his work on the new Atlantean Structure and Revamps,
+and Mystic Pasta for creating the mod.
 '''
-authors="Mysticpasta1, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity, She's Long, Safe Of Arsenal"
+authors="RedRoseWarrior1, Divinity, Safe Of Arsenal"
 description='''
 An Underwater Dimension Mod.
 '''
@@ -38,29 +40,8 @@ An Underwater Dimension Mod.
 
 # Libraries
 [[dependencies.atlantis]] 
-    modId="cloth_config"
-    mandatory=true 
-    versionRange="[8.0.75,)" 
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.atlantis]] 
     modId="geckolib3"
     mandatory=false
     versionRange="[4.2.2,)"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.atlantis]]
-    modId="architectury"
-    mandatory=true
-    versionRange="[9.+,)"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.atlantis]]
-    modId="justhammers"
-    mandatory=true
-    versionRange="[1.+,)"
     ordering="NONE"
     side="BOTH"

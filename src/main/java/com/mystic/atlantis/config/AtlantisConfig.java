@@ -2,10 +2,9 @@ package com.mystic.atlantis.config;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import me.shedaniel.autoconfig.ConfigData;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class AtlantisConfig implements ConfigData {
+public class AtlantisConfig {
 
     public static final ForgeConfigSpec CONFIG_SPEC;
     public static final AtlantisConfig INSTANCE;

@@ -13,7 +13,6 @@ import com.mystic.atlantis.screen.LinguisticScreen;
 import com.mystic.atlantis.screen.WritingScreen;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
-import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
@@ -66,15 +65,13 @@ public class Atlantis {
         bus.addListener(this::onCommonSet);
         bus.addListener(this::onClientSet);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC);
         ModParticleTypes.PARTICLES.register(bus);
         onInitialize(bus);
         TREE_DECO_TYPES.register(bus);
         AtlantisFeature.init(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
         Providers.init(bus);
-      //  MinecraftForge.EVENT_BUS.register(this);
-
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC, "atlantis-common.toml");
     }
 
     public static void registerDispenserBehavior() {
@@ -90,14 +87,6 @@ public class Atlantis {
                 return p_123426_;
             }
         });
-    }
-
-    @SubscribeEvent
-    public void loadCompleted(FMLLoadCompleteEvent event) {
-        ModContainer atlantisContainer = ModList.get()
-                .getModContainerById(Reference.MODID)
-                .orElseThrow(() -> new IllegalStateException("Atlantis Mod Container missing after loadCompleted"));
-        atlantisContainer.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((mc, previousScreen) -> AutoConfig.getConfigScreen(AtlantisConfig.class, previousScreen).get()));
     }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey(String name) {

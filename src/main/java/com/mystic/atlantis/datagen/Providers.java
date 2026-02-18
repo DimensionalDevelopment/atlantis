@@ -48,7 +48,6 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
-import pro.mikey.justhammers.HammerTags;
 
 import java.util.List;
 import java.util.Map;
