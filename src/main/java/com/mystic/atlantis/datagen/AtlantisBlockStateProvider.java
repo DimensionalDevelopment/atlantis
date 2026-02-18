@@ -196,7 +196,6 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
         simpleCross(BlockInit.YELLOW_SEABLOOM.get(), "yellow_seabloom", "block/yellow_seabloom");
         simpleCross(BlockInit.PURPLE_SEASHROOM.get(), "purple_seashroom", "block/purple_seashroom");
         simpleCross(BlockInit.YELLOW_SEASHROOM.get(), "yellow_seashroom", "block/yellow_seashroom");
-        registerBlockItem(BlockInit.AQUATIC_POWER_STONE.get());
         registerBlockItem(BlockInit.HARDENED_CALCITE_BLOCK.get());
         this.simpleBlock(BlockInit.PUSH_BUBBLE_COLUMN.get(), models().getExistingFile(mcLoc("block/air")));
         registerBlockItem(BlockInit.CHISELED_AQUAMARINE_BLOCK.get());

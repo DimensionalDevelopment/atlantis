@@ -149,8 +149,6 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         item(ItemInit.CRAB_LEGS);
         item(ItemInit.SHRIMP);
         item(ItemInit.COOKED_SHRIMP);
-        item(ItemInit.AQUATIC_POWER_TORCH);
-        item(ItemInit.AQUATIC_POWER_DUST);
         item(ItemInit.AQUAIEL_STRING);
         item(ItemInit.SUBMARINE);
         item(ItemInit.WATER_PILL);
