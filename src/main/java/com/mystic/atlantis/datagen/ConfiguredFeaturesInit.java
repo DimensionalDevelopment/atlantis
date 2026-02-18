@@ -43,7 +43,6 @@ public class ConfiguredFeaturesInit {
     public static final ResourceKey<ConfiguredFeature<?, ?>> SALTY_SEA_LAKE_CONFIGURED = Atlantis.configuredFeatureKey("salty_sea_lake");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SEABLOOM_CONFIGURED = Atlantis.configuredFeatureKey("seabloom");
     public static final ResourceKey<ConfiguredFeature<?, ?>> VOLCANOES_CONFIGURED = Atlantis.configuredFeatureKey("volcano");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ISLANDS_CONFIGURED = Atlantis.configuredFeatureKey("islands");
     public static final ResourceKey<ConfiguredFeature<?, ?>> JETSTREAM_LAKE_CONFIGURED = Atlantis.configuredFeatureKey("jetstream_lake");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SHELL_BLOCK_CONFIGURED = Atlantis.configuredFeatureKey("shell_block");
     public static final ResourceKey<ConfiguredFeature<?, ?>> GARDEN_FOLIAGE_CONFIGURED = Atlantis.configuredFeatureKey("garden_foliage");
@@ -90,7 +89,6 @@ public class ConfiguredFeaturesInit {
                         .decorators(List.of(new WaterAttachedToLeavesDecorator(0.25f, 0, 0, BlockStateProvider.simple(BlockInit.COCONUT.get().defaultBlockState()), List.of(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST))))
                 .ignoreVines().build());
         registerNone(context, GLOWSTONES_CONFIGURED, AtlantisFeature.GLOWSTONES_FEATURE);
-        registerNone(context, ISLANDS_CONFIGURED, AtlantisFeature.ISLANDS_FEATURE);
         registerNone(context, VOLCANOES_CONFIGURED, AtlantisFeature.VOLCANOES_FEATURE);
         registerNone(context, SEABLOOM_CONFIGURED, AtlantisFeature.SEABLOOM_FEATURE);
         registerNone(context, GARDEN_FOLIAGE_CONFIGURED, AtlantisFeature.GARDEN_FOLIAGE_FEATURE);

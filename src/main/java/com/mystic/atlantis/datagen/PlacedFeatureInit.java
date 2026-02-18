@@ -27,7 +27,6 @@ public class PlacedFeatureInit {
     public static final ResourceKey<PlacedFeature> PALM_TREE_PLACED = key("palm_tree_placed");
     public static final ResourceKey<PlacedFeature> NYMPH_TREE_PLACED = key("nymph_tree_placed");
     public static final ResourceKey<PlacedFeature> GLOWSTONES_PLACED = key("glowstones_placed");
-    public static final ResourceKey<PlacedFeature> ISLANDS_PLACED = key("islands_placed");
     public static final ResourceKey<PlacedFeature> VOLCANOES_PLACED = key("volcanoes_placed");
     public static final ResourceKey<PlacedFeature> SEABLOOM_PLACED = key("seabloom_placed");
     public static final ResourceKey<PlacedFeature> GARDEN_FOLIAGE_PLACED = key("garden_foliage_placed");
@@ -74,11 +73,6 @@ public class PlacedFeatureInit {
                 spread(),
                 onHeightmap(OCEAN_FLOOR_WG),
                 absolute(65, 300));
-
-        register(context, registry, ISLANDS_PLACED, ISLANDS_CONFIGURED,
-                biome(),
-                spread(),
-                absolute(90, 270));
 
         register(context, registry, VOLCANOES_PLACED, VOLCANOES_CONFIGURED,
                 biome(),
