@@ -1,7 +1,7 @@
 package com.mystic.atlantis.mixin;
 
 import com.mystic.atlantis.config.AtlantisConfig;
-import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.init.ModDimensions;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.effect.MobEffects;
@@ -66,13 +66,13 @@ public abstract class ChangeBreakSpeedMixin extends LivingEntity {
                 f *= k;
             }
 
-            if (level().dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
+            if (level().dimension() == ModDimensions.ATLANTIS_WORLD) {
                 if (!this.isEyeInFluid(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(this)) {
                     f /= 5.0F;
                 }
             }
 
-            if (level().dimension() == DimensionAtlantis.ATLANTIS_WORLD) {
+            if (level().dimension() == ModDimensions.ATLANTIS_WORLD) {
 
                 if (!this.onGround() && !this.isEyeInFluid(FluidTags.WATER)) {
                     f /= 5.0F;

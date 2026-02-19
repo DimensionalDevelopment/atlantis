@@ -1,12 +1,11 @@
 package com.mystic.atlantis.setup;
 
 import com.google.common.collect.ArrayListMultimap;
-import com.mystic.atlantis.AtlantisDimensionalEffect;
 import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
 import com.mystic.atlantis.blocks.blockentities.plants.GeneralPlantBlockEntity;
 import com.mystic.atlantis.blocks.blockentities.renderers.*;
-import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.dimension.AtlantisDimensionalEffect;
 import com.mystic.atlantis.entities.*;
 import com.mystic.atlantis.entities.models.*;
 import com.mystic.atlantis.entities.renders.*;
@@ -180,8 +179,9 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void registerDimensionEffect(RegisterDimensionSpecialEffectsEvent event) {
-        event.register(DimensionAtlantis.ATLANTIS_DIMENSION_EFFECT, AtlantisDimensionalEffect.INSTANCE);
+        event.register(AtlantisDimensionalEffect.ATLANTIS_SKY_EFFECT, AtlantisDimensionalEffect.INSTANCE);
     }
+
 
     @SubscribeEvent
     public static void entityRegisterEvent(EntityRenderersEvent.RegisterRenderers bus) {
@@ -218,6 +218,7 @@ public class ClientSetup {
         Minecraft.getInstance().particleEngine.register(ModParticleTypes.PUSH_BUBBLESTREAM_SOUTH.get(), PushBubbleStreamParticleSouth.Factory::new);
         Minecraft.getInstance().particleEngine.register(ModParticleTypes.PUSH_BUBBLESTREAM_EAST.get(), PushBubbleStreamParticleEast.Factory::new);
         Minecraft.getInstance().particleEngine.register(ModParticleTypes.PUSH_BUBBLESTREAM_WEST.get(), PushBubbleStreamParticleWest.Factory::new);
+
     }
 
     private static void registerBlockRenderLayers(RenderType layer, Block... blocks) {

@@ -4,9 +4,9 @@ import com.mystic.atlantis.blocks.base.ExtendedBlockEntity;
 import com.mystic.atlantis.blocks.aquatic_power.SodiumPrimedBombBlock;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.datagen.WaterAttachedToLeavesDecorator;
+import com.mystic.atlantis.dimension.AtlantisDimensionalEffect;
 import com.mystic.atlantis.feature.AtlantisFeature;
 import com.mystic.atlantis.datagen.Providers;
-import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.particles.ModParticleTypes;
 import com.mystic.atlantis.screen.LinguisticScreen;
@@ -30,18 +30,12 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-import net.minecraftforge.client.ConfigScreenHandler;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -126,8 +120,6 @@ public class Atlantis {
     private void onCommonSet(FMLCommonSetupEvent event) {
         //ToolInit.init();
         TagsInit.init();
-
-        event.enqueueWork(DimensionAtlantis::registerBiomeSources);
 
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.NYMPH_SIGN.get(), BlockInit.NYMPH_WALL_SIGN.get());
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.PALM_SIGN.get(), BlockInit.PALM_WALL_SIGN.get());

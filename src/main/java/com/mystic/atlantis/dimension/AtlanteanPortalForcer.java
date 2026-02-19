@@ -3,6 +3,7 @@ package com.mystic.atlantis.dimension;
 import com.mystic.atlantis.blocks.base.AtlanteanPortalFrame;
 import com.mystic.atlantis.blocks.base.AtlanteanPortalBlock;
 import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.init.ModDimensions;
 import com.mystic.atlantis.init.POITypesInit;
 import net.minecraft.BlockUtil;
 import net.minecraft.core.BlockPos;
@@ -99,7 +100,7 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
         }
 
 
-        if (DimensionAtlantis.isAtlantisDimension(this.level)) {
+        if (this.level.dimension() == ModDimensions.ATLANTIS_WORLD) {
             makePortalOverworld(level, blockpos);
         } else {
             makePortalAtlantis(level, blockpos);

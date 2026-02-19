@@ -1,15 +1,19 @@
-package com.mystic.atlantis;
+package com.mystic.atlantis.dimension;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
+
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
+
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
@@ -19,6 +23,7 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
     public static AtlantisDimensionalEffect INSTANCE = new AtlantisDimensionalEffect();
     private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("atlantis:textures/environment/sun.png");
     private static final ResourceLocation MOON_PHASES_TEXTURES = new ResourceLocation("atlantis:textures/environment/moon_phases.png");
+    public static final ResourceLocation ATLANTIS_SKY_EFFECT = new ResourceLocation("atlantis", "skyeffect");
 
     @Nullable
     private VertexBuffer starBuffer;
@@ -41,7 +46,15 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
         RenderSystem.depthMask(true);
         RenderSystem.disableBlend();
         RenderSystem.enableDepthTest();
-        return true;
+
+
+        if (camera.getFluidInCamera() == FogType.WATER) {
+            // Push the start very far away and end even farther
+            RenderSystem.setShaderFogStart(2000000.0F);
+            RenderSystem.setShaderFogEnd(3000000.0F);
+
+        }
+        return true; // prevents default water fog
     }
 
     private void createStars() {

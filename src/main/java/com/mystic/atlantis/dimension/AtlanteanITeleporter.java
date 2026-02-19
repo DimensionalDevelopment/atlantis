@@ -1,5 +1,6 @@
 package com.mystic.atlantis.dimension;
 
+import com.mystic.atlantis.init.ModDimensions;
 import net.minecraft.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,7 +26,7 @@ public interface AtlanteanITeleporter extends ITeleporter {
     @Override
     default PortalInfo getPortalInfo(Entity entity, ServerLevel destWorld, Function<ServerLevel, PortalInfo> defaultPortalInfo) {
         if(entity instanceof ServerPlayer player) {
-            return this.getExitPortal(destWorld, player.blockPosition(), false, DimensionAtlantis.isAtlantisDimension(destWorld), destWorld.getWorldBorder(), player).map((p_258249_) -> {
+            return this.getExitPortal(destWorld, player.blockPosition(), false, destWorld.dimension() == ModDimensions.ATLANTIS_WORLD, destWorld.getWorldBorder(), player).map((p_258249_) -> {
                 BlockState blockstate = destWorld.getBlockState(player.blockPosition());
                 Direction.Axis direction$axis;
                 Vec3 vec3;
@@ -41,7 +42,7 @@ public interface AtlanteanITeleporter extends ITeleporter {
                 return PortalShape.createPortalInfo(destWorld, p_258249_, direction$axis, vec3, player, player.getDeltaMovement(), player.getYRot(), player.getXRot());
             }).orElse(null);
         } else {
-            return this.getExitPortal(destWorld, entity.blockPosition(), DimensionAtlantis.isAtlantisDimension(destWorld), destWorld.getWorldBorder(), entity).map((p_258249_) -> {
+            return this.getExitPortal(destWorld, entity.blockPosition(), destWorld.dimension() == ModDimensions.ATLANTIS_WORLD, destWorld.getWorldBorder(), entity).map((p_258249_) -> {
                 BlockState blockstate = destWorld.getBlockState(entity.blockPosition());
                 Direction.Axis direction$axis;
                 Vec3 vec3;
