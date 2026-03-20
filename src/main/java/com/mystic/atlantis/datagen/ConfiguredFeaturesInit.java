@@ -1,6 +1,7 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.blocks.base.NymphLeavesBlock;
 import com.mystic.atlantis.blocks.base.PalmLeavesBlock;
 import com.mystic.atlantis.blocks.base.PalmLogBlock;
 import com.mystic.atlantis.feature.AtlantisFeature;
@@ -71,7 +72,7 @@ public class ConfiguredFeaturesInit {
         register(context, NYMPH_TREE_CONFIGURED, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(BlockInit.NYMPH_LOG.get()),
                 new FancyTrunkPlacer(25, 20, 22),
-                BlockStateProvider.simple(BlockInit.NYMPH_LEAVES.get()),
+                BlockStateProvider.simple(BlockInit.NYMPH_LEAVES.get().defaultBlockState().setValue(NymphLeavesBlock.PERSISTENT, true)),
 
                 new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(3), ConstantInt.of(3), 256),
                 Optional.empty(),
@@ -82,7 +83,7 @@ public class ConfiguredFeaturesInit {
         register(context, PALM_TREE_CONFIGURED, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(BlockInit.PALM_LOG.get().defaultBlockState().setValue(PalmLogBlock.AXIS, Direction.Axis.Y)),
                 new StraightTrunkPlacer(5, 2, 2),
-                BlockStateProvider.simple(BlockInit.PALM_LEAVES.get().defaultBlockState().setValue(PalmLeavesBlock.DISTANCE, 7).setValue(PalmLeavesBlock.PERSISTENT, false).setValue(PalmLeavesBlock.WATERLOGGED, false)),
+                BlockStateProvider.simple(BlockInit.PALM_LEAVES.get().defaultBlockState().setValue(PalmLeavesBlock.DISTANCE, 7).setValue(PalmLeavesBlock.PERSISTENT, true).setValue(PalmLeavesBlock.WATERLOGGED, false)),
                 new AcaciaFoliagePlacer(ConstantInt.of(3), ConstantInt.ZERO),
                 Optional.empty(),
                 new TwoLayersFeatureSize(1, 0, 1)).dirt(BlockStateProvider.simple(Blocks.SANDSTONE))

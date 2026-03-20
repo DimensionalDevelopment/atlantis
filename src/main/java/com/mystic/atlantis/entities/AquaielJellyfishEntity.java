@@ -114,12 +114,10 @@ public class AquaielJellyfishEntity extends WaterAnimal implements GeoEntity, Bu
 
     @Override
     protected void registerGoals() {
-        goalSelector.addGoal(0, new WaterAvoidingRandomFlyingGoal(this, 0.2));
-        this.goalSelector.addGoal(0, new WaterAvoidingRandomStrollGoal(this, 0.2));
+        goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.2, 1));
         goalSelector.addGoal(1, new JellyFishRandomMovementGoal(this));
         goalSelector.addGoal(2, new RandomLookAroundGoal(this));
-        goalSelector.addGoal(3, new TryFindWaterGoal(this));
-        goalSelector.addGoal(4, new TemptGoal(this, 1, Ingredient.of(ItemInit.CRAB_LEGS.get()), false));
+        goalSelector.addGoal(3, new TemptGoal(this, 1, Ingredient.of(ItemInit.CRAB_LEGS.get()), false));
     }
 
     public boolean fromBucket() {
@@ -203,6 +201,20 @@ public class AquaielJellyfishEntity extends WaterAnimal implements GeoEntity, Bu
             }
         }
         setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
+        
+        // Flop when out of water
+        if (!this.isInWater() && this.onGround()) {
+            this.setDeltaMovement(this.getDeltaMovement().x(), 0.0, this.getDeltaMovement().z());
+            if (this.tickCount % 20 == 0) {
+                this.jumpFromGround();
+            }
+        }
+    }
+
+    @Override
+    protected void jumpFromGround() {
+        this.setDeltaMovement(this.getDeltaMovement().x(), 0.4, this.getDeltaMovement().z());
+        this.hasImpulse = true;
     }
 
     public void createChild(ServerLevel world, AquaielJellyfishEntity entity) {

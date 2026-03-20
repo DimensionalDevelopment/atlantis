@@ -59,7 +59,7 @@ public class CoconutCrabEntity extends RubyclawCrabEntity implements NeutralMob,
 
     @Override
     public MobType getMobType() {
-        return MobType.WATER;
+        return MobType.UNDEFINED;
     }
 
     public static AttributeSupplier.Builder createCoconutCrabAttributes() {
@@ -108,7 +108,7 @@ public class CoconutCrabEntity extends RubyclawCrabEntity implements NeutralMob,
         goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
         goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(Items.SEAGRASS), false));
-        goalSelector.addGoal(2, new TryFindWaterGoal(this));
+        goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.6, 1));
         goalSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
     }
 

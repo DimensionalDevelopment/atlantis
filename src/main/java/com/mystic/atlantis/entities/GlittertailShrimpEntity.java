@@ -95,6 +95,25 @@ public class GlittertailShrimpEntity extends AbstractSchoolingFish implements Ge
     }
 
     @Override
+    public void aiStep() {
+        super.aiStep();
+        
+        // Flop when out of water
+        if (!this.isInWater() && this.onGround()) {
+            this.setDeltaMovement(this.getDeltaMovement().x(), 0.0, this.getDeltaMovement().z());
+            if (this.tickCount % 20 == 0) {
+                this.jumpFromGround();
+            }
+        }
+    }
+
+    @Override
+    protected void jumpFromGround() {
+        this.setDeltaMovement(this.getDeltaMovement().x(), 0.4, this.getDeltaMovement().z());
+        this.hasImpulse = true;
+    }
+
+    @Override
     public SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_FILL_FISH;
     }

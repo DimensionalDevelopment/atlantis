@@ -2,26 +2,22 @@
   "carvers": {},
   "downfall": 0.0,
   "effects": {
-    "fog_color": 59110,
-    "foliage_color": 5373696,
-    "grass_color": 6749952,
+    "fog_color": 12638463,
+    "foliage_color": 5928076,
+    "grass_color": 9170640,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
-      "sound": {
-        "sound_id": "minecraft:ambient.underwater.loop"
-      },
+      "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
-    "sky_color": 27571,
-    "water_color": 6072508,
-    "water_fog_color": 6072508
+    "sky_color": 7907327,
+    "water_color": 4159204,
+    "water_fog_color": 329011
   },
   "features": [
     [],
-    [
-      "atlantis:jetstream_lake_placed"
-    ],
+    [],
     [],
     [],
     [],
@@ -48,11 +44,6 @@
     [],
     [],
     [
-      "minecraft:sea_pickle",
-      "minecraft:warm_ocean_vegetation",
-      "minecraft:seagrass_deep_warm",
-      "minecraft:seagrass_simple",
-      "atlantis:seabloom_placed",
       "atlantis:palm_tree_placed"
     ],
     [
@@ -67,65 +58,46 @@
     "creature": [
       {
         "type": "atlantis:coconut_crab",
-        "maxCount": 2,
+        "maxCount": 4,
         "minCount": 2,
         "weight": 25
       }
     ],
     "misc": [],
-    "monster": [
-      {
-        "type": "minecraft:drowned",
-        "maxCount": 2,
-        "minCount": 2,
-        "weight": 25
-      }
-    ],
+    "monster": [],
     "underground_water_creature": [],
     "water_ambient": [
       {
         "type": "atlantis:aquaiel_jellyfish",
         "maxCount": 1,
         "minCount": 1,
-        "weight": 25
+        "weight": 5
       },
       {
         "type": "atlantis:glittertail_shrimp",
         "maxCount": 1,
         "minCount": 1,
-        "weight": 25
+        "weight": 5
       },
       {
         "type": "minecraft:tropical_fish",
         "maxCount": 2,
-        "minCount": 2,
-        "weight": 25
+        "minCount": 1,
+        "weight": 10
       }
     ],
     "water_creature": [
       {
         "type": "minecraft:squid",
         "maxCount": 2,
-        "minCount": 2,
-        "weight": 25
+        "minCount": 1,
+        "weight": 5
       },
       {
         "type": "atlantis:rubyclaw_crab",
         "maxCount": 2,
-        "minCount": 2,
-        "weight": 25
-      },
-      {
-        "type": "atlantis:starfish",
-        "maxCount": 1,
         "minCount": 1,
-        "weight": 25
-      },
-      {
-        "type": "atlantis:thalassian_seahorse",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 25
+        "weight": 10
       }
     ]
   },

@@ -60,22 +60,24 @@ public class AtlantisBiomeSource extends BiomeSource {
 
     @Override
     public @NotNull Holder<Biome> getNoiseBiome(int x, int y, int z, Climate.Sampler noise) {
-        if ((int) noise.sample(x, y, z).temperature() > 0.50) {
-            return getHolderBiome(AtlantisBiomeSource.GOO_LAGOONS);
-        } else if ((int) noise.sample(x, y, z).temperature() > 0.40 && (int) noise.sample(x, y, z).temperature() < 0.50) {
-            return getHolderBiome(AtlantisBiomeSource.VOLCANIC_DARKSEA);
-        } else if ((int) noise.sample(x, y, z).temperature() > 0.30 && noise.sample(x, y, z).temperature() < 0.40) {
-            return getHolderBiome(AtlantisBiomeSource.JELLYFISH_FIELDS);
-        } else if ((int) noise.sample(x, y, z).temperature() > 0.20 && noise.sample(x, y, z).temperature() < 0.30) {
-            return getHolderBiome(AtlantisBiomeSource.ATLANTIS_BIOME);
-        } else if ((int) noise.sample(x, y, z).temperature() > 0.10 && noise.sample(x, y, z).temperature() < 0.20) {
-            if ((int) noise.sample(x, y, z).depth() == 0.00) {
-                return getHolderBiome(AtlantisBiomeSource.COCONUT_ISLES);
-            } else {
-                return getHolderBiome(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
-            }
+        double temperature = noise.sample(x, y, z).temperature();
+
+        if (y >= 255) {
+            return getHolderBiome(AtlantisBiomeSource.COCONUT_ISLES);
         } else {
-            return getHolderBiome(AtlantisBiomeSource.ATLANTEAN_GARDEN);
+            if ((int) temperature > 0.50) {
+                return getHolderBiome(AtlantisBiomeSource.GOO_LAGOONS);
+            } else if ((int) temperature > 0.40 && (int) temperature < 0.50) {
+                return getHolderBiome(AtlantisBiomeSource.VOLCANIC_DARKSEA);
+            } else if ((int) temperature > 0.30 && temperature < 0.40) {
+                return getHolderBiome(AtlantisBiomeSource.JELLYFISH_FIELDS);
+            } else if ((int) temperature > 0.20 && temperature < 0.30) {
+                return getHolderBiome(AtlantisBiomeSource.ATLANTIS_BIOME);
+            } else if ((int) temperature > 0.10 && temperature < 0.20) {
+                return getHolderBiome(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+            } else {
+                return getHolderBiome(AtlantisBiomeSource.ATLANTEAN_GARDEN);
+            }
         }
     }
 

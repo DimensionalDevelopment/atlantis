@@ -21,8 +21,7 @@ import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
@@ -75,8 +74,7 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(2, new LeviathanEntity.LeviathanEntityAttackStrategyGoal());
         this.goalSelector.addGoal(3, new LeviathanEntity.LeviathanEntitySweepAttackGoal());
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new WaterAvoidingRandomFlyingGoal(this, 0.2));
+        this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.2, 1));
         this.goalSelector.addGoal(4, new LeviathanEntity.LeviathanEntityCircleAroundAnchorGoal());
         this.targetSelector.addGoal(1, new LeviathanEntity.LeviathanEntityAttackJellyfishGoal());
         this.targetSelector.addGoal(2, new LeviathanEntity.LeviathanEntityAttackPlayerTargetGoal());
@@ -85,6 +83,15 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
     @Override
     public void tick() {
         super.tick();
+        
+        // Flop when out of water
+        if (!this.isInWater() && this.onGround()) {
+            this.setDeltaMovement(this.getDeltaMovement().x(), 0.0, this.getDeltaMovement().z());
+            if (this.tickCount % 20 == 0) {
+                this.jumpFromGround();
+            }
+        }
+        
         if (this.level().isClientSide) {
             float f = Mth.cos((float)(this.getUniqueFlapTickOffset() + this.tickCount) * 7.448451F * ((float)Math.PI / 180F) + (float)Math.PI);
             float f1 = Mth.cos((float)(this.getUniqueFlapTickOffset() + this.tickCount + 1) * 7.448451F * ((float)Math.PI / 180F) + (float)Math.PI);
@@ -100,6 +107,12 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
         }
     }
 
+    @Override
+    protected void jumpFromGround() {
+        this.setDeltaMovement(this.getDeltaMovement().x(), 0.4, this.getDeltaMovement().z());
+        this.hasImpulse = true;
+    }
+
     public void setLeviathanEntitySize(int pSize) {
         this.entityData.set(ID_SIZE, Mth.clamp(pSize, 0, 64));
     }
@@ -112,7 +125,7 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
 
     @Override
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor pLevel, @NotNull DifficultyInstance pDifficulty, @NotNull MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        this.anchorPoint = this.blockPosition().above(5);
+        this.anchorPoint = this.blockPosition().below(5);
         this.setLeviathanEntitySize(0);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
@@ -376,7 +389,7 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
          * Reset the task's internal state. Called when this task is interrupted by another one
          */
         public void stop() {
-            LeviathanEntity.this.anchorPoint = LeviathanEntity.this.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, LeviathanEntity.this.anchorPoint).above(10 + LeviathanEntity.this.random.nextInt(20));
+            LeviathanEntity.this.anchorPoint = LeviathanEntity.this.level().getHeightmapPos(Heightmap.Types.OCEAN_FLOOR_WG, LeviathanEntity.this.anchorPoint).below(10 + LeviathanEntity.this.random.nextInt(20));
         }
 
         /**
@@ -397,9 +410,9 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
 
         private void setAnchorAboveTarget() {
             if (LeviathanEntity.this.getTarget() != null) {
-                LeviathanEntity.this.anchorPoint = LeviathanEntity.this.getTarget().blockPosition().above(20 + LeviathanEntity.this.random.nextInt(20));
-                if (LeviathanEntity.this.anchorPoint.getY() < LeviathanEntity.this.level().getSeaLevel()) {
-                    LeviathanEntity.this.anchorPoint = new BlockPos(LeviathanEntity.this.anchorPoint.getX(), LeviathanEntity.this.level().getSeaLevel() + 1, LeviathanEntity.this.anchorPoint.getZ());
+                LeviathanEntity.this.anchorPoint = LeviathanEntity.this.getTarget().blockPosition().below(10 + LeviathanEntity.this.random.nextInt(20));
+                if (LeviathanEntity.this.anchorPoint.getY() > LeviathanEntity.this.level().getSeaLevel() - 5) {
+                    LeviathanEntity.this.anchorPoint = new BlockPos(LeviathanEntity.this.anchorPoint.getX(), LeviathanEntity.this.level().getSeaLevel() - 10, LeviathanEntity.this.anchorPoint.getZ());
                 }
             }
         }

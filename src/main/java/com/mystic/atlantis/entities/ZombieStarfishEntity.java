@@ -11,8 +11,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Drowned;
@@ -131,8 +130,7 @@ public class ZombieStarfishEntity extends Monster implements GeoEntity {
         goalSelector.addGoal(6, new LookAtPlayerGoal(this, LivingEntity.class, 10));
         goalSelector.addGoal(5, new HurtByTargetGoal(this).setAlertOthers(ZombieStarfishEntity.class));
         goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.6));
-        goalSelector.addGoal(2, new TryFindWaterGoal(this));
+        goalSelector.addGoal(3, new RandomSwimmingGoal(this, 0.6, 1));
         goalSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
         //TODO fix
         //goalSelector.addGoal(1, new LatchOntoGoal<>(this, Drowned.class, true));
@@ -143,6 +141,20 @@ public class ZombieStarfishEntity extends Monster implements GeoEntity {
     public void aiStep() {
         super.aiStep();
         setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
+
+        // Flop when out of water
+        if (!this.isInWater() && this.onGround()) {
+            this.setDeltaMovement(this.getDeltaMovement().x(), 0.0, this.getDeltaMovement().z());
+            if (this.tickCount % 20 == 0) {
+                this.jumpFromGround();
+            }
+        }
+    }
+
+    @Override
+    protected void jumpFromGround() {
+        this.setDeltaMovement(this.getDeltaMovement().x(), 0.4, this.getDeltaMovement().z());
+        this.hasImpulse = true;
     }
 
     public boolean isMovingSlowly() {

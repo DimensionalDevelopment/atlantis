@@ -137,8 +137,7 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
         goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
         goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(ItemInit.SHRIMP.get()), false));
-        goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 0.6));
-        goalSelector.addGoal(1, new TryFindWaterGoal(this));
+        goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.6, 1));
         goalSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, GlittertailShrimpEntity.class, true));
     }
 
@@ -189,6 +188,20 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
     public void aiStep() {
         super.aiStep();
         setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
+
+        // Flop when out of water
+        if (!this.isInWater() && this.onGround()) {
+            this.setDeltaMovement(this.getDeltaMovement().x(), 0.0, this.getDeltaMovement().z());
+            if (this.tickCount % 20 == 0) {
+                this.jumpFromGround();
+            }
+        }
+    }
+
+    @Override
+    protected void jumpFromGround() {
+        this.setDeltaMovement(this.getDeltaMovement().x(), 0.4, this.getDeltaMovement().z());
+        this.hasImpulse = true;
     }
 
     public boolean isMovingSlowly() {

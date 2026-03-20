@@ -161,12 +161,11 @@ public class RubyclawCrabEntity extends Animal implements GeoEntity, Bucketable 
 
     @Override
     protected void registerGoals() {
-    	goalSelector.addGoal(0, new TryFindWaterGoal(this));
         goalSelector.addGoal(0, new HurtByTargetGoal(this).setAlertOthers(RubyclawCrabEntity.class));
         goalSelector.addGoal(1, new PanicGoal(this, 1.35));
         goalSelector.addGoal(1, new TemptGoal(this, 1.05D, TEMPT_ITEMS, false));
         goalSelector.addGoal(1, new BreedGoal(this, 1.0D));
-        goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 0.6));
+        goalSelector.addGoal(1, new RandomSwimmingGoal(this, 0.6, 1));
         goalSelector.addGoal(1, new LookAtPlayerGoal(this, LivingEntity.class, 10));
         goalSelector.addGoal(2, new RandomLookAroundGoal(this));
     }
@@ -218,6 +217,20 @@ public class RubyclawCrabEntity extends Animal implements GeoEntity, Bucketable 
     public void aiStep() {
         super.aiStep();
         setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
+        
+        // Flop when out of water
+        if (!this.isInWater() && this.onGround()) {
+            this.setDeltaMovement(this.getDeltaMovement().x(), 0.0, this.getDeltaMovement().z());
+            if (this.tickCount % 20 == 0) {
+                this.jumpFromGround();
+            }
+        }
+    }
+
+    @Override
+    protected void jumpFromGround() {
+        this.setDeltaMovement(this.getDeltaMovement().x(), 0.4, this.getDeltaMovement().z());
+        this.hasImpulse = true;
     }
 
     public boolean isMovingSlowly(){

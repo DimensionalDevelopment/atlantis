@@ -170,8 +170,7 @@ public class ThalassianSeahorseEntity extends WaterAnimal implements GeoEntity, 
         super.registerGoals();
         goalSelector.addGoal(0, new RandomLookAroundGoal(this));
         goalSelector.addGoal(1, new RandomSwimmingGoal(this, 0.5, 1));
-        goalSelector.addGoal(2, new TryFindWaterGoal(this));
-        goalSelector.addGoal(3, new TemptGoal(this, 1, Ingredient.of(Items.SEAGRASS), false));
+        goalSelector.addGoal(2, new TemptGoal(this, 1, Ingredient.of(Items.SEAGRASS), false));
     }
 
     @Override
@@ -197,13 +196,32 @@ public class ThalassianSeahorseEntity extends WaterAnimal implements GeoEntity, 
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
+    public void aiStep() {
+        super.aiStep();
+        
+        // Flop when out of water
+        if (!this.isInWater() && this.onGround()) {
+            this.setDeltaMovement(this.getDeltaMovement().x(), 0.0, this.getDeltaMovement().z());
+            if (this.tickCount % 20 == 0) {
+                this.jumpFromGround();
+            }
+        }
+    }
+
+    @Override
+    protected void jumpFromGround() {
+        this.setDeltaMovement(this.getDeltaMovement().x(), 0.4, this.getDeltaMovement().z());
+        this.hasImpulse = true;
     }
 
     @Override
     public boolean canBeLeashed(Player player) {
         return true;
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
     }
 
     @Override

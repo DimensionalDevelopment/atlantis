@@ -41,7 +41,7 @@
         "Name": "atlantis:palm_leaves",
         "Properties": {
           "distance": "7",
-          "persistent": "false",
+          "persistent": "true",
           "waterlogged": "false"
         }
       }
