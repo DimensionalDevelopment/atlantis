@@ -3,6 +3,8 @@ package com.mystic.atlantis.structures;
 
 import java.util.Optional;
 
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.WorldGenerationContext;
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.serialization.Codec;
@@ -56,16 +58,42 @@ public class AtlanteanFountain extends Structure {
     }
 
     @Override
-    public @NotNull Optional<Structure.GenerationStub> findGenerationPoint(Structure.@NotNull GenerationContext context) {
-        ChunkPos chunkPos = context.chunkPos();
-        BlockPos blockPos = new BlockPos(chunkPos.getMinBlockX(), context.heightAccessor().getHeight() - context.chunkGenerator().getSeaLevel(), chunkPos.getMinBlockZ());
+    public @NotNull Optional<Structure.GenerationStub> findGenerationPoint(Structure.GenerationContext context) {
 
-        Optional<Structure.GenerationStub> structurePiecesGenerator =
-                JigsawPlacement.addPieces(
-                        context,
-                        this.startPool, this.startJigsawName, this.size, blockPos,
-                        false, this.projectStartToHeightmap, this.maxDistanceFromCenter);
-        return structurePiecesGenerator;
+        ChunkPos chunkPos = context.chunkPos();
+        ChunkGenerator generator = context.chunkGenerator();
+
+        int x = chunkPos.getMiddleBlockX();
+        int z = chunkPos.getMiddleBlockZ();
+
+        int seaLevel = generator.getSeaLevel();
+
+        // Get ocean floor height properly during worldgen
+        int floorY = generator.getBaseHeight(
+                x,
+                z,
+                Heightmap.Types.OCEAN_FLOOR_WG,
+                context.heightAccessor(),
+                context.randomState()
+        );
+
+        // 🚫 Cancel if this location is land (above or equal to sea level)
+        if (floorY >= seaLevel) {
+            return Optional.empty();
+        }
+
+        BlockPos startPos = new BlockPos(x, floorY, z);
+
+        return JigsawPlacement.addPieces(
+                context,
+                this.startPool,
+                this.startJigsawName,
+                this.size,
+                startPos,
+                false,
+                Optional.empty(), // IMPORTANT: do NOT re-project again
+                this.maxDistanceFromCenter
+        );
     }
 
     @Override

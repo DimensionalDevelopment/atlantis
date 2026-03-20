@@ -7,7 +7,6 @@ import com.mystic.atlantis.blocks.ancient_cuprum.TrailsGroup;
 import com.mystic.atlantis.blocks.ancient_cuprum.WeatheringCuprum;
 import com.mystic.atlantis.blocks.plants.PurpleSeashroom;
 import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
-import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
@@ -60,7 +59,7 @@ import java.util.function.Supplier;
 import static com.mystic.atlantis.init.BlockInit.*;
 
 public class Providers {
-    public static void init(IEventBus bus) {
+    public static void init(@NotNull IEventBus bus) {
         bus.addListener(Providers::dataGather);
     }
 
@@ -70,15 +69,9 @@ public class Providers {
         var registryProvider = new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(), new RegistrySetBuilder()
                 .add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesInit::new)
                 .add(Registries.PLACED_FEATURE, PlacedFeatureInit::new)
-                .add(Registries.DIMENSION_TYPE, context -> context.register(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, new DimensionType(
-                        OptionalLong.empty(),
-                        true, false, false, false, 1, true, true, -64, 512, 512, BlockTags.INFINIBURN_OVERWORLD, DimensionAtlantis.ATLANTIS_DIMENSION_EFFECT, 0, new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 0)
-                )))
                 .add(Registries.BIOME, BiomeInit::new)
-                .add(Registries.LEVEL_STEM, DimensionAtlantis::new)
                 .add(Registries.PROCESSOR_LIST, ProcessorListInit::new)
-                .add(Registries.TEMPLATE_POOL, TemplatePoolInit::new)
-                .add(Registries.STRUCTURE, StructureInit::new),
+                .add(Registries.TEMPLATE_POOL, TemplatePoolInit::new),
                 Set.of(Reference.MODID));
 
         event.getGenerator().addProvider(true, registryProvider);

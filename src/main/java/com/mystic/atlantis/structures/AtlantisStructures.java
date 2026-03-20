@@ -16,4 +16,5 @@ public class AtlantisStructures {
     public static final RegistryObject<StructureType<OysterStructure>> OYSTER_STRUCTURE = DEFERRED_REGISTRY_STRUCTURE.register("oyster_structure", () -> (StructureType<OysterStructure>) () -> OysterStructure.CODEC);
     public static final RegistryObject<StructureType<AtlanteanTemple>> ATLANTEAN_TEMPLE = DEFERRED_REGISTRY_STRUCTURE.register("atlantean_temple", () -> (StructureType<AtlanteanTemple>) () -> AtlanteanTemple.CODEC);
     public static final RegistryObject<StructureType<AtlanteanTemple>> ATLANTEAN_SPIRE = DEFERRED_REGISTRY_STRUCTURE.register("atlantean_spire", () -> (StructureType<AtlanteanTemple>) () -> AtlanteanTemple.CODEC);
+    public static final RegistryObject<StructureType<AtlanteanVillage>> ATLANTEAN_VILLAGE = DEFERRED_REGISTRY_STRUCTURE.register("atlantean_village", () -> (StructureType<AtlanteanVillage>) () -> AtlanteanVillage.CODEC);
 }
