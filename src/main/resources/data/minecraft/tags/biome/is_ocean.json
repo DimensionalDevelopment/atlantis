@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "atlantis:atlantean_islands_biome",
+    "atlantis:atlantean_garden",
+    "atlantis:atlantean_biome",
+    "atlantis:goo_lagoons",
+    "atlantis:aquariel_jellyfish_fields",
+    "atlantis:volcanic_darksea",
+    "atlantis:coconut_isles"
+  ]
+}
