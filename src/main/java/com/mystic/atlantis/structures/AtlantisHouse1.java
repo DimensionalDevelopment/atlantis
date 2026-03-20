@@ -11,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -57,13 +58,32 @@ public class AtlantisHouse1 extends Structure {
     @Override
     public @NotNull Optional<Structure.GenerationStub> findGenerationPoint(Structure.@NotNull GenerationContext context) {
         ChunkPos chunkPos = context.chunkPos();
-        BlockPos blockPos = new BlockPos(chunkPos.getMinBlockX(), context.heightAccessor().getHeight() - context.chunkGenerator().getSeaLevel(), chunkPos.getMinBlockZ());
+        ChunkGenerator generator = context.chunkGenerator();
+
+        int x = chunkPos.getMiddleBlockX();
+        int z = chunkPos.getMiddleBlockZ();
+
+        int seaLevel = generator.getSeaLevel();
+
+        int floorY = generator.getBaseHeight(
+                x,
+                z,
+                Heightmap.Types.OCEAN_FLOOR_WG,
+                context.heightAccessor(),
+                context.randomState()
+        );
+
+        if (floorY >= seaLevel) {
+            return Optional.empty();
+        }
+
+        BlockPos blockPos = new BlockPos(x, floorY, z);
 
         Optional<Structure.GenerationStub> structurePiecesGenerator =
                 JigsawPlacement.addPieces(
                         context,
                         this.startPool, this.startJigsawName, this.size, blockPos,
-                        false, this.projectStartToHeightmap, this.maxDistanceFromCenter);
+                        false, Optional.empty(), this.maxDistanceFromCenter);
         return structurePiecesGenerator;
     }
 
