@@ -15,7 +15,12 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EndPortalBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -123,5 +128,26 @@ public class AtlanteanPortalBlock extends EndPortalBlock implements SimpleWaterl
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(AXIS, WATERLOGGED);
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.is(newState.getBlock()) && !level.isClientSide) {
+            BlockPos.MutableBlockPos checkPos = new BlockPos.MutableBlockPos();
+
+            for (int x = -3; x <= 3; x++) {
+                for (int z = -3; z <= 3; z++) {
+                    for (int y = -3; y <= 3; y++) {
+                        checkPos.set(pos.getX() + x, pos.getY() + y, pos.getZ() + z);
+
+                        if (level.getBlockState(checkPos).is(this)) {
+                            level.setBlock(checkPos, Blocks.AIR.defaultBlockState(), 3);
+                        }
+                    }
+                }
+            }
+        }
+
+        super.onRemove(state, level, pos, newState, isMoving);
     }
 }
