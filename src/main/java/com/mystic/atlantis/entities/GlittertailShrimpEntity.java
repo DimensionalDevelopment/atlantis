@@ -97,12 +97,13 @@ public class GlittertailShrimpEntity extends AbstractSchoolingFish implements Ge
     @Override
     public void aiStep() {
         super.aiStep();
-        
-        // Flop when out of water
-        if (!this.isInWater() && this.onGround()) {
+
+        // Flop when on land (not in water and on ground)
+        if (!this.isInWater() && this.onGround() && !this.level().isClientSide) {
             this.setDeltaMovement(this.getDeltaMovement().x(), 0.0, this.getDeltaMovement().z());
             if (this.tickCount % 20 == 0) {
                 this.jumpFromGround();
+                this.playSound(this.getFlopSound(), 1.0f, 1.0f);
             }
         }
     }

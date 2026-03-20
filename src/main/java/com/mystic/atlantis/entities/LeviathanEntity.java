@@ -89,6 +89,7 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
             this.setDeltaMovement(this.getDeltaMovement().x(), 0.0, this.getDeltaMovement().z());
             if (this.tickCount % 20 == 0) {
                 this.jumpFromGround();
+                this.playSound(SoundEvents.COD_FLOP);
             }
         }
         

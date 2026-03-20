@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -187,15 +188,17 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
     @Override
     public void aiStep() {
         super.aiStep();
-        setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
 
-        // Flop when out of water
-        if (!this.isInWater() && this.onGround()) {
+        // Flop when on land (not in water and on ground)
+        if (!this.isInWater() && this.onGround() && !this.level().isClientSide) {
             this.setDeltaMovement(this.getDeltaMovement().x(), 0.0, this.getDeltaMovement().z());
             if (this.tickCount % 20 == 0) {
                 this.jumpFromGround();
+                this.playSound(SoundEvents.COD_FLOP, 1.0f, 1.0f);
             }
         }
+
+        setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
     @Override

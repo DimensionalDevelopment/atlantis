@@ -216,15 +216,17 @@ public class RubyclawCrabEntity extends Animal implements GeoEntity, Bucketable 
     @Override
     public void aiStep() {
         super.aiStep();
-        setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
-        
-        // Flop when out of water
-        if (!this.isInWater() && this.onGround()) {
+
+        // Flop when on land (not in water and on ground)
+        if (!this.isInWater() && this.onGround() && !this.level().isClientSide) {
             this.setDeltaMovement(this.getDeltaMovement().x(), 0.0, this.getDeltaMovement().z());
             if (this.tickCount % 20 == 0) {
                 this.jumpFromGround();
+                this.playSound(SoundEvents.COD_FLOP, 1.0f, 1.0f);
             }
         }
+
+        setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
     @Override

@@ -199,16 +199,17 @@ public class AquaielJellyfishEntity extends WaterAnimal implements GeoEntity, Bu
                 this.randomTimer = this.getRandom().nextInt(21);
                 this.setDeltaMovement(this.tx * 1.2, this.ty * 1.6, this.tz * 1.2);
             }
-        }
-        setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
-        
-        // Flop when out of water
-        if (!this.isInWater() && this.onGround()) {
-            this.setDeltaMovement(this.getDeltaMovement().x(), 0.0, this.getDeltaMovement().z());
-            if (this.tickCount % 20 == 0) {
-                this.jumpFromGround();
+
+            if (!this.isInWater() && this.onGround()) {
+                this.setDeltaMovement(this.getDeltaMovement().x(), 0.0, this.getDeltaMovement().z());
+                if (this.tickCount % 20 == 0) {
+                    this.jumpFromGround();
+                    this.playSound(SoundEvents.COD_FLOP, 1.0f, 1.0f);
+                }
             }
         }
+
+        setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
     @Override
