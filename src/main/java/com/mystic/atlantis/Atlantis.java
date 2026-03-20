@@ -2,9 +2,9 @@ package com.mystic.atlantis;
 
 import com.mystic.atlantis.blocks.base.ExtendedBlockEntity;
 import com.mystic.atlantis.blocks.aquatic_power.SodiumPrimedBombBlock;
+import com.mystic.atlantis.init.AtlantisBiomeSourceInit;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.datagen.WaterAttachedToLeavesDecorator;
-import com.mystic.atlantis.dimension.AtlantisDimensionalEffect;
 import com.mystic.atlantis.feature.AtlantisFeature;
 import com.mystic.atlantis.datagen.Providers;
 import com.mystic.atlantis.init.*;
@@ -118,6 +118,10 @@ public class Atlantis {
     }
 
     private void onCommonSet(FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            AtlantisBiomeSourceInit.register();
+        });
+
         //ToolInit.init();
         TagsInit.init();
 

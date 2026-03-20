@@ -1,5 +1,7 @@
 package com.mystic.atlantis.biomes;
 
+import com.mojang.datafixers.util.Either;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mystic.atlantis.util.Reference;
@@ -10,14 +12,17 @@ import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeSource;
+
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
+import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 
-public class AtlantisBiomeSource extends BiomeSource {
+public class AtlantisBiomeSource extends MultiNoiseBiomeSource {
     public static final Codec<AtlantisBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             RegistryOps.retrieveRegistryLookup(Registries.BIOME).forGetter(AtlantisBiomeSource::biomeHolderLookup),
             Codec.intRange(1, 20).fieldOf("biome_size").orElse(2).forGetter(AtlantisBiomeSource::biomeSize),
@@ -25,7 +30,7 @@ public class AtlantisBiomeSource extends BiomeSource {
 
     public static final ResourceLocation ATLANTEAN_GARDEN = new ResourceLocation(Reference.MODID, "atlantean_garden");
     public static final ResourceLocation ATLANTIS_BIOME = new ResourceLocation(Reference.MODID, "atlantis_biome");
-    public static final ResourceLocation JELLYFISH_FIELDS = new ResourceLocation(Reference.MODID, "jellyfish_fields");
+    public static final ResourceLocation JELLYFISH_FIELDS = new ResourceLocation(Reference.MODID, "aquariel_jellyfish_fields");
     public static final ResourceLocation ATLANTEAN_ISLANDS = new ResourceLocation(Reference.MODID, "atlantean_islands_biome");
     public static final ResourceLocation VOLCANIC_DARKSEA = new ResourceLocation(Reference.MODID, "volcanic_darksea");
     public static final ResourceLocation GOO_LAGOONS = new ResourceLocation(Reference.MODID, "goo_lagoons");
@@ -36,7 +41,9 @@ public class AtlantisBiomeSource extends BiomeSource {
     private final int biomeSize;
 
     public AtlantisBiomeSource(HolderLookup.RegistryLookup<Biome> biomeRegistry, int biomeSize, long seed) {
-        super();
+        super(Either.left(new Climate.ParameterList<>(List.of(Pair.of(new Climate.ParameterPoint(
+                new Climate.Parameter(0, 1), new Climate.Parameter(0, 1), new Climate.Parameter(0, 1), new Climate.Parameter(0, 1), new Climate.Parameter(0, 1),
+                new Climate.Parameter(0, 1), 0L), biomeRegistry.getOrThrow(Biomes.OCEAN))))));
         biomeHolderLookup = biomeRegistry;
         this.biomeSize = biomeSize;
         this.seed = seed;
@@ -47,7 +54,7 @@ public class AtlantisBiomeSource extends BiomeSource {
     }
 
     @Override
-    protected @NotNull Codec<? extends BiomeSource> codec() {
+    protected @NotNull Codec<? extends MultiNoiseBiomeSource> codec() {
         return CODEC;
     }
 
@@ -60,20 +67,25 @@ public class AtlantisBiomeSource extends BiomeSource {
 
     @Override
     public @NotNull Holder<Biome> getNoiseBiome(int x, int y, int z, Climate.Sampler noise) {
-        double temperature = noise.sample(x, y, z).temperature();
+        Climate.TargetPoint climate = noise.sample(x, y, z);
+        double temperature = climate.temperature();
+        double humidity = climate.humidity();
+        double continentalness = climate.continentalness();
 
-        if (y >= 255) {
+        if (y >= 63) {
             return getHolderBiome(AtlantisBiomeSource.COCONUT_ISLES);
+        } else if (y >= 47) {
+            return getHolderBiome(AtlantisBiomeSource.ATLANTIS_BIOME);
         } else {
-            if ((int) temperature > 0.50) {
+            double combined = (temperature * 0.4) + (humidity * 0.4) + (continentalness * 0.2);
+
+            if (combined > 0.5) {
                 return getHolderBiome(AtlantisBiomeSource.GOO_LAGOONS);
-            } else if ((int) temperature > 0.40 && (int) temperature < 0.50) {
+            } else if (combined > 0.25) {
                 return getHolderBiome(AtlantisBiomeSource.VOLCANIC_DARKSEA);
-            } else if ((int) temperature > 0.30 && temperature < 0.40) {
+            } else if (combined > 0.0) {
                 return getHolderBiome(AtlantisBiomeSource.JELLYFISH_FIELDS);
-            } else if ((int) temperature > 0.20 && temperature < 0.30) {
-                return getHolderBiome(AtlantisBiomeSource.ATLANTIS_BIOME);
-            } else if ((int) temperature > 0.10 && temperature < 0.20) {
+            } else if (combined > -0.25) {
                 return getHolderBiome(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
             } else {
                 return getHolderBiome(AtlantisBiomeSource.ATLANTEAN_GARDEN);
