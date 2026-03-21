@@ -359,7 +359,6 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(ItemInit.BROWN_WROUGHT_CHESTPLATE.get(), "Brown Wrought Chestplate");
         this.add(ItemInit.BROWN_WROUGHT_LEGGINGS.get(), "Brown Wrought Leggings");
         this.add(ItemInit.BROWN_WROUGHT_BOOTS.get(), "Brown Wrought Boots");
-        this.add(ItemInit.ORICHALCUM_UPGRADE_SMITHING_TEMPLATE.get(), "Orichalcum Upgrade Smithing Template");
         this.add(ItemInit.ORICHALCUM_HELMET.get(), "Orichalcum Helmet");
         this.add(ItemInit.ORICHALCUM_CHESTPLATE.get(), "Orichalcum Chestplate");
         this.add(ItemInit.ORICHALCUM_LEGGINGS.get(), "Orichalcum Leggings");
