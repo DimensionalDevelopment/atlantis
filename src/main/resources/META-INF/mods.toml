@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/DimensionalDevelopment/atlantis/issues"
 
 [[mods]] 
 modId="atlantis" 
-version="11.19.2025-1.20.1-10.0.2-forge"
+version="3.20.2026-1.20.1-11.0.0-forge"
 displayName="Atlantis" 
 displayURL="https://www.curseforge.com/minecraft/mc-mods/atlantis"
 logoFile= "logo.png"
@@ -16,7 +16,7 @@ LudoCrypt and Firel for the music on the music discs for atlantis,
 She's Long for multiple textures, models, and jsons for assets,
 LimeShulkerBox for the Atlantean Portal and for removing the need for effects in the dimension,
 Booneraniaro for his work on the new Atlantean Structure and Revamps,
-and Mystic Pasta for creating the mod.
+and Mysticpasta1 for creating the mod.
 '''
 authors="RedRoseWarrior1, Divinity, Safe Of Arsenal"
 description='''
