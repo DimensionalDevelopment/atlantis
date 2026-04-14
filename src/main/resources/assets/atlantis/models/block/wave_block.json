@@ -6,6 +6,7 @@
     "north": "atlantis:block/wave_block_side",
     "south": "atlantis:block/wave_block_side",
     "up": "atlantis:block/wave_block_top",
-    "west": "atlantis:block/wave_block_side"
+    "west": "atlantis:block/wave_block_side",
+    "particle": "atlantis:block/waterfall_block_side"
   }
 }
