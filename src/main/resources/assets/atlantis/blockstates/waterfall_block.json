@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=north": { "model": "atlantis:block/waterfall_block" },
+    "facing=south": { "model": "atlantis:block/waterfall_block", "y": 180 },
+    "facing=west":  { "model": "atlantis:block/waterfall_block", "y": 270 },
+    "facing=east":  { "model": "atlantis:block/waterfall_block", "y": 90 },
+    "facing=up":    { "model": "atlantis:block/waterfall_block", "x": -90 },
+    "facing=down":  { "model": "atlantis:block/waterfall_block", "x": 90 }
+  }
+}
