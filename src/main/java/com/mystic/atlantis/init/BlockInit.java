@@ -36,6 +36,7 @@ import java.util.function.Supplier;
 
 public class BlockInit {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MODID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MODID);
 
     public static final Map<LinguisticGlyph, Map<DyeColor, RegistryObject<Block>>> DYED_LINGUISTICS = new HashMap<>();
     public static final Map<LinguisticGlyph, RegistryObject<Block>> NON_LINGUISTICS = new HashMap<>();
@@ -256,11 +257,9 @@ public class BlockInit {
     public static final RegistryObject<LinguisticBlock> LINGUISTIC_TABLE = registerLinguisticBlock("linguistic_table", () -> new LinguisticBlock(BlockBehaviour.Properties.of().strength(2.5F).sound(SoundType.WOOD)));
 
     public static final RegistryObject<WritingBlock> WRITING_TABLE = registerLinguisticBlock("writing_table", () -> new WritingBlock(BlockBehaviour.Properties.of().strength(2.5F).sound(SoundType.WOOD)));
-    public static final RegistryObject<NymphSaplingBlock> NYMPH_SAPLING = registerBlock("nymph_sapling", () ->
-            new NymphSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<NymphSaplingBlock> NYMPH_SAPLING = registerBlock("nymph_sapling", () -> new NymphSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
-    public static final RegistryObject<PalmSaplingBlock> PALM_SAPLING = registerBlock("palm_sapling", () ->
-            new PalmSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<PalmSaplingBlock> PALM_SAPLING = registerBlock("palm_sapling", () -> new PalmSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
     public static final RegistryObject<FireMelonSpikedFruitBlock> FIRE_MELON_FRUIT_SPIKED = registerOnlyBlock("fire_melon_fruit_spiked", () -> new FireMelonSpikedFruitBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<FireMelonFruitBlock> FIRE_MELON_FRUIT = registerOnlyBlock("fire_melon_fruit", () -> new FireMelonFruitBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops()));
@@ -310,6 +309,20 @@ public class BlockInit {
             .strength(3.0F, 7.0F)
     .mapColor(MapColor.TERRACOTTA_ORANGE)), registryObject -> () -> new BlockItem(registryObject.get(), new Item.Properties()));
 
+    //Block Items that can't use the basic block item way
+    public static final RegistryObject<Item> NYMPH_SAPLING_ITEM = ITEMS.register("nymph_sapling", () -> new BlockItem(NYMPH_SAPLING.get(), new Item.Properties()));
+    public static final RegistryObject<Item> PALM_SAPLING_ITEM = ITEMS.register("palm_sapling", () -> new BlockItem(PALM_SAPLING.get(), new Item.Properties()));
+    public static final RegistryObject<Item> NYMPH_LEAVES_ITEM = ITEMS.register("nymph_leaves", () -> new BlockItem(NYMPH_LEAVES.get(), new Item.Properties()));
+    public static final RegistryObject<Item> PALM_LEAVES_ITEM = ITEMS.register("palm_leaves", () -> new BlockItem(PALM_LEAVES.get(), new Item.Properties()));
+    public static final RegistryObject<Item> SEASHROOM_ITEM = ITEMS.register("seashroom", () -> new BlockItem(SEASHROOM.get(), new Item.Properties()));
+    public static final RegistryObject<Item> YELLOW_SEASHROOM_ITEM = ITEMS.register("yellow_seashroom", () -> new BlockItem(YELLOW_SEASHROOM.get(), new Item.Properties()));
+    public static final RegistryObject<Item> PURPLE_SEASHROOM_ITEM = ITEMS.register("purple_seashroom", () -> new BlockItem(PURPLE_SEASHROOM.get(), new Item.Properties()));
+    public static final RegistryObject<Item> SEABLOOM_ITEM = ITEMS.register("seabloom", () -> new BlockItem(SEABLOOM.get(), new Item.Properties()));
+    public static final RegistryObject<Item> YELLOW_SEABLOOM_ITEM = ITEMS.register("yellow_seabloom", () -> new BlockItem(YELLOW_SEABLOOM.get(), new Item.Properties()));
+    public static final RegistryObject<Item> RED_SEABLOOM_ITEM = ITEMS.register("red_seabloom", () -> new BlockItem(RED_SEABLOOM.get(), new Item.Properties()));
+    public static final RegistryObject<Item> BLUE_LILY_ITEM = ITEMS.register("blue_lily", () -> new BlockItem(BLUE_LILY.get(), new Item.Properties()));
+    public static final RegistryObject<Item> BURNT_DEEP_ITEM = ITEMS.register("burnt_deep", () -> new BlockItem(BURNT_DEEP.get(), new Item.Properties()));
+    
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<B> block) {
         return registerMainTabBlock(name, block, b -> () -> new BlockItem(b.get(), new Item.Properties()));
     }

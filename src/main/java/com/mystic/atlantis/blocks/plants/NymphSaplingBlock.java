@@ -2,6 +2,7 @@ package com.mystic.atlantis.blocks.plants;
 
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.util.Reference;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
