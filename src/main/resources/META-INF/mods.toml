@@ -1,7 +1,6 @@
 modLoader="javafml" 
 loaderVersion="[47,)"
 license="ARR"
-issueTrackerURL="https://github.com/DimensionalDevelopment/atlantis/issues"
 
 [[mods]] 
 modId="atlantis" 
@@ -21,6 +20,9 @@ and Mysticpasta1 for creating the mod.
 authors="RedRoseWarrior1, Divinity, Safe Of Arsenal"
 description='''
 An Underwater Dimension Mod.
+
+Report issues here:
+https://github.com/DimensionalDevelopment/atlantis/issues
 '''
 
 # Base
