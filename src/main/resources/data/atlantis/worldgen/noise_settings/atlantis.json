@@ -20,13 +20,13 @@
   "noise_router": {
     "barrier": {
       "type": "minecraft:noise",
-      "noise": "minecraft:aquifer_barrier",
+      "noise": "atlantis:atlantean_aquifer_barrier",
       "xz_scale": 1.0,
       "y_scale": 0.5
     },
-    "continents": "minecraft:overworld/continents",
-    "depth": "minecraft:overworld/depth",
-    "erosion": "minecraft:overworld/erosion",
+    "continents": "atlantis:atlantean_continents",
+    "depth": "atlantis:atlantean_depth",
+    "erosion": "atlantis:atlantean_erosion",
     "final_density": {
       "type": "minecraft:squeeze",
       "argument": {
@@ -75,7 +75,7 @@
                             "to_value": 0.0,
                             "to_y": 450
                           },
-                          "argument2": "minecraft:overworld/base_3d_noise"
+                          "argument2": "atlantis:atlantean_base_3d_noise"
                         }
                       }
                     }
@@ -89,34 +89,34 @@
     },
     "fluid_level_floodedness": {
       "type": "minecraft:noise",
-      "noise": "minecraft:aquifer_fluid_level_floodedness",
+      "noise": "atlantis:atlantean_aquifer_fluid_level_floodedness",
       "xz_scale": 1.0,
       "y_scale": 0.67
     },
     "fluid_level_spread": {
       "type": "minecraft:noise",
-      "noise": "minecraft:aquifer_fluid_level_spread",
+      "noise": "atlantis:atlantean_aquifer_fluid_level_spread",
       "xz_scale": 1.0,
       "y_scale": 0.7142857142857143
     },
     "initial_density_without_jaggedness": 0.0,
     "lava": 0.0,
-    "ridges": "minecraft:overworld/ridges",
+    "ridges": "atlantis:atlantean_ridges",
     "temperature": {
       "type": "minecraft:shifted_noise",
-      "noise": "minecraft:temperature",
-      "shift_x": "minecraft:shift_x",
+      "noise": "atlantis:atlantean_temperature",
+      "shift_x": "atlantis:atlantean_shift_x",
       "shift_y": 0.0,
-      "shift_z": "minecraft:shift_z",
+      "shift_z": "atlantis:atlantean_shift_z",
       "xz_scale": 0.25,
       "y_scale": 0.0
     },
     "vegetation": {
       "type": "minecraft:shifted_noise",
-      "noise": "minecraft:vegetation",
-      "shift_x": "minecraft:shift_x",
+      "noise": "atlantis:atlantean_vegetation",
+      "shift_x": "atlantis:atlantean_shift_x",
       "shift_y": 0.0,
-      "shift_z": "minecraft:shift_z",
+      "shift_z": "atlantis:atlantean_shift_z",
       "xz_scale": 0.25,
       "y_scale": 0.0
     },
