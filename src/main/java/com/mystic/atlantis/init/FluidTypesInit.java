@@ -15,9 +15,9 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.joml.Vector3f;
 
 public class FluidTypesInit {
-    public static final ResourceLocation WATER_STILL = Atlantis.id("block/water_still");
-    public static final ResourceLocation WATER_FLOWING = Atlantis.id("block/water_flow");
-    public static final ResourceLocation WATER_OVERLAY = Atlantis.id("block/water_overlay");
+    public static final ResourceLocation WATER_STILL = ResourceLocation.fromNamespaceAndPath("minecraft", "block/water_still");
+    public static final ResourceLocation WATER_FLOWING = ResourceLocation.fromNamespaceAndPath("minecraft", "block/water_flow");
+    public static final ResourceLocation WATER_OVERLAY = ResourceLocation.fromNamespaceAndPath("minecraft", "block/water_overlay");
 
     public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(NeoForgeRegistries.FLUID_TYPES, Reference.MODID);
 
